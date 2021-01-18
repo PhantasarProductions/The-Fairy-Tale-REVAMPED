@@ -1,0 +1,8 @@
+# Apollo builder changelog
+# (may never be present in respository or the builder can skip vital stuff)
+.Project/The Fairy Tale REVAMPED.AChangelog.ini
+
+# Mac Crap (although I am no longer on Mac, if it will ever happen I use mac again or if a mac user collaborates in this repository these files that should not exist in the first place)
+.DS_Store
+._*
+
