@@ -1,3 +1,241 @@
 #use "Script/Use/Anyway"
 
+table Nieuw()
+	return {}
+end
 
+class Stage
+	static table Lijst = Nieuw()
+	static int Pos = 1
+	static var Back = Image.Load("GFX/MainMenu/Ierland.png")
+	
+	static void Go(int GPos)
+		Pos = GPos
+		printf("Go: Going to %3d/%3d\n",pos,#Lijst)
+		Lijst[Pos].Arrive()
+	end
+	
+	static void Next()	
+		Pos = (Pos % #Lijst) + 1
+		printf("Next: Going to %3d/%3d",pos,#Lijst)
+		Lijst[Pos].Arrive()
+	end
+	
+	static void DrawBack()
+		math.random(1,10) // Make sure the seed is entirely messed up. Nobody can press a button twice at exactly the same time
+		Back.Stretch(0,0,Screen.W,Screen.H)
+	end
+	
+	void Arrive()
+	end
+	
+	abstract void Cycle()
+	
+end
+
+class Stage_Logo extends Stage
+	
+	int Timer = 0
+	readonly int MaxTimer = 300
+	
+	readonly var logo = Image.Load("GFX/Logo/Phantasar Productions.png")
+	
+	void Cycle()
+		Timer = (Timer + 1) % MaxTimer
+		if Timer==0
+			Stage.Next()
+		end
+		Stage.DrawBack()
+		logo.Draw( (Screen.W div 2) - (logo.Width div 2),  (Screen.H div 2) - (logo.Height div 2) )
+	end
+end
+
+class Stage_QuickCredits extends Stage
+	readonly int MaxPerName = 200
+	readonly var Fnt = ImageFont.Obtain("SYSFONT")
+	int Timer = 0
+	table names
+	
+	
+	get int MPos
+		return math.min(#names,(Timer div MaxPerName)+1)
+	end
+	
+	get int TotalMax
+		return MaxPerName * #names
+	end
+	
+	CONSTRUCTOR
+		names = {}
+		names += {"presents",""}
+		names += {"A game by:","Jeroen P. Broks"}
+		//names += {"",""}
+		names += {"Starring",""}
+		names += {"W.K. Chan","as Jake Daniel Werrington"}
+		names += {"Evelyn Klein-Hulse","as Marrilona, daughter of Fandalora"}
+		names += {"Jeroen P. Broks","as Dandor"}
+		names += {"Jeroen P. Broks","as Hando Stillor"}
+		names += {"",""}
+	end
+		
+	void Cycle()
+		__white
+		Stage.DrawBack()
+		fnt.DarkText(names[mpos][1],Screen.W div 2,(screen.H div 2)-10,2,1)
+		fnt.DarkText(names[mpos][2],Screen.W div 2,(screen.H div 2)+10,2,0)
+		Timer = (Timer + 1) % TotalMax
+		if Timer==0
+			Stage.Next()
+		end
+	end
+	
+end
+
+class Stage_Title extends Stage
+	
+	int Timer = 0
+	readonly int MaxTimer = 400
+	
+	readonly var logo = Image.Load("GFX/Logo/Title.png")
+	
+	void Cycle()
+		Timer = (Timer + 1) % MaxTimer
+		if Timer==0
+			Stage.Next()
+		end
+		Stage.DrawBack()
+		logo.Draw( (Screen.W div 2) - (logo.Width div 2),  (Screen.H div 2) - (logo.Height div 2) )
+	end
+end
+
+var HS1
+class Stage_HandoStillor1 extends Stage
+	readonly var Stars
+	readonly var Earth
+	readonly table Voice
+	readonly var YFnt = ImageFont.Load("Font/Calendar.jfbf")
+	readonly var Bushes
+	int VPos = 0
+	var VChan = nil
+	int alpha
+	
+	int EarthScale
+	int Year 
+	
+	get string sYear
+		if Year>=0
+			return sprintf("%d AD",Year)
+		else
+			return sprintf("%d BC",math.abs(Year))
+		end
+	end
+	
+	get number TrueEarthScale
+		return math.max(0.001,EarthScale/500)
+	end
+	
+	void Arrive()
+		print("Arrival stuff - HS1")
+		EarthScale = 1000
+		Year = Lua.tonumber(os.date("%Y")) || 2050
+		CSayF("Arrived at stage 1 of Hando Stillor's story! Earth Scale = %d; Year = %d",EarthScale,Year)
+		Music.Play("Music/Sys/Silence.ogg")
+		//Music.Stop()
+		VPos = 1
+		VChan = Voice[1].Play()
+		alpha = 0
+	end
+	
+	void DStars()
+		__white
+		Stars.Tile(0,0,Screen.W,Screen.H)
+		Graphics.Scale(TrueEarthScale,TrueEarthScale)
+		Earth.Draw(Screen.W/2,Screen.H/2)
+		Graphics.Scale(1,1)
+		YFnt.Text(sYear,Screen.W-100,100,1,0)
+		if VPos>4
+			EarthScale = math.max(0,EarthScale-1)
+		end
+		if VPos>5
+			Year--
+			if Year<2000
+				Year--
+				Year-=math.random(1,5)
+			end
+			if Year<-1000
+				Year += math.max(0-math.random(1,1000),math.floor(Year*0.75))
+			end
+		end
+	end
+	
+	void CheckVoice()
+		if !Audio.ChannelPlaying(VChan)
+			VPos++
+			CSayF("Advancing to sample #%2d (of %2d)",VPos,#Voice) 
+			if VPos>#Voice
+				Music.Play("Music/Hub/StartToFantasyInstrumental.ogg")
+				Stage.Next()
+				return
+			end
+			VChan = Voice[VPos].Play()
+		end
+	end
+	
+	void DBushes()
+		Graphics.SetAlpha(alpha)
+		Bushes.Stretch(0,0,Screen.W,Screen.H)
+		Graphics.SetAlpha(255)
+	end
+	
+	void Cycle()
+		if alpha<255
+			DStars()
+			if vPos>11
+				alpha++
+			end
+		end
+		if alpha>0
+			DBushes()
+		end
+		CheckVoice()
+	end
+	
+	
+	Constructor
+		Earth  = Image.Load("GFX/Algemeen/Earth.png")
+		Stars  = Image.Load("GFX/MainMenu/Starfield.png")
+		Bushes = Image.Load("GFX/Algemeen/Bushes.png")
+		HS1    = self
+		Voice  = {}
+		Earth.HotCenter()
+		for i=1,25
+			Voice[i] = Audio.Load(sprintf("Vocals/General/Introduction/STILLOR_%d.ogg",i))
+		end
+	End
+End
+
+
+global void Apollo_Flow()
+	static bool StartDestroyed
+	if not StartDestroyed
+		Flow.Kill("APOLLO_MAIN")
+		StartDestroyed = true
+	end
+	Dev.ToConsole()
+	Stage.Lijst[Stage.Pos].Cycle()
+	math.random(1,10) // Make sure the seed is entirely messed up. Nobody can press a button twice at exactly the same time
+end
+
+
+init
+	Music.Play("Music/Hub/StartToFantasyInstrumental.ogg")
+	Stage.Lijst += new Stage_Logo()
+	Stage.Lijst += new Stage_QuicKCredits()
+	Stage.Lijst += new Stage_Title()
+	// Hando Stillor's intro story requires vocals, so skip it when it's not present
+	if GotVocals()
+		Stage.Lijst += new Stage_HandoStillor1()
+	else
+		CSay("No vocals present, so Hando Stillor's intro will NOT be shown!")
+	end
+end

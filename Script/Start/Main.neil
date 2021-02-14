@@ -38,6 +38,7 @@
 #macro wh_Font 2
 #macro wh_Audio 3
 
+
 var Loading
 
 class LAsset
@@ -67,6 +68,8 @@ end
 
 // Testing if the file is actually compiled correctly at all and running
 init
+	int IWL
+	int IHL
 	FPS.MinTicks=25;
 	Print("Marrilona, daughter of Fandalora says 'Hello'")
 	Print("Apollo is running in "..Core.Platform)
@@ -76,6 +79,7 @@ init
 
 	// Configure loading assets
 	LAsset.C("GFX/MainMenu/Pascal Quote.png","PASCAL_QUOTE",wh_Image) // Must always be first
+	LAsset.C("Fonts/SysFont.jfbf","SYSFONT",wh_Font)
 
 
 	// Loading assets
@@ -85,7 +89,15 @@ init
 		Graphics.Cls()
 		Graphics.Color(255,255,255)
 		if Loading
-			Loading.Draw((Screen.W/2)-(Loading.Width/2),(Screen.H/2)-(Loading.Height/2))
+			//Loading.Draw((Screen.W/2)-(Loading.Width/2),(Screen.H/2)-(Loading.Height/2))
+			if IWL==0
+				number r
+				IWL = math.min(Screen.W,Loading.Width)
+				r = IWL/Screen.W
+				IHL = math.floor(Loading.Height*r)
+				printF("Pascal quote size corrected to %dx%d",IWL,IHL)
+			end		
+			Loading.Stretch((Screen.W/2)-(IWL/2),(Screen.H/2)-(IHL/2),IWL,IHL)
 		end
 		Graphics.Color(65,65,65)
 		Graphics.Rect(0,Screen.H-50,Screen.W,50)
@@ -114,6 +126,6 @@ init
 
 
 	// Chaining to main menu
-	Flow.Load("MAINMENU","Script/Flow/FlowMain.neil")
+	Flow.Load("MAINMENU","Script/Flow/FlowMainMenu.neil")
 	Flow.Current="MAINMENU"		
 end

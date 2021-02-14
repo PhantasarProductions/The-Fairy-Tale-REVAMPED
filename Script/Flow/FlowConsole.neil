@@ -221,7 +221,7 @@ class CLine
 		end
 		for ch=32,122
 			if Events.KeyHit(ch)
-				if Events.KeyDown(Key.LeftShift) or Events.KeyDown(Key.RightShift)
+				if Events.KeyDown(Keys.LeftShift) or Events.KeyDown(Keys.RightShift)
 					switch ch
 						case '1'
 							command += "!"
