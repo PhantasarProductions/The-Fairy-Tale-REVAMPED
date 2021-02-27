@@ -34,6 +34,7 @@
 // misrepresented as being the original software.
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
+
 #macro wh_Image 1
 #macro wh_Font 2
 #macro wh_Audio 3
@@ -79,6 +80,7 @@ init
 
 	// Configure loading assets
 	LAsset.C("GFX/MainMenu/Pascal Quote.png","PASCAL_QUOTE",wh_Image) // Must always be first
+	LAsset.C("GFX/Algemeen/pointer.png","MOUSE",wh_Image)
 	LAsset.C("Fonts/SysFont.jfbf","SYSFONT",wh_Font)
 
 
@@ -105,6 +107,8 @@ init
 		Graphics.Rect(0,Screen.H-50,math.floor( (i/m) * Screen.W ),50)
 		Graphics.Color(255,255,255)
 		Graphics.Flip()
+		Events.Poll()
+		FPS.WaitMinTicks()
 		printf("%5d/%5d: Loading ",i,m)
 		switch LA.what
 			case wh_Image

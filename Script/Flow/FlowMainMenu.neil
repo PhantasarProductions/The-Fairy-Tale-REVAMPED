@@ -1,4 +1,5 @@
 #use "Script/Use/Anyway"
+#use "libs/linkedlist"
 
 table Nieuw()
 	return {}
@@ -172,7 +173,9 @@ class Stage_HandoStillor1 extends Stage
 		if !Audio.ChannelPlaying(VChan)
 			VPos++
 			CSayF("Advancing to sample #%2d (of %2d)",VPos,#Voice) 
-			if VPos>#Voice
+			if VPos==#voice
+				Lua.Neil.Globals.MenuItem.ComeIn=true
+			elseif VPos>#Voice
 				Music.Play("Music/Hub/StartToFantasyInstrumental.ogg")
 				Stage.Next()
 				return
@@ -214,8 +217,139 @@ class Stage_HandoStillor1 extends Stage
 	End
 End
 
+class MenuItem
+	static bool ComeIn = false
+	static int y
+	static var ItemList = new LinkedList()
+	static get int Count
+		return ItemList.Count
+	end
+	static get number Scale
+		return 1/(Count+1)
+	end
+	get int iw
+		return math.floor(Screen.W*Scale)
+	end
+	get int x
+		return iw*self.ID
+	end
+	static get int mx
+		return Events.MouseX()
+	end
+	static get int my
+		return Events.MouseY()
+	end
+	get bool hover
+		return ComeIn && my>Screen.H-200 && mx>x-(iw div 2) && mx<x+(iw div 2)
+	end
+	
+	readonly int ID
+	readonly var Img
+	readonly delegate Func
+	bool Enabled = true
+	readonly string Name
+	
+	Constructor(string nImg,delegate pFunc)
+		ItemList.AddLast(self)
+		ID = Count
+		Img = Image.Load("GFX/MainMenu/"..nImg..".png")
+		Func = pFunc
+		Name = nImg
+		Img.HotBottomCenter()
+		CSayF("Menu item %s; imgtag %s",nImg,Img.Tag)
+	end
+	
+	Destructor
+		CSayF("Destroying menu item %s with image tag %s",Name,Img.Tag)
+	end
+	
+	static void NewGame()
+	end
+	
+	static void NewGamePlus()
+	end
+	
+	static bool AllowNewGamePlus()
+		// TODO: Scan for unlocking New Game+
+		return false
+	end
+	
+	static void Continue()
+	end
+	
+	static Bool IsThereAContinue()
+		// TODO: Scan for Quit-Save
+		return false
+	end
+	
+	static void LoadGame()
+	end
+	
+	static Bool CanLoad()
+		// TODO: Scan for savegames
+		return false
+	end
+	
+	static void Jukebox()
+	end
+	
+	static void Bugs()
+	end
+	
+	static void ExitGame()
+	end
+	
+	static void Create()
+		var v
+		v = new MenuItem("New Game",NewGame)
+		v = new MenuItem("New Game+",NewGame)
+		v.Enabled = AllowNewGamePlus()
+		v = new MenuItem("Continue",Continue)
+		v.Enabled = IsThereAContinue()
+		v = new MenuItem("Load Game",LoadGame)
+		v.Enabled = CanLoad()
+		v = new MenuItem("Jukebox",Jukebox)
+		v = new MenuItem("Bugs",Bugs)
+		v = new MenuItem("Exit",ExitGame)
+		y = Screen.H + (1000*Scale)
+	end
+	
+	void Show()
+		__white
+		if !Enabled
+			Graphics.SetScale(Scale*2,Scale*2)
+			Graphics.Color(120,120,120)
+			Img.Draw(x,y)
+		elseif hover
+			Graphics.SetScale(Scale*3,Scale*3)
+			Img.Draw(x,y-50)
+		else
+			Graphics.SetScale(Scale*2,Scale*2)
+			Img.Draw(x,y)
+		end
+	end
+	
+	Static Void ShowAll()
+		static var Muis = Image.Obtain("MOUSE")
+		if !ComeIn
+			return
+		end
+		if y>Screen.H-20
+			y--
+			CSayF("Bringing in the menu. y=%04d",y)
+		end		
+		for It in ItemList.Each
+			It.Show()
+		end
+		Graphics.SetScale(1,1)
+		__white
+		Muis.Draw(mx,my)
+	End
+end
 
-global void Apollo_Flow()
+
+
+global void Apollo_Flow()	
 	static bool StartDestroyed
 	if not StartDestroyed
 		Flow.Kill("APOLLO_MAIN")
@@ -224,7 +358,12 @@ global void Apollo_Flow()
 	Dev.ToConsole()
 	Stage.Lijst[Stage.Pos].Cycle()
 	math.random(1,10) // Make sure the seed is entirely messed up. Nobody can press a button twice at exactly the same time
+	MenuItem.ComeIn = MenuItem.ComeIn || Events.MouseHitLeft() || Events.KeyHit(13) || Events.KeyHit(32) || Events.KeyHit(27)
+	MenuItem.ShowAll()
+	
 end
+
+
 
 
 init
@@ -238,4 +377,5 @@ init
 	else
 		CSay("No vocals present, so Hando Stillor's intro will NOT be shown!")
 	end
+	MenuItem.Create()
 end
