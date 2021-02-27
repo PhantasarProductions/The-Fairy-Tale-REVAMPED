@@ -294,9 +294,14 @@ class MenuItem
 	end
 	
 	static void Bugs()
+		CSay("Opening your favorite browser to go to the github issue tracker!")
+		OpenURL("https://github.com/PhantasarProductions/The-Fairy-Tale-REVAMPED-for-Apollo/issues")
 	end
 	
 	static void ExitGame()
+		// This will quit the game as soon as the current cycle is fully finished!") 
+		CSay("Use requested to quit")
+		Flow.Quit()
 	end
 	
 	static void Create()
@@ -323,6 +328,9 @@ class MenuItem
 		elseif hover
 			Graphics.SetScale(Scale*3,Scale*3)
 			Img.Draw(x,y-50)
+			if Events.MouseHitLeft()
+				Func()
+			end
 		else
 			Graphics.SetScale(Scale*2,Scale*2)
 			Img.Draw(x,y)
