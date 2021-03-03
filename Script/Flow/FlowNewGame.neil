@@ -1,0 +1,177 @@
+// License Information:
+// **********************************************
+// 
+// src/Tricky Script/Script/Flow/FlowNewGame.neil
+// (c) Jeroen Broks, 2021, All Rights Reserved.
+// 
+// This file contains material that is related
+// to a storyline that is which is strictly
+// copyrighted to Jeroen Broks.
+// 
+// This file may only be used in an unmodified
+// form with an unmodified version of the
+// software this file belongs to.
+// 
+// You may use this file for your study to see
+// how I solved certain things in the creation
+// of this project to see if you find valuable
+// leads for the creation of your own.
+// 
+// Mostly this file comes along with a project
+// that is for most part released under an
+// open source license and that means that if
+// you use that code with this file removed
+// from it, you can use it under that license.
+// Please check out the other files to find out
+// which license applies.
+// This file comes 'as-is' and in no possible
+// way the author can be held responsible of
+// any form of damages that may occur due to
+// the usage of this file
+// 
+// 
+// **********************************************
+// 
+// version: 21.03.03
+// End License Information
+#use "Script/Use/Anyway"
+#use "Script/Use/Misc/SPS"
+
+group Mouse
+	get bool ML
+		return Events.MouseHitLeft()
+	end
+	
+	get int MX
+		return Events.MouseX()
+	end
+	
+	get int MY
+		return Events.MouseY()
+	end
+	
+	void Draw()
+		static var pointer = Image.Obtain("MOUSE")
+		pointer.Draw(MX,MY)
+	end
+end
+
+class NW_Base
+
+	abstract void Draw()
+	
+	void Start()
+	end
+	
+	
+	static readonly var Font = ImageFont.Obtain("BOXTEXT")
+	static table stages = {}
+	static int count
+	static int StageN = 1
+	int ID
+	
+	static void Add(abc)
+		count ++
+		abc.ID = count
+		Stages[abc.ID] = abc
+		CSayF("Added a NW item #%d",abc.ID)
+		if count==1
+			abc.Start()
+		end
+	end
+	
+	static get var Stage
+		Lua.assert(Stages[StageN],sprintf("HEEEY! THERE IS NO STAGE %d! I only got 1 to %d",StageN,count))
+		return Stages[StageN]
+	end
+	
+	final void Next()
+		StageN++
+		if !Stage
+			Lua.error("Chain to game itself not yet implemented")
+		end
+		Stage.Start()
+	end
+end
+
+class SKILL_ITEMS
+	readonly string ImgFile
+	readonly var img
+	static   int skillcnt = 0
+	readonly int skillnum
+	readonly string name
+	readonly table Describe
+	table show
+	
+	Constructor(string F,string n,string d)
+		skillcnt++
+		skillnum=skillcnt
+		Name = n
+		ImgFile = F
+		img = Image.Load(F)
+		Img.HotBottomCenter()
+		Describe = Split(d,"\n")
+		show = {}
+	end
+end
+
+class NW_Skill extends NW_Base
+	
+	var HTAY = Image.Load("GFX/NewGame/SkillSelect.png")
+	table skill = {} 
+	void Start()
+		if #skill!=0
+			return
+		end
+		skill += new SKILL_ITEMS("GFX/BoxText/Portret/Marrilona/Cry.png","Easy","What? Are you a little crybaby?\nYou need your mommy to hold your hand?\nYou even get killed in DOOM, easiest mode with the IDDQD cheat on?\n\nWell fear not, little newbie. This mode is made for you!\n\nThe game will be simplefied on many accounts, so you can still have your fun in the game\n\nAre you happy now?")
+		skill += new SKILL_ITEMS("GFX/BoxText/Portret/Marrilona/General.png","Casual","Well, if you pick this difficulty setting\nYou will experience the game the way it was originally intended.\n\nEverything as much properly balanced as possible.\nGood for a challenge, but surely not impossible.\nGo for it!")
+		skill += new SKILL_ITEMS("GFX/BoxTExt/Portret/Marrilona/Angry.png","Hard","So, you think games are easy, eh?\nYou are so trained that you have the toilet bown under your computer table\nso natural needs won't waste time you could spend gaming?\n\nYou could beat Penance without using the sphere grid?\n\nWell, then perhaps you should consider this mode.\nLoads of stuff have been made harder in order to drive you beyond insanity.\nIf this is worth wasting your life on, I don't know, but...\n\nIf it's a hard game, you want, a hard game you'll get!")
+		HTAY.HotCenter()
+	end
+	
+	void Draw()
+		int w = Screen.W Div (#skill+1)		
+		HTAY.Draw(SCREEN.W DIV 2,100)
+		for idx,item in pairs(skill)
+			Graphics.Color(255,255,255)
+			item.Img.Draw(w*idx,Screen.H-100)
+			if Mouse.MY>Screen.H-240 && Mouse.MX>(w*idx)-(w div 2) && Mouse.MX<(w*idx)+(w div 2)
+				bool shownext = true
+				for idx2,txt in pairs(item.Describe)
+					if shownext
+						self.Font.Text(txt,Screen.W div 2,200+(idx2*30),2,2)
+						item.show[idx2] = item.show[idx2] || math.random(50,75)
+						if item.show[idx2]>0
+							--item.show[idx2]
+							shownext=false
+							//CSayF("Nextblock #%d: %d",idx,item.show[idx])
+						end
+					end
+				end
+				Graphics.Color(255,180,0)
+				self.Font.Text(Item.Name.." mode",Screen.W div 2,Screen.H-20,2,1)
+				if Mouse.ML
+					if Dialog.Yes("You have chosen to play the game in "..(Item.Name:lower()).." mode\n\nPlease note, since the game does not just make enemies more or less agressive, but actually changes many game rules, like inventory item number caps, the speed in which you can earn money, the rules about AP accumulation, and even the difficulty of some puzzles can be different depending on this.\n\n\nDue to these many changes it will NOT be possible to change the difficulty setting afterwards (the changes are so great, that would actually be cheating, or even cause technical conflicts).\n\nSo be sure about your choice!\n\n\nDo you really want to play the game in "..(item.name:lower()).." mode?")
+						gv.gint.skill=idx
+						CSayF("Sealed choice: %s mode -- Skill #%d",Item.Name,idx)
+						self.Next()
+					end
+				end
+			end
+		end
+	end
+end	
+
+global void Apollo_Flow()
+	Dev.ToConsole()
+	Box.DrawAll()
+	SPS.Draw()
+	NW_Base.Stage.Draw()
+	Mouse.Draw()
+end
+
+Init
+	Box.Add(0,0,Screen.W,Screen.H)
+	NW_BASE.ADD(new NW_Skill())	
+	SPS.Load("GFX/Big_Char/Jake.png")
+end
