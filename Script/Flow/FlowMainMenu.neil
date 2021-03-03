@@ -2,7 +2,7 @@
 // **********************************************
 // 
 // src/Tricky Script/Script/Flow/FlowMainMenu.neil
-// (c) Jeroen Broks, 2001, 2018, All Rights Reserved.
+// (c) Jeroen Broks, 2001, 2018, 2021, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.02.27
+// version: 21.03.03
 // End License Information
 #use "Script/Use/Anyway"
 #use "libs/linkedlist"
@@ -300,9 +300,16 @@ class MenuItem
 	end
 	
 	static void NewGame()
+		gv.Clear()
+		State.LoadFlow("NEWGAME","Script/Flow/FlowNewGame.neil")
+		Flow.GotoFlow("NEWGAME")
 	end
 	
 	static void NewGamePlus()
+		gv.Clear()
+		gv.gbool.NewGamePlus = true
+		State.LoadFlow("NEWGAME","Script/Flow/FlowNewGame.neil")
+		Flow.GotoFlow("NEWGAME")
 	end
 	
 	static bool AllowNewGamePlus()
