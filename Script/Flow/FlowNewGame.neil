@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.03.03
+// version: 21.03.05
 // End License Information
 #use "Script/Use/Anyway"
 #use "Script/Use/Misc/SPS"
@@ -162,6 +162,73 @@ class NW_Skill extends NW_Base
 	end
 end	
 
+class Lang
+	static var unknown
+	readonly var img
+	readonly string Name
+	readonly table Desc
+	
+	Constructor(string N,string D="")
+		string Pic = sprintf("GFX/Languages/%s.png",N)
+		Name = N
+		if !JCR6.EntryExists(Pic)
+			unknown = unknown || Image.Load("GFX/Languages/Unknown.png")
+			img = unknown
+			CSayF("No picture found for language %s",N)
+		else
+			img = Image.Load(Pic)
+			CSayF("Language %s succesfully added",N)
+		end
+		img.HotBottomCenter()
+		Desc = Split(D,"<")
+	end
+end
+
+class NW_Language Extends NW_Base
+	readonly var Lijst 
+	
+	
+	Constructor
+		Lijst = new LinkedList()
+		for L in each(JCR6.LoadLines("Languages/List"))
+			if L!=""
+				CSay("NW_Language: Read: "..L)
+				table LS = Split(L,"|") 
+				Lijst.AddLast(new Lang(LS[1],LS[2]))
+			end
+		end
+	end
+	
+	void Draw()
+		int gx = 200
+		int gy = 200
+		int x = 0
+		int y = gy
+		__Ember
+		self.Font.Text("In which language do you wanna have the scenario?",Screen.W div 2,10,2,0)
+		for L in Lijst.Each
+			__White
+			x+=gx
+			if x+gx>Screen.W-gx
+				x = gx
+				y+= gy
+			end
+			L.Img.Draw(x,y)
+			if Mouse.MX>x-60 && Mouse.MX<x+60 && Mouse.MY<y && Mouse.MY>y-l.img.h
+				for i,v in ipairs(L.Desc)
+					self.font.Text(v,Screen.W div 2, math.floor(Screen.H*0.75)+(i*25),2,2)
+				end
+				if Mouse.ML
+					__Lang = L.Name
+					self.Next()
+				end
+				__ember
+			end
+			Self.Font.Text(L.Name,x,y+5,2,0)
+		end
+	end
+end
+
 global void Apollo_Flow()
 	Dev.ToConsole()
 	Box.DrawAll()
@@ -173,5 +240,6 @@ end
 Init
 	Box.Add(0,0,Screen.W,Screen.H)
 	NW_BASE.ADD(new NW_Skill())	
+	NW_BASE.ADD(new NW_Language())
 	SPS.Load("GFX/Big_Char/Jake.png")
 end
