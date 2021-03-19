@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.03.03
+// version: 21.03.18
 // End License Information
 #use "Script/Use/Anyway"
 #use "libs/linkedlist"
@@ -350,7 +350,7 @@ class MenuItem
 	static void Create()
 		var v
 		v = new MenuItem("New Game",NewGame)
-		v = new MenuItem("New Game+",NewGame)
+		v = new MenuItem("New Game+",NewGamePlus)
 		v.Enabled = AllowNewGamePlus()
 		v = new MenuItem("Continue",Continue)
 		v.Enabled = IsThereAContinue()
