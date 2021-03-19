@@ -1,0 +1,11 @@
+QuickMeta PrologueDone
+
+	Index
+		return gv.gbool["Prologue_"..key]
+	End
+	
+	NewIndex
+		gv.gbool["Prologue_"..key] = value
+	End
+	
+End
