@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.03.05
+// version: 21.03.18
 // End License Information
 #use "Script/Use/Anyway"
 #use "Script/Use/Misc/SPS"
@@ -151,7 +151,9 @@ class NW_Skill extends NW_Base
 				Graphics.Color(255,180,0)
 				self.Font.Text(Item.Name.." mode",Screen.W div 2,Screen.H-20,2,1)
 				if Mouse.ML
-					if Dialog.Yes("You have chosen to play the game in "..(Item.Name:lower()).." mode\n\nPlease note, since the game does not just make enemies more or less agressive, but actually changes many game rules, like inventory item number caps, the speed in which you can earn money, the rules about AP accumulation, and even the difficulty of some puzzles can be different depending on this.\n\n\nDue to these many changes it will NOT be possible to change the difficulty setting afterwards (the changes are so great, that would actually be cheating, or even cause technical conflicts).\n\nSo be sure about your choice!\n\n\nDo you really want to play the game in "..(item.name:lower()).." mode?")
+					//if Dialog.Yes("You have chosen to play the game in "..(Item.Name:lower()).." mode\n\nPlease note, since the game does not just make enemies more or less agressive, but actually changes many game rules, like inventory item number caps, the speed in which you can earn money, the rules about AP accumulation, and even the difficulty of some puzzles can be different depending on this.\n\n\nDue to these many changes it will NOT be possible to change the difficulty setting afterwards (the changes are so great, that would actually be cheating, or even cause technical conflicts).\n\nSo be sure about your choice!\n\n\nDo you really want to play the game in "..(item.name:lower()).." mode?")
+					// Set up this way, a Dialog.Yes closes down the full screen mode which my cause users to panic, and I cannot have that
+					if true 
 						gv.gint.skill=idx
 						CSayF("Sealed choice: %s mode -- Skill #%d",Item.Name,idx)
 						self.Next()
@@ -160,7 +162,7 @@ class NW_Skill extends NW_Base
 			end
 		end
 	end
-end	
+end
 
 class Lang
 	static var unknown
@@ -229,6 +231,38 @@ class NW_Language Extends NW_Base
 	end
 end
 
+Class NW_Start Extends NW_Base
+	
+	get string BannerFile
+		string ret = "GFX/MainMenu/New Game"
+		if gv.gbool.NewGamePlus
+			ret += "+"
+		end
+		ret += ".png"
+		return ret
+	end
+	
+	get var Banner
+		static var ret
+		if !ret
+			ret = Image.Load(BannerFile)
+			ret.HotCenter()
+		end
+		return ret
+	end
+	
+	void Draw()
+		static int countdown=20
+		countdown--
+		if countdown<=0
+			Lua.error("Wait for next event!")
+		end
+		Banner.Draw(Screen.W div 2, Screen.H div 2)
+	end
+
+end
+	
+
 global void Apollo_Flow()
 	Dev.ToConsole()
 	Box.DrawAll()
@@ -241,5 +275,6 @@ Init
 	Box.Add(0,0,Screen.W,Screen.H)
 	NW_BASE.ADD(new NW_Skill())	
 	NW_BASE.ADD(new NW_Language())
+	NW_BASE.ADD(new NW_Start())
 	SPS.Load("GFX/Big_Char/Jake.png")
 end
