@@ -1,0 +1,111 @@
+// License Information:
+// **********************************************
+// 
+// src/Tricky Script/Script/Flow/FlowPrologueCharSelect.neil
+// (c) Jeroen Broks, 2021, All Rights Reserved.
+// 
+// This file contains material that is related
+// to a storyline that is which is strictly
+// copyrighted to Jeroen Broks.
+// 
+// This file may only be used in an unmodified
+// form with an unmodified version of the
+// software this file belongs to.
+// 
+// You may use this file for your study to see
+// how I solved certain things in the creation
+// of this project to see if you find valuable
+// leads for the creation of your own.
+// 
+// Mostly this file comes along with a project
+// that is for most part released under an
+// open source license and that means that if
+// you use that code with this file removed
+// from it, you can use it under that license.
+// Please check out the other files to find out
+// which license applies.
+// This file comes 'as-is' and in no possible
+// way the author can be held responsible of
+// any form of damages that may occur due to
+// the usage of this file
+// 
+// 
+// **********************************************
+// 
+// version: 21.03.19
+// End License Information
+#use "Script/Use/Anyway"
+#use "Script/Use/Misc/Prologue"
+#use "libs/Vector"
+
+Class PersonCard
+	
+	ReadOnly Var Card
+	ReadOnly String Name
+	
+	Constructor(string N)
+		Name = N
+		Card = Image.Load("GFX/PrologueChar/"..N..".png")
+		Card.HotCenter()
+	End
+	
+	Destructor
+		Card.Kill()
+		CSayF("Killed Card: %s",Name)
+	End
+	
+	Static Var Lst = New Vector()
+	
+End
+
+Void PrologueDone()
+	Lua.error("Post prologue content not yet available")
+End	
+
+Init
+	bool Klaar = true
+	Box.Add(0,0,Screen.W,Screen.H)
+	For Ch in each { "Jake", "Marrilona", "Dandor", "Hando Stillor" }
+		If !Prologue.Done[Ch]
+			PersonCard.Lst.Push_Back( New PersonCard(Ch) )
+			Klaar = false
+		End
+	End
+	If Klaar
+		PrologueDone()
+	End
+End
+
+
+
+Global Void Apollo_Flow()
+	Static Int Sel = 0
+	Static number D = ((Screen.H*0.75)/500)
+	int PY=Screen.H div 2
+	Box.DrawAll()
+	Dev.ToConsole()
+	For Idx,Crd in PersonCard.Lst.IPairs
+		// CSayF("ForIDXCRD: %d/%d",idx,sel)
+		If idx!=Sel
+			int PX = (Screen.W div 2)+((Idx-Sel)*500)
+			Crd.Card.Draw(PX,PY)
+			If Mouse.MX>PX-125 && Mouse.MX<PX+125 && Mouse.MY>PY-250 && Mouse.MY<PY+250 && Mouse.ML
+				Sel = Idx
+				Mouse.Flush()
+			End
+		End
+	End
+	Graphics.SetScale(D,D)
+	int cw = math.floor(D*250)
+	if Mouse.ML && Mouse.MX>(Screen.W div 2)-cw && Mouse.MX<(Screen.W div 2)+cw
+		Graphics.Cls()
+		PersonCard.Lst[Sel].Card.Draw((Screen.W div 2),PY)
+		Graphics.Flip()
+		Mouse.Flush()
+		FPS.Sleep(400)
+		Lua.error("Start to dungeon not yet ready")
+	end
+	PersonCard.Lst[Sel].Card.Draw((Screen.W div 2),PY)
+	Graphics.SetScale(1,1)
+	Mouse.Draw()
+End
