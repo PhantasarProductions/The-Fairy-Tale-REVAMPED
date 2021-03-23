@@ -32,29 +32,14 @@
 // 
 // **********************************************
 // 
-// version: 21.03.18
+// version: 21.03.19
 // End License Information
+
+
 #use "Script/Use/Anyway"
+#use "Script/Use/Misc/Prologue"
 #use "Script/Use/Misc/SPS"
 
-group Mouse
-	get bool ML
-		return Events.MouseHitLeft()
-	end
-	
-	get int MX
-		return Events.MouseX()
-	end
-	
-	get int MY
-		return Events.MouseY()
-	end
-	
-	void Draw()
-		static var pointer = Image.Obtain("MOUSE")
-		pointer.Draw(MX,MY)
-	end
-end
 
 class NW_Base
 
@@ -234,7 +219,7 @@ end
 Class NW_Start Extends NW_Base
 	
 	get string BannerFile
-		string ret = "GFX/MainMenu/New Game"
+		string ret = "GFX/Loading/Starting New Game"
 		if gv.gbool.NewGamePlus
 			ret += "+"
 		end
@@ -255,7 +240,8 @@ Class NW_Start Extends NW_Base
 		static int countdown=20
 		countdown--
 		if countdown<=0
-			Lua.error("Wait for next event!")
+			// Lua.error("Wait for next event!")
+			Prologue.GoSelect()
 		end
 		Banner.Draw(Screen.W div 2, Screen.H div 2)
 	end
