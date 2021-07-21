@@ -1,7 +1,7 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowConsole.neil
 // Console
-// version: 21.03.03
+// version: 21.07.20
 // Copyright (C) 2021 Jeroen P. Broks
 // This software is provided 'as-is', without any express or implied
 // warranty.  In no event will the authors be held liable for any damages
@@ -264,6 +264,16 @@ void Bye()
 	Flow.Quit()
 end
 
+VOID ShowGV()
+	Plua Tab = GV.DumpTable
+	For i,l in ipairs(Tab)
+		int G = math.floor( (i/#Tab)*255)
+		int R = 255-G
+		CLine.Write(l,R,G,0)
+		Cout("VARS>",l,"\n")
+	End
+End
+
 deftable icommandtable
 	FUCK = FoulLanguage
 	SHIT = FoulLanguage
@@ -273,6 +283,9 @@ deftable icommandtable
 	JEROEN = void()
 		CLine.Write("Hey! That's me!",255,180,0)
 	end
+	SCREEN=void()
+		CLine.Write(SPrintF("Screen Size: %dx%d",Screen.W,Screen.H))
+	End
 	BYE = Bye
 	EXIT = Bye
 	QUIT = Bye
