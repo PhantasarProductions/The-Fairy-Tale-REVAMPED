@@ -140,6 +140,7 @@ Group SubParty
 		RPGChar[char].Data.EQUIP_Weapon = ""
 		RPGChar[char].Data.EQUIP_Armor  = ""
 		RPGChar[char].Data.EQUIP_Jewel  = ""
+		RPGChar[char].Data.Master       = ""
 	End
 
 End
