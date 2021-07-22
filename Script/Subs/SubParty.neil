@@ -1,0 +1,145 @@
+// License Information:
+// **********************************************
+// 
+// src/Tricky Script/Script/Subs/SubParty.neil
+// (c) Jeroen Broks, 2021, All Rights Reserved.
+// 
+// This file contains material that is related
+// to a storyline that is which is strictly
+// copyrighted to Jeroen Broks.
+// 
+// This file may only be used in an unmodified
+// form with an unmodified version of the
+// software this file belongs to.
+// 
+// You may use this file for your study to see
+// how I solved certain things in the creation
+// of this project to see if you find valuable
+// leads for the creation of your own.
+// 
+// Mostly this file comes along with a project
+// that is for most part released under an
+// open source license and that means that if
+// you use that code with this file removed
+// from it, you can use it under that license.
+// Please check out the other files to find out
+// which license applies.
+// This file comes 'as-is' and in no possible
+// way the author can be held responsible of
+// any form of damages that may occur due to
+// the usage of this file
+// 
+// 
+// **********************************************
+// 
+// version: 21.07.22
+// End License Information
+#Use "Script/Use/Anyway"
+
+Table SubStat = {"BASE","BUFF","PERMABUFF","EQUIP","END","MASTER"}
+Table Stats = {"Power","Endurance","Intelligence","Resistance","Speed","Accuracy","Evasion","Critical"}
+Table Elements = {"Flame","Wind","Water","Earth","Lightning","Frost","Light","Darkness"}
+Table Ailments = {"Poison","Disease","Paralysis","Curse","Silence","Sleep","Death"}
+
+
+
+Group SubParty
+
+	Void GrabLevel(string char,noauto)
+		String n = tag
+		//string dat = JCR6.LoadString(sprintf("Data/LvStats/%s/%d",n,math.floor(level/100)))
+		String JCR6.LoadString(sPrintF("Data/CharStats/%s",n)
+		Table tdat = Split(dat,"\n")
+		Int lvl = -100
+		For line in each(tdat)
+			If line!="" 
+				Table ins = split(line," ")
+				Switch ins[1]
+					Case "REM"
+						// DO NOTHING!
+					Case "LEVEL"
+						lvl = lua.tonumber(ins[2])
+					Default
+						If prefixed(ins[1],"STAT.") 
+							If lvl==level
+								String st = right(ins[1],#ins[1]-5)
+								RPGChar[Tag].Stat["BASE_"..st] = tonumber(ins[2])
+								Print("\t= "..st.." for "..tag.." is "..ins[2])
+							End
+						Else
+							Lua.error("Unknown instruction! >> "..line)
+						End
+				End
+			End
+		End
+		RPGChar[tag].Points.HP.Have = RPGChar[tag].Points.HP.Maximum
+		If Tag=="Jake_Human" && (!noauto)
+			GrabLevel("Jake_Fairy",true)
+		ElseIf Tag=="Jake_Fairy" && (!noauto)
+			GrabLevel("Jake_Human",true)
+		End
+	End
+	
+	Get Table TotalStat
+		Static Var Ret
+		If !Ret
+			Ret = {}
+			CSay("Creating Total Stat")
+			For pref,tab in sPairs("","ZZ_ER_","ZZ_SR_")
+				For s in Each(tab)
+					Ret += Pref..s
+				End
+			End
+		End
+		Return Ret
+	End
+	
+	Void CreateCharacter(string char, int level)
+		Switch Char
+			Case "Jake"
+				CreateCharacter("Jake_Human",level)
+				CreateCharacter("Jake_Fairy",level)
+				For S in Each(TotalStat)
+					For Sb in Each(SubStat)
+						if Sb!="BASE" && Sb!="END"
+							RPGChar.Jake_Fairy.Link_Stat("Jake_Human",sb.."_"..s)
+						End
+					End
+				End
+				RPGChar.Jake_Fairy.Link_Stat("Jake_Human","Level")
+				RPGChar.Jake_Fairy.Link_Stat("Jake_Human","Experience")
+				RPGChar.Jake_Fairy.Link_List("Jake_Human","*")
+				RPGChar.Jake_Fairy.Link_Data("Jake_Human","*")
+				RPGChar.Jake_Human.Name = "Jake"
+				RPGChar.Jake_Human.Name = "Jake"
+				Return
+			Case "Nostramantu"
+				// Human!
+				Lua.error("No support for Nostramantu yet")
+			Case "Nostramantu_Elder"
+				Lua.error("No support for Elder Nostramantu yet")
+			Case "Feenalaria"
+				// Human!
+				Lua.error("No support for Feenalaria yet")
+			Case "Feenalaria_Fairy"
+				Lua.error("No support for Feenalaria as Fairy yet")
+			Default
+				RPGChar.Create = char
+				RPGChar[char].Name=char
+				RPGChar[char].Level = level
+				RPGChar[char].Experience = EXP.ByLevel(Level+1)
+				Grablevel(char,level,true) // Must be true in order to prevent conflicts between te two versions of Jake.
+		End
+		For S in Each(TotalStat)
+			For Sb in Each(SubStat)
+				If Sb!="BASE"
+					RPGChar[char].Stat[sb.."_"..s] = 0
+				End
+			End
+		End
+		RPGChar[char].Data.EQUIP_Weapon = ""
+		RPGChar[char].Data.EQUIP_Armor  = ""
+		RPGChar[char].Data.EQUIP_Jewel  = ""
+	End
+
+End
