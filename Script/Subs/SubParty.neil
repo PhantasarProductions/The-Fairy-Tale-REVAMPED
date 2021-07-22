@@ -34,6 +34,7 @@
 // 
 // version: 21.07.22
 // End License Information
+
 #Use "Script/Use/Anyway"
 
 Table SubStat = {"BASE","BUFF","PERMABUFF","EQUIP","END","MASTER"}
@@ -94,6 +95,20 @@ Group SubParty
 		Return Ret
 	End
 	
+	Void _SetSkill(exp,lvl,int level)
+		exp.Maximum = level * ({20,25,30})[__skill]
+		lvl.Maximum = ({750,500,100})[__skill]
+		If level>=lvl.Maximum 
+			exp.Maximum = 0 
+		End
+		lvl.Have = level or 0
+		lvl.Minimum = 0
+	End
+	
+	Void SetSkill(string char,int level)
+		SetSkill(RPGChar[char].Points["EXP_Skill_"..i],RPGChar[char].Points["LVL_Skill_"..i],Level)
+	End
+	
 	Void CreateCharacter(string char, int level)
 		Switch Char
 			Case "Jake"
@@ -112,7 +127,15 @@ Group SubParty
 				RPGChar.Jake_Fairy.Link_Data("Jake_Human","*")
 				RPGChar.Jake_Human.Name = "Jake"
 				RPGChar.Jake_Human.Name = "Jake"
+				For i=1,5
+					RPGChar.Jake_Human.Points["EXP_Skill"..i].Have = 0 // must exist before linking, you know
+					RPGChar.Jake_Human.Points["LVL_Skill"..i].Have = 0 // must exist before linking
+					RPGChar.Jake_Fairy.Link_Points("Jake_Human","EXP_Skill"..i)
+					RPGChar.Jake_Fairy.Link_Points("Jake_Human","LVL_Skill"..i)
+				End
 				Return
+			Case "Krandar"
+				Lua.error("No support for Krandar yet")
 			Case "Nostramantu"
 				// Human!
 				Lua.error("No support for Nostramantu yet")
@@ -121,7 +144,14 @@ Group SubParty
 			Case "Feenalaria"
 				// Human!
 				Lua.error("No support for Feenalaria yet")
+			Case "Feenalaria_Dress"
+				RPGChar.Feenalaria_Dress = "Feenalaria"
+				RPGChar.Feenalaria_Dress.Link_Stat("Feenalaria","*")
+				RPGChar.Feenalaria_Dress.Link_List("Feenalaria","*")
+				RPGChar.Feenalaria_Dress.Link_Data("Feenalaria","*")
+				Return
 			Case "Feenalaria_Fairy"
+				RPGChar.Feenalaria_Fairy = "Feenalaria"
 				Lua.error("No support for Feenalaria as Fairy yet")
 			Default
 				RPGChar.Create = char
@@ -141,6 +171,13 @@ Group SubParty
 		RPGChar[char].Data.EQUIP_Armor  = ""
 		RPGChar[char].Data.EQUIP_Jewel  = ""
 		RPGChar[char].Data.Master       = ""
+		For i=1,5
+			Int val=0
+			if i=1
+				val=1
+			end
+			_SetSkill(RPGChar[char].Points["EXP_Skill_"..i],RPGChar[char].Points["LVL_Skill_"..i],val)
+		End
 	End
 
 End

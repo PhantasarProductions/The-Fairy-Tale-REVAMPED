@@ -1,0 +1,15 @@
+Init
+	Var J = RPGChar.Krandar.Data
+	Var P = RPGChar.Krandar.Points
+	J.Race = "Black Winged Fairy"
+	J.Sex = "Male"
+	J.pvnw = "He"
+	J.bvnw = "His"
+	J.avnw = "Him"
+	J.Skill1 = "Sword Mastery"
+	J.Skill2 = "Nero's Burning Combat"
+	J.Skill3 = "Beaufort's Warth"
+	J.Skill4 = "Pascal's Pressure"
+	J.Skill5 = "Richter's Curse"	
+End
+
