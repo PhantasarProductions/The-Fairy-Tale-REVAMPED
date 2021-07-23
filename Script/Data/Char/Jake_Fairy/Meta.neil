@@ -35,5 +35,7 @@
 // version: 21.07.23
 // End License Information
 Init
-	// Nothing to do here.
+	Var S = RPGChar.Jake_Fairy.Stat
+	S.BASE_SR_Curse   = 90 div __skill
+	S.BASE_SR_Silence = 72 div __skill)
 End

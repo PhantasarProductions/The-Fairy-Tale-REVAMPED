@@ -37,6 +37,7 @@
 Init
 	Var J = RPGChar.Jake_Human.Data
 	Var P = RPGChar.Jake_Human.Points
+	Var S = RPGChar.Jake_Human.Stat
 	J.Race = "Human"
 	J.Sex = "Male"
 	J.pvnw = "He"
@@ -47,4 +48,5 @@ Init
 	J.Skill3 = "Fairy Wind Magic"
 	J.Skill4 = "Fairy Water Magic"
 	J.Skill5 = "Fairy Earth Magic"
+	S.BASE_SR_Paralysis = 90 div __skill
 End

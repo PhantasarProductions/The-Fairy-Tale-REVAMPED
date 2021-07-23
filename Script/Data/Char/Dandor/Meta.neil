@@ -37,6 +37,7 @@
 Init
 	Var J = RPGChar.Dandor.Data
 	Var P = RPGChar.Dandor.Points
+	Var S = RPGChar.Dandor.Stat
 	J.Race = "Dwarf"
 	J.Sex = "Male",
 	J.pvnw = "He",
@@ -46,4 +47,6 @@ Init
 	J.Skill2 = "Physical Defense",
 	J.Skill3 = "Magical Defense",	J.Race = "Fairy"
 	P.EXP_Skill1.Have = 30 div __skill
+	S.BASE_SR_Poison = 90 div __skill
+	S.BASE_SR_Disease = 90 div __skill 
 End

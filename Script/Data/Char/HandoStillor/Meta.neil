@@ -37,6 +37,7 @@
 Init
 	Var J = RPGChar.Dandor.Data
 	Var P = RPGChar.Dandor.Points
+	Var S = RPGChar.Dandor.Stat
 	J.Race = "Elf"
 	J.Sex = "Male"
 	J.Skill1 = "Staff Slinging Skills"
@@ -45,5 +46,7 @@ Init
 	J.bvnw = "His"
 	J.avnw = "Him"
 	P.EXP_Skill1.Have = 1
-	P.EXP_Skill2.Have = 6 div __skill
+	P.EXP_Skill2.Have =   6 div __skill
+	S.BASE_SR_Silence =  90 div __skill
+	S.BASE_SR_Undead  = 100
 End
