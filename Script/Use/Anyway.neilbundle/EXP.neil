@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Anyway.neilbundle/EXP.neil
-// Version: 21.07.22
+// Version: 21.07.23
 // Copyright (C) 2016, 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -48,7 +48,7 @@ Module
     ReadOnly Int maxlevel = 300
     ReadOnly Int startexp = 15                                                                                                            
     
-    Int ByLvl(Int lvl)
+    Int ByLevel(Int lvl)
     	// --[[
     	// local rng = self.maxlevel - self.minlevel
     	// assert(rng>0,"Invalid exp settings")

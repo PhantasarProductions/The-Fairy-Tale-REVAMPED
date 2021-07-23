@@ -46,10 +46,10 @@ Table Ailments = {"Poison","Disease","Paralysis","Curse","Silence","Sleep","Deat
 
 Group SubParty
 
-	Void GrabLevel(string char,noauto)
-		String n = tag
+	Void GrabLevel(string char,Int Level, noauto)
+		String n = char
 		//string dat = JCR6.LoadString(sprintf("Data/LvStats/%s/%d",n,math.floor(level/100)))
-		String JCR6.LoadString(sPrintF("Data/CharStats/%s",n)
+		String dat = JCR6.LoadString(sPrintF("Data/CharStats/%s",n))
 		Table tdat = Split(dat,"\n")
 		Int lvl = -100
 		For line in each(tdat)
@@ -64,8 +64,8 @@ Group SubParty
 						If prefixed(ins[1],"STAT.") 
 							If lvl==level
 								String st = right(ins[1],#ins[1]-5)
-								RPGChar[Tag].Stat["BASE_"..st] = tonumber(ins[2])
-								Print("\t= "..st.." for "..tag.." is "..ins[2])
+								RPGChar[Char].Stat["BASE_"..st] = Lua.tonumber(ins[2])
+								Print("\t= "..st.." for "..Char.." is "..ins[2])
 							End
 						Else
 							Lua.error("Unknown instruction! >> "..line)
@@ -73,11 +73,11 @@ Group SubParty
 				End
 			End
 		End
-		RPGChar[tag].Points.HP.Have = RPGChar[tag].Points.HP.Maximum
-		If Tag=="Jake_Human" && (!noauto)
-			GrabLevel("Jake_Fairy",true)
-		ElseIf Tag=="Jake_Fairy" && (!noauto)
-			GrabLevel("Jake_Human",true)
+		RPGChar[Char].Points.HP.Have = RPGChar[Char].Points.HP.Maximum
+		If Char=="Jake_Human" && (!noauto)
+			GrabLevel("Jake_Fairy",level,true)
+		ElseIf Char=="Jake_Fairy" && (!noauto)
+			GrabLevel("Jake_Human",level,true)
 		End
 	End
 	
@@ -86,7 +86,7 @@ Group SubParty
 		If !Ret
 			Ret = {}
 			CSay("Creating Total Stat")
-			For pref,tab in sPairs("","ZZ_ER_","ZZ_SR_")
+			For pref,tab in sPairs({[""]=Stats,["ZZ_ER_"]=Elements,["ZZ_SR_"]=Ailments})
 				For s in Each(tab)
 					Ret += Pref..s
 				End
@@ -105,7 +105,7 @@ Group SubParty
 		lvl.Minimum = 0
 	End
 	
-	Void SetSkill(string char,int level)
+	Void SetSkill(string char,int i,int level)
 		SetSkill(RPGChar[char].Points["EXP_Skill_"..i],RPGChar[char].Points["LVL_Skill_"..i],Level)
 	End
 	
@@ -154,10 +154,10 @@ Group SubParty
 				RPGChar.Feenalaria_Fairy = "Feenalaria"
 				Lua.error("No support for Feenalaria as Fairy yet")
 			Default
-				RPGChar.Create = char
+				RPGChar.Create(char)
 				RPGChar[char].Name=char
-				RPGChar[char].Level = level
-				RPGChar[char].Experience = EXP.ByLevel(Level+1)
+				RPGChar[char].Stat.Level = level
+				RPGChar[char].Stat.Experience = EXP.ByLevel(Level+1)
 				Grablevel(char,level,true) // Must be true in order to prevent conflicts between te two versions of Jake.
 		End
 		For S in Each(TotalStat)
@@ -169,10 +169,11 @@ Group SubParty
 			String Str="SUM:"..char
 			For SBS in Each(SuBStat)
 				If SBS!="END"
-				Str+="."
-				Str=SBS.."_"..S
+					Str+="."
+					Str=SBS.."_"..S
+				End
 			End
-			RPGChar[char].ScriptStat["END_"..S]=Str
+			RPGChar[char].StatScript["END_"..S]=Str
 		End
 		For A in Each(Ailments)
 			RPGChar[char].Stat["BASE_SR_"..A]= 100-math.floor(33*__skill)
@@ -187,12 +188,12 @@ Group SubParty
 		RPGChar[char].Data.Master       = ""
 		For i=1,5
 			Int val=0
-			if i=1
+			If i==1
 				val=1
-			end
+			End
 			_SetSkill(RPGChar[char].Points["EXP_Skill_"..i],RPGChar[char].Points["LVL_Skill_"..i],val)
 		End
-		NeilUse("Script/Data/Char/Meta/"..char)
+		NeilUse("Script/Data/Char/"..char.."/Meta")
 	End
 
 End

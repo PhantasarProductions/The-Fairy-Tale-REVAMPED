@@ -53,6 +53,6 @@ Module
   	
   	Void CreateChar(String Tag, Int Level)
   		LoadPartySub()
-  		State.Call("PARTY","SubParty.NewChar",Sprintf("\"%s\",%d",Tag,level))
+  		State.Call("PARTY","SubParty.CreateCharacter",Sprintf("\"%s\",%d",Tag,level))
   	End
 End
