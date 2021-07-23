@@ -1,7 +1,7 @@
 // License Information:
 // **********************************************
 // 
-// src/Tricky Script/Script/Data/Char/Marrilona/Meta.neil
+// src/Tricky Script/Script/Data/Char/Jake_Fairy/SkillUp.Neil
 // (c) Jeroen Broks, 2021, All Rights Reserved.
 // 
 // This file contains material that is related
@@ -34,18 +34,10 @@
 // 
 // version: 21.07.23
 // End License Information
-Init
-	Var J = RPGChar.Marrilona.Data
-	Var P = RPGChar.Marrilona.Points
-	J.Race = "Fairy"
-	J.Sex = "Female"
-	J.pvnw = "She"
-	J.bvnw = "Her"
-	J.avnw = "Her"
-	J.Skill1 = "Wand Waving Wonders"
-	J.Skill2 = "Fairy Fire Magic"
-	J.Skill3 = "Fairy Wind Magic"
-	J.Skill4 = "Fairy Water Magic"
-	J.Skill5 = "Fairy Earth Magic"
-	P.EXP_Skill1.Have = 1
+Module
+	askillup1 = {"Power",25}},
+	askillup2 = {}
+	askillup3 = {}
+	askillup4 = {}
+	askillup5 = {}
 End

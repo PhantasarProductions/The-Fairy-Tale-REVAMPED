@@ -1,7 +1,7 @@
 // License Information:
 // **********************************************
 // 
-// src/Tricky Script/Script/Data/Char/Marrilona/Meta.neil
+// src/Tricky Script/Script/Data/Char/Feenalaria_Dress/Meta.neil
 // (c) Jeroen Broks, 2021, All Rights Reserved.
 // 
 // This file contains material that is related
@@ -35,17 +35,11 @@
 // version: 21.07.23
 // End License Information
 Init
-	Var J = RPGChar.Marrilona.Data
-	Var P = RPGChar.Marrilona.Points
-	J.Race = "Fairy"
+	Var J = RPGChar.Feenalaria_Dress.Data
+	J.Skill1 = "Sword Fighting Skills",
+	J.Race = "Human"
 	J.Sex = "Female"
 	J.pvnw = "She"
 	J.bvnw = "Her"
-	J.avnw = "Her"
-	J.Skill1 = "Wand Waving Wonders"
-	J.Skill2 = "Fairy Fire Magic"
-	J.Skill3 = "Fairy Wind Magic"
-	J.Skill4 = "Fairy Water Magic"
-	J.Skill5 = "Fairy Earth Magic"
-	P.EXP_Skill1.Have = 1
+	J.avnw = "Her"	
 End

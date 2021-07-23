@@ -167,6 +167,7 @@ Group SubParty
 				End
 			End
 		End
+		
 		RPGChar[char].Points.HP.MaxCopy = "END_HP"
 		RPGChar[char].Points.HP.Have    = RPGChar[char].Points.HP.Maximum 
 		RPGChar[char].Points.AP.MaxCopy = "END_AP"
