@@ -6,3 +6,6 @@
 .DS_Store
 ._*
 
+# jEdit backups/temp files
+*neil#
+

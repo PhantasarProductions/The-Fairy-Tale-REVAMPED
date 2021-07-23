@@ -1,0 +1,116 @@
+class MyData_MyDataClass_IAA
+	string Title
+	string Desc
+	string Type = "Item"
+	string Target = "1F"
+	string Stance = "Cast"
+	string Voice
+	int USE_Penalty
+	string ADDCARD_Action_Act = "Self"
+	int ADDCARD_Action_Number = 0
+	int ADDCARD_Action_Interval = 5
+	int ADDCARD_Char_Number = 0
+	int ADDCARD_Char_Interval = 5
+	int ABL_APCost
+	int ABL_HPCost
+	bool ITM_Sellable = true
+	int ITM_ShopPrice
+	string ITM_Type = "Consumable"
+	bool ITM_Combat = true
+	bool ITM_Field = true
+	string ITM_EQP_For
+	bool ITM_ACC_Jake = true
+	bool ITM_ACC_Marrilona = true
+	bool ITM_ACC_Dandor = true
+	bool ITM_ACC_HandoStillor = true
+	bool ITM_WeaponAbility
+	bool ITM_BlackMarket
+	int EQP_STAT_Power
+	int EQP_STAT_Endurance
+	int EQP_STAT_Intelligence
+	int EQP_STAT_Resistance
+	int EQP_STAT_Accuracy
+	int EQP_STAT_Evasion
+	int EQP_STAT_HP = 0
+	int EQP_STAT_AP = 0
+	int EQP_STAT_SR_Poison
+	int EQP_STAT_SR_Paralysis
+	int EQP_STAT_SR_Curse
+	int EQP_STAT_SR_Silence
+	int EQP_STAT_SR_Petrification
+	int EQP_STAT_SR_Disease
+	int EQP_STAT_SR_Undead
+	int EQP_STAT_SR_Death
+	int EQP_STAT_SR_Destruction
+	int EQP_STAT_SR_Sleep
+	int EQP_STAT_ER_Flame
+	int EQP_STAT_ER_Wind
+	int EQP_STAT_ER_Water
+	int EQP_STAT_ER_Earth
+	int EQP_STAT_ER_Lightning
+	int EQP_STAT_ER_Frost
+	int EQP_STAT_ER_Light
+	int EQP_STAT_ER_Darkness
+	int Heal = 0
+	string Heal_Type
+	string Heal_StatPercent = "Intelligence"
+	bool CurePoison
+	bool CureParalysis
+	bool CureCurse
+	bool CureSilence
+	bool CurePetrification
+	bool CureDisease
+	bool CureUndead
+	bool CureSleep
+	bool Revive
+	int Attack
+	string Attack_AttackStat = "Power"
+	string Attack_DefenseStat = "Endurance"
+	string Attack_Element = "None"
+	bool Attack_AllowAccuracy
+	bool Attack_AllowDodge
+	int Attack_AccuracyRate = 100
+	bool Attack_AllowCritical = true
+	bool Attack_Desperate
+	bool CausePoison
+	bool CauseParalysis
+	bool CauseCurse
+	bool CauseSilence
+	bool CausePetrification
+	bool CauseDisease
+	bool CauseSleep
+	bool CauseConfusion
+	bool CauseUndead
+	bool CauseDeath
+	bool CauseCharmed
+	bool CausePermanence
+	bool CauseBerserk
+	bool CauseIDDQD
+	bool CauseGuarding
+	int BUFF_Power
+	int BUFF_Endurance
+	int BUFF_Intelligence
+	int BUFF_Resistance
+	int BUFF_Speed
+	int BUFF_Accuracy
+	int BUFF_Evasion
+	int Rew_GainAP
+	int rew_GainSkill1
+	bool rew_CreateSkill1
+	int rew_GainSkill2
+	bool rew_CreateSkill2
+	int rew_GainSkill3
+	bool rew_CreateSkill3
+	int rew_GainSkill4
+	bool rew_CreateSkill4
+	int rew_GainSkill5
+	bool rew_CreateSkill5
+	string SpellAni
+	string SpellAni_Arg
+	bool SpellAni_External
+	string EffectScript
+	string EffectScript_Arg
+	bool EffectScript_External
+	string Acc_PreTurn
+	string Acc_PreTurn_Arg
+end
