@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.07.22
+// version: 21.07.23
 // End License Information
 
 #Use "Script/Use/Anyway"
@@ -166,6 +166,16 @@ Group SubParty
 					RPGChar[char].Stat[sb.."_"..s] = 0
 				End
 			End
+			String Str="SUM:"..char
+			For SBS in Each(SuBStat)
+				If SBS!="END"
+				Str+="."
+				Str=SBS.."_"..S
+			End
+			RPGChar[char].ScriptStat["END_"..S]=Str
+		End
+		For A in Each(Ailments)
+			RPGChar[char].Stat["BASE_SR_"..A]= 100-math.floor(33*__skill)
 		End
 		RPGChar[char].Points.HP.MaxCopy = "END_HP"
 		RPGChar[char].Points.HP.Have    = RPGChar[char].Points.HP.Maximum 
