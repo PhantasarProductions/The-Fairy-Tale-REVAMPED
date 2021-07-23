@@ -49,23 +49,24 @@ Module
     ReadOnly Int startexp = 15                                                                                                            
     
     Int ByLvl(Int lvl)
-    // --[[
-    // local rng = self.maxlevel - self.minlevel
-    // assert(rng>0,"Invalid exp settings")
-    // if lvl==self.minlevel then return self.minexp end
-    // if lvl==self.maxlevel then return self.maxexp end
-    // local bexp = self.maxexp/rng
-    // local ret  = math.ceil(bexp*lvl)
-    // return ret
-    // ]]
-    Lua.assert(lvl>=self.minlevel,"Invalid level")
-    Number ret = startexp
-    For i=self.minlevel,lvl
-    	ret = ret + ret/7.5
-        If ret>2000000000
-        	// Above 2 billion systems and underlying APIs will malfunction.
-        	Return 2000000000
-        End             
-     End                                                                                                                          
-     Return math.floor(ret)                                                                                                       
+    	// --[[
+    	// local rng = self.maxlevel - self.minlevel
+    	// assert(rng>0,"Invalid exp settings")
+    	// if lvl==self.minlevel then return self.minexp end
+    	// if lvl==self.maxlevel then return self.maxexp end
+    	// local bexp = self.maxexp/rng
+    	// local ret  = math.ceil(bexp*lvl)
+    	// return ret
+    	// ]]
+    	Lua.assert(lvl>=self.minlevel,"Invalid level")
+    	Number ret = startexp
+    	For i=self.minlevel,lvl
+    		ret = ret + ret/7.5
+        	If ret>2000000000
+        		// Above 2 billion systems and underlying APIs will malfunction.
+        		Return 2000000000
+        	End             
+        End                                                                                                                          
+     	Return math.floor(ret)
+     End
 End

@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Link.neilbundle/Map.Neil
-// Version: 21.07.22
+// Version: 21.07.23
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -65,7 +65,7 @@ Module
 		If ApolloState.Name=="MAPSCRIPT"
 			MCall("FlowField.Schedule.Add","LOAD:"..Map)
 		Else
-			Call("FlowField.LoadMap",Map)
+			MCall("FlowField.LoadMap",Map)
 		End
 	End
 	

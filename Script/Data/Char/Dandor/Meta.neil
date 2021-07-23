@@ -49,4 +49,7 @@ Init
 	P.EXP_Skill1.Have = 30 div __skill
 	S.BASE_SR_Poison = 90 div __skill
 	S.BASE_SR_Disease = 90 div __skill 
+	J.EQUIP_Weapon = "EQP_DANDOR_WP1"
+	J.EQUIP_Armor  = ""
+
 End

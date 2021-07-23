@@ -32,8 +32,14 @@
 // 
 // **********************************************
 // 
-// version: 21.07.22
+// version: 21.07.23
 // End License Information
+
+Void LoadPartySub()
+	State.LoadNew("PARTY","Script/Subs/SubParty.Neil")
+End
+
+
 Module
 	Int EVASION(ch)                          
 		If not prefixed(ch,"FOE")
@@ -43,5 +49,10 @@ Module
 			RPGChar[ch].Stat.END_Speed.BASE_Evasion = eva
 		End                                          
   		Return RPGChar[ch].Stat.END_Speed.BASE_Evasion
+  	End
+  	
+  	Void CreateChar(String Tag, Int Level)
+  		LoadPartySub()
+  		State.Call("PARTY","SubParty.NewChar",Sprintf("\"%s\",%d",Tag,level))
   	End
 End

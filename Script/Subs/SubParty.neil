@@ -192,6 +192,7 @@ Group SubParty
 			end
 			_SetSkill(RPGChar[char].Points["EXP_Skill_"..i],RPGChar[char].Points["LVL_Skill_"..i],val)
 		End
+		NeilUse("Script/Data/Char/Meta/"..char)
 	End
 
 End

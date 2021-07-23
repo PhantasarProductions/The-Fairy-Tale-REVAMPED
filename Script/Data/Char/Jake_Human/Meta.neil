@@ -48,5 +48,7 @@ Init
 	J.Skill3 = "Fairy Wind Magic"
 	J.Skill4 = "Fairy Water Magic"
 	J.Skill5 = "Fairy Earth Magic"
+	J.EQUIP_Weapon = "EQP_JAKE_WP1"
+	J.EQUIP_Armor  = "EQP_JAKE_AR1"
 	S.BASE_SR_Paralysis = 90 div __skill
 End

@@ -50,5 +50,8 @@ Init
 	J.Skill3 = "Fairy Wind Magic"
 	J.Skill4 = "Fairy Water Magic"
 	J.Skill5 = "Fairy Earth Magic"
+	J.EQUIP_Weapon = "WAND_FLAME"
+	J.EQUIP_Armor  = "EQP_MARRILONA_AR1"
+
 	P.EXP_Skill1.Have = 1
 End
