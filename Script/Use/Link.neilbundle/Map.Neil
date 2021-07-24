@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Link.neilbundle/Map.Neil
-// Version: 21.07.23
+// Version: 21.07.24
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -43,7 +43,7 @@ Module
 				pr += ", "
 			End
 			Switch lua.type(p)
-				Case "String"
+				Case "string"
 					pr += "\""..p.."\""
 				Case "number" "boolean"
 					pr += toString(p)

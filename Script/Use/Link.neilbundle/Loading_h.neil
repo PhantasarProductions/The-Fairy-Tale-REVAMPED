@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Link.neilbundle/Loading_h.neil
-// Version: 21.07.21
+// Version: 21.07.24
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -57,7 +57,7 @@ End
 Void L_Kill(String Tag)
 	LoadLoading()
 	State.Call("SUB_LOADING","ProgressBar.Kill",sPrintF("'%s'",Tag))
-	_CSayF("Progress Bar '%s' released for destruction")
+	_CSayF("Progress Bar '%s' released for destruction",Tag)
 End
 
 QuickMeta Progress

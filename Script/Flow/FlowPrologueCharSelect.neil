@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.07.23
+// version: 21.07.24
 // End License Information
 #use "Script/Use/Anyway"
 #use "Script/Use/Misc/Prologue"
@@ -105,6 +105,7 @@ Global Void Apollo_Flow()
 		FPS.Sleep(400)
 		Party.CreateChar(PersonCard.Lst[Sel].Name, 1)
 		State.LoadNew("FLOW_FIELD","Script/Flow/FlowField.Neil")
+		Map.GoToMap("PRO_Empty","EMPTY","Start")
 		Lua.error("Start to dungeon not yet ready")
 	end
 	PersonCard.Lst[Sel].Card.Draw((Screen.W div 2),PY)

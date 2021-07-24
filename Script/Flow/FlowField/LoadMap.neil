@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField/LoadMap.neil
-// Version: 21.07.21
+// Version: 21.07.24
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -34,7 +34,31 @@
 // misrepresented as being the original software.
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
+
+Table LoadActions = {}
+
+Init
+	LoadActions += "Map"
+End
+
 Void RetLoadMap(string mapbundle)
+	Progress.Create("LOADMAP",#LoadActions)
+	CSayF("Loading map '%s'", mapbundle)
+	For i,f in iPairs(LoadActions)
+		CSayF("= Loadmap step %d/%d: %s",i,#LoadActions,Lua.tostring(f))
+		Progress.LOADMAP = i
+		Switch Type(f)
+			case "string" 
+				FlowField[f].CBLoadMap(mapbundle)
+			case "table"
+				plua ex = FlowField[f[1]][f[2]] or Flowfield[F[1]].CBLoadMap
+				ex(mapbundle,f[3])
+			case "function"
+				f(mapbundle)
+			default
+				Lua.error("Unknown action type!")
+		End		
+	End
 End
 
 Return RetLoadMap
