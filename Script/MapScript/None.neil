@@ -1,5 +1,5 @@
 // License Information:
-// src/Tricky Script/Script/Flow/FlowField.neil
+// src/Tricky Script/Script/MapScript/None.neil
 // Version: 21.07.24
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
@@ -34,35 +34,10 @@
 // misrepresented as being the original software.
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
-#use "Script/Use/Anyway"
+Module
 
-Table _real = {}
-
-QuickMeta FlowField
-	Index
-		plua k = Key:upper()
-		If !_real[k]
-			Lua.error("No field named: "..Key)
-		End
-		return _real[k]		
-	End
-	NewIndex
-		Lua.error("Sorry! All fields of FlowField are ReadOnly!")
-	End
-End
-
-Init
-	Table Bundle = JCR6.GetDir("Script/Flow/FlowField")
-	int Aantal = #Bundle
-	Progress.Create("LOADFIELD",Aantal,255,200,145)
-	For idx,File in iPairs(Bundle)
-		Progress.LOADFIELD=idx
-		Loading()
-		Table Gespleten = Split(File,"/")
-		String Gestript = Gespleten[#Gespleten]:upper()
-		Gestript = Replace(Gestript,".NEIL","")
-		CSayF("Loading section %d/%d: %s => %s",idx,Aantal,File,Gestript)
-		_real[Gestript] = NeilUse(Replace(File:upper(),".NEIL",""),"FLOWFIELD."..Gestript)
-	End
-	Progress.Kill("LOADFIELD")
+	ReadOnly Bool HaveDraw   = False
+	ReadOnly Bool HaveUpdate = False
+	
+	
 End

@@ -37,8 +37,16 @@
 
 Table LoadActions = {}
 
+Void LoadMapScript()
+End
+
+
+
 Init
 	LoadActions += "Map"
+	// MapScript always second last
+	LoadActions += LoadMapScript
+	// Music always the very last
 End
 
 Void RetLoadMap(string mapbundle)
