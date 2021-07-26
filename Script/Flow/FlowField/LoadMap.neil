@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField/LoadMap.neil
-// Version: 21.07.24
+// Version: 21.07.25
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -37,7 +37,16 @@
 
 Table LoadActions = {}
 
-Void LoadMapScript()
+Void LoadMapScript(string LM)
+	Static String Dir = "Script/MapScript/"
+	String F = Dir..LM..".neil"
+	If !JCR6.EntryExists(F)
+		F = Dir.."None.neil" 
+	End
+	State.Load("MAPSCRIPT",F)
+	FlowField.Map.MSUpdate = ISGET.BOOL("MAPSCRIPT","MScript.HasUpdate")
+	FlowField.Map.MSDraw   = ISGET.BOOL("MAPSCRIPT","MScript.HasDraw")
+	CSay("= MapScript '"..F.."' loaded")
 End
 
 

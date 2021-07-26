@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField/Map.neil
-// Version: 21.07.24
+// Version: 21.07.25
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -39,6 +39,8 @@ Module
 	Var KthuraMap
 	String Layer
 	String LoadedMap
+	Bool MSDraw 
+	Bool MSUpdate
 	
 	Get Var CurLayer
 		Return KthuraMap.Layer(Layer)
