@@ -32,10 +32,13 @@
 // 
 // **********************************************
 // 
-// version: 21.07.23
+// version: 21.07.28
 // End License Information
 
 #Use "Script/Use/Anyway"
+#Use "Script/Use/Misc/Box"
+
+#macro __BoxPosY Screen.H-128
 
 Table SubStat = {"BASE","BUFF","PERMABUFF","EQUIP","END","MASTER"}
 Table Stats = {"Power","Endurance","Intelligence","Resistance","Speed","Accuracy","Evasion","Critical"}
@@ -45,6 +48,8 @@ Table Ailments = {"Poison","Disease","Paralysis","Curse","Silence","Sleep","Deat
 
 
 Group SubParty
+
+	Table Pictures = {}
 
 	Void GrabLevel(string char,Int Level, noauto)
 		String n = char
@@ -195,5 +200,51 @@ Group SubParty
 		End
 		NeilUse("Script/Data/Char/"..char.."/Meta")
 	End
+	
+	Get Int PartyCount
+		If RPGParty[4]!=""
+			Return 4
+		End
+		For i=1,3
+			if RPGParty[i+1]==""
+				Return i
+			End
+		End
+		Return 0
+	End
 
+	Void Boxes()
+		Static Table Boxes = { new Box(0,__BoxPosY,20,128,false),new Box(0,__BoxPosY,20,128,false),new Box(0,__BoxPosY,20,128,false),new Box(0,__BoxPosY,20,128,false)}
+		Int C  = PartyCount
+		Int M3 = 0
+		Int W = Screen.W Div C
+		If C==3
+			M3 = Screen.W % 3
+		End
+		Lua.assert(C>0,"Empty party")
+		For i=1,C
+			String Ch = RPGParty[i]
+			Int W2 = W
+			if i==3
+				W2+=M3
+			End
+			// Background Box
+			Boxes[i].X = (W*(i-1))
+			Boxes[i].Y = __BoxPosY
+			Boxes[i].W = W2
+			Boxes[i].H = 128
+			Boxes[i].Draw()
+			Var B=Boxes[i]
+			// Portrait
+			__White
+			Pictures[ch] = Pictures[ch] || Image.Load("GFX/BoxText/Portret/"..ch.."/General.png")
+			Pictures[ch].Hot(0,Pictures[ch].H)
+			Pictures[ch].Draw(B.X,Screen.H)
+			// HP
+			// AP
+			// Vitality (if appliccable)
+			// Level (if appliccable)
+		End
+	End
+	
 End

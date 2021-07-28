@@ -32,14 +32,14 @@
 // 
 // **********************************************
 // 
-// version: 21.07.23
+// version: 21.07.28
 // End License Information
 Init
 	Var J = RPGChar.Marrilona.Data
 	Var P = RPGChar.Marrilona.Points
 	Var S = RPGChar.Marrilona.Stat
 	S.BASE_SR_Curse   = 90 div __skill
-	S.BASE_SR_Silence = 72 div __skill)
+	S.BASE_SR_Silence = 72 div __skill
 	J.Race = "Fairy"
 	J.Sex = "Female"
 	J.pvnw = "She"

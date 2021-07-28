@@ -32,11 +32,13 @@
 // 
 // **********************************************
 // 
-// version: 21.07.24
+// version: 21.07.28
 // End License Information
 #use "Script/Use/Anyway"
 #use "Script/Use/Misc/Prologue"
+#use "Script/Use/Misc/Box"
 #use "libs/Vector"
+
 
 Class PersonCard
 	
@@ -62,10 +64,14 @@ Void PrologueDone()
 	Lua.error("Post prologue content not yet available")
 End	
 
-Init
+Var BX
+
+Init	
 	bool Klaar = true
-	Box.Add(0,0,Screen.W,Screen.H)
-	For Ch in each { "Jake", "Marrilona", "Dandor", "Hando Stillor" }
+	RPGPARTY.MAX = 4
+	BX = new Box(0,0,Screen.W,Screen.H,false)
+	//new Box(0,0,Screen.W,Screen.H)
+	For Ch in each { "Jake", "Marrilona", "Dandor", "HandoStillor" }
 		If !Prologue.Done[Ch]
 			PersonCard.Lst.Push_Back( New PersonCard(Ch) )
 			Klaar = false
@@ -82,7 +88,8 @@ Global Void Apollo_Flow()
 	Static Int Sel = 0
 	Static number D = ((Screen.H*0.75)/500)
 	int PY=Screen.H div 2
-	Box.DrawAll()
+	//Box.DrawAll()
+	BX.Draw()
 	Dev.ToConsole()
 	For Idx,Crd in PersonCard.Lst.IPairs
 		// CSayF("ForIDXCRD: %d/%d",idx,sel)
@@ -96,18 +103,28 @@ Global Void Apollo_Flow()
 		End
 	End
 	Graphics.SetScale(D,D)
-	int cw = math.floor(D*250)
-	if Mouse.ML && Mouse.MX>(Screen.W div 2)-cw && Mouse.MX<(Screen.W div 2)+cw
+	Int cw = math.floor(D*250)
+	If Mouse.ML && Mouse.MX>(Screen.W div 2)-cw && Mouse.MX<(Screen.W div 2)+cw
 		Graphics.Cls()
 		PersonCard.Lst[Sel].Card.Draw((Screen.W div 2),PY)
 		Graphics.Flip()
 		Mouse.Flush()
 		FPS.Sleep(400)
 		Party.CreateChar(PersonCard.Lst[Sel].Name, 1)
+		Switch PersonCard.Lst[Sel].Name
+			Case "Jake" 
+				RPGParty[1] = "Jake_Human"
+			Case "HandoStillor"
+				RPGParty[1] = "HandoStillor"
+				RPGChar.HandoStillor.Name = "Hando Stillor"
+			Default
+				RPGParty[1] = PersonCard.Lst[Sel].Name
+		End
 		State.LoadNew("FLOW_FIELD","Script/Flow/FlowField.Neil")
 		Map.GoToMap("PRO_Empty","EMPTY","Start")
-		Lua.error("Start to dungeon not yet ready")
-	end
+		//Lua.error("Start to dungeon not yet ready")
+		Flow.Current = "FLOW_FIELD"
+	End
 	PersonCard.Lst[Sel].Card.Draw((Screen.W div 2),PY)
 	Graphics.SetScale(1,1)
 	Mouse.Draw()

@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Anyway.neilbundle/Box_Class.neil
-// Version: 21.03.05
+// Version: 21.07.28
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -34,6 +34,8 @@
 // misrepresented as being the original software.
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
+
+#if __IGNORE
 #use "Libs/LinkedList"
 
 class Box
@@ -95,3 +97,5 @@ class Box
 end
 
 return Box
+
+#fi
