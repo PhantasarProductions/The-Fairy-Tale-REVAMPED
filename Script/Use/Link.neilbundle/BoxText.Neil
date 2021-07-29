@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Link.neilbundle/BoxText.Neil
-// Version: 21.07.27
+// Version: 21.07.29
 // Copyright (C) 2020, 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -36,7 +36,7 @@
 // End License Information
 
 #MKL_Lic     "The Fairy Tale REVAMPED for Apollo - BoxText.Neil" "Phantasar zLib License"
-#MKL_Version "The Fairy Tale REVAMPED for Apollo - BoxText.Neil" "21.07.27"
+#MKL_Version "The Fairy Tale REVAMPED for Apollo - BoxText.Neil" "21.07.29"
 
 
 void BTLoad()
@@ -64,7 +64,7 @@ module
 	void Load(string Tag,string File)
 		BTLoad()
 		//State.Call("BOXTEXT","Scenario.Load",sprintf("\"%s\",\"%s\"",File,tag))
-		State.Call("BOXTEXT","Scenario.LoadData",sprintf("\"%s\",\"%s\", false",Trim("Scenario/"..lang.."/"..File),Trim(Tag)))
+		State.Call("BOXTEXT","TFT_LoadScen",sprintf("\"%s\",\"%s\", false",Trim(File),Trim(Tag)))
 	end
 	
 	void Serial(string AScen, string ATag, string RF="FLOW_FIELD", ANum)

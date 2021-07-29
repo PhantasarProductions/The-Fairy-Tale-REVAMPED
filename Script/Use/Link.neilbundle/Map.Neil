@@ -64,6 +64,7 @@ Module
 		If pr=="" 
 			pr = "nil"
 		End
+		//print(sprintf ("Calling %s(%s)",func,pr))
 		State.Call("FLOW_FIELD",func,pr)
 	End
 	
@@ -93,7 +94,7 @@ Module
 		Switch Lua.type(a)
 			Case "string"
 				CSayF("Spawning ActTag '%s' on spot '%s'",ActTag,a)
-				MCall("FlowField.Map.CurLayer.Spawn",{"\""..ActTag.."\"","\""..a.."\""})
+				MCall("FlowField.Map.CurLayer.Spawn",ActTag,a)
 			Case "number"
 				assert(Lua.type(b)=="number","n::Illegal spawn function call")
 				CSayF("Spawning ActTag '%s' on coordinates (%4d,%4d)",ActTag,a,b)

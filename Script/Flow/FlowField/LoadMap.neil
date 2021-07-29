@@ -58,12 +58,24 @@ Void LoadMapMusic(string LM)
 	If !Suffixed(MusFile:upper(),".OGG")
 		MusFile += ".ogg"
 	End
+	if !Prefixed(MusFile:upper(),"MUSIC/")
+		MusFile = "Music/"..MusFile
+	End
 	Music.Play(MusFile)
+End
+
+Void LoadMapText(string LM)
+	if !JCR6.EntryExists("Languages/"..__lang.."/Scenario/maps/"..LM)
+		CSay("No mapfile for: "..LM)
+		return
+	End
+	BoxText.Load("MAPTEXT","Maps/"..LM)	
 End
 
 
 Init
 	LoadActions += "Map"
+	LoadActions += LoadMapText
 	// MapScript always second last
 	LoadActions += LoadMapScript
 	// Music always the very last

@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Subs/SubBoxText.Neil
-// Version: 21.07.27
+// Version: 21.07.29
 // Copyright (C) 2020, 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -68,6 +68,27 @@ void InitScenario()
 	Scenario.JCR_Exists = JCR6.EntryExists
 		
 end
+
+
+Global Void TFT_LoadScen(string File,string Tag)
+	CSay("Loading: "..File.." to "..Tag)
+	var work = Scenario.LoadData(Trim("Languages/"..__lang.."/Scenario/"..File),Tag)
+	CSay("Working out the audio")
+	For k,itag in pairs(work)
+		//Print(k,itag)
+		If !(Prefixed(k,"@@") || Prefixed(K,"@@"))
+			For i,rec in pairs(itag)
+				String VFile = "VOCALS/"..file.."/"..k.."_"..i..".ogg"
+				If JCR6.EntryExists(VFile)
+					rec.SoundFile = VFile
+					CSay("Vocal: Got sound for "..k.." #"..i.."\t"..VFile)
+				Else
+					CSay("Vocal: "..VFile.." not found!")
+				End
+			End
+		End 
+	End     
+End
 
 class TextBox
 	readonly static delegate Color = Graphics.Color
@@ -265,7 +286,7 @@ class TextBox
 		// if tonumber(LC('screen.margin.right') )~=0 then sb_data.width=sb_data.width-25 end
 		// if tonumber(LC('screen.margin.left') )~=0 then sb_data.width=sb_data.width-25 end
 		//-- Voice acting, if available
-		CSay("= The Voice of the Universe")
+		CSay("= The Voice of Phantasar")
 		if sb_data.Voice and sb_data.Voice!="" and JCR6.EntryExists(sb_data.Voice) 		
 			// This is all LAURA, but NALA must be handled differently, so let's comment this out... for now!
 			// if Audio.Playing('BOXTEXTCHANNEL')~=0 then Audio.Stop('BOXTEXTCHANNEL') end
