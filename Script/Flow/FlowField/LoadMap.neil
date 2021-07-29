@@ -49,6 +49,13 @@ Void LoadMapScript(string LM)
 	CSay("= MapScript '"..F.."' loaded")
 End
 
+Void LoadMapMusic(string LM)
+	If Prefix(FieldMap.Map.KthuraMap.Meta.Music,"*")
+		Lua.error("Special cases for music not yet supported")
+		Return
+	End
+	Music.Play(FieldMap.Map.KthuraMap.Meta.Music)
+End
 
 
 Init
@@ -56,6 +63,7 @@ Init
 	// MapScript always second last
 	LoadActions += LoadMapScript
 	// Music always the very last
+	LoadActions += LoadMapMusic
 End
 
 Void RetLoadMap(string mapbundle)

@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Link.neilbundle/Loading_h.neil
-// Version: 21.07.24
+// Version: 21.07.28
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -46,10 +46,7 @@ End
 
 void L_Create(String Tag,Int Max,int R=255,int G=180, B=0)
 	//LoadLoading()	
-	Print("FUCK IT > ",Tag,Max,R,G,B)
-	print("FUCK OFF> ",sPrintF("'%s',%d,%d,%d,%d",Tag,Max,R,G,B))
 	_CSayF("Create Progessbar >> '%s',%d,%d,%d,%d",Tag,Max,R,G,B)
-	Print("TEST! FUCK YOU!")
 	State.Call("SUB_LOADING","ProgressBar.Create",sPrintF("'%s',%d,%d,%d,%d",Tag,Max,R,G,B))
 	_CSayF("Progress Bar '%s' created",Tag)
 End

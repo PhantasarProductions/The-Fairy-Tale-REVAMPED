@@ -38,10 +38,10 @@
 #Use "Script/Use/Anyway"
 #Use "Script/Use/Misc/Box"
 
-#macro __BoxPosY Screen.H-128
+#macro __BoxPosY Screen.H-100
 
 Table SubStat = {"BASE","BUFF","PERMABUFF","EQUIP","END","MASTER"}
-Table Stats = {"Power","Endurance","Intelligence","Resistance","Speed","Accuracy","Evasion","Critical"}
+Table Stats = {"Power","Endurance","Intelligence","Resistance","Speed","Accuracy","Evasion","Critical","HP","AP"}
 Table Elements = {"Flame","Wind","Water","Earth","Lightning","Frost","Light","Darkness"}
 Table Ailments = {"Poison","Disease","Paralysis","Curse","Silence","Sleep","Death"}
 
@@ -50,6 +50,8 @@ Table Ailments = {"Poison","Disease","Paralysis","Curse","Silence","Sleep","Deat
 Group SubParty
 
 	Table Pictures = {}
+	
+	ReadOnly Var Fnt = ImageFont.Obtain("FNTSBAR") 
 
 	Void GrabLevel(string char,Int Level, noauto)
 		String n = char
@@ -174,23 +176,26 @@ Group SubParty
 			String Str="SUM:"..char
 			For SBS in Each(SuBStat)
 				If SBS!="END"
-					Str+="."
-					Str=SBS.."_"..S
+					
+					Str+="."..SBS.."_"..S
 				End
 			End
 			RPGChar[char].StatScript["END_"..S]=Str
+			//Print(S,Str,RPGChar[char].Stat["END_"..S])
 		End
 		For A in Each(Ailments)
 			RPGChar[char].Stat["BASE_SR_"..A]= 100-math.floor(33*__skill)
 		End
-		RPGChar[char].Points.HP.MaxCopy = "END_HP"
-		RPGChar[char].Points.HP.Have    = RPGChar[char].Points.HP.Maximum 
-		RPGChar[char].Points.AP.MaxCopy = "END_AP"
-		RPGChar[char].Points.AP.Have    = RPGChar[char].Points.AP.Maximum 
-		RPGChar[char].Data.EQUIP_Weapon = ""
-		RPGChar[char].Data.EQUIP_Armor  = ""
-		RPGChar[char].Data.EQUIP_Jewel  = ""
-		RPGChar[char].Data.Master       = ""
+		RPGChar[char].Points.HP.MaxCopy  = "END_HP"
+		RPGChar[char].Points.HP.Have     = RPGChar[char].Points.HP.Maximum
+		RPGChar[char].Points.AP.MaxCopy  = "END_AP"
+		RPGChar[char].Points.AP.Have     = RPGChar[char].Points.AP.Maximum
+		RPGChar[char].Points.VIT.Maximum = ({250,100,0})[__skill]
+		RPGChar[char].Points.VIT.Have    = RPGChar[char].Points.VIT.Maximum
+		RPGChar[char].Data.EQUIP_Weapon  = ""
+		RPGChar[char].Data.EQUIP_Armor   = ""
+		RPGChar[char].Data.EQUIP_Jewel   = ""
+		RPGChar[char].Data.Master        = ""
 		For i=1,5
 			Int val=0
 			If i==1
@@ -232,7 +237,7 @@ Group SubParty
 			Boxes[i].X = (W*(i-1))
 			Boxes[i].Y = __BoxPosY
 			Boxes[i].W = W2
-			Boxes[i].H = 128
+			Boxes[i].H = 100
 			Boxes[i].Draw()
 			Var B=Boxes[i]
 			// Portrait
@@ -240,9 +245,52 @@ Group SubParty
 			Pictures[ch] = Pictures[ch] || Image.Load("GFX/BoxText/Portret/"..ch.."/General.png")
 			Pictures[ch].Hot(0,Pictures[ch].H)
 			Pictures[ch].Draw(B.X,Screen.H)
+			// Bars			
+			Int barx = B.X + 100
+			Int barwidth = B.W-110			
 			// HP
+			Do
+				Var HP = RPGChar[ch].Points.HP
+				Number Breuk = HP.Have / HP.Maximum
+				Int HPG = math.floor(255*Breuk)
+				Int HPR = math.floor(255 - HPG)
+				Int HBR = Math.floor(barwidth*Breuk)
+				// print(HPR,HPG,0)
+				Graphics.Color(50,50,50)
+				Graphics.Rect(barx,B.Y+25,barwidth,10)
+				Graphics.Color(HPR,HPG,0)
+				Graphics.Rect(barx,B.Y+25,HBR,10)
+				Fnt.DarkText("HP",barx,B.Y+35,1,1)
+				Fnt.DarkText(HP.Have,barx+barwidth,B.Y+35,1,1)
+			End
 			// AP
+			Do
+				Var AP = RPGChar[ch].Points.AP
+				Number Breuk = AP.Have / AP.Maximum
+				Int APG = math.floor(180*Breuk)			
+				Int ABB = 255
+				Int ABR = Math.floor(barwidth*Breuk)
+				// print(APR,APG,0)
+				Graphics.Color(50,50,50)
+				Graphics.Rect(barx,B.Y+50,barwidth,10)
+				Graphics.Color(0,APG,ABB)
+				Graphics.Rect(barx,B.Y+50,ABR,10)
+				Fnt.DarkText("AP",barx,B.Y+60,1,1)
+				Fnt.DarkText(AP.Have,barx+barwidth,B.Y+60,1,1)
+			End
 			// Vitality (if appliccable)
+			If __Skill<3
+				Var VIT = RPGChar[ch].Points.VIT
+				Number Breuk = VIT.Have / VIT.Maximum
+				Int VBR = Math.floor(barwidth*Breuk)
+				// print(VITR,VITG,0)
+				Graphics.Color(50,50,50)
+				Graphics.Rect(barx,B.Y+75,barwidth,10)
+				Graphics.Color(255,180,0)
+				Graphics.Rect(barx,B.Y+75,VBR,10)
+				Fnt.DarkText("VIT",barx,B.Y+85,1,1)
+				Fnt.DarkText(VIT.Have,barx+barwidth,B.Y+85,1,1)
+			End
 			// Level (if appliccable)
 		End
 	End

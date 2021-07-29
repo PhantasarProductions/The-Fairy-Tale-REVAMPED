@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.07.20
+// version: 21.07.28
 // End License Information
 
 #macro wh_Image 1
@@ -86,6 +86,7 @@ init
 	LAsset.C("Fonts/SysFont.jfbf","SYSFONT",wh_Font)
 	LAsset.C("Fonts/Coolvetica.jfbf",    "BOXTEXT",wh_Font)
 	LAsset.C("Fonts/Coolvetica.Big.jfbf","BIGTEXT",wh_Font)
+	LAsset.C("Fonts/monof55.20.jfbf","FNTSBAR",wh_Font)
 
 
 	// Loading assets
