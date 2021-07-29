@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField/LoadMap.neil
-// Version: 21.07.27
+// Version: 21.07.29
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -50,11 +50,15 @@ Void LoadMapScript(string LM)
 End
 
 Void LoadMapMusic(string LM)
-	If Prefix(FieldMap.Map.KthuraMap.Meta.Music,"*")
+	If Prefixed(FlowField.Map.KthuraMap.Meta.Music,"*")
 		Lua.error("Special cases for music not yet supported")
 		Return
 	End
-	Music.Play(FieldMap.Map.KthuraMap.Meta.Music)
+	String MusFile = FlowField.Map.KthuraMap.Meta.Music
+	If !Suffixed(MusFile:upper(),".OGG")
+		MusFile += ".ogg"
+	End
+	Music.Play(MusFile)
 End
 
 

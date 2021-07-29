@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.07.28
+// version: 21.07.29
 // End License Information
 #use "Script/Use/Anyway"
 #use "Script/Use/Misc/Prologue"
@@ -124,6 +124,7 @@ Global Void Apollo_Flow()
 		Map.GoToMap("PRO_Empty","EMPTY","Start")
 		//Lua.error("Start to dungeon not yet ready")
 		Flow.Current = "FLOW_FIELD"
+		Schedule.Add("Start"..PersonCard.Lst[Sel].Name)
 	End
 	PersonCard.Lst[Sel].Card.Draw((Screen.W div 2),PY)
 	Graphics.SetScale(1,1)

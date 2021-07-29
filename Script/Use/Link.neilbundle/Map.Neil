@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Link.neilbundle/Map.Neil
-// Version: 21.07.24
+// Version: 21.07.29
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -34,7 +34,17 @@
 // misrepresented as being the original software.
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
+
+Global Table MapScript
+
 Module
+
+	ReadOnly Var Meta
+	
+	Get Delegate CSayF
+		return Lua.Neil.Globals.CSayF
+	End
+
 
 	Void MCall(String func,a,b,c,d,e,f,g,h)
 		String pr
@@ -78,5 +88,47 @@ Module
 		Schedule("LAYER:"..aLayer)
 		Schedule("SPAWN:"..SpawnPoint)
 	End
+	
+	Void Spawn(string ActTag,a,b)
+		Switch Lua.type(a)
+			Case "string"
+				CSayF("Spawning ActTag '%s' on spot '%s'",ActTag,a)
+				MCall("FlowField.Map.CurLayer.Spawn",{"\""..ActTag.."\"","\""..a.."\""})
+			Case "number"
+				assert(Lua.type(b)=="number","n::Illegal spawn function call")
+				CSayF("Spawning ActTag '%s' on coordinates (%4d,%4d)",ActTag,a,b)
+				MCall("FlowField.Map.CurLayer.Spawn",ActTag,a,b)
+			Default
+				Lua.error("t::Illegal spawn function call")			
+		End
+	End
+	
+	Void SpawnPlayer(a,b)		
+		Spawn("PLAYER",a,b)
+	End
+	
+	Void Script(String Func,Args="nil")
+		State.Call("MAPSCRIPT","MScript."..Func,"\""..Lua.tostring(Args).."\"")
+	End
+	
+	CONSTRUCTOR
+		table m
+		m = {}
+		delegate idx(s,string key)
+			Void f(para)
+				para = para || "nil"
+				Script(key,para)
+			end
+			return f
+		end
+		m.__index = idx
+		Lua.setmetatable(MapScript,m)
+		
+		string MetaIndex(s,string key)
+			//CSayF("Remoye Map Meta Request: %s",key)
+			return ISGET.STRING("FLOW_FIELD",sprintf("FlowField.Map.KthuraMap.Meta[\"%s\"]",key))
+		end
+		Meta = Lua.setmetatable({},{["__index"]=MetaIndex})
+	end
 
 End

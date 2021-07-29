@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField.neil
-// Version: 21.07.28
+// Version: 21.07.29
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -51,6 +51,8 @@ QuickMeta FlowField
 	End
 End
 
+ReadOnly Global Var FieldFlow = FlowField
+
 Init
 	Table Bundle = JCR6.GetDir("Script/Flow/FlowField")
 	int Aantal = #Bundle
@@ -72,5 +74,6 @@ Global Void Apollo_Flow()
 	Dev.ToConsole()
 	FlowField.DrawScreen()
 	Party.Boxes()
+	FlowField.Schedule.DoScheduled()
 	Mouse.Draw()
 End
