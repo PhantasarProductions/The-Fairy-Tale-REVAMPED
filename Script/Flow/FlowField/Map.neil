@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField/Map.neil
-// Version: 21.07.29
+// Version: 21.07.30
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -41,6 +41,9 @@ Module
 	String LoadedMap
 	Bool MSDraw 
 	Bool MSUpdate
+	Int ScrollX
+	Int ScrollY
+	Bool AllowAutoScroll = true
 		
 	Get Var CurLayer
 		Return KthuraMap.Layer(Layer)
@@ -51,6 +54,7 @@ Module
 	End
 	
 	Void CBLoadMap(string mapbundle)
+		AllowAutoScroll = true
 		LoadedMap = MapBundle:upper()
 		CSayF("= Loading Kthura Map: %s",MapBundle)
 		KthuraMap = Kthura.Load("Kthura/"..MapBundle)

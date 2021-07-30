@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField/LoadMap.neil
-// Version: 21.07.29
+// Version: 21.07.30
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -58,7 +58,7 @@ Void LoadMapMusic(string LM)
 	If !Suffixed(MusFile:upper(),".OGG")
 		MusFile += ".ogg"
 	End
-	if !Prefixed(MusFile:upper(),"MUSIC/")
+	If !Prefixed(MusFile:upper(),"MUSIC/")
 		MusFile = "Music/"..MusFile
 	End
 	Music.Play(MusFile)
@@ -88,6 +88,7 @@ Void RetLoadMap(string mapbundle)
 	For i,f in iPairs(LoadActions)
 		CSayF("= Loadmap step %d/%d: %s",i,#LoadActions,Lua.tostring(f))
 		Progress.LOADMAP = i
+		Loading()
 		Switch Type(f)
 			case "string" 
 				FlowField[f].CBLoadMap(mapbundle)

@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField/DrawScreen.neil
-// Version: 21.07.28
+// Version: 21.07.30
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -34,8 +34,55 @@
 // misrepresented as being the original software.
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
-Void _DS()
 
+QuickMeta PlTag
+	Index
+		If key==1
+			Return "PLAYER"
+		End
+		Return "PLAYER"..key
+	End
+End
+
+Void AutoPlayerTex()
+	For i=1,4
+		If FlowField.Map.CurLayer.HasTag(PlTag[i]) 
+			If RPGParty[i]==""
+				FlowField.Map.CurLayer.Kill(PlTag[i])
+			Else
+				Var PL=FlowField.Map.CurLayer.Obj(PlTag[i])
+				If PL.Wind==""
+					PL.Wind="North"
+				End
+				PL.Texture = "GFX/Actors/Bundled/Player/".. RPGParty[i] .. "." .. PL.Wind .. ".jpbf"
+			End
+		Else
+			If i>1 && RPGParty[i]!=""
+				Lua.error("No followers for leader cannot yet be spawned... Combe back later!")
+			End
+		End
+	End
+End
+
+Void AutoScroll()
+	If (!FlowField.Map.CurLayer.HasTag("PLAYER")) || (FlowField.Map.AllowAutoScroll)
+		Var PL=FlowField.Map.CurLayer.Obj("PLAYER")
+		Int W
+		Int H
+		W,H = Kthura.ScreenSize()
+		FlowField.Map.ScrollX = PL.X - (W div 2)
+		FlowField.Map.ScrollY = PL.Y - (H div 2)
+	End
+End
+
+
+Void _DS()
+	If FieldFlow.Map.Layer==""
+		Return
+	End
+	AutoPlayerTex()
+	AutoScroll()
+	FlowField.Map.KthuraMap.Draw(FieldFlow.Map.Layer,FieldFlow.Map.ScrollX,FieldFlow.Map.ScrollY)
 End
 
 
