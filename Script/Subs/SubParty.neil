@@ -223,6 +223,7 @@ Group SubParty
 		Int C  = PartyCount
 		Int M3 = 0
 		Int W = Screen.W Div C
+		Graphics.Scale(1,1)
 		If C==3
 			M3 = Screen.W % 3
 		End

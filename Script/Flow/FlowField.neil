@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField.neil
-// Version: 21.07.29
+// Version: 21.07.31
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -73,10 +73,20 @@ Global Void BoxText_Back()
 	FlowField.DrawScreen()
 End
 
+
+Void Walk()
+	If Events.MouseHitLeft()
+		If Mouse.my<Screen.H-100
+			FlowField.Map.WalkClick(Kthura.mx,Kthura.my)
+		end
+	end	
+End
+
 Global Void Apollo_Flow()
 	Dev.ToConsole()
 	FlowField.DrawScreen()
 	Party.Boxes()
 	FlowField.Schedule.DoScheduled()
+	Walk()
 	Mouse.Draw()
 End

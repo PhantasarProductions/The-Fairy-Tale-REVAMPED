@@ -1,0 +1,14 @@
+#use "Script/Use/Anyway"
+
+Const Int MaxPerPage = 24
+Const Int RowSize = 4
+Const Var Back = Image.Obtain("BACKGROUND")
+
+Int Page = 1
+
+
+Global Void Apollo_Flow()
+	Dev.ToConsole()
+	__White
+	Back.Tile(0,0,Screen.W,Screen.H)
+End

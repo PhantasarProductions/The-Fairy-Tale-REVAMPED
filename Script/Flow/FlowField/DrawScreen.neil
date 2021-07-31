@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField/DrawScreen.neil
-// Version: 21.07.30
+// Version: 21.07.31
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -34,6 +34,7 @@
 // misrepresented as being the original software.
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
+
 
 QuickMeta PlTag
 	Index
@@ -83,6 +84,20 @@ Void _DS()
 	AutoPlayerTex()
 	AutoScroll()
 	FlowField.Map.KthuraMap.Draw(FieldFlow.Map.Layer,FieldFlow.Map.ScrollX,FieldFlow.Map.ScrollY)
+	If FlowField.Debug.MouseCoords
+		__White
+		int midx = Screen.W div 2
+		FlowField.Font.SmallFixed.Text("Mouse",midx,25)
+		FlowField.Font.SmallFixed.Text(sPrintF("Pure(%04d,%04d)",Mouse.MX,Mouse.MY),midx,50,2)
+		FlowField.Font.SmallFixed.Text(sPrintF("Kthura(%04d,%04d)",Kthura.MX,Kthura.MY),midx,75,2)
+		FlowField.Font.SmallFixed.Text(sPrintF("Pure+Scroll(%04d,%04d)",Mouse.MX+FieldFlow.Map.ScrollX,Mouse.MY+FieldFlow.Map.ScrollY),midx,100,2)
+		FlowField.Font.SmallFixed.Text(sPrintF("Kthura+Scroll(%04d,%04d)",Kthura.MX+FieldFlow.Map.ScrollX,Kthura.MY+FieldFlow.Map.ScrollY),midx,125,2)
+		FlowField.Font.SmallFixed.Text(sPrintF("Scroll(%04d,%04d)",FieldFlow.Map.ScrollX,FieldFlow.Map.ScrollY),midx,150,2)
+		If FlowField.Map.CurLayer.HasTag("PLAYER")
+			Var PL=FlowField.Map.CurLayer.Obj("PLAYER")
+			FlowField.Font.SmallFixed.Text(sPrintF("Player(%04d,%04d)",PL.X,PL.Y),midx,175,2)
+		End
+	End
 End
 
 

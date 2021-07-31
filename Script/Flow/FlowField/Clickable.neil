@@ -1,5 +1,5 @@
 // License Information:
-// src/Tricky Script/Script/Flow/FlowField/Map.neil
+// src/Tricky Script/Script/Flow/FlowField/Clickable.neil
 // Version: 21.07.31
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
@@ -34,52 +34,8 @@
 // misrepresented as being the original software.
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
-
-Module
-	Var KthuraMap
-	String Layer
-	String LoadedMap
-	Bool MSDraw 
-	Bool MSUpdate
-	Int ScrollX
-	Int ScrollY
-	Bool AllowAutoScroll = True
-	Delegate ArriveFunc = Nil
-	String ArriveParam 
-		
-	Get Var CurLayer
-		Return KthuraMap.Layer(Layer)
+Module Class
+	Static Void All(Int X,Int Y)
+		Return False
 	End
-	
-	Get Var CurrentLayer
-		Return CurLayer
-	End
-	
-	Get Var Clickable
-		Return FlowField.Clickable
-	End
-	
-	Void WalkClick(Int mX, Int mY)		
-		int x = mx + ScrollX
-		int y = my + ScrollY
-		CSayF("Request to walk to (%4d,%4d); Mouse(%4d,%4d); Scroll(%4d,%4d)",x,y,mx,my,ScrollX,ScrollY)
-		if !CurLayer.HasTag("PLAYER")
-			CSay("But there is no player available now, so the request will be ignored!")
-			return
-		end				
-		if !Clickable.All(x,y)
-			CurLayer.Obj("PLAYER").WalkTo(x,y)
-			ArriveFunc = nil
-			ArriveParam = ""
-		End	
-	End
-	
-	Void CBLoadMap(string mapbundle)
-		AllowAutoScroll = true
-		LoadedMap = MapBundle:upper()
-		CSayF("= Loading Kthura Map: %s",MapBundle)
-		KthuraMap = Kthura.Load("Kthura/"..MapBundle)
-	End
-		
-	
 End
