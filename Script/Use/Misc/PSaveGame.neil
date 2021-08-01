@@ -39,6 +39,7 @@ void MakeHeader()
 	string r = "Map:"..gv.gStr.MapTitle.."\n"
 	r += "Difficulty:"..({"Easy","Casual","Hard"})[gv.vInt.skill].."\n"
 	r += "Saved:"..gv.vInt.Saved.."\n"
+	r += "LevelCap:"..gv.vInt.LevelCap
 	For i=1,4
 		String Ch
 		Ch=RPGParty[i]

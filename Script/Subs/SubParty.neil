@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.07.31
+// version: 21.08.01
 // End License Information
 
 #Use "Script/Use/Anyway"
@@ -113,7 +113,7 @@ Group SubParty
 	End
 	
 	Void SetSkill(string char,int i,int level)
-		SetSkill(RPGChar[char].Points["EXP_Skill_"..i],RPGChar[char].Points["LVL_Skill_"..i],Level)
+		SetSkill(RPGChar[char].Points["EXP_Skill"..i],RPGChar[char].Points["LVL_Skill"..i],Level)
 	End
 	
 	Void CreateCharacter(string char, int level)
@@ -201,7 +201,7 @@ Group SubParty
 			If i==1
 				val=1
 			End
-			_SetSkill(RPGChar[char].Points["EXP_Skill_"..i],RPGChar[char].Points["LVL_Skill_"..i],val)
+			_SetSkill(RPGChar[char].Points["EXP_Skill"..i],RPGChar[char].Points["LVL_Skill"..i],val)
 		End
 		NeilUse("Script/Data/Char/"..char.."/Meta")
 	End
@@ -217,6 +217,13 @@ Group SubParty
 		End
 		Return 0
 	End
+	
+	Void Portrait(string ch,int X, int Y)
+		Pictures[ch] = Pictures[ch] || Image.Load("GFX/BoxText/Portret/"..ch.."/General.png")
+		Pictures[ch].Hot(0,Pictures[ch].H)
+		Pictures[ch].Draw(X,Y)
+	End
+
 
 	Void Boxes()
 		Static Table Boxes = { new Box(0,__BoxPosY,20,128,false),new Box(0,__BoxPosY,20,128,false),new Box(0,__BoxPosY,20,128,false),new Box(0,__BoxPosY,20,128,false)}
@@ -243,9 +250,7 @@ Group SubParty
 			Var B=Boxes[i]
 			// Portrait
 			__White
-			Pictures[ch] = Pictures[ch] || Image.Load("GFX/BoxText/Portret/"..ch.."/General.png")
-			Pictures[ch].Hot(0,Pictures[ch].H)
-			Pictures[ch].Draw(B.X,Screen.H)
+			Portrait(ch,B.X,Screen.H)
 			// Bars			
 			Int barx = B.X + 100
 			Int barwidth = B.W-110			

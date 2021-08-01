@@ -83,6 +83,7 @@ Module
 		LoadedMap = MapBundle:upper()
 		CSayF("= Loading Kthura Map: %s",MapBundle)
 		KthuraMap = Kthura.Load("Kthura/"..MapBundle)
+		gv.gStr.MapTitle = KthuraMap.Meta.Title
 	End
 		
 	Void SG()

@@ -42,6 +42,8 @@ Const Int MaxPerPage = 24
 Const Int RowSize = 4
 ReadOnly Var Back = Image.Obtain("BACKGROUND")
 ReadOnly Int TileSize = math.min(Screen.W,Screen.H) div ((MaxPerPage div RowSize) + 3)
+ReadOnly Var TFont = ImageFont.Obtain("BIGTEXT")
+ReadOnly Var SFont = ImageFont.Obtain("FNTSBAR")
 
 ReadOnly Table ImgHeader = { ["SAVE"]=Image.Load("GFX/Logo/Save Game.png"), ["LOAD"]=Image.Load("GFX/Logo/Load Game.png") }
 Readonly Var Saving = Image.Load("GFX/Loading/Saving.png") 
@@ -51,6 +53,7 @@ Var Marrilona
 Int MarrilonaH
 Int MarrilonaW
 
+Table HasSave = {}
 
 Int Page = 1
 
@@ -84,6 +87,13 @@ Void GetMarrilona()
 	CSayF("Marrilona Size: %dx%d",MarrilonaW,MarrilonaH)
 End
 
+Void RenewPage()
+	For i=0,MaxPerPage-1
+		Table h = GetHeader(Page,i)		
+		HasSave[i] = h.Map!=nil
+	End
+End
+
 Global Void Apollo_Flow()
 	Int Hover = -1
 	Dev.ToConsole()
@@ -107,8 +117,30 @@ Global Void Apollo_Flow()
 		End
 		Graphics.Rect(X,Y,TileSize,TileSize)
 	End
+	If Hover>=0
+		__White
+		Int X = (RowSize+1) * Math.floor(TileSize * 1.25)
+		Int Y = 150
+		If X<(Screen.W)-500 && Screen.H>500
+			If HasSave[Hover]
+				Var H = GetHeader(Page,Hover)
+				TFont.Text(H.Map,X,Y)
+				Y += 300
+				For i=1,4
+					If RPGParty[i]!=""
+						__White
+						Party.Portrait(RPGParty[i],X+(i*110),Y)
+					End
+				End
+				y+=50
+				sFont.Text(SPrintF("Saved: %s",H.Saved),X,Y)
+				y+=25
+				sFont.Text(SPrintF("%s mode",H.Difficulty),X,Y)
+			End
+		End
+	End
 	If Mouse.ML
-		If Hover>=0
+		If Hover>=0 
 			String SG_File = GetSGFileName(Page,Hover)
 			Switch Situation
 				Case "SAVE"
@@ -120,7 +152,9 @@ Global Void Apollo_Flow()
 					PerformSaveGame(SG_File)
 					Flow.Current="FIELD"
 				Case "LOAD"
-					Lua.error("Load not yet supported")
+					If (HasSave[hover])
+						Lua.error("Load not yet supported")
+					End
 				Default
 					Lua.error("Unknown sg situation: "..Situation)
 			End				
@@ -137,4 +171,5 @@ Init
 	For _,I in pairs(ImgHeader)
 		I.Hot(I.Width div 2,0)
 	End
+	RenewPage()
 End

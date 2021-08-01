@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.07.28
+// version: 21.08.01
 // End License Information
 
 Void LoadPartySub()
@@ -59,5 +59,10 @@ Module
   	Void Boxes()
   		LoadPartySub()
   		State.Call("PARTY","SubParty.Boxes","nil")
+  	End
+  	
+  	Void Portrait(String Ch,Int X,Int Y)
+  		LoadPartySub()
+  		State.Call("PARTY","SubParty.Portrait",Sprintf("\"%s\",%d,%d",Ch,X,Y))
   	End
 End
