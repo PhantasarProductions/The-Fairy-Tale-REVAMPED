@@ -1,5 +1,5 @@
 // License Information:
-// src/Tricky Script/Script/Flow/FlowField/Map.neil
+// src/Tricky Script/Script/Flow/FlowField/Kill.neil
 // Version: 21.08.01
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
@@ -34,70 +34,23 @@
 // misrepresented as being the original software.
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
-
 Module
-	Var KthuraMap
-	String Layer
-	String LoadedMap
-	Bool MSDraw 
-	Bool MSUpdate
-	Int ScrollX
-	Int ScrollY
-	Bool AllowAutoScroll = True
-	Delegate ArriveFunc = Nil
-	String ArriveParam 
-		
-	Get Var CurLayer
-		Return KthuraMap.Layer(Layer)
+	Table TheKills = {}
+	
+	Void Kill(String Tag,bool Permanent)
+		TheKills[FlowField.Map.LoadedMap] = TheKills[FlowField.Map.LoadedMap] || {}
+		TheKills[FlowField.Map.LoadedMap] += Tag
 	End
 	
-	Get Var CurrentLayer
-		Return CurLayer
+	Get String Serialize
+		String ret = "Init\n"
+		For M,MT in sPairs(TheKills)
+			ret += "\tFlowField.TheKills[\""..M.."\"] = {}\n"
+			For KT in Each(MT)
+				ret += "\t\tFlowField.TheKills[\""..M.."\"] += \""..KT.."\"\n"
+			End
+		End
+		ret +="End\n"
+		Return Ret
 	End
-	
-	Get Var Clickable
-		Return FlowField.Clickable
-	End
-	
-	Get Var Player
-		Return CurrentLayer.Obj("PLAYER")
-	End
-	
-	Void WalkClick(Int mX, Int mY)		
-		int x = mx + ScrollX
-		int y = my + ScrollY
-		CSayF("Request to walk to (%4d,%4d); Mouse(%4d,%4d); Scroll(%4d,%4d)",x,y,mx,my,ScrollX,ScrollY)
-		if !CurLayer.HasTag("PLAYER")
-			CSay("But there is no player available now, so the request will be ignored!")
-			return
-		end				
-		if !Clickable.All(x,y)
-			CurLayer.Obj("PLAYER").WalkTo(x,y)
-			ArriveFunc = nil
-			ArriveParam = ""
-		End	
-	End
-	
-	Void CBLoadMap(string mapbundle)
-		AllowAutoScroll = true
-		LoadedMap = MapBundle:upper()
-		CSayF("= Loading Kthura Map: %s",MapBundle)
-		KthuraMap = Kthura.Load("Kthura/"..MapBundle)
-	End
-		
-	Void SG()
-		SaveGame.Data["PermaKills.NEIL"] = FieldFlow.Kill.Serialize
-		string r = "// Mapstuff\nInit\n"
-		r += "\tFlowField.Map.ScrollX = "..tostring(FlowField.Map.ScrollX).."\n"
-		r += "\tFlowField.Map.ScrollY = "..tostring(FlowField.Map.ScrollY).."\n"
-		r += "\tFlowField.Map.AllowAutoScroll = "..tostring(FlowField.Map.AllowAutoScroll).."\n"
-		r += "\tFlowField.Map.Layer = \""..FlowField.Map.Layer.."\"\n"
-		r += "\tFlowField.Map.CurLayer.Spawn(\"PLAYER\",0,0)\n"
-		r += "\tFlowField.Map.Player.X = "..tostring(FlowField.Map.Player.X).."\n"
-		r += "\tFlowField.Map.Player.Y = "..tostring(FlowField.Map.Player.Y).."\n"
-		r += "\tFlowField.Map.Player.Wind = \""..FlowField.Map.Player.Wind.."\"\n"
-		r += "end\n"
-		SaveGameData["Map.neil"] = r
-	End
-	
 End

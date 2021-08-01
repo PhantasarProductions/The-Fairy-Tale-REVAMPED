@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Link.neilbundle/Map.Neil
-// Version: 21.07.29
+// Version: 21.08.01
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -112,6 +112,10 @@ Module
 		State.Call("MAPSCRIPT","MScript."..Func,"\""..Lua.tostring(Args).."\"")
 	End
 	
+	Void SG()
+		MCall("FlowField.Map.SG")
+	End
+	
 	CONSTRUCTOR
 		table m
 		m = {}
@@ -131,5 +135,6 @@ Module
 		end
 		Meta = Lua.setmetatable({},{["__index"]=MetaIndex})
 	end
+		
 
 End

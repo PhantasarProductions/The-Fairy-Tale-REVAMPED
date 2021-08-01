@@ -1,14 +1,140 @@
+// License Information:
+// src/Tricky Script/Script/Flow/FlowSaveGame.neil
+// Version: 21.08.01
+// Copyright (C) 2021 Jeroen Petrus Broks
+// 
+// ===========================
+// This file is part of a project related to the Phantasar Chronicles or another
+// series or saga which is property of Jeroen P. Broks.
+// This means that it may contain references to a story-line plus characters
+// which are property of Jeroen Broks. These references may only be distributed
+// along with an unmodified version of the game.
+// 
+// As soon as you remove or replace ALL references to the storyline or character
+// references, or any termology specifically set up for the Phantasar universe,
+// or any other univers a story of Jeroen P. Broks is set up for,
+// the restrictions of this file are removed and will automatically become
+// zLib licensed (see below).
+// 
+// Please note that doing so counts as a modification and must be marked as such
+// in accordance to the zLib license.
+// ===========================
+// zLib license terms:
+// This software is provided 'as-is', without any express or implied
+// warranty.  In no event will the authors be held liable for any damages
+// arising from the use of this software.
+// Permission is granted to anyone to use this software for any purpose,
+// including commercial applications, and to alter it and redistribute it
+// freely, subject to the following restrictions:
+// 1. The origin of this software must not be misrepresented; you must not
+// claim that you wrote the original software. If you use this software
+// in a product, an acknowledgment in the product documentation would be
+// appreciated but is not required.
+// 2. Altered source versions must be plainly marked as such, and must not be
+// misrepresented as being the original software.
+// 3. This notice may not be removed or altered from any source distribution.
+// End License Information
+
 #use "Script/Use/Anyway"
+#use "Script/Use/Misc/PSaveGame"
 
 Const Int MaxPerPage = 24
 Const Int RowSize = 4
-Const Var Back = Image.Obtain("BACKGROUND")
+ReadOnly Var Back = Image.Obtain("BACKGROUND")
+ReadOnly Int TileSize = math.min(Screen.W,Screen.H) div ((MaxPerPage div RowSize) + 3)
+
+ReadOnly Table ImgHeader = { ["SAVE"]=Image.Load("GFX/Logo/Save Game.png"), ["LOAD"]=Image.Load("GFX/Logo/Load Game.png") }
+Readonly Var Saving = Image.Load("GFX/Loading/Saving.png") 
+String Situation = "SAVE"
+
+Var Marrilona 
+Int MarrilonaH
+Int MarrilonaW
+
 
 Int Page = 1
 
+Void GetMarrilona()
+	Switch OS.date("%m/%d")
+		Case "01/01"
+			Marrilona = Image.Load("GFX/Big_Char/Marrilona_NewYear.png")
+		Case "02/14"
+			Marrilona = Image.Load("GFX/Big_Char/Marrilona_Valentine.png")
+		Case "02/15" "02/16" "02/17" "02/18" "02/19" "02/20" "02/21" "02/22" "02/23" "02/24" "02/25" "02/26" "02/27" "02/28" "02/29" "03/01" "03/02" "03/03" "03/04" "03/05" "03/06" "03/07" "03/08" "03/09" "03/10" "03/11" "03/12" "03/13" "03/14"
+			Marrilona = Image.Load("GFX/Big_Char/Marrilona_Clown.png")
+		Case "04/27"
+			Marrilona = Image.Load("GFX/Big_Char/Marrilona_King.png")
+		case "06/19"
+			Marrilona = Image.Load("GFX/Big_Char/Marrilona_Jarig.png")
+		Default
+			Switch OS.date("%m")
+				Case "03"
+					Marrilona = Image.Load("GFX/Big_Char/Marrilona_Easter.png")
+				Case "10"
+					Marrilona = Image.Load("GFX/Big_Char/Marrilona_Halloween.png")
+				Case "12"
+					Marrilona = Image.Load("GFX/Big_Char/Marrilona_Christmas.png")
+				Default
+					Marrilona = Image.Load("GFX/Big_Char/Marrilona.png")
+			End
+	End
+	//MarrilonaH = math.floor( (Screen.H / Marrilona.Height) * (Screen.H-10) )
+	MarrilonaH = Screen.H-10
+	MarrilonaW = math.floor( (MarrilonaH /Marrilona.Height) * Marrilona.Width )
+	CSayF("Marrilona Size: %dx%d",MarrilonaW,MarrilonaH)
+End
 
 Global Void Apollo_Flow()
+	Int Hover = -1
 	Dev.ToConsole()
 	__White
 	Back.Tile(0,0,Screen.W,Screen.H)
+	Var HI = ImgHeader[Situation]
+	//Int HH = RowSize-3
+	//Int HW = math.ceil((HH/HI.Height)*HI.Width)
+	//HI.Stretch((Screen.W div 2)-(HW div 2),1,HW,HH)
+	HI.Draw(Screen.W div 2,2)
+	For i=0,MaxPerPage-1
+		Int Row = i div RowSize
+		Int Col = i % RowSize
+		Int X = Col * Math.floor(TileSize * 1.25)
+		Int Y = math.ceil((Row+0.25) * Math.floor(TileSize * 1.25) + (Col * (TileSize Div (RowSize+2))))
+		If Mouse.MX>=X && Mouse.MY>=Y && Mouse.MX<=X+TileSize && Mouse.MY<=Y+TileSize
+			Hover = i
+			__Ember
+		Else
+			Graphics.Color(0,80,0)
+		End
+		Graphics.Rect(X,Y,TileSize,TileSize)
+	End
+	If Mouse.ML
+		If Hover>=0
+			String SG_File = GetSGFileName(Page,Hover)
+			Switch Situation
+				Case "SAVE"
+					Graphics.Cls()
+					Saving.HotCenter()
+					Saving.Draw(Screen.W div 2,Screen.H div 2)
+					Graphics.Flip()
+					Events.Poll()
+					PerformSaveGame(SG_File)
+					Flow.Current="FIELD"
+				Case "LOAD"
+					Lua.error("Load not yet supported")
+				Default
+					Lua.error("Unknown sg situation: "..Situation)
+			End				
+		End
+	End
+		
+	__white
+	Marrilona.Stretch(Screen.W-MarrilonaW,5,MarrilonaW,MarrilonaH)
+	Mouse.Draw()
+End
+
+Init
+	GetMarrilona()
+	For _,I in pairs(ImgHeader)
+		I.Hot(I.Width div 2,0)
+	End
 End

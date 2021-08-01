@@ -52,6 +52,10 @@ Global Void CONSOLE_MouseDebug()
 	CSay("Mouse debug: "..OO[FlowField.Debug.MouseCoords])
 End
 
+Global Void CONSOLE_Save(a)
+	FlowField.GoToSave()
+End
+
 Module
 	Bool MouseCoords=False	
 End
