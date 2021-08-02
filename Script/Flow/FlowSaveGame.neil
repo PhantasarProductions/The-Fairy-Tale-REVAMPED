@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowSaveGame.neil
-// Version: 21.08.01
+// Version: 21.08.02
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -46,7 +46,8 @@ ReadOnly Var TFont = ImageFont.Obtain("BIGTEXT")
 ReadOnly Var SFont = ImageFont.Obtain("FNTSBAR")
 
 ReadOnly Table ImgHeader = { ["SAVE"]=Image.Load("GFX/Logo/Save Game.png"), ["LOAD"]=Image.Load("GFX/Logo/Load Game.png") }
-Readonly Var Saving = Image.Load("GFX/Loading/Saving.png") 
+ReadOnly Var Saving = Image.Load("GFX/Loading/Saving.png")
+ReadOnly Table Faces = {}
 String Situation = "SAVE"
 
 Var Marrilona 
@@ -104,6 +105,8 @@ Global Void Apollo_Flow()
 	//Int HW = math.ceil((HH/HI.Height)*HI.Width)
 	//HI.Stretch((Screen.W div 2)-(HW div 2),1,HW,HH)
 	HI.Draw(Screen.W div 2,2)
+	__white
+	Marrilona.Stretch(Screen.W-MarrilonaW,5,MarrilonaW,MarrilonaH)	
 	For i=0,MaxPerPage-1
 		Int Row = i div RowSize
 		Int Col = i % RowSize
@@ -116,6 +119,10 @@ Global Void Apollo_Flow()
 			Graphics.Color(0,80,0)
 		End
 		Graphics.Rect(X,Y,TileSize,TileSize)
+		__White
+		If HasSave[i]
+			Faces[(i%#Faces)+1].Stretch(X,Y,TileSize,TileSize)
+		End
 	End
 	If Hover>=0
 		__White
@@ -123,13 +130,17 @@ Global Void Apollo_Flow()
 		Int Y = 150
 		If X<(Screen.W)-500 && Screen.H>500
 			If HasSave[Hover]
-				Var H = GetHeader(Page,Hover)
+				Var H = GetHeader(Page,Hover)				
 				TFont.Text(H.Map,X,Y)
+				//cout(serialize("Header["..Hover.."]",H))
 				Y += 300
 				For i=1,4
-					If RPGParty[i]!=""
+					//If RPGParty[i]!=""
+					If H["P"..i]
+						Table PS = Split(H["P"..i],"=")
 						__White
-						Party.Portrait(RPGParty[i],X+(i*110),Y)
+						//Party.Portrait(RPGParty[i],X+(i*110),Y)
+						Party.Portrait(PS[1],X+(i*110),Y)
 					End
 				End
 				y+=50
@@ -150,6 +161,7 @@ Global Void Apollo_Flow()
 					Graphics.Flip()
 					Events.Poll()
 					PerformSaveGame(SG_File)
+					RenewPage()
 					Flow.Current="FIELD"
 				Case "LOAD"
 					If (HasSave[hover])
@@ -161,15 +173,20 @@ Global Void Apollo_Flow()
 		End
 	End
 		
-	__white
-	Marrilona.Stretch(Screen.W-MarrilonaW,5,MarrilonaW,MarrilonaH)
 	Mouse.Draw()
+End
+
+Global Void WantLoad()
+	Situation = "LOAD"
 End
 
 Init
 	GetMarrilona()
 	For _,I in pairs(ImgHeader)
 		I.Hot(I.Width div 2,0)
+	End
+	For F in Each { "Jake", "Marrilona", "Dandor", "Hando Stillor",   "Harry", "Sandra", "Fandalora", "Sasha Funda",  "Chief Werrington", "Cherry", "Feenalaria", "Nostramantu" }
+		Faces += Image.Load("GFX/BoxText/Portret/"..F.."/General.png")
 	End
 	RenewPage()
 End

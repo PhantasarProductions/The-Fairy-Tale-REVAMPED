@@ -83,7 +83,7 @@ Class ProgressBar
 		Static Var Back = Image.Obtain("BACKGROUND")
 		Static Var Banner = Image.Obtain("LOADING")
 		Banner.HotCenter()
-		__white
+		Graphics.Color(255,255,255)
 		Back.Tile(0,0,Screen.W,Screen.H)
 		Banner.Draw(Screen.W div 2, Screen.H div 2)
 		DrawAll()

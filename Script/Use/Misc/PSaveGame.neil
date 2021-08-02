@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Misc/PSaveGame.neil
-// Version: 21.08.01
+// Version: 21.08.02
 // Copyright (C) 2020, 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -39,12 +39,12 @@ void MakeHeader()
 	string r = "Map:"..gv.gStr.MapTitle.."\n"
 	r += "Difficulty:"..({"Easy","Casual","Hard"})[gv.vInt.skill].."\n"
 	r += "Saved:"..gv.vInt.Saved.."\n"
-	r += "LevelCap:"..gv.vInt.LevelCap
+	r += "LevelCap:"..gv.vInt.LevelCap.."\n"
 	For i=1,4
 		String Ch
 		Ch=RPGParty[i]
 		If Ch!=""
-			r += sPrintF("P1:%s:%d\n",Ch,RPGChar[Ch].Stat.Level)
+			r += sPrintF("P%d:%s=%d\n",i,Ch,RPGChar[Ch].Stat.Level)
 		End
 	End			
 	SaveGame.Data.Head = r
