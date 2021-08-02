@@ -32,13 +32,17 @@
 // 
 // **********************************************
 // 
-// version: 21.07.30
+// version: 21.08.02
 // End License Information
+
+#use "Script/Use/Anyway"
+
 Group MScript
 
 	ReadOnly Bool HasDraw   = False
 	ReadOnly Bool HasUpdate = False
 	
 	Void StartPrologue()
+		MapText("JOHN")
 	End
 End
