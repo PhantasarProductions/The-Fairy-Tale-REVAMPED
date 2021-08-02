@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField/Map.neil
-// Version: 21.08.01
+// Version: 21.08.02
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -38,7 +38,6 @@
 Module
 	Var KthuraMap
 	String Layer
-	String LoadedMap
 	Bool MSDraw 
 	Bool MSUpdate
 	Int ScrollX
@@ -46,7 +45,15 @@ Module
 	Bool AllowAutoScroll = True
 	Delegate ArriveFunc = Nil
 	String ArriveParam 
-		
+
+	Get String LoadedMap
+		Return gv.gstr.LoadedMap
+	End
+	Set String LoadedMap
+		gv.gstr.LoadedMap=value
+	End
+	
+	
 	Get Var CurLayer
 		Return KthuraMap.Layer(Layer)
 	End
@@ -88,7 +95,7 @@ Module
 		
 	Void SG()
 		SaveGame.Data["PermaKills.NEIL"] = FieldFlow.Kill.Serialize
-		string r = "// Mapstuff\nInit\n"
+		string r = "// Mapstuff\nInit\n"		
 		r += "\tFlowField.Map.ScrollX = "..tostring(FlowField.Map.ScrollX).."\n"
 		r += "\tFlowField.Map.ScrollY = "..tostring(FlowField.Map.ScrollY).."\n"
 		r += "\tFlowField.Map.AllowAutoScroll = "..tostring(FlowField.Map.AllowAutoScroll).."\n"
@@ -99,6 +106,12 @@ Module
 		r += "\tFlowField.Map.Player.Wind = \""..FlowField.Map.Player.Wind.."\"\n"
 		r += "end\n"
 		SaveGameData["Map.neil"] = r
+	End
+	
+	Void LG()
+		FlowField.LoadMap(LoadedMap)
+		Loading()
+		NeilDoString(SaveGame.Data["MAP.NEIL"],"SG:Map.Neil")
 	End
 	
 End

@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField/Kill.neil
-// Version: 21.08.01
+// Version: 21.08.02
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -52,5 +52,9 @@ Module
 		End
 		ret +="End\n"
 		Return Ret
+	End
+	
+	Void LG()
+		NeilDoString(SaveGame.Data["PERMAKILLS.NEIL"],"SG:PermaKills.Neil")
 	End
 End

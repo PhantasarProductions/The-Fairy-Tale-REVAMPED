@@ -165,7 +165,8 @@ Global Void Apollo_Flow()
 					Flow.Current="FIELD"
 				Case "LOAD"
 					If (HasSave[hover])
-						Lua.error("Load not yet supported")
+						PerformLoadGame(SG_File)
+						Flow.Current="FIELD"
 					End
 				Default
 					Lua.error("Unknown sg situation: "..Situation)

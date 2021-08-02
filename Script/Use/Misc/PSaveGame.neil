@@ -110,15 +110,15 @@ global bool PerformLoadGame(string f)
 		Progress.LOADSAVEGAME = 6
 		Loading()
 		CSay("Loading Field Flow")
-		Flow.Load("FIELD","Script/Load/LoadField.neil")
+		Flow.Load("FIELD","Script/Flow/FlowField.neil")
 		CSay("Parsing Permakills")
 		Progress.LOADSAVEGAME = 7
 		Loading()
-		State.Call("FLOW_FIELD","LGPermakills","nil")
+		State.Call("FLOW_FIELD","FlowField.Kill.LG","nil")
 		Progress.LOADSAVEGAME = 8
 		Loading()
 		CSay("Map stuff")
-		State.Call("FLOW_FIELD","LGMap","nil")	
+		State.Call("FLOW_FIELD","FlowField.Map.LG","nil")	
 		Progress.LOADSAVEGAME = 9
 		Loading()
 		//Ach.Load() // To do!
