@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Subs/SubBoxText.Neil
-// Version: 21.07.29
+// Version: 21.08.02
 // Copyright (C) 2020, 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -152,7 +152,7 @@ class TextBox
 	
 	void Portret(string picdir,string spec="GENERAL")
 		string tag = sprintf("%s.%s",picdir,spec)
-		string file = sprintf("GFX/Portret/%s/%s.png",picdir,spec)
+		string file = sprintf("GFX/BoxText/Portret/%s/%s.png",picdir,spec)
 		if Portraits[tag]=="Nope!"
 			return
 		elseif (!JCR6.EntryExists(file))

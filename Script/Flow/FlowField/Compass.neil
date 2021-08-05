@@ -1,0 +1,122 @@
+// License Information:
+// src/Tricky Script/Script/Flow/FlowField/Compass.neil
+// Version: 21.08.05
+// Copyright (C) 2021 Jeroen Petrus Broks
+// 
+// ===========================
+// This file is part of a project related to the Phantasar Chronicles or another
+// series or saga which is property of Jeroen P. Broks.
+// This means that it may contain references to a story-line plus characters
+// which are property of Jeroen Broks. These references may only be distributed
+// along with an unmodified version of the game.
+// 
+// As soon as you remove or replace ALL references to the storyline or character
+// references, or any termology specifically set up for the Phantasar universe,
+// or any other univers a story of Jeroen P. Broks is set up for,
+// the restrictions of this file are removed and will automatically become
+// zLib licensed (see below).
+// 
+// Please note that doing so counts as a modification and must be marked as such
+// in accordance to the zLib license.
+// ===========================
+// zLib license terms:
+// This software is provided 'as-is', without any express or implied
+// warranty.  In no event will the authors be held liable for any damages
+// arising from the use of this software.
+// Permission is granted to anyone to use this software for any purpose,
+// including commercial applications, and to alter it and redistribute it
+// freely, subject to the following restrictions:
+// 1. The origin of this software must not be misrepresented; you must not
+// claim that you wrote the original software. If you use this software
+// in a product, an acknowledgment in the product documentation would be
+// appreciated but is not required.
+// 2. Altered source versions must be plainly marked as such, and must not be
+// misrepresented as being the original software.
+// 3. This notice may not be removed or altered from any source distribution.
+// End License Information
+#use "libs/linkedlist"
+#use "libs/xmath"
+
+Module Class
+	Static ReadOnly Var Needle = Image.Load("GFX/Algemeen/Needle.png")
+
+	ReadOnly Int X
+	ReadOnly Int Y
+	ReadOnly String Lay
+	ReadOnly String Desc
+	
+	Constructor(int _x, int _y, string _lay, string _desc)
+		X    = _x
+		Y    = _y
+		Lay  = _lay
+		Desc = _desc
+	End
+	
+	Static ReadOnly Var Lijst = New LinkedList()
+	
+	Static Void Create(Int X, Int Y, String Lay, String Desc)
+		// This is very extremely dirty, but it works
+		// Should only be done from a static function for a non-static class.
+		Lijst.AddLast(Self(X,Y,Lay,Desc))
+		Needle.HotCenter()
+		CSayF("= Added Compass Point %s on layer %s on (%d,%d)",Desc,Lay,X,Y)
+	End
+	
+	Int GetAngle(Ax,Ay,Bx,By) 
+		// -- A routine Jani Nykanen sent me. (converted to Neil
+		//return math.floor(math.deg(math.atan2(B.y-A.y,B.x-A.x)))
+		//if (!Lua.math.atan2)
+		//	for k,v in spairs(Lua.math)
+		//		Print("math",k,v,"("..Lua.type(v)..")")
+		//	end
+		//End
+		//return math.floor(math.deg(math.atan2(By-Ay,Bx-Ax)))
+		return math.floor(math.deg(atan2(By-Ay,Bx-Ax))) + 90
+	End
+	
+	Void Draw(Int DY)
+		__White
+		FlowField.Font.BoxText.DarkText(Desc,Screen.W-100,DY,1,2)
+		number d = math.min(xMath.Pythagoras(FlowField.Map.Player.x,FlowField.Map.Player.y,x,y),1000)
+		int c = math.floor ( (d/1000) * 255 )
+		Graphics.Color(c,255-c,0)
+		//plua angle1
+		//plua angle2
+		//angle1,angle2 = CoordsToAngle(px,py,needle.x,needle.y)
+		Int Angle = GetAngle( FlowField.Map.Player.x,FlowField.Map.Player.y,x,y)
+		//angle1 = math.floor(angle1) -- BlitzMax is allergic for non-intergers sent by Lua.
+		Image.Rotate=angle
+		Needle.XDraw(Screen.W-50,DY)
+		Image.Rotate=0
+	End
+	
+	Static Void DrawAll()
+		If !FlowField.Map.CurLayer.HasTag("PLAYER")
+			Return
+		End
+		Int Y=50
+		For CMP in Lijst.Each
+			//Print("Compass: ",FlowField.Map.Layer , CMP.Lay,FlowField.Map.Layer == CMP.Lay)
+			If FlowField.Map.Layer == CMP.Lay
+				CMP.Draw(Y)
+				Y += 25
+			End
+		End
+	End
+	
+	Static Void CBLoadMap()
+		CSay("Scanning for compass points")
+		Lijst.Clear()
+		For L In Each(FlowField.Map.KthuraMap.Layers)
+			CSayF("= Scanning layer: %s",L)
+			Var Lay = FlowField.Map.KthuraMap.Layer(L)			
+			For O in LAY.EachObject
+				//Var O = Lay.Obj(T)
+				If O.Kind=="$Compass"
+					Create(O.X,O.Y,L,O.Data.Name)
+				End
+			End
+		End
+	End
+	
+End

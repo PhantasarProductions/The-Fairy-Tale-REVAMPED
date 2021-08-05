@@ -42,7 +42,27 @@ Group MScript
 	ReadOnly Bool HasDraw   = False
 	ReadOnly Bool HasUpdate = False
 	
+	Void GoUp()
+		Map.SetObj("OP_BRUG" ,"ForcePassible",true)
+		Map.SetObj("HEK_NEER","Impassible",true)
+		Map.SetObj("HEK_OP",  "Impassible",true)
+		Players.Dominance = 200
+	End
+	
+	Void GoDown()
+		Map.SetObj("OP_BRUG" ,"ForcePassible",false)
+		Map.SetObj("HEK_NEER","Impassible",false)
+		Map.SetObj("HEK_OP",  "Impassible",false)
+		Players.Dominance = 20
+	End
+	
 	Void StartPrologue()
 		MapText("JOHN")
+	End
+	
+	Constructor
+		ZA.Enter("UP1",  "GoUp")
+		ZA.Enter("UP2",  "GoUp")
+		ZA.Enter("DOWN", "GoDown")
 	End
 End

@@ -32,8 +32,9 @@
 // 
 // **********************************************
 // 
-// version: 21.07.31
+// version: 21.08.05
 // End License Information
 Module
 	ReadOnly Var SmallFixed = ImageFont.Obtain("FNTSBAR")
+	ReadOnly Var BoxText    = ImageFont.Obtain("BOXTEXT")
 End

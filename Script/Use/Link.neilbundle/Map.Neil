@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Link.neilbundle/Map.Neil
-// Version: 21.08.01
+// Version: 21.08.02
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -36,6 +36,24 @@
 // End License Information
 
 Global Table MapScript
+
+Group Player
+	Set Int Dominance
+		Lua.Neil.Globals.Map.SetObj("PLAYER","Dominance",value)
+	End
+End
+
+// For the "Follow the leader" effect
+QuickMeta Players
+	NewIndex
+		Lua.Neil.Globals.Map.SetObj("PLAYER",Key,value)
+		For i=2,4
+			If RPGParty[i]!=""
+				Lua.Neil.Globals.Map.SetObj("PLAYER"..i,Key,value)
+			End
+		End
+	End
+End
 
 Module
 
@@ -116,6 +134,13 @@ Module
 		MCall("FlowField.Map.SG")
 	End
 	
+	Void ObjSet(string tag,string vartag,value)
+		MCall("FlowField.Map.ObjSet",tag,vartag,value)
+	End
+	Void SetObj(string tag,string vartag,value)
+		MCall("FlowField.Map.ObjSet",tag,vartag,value)
+	End	
+	
 	CONSTRUCTOR
 		table m
 		m = {}
@@ -127,7 +152,7 @@ Module
 			return f
 		end
 		m.__index = idx
-		Lua.setmetatable(MapScript,m)
+		MapScript = Lua.setmetatable({},m)
 		
 		string MetaIndex(s,string key)
 			//CSayF("Remoye Map Meta Request: %s",key)
