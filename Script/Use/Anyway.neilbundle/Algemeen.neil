@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Anyway.neilbundle/Algemeen.neil
-// Version: 21.07.23
+// Version: 21.08.07
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -44,6 +44,7 @@
 
 #macro __Lang gv.gstring.LANG
 #macro __Skill gv.gint.Skill
+#macro __Chapter gv.gint.Chapter
 
 global bool GotVocals()
 	return JCR6.EntryExists("ID/Vocals")

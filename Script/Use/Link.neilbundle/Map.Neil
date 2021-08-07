@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Link.neilbundle/Map.Neil
-// Version: 21.08.02
+// Version: 21.08.07
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -140,6 +140,10 @@ Module
 	Void SetObj(string tag,string vartag,value)
 		MCall("FlowField.Map.ObjSet",tag,vartag,value)
 	End	
+	
+	Void Kill(String Tag, bool perma)
+		MCall("FlowField.Kill.Kill",Tag,perma==true)
+	End
 	
 	CONSTRUCTOR
 		table m

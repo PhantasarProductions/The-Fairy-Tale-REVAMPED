@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Link.neilbundle/ZA.neil
-// Version: 21.08.02
+// Version: 21.08.07
 // Copyright (C) 2020, 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -37,6 +37,9 @@
 module
 	
 	void Event(string event,string zone,string mapscript,param)
+		if MapScript==""
+			MapScript=Event
+		End
 		string p
 		switch Lua.type(param)
 			case "string"
@@ -51,11 +54,11 @@ module
 		State.Call("FLOW_FIELD","FlowField.ZoneAction.Create","\""..event.."\",\""..zone.."\",\""..mapscript.."\","..p)
 	end
 	
-	void Enter(string zone,string mapscript,param)
+	void Enter(string zone,string mapscript="",param)	
 		Event("Enter",zone,mapscript,param)
 	end
 	
-	void Leave(string zone,string mapscript,param)
+	void Leave(string zone,string mapscript="",param)
 		Event("Leave",zone,mapscript,param)
 	end
 	

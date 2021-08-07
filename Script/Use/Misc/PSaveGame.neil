@@ -40,6 +40,7 @@ void MakeHeader()
 	r += "Difficulty:"..({"Easy","Casual","Hard"})[gv.vInt.skill].."\n"
 	r += "Saved:"..gv.vInt.Saved.."\n"
 	r += "LevelCap:"..gv.vInt.LevelCap.."\n"
+	r += "Chapter:"..__Chapter.."\n"
 	For i=1,4
 		String Ch
 		Ch=RPGParty[i]

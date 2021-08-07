@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField/Kill.neil
-// Version: 21.08.02
+// Version: 21.08.07
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -38,8 +38,11 @@ Module
 	Table TheKills = {}
 	
 	Void Kill(String Tag,bool Permanent)
-		TheKills[FlowField.Map.LoadedMap] = TheKills[FlowField.Map.LoadedMap] || {}
-		TheKills[FlowField.Map.LoadedMap] += Tag
+		If Permanent
+			TheKills[FlowField.Map.LoadedMap] = TheKills[FlowField.Map.LoadedMap] || {}
+			TheKills[FlowField.Map.LoadedMap] += Tag
+		End
+		FieldFlow.Map.CurLayer.Kill(Tag)
 	End
 	
 	Get String Serialize
@@ -56,5 +59,10 @@ Module
 	
 	Void LG()
 		NeilDoString(SaveGame.Data["PERMAKILLS.NEIL"],"SG:PermaKills.Neil")
+		For LN,KL in sPairs(TheKills)
+			For Victim in Each(KL)
+				FlowField.Map.KthuraMap.Layer(LN).Kill(Victim)
+			End
+		End
 	End
 End
