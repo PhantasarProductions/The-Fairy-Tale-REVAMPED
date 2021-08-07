@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField/Compass.neil
-// Version: 21.08.05
+// Version: 21.08.06
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -71,7 +71,7 @@ Module Class
 		//	end
 		//End
 		//return math.floor(math.deg(math.atan2(By-Ay,Bx-Ax)))
-		return math.floor(math.deg(atan2(By-Ay,Bx-Ax))) + 90
+		Return math.floor(math.deg(atan2(By-Ay,Bx-Ax))) + 90
 	End
 	
 	Void Draw(Int DY)
