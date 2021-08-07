@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField/Map.neil
-// Version: 21.08.02
+// Version: 21.08.07
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -35,6 +35,8 @@
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
 
+#use "Libs/XMath"
+
 Module
 	Var KthuraMap
 	String Layer
@@ -42,8 +44,10 @@ Module
 	Bool MSUpdate
 	Int ScrollX
 	Int ScrollY
+	Int GoToX
+	Int GoToY
 	Bool AllowAutoScroll = True
-	Delegate ArriveFunc = Nil
+	Var ArriveFunc = Nil
 	String ArriveParam 
 
 	Get String LoadedMap
@@ -117,5 +121,35 @@ Module
 	Void ObjSet(string Tag,string Key,value)
 		CurrentLayer.Obj(Tag)[Key] = value
 	End
+	
+	Bool Walking()
+		If !KthuraMap
+			CSay("WARNING! KthuraMap is nil!")
+			Return False
+		End
+		If !CurLayer.HasTag("PLAYER")
+			CSayF("No player!")
+			Return False
+		End		
+		Bool ret = CurLayer.Obj("PLAYER").Walking
+		//CSayF("Walking Check:!%s/%s => %s",Lua.tostring(ret),lua.tostring(ArriveFunc),lua.tostring((!ret) && ArriveFunc))
+		if (!ret) && ArriveFunc
+			number Afstand = xMath.Pythagoras(Player.X,Player.Y, GoToX, GoToY)
+			CSayF("Distance is %04.3f",Afstand)
+			If Afstand < 60
+				Switch Lua.type(ArriveFUNC)
+					Case "function"
+						ArriveFUNC(ArriveParam)
+					Case "string"
+						Map.Script(ArriveFunc,ArriveParam)						
+					Default
+						Lua.error("Walk arrive error!")
+				End
+				ArriveFunc = nil
+			End
+		end
+		return ret
+	end
+		
 	
 End

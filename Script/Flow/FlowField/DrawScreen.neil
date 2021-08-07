@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField/DrawScreen.neil
-// Version: 21.08.05
+// Version: 21.08.07
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -88,7 +88,7 @@ Void _DS()
 	If FlowField.Debug.MouseCoords
 		__White
 		int midx = Screen.W div 2
-		FlowField.Font.SmallFixed.Text("Mouse",midx,25)
+		FlowField.Font.SmallFixed.Text("Mouse",midx,25,2)
 		FlowField.Font.SmallFixed.Text(sPrintF("Pure(%04d,%04d)",Mouse.MX,Mouse.MY),midx,50,2)
 		FlowField.Font.SmallFixed.Text(sPrintF("Kthura(%04d,%04d)",Kthura.MX,Kthura.MY),midx,75,2)
 		FlowField.Font.SmallFixed.Text(sPrintF("Pure+Scroll(%04d,%04d)",Mouse.MX+FieldFlow.Map.ScrollX,Mouse.MY+FieldFlow.Map.ScrollY),midx,100,2)
@@ -98,6 +98,8 @@ Void _DS()
 			Var PL=FlowField.Map.CurLayer.Obj("PLAYER")
 			FlowField.Font.SmallFixed.Text(sPrintF("Player(%04d,%04d)",PL.X,PL.Y),midx,175,2)
 		End
+		FlowField.Font.SmallFixed.Text(sPrintF("Walking(%s)",Lua.tostring(FieldFlow.Map.CurLayer.Obj("PLAYER").Walking)),midx,200,2)
+		FlowField.Font.SmallFixed.Text(sPrintF("Arrival(%s,%s)",Lua.tostring(FieldFlow.Map.ArriveFunc),FieldFlow.Map.ArriveParam),midx,225,2)
 	End
 End
 

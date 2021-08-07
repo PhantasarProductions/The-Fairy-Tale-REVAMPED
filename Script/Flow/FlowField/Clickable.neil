@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField/Clickable.neil
-// Version: 21.07.31
+// Version: 21.08.07
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -34,8 +34,102 @@
 // misrepresented as being the original software.
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
+
+#use "libs/linkedlist"
+
 Module Class
-	Static Void All(Int X,Int Y)
-		Return False
+	Static Table Register = {}
+
+	Static Bool All(Int X,Int Y)
+		for CLK in Register[FieldFlow.Map.Layer].Each
+			if Clk.Clicked(x, y)
+				//Map.WalkTo(CLK.walkx,CLK.Walky)
+				FieldFlow.Map.CurLayer.Obj("PLAYER").WalkTo(CLK.walkx,CLK.Walky)
+				FieldFlow.Map.ArriveFunc=CLK.ArriveEvent 
+				FieldFlow.Map.ArriveParam=Clk.ArriveParam
+				FieldFlow.Map.GoToX=Clk.WalkX
+				FieldFlow.Map.GoToY=Clk.WalkY
+				CSayF("Clicked clickable %s; To(%d,%d); Event: %s; Param: %s",Clk.Tag,Clk.WalkX,Clk.WalkY,Lua.tostring(CLK.ArriveEvent),Clk.ArriveParam)
+				return true
+			end
+		end
+		return false
 	End
+	
+	Static Void Clear()
+		Table Kill={}
+		For K,_ in pairs(Register)
+			Kill+=K
+		End
+		For K in Each(Kill)
+			Register[K]=nil
+		End
+	End
+	
+	Static Void Create(String _lay,String _tag,Int _wx,int _wy,_ae,String _ap="")
+		Register[_Lay] = Register[_Lay] || new LinkedList() 
+		Register[_Lay].AddLast(Self(_tag,_wx,_wy,_ae,_ap))		
+	End
+	
+	Static Table Spot(Lay,String ObjTag,Same)
+		Table Ret = {}
+		//Var O = FlowField.Map.KthuraMap.Layer(Lay).Obj(ObjTag)
+		Var O = Lay.Obj(ObjTag)
+		Ret.X = O.X
+		Ret.Y = O.Y
+		If !Same
+			Ret.Y += 32
+		End	
+		Return Ret
+	End
+	
+	Static Void CBLoadMap()
+		CSay("Generate register of clickables")
+		Clear()
+		For L in each(FlowField.Map.KthuraMap.Layers)
+			Var Lay = FlowField.Map.KthuraMap.Layer(L)
+			//Table rItems = Map.LRItems
+			For T in each(LAY.TagListArray)
+				//Var O = Lay.Obj(T)
+				If prefixed(T,"NPC_MT_")
+					Var fuck = Spot(Lay,T)
+					Create(L,T,fuck.X,fuck.Y,MapText,T)
+					CSayF("= NPC_MT: %s",T)
+				ElseIf prefixed(T,"NPC_")
+					Var fuck = Spot(Lay,T)
+					Create(L,T,fuck.X,fuck.Y,Map.Script,T) //,sprintf("\"%s\"",T))
+					CSayF("= NPC: %s",T)
+				ElseIf Prefixed(T,"PSG_")
+					Var fuck = Spot(Lay,T)
+					Create(L,T,fuck.X,fuck.Y,FieldFlow.GoToSave,T) //,sprintf("\"%s\"",T))
+					CSayF("= Savespot: %s",T)
+				End
+			End
+		End
+	End
+	
+	ReadOnly String Tag
+	ReadOnly Int WalkX
+	ReadOnly Int WalkY
+	ReadOnly Var ArriveEvent
+	ReadOnly String ArriveParam
+	
+	ReadOnly Bool Clicked(Int X, Int Y)
+		If !FieldFlow.Map.CurLayer.HasTag(Tag)
+			Return false
+		End
+		Return FieldFlow.Map.CurLayer.Obj(Tag).PixInObj(x,y)
+	End
+	
+	Constructor(String _tag,Int _wx,int _wy,_ae,String _ap="")
+		Tag         = _Tag
+		WalkX       = _wx
+		WalkY       = _wy
+		ArriveEvent = _ae
+		ArriveParam = _ap
+	End
+	
+	
+	
+	
 End

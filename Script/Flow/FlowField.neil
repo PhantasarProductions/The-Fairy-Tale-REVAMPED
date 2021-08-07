@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField.neil
-// Version: 21.08.05
+// Version: 21.08.07
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -69,7 +69,7 @@ Init
 			CSayF(" Loading section %d/%d: %s => %s",idx,Aantal,File,Gestript)
 			_real[Gestript] = NeilUse(Replace(File:upper(),".NEIL",""),"FLOWFIELD."..Gestript)
 		End
-	End
+	End	
 	Progress.Kill("LOADFIELD")
 End
 
@@ -84,6 +84,7 @@ Void Walk()
 			FlowField.Map.WalkClick(Kthura.mx,Kthura.my)
 		end
 	end	
+	FlowField.Map.Walking()
 End
 
 Global Void Apollo_Flow()
