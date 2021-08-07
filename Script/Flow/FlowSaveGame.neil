@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowSaveGame.neil
-// Version: 21.08.02
+// Version: 21.08.07
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -167,6 +167,7 @@ Global Void Apollo_Flow()
 					If (HasSave[hover])
 						PerformLoadGame(SG_File)
 						Flow.Current="FIELD"
+						Situation="SAVE"
 					End
 				Default
 					Lua.error("Unknown sg situation: "..Situation)
