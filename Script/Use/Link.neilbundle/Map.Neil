@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Link.neilbundle/Map.Neil
-// Version: 21.08.07
+// Version: 21.08.09
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -102,10 +102,28 @@ Module
 		LoadMap(Map)
 	End
 	
+	Bool HasTag(string Tag)
+		Return ISGET.BOOL("FLOW_FIELD",sPrintF("FlowField.Map.CurLayer.HasTag(\"%s\")",Tag))
+	End
+	
 	Void GoToMap(string aMap,string aLayer,string SpawnPoint)
 		LoadMap(aMap)
 		Schedule("LAYER:"..aLayer)
 		Schedule("SPAWN:"..SpawnPoint)
+	End
+	
+	Void GoToLayer(string aLayer, string SpawnPoint)
+		If HasTag("PLAYER")
+			Self.Kill("PLAYER",False)
+		End
+		For i=2,4
+			String P = "PLAYER"..i
+			If HasTag(P)
+				Self.Kill(P,False)
+			End
+		End
+		MCall("FlowField.Map.SetLayer",aLayer)
+		Self.Spawn("PLAYER",SpawnPoint)
 	End
 	
 	Void Spawn(string ActTag,a,b)
