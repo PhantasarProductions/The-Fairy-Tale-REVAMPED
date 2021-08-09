@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Link.neilbundle/ZA.neil
-// Version: 21.08.07
+// Version: 21.08.08
 // Copyright (C) 2020, 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -38,7 +38,7 @@ module
 	
 	void Event(string event,string zone,string mapscript,param)
 		if MapScript==""
-			MapScript=Event
+			MapScript=zone
 		End
 		string p
 		switch Lua.type(param)
