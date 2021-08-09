@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Subs/SubBoxText.Neil
-// Version: 21.08.02
+// Version: 21.08.08
 // Copyright (C) 2020, 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -39,6 +39,7 @@
 #use "script/use/misc/box"
 #use "libs/Scenario"
 
+#define __BoxTextDarkText
 
 #macro __BoxTextTotalWidthMargin 225
 #macro __BoxTextFontSize 25
@@ -179,7 +180,11 @@ class TextBox
 		//Color(255,180,0)
 		__Ember
 		//DarkText.Font(Font,self.Header,__BoxText_MinX,self.boxy+10)
-		LFont.Text(Header,__BoxText_MinX,boxy+10)
+		#if __BoxTextDarkText
+			LFont.DarkText(Header,__BoxText_MinX,boxy+10)
+		#else
+			LFont.Text(Header,__BoxText_MinX,boxy+10)
+		#fi
 		
 		__White
 		for i,l in ipairs(self.Lines)
@@ -198,7 +203,11 @@ class TextBox
 			end
 			if p>0
 				//DarkText.Font(Font,Left(l,p),__BoxText_MinX,(self.boxy+35)+(i*21))
-				self.Font.Text(Left(l,p),__BoxText_MinX,(self.boxy+35)+(i*21))
+				#if __BoxTextDarkText
+					self.Font.DarkText(Left(l,p),__BoxText_MinX,(self.boxy+35)+(i*21))
+				#else
+					self.Font.Text(Left(l,p),__BoxText_MinX,(self.boxy+35)+(i*21))
+				#fi
 			end
 		end
 	end
