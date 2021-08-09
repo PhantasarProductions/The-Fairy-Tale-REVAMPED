@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowSaveGame.neil
-// Version: 21.08.07
+// Version: 21.08.08
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -144,6 +144,12 @@ Global Void Apollo_Flow()
 					End
 				End
 				y+=50
+				If Trim(H.Chapter || "0")=="0"
+					sFont.Text("Prologue",X,Y)
+				Else
+					sFont.Text(SPrintF("Chapter: %s",H.Chapter),X,Y)
+				End
+				Y+=25
 				sFont.Text(SPrintF("Saved: %s",H.Saved),X,Y)
 				y+=25
 				sFont.Text(SPrintF("%s mode",H.Difficulty),X,Y)
