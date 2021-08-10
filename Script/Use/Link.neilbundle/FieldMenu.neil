@@ -1,7 +1,7 @@
 // License Information:
-// src/Tricky Script/Script/Use/Anyway.neilbundle/Algemeen.neil
-// Version: 21.08.10
-// Copyright (C) 2021 Jeroen Petrus Broks
+// src/Tricky Script/Script/Use/Link.neilbundle/FieldMenu.neil
+// Version: 21.08.09
+// Copyright (C) 2020, 2021 Jeroen Petrus Broks
 // 
 // ===========================
 // This file is part of a project related to the Phantasar Chronicles or another
@@ -34,23 +34,24 @@
 // misrepresented as being the original software.
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
-#use "libs/Music"
-#use "libs/keys"
+void FML()
+	State.LoadNew("FLOW_FIELDMENU","Script/Flow/FlowFieldMenu.neil")
+end
 
-#use "Script/Use/Link"
+//group FMenu
+Module
 
-#macro __White Graphics.Color(255,255,255)
-#macro __Ember Graphics.Color(255,180,  0)
-#macro __Black Graphics.Color(  0,  0,  0)
+	void Go(string char,string situation)
+		FML()
+		State.Call("FLOW_FIELDMENU","SetFM","\""..char.."\",\""..situation.."\"")
+		Flow.GoToFlow("FIELDMENU")
+	end
+	
+	void Shop(string store)
+		FML()
+		State.Call("FLOW_FIELDMENU","LoadShop","\""..store.."\"")
+		Go(Lua.Neil.Globals.Map.Leader,"SHOP")
+	end
+		
 
-#macro __Lang gv.gstring.LANG
-#macro __Skill gv.gint.Skill
-#macro __Chapter gv.gint.Chapter
-
-// This function must always remain empty
-Global Void Niks()
-End
-
-global bool GotVocals()
-	return JCR6.EntryExists("ID/Vocals")
 end

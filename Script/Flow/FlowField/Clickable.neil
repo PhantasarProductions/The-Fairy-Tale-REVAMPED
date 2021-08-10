@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField/Clickable.neil
-// Version: 21.08.07
+// Version: 21.08.10
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -41,6 +41,9 @@ Module Class
 	Static Table Register = {}
 
 	Static Bool All(Int X,Int Y)
+		If !Register[FieldFlow.Map.Layer]
+			Return False
+		End
 		for CLK in Register[FieldFlow.Map.Layer].Each
 			if Clk.Clicked(x, y)
 				//Map.WalkTo(CLK.walkx,CLK.Walky)

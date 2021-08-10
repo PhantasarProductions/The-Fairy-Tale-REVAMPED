@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.08.02
+// version: 21.08.10
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -327,6 +327,8 @@ class MenuItem
 	end
 	
 	static void LoadGame()
+		Loading()
+		State.LoadNew("PARTY","Script/Subs/SubParty.Neil")
 		State.LoadNew("FLOW_SAVEGAME","Script/Flow/FlowSaveGame.neil")
 		State.Call("FLOW_SAVEGAME","WantLoad","mil")
 		Flow.Current="SAVEGAME"

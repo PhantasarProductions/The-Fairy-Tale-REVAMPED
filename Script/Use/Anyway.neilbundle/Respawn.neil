@@ -1,6 +1,6 @@
 // License Information:
-// src/Tricky Script/Script/Use/Anyway.neilbundle/Algemeen.neil
-// Version: 21.08.10
+// src/Tricky Script/Script/Use/Anyway.neilbundle/Respawn.neil
+// Version: 21.08.09
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -34,23 +34,51 @@
 // misrepresented as being the original software.
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
-#use "libs/Music"
-#use "libs/keys"
+Table T = { ["X"]="Int", ["Y"]="Int", ["LAYER"]="String", ["MAP"]="String", ["INN"]="Boolean" }
 
-#use "Script/Use/Link"
-
-#macro __White Graphics.Color(255,255,255)
-#macro __Ember Graphics.Color(255,180,  0)
-#macro __Black Graphics.Color(  0,  0,  0)
-
-#macro __Lang gv.gstring.LANG
-#macro __Skill gv.gint.Skill
-#macro __Chapter gv.gint.Chapter
-
-// This function must always remain empty
-Global Void Niks()
+void Reset(IsInn)	
+	Var M   = Lua.Globals.Map
+	Var P   = Lua.Globals.Player
+	Var R   = Lua.Globals.Respawn
+	R.X     = P.X
+	R.Y     = P.Y
+	R.Layer = M.Layer
+	R.Map   = M.LoadedMap
+	R.Inn   = IsInn==True
 End
 
-global bool GotVocals()
-	return JCR6.EntryExists("ID/Vocals")
-end
+Void NostraPush()
+	For K,Tpe in Pairs(T)
+		gv["g"..Tpe]["RespawnPushed_"..K] = gv["g"..Tpe]["Respawn_"..K]
+	End
+End
+
+Void NostraPop()
+	For K,Tpe in Pairs(T)
+		gv["g"..Tpe]["Respawn_"..K] = gv["g"..Tpe]["RespawnPushed_"..K]
+	End
+End
+
+QuickMeta QM__Respawn
+	Index
+		Key = Key:upper()
+		Switch Key
+			Case "RESET"
+				Return Reset
+			Default
+				Return gv["g"..T[Key]]["Respawn_"..Key]
+		End
+	End
+	
+	NewIndex
+		Switch Key
+			Case "RESET"
+				Lua.Error("Respawn.Reset is a read only value")
+			Default
+				gv["g"..T[Key]]["Respawn_"..Key] = Value
+		End
+	End
+End
+		
+		
+Return QM__Respawn

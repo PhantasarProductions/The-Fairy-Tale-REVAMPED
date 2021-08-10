@@ -81,6 +81,23 @@ Group MScript
 		End
 	End
 	
+	Void NPC_Fred()
+		If __Chapter==0
+			MapText("FRED_NOSELL")
+		Else
+			Lua.error("Fred's shop not yet activated")
+		End
+	End
+	
+	Void NPC_George()
+		If __Chapter==0
+			MapText("GEORGE_NOSELL")
+		Else
+			Lua.error("George's shop not yet activated")
+		End
+	End
+
+	
 	Void Bye()
 		If __Chapter>0
 			Lua.error("Leaving town not yet supported")

@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.08.01
+// version: 21.08.10
 // End License Information
 
 #Use "Script/Use/Anyway"
@@ -230,6 +230,7 @@ Group SubParty
 		Int C  = PartyCount
 		Int M3 = 0
 		Int W = Screen.W Div C
+		Int Hover=0
 		Graphics.Scale(1,1)
 		If C==3
 			M3 = Screen.W % 3
@@ -247,6 +248,13 @@ Group SubParty
 			Boxes[i].W = W2
 			Boxes[i].H = 100
 			Boxes[i].Draw()
+			If Mouse.MX>Boxes[i].X && Mouse.MY>Boxes[i].Y && Mouse.MX<Boxes[i].X+Boxes[i].W && Mouse.MY<Boxes[i].Y+Boxes[i].H
+				Hover=i
+				__Ember
+				Graphics.SetAlpha(50)
+				Graphics.Rect(Boxes[i].X,Boxes[i].Y,Boxes[i].W,Boxes[i].H)
+				Graphics.SetAlpha(255)
+			End
 			Var B=Boxes[i]
 			// Portrait
 			__White
@@ -298,6 +306,9 @@ Group SubParty
 				Fnt.DarkText(VIT.Have,barx+barwidth,B.Y+85,1,1)
 			End
 			// Level (if appliccable)
+		End
+		If Mouse.ML && Hover>0
+			State.Call(Flow.Current,"PartyClick",sprintf("%d,\"%s\"",Hover,RPGParty[Hover]))
 		End
 	End
 	

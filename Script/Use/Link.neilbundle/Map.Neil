@@ -62,7 +62,14 @@ Module
 	Get Delegate CSayF
 		return Lua.Neil.Globals.CSayF
 	End
+	
+	Get String Layer
+		Return ISGet.String("FlowField.Map.Layer")
+	End
 
+	Get String LoadedMap
+		Return gv.gstr.LoadedMap
+	End	
 
 	Void MCall(String func,a,b,c,d,e,f,g,h)
 		String pr
