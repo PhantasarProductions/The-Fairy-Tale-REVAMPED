@@ -1,7 +1,7 @@
 // License Information:
-// src/Tricky Script/Script/Use/Misc/Box.neil
+// src/Tricky Script/Script/Flow/FieldMenu/Abilities.neil
 // Version: 21.08.10
-// Copyright (C) 2020, 2021 Jeroen Petrus Broks
+// Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
 // This file is part of a project related to the Phantasar Chronicles or another
@@ -34,75 +34,7 @@
 // misrepresented as being the original software.
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
-
-// #use "script/use/anyway"
-#use "libs/Vector"
-
-Module Class
-
-	Int x
-	Int y
-	Int w
-	Int h
-	
-	Static ReadOnly Var Back = Image.Obtain("BACKGROUND")
-	Static ReadOnly Table List = new Vector("table")
-	
-	Static Void Clear()
-		List.Clear()
+Module
+	Void Flow(uBox,string CharTag,string situation)
 	End
-	
-	Void Draw()
-		__White
-		Back.Tile(x,y,w,h)
-		Graphics.SetAlpha(120)
-		For i=0,5
-		#if __IGNORE
-			Graphics.Color(100,100,100)
-			Graphics.Line(x+1, (y+h)-i,(x+w)-1,(h+y)-i) // Bottom
-			Graphics.Line(x-i,((y+h)-6),x-i,(y+i)+1) // Right
-			__White
-			Graphics.Line(x+i,y+i,(x+w)-(1+i),y+i) // Top
-			Graphics.Line(x+i,y+6,x+i,(y+h)-(1+i)) // Left
-		#fi
-			Graphics.Color(255,255,255)
-			Graphics.Line(x+i,y,x+i,(y+h)-(i+1)) // Left
-			Graphics.line(x+6,y+i,(x+w)-(i+1),y+i) // Top
-			Graphics.Color(127,127,127)
-			Graphics.Line(x+i+1,(y+h)-i,x+w,(y+h)-i) // Bottom
-			Graphics.Line(x+w-i,y+1+i,x+w-i,y+h-6) // Right
-		End
-		__White
-		Graphics.SetAlpha(255)
-	End
-	
-	Static Void DrawAll()
-		For b in List.Each
-			//print("Drawing",b," from ",List)
-			b.Draw()
-		End
-	End
-	
-	CONSTRUCTOR (Int ax, Int ay, Int aw, Int ah, bool addtolist=true)
-		x=ax
-		y=ay
-		w=aw
-		h=ah
-		Lua.assert(w>=20 && h>=20,"Box too small")
-		If addtolist
-			//print("Adding",self,"to list",list,"(Const)")
-			List.push_back(self)
-			//for b,q in List.Each
-			//	Print("= ",b,b.Draw,q)
-			//End
-		End
-	End
-	
-	Static Void Add(Int X,Int Y, Int W, Int H)
-		// Dirty code straight from Hell
-		plua N = Lua.Neil.Globals.Box(X,Y,W,H,false)
-		//print("Adding",N,"to list",list,"(add)")
-		List.push_back(N)
-	ENd
-
 End

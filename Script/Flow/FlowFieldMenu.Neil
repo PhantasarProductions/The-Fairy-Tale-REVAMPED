@@ -46,10 +46,14 @@ global string FMChar
 string FMSituation
 
 //readonly var   Mouse = Image.Obtain("MOUSE")
-readonly var  topbox = new Box(0,0,Screen.W,49,false)
-readonly var  lftbox = new Box(0,50,Screen.W/2,Screen.H-151,false)
-readonly var  rgtbox = new Box(Screen.W/2,50,Screen.W/2,Screen.H-151,false)
-readonly table boxes = {topbox,lftbox,rgtbox,["LEFT"]=lftbox,["RIGHT"]=rgtbox}
+readonly var   topbox = new Box(0,0,Screen.W,74,false)
+readonly var   lftbox = new Box(0,75,Screen.W/2,Screen.H-176,false)
+readonly var   rgtbox = new Box(Screen.W/2,75,Screen.W/2,Screen.H-176,false)
+readonly var   whlbox = new Box(0,75,Screen.W,Screen.H-176,false)
+readonly table  boxes = {topbox,lftbox,rgtbox,["LEFT"]=lftbox,["RIGHT"]=rgtbox}
+readonly table wboxes = {topbox,whlbox,["WHOLE"]=whlbox,["LEFT"]=whlbox,["RIGHT"]=whlbox}
+
+
 //global var itmod
 
 
@@ -57,9 +61,12 @@ init
 	Situations_Field += { ["LEFT"] = { ["ID"]="STATUS" }, ["RIGHT"] = { ["ID"]="ITEMS" } ,        ["ICONFILE"] = "ITEMS" }
 	Situations_Field += { ["LEFT"] = { ["ID"]="STATUS" }, ["RIGHT"] = { ["ID"]="ABILITIES" } ,    ["ICONFILE"] = "ABILITIES" }
 	//Situations_Field += { ["LEFT"] = { ["ID"]="STATUS" }, ["RIGHT"] = { ["ID"]="SWITCH" } ,       ["ICONFILE"] = "SWITCH" }
-	Situations_Field += { ["LEFT"] = { ["ID"]="MASTER_LEFT" }, ["RIGHT"] = { ["ID"]="MASTER_RIGHT" } , ["ICONFILE"] = "MASTER" }
-	Situations_Field += { ["LEFT"] = { ["ID"]="STATUS" }, ["RIGHT"] = { ["ID"]="ACHIEVEMENTS" } , ["ICONFILE"] = "ACHIEVEMENTS" }
-	Situations_Field += { ["LEFT"] = { ["ID"]="STATUS" }, ["RIGHT"] = { ["ID"]="QUIT" } ,         ["ICONFILE"] = "QUIT" }
+	//Situations_Field += { ["LEFT"] = { ["ID"]="MASTER_LEFT" }, ["RIGHT"] = { ["ID"]="MASTER_RIGHT" } , ["ICONFILE"] = "MASTER" }
+	//Situations_Field += { ["LEFT"] = { ["ID"]="STATUS" }, ["RIGHT"] = { ["ID"]="ACHIEVEMENTS" } , ["ICONFILE"] = "ACHIEVEMENTS" }
+	//Situations_Field += { ["LEFT"] = { ["ID"]="STATUS" }, ["RIGHT"] = { ["ID"]="QUIT" } ,         ["ICONFILE"] = "QUIT" }
+	Situations_Field += {["WHOLE"]={["ID"]="MASTER"}, ["ICONFILE"]="MASTER"}
+	Situations_Field += {["WHOLE"]={["ID"]="ACHIEVEMENTS"}, ["ICONFILE"]="ACHIEVEMENTS"}
+	Situations_Field += {["WHOLE"]={["ID"]="QUIT"}, ["ICONFILE"]="QUIT"}
 	Situations.FIELD = Situations_Field
 	Situations.COMBAT_ABILITIES = { { ["LEFT"] = { ["ID"]="STATUS" }, ["RIGHT"] = { ["ID"]="ABILITIES" } ,    ["ICONFILE"] = "ABILITIES" } }
 	//Situations.COMBAT_ARMS = Situations.COMBAT_ABILITY 
@@ -127,10 +134,16 @@ global void Apollo_Flow()
 	// Debug
 	Dev.ToConsole()
 	
-	// Boxes
-	for b in each(Boxes)
-		b.Draw()
-	end
+	// Boxes	
+	if (Situations[FMSituation][SitActive[FMSituation] || 1] || {}).WHOLE
+		for b in each(WBoxes)
+			b.Draw()
+		end
+	Else
+		for b in each(Boxes)
+			b.Draw()
+		end
+	End	
 	
 	// Top Icon Strip
 	// Lua.assert(Situations[FMSituation],"No situation named: "..FMSituation)
@@ -152,7 +165,12 @@ global void Apollo_Flow()
 		ico.ICON.Draw(i*iw,5)
 		if SitActive[FMSituation]==i
 			static table kanten={"LEFT","RIGHT"}
-			for kant in each(kanten)
+			static table whole={"WHOLE"}
+			var weach = kanten
+			if ico.WHOLE
+				weach=whole
+			end
+			for kant in each(weach)
 				ico[kant].MOD = ico[kant].MOD || NeilUse("Script/Flow/FieldMenu/".. ico[kant].ID )
 				ico[kant].MOD.Flow(boxes[kant],FMChar,FMSituation)
 				//if ico[kant].ID=="ITEMS"
