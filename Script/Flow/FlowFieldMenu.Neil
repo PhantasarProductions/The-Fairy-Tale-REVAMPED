@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowFieldMenu.Neil
-// Version: 21.08.10
+// Version: 21.08.11
 // Copyright (C) 2020, 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -158,11 +158,11 @@ global void Apollo_Flow()
 			__black
 		end
 		ico.ICON = ico.ICON or Image.Obtain("ICO_"..ico.ICONFILE)
-		if Events.MouseHitLeft() && my<topbox.h and mx>(i*iw)-25 and mx<(i*iw)+25
+		if Events.MouseHitLeft() && my<topbox.h and mx>(i*iw)-ico.ICON.W  and mx<(i*iw)+Ico.ICON.W
 			//Graphics.Rect(0,(i*iw)-15,Topbox.h,30) // debug only!
 			SitActive[FMSituation]=i
 		end
-		ico.ICON.Draw(i*iw,5)
+		ico.ICON.Draw(i*iw,topbox.h div 2)
 		if SitActive[FMSituation]==i
 			static table kanten={"LEFT","RIGHT"}
 			static table whole={"WHOLE"}
