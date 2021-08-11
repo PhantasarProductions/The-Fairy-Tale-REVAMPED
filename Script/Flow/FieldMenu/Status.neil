@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FieldMenu/Status.neil
-// Version: 21.08.10
+// Version: 21.08.11
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -35,6 +35,56 @@
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
 Module
+
+	ReadOnly Var BigFnt  = ImageFont.Obtain("BIGTEXT")
+	ReadOnly Var StatFnt = ImageFont.Obtain("FNTSTATSTAT")
+	ReadOnly Var EQPFnt  = ImageFont.Obtain("FNTEQP")
+	
+	Void EqName(string Char,string EType,Int X, Int Y)
+		If RPGChar[Char].Data["EQUIP_"..EType]!=""
+			EQPFnt.Text(Item[RPGChar[Char].Data["EQUIP_"..EType]].Title,X,Y)
+		End
+	End
+	
+	Void EqIcon(String ITag,Int X, Int Y)
+		Static Table Icons = {}
+		Icons[ITag] = Icons[ITag] || Image.Load("GFX/Equipment/"..ITag..".png")
+		Icons[ITag].Draw(X,Y)
+	End
+	
 	Void Flow(uBox,string CharTag,string situation)
+    	Static Table Procent = {["Accuracy"]=true,["Evasion"]=true}
+    	Static Table procentteken = {[false]="",[true]="%"}
+    	Static Table ShowStats = {"Power","Endurance","Intelligence","Resistance","Speed","Accuracy","Evasion"}
+    	Int x = ubox.x
+    	Int y = ubox.y
+    	Int w = ubox.w
+    	Int h = ubox.h
+    	__white
+    	// ORIGINAL: Image.Show("CL_FACE_"..ch,(x+w)-(25+Image.Width("CL_FACE_"..ch)),y+25)
+    	Party.Portrait(CharTag,(x+w)-200,y+125)
+    	//SetFont('StatusName')
+    	BigFnt.DarkText(RPGChar[CharTag].Name,x+25,y+25)
+    	//SetFont('StatusStat')
+    	plua HP = RPGChar[CharTag].Points.HP
+    	plua AP = RPGChar[CharTag].Points.AP
+    	Graphics.Color(180,255,0)
+    	StatFnt.DarkText("HP "..HP.Have.." of "..HP.Maximum,x+25,y+75,0,0) //,180,255,0)
+    	Graphics.Color(0,180,255)
+    	StatFnt.DarkText("AP "..AP.Have.." of "..AP.Maximum,x+25,y+95,0,0) //,0,180,255)
+    	For i,s in ipairs(ShowStats)
+    		__White
+        	StatFnt.DarkText(s,x+25,y+100+(i*35))
+        	__Ember
+        	StatFnt.DarkText(RPGChar[chartag].Stat["END_"..s]..procentteken[procent[s]==true],(x+w)-25,y+100+(i*35),1,0)
+        End
+    	__Ember
+    	eqIcon("Acc"         ,x+10,(y+h)-25)
+    	eqIcon("Armor"       ,x+10,(y+h)-50)
+    	eqIcon("WP_"..chartag,x+10,(y+h)-75)
+    	__White
+    	eqName(chartag,"Jewel" ,x+40,(y+h)-25)
+    	eqName(chartag,"Armor" ,x+40,(y+h)-50)
+    	eqName(chartag,"Weapon",x+40,(y+h)-75)
 	End
 End
