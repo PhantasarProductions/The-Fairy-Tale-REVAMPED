@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.08.09
+// version: 21.08.11
 // End License Information
 
 #macro wh_Image 1
@@ -87,6 +87,8 @@ init
 	LAsset.C("Fonts/Coolvetica.jfbf",    "BOXTEXT",wh_Font)
 	LAsset.C("Fonts/Coolvetica.Big.jfbf","BIGTEXT",wh_Font)
 	LAsset.C("Fonts/monof55.20.jfbf","FNTSBAR",wh_Font)
+	LAsset.C("Fonts/monof55.25.jfbf","FNTEQP",wh_Font)
+	LAsset.C("Fonts/monof55.35.jfbf","FNTSTATSTAT",wh_Font)
 	For Ico in Each{"Items","Abilities","Master","Quit","Achievements","Status","Config"}
 		LAsset.C(sPrintF("GFX/Menu Icons/%s.png",Ico),sPrintF("ICO_%s",ico:upper()),wh_Image)
 	End
