@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Link.neilbundle/Map.Neil
-// Version: 21.08.09
+// Version: 21.08.11
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -64,7 +64,7 @@ Module
 	End
 	
 	Get String Layer
-		Return ISGet.String("FlowField.Map.Layer")
+		Return ISGet.String("FLOW_FIELD","FlowField.Map.Layer")
 	End
 
 	Get String LoadedMap
