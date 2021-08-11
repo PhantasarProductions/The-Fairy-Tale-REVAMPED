@@ -1,0 +1,155 @@
+// License Information:
+// src/Tricky Script/Script/Use/Misc/ItemIndexTypes.neil
+// Version: 21.08.11
+// Copyright (C) 2021 Jeroen Petrus Broks
+// 
+// ===========================
+// This file is part of a project related to the Phantasar Chronicles or another
+// series or saga which is property of Jeroen P. Broks.
+// This means that it may contain references to a story-line plus characters
+// which are property of Jeroen Broks. These references may only be distributed
+// along with an unmodified version of the game.
+// 
+// As soon as you remove or replace ALL references to the storyline or character
+// references, or any termology specifically set up for the Phantasar universe,
+// or any other univers a story of Jeroen P. Broks is set up for,
+// the restrictions of this file are removed and will automatically become
+// zLib licensed (see below).
+// 
+// Please note that doing so counts as a modification and must be marked as such
+// in accordance to the zLib license.
+// ===========================
+// zLib license terms:
+// This software is provided 'as-is', without any express or implied
+// warranty.  In no event will the authors be held liable for any damages
+// arising from the use of this software.
+// Permission is granted to anyone to use this software for any purpose,
+// including commercial applications, and to alter it and redistribute it
+// freely, subject to the following restrictions:
+// 1. The origin of this software must not be misrepresented; you must not
+// claim that you wrote the original software. If you use this software
+// in a product, an acknowledgment in the product documentation would be
+// appreciated but is not required.
+// 2. Altered source versions must be plainly marked as such, and must not be
+// misrepresented as being the original software.
+// 3. This notice may not be removed or altered from any source distribution.
+// End License Information
+Table ret
+
+Init
+	Ret["TITLE"] = "STRING"
+	Ret["DESC"] = "STRING"
+	Ret["TYPE"] = "STRING"
+	Ret["TARGET"] = "STRING"
+	Ret["STANCE"] = "STRING"
+	Ret["VOICE"] = "STRING"
+	Ret["USE_PENALTY"] = "INT"
+	Ret["ADDCARD_ACTION_ACT"] = "STRING"
+	Ret["ADDCARD_ACTION_NUMBER"] = "INT"
+	Ret["ADDCARD_ACTION_INTERVAL"] = "INT"
+	Ret["ADDCARD_CHAR_NUMBER"] = "INT"
+	Ret["ADDCARD_CHAR_INTERVAL"] = "INT"
+	Ret["ABL_APCOST"] = "INT"
+	Ret["ABL_HPCOST"] = "INT"
+	Ret["ITM_SELLABLE"] = "BOOL"
+	Ret["ITM_SHOPPRICE"] = "INT"
+	Ret["ITM_TYPE"] = "STRING"
+	Ret["ITM_COMBAT"] = "BOOL"
+	Ret["ITM_FIELD"] = "BOOL"
+	Ret["ITM_EQP_FOR"] = "STRING"
+	Ret["ITM_ACC_JAKE"] = "BOOL"
+	Ret["ITM_ACC_MARRILONA"] = "BOOL"
+	Ret["ITM_ACC_DANDOR"] = "BOOL"
+	Ret["ITM_ACC_HANDOSTILLOR"] = "BOOL"
+	Ret["ITM_WEAPONABILITY"] = "BOOL"
+	Ret["ITM_BLACKMARKET"] = "BOOL"
+	Ret["EQP_STAT_POWER"] = "INT"
+	Ret["EQP_STAT_ENDURANCE"] = "INT"
+	Ret["EQP_STAT_INTELLIGENCE"] = "INT"
+	Ret["EQP_STAT_RESISTANCE"] = "INT"
+	Ret["EQP_STAT_ACCURACY"] = "INT"
+	Ret["EQP_STAT_EVASION"] = "INT"
+	Ret["EQP_STAT_HP"] = "INT"
+	Ret["EQP_STAT_AP"] = "INT"
+	Ret["EQP_STAT_SR_POISON"] = "INT"
+	Ret["EQP_STAT_SR_PARALYSIS"] = "INT"
+	Ret["EQP_STAT_SR_CURSE"] = "INT"
+	Ret["EQP_STAT_SR_SILENCE"] = "INT"
+	Ret["EQP_STAT_SR_PETRIFICATION"] = "INT"
+	Ret["EQP_STAT_SR_DISEASE"] = "INT"
+	Ret["EQP_STAT_SR_UNDEAD"] = "INT"
+	Ret["EQP_STAT_SR_DEATH"] = "INT"
+	Ret["EQP_STAT_SR_DESTRUCTION"] = "INT"
+	Ret["EQP_STAT_SR_SLEEP"] = "INT"
+	Ret["EQP_STAT_ER_FLAME"] = "INT"
+	Ret["EQP_STAT_ER_WIND"] = "INT"
+	Ret["EQP_STAT_ER_WATER"] = "INT"
+	Ret["EQP_STAT_ER_EARTH"] = "INT"
+	Ret["EQP_STAT_ER_LIGHTNING"] = "INT"
+	Ret["EQP_STAT_ER_FROST"] = "INT"
+	Ret["EQP_STAT_ER_LIGHT"] = "INT"
+	Ret["EQP_STAT_ER_DARKNESS"] = "INT"
+	Ret["HEAL"] = "INT"
+	Ret["HEAL_TYPE"] = "STRING"
+	Ret["HEAL_STATPERCENT"] = "STRING"
+	Ret["CUREPOISON"] = "BOOL"
+	Ret["CUREPARALYSIS"] = "BOOL"
+	Ret["CURECURSE"] = "BOOL"
+	Ret["CURESILENCE"] = "BOOL"
+	Ret["CUREPETRIFICATION"] = "BOOL"
+	Ret["CUREDISEASE"] = "BOOL"
+	Ret["CUREUNDEAD"] = "BOOL"
+	Ret["CURESLEEP"] = "BOOL"
+	Ret["REVIVE"] = "BOOL"
+	Ret["ATTACK"] = "INT"
+	Ret["ATTACK_ATTACKSTAT"] = "STRING"
+	Ret["ATTACK_DEFENSESTAT"] = "STRING"
+	Ret["ATTACK_ELEMENT"] = "STRING"
+	Ret["ATTACK_ALLOWACCURACY"] = "BOOL"
+	Ret["ATTACK_ALLOWDODGE"] = "BOOL"
+	Ret["ATTACK_ACCURACYRATE"] = "INT"
+	Ret["ATTACK_ALLOWCRITICAL"] = "BOOL"
+	Ret["ATTACK_DESPERATE"] = "BOOL"
+	Ret["CAUSEPOISON"] = "BOOL"
+	Ret["CAUSEPARALYSIS"] = "BOOL"
+	Ret["CAUSECURSE"] = "BOOL"
+	Ret["CAUSESILENCE"] = "BOOL"
+	Ret["CAUSEPETRIFICATION"] = "BOOL"
+	Ret["CAUSEDISEASE"] = "BOOL"
+	Ret["CAUSESLEEP"] = "BOOL"
+	Ret["CAUSECONFUSION"] = "BOOL"
+	Ret["CAUSEUNDEAD"] = "BOOL"
+	Ret["CAUSEDEATH"] = "BOOL"
+	Ret["CAUSECHARMED"] = "BOOL"
+	Ret["CAUSEPERMANENCE"] = "BOOL"
+	Ret["CAUSEBERSERK"] = "BOOL"
+	Ret["CAUSEIDDQD"] = "BOOL"
+	Ret["CAUSEGUARDING"] = "BOOL"
+	Ret["BUFF_POWER"] = "INT"
+	Ret["BUFF_ENDURANCE"] = "INT"
+	Ret["BUFF_INTELLIGENCE"] = "INT"
+	Ret["BUFF_RESISTANCE"] = "INT"
+	Ret["BUFF_SPEED"] = "INT"
+	Ret["BUFF_ACCURACY"] = "INT"
+	Ret["BUFF_EVASION"] = "INT"
+	Ret["REW_GAINAP"] = "INT"
+	Ret["REW_GAINSKILL1"] = "INT"
+	Ret["REW_CREATESKILL1"] = "BOOL"
+	Ret["REW_GAINSKILL2"] = "INT"
+	Ret["REW_CREATESKILL2"] = "BOOL"
+	Ret["REW_GAINSKILL3"] = "INT"
+	Ret["REW_CREATESKILL3"] = "BOOL"
+	Ret["REW_GAINSKILL4"] = "INT"
+	Ret["REW_CREATESKILL4"] = "BOOL"
+	Ret["REW_GAINSKILL5"] = "INT"
+	Ret["REW_CREATESKILL5"] = "BOOL"
+	Ret["SPELLANI"] = "STRING"
+	Ret["SPELLANI_ARG"] = "STRING"
+	Ret["SPELLANI_EXTERNAL"] = "BOOL"
+	Ret["EFFECTSCRIPT"] = "STRING"
+	Ret["EFFECTSCRIPT_ARG"] = "STRING"
+	Ret["EFFECTSCRIPT_EXTERNAL"] = "BOOL"
+	Ret["ACC_PRETURN"] = "STRING"
+	Ret["ACC_PRETURN_ARG"] = "STRING"
+End
+Return ret
