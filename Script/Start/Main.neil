@@ -137,7 +137,11 @@ init
 		end
 		print();
 	end
-
+	
+	// A few last minute confiruation things
+	For Ico in Each{"Items","Abilities","Master","Quit","Achievements","Status","Config"}
+		Image.Obtain(sPrintF("ICO_%s",ico:upper())).HotCenter()
+	End
 
 	// Chaining to main menu
 	Flow.Load("MAINMENU","Script/Flow/FlowMainMenu.neil")
