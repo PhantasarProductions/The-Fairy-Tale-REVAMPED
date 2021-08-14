@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Link.neilbundle/Item.neil
-// Version: 21.08.11
+// Version: 21.08.14
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -35,20 +35,42 @@
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
 Var IndexTypes
-Table __TagIndex(s,string Key)
+
+	
+
+Var __TagIndex(s,string Key)
 	Static Table Ret = {}
 	Key = Key:upper()
-	if !ret[Key]
-		Var __ItemIndex(s,string Key2)
-			Key2 = Key2:upper()
-			State.LoadNew("SUB_ITEMS","Script/Subs/SubItems.Neil")
-			IndexTypes = IndexTypes || NeilUse("Script/Use/Misc/ItemIndexTypes")
-			Lua.assert(IndexTypes[Key2],"There is no field named "..Key2.." in the item database! ("..Key..")")
-			Return ISGET[IndexTypes[Key2]]("SUB_ITEMS",sprintf("ItemField('%s','%s')",Key,Key2))
-		End
-		Ret[Key] = Lua.setmetatable({},{["__index"]=__ItemIndex})
-	End
-	return Ret[Key]
+	Switch Key
+		Case "SAVE"
+			Void _S()
+				State.LoadNew("SUB_ITEMS","Script/Subs/SubItems.Neil")
+				State.Call("SUB_ITEMS","SaveInventory","nil")
+			End
+			Return _S
+		Default
+			if !ret[Key]	
+				Var __ItemIndex(s,string Key2)
+					Key2 = Key2:upper()
+					State.LoadNew("SUB_ITEMS","Script/Subs/SubItems.Neil")
+					IndexTypes = IndexTypes || NeilUse("Script/Use/Misc/ItemIndexTypes")
+					Lua.assert(IndexTypes[Key2],"There is no field named "..Key2.." in the item database! ("..Key..")")
+					Return ISGET[IndexTypes[Key2]]("SUB_ITEMS",sprintf("ItemField('%s','%s')",Key,Key2))
+				End
+				Ret[Key] = Lua.setmetatable({},{["__index"]=__ItemIndex})
+			End
+			Return Ret[Key]
+	End	
 End
 
-Return Lua.setmetatable({},{["__index"]=__TagIndex})
+Void __TagNewIndex(s,string Key,value)
+	Switch key:upper()
+		case "NUM" "AMOUNT" "HAS"
+			State.LoadNew("SUB_ITEMS","Script/Subs/SubItems.Neil")
+			State.Call("SUB_ITEMS","SetItemHas",sPrintF("'%s',%d",Key,Lua.tonumber(value) || 0))
+		default
+			Lua.error("Item."..key.." is either non-existent or read-only!")
+	End
+End
+
+Return Lua.setmetatable({},{["__index"]=__TagIndex,["__newindex"]=__TagNewIndex})

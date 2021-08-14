@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Misc/PSaveGame.neil
-// Version: 21.08.07
+// Version: 21.08.14
 // Copyright (C) 2020, 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -58,6 +58,7 @@ global void PerformSaveGame(string f)
 	SaveGame.Assign(f)
 	SaveGame.Data["*PARTY"] = "YES"
 	SaveGame.Data["GAMEVARS.NEIL"] = GV.Enroll
+	Item.Save()
 	Map.SG()
 	//Ach.Save()
 	//WorldMap.Save()
@@ -84,7 +85,7 @@ end
 
 global bool PerformLoadGame(string f)
 	static var tfnt
-	Int MProcess=10
+	Int MProcess=12
 	Progress.Create("AAA_LOADSAVEGAME",MProcess,180,255,0)
 	Loading()
 	Progress.AAA_LOADSAVEGAME = 1
@@ -107,23 +108,30 @@ global bool PerformLoadGame(string f)
 		Loading()
 		CSayF("Parsing Game Vars")
 		NeilDoString(SaveGame.Data["GAMEVARS.NEIL"],"SG:GameVars.Neil")
-		// Map
+		// Inventory
 		Progress.AAA_LOADSAVEGAME = 6
+		Loading()
+		CSay("Loading Inventory")
+		State.Load("SUB_ITEMS","Script/Subs/SubItems.neil")
+		Progress.AAA_LOADSAVEGAME = 7
+		State.Call("SUB_ITEMS","LoadInventory","nil")
+		// Map
+		Progress.AAA_LOADSAVEGAME = 8
 		Loading()
 		CSay("Loading Field Flow")
 		Flow.Load("FIELD","Script/Flow/FlowField.neil")
 		CSay("Parsing Permakills")
-		Progress.AAA_LOADSAVEGAME = 7
+		Progress.AAA_LOADSAVEGAME = 9
 		Loading()
 		State.Call("FLOW_FIELD","FlowField.Kill.LG","nil")
-		Progress.AAA_LOADSAVEGAME = 8
+		Progress.AAA_LOADSAVEGAME = 10
 		Loading()
 		CSay("Map stuff")
 		State.Call("FLOW_FIELD","FlowField.Map.LG","nil")	
-		Progress.AAA_LOADSAVEGAME = 9
+		Progress.AAA_LOADSAVEGAME = 11
 		Loading()
 		//Ach.Load() // To do!
-		Progress.AAA_LOADSAVEGAME = 10
+		Progress.AAA_LOADSAVEGAME = 12
 		Loading()
 		//WorldMap // Todo!
 	//catch e

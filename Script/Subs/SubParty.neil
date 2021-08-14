@@ -32,11 +32,12 @@
 // 
 // **********************************************
 // 
-// version: 21.08.10
+// version: 21.08.12
 // End License Information
 
 #Use "Script/Use/Anyway"
 #Use "Script/Use/Misc/Box"
+#Use "Libs/XMath"
 
 #macro __BoxPosY Screen.H-100
 
@@ -225,7 +226,7 @@ Group SubParty
 	End
 
 
-	Void Boxes()
+	Void Boxes(string HLChar="")
 		Static Table Boxes = { new Box(0,__BoxPosY,20,128,false),new Box(0,__BoxPosY,20,128,false),new Box(0,__BoxPosY,20,128,false),new Box(0,__BoxPosY,20,128,false)}
 		Int C  = PartyCount
 		Int M3 = 0
@@ -258,7 +259,13 @@ Group SubParty
 			Var B=Boxes[i]
 			// Portrait
 			__White
+				If ch==HLChar
+					plua alf = math.abs(math.floor(xmath.sin(FPS.Ticks/50)*255))
+					//CSayF("Alpha: %03d / Tricks: %05d",alf,FPS.Ticks)
+					Graphics.SetAlpha(alf)
+				end
 			Portrait(ch,B.X,Screen.H)
+			Graphics.SetAlpha(255)
 			// Bars			
 			Int barx = B.X + 100
 			Int barwidth = B.W-110			

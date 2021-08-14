@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Subs/SubItems.neil
-// Version: 21.08.11
+// Version: 21.08.14
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -37,10 +37,36 @@
 #use "Script/Data/IAA/MyData_ClassFile_IAA"
 Table LoadedItems = {}
 
+Global Table Inventory = {["ITM_APPLE"]=24 div gv.gInt.Skill, ["ITM_ANTIDOTE"]=6 div gv.gint.skill,["ITM_HEALINGHEBRB"]=3-gv.gint.skill }
+
+Global Void SaveInventory()
+	String Data = "Init\n"
+	For k,v in sPairs(Inventory)
+		Data += sPrintf("\tInventory[\"%s\"] = %4d\n",k,v)
+	End
+	Data += "End\n\n"
+	SaveGame.Data["INVENTORY.NEIL"] = Data
+End
+
+Global Void LoadInventory()
+	If SaveGame.HasData("INVENTORY.NEIL")
+		NeilDoString(SaveGame.Data["INVENTORY.NEIL"])
+	End
+End
+
+Global Void SetItemHas(string itTag,int num)
+	Inventory[itTag:upper()] = num
+End
+
 Global Var ItemField(string ItTag,ItField)
 	ItTag = ItTag:upper()
 	ItField = ItField:upper()
-	LoadedItems[itTag] = LoadedItems[itTag] || NeilUse("Script/Data/IAA/"..ItTag)
-	//cOut("Item requested: ",ittag,"; Field: ",itfield," => ",LoadedItems[itTag][ItField])
-	Return LoadedItems[itTag][ItField]
+	Switch ItField
+		Case "HAS" "NUMBER" "AMOUNT"
+			Return Inventory[itTag] || 0
+		Default
+			LoadedItems[itTag] = LoadedItems[itTag] || NeilUse("Script/Data/IAA/"..ItTag)
+			//cOut("Item requested: ",ittag,"; Field: ",itfield," => ",LoadedItems[itTag][ItField])
+			Return LoadedItems[itTag][ItField]
+	End
 End
