@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Misc/ItemIndexTypes.neil
-// Version: 21.08.11
+// Version: 21.08.14
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -37,6 +37,9 @@
 Table ret
 
 Init
+	Ret.NUM = "INT"
+	Ret.AMOUNT="INT"
+	Ret.HAS="INT"
 	Ret["TITLE"] = "STRING"
 	Ret["DESC"] = "STRING"
 	Ret["TYPE"] = "STRING"
