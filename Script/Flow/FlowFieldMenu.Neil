@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowFieldMenu.Neil
-// Version: 21.08.11
+// Version: 21.08.13
 // Copyright (C) 2020, 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -51,7 +51,8 @@ readonly var   lftbox = new Box(0,75,Screen.W/2,Screen.H-176,false)
 readonly var   rgtbox = new Box(Screen.W/2,75,Screen.W/2,Screen.H-176,false)
 readonly var   whlbox = new Box(0,75,Screen.W,Screen.H-176,false)
 readonly table  boxes = {topbox,lftbox,rgtbox,["LEFT"]=lftbox,["RIGHT"]=rgtbox}
-readonly table wboxes = {topbox,whlbox,["WHOLE"]=whlbox,["LEFT"]=whlbox,["RIGHT"]=whlbox}
+readonly table wboxes = {topbox,whlbox,["WHOLE"]=whlbox,["LEFT"]=lftbox,["RIGHT"]=rgtbox}
+ 
 
 
 //global var itmod
@@ -172,7 +173,7 @@ global void Apollo_Flow()
 			end
 			for kant in each(weach)
 				ico[kant].MOD = ico[kant].MOD || NeilUse("Script/Flow/FieldMenu/".. ico[kant].ID )
-				ico[kant].MOD.Flow(boxes[kant],FMChar,FMSituation)
+				ico[kant].MOD.Flow(wboxes[kant],FMChar,FMSituation)
 				//if ico[kant].ID=="ITEMS"
 				//	itmod = itmod || ico[kant].MOD
 				//end
