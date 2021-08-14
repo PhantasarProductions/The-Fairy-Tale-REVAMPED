@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FieldMenu/Quit.neil
-// Version: 21.08.10
+// Version: 21.08.13
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -34,7 +34,64 @@
 // misrepresented as being the original software.
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
-Module
-	Void Flow(uBox,string CharTag,string situation)
+
+
+#use "libs/linkedlist"
+#use "Script/Use/Misc/PSaveGame"
+
+Class QC
+	ReadOnly Delegate Act
+	ReadOnly String Caption
+	ReadOnly Delegate Allow
+	ReadOnly Int Y
+	Static Int SY = 100
+	Constructor(String C, Delegate A, Delegate T)
+		Act = A
+		Allow = T
+		Caption = C
+		Y = SY
+		SY +=50
+		PrintF("Created Quit Menu Item '%s' on Y:%d",Caption,Y)
 	End
+	
+	Static Var Lijst = new LinkedList()
+End
+
+Bool Always()
+	return True
+End
+
+Void SaveAndQuit()
+	PerformSaveGame("QUIT")
+	Flow.Quit()
+End
+
+Bool AllowSaveAndQuit()
+	return !gv.gbool.BlockSaveAndQuit
+End
+
+Init
+	QC.Lijst.AddLast(new QC("Quit",Flow.Quit,Always))
+	QC.Lijst.AddLast(new QC("Save & Quit",SaveAndQuit,AllowSaveAndQuit))
+End
+
+Module
+	ReadOnly Var BigFnt  = ImageFont.Obtain("BIGTEXT")
+	Void Flow(uBox,string CharTag,string situation)
+		For Q in QC.Lijst.Each
+			__White
+			Int Y = ubox.y+q.y
+			If !Q.Allow()
+				__Red
+			ElseIf Mouse.MX>ubox.x && Mouse.MY>Y && Mouse.MX<ubox.x+ubox.w && Mouse.MY<Y+50
+				__Ember
+				If Mouse.ML
+					Q.Act()
+				End
+			End
+			//print(ubox.y,q.y)
+			BigFnt.Text(Q.Caption,ubox.x+(ubox.w div 2),Y,2)
+		End
+	End
+
 End
