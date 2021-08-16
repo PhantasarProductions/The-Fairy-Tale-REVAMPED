@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Subs/SubItems.neil
-// Version: 21.08.15
+// Version: 21.08.17
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -39,10 +39,11 @@
 #macro __ScrollY ScrollList[Filters]
 
 ReadOnly Var FilFnt = ImageFont.Obtain("FNTSBAR")
+ReadOnly Var ItmFnt = Imagefont.Obtain("FNTSTATSTAT")
 
 Table LoadedItems = {}
 
-Global Table Inventory = {["ITM_APPLE"]=24 div gv.gInt.Skill, ["ITM_ANTIDOTE"]=6 div gv.gint.skill,["ITM_HEALINGHEBRB"]=3-gv.gint.skill }
+Global Table Inventory = {["ITM_APPLE"]=24 div gv.gInt.Skill, ["ITM_ANTIDOTE"]=6 div gv.gint.skill,["ITM_HEALINGHERB"]=3-gv.gint.skill }
 
 Global Void SaveInventory()
 	String Data = "Init\n"
@@ -79,7 +80,7 @@ Global Bool Allow(string itTag, string Filter)
 			Return True
 		Case "EQUIPMENT"
 			Return MyItem.ITM_Type=="Weapon" || MyItem.ITM_Type=="Armor" || MyItem.ITM_Type=="Accesoiry"
-		Case "CONSUMABLE" "COMBAT"
+		Case "CONSUMABLE" "COMBAT" "CONSUMABLES"
 			Return MyItem.ITM_Type=="Consumable"
 		Case "KEY" "KEYITEM" "KEY ITEM"
 			Return MyItem.ITM_Type=="KeyItem"
@@ -104,6 +105,7 @@ Global Var ItemField(string ItTag,ItField)
 End
 
 Global String OverView(int x, int y, int w, int h, string Filters,string char)
+	// Basis
 	Static Table ListOfFilters = { ["FIELDMENU"] = {"All","Consumables","Combat","Equipment","For <ch>","Key"}, ["COMBAT"] = {"Combat"}, ["STORE"] = {"Sellable"} }
 	Static Table CurrentFilter = {}
 	Static Table ScrollList = {}
@@ -114,18 +116,7 @@ Global String OverView(int x, int y, int w, int h, string Filters,string char)
 	CurrentFilter[Filters] = CurrentFilter[Filters] || 1
 	String CF = ListOfFilters[Filters][CurrentFilter[Filters]]
 	__ScrollY = __ScrollY || 0
-	//Switch Char
-	//	Case "Jake_Human" "Jake_Fairy"
-	//		CF = Replace(CF,"<ch>","Jake")
-	//	case "Marrilona" "Dandor" 
-	//		CF = Replace(CF,"<ch>",Char)
-	//	Case "HandoStillor"
-	//		CF = Replace(CF,"<ch>","Hando Stillor")
-	//	Default
-	//		If Suffixed(CF,"<ch>")
-	//			CF=""
-	//		End
-	//End
+	// Filter menu
 	Int FW = w div (#ListOfFilters[Filters]+1)
 	For i,fitem in iPairs(ListOfFilters[Filters])
 		String CFI = fitem
@@ -158,6 +149,31 @@ Global String OverView(int x, int y, int w, int h, string Filters,string char)
 			End
 		End
 		FilFnt.DarkText(CFI,FX,y+25,2,2)
+	End
+	// Items
+	Int iY = -__ScrollY
+	//String Hover = ""
+	For iTag,iNum in sPairs(Inventory)
+		LoadedItems[iTag] = LoadedItems[iTag] || NeilUse("Script/Data/IAA/"..iTag)
+		Var iData = LoadedItems[iTag]
+		
+		If iY>=0 && iY<=H-150 && iNum>0 && Allow(iTag,ListOfFilters[Filters][CurrentFilter[Filters]])
+			Int MDX = 0
+			Int DX = X+10
+			Int DY = Y+iY+100
+			If MX>DX && MX<(X+W)-80 && MY>DY && MY<DY+35
+				MDX = 30
+				//Hover = iTag
+				If ML
+					Return iTag
+				End
+			End
+			Graphics.Color(255,255,255)
+			ItmFnt.Text(iData.Title,DX+MDX,DY)
+			Graphics.Color(255,180,  0)
+			ItmFnt.Text(Lua.tostring(iNum),(X+W)-(80+MDX),DY,1)
+			iY+=40
+		End
 	End
 	Return ""
 End
