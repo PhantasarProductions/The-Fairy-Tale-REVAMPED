@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FieldMenu/Items.neil
-// Version: 21.08.10
+// Version: 21.08.15
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -36,5 +36,8 @@
 // End License Information
 Module
 	Void Flow(uBox,string CharTag,string situation)
+		String CItemTag
+		Var CItem
+		CItemTag,CItem = Item.Overview(ubox.x,ubox.y,ubox.w,ubox.h,"FIELDMENU",CharTag)
 	End
 End

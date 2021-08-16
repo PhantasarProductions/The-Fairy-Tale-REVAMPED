@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Subs/SubItems.neil
-// Version: 21.08.14
+// Version: 21.08.15
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -35,6 +35,11 @@
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
 #use "Script/Data/IAA/MyData_ClassFile_IAA"
+
+#macro __ScrollY ScrollList[Filters]
+
+ReadOnly Var FilFnt = ImageFont.Obtain("FNTSBAR")
+
 Table LoadedItems = {}
 
 Global Table Inventory = {["ITM_APPLE"]=24 div gv.gInt.Skill, ["ITM_ANTIDOTE"]=6 div gv.gint.skill,["ITM_HEALINGHEBRB"]=3-gv.gint.skill }
@@ -58,6 +63,33 @@ Global Void SetItemHas(string itTag,int num)
 	Inventory[itTag:upper()] = num
 End
 
+Global Bool Allow(string itTag, string Filter)
+	itTag = itTag:upper()
+	Filter = Filter:upper()
+	LoadedItems[itTag] = LoadedItems[itTag] || NeilUse("Script/Data/IAA/"..ItTag)
+	Var MyItem = LoadedItems[itTag]
+	Static String EQP="EQUIPMENT FOR "
+	EQP = Replace(EQP,"HANDO STILLOR","HANDOSTILLOR")
+	If Prefixed(Filter,EQP)
+		String Name = Right(Filter,#Filter-#EQP)
+		Return MyItem.ITM_EQPFOR:upper()==Name || MyItem["ITM_ACC_"..Name]
+	End
+	Switch Filter
+		Case "ALL" "" "*"
+			Return True
+		Case "EQUIPMENT"
+			Return MyItem.ITM_Type=="Weapon" || MyItem.ITM_Type=="Armor" || MyItem.ITM_Type=="Accesoiry"
+		Case "CONSUMABLE" "COMBAT"
+			Return MyItem.ITM_Type=="Consumable"
+		Case "KEY" "KEYITEM" "KEY ITEM"
+			Return MyItem.ITM_Type=="KeyItem"
+		Case "SELLABLE"
+			Return (MyItem.ITM_Sellable || MyItem.ITM_ShopPrice>0) && MyItem.ITM_Type!="KeyItem"
+		Default
+			Lua.error("Unknown item filter: "..Filter)
+	End
+End
+
 Global Var ItemField(string ItTag,ItField)
 	ItTag = ItTag:upper()
 	ItField = ItField:upper()
@@ -69,4 +101,63 @@ Global Var ItemField(string ItTag,ItField)
 			//cOut("Item requested: ",ittag,"; Field: ",itfield," => ",LoadedItems[itTag][ItField])
 			Return LoadedItems[itTag][ItField]
 	End
+End
+
+Global String OverView(int x, int y, int w, int h, string Filters,string char)
+	Static Table ListOfFilters = { ["FIELDMENU"] = {"All","Consumables","Combat","Equipment","For <ch>","Key"}, ["COMBAT"] = {"Combat"}, ["STORE"] = {"Sellable"} }
+	Static Table CurrentFilter = {}
+	Static Table ScrollList = {}
+	Int MX = Events.MouseX()
+	Int MY = Events.MouseY()
+	Bool ML = Events.MouseHitLeft()
+	Lua.assert(ListOfFilters[Filters],"No filterlist for situation: "..Filters)
+	CurrentFilter[Filters] = CurrentFilter[Filters] || 1
+	String CF = ListOfFilters[Filters][CurrentFilter[Filters]]
+	__ScrollY = __ScrollY || 0
+	//Switch Char
+	//	Case "Jake_Human" "Jake_Fairy"
+	//		CF = Replace(CF,"<ch>","Jake")
+	//	case "Marrilona" "Dandor" 
+	//		CF = Replace(CF,"<ch>",Char)
+	//	Case "HandoStillor"
+	//		CF = Replace(CF,"<ch>","Hando Stillor")
+	//	Default
+	//		If Suffixed(CF,"<ch>")
+	//			CF=""
+	//		End
+	//End
+	Int FW = w div (#ListOfFilters[Filters]+1)
+	For i,fitem in iPairs(ListOfFilters[Filters])
+		String CFI = fitem
+		Switch Char
+			Case "Jake_Human" "Jake_Fairy"
+				CFI = Replace(CFI,"<ch>","Jake")
+			Case "Marrilona" "Dandor" 
+				CFI = Replace(CF,"<ch>",Char)
+			Case "HandoStillor"
+				CFI = Replace(CFI,"<ch>","Hando Stillor")
+			Default
+				If Suffixed(CFI,"<ch>")
+					CFI=""
+				End
+		End
+		Int TW = FilFnt.TextWidth(fitem)
+		Int WH = TW div 2
+		Int FX = (i * FW)+x
+		if i==CurrentFilter[Filters]
+			Graphics.Color(50,36,0)
+			Graphics.Rect(FX-WH,y+5,TW,40)
+			Graphics.Color(255,180,0)
+			Graphics.Rect(FX-WH,y+5,TW,40,true)
+		End
+		Graphics.Color(255,180,0)
+		If CF!="" && MY>Y && MY<Y+50 && MX>FX-WH && MX<FX+WH
+			Graphics.Color(255,255,0)
+			If ML
+				CurrentFilter[Filters] = i
+			End
+		End
+		FilFnt.DarkText(CFI,FX,y+25,2,2)
+	End
+	Return ""
 End
