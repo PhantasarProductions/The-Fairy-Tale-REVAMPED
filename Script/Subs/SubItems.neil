@@ -35,8 +35,10 @@
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
 #use "Script/Data/IAA/MyData_ClassFile_IAA"
+#use "Libs/Fittext"
 
 #macro __ScrollY ScrollList[Filters]
+#macro __ScrollAY ScrollList[Situation]
 
 ReadOnly Var FilFnt = ImageFont.Obtain("FNTSBAR")
 ReadOnly Var ItmFnt = Imagefont.Obtain("FNTSTATSTAT")
@@ -44,6 +46,96 @@ ReadOnly Var ItmFnt = Imagefont.Obtain("FNTSTATSTAT")
 Table LoadedItems = {}
 
 Global Table Inventory = {["ITM_APPLE"]=24 div gv.gInt.Skill, ["ITM_ANTIDOTE"]=6 div gv.gint.skill,["ITM_HEALINGHERB"]=3-gv.gint.skill }
+Global Table Abilities = {}
+
+Class ABLRec
+	ReadOnly String iTag
+	ReadOnly String Char
+	Get Var Ability
+		LoadedItems[itTag] = LoadedItems[itTag] || NeilUse("Script/Data/IAA/"..iTag)
+		Return LoadedItems[itTag]
+	End
+	Bool _Unlocked
+	Get Bool Unlocked
+		if Abilities[Char].Skill[iTag]
+			Return True
+		End
+		return _Unlocked
+	End
+	ReadOnly Int Req1
+	ReadOnly Int Req2
+	ReadOnly Int Req3
+	ReadOnly Int Req4
+	ReadOnly Int Req5
+	ReadOnly String Category
+	Get Bool ReqByStory
+		Return Req1==0 && Req2==0 && Req3==0 && Req4==0 && Req5==0 && (!Abilities[Char].Skill[iTag])
+	End
+	
+	Constructor(string T,string CH,int R1, int R2, int R3, int R4, int R5,string C)
+		iTag = T:upper()
+		Char = Ch
+		Category = C
+	End
+	
+	Static Void NewAbl(string T,string Ch,int R1, int R2, int R3, int R4, int R5,string Cat)
+		T = T:upper()
+		Abilities[ch] = Abilities[ch] || { ["Ability"]={}, ["Skill"]={} }
+		Abilities[ch].Ability[T] = new ABLRec(T,Ch,R1,R2,R3,R4,R5,Cat)
+		If ch=="Jake"
+			Abilities.Jake_Human = Abilities.Jake_Human || { ["Ability"]={}, ["Skill"]={}}
+			Abilities.Jake_Fairy = Abilities.Jake_Fairy || { ["Ability"]={}, ["Skill"]=Abilities.Jake_Human.Skill }
+			Abilities.Jake_Human.Ability[T] = Abilities[ch].Ability[T]
+			Abilities.Jake_Fairy.Ability[T] = Abilities[ch].Ability[T]
+		ElseIf Prefixed(ch,"Feenalaria")
+			// Feenalaria copies Jake's skills
+			Static Bool FirstTime = Bool
+			If FirstTime
+				Abilities.Jake_Human = Abilities.Jake_Human || { ["Ability"]={}, ["Skill"]={} }
+				Abilities[ch].Skill = Abilities.Jake_Human.Skill
+				FirstTime = False
+			End
+		End
+	End
+	
+	Static Void NewSkill(string T, string CH)
+		T = T:upper()
+		If Prefixed(ch,"Jake")
+			Abilities.Jake_Human = Abilities.Jake_Human || { ["Ability"]={}, ["Skill"]={} }
+			Abilities.Jake_Fairy = Abilities.Jake_Fairy || { ["Ability"]={}, ["Skill"]=Abilities.Jake_Human.Skill }
+		Else
+			Abilities[ch] = Abilities[ch] || { ["Ability"]={}, ["Skill"]={} }
+		End
+		// Conflict prevention
+		If Abilities[ch].Skill[T]			
+			Return
+		End
+		Abilities[ch].Skill[T] = new ABLRec(T,ch,0,0,0,0,0,"9. Skills")		
+	End
+	
+	Void CopyHumanJake(string Ch,string LinkSkill,Force)
+		If (!Abilities[ch]) || Force
+			Abilities[ch] = { ["Ability"]={}, ["Skill"]=Abilities[LinkSkill].Skill }
+			For k,v in pairs(Abilities.Jake_Human)
+				If v.Req1>0 && v.Reg2<=0 && v.Reg3<=0 && v.Reg4<=0 && v.Reg5<=0 && v.Unlocked
+					CSayF("%s copied ability %s from Jake",Ch,k)
+					Abilties[ch][k] = v
+				End
+			End
+		End
+	End
+	
+	Void CopyMarrilona(string Ch,Force)
+		Static Bool DoneAlready = False
+		If (!DoneAlready) || Force
+			For k,v in pairs(Abilities.Marrilona)
+				CSayF("%s copied ability %s from Marrilona",Ch,k)
+				Abilties[ch][k] = v
+			End
+		End
+	End
+			
+End
 
 Global Void SaveInventory()
 	String Data = "Init\n"
@@ -104,6 +196,18 @@ Global Var ItemField(string ItTag,ItField)
 	End
 End
 
+Global Void Explain(Item)
+	if (Lua.type(Item)=="string")
+		// By lack of a proper overload I guess this will have to do
+		LoadedItems[itTag] = LoadedItems[itTag] || NeilUse("Script/Data/IAA/"..ItTag)
+		Explain(LoadedItems[itTag])
+	End
+	Int MX = Events.MouseX()
+	Int MY = Events.MouseY()
+	Graphics.Color(255,255,255)
+	FitText.Dark(FilFnt,iData.Desc,MX+10,MY+100)
+End
+
 Global String OverView(int x, int y, int w, int h, string Filters,string char)
 	// Basis
 	Static Table ListOfFilters = { ["FIELDMENU"] = {"All","Consumables","Combat","Equipment","For <ch>","Key"}, ["COMBAT"] = {"Combat"}, ["STORE"] = {"Sellable"} }
@@ -161,8 +265,10 @@ Global String OverView(int x, int y, int w, int h, string Filters,string char)
 			Int MDX = 0
 			Int DX = X+10
 			Int DY = Y+iY+100
+			bool Hovering = False
 			If MX>DX && MX<(X+W)-80 && MY>DY && MY<DY+35
 				MDX = 30
+				Hovering = True
 				//Hover = iTag
 				If ML
 					Return iTag
@@ -173,7 +279,55 @@ Global String OverView(int x, int y, int w, int h, string Filters,string char)
 			Graphics.Color(255,180,  0)
 			ItmFnt.Text(Lua.tostring(iNum),(X+W)-(80+MDX),DY,1)
 			iY+=40
+			If Hovering
+				Explain(iData)
+			End
 		End
 	End
 	Return ""
+End
+
+Void Categorize(String Char)
+	If !Abilities[char].Cat
+		Abilities[char].Cat = {}
+		Table Q = {["9. Skills"]=true}
+		For A in pairs(Abilities[char].Ability)
+			Q[A.Category] = true
+		End
+		For C,_in sPairs(Q)
+			Abilities[char].Cat += C
+		End
+	End
+End
+		
+Void QuickWork(Table AT,String Char)
+	For Category,Lijst in Pairs(AT)
+		For AbTag,Req in Pairs(Lijst)
+			AblRec.NewAbl(AbTag,Char,Req[1],Req[2],Req[3],Req[4],Req[5],Category)
+		End
+	End
+End
+
+Void LoadAbilityList(String Char,Force)
+	If (!Abilities[char]) || Force
+		NeilUse("Script/Data/Char/"..char.."/Abilities.neil")
+	End
+	If Char=="Jake_Human"
+		LoadAbilityList("Jake_Fairy",true)		
+	End
+	Categorize(Char)
+End
+
+Global Void AblOverview(String Char,int x, int y, int w, int h,string situation)
+	Global Table ScrollList = {}
+	global Table CurrentCat = {}
+	CurrentCat[char] = CurrentCat[char] || 1
+	__ScrollAY = __ScrollAY || 0
+	Int cw = w div (#Abilities[Char].Cat+1)
+	String ctn = Abilities[Char].Cat[CurrentCat[Char]]	
+	For i,ct in ipairs(Abilities[Char].Cat)
+		Int CX = i*cw 
+		Graphics.Color(255,180,0)
+		FilFnt.DarkText(ct,CX,y+25,2,2)
+	End
 End
