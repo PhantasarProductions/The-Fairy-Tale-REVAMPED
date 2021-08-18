@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Link.neilbundle/Item.neil
-// Version: 21.08.17
+// Version: 21.08.18
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -50,7 +50,7 @@ End
 	
 Var __AblOverView(string char,int x,int y, int w, int h,string situation)
 	__LoadItemState
-	string Ret = ISGET.String("SUB_ITEMS",sPrintF("AbilityOverView('%s',%d,%d,%d,%d,'%s')",char,x,y,w,h,situation))
+	string Ret = ISGET.String("SUB_ITEMS",sPrintF("AblOverView('%s',%d,%d,%d,%d,'%s')",char,x,y,w,h,situation))
 	If Ret==""
 		Return "",nil
 	End
@@ -64,7 +64,7 @@ Var __TagIndex(s,string Key)
 		Case "OVERVIEW"
 			return __Overview
 		Case "ABLOVERVIEW" "ABILITYOVERVIEW"
-			return __AbilityOverview
+			return __AblOverview
 		Case "SAVE"
 			Void _S()
 				__LoadItemState

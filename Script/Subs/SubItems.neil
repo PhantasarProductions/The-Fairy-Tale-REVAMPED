@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Subs/SubItems.neil
-// Version: 21.08.17
+// Version: 21.08.18
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -34,6 +34,7 @@
 // misrepresented as being the original software.
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
+
 #use "Script/Data/IAA/MyData_ClassFile_IAA"
 #use "Libs/Fittext"
 
@@ -52,8 +53,8 @@ Class ABLRec
 	ReadOnly String iTag
 	ReadOnly String Char
 	Get Var Ability
-		LoadedItems[itTag] = LoadedItems[itTag] || NeilUse("Script/Data/IAA/"..iTag)
-		Return LoadedItems[itTag]
+		LoadedItems[iTag] = LoadedItems[iTag] || NeilUse("Script/Data/IAA/"..iTag)
+		Return LoadedItems[iTag]
 	End
 	Bool _Unlocked
 	Get Bool Unlocked
@@ -89,7 +90,7 @@ Class ABLRec
 			Abilities.Jake_Fairy.Ability[T] = Abilities[ch].Ability[T]
 		ElseIf Prefixed(ch,"Feenalaria")
 			// Feenalaria copies Jake's skills
-			Static Bool FirstTime = Bool
+			Static Bool FirstTime = False
 			If FirstTime
 				Abilities.Jake_Human = Abilities.Jake_Human || { ["Ability"]={}, ["Skill"]={} }
 				Abilities[ch].Skill = Abilities.Jake_Human.Skill
@@ -118,8 +119,8 @@ Class ABLRec
 			Abilities[ch] = { ["Ability"]={}, ["Skill"]=Abilities[LinkSkill].Skill }
 			For k,v in pairs(Abilities.Jake_Human)
 				If v.Req1>0 && v.Reg2<=0 && v.Reg3<=0 && v.Reg4<=0 && v.Reg5<=0 && v.Unlocked
-					CSayF("%s copied ability %s from Jake",Ch,k)
-					Abilties[ch][k] = v
+					PrintF("ITEM>".."%s copied ability %s from Jake",Ch,k)
+					Abilities[ch][k] = v
 				End
 			End
 		End
@@ -129,8 +130,8 @@ Class ABLRec
 		Static Bool DoneAlready = False
 		If (!DoneAlready) || Force
 			For k,v in pairs(Abilities.Marrilona)
-				CSayF("%s copied ability %s from Marrilona",Ch,k)
-				Abilties[ch][k] = v
+				PrintF("ITEM>".."%s copied ability %s from Marrilona",Ch,k)
+				Abilities[ch][k] = v
 			End
 		End
 	End
@@ -196,16 +197,16 @@ Global Var ItemField(string ItTag,ItField)
 	End
 End
 
-Global Void Explain(Item)
-	if (Lua.type(Item)=="string")
+Global Void Explain(it)
+	if (Lua.type(it)=="string")
 		// By lack of a proper overload I guess this will have to do
-		LoadedItems[itTag] = LoadedItems[itTag] || NeilUse("Script/Data/IAA/"..ItTag)
-		Explain(LoadedItems[itTag])
+		LoadedItems[it] = LoadedItems[it] || NeilUse("Script/Data/IAA/"..It)
+		Explain(LoadedItems[it])
 	End
 	Int MX = Events.MouseX()
 	Int MY = Events.MouseY()
 	Graphics.Color(255,255,255)
-	FitText.Dark(FilFnt,iData.Desc,MX+10,MY+100)
+	FitText.Dark(FilFnt,it.Desc,MX+10,MY+100)
 End
 
 Global String OverView(int x, int y, int w, int h, string Filters,string char)
@@ -291,26 +292,30 @@ Void Categorize(String Char)
 	If !Abilities[char].Cat
 		Abilities[char].Cat = {}
 		Table Q = {["9. Skills"]=true}
-		For A in pairs(Abilities[char].Ability)
+		For _,A in pairs(Abilities[char].Ability)
 			Q[A.Category] = true
 		End
-		For C,_in sPairs(Q)
+		For C,_ in sPairs(Q)
 			Abilities[char].Cat += C
 		End
+		PrintF("Abilities for %s categorized!",Char)
 	End
 End
 		
-Void QuickWork(Table AT,String Char)
+Global Void QuickWork(Table AT,String Char)
+	Printf("Abilities for: %s\n",char)
 	For Category,Lijst in Pairs(AT)
+		printF("- Category: %s\n",Category) 
 		For AbTag,Req in Pairs(Lijst)
-			AblRec.NewAbl(AbTag,Char,Req[1],Req[2],Req[3],Req[4],Req[5],Category)
+			printF(" = %s => %d/%d/%d/%d/%d\n",Abtag, Req[1] || 0,Req[2] || 0,Req[3] || 0,Req[4] || 0,Req[5] || 0)
+			AblRec.NewAbl(AbTag,Char,Req[1] || 0,Req[2] || 0,Req[3] || 0,Req[4] || 0,Req[5] || 0,Category)
 		End
 	End
 End
 
 Void LoadAbilityList(String Char,Force)
 	If (!Abilities[char]) || Force
-		NeilUse("Script/Data/Char/"..char.."/Abilities.neil")
+		NeilUse("Script/Data/Char/"..char.."/Abilities")
 	End
 	If Char=="Jake_Human"
 		LoadAbilityList("Jake_Fairy",true)		
@@ -318,9 +323,11 @@ Void LoadAbilityList(String Char,Force)
 	Categorize(Char)
 End
 
-Global Void AblOverview(String Char,int x, int y, int w, int h,string situation)
-	Global Table ScrollList = {}
-	global Table CurrentCat = {}
+Global String AblOverview(String Char,int x, int y, int w, int h,string situation)
+	Static Table ScrollList = {}
+	Static Table CurrentCat = {}
+	String Ret = "" 
+	LoadAbilityList(Char)
 	CurrentCat[char] = CurrentCat[char] || 1
 	__ScrollAY = __ScrollAY || 0
 	Int cw = w div (#Abilities[Char].Cat+1)
@@ -328,6 +335,7 @@ Global Void AblOverview(String Char,int x, int y, int w, int h,string situation)
 	For i,ct in ipairs(Abilities[Char].Cat)
 		Int CX = i*cw 
 		Graphics.Color(255,180,0)
-		FilFnt.DarkText(ct,CX,y+25,2,2)
+		FilFnt.DarkText(ct,x+CX,y+25,2,2)
 	End
+	Return ret
 End
