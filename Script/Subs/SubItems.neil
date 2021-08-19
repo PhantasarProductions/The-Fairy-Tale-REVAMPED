@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Subs/SubItems.neil
-// Version: 21.08.18
+// Version: 21.08.19
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -56,13 +56,25 @@ Class ABLRec
 		LoadedItems[iTag] = LoadedItems[iTag] || NeilUse("Script/Data/IAA/"..iTag)
 		Return LoadedItems[iTag]
 	End
-	Bool _Unlocked
+	
+	Get String UnlTag
+		string c=Char
+		if prefixed(c,"Jake") 
+			c="jake"
+		End
+		Return sprintf("%s.%s",c,itag)
+	End
+	//Bool _Unlocked
 	Get Bool Unlocked
 		if Abilities[Char].Skill[iTag]
 			Return True
 		End
-		return _Unlocked
+		Return gv.gBool[UnlTag]		
 	End
+	Set Bool Unlocked
+		gv.gBool[UnlTag]=value
+	End
+	
 	ReadOnly Int Req1
 	ReadOnly Int Req2
 	ReadOnly Int Req3
@@ -71,6 +83,36 @@ Class ABLRec
 	ReadOnly String Category
 	Get Bool ReqByStory
 		Return Req1==0 && Req2==0 && Req3==0 && Req4==0 && Req5==0 && (!Abilities[Char].Skill[iTag])
+	End
+	
+	Get Int APCost
+		If Char=="Marrilona" && (RPGChar.Marrilona.Points.HP.Have/RPGChar.Marrilona.Points.HP.Maximum)<(0.30/gv.gint.skill)
+			Return 0
+		End
+		Return Ability.ABL_APCost
+	End
+	
+	Get String ShowAPCost
+		If Unlocked
+			return sprintf("%d",APCost)
+		End
+		Return ""
+	End
+	
+	
+	Get String ShowName
+		If Unlocked
+			Return Ability.Title
+		End
+		String Ret = ""		
+		For i=1,#Ability.Title
+			If Mid(Ability.Title,i,1)==" "
+				Ret += " " 
+			Else
+				Ret += "-"
+			End
+		End
+		Return Ret
 	End
 	
 	Constructor(string T,string CH,int R1, int R2, int R3, int R4, int R5,string C)
@@ -114,7 +156,7 @@ Class ABLRec
 		Abilities[ch].Skill[T] = new ABLRec(T,ch,0,0,0,0,0,"9. Skills")		
 	End
 	
-	Void CopyHumanJake(string Ch,string LinkSkill,Force)
+	Static Void CopyHumanJake(string Ch,string LinkSkill,Force)
 		If (!Abilities[ch]) || Force
 			Abilities[ch] = { ["Ability"]={}, ["Skill"]=Abilities[LinkSkill].Skill }
 			For k,v in pairs(Abilities.Jake_Human)
@@ -126,7 +168,7 @@ Class ABLRec
 		End
 	End
 	
-	Void CopyMarrilona(string Ch,Force)
+	Static Void CopyMarrilona(string Ch,Force)
 		Static Bool DoneAlready = False
 		If (!DoneAlready) || Force
 			For k,v in pairs(Abilities.Marrilona)
@@ -298,7 +340,7 @@ Void Categorize(String Char)
 		For C,_ in sPairs(Q)
 			Abilities[char].Cat += C
 		End
-		PrintF("Abilities for %s categorized!",Char)
+		PrintF("Abilities for %s categorized!\n",Char)
 	End
 End
 		
@@ -327,6 +369,10 @@ Global String AblOverview(String Char,int x, int y, int w, int h,string situatio
 	Static Table ScrollList = {}
 	Static Table CurrentCat = {}
 	String Ret = "" 
+	Int MX = Events.MouseX()
+	Int MY = Events.MouseY()
+	Bool ML = Events.MouseHitLeft()
+	
 	LoadAbilityList(Char)
 	CurrentCat[char] = CurrentCat[char] || 1
 	__ScrollAY = __ScrollAY || 0
@@ -334,8 +380,37 @@ Global String AblOverview(String Char,int x, int y, int w, int h,string situatio
 	String ctn = Abilities[Char].Cat[CurrentCat[Char]]	
 	For i,ct in ipairs(Abilities[Char].Cat)
 		Int CX = i*cw 
+		Int CW = FilFnt.TextWidth(ct)
+		Int WH = CW div 2
+		Graphics.Color( 50, 36,0)
+		Graphics.Rect(x+cx-wh,y+5,cw+2,45)
 		Graphics.Color(255,180,0)
+		If MX>x+cx-wh && MX<x+cx+wh && MY>y && MY<50+y
+			Graphics.Color(255,255,0)
+			If ML 
+				CurrentCat[char]=i
+				Print("Category set to: ",i)
+			End
+		End
+		If i==CurrentCat[char]
+			Graphics.Rect(x+cx-wh,y+5,cw+2,45,true)
+		End
 		FilFnt.DarkText(ct,x+CX,y+25,2,2)
 	End
-	Return ret
+	Int AY = y+75
+	Int DX = 0
+	Var ALs = Abilities[Char].Ability
+	If CurrentCat[char]==#Abilities[Char].Cat
+		Als = Abilities[Char].Skill
+	End
+	For Abl,Dat In sPairs(Als)
+		If Dat.Category==CTN
+			Graphics.Color(255,255,255)
+			ItmFnt.DarkText(Dat.ShowName,X+DX+5,AY)
+			Graphics.Color(  0,180,255)
+			ItmFnt.DarKText(Dat.ShowAPCost,X+W-(80+DX),AY)
+			AY+=40
+		End
+	End
+	Return Ret
 End

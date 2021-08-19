@@ -32,10 +32,10 @@
 // 
 // **********************************************
 // 
-// version: 21.08.18
+// version: 21.08.19
 // End License Information
 Init
-	ABLRec.NewABL("ABL_HERO_JAKE_SHIFT_HUMAN.neil","Jake_Human",0,0,0,0,0,"1. Sword")
+	ABLRec.NewABL("ABL_HERO_JAKE_SHIFT_HUMAN","Jake_Human",0,0,0,0,0,"1. Sword")
 	
 	plua skill = gv.gint.Skill
 	plua newgameplus = gv.gbool.NEWGAMEPLUS
