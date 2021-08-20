@@ -170,6 +170,14 @@ Module
 		MCall("FlowField.Kill.Kill",Tag,perma==true)
 	End
 	
+	Void HideObj(string Tag)
+		ObjSet(Tag,"Visible",false)
+	End
+	
+	Void ShowObj(string Tag)
+		ObjSet(Tag,"Visible",true)
+	End
+	
 	CONSTRUCTOR
 		table m
 		m = {}
