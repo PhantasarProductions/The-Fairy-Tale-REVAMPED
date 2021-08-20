@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FieldMenu/Status.neil
-// Version: 21.08.11
+// Version: 21.08.20
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -53,6 +53,7 @@ Module
 	End
 	
 	Void Flow(uBox,string CharTag,string situation)
+		// Declarations
     	Static Table Procent = {["Accuracy"]=true,["Evasion"]=true}
     	Static Table procentteken = {[false]="",[true]="%"}
     	Static Table ShowStats = {"Power","Endurance","Intelligence","Resistance","Speed","Accuracy","Evasion"}
@@ -60,6 +61,7 @@ Module
     	Int y = ubox.y
     	Int w = ubox.w
     	Int h = ubox.h
+    	// Head
     	__white
     	// ORIGINAL: Image.Show("CL_FACE_"..ch,(x+w)-(25+Image.Width("CL_FACE_"..ch)),y+25)
     	Party.Portrait(CharTag,(x+w)-200,y+125)
@@ -72,12 +74,16 @@ Module
     	StatFnt.DarkText("HP "..HP.Have.." of "..HP.Maximum,x+25,y+75,0,0) //,180,255,0)
     	Graphics.Color(0,180,255)
     	StatFnt.DarkText("AP "..AP.Have.." of "..AP.Maximum,x+25,y+95,0,0) //,0,180,255)
+    	// Statistics
     	For i,s in ipairs(ShowStats)
     		__White
         	StatFnt.DarkText(s,x+25,y+100+(i*35))
         	__Ember
         	StatFnt.DarkText(RPGChar[chartag].Stat["END_"..s]..procentteken[procent[s]==true],(x+w)-25,y+100+(i*35),1,0)
         End
+        // Skills
+        RPGChar[chartag].Points.LVL_Skill1.Have = math.max(RPGChar[chartag].Points.LVL_Skill1.Have,1)
+        // Equipment
     	__Ember
     	eqIcon("Acc"         ,x+10,(y+h)-25)
     	eqIcon("Armor"       ,x+10,(y+h)-50)
