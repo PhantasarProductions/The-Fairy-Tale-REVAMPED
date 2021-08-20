@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Subs/SubItems.neil
-// Version: 21.08.19
+// Version: 21.08.20
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -116,9 +116,14 @@ Class ABLRec
 	End
 	
 	Constructor(string T,string CH,int R1, int R2, int R3, int R4, int R5,string C)
-		iTag = T:upper()
-		Char = Ch
+		iTag     = T:upper()
+		Char     = Ch
 		Category = C
+		Req1     = R1
+		Req2     = R2
+		Req3     = R3
+		Req4     = R4
+		Req5     = R5
 	End
 	
 	Static Void NewAbl(string T,string Ch,int R1, int R2, int R3, int R4, int R5,string Cat)
@@ -397,18 +402,48 @@ Global String AblOverview(String Char,int x, int y, int w, int h,string situatio
 		End
 		FilFnt.DarkText(ct,x+CX,y+25,2,2)
 	End
-	Int AY = y+75
-	Int DX = 0
+	Int AY = y+75	
 	Var ALs = Abilities[Char].Ability
 	If CurrentCat[char]==#Abilities[Char].Cat
 		Als = Abilities[Char].Skill
-	End
+	End	
 	For Abl,Dat In sPairs(Als)
+		Int DX = 0
+		Bool Hover
 		If Dat.Category==CTN
+			If MX>X && MY>AY && MX<X+W-80 && MY<AY+40
+				DX = 20
+				Hover=true
+				If ML && Dat.Unlocked
+					Ret = Abl
+				End				
+			End
 			Graphics.Color(255,255,255)
 			ItmFnt.DarkText(Dat.ShowName,X+DX+5,AY)
 			Graphics.Color(  0,180,255)
-			ItmFnt.DarKText(Dat.ShowAPCost,X+W-(80+DX),AY)
+			ItmFnt.DarkText(Dat.ShowAPCost,X+W-(80+DX),AY)
+			If Hover
+				If Dat.Unlocked
+					Explain(Dat)
+				Else
+					Int EY = MY+100
+					If Dat.ReqByStory 
+						FitText.Dark(FilFnt,"Unlocked when you reach a certain point in the scenario",MX+10,EY)
+					Else
+						FitText.Dark(FilFnt,"To unlock you need:",MX+10,EY)
+						For si=1,5 
+							If Dat["Req"..si]>0
+								EY+=20
+								If RPGChar[char].Points[sprintf("LVL_Skill%d",si)].Have==0
+									FitText.Dark(FilFnt,"???",MX+10,EY)
+								Else
+									FitText.Dark(FilFnt,sPrintF("%s to be level %d or higher",RPGChar[char].Data[sprintf("Skill%d",si)],Dat[sprintf("Req%d",si)]),MX+10,EY)
+								End
+							End
+						End
+					End
+				End
+			End
 			AY+=40
 		End
 	End
