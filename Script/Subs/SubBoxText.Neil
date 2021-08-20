@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Subs/SubBoxText.Neil
-// Version: 21.08.08
+// Version: 21.08.20
 // Copyright (C) 2020, 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -304,6 +304,8 @@ class TextBox
 			if audioplaying
 				audio.stop(audiochannel)
 			end
+			CSayF("Fading music from %d to 40",Music.MusicVolume)
+			Music.FadeTo(40)
 			audiowave = Audio.Load(sb_data.Voice)
 			audiochannel = audiowave.play()
 			audioplaying = true
@@ -372,7 +374,8 @@ group FlowBoxText
 			TextBox.Current.Show()
 			if TextBox.Current.SL>#TextBox.Current.Lines && ( Events.MouseHitLeft() or (TextBox.audioplaying and (!Audio.ChannelPlaying(Textbox.audiochannel))))
 				if !FlowBoxText.Next()
-					return
+					Music.FadeTo(100) // Make sure music volume is always back to max
+					Return
 				end
 			end
 			Graphics.Flip()
