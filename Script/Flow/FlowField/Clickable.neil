@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField/Clickable.neil
-// Version: 21.08.10
+// Version: 21.08.21
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -106,6 +106,15 @@ Module Class
 					Var fuck = Spot(Lay,T)
 					Create(L,T,fuck.X,fuck.Y,FieldFlow.GoToSave,T) //,sprintf("\"%s\"",T))
 					CSayF("= Savespot: %s",T)
+				ElseIf Prefixed(T,"RNDITEM_")
+					If Math.Random(1,__skill^2)==1 
+						Var S = Spot(Lay,T)
+						Create(L,T,S.X,S.Y,FieldFlow.Treasure.RandomItem,T)
+						CSayF("= Random Item: %s",T)
+					Else
+						Lay.Kill(T)
+						CSayF("= Removed random item: %s",T)
+					End
 				End
 			End
 		End
