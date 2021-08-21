@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField/DrawScreen.neil
-// Version: 21.08.07
+// Version: 21.08.21
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -35,6 +35,8 @@
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
 
+
+#use "Script/Use/Misc/MiniMessage"
 
 QuickMeta PlTag
 	Index
@@ -85,6 +87,7 @@ Void _DS()
 	AutoScroll()
 	FlowField.Map.KthuraMap.Draw(FieldFlow.Map.Layer,FieldFlow.Map.ScrollX,FieldFlow.Map.ScrollY)
 	FlowField.Compass.DrawAll()
+	MiniMessage.DrawAll()
 	If FlowField.Debug.MouseCoords
 		__White
 		int midx = Screen.W div 2

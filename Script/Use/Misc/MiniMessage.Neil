@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Misc/MiniMessage.Neil
-// Version: 21.07.24
+// Version: 21.08.21
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -34,10 +34,67 @@
 // misrepresented as being the original software.
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
+
+#use "libs/xmath"
+#use "libs/linkedlist"
+
 Class __minimessage_ret
+
+	Static ReadOnly Int MaxCount=150
+	Static ReadOnly Var Lijst = new LinkedList()
+	Static ReadOnly Var Fnt = ImageFont.Obtain("FNTSBAR")
+
+	ReadOnly Int R
+	ReadOnly Int G
+	ReadOnly Int B
+	ReadOnly Int X
+	ReadOnly Int Y
 	
-	Static Void NewMsg(String Msg,Int X, Int Y,Int R, Int G, Int B)
+	ReadOnly String Msg
+
+	Int Count = 0
+	Int _DEG = math.random(0,360)
+	Get Int Deg
+		Return _DEG
 	End
+	Set Int Deg
+		_DEG = value % 360
+	End
+	Int DegMod(int I)
+		int IH = i div 2
+		return math.floor(128 + math.abs(xMath.Sin(Deg)*IH))
+	End
+	
+	Constructor(String _Msg,Int _X, Int _Y,Int _R=255, Int _G=255, Int _B=255)
+		X = _X
+		Y = _Y
+		R = _R
+		G = _G
+		B = _B
+		Msg = _Msg
+	End
+	
+	Static Void NewMsg(String Msg,Int X, Int Y,Int R=255, Int G=255, Int B=255)
+		Lijst.AddLast(new __minimessage_ret(Msg,X,Y,R,G,B))		
+	End
+	
+	Void Draw()
+		DEG++
+		//Graphics.Color(math.floor(R*DegMod),math.floor(G*DegMod),math.floor(B*DegMod))
+		Graphics.Color(DegMod(R),DegMod(G),DegMod(B))
+		Fnt.DarkText(Msg,X,Y-Count,2,2)
+	End
+	
+	Static Void DrawAll()
+		For M,L in Lijst.Each
+			M.Draw()
+			M.Count++
+			If M.Count>MaxCount
+				L.UnLink()
+			End
+		End
+	End
+	
 End
 
 
