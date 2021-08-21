@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Subs/SubItems.neil
-// Version: 21.08.20
+// Version: 21.08.21
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -43,6 +43,7 @@
 
 ReadOnly Var FilFnt = ImageFont.Obtain("FNTSBAR")
 ReadOnly Var ItmFnt = Imagefont.Obtain("FNTSTATSTAT")
+Global ReadOnly Int MaxItem=({100,50,10})[gv.gint.skill]
 
 Table LoadedItems = {}
 
@@ -201,7 +202,8 @@ Global Void LoadInventory()
 End
 
 Global Void SetItemHas(string itTag,int num)
-	Inventory[itTag:upper()] = num
+	Print("SetItemHas",itTag,num)
+	Inventory[itTag:upper()] = math.max(math.min(num,maxitem),0)
 End
 
 Global Bool Allow(string itTag, string Filter)
