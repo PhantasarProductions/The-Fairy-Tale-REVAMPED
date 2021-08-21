@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField/Kill.neil
-// Version: 21.08.07
+// Version: 21.08.21
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -40,7 +40,8 @@ Module
 	Void Kill(String Tag,bool Permanent)
 		If Permanent
 			TheKills[FlowField.Map.LoadedMap] = TheKills[FlowField.Map.LoadedMap] || {}
-			TheKills[FlowField.Map.LoadedMap] += Tag
+			TheKills[FlowField.Map.LoadedMap][FlowField.Map.Layer] = TheKills[FlowField.Map.LoadedMap][FlowField.Map.Layer] || {} 
+			TheKills[FlowField.Map.LoadedMap][FlowField.Map.Layer] += Tag
 		End
 		FieldFlow.Map.CurLayer.Kill(Tag)
 	End
@@ -48,9 +49,13 @@ Module
 	Get String Serialize
 		String ret = "Init\n"
 		For M,MT in sPairs(TheKills)
-			ret += "\tFlowField.TheKills[\""..M.."\"] = {}\n"
-			For KT in Each(MT)
-				ret += "\t\tFlowField.TheKills[\""..M.."\"] += \""..KT.."\"\n"
+			ret += "\tFlowField.Kill.TheKills[\""..M.."\"] = {}\n"
+			//For KT in Each(MT)
+			For Lay,Victims in sPairs(MT)
+				ret += "\t\tFlowField.Kill.TheKills[\""..M.."\"][\""..Lay.."\"] = {}\n"
+				For Victim in Each(Victims)
+					ret += "\t\tFlowField.Kill.TheKills[\""..M.."\"][\""..Lay.."\"] += \""..Victim.."\"\n"
+				End
 			End
 		End
 		ret +="End\n"
@@ -59,7 +64,7 @@ Module
 	
 	Void LG()
 		NeilDoString(SaveGame.Data["PERMAKILLS.NEIL"],"SG:PermaKills.Neil")
-		For LN,KL in sPairs(TheKills)
+		For LN,KL in sPairs(TheKills[FlowField.Map.LoadedMap] || {})
 			For Victim in Each(KL)
 				FlowField.Map.KthuraMap.Layer(LN).Kill(Victim)
 			End

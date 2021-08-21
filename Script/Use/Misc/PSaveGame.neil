@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Misc/PSaveGame.neil
-// Version: 21.08.14
+// Version: 21.08.21
 // Copyright (C) 2020, 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -120,14 +120,14 @@ global bool PerformLoadGame(string f)
 		Loading()
 		CSay("Loading Field Flow")
 		Flow.Load("FIELD","Script/Flow/FlowField.neil")
-		CSay("Parsing Permakills")
+		CSay("Map stuff")
 		Progress.AAA_LOADSAVEGAME = 9
 		Loading()
-		State.Call("FLOW_FIELD","FlowField.Kill.LG","nil")
-		Progress.AAA_LOADSAVEGAME = 10
-		Loading()
-		CSay("Map stuff")
 		State.Call("FLOW_FIELD","FlowField.Map.LG","nil")	
+		Progress.AAA_LOADSAVEGAME = 10
+		CSay("Parsing Permakills")
+		Loading()
+		State.Call("FLOW_FIELD","FlowField.Kill.LG","nil")
 		Progress.AAA_LOADSAVEGAME = 11
 		Loading()
 		//Ach.Load() // To do!
