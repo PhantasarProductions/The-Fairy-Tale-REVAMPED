@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.08.09
+// version: 21.08.20
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -46,9 +46,14 @@ Group MScript
 	
 	Void JennyCheck()
 		Static Bool JennyChecked = False
+		Static Bool HarryChecked = False
 		If __Chapter<1 && !JennyChecked
 			Map.Kill("NPC_MT_Jenny",False)
 			JennyChecked = True
+		End
+		If DoneChief && !HarryChecked
+			Map.Kill("NPC_MT_HarryOutside",False)
+			HarryChecked=true
 		End
 	End
 
@@ -71,6 +76,23 @@ Group MScript
 	
 	Void StartPrologue()
 		MapText("JOHN")
+	End
+	
+	#region NPC scripts
+	Void NPC_Chief()
+		If !DoneChief
+			DoneChief=true
+			MapText("CHIEF1")
+			Map.ShowObj("Harry")
+			MapText("CHIEF2")
+			Map.HideObj("Harry")
+			Return
+		End
+		If __Chapter==0
+			MapText("CHIEF_NOJENNY")
+			Return			
+		End
+		MapText("CHIEF_FINAL")
 	End
 	
 	Void NPC_MasterJohn()
@@ -96,6 +118,7 @@ Group MScript
 			Lua.error("George's shop not yet activated")
 		End
 	End
+	#endregion
 
 	
 	Void Bye()
