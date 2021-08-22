@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField/Treasure.neil
-// Version: 21.08.21
+// Version: 21.08.22
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -37,6 +37,7 @@
 Module
 
 	Table RandomItems
+	ReadOnly Var ChaChing = Audio.Obtain("CHACHING")
 
 	Void CBLoadMap()
 		RandomItems = {}
@@ -72,6 +73,7 @@ Module
 						Msg="1 shilder obtained"
 						Item.Cash++
 						Done=true
+						ChaChing.Play()
 					Else
 						IsDone=Item[N].Give						
 						Msg=Item[N].Title.." obtained"						
@@ -80,8 +82,9 @@ Module
 					If N==1
 						Msg="1 shilder obtained"
 					Else
-						Msg=SPrintF("%d shilders obtained")
+						Msg=SPrintF("%d shilders obtained",N)
 					End
+					ChaChing.Play()
 					Item.Cash += N
 				Default
 					Lua.error("Unknown treasure kind!")
@@ -93,7 +96,51 @@ Module
 		Map.Kill(Tag,math.random(1,__skill^2)!=1)
 	End
 	
-	Void Chest(String Tag)
+	Void OChest(String Tag)
+		Var O = FlowField.Map.CurLayer.Obj(Tag)
+		O.AnimFrame=1
+		FlowField.Kill.SetPerma(Tag)
+	End
+	
+	Void Chest(String Tag)		
+		Static Var Prefixes = {"ITM_","EQP_","ZZKEY_"}
+		Var O = FlowField.Map.CurLayer.Obj(Tag)
+		If O.AnimFrame>=1
+			Return
+		End
+		String ITag = O.Data["ITEM"]:upper()
+		If Prefixed(ITag,"CASH:")
+			Int N = Lua.tonumber(Right(ITag,#ITag-5)) || 1
+			String Msg
+			If N==1
+				Msg="1 shilder obtained"
+			Else
+				Msg=SPrintF("%d shilders obtained",N)
+			End
+			FlowField.Msg(Msg,O.X,O.Y,0,180,255)
+			ChaChing.Play()
+			Item.Cash += N
+			OChest(Tag)
+			Return
+		End
+		For P in Each(Prefixes)
+			If Prefixed(Tag,P)
+				If Item[ITag].Give
+					OChest(Tag)
+					FlowField.Msg(Item[ITag].Title.." obtained",O.X,O.Y,255,180,0)					
+				Else
+					FlowField.Msg(Item[ITag].Title.." overloaded!",O.X,O.Y,255,0,0)					
+				End
+				Return
+			End
+		End
+		ITag = "ITM_"..ITag
+		If Item[ITag].Give
+			OChest(Tag)
+			FlowField.Msg(Item[ITag].Title.." obtained",O.X,O.Y,255,180,0)
+		Else
+			FlowField.Msg(Item[ITag].Title.." overloaded!",O.X,O.Y,255,0,0)
+		End
 	End
 	
 End

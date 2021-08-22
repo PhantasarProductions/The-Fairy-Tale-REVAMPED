@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField/Clickable.neil
-// Version: 21.08.21
+// Version: 21.08.22
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -76,7 +76,6 @@ Module Class
 	
 	Static Table Spot(Lay,String ObjTag,Same)
 		Table Ret = {}
-		//Var O = FlowField.Map.KthuraMap.Layer(Lay).Obj(ObjTag)
 		Var O = Lay.Obj(ObjTag)
 		Ret.X = O.X
 		Ret.Y = O.Y
@@ -115,6 +114,15 @@ Module Class
 						Lay.Kill(T)
 						CSayF("= Removed random item: %s",T)
 					End
+				ElseIf Prefixed(T,"CHEST_")
+					CSayF("= Chest: %s",T)
+					if Lay.Obj(T).Data["NEWGAME+"]:upper()=="ONLY" && (!__newgameplus)
+						Lay.Kill(T)
+						CSayF("= Removed New Game+ Only chest: %s",T)
+					Else
+						Var S = Spot(Lay,T)					
+						Create(L,T,S.X,S.Y,FieldFlow.Treasure.Chest,T)
+					End
 				End
 			End
 		End
@@ -128,7 +136,7 @@ Module Class
 	
 	ReadOnly Bool Clicked(Int X, Int Y)
 		If !FieldFlow.Map.CurLayer.HasTag(Tag)
-			Return false
+			Return False
 		End
 		Return FieldFlow.Map.CurLayer.Obj(Tag).PixInObj(x,y)
 	End

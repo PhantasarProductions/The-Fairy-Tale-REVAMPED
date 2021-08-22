@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.08.12
+// version: 21.08.22
 // End License Information
 
 #macro wh_Image 1
@@ -91,6 +91,7 @@ init
 	For Ico in Each{"Items","Abilities","Master","Quit","Achievements","Status","Config"}
 		LAsset.C(sPrintF("GFX/Menu Icons/%s.png",Ico),sPrintF("ICO_%s",ico:upper()),wh_Image)
 	End
+	LAsset.C("Audio/Shopping/ChaChing.ogg","CHACHING",wh_Audio)
 
 
 	// Loading assets

@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Anyway.neilbundle/Algemeen.neil
-// Version: 21.08.13
+// Version: 21.08.22
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -47,6 +47,7 @@
 #macro __Lang gv.gstring.LANG
 #macro __Skill gv.gint.Skill
 #macro __Chapter gv.gint.Chapter
+#macro __NewGamePlus gv.gbool.newgameplus
 
 // This function must always remain empty
 Global Void Niks()
