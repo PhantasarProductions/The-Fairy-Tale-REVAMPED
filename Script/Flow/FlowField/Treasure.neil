@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField/Treasure.neil
-// Version: 21.08.22
+// Version: 21.08.23
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -124,7 +124,8 @@ Module
 			Return
 		End
 		For P in Each(Prefixes)
-			If Prefixed(Tag,P)
+			CSayF("Prefix check %s ... %s prefixed => %s",P,ITag,Lua.tostring(Prefixed(ITag,P)))
+			If Prefixed(ITag,P)
 				If Item[ITag].Give
 					OChest(Tag)
 					FlowField.Msg(Item[ITag].Title.." obtained",O.X,O.Y,255,180,0)					
