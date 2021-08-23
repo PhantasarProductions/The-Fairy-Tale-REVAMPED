@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Link.neilbundle/Map.Neil
-// Version: 21.08.20
+// Version: 21.08.23
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -69,7 +69,30 @@ Module
 
 	Get String LoadedMap
 		Return gv.gstr.LoadedMap
-	End	
+	End
+	
+	#region Scroll
+	Get Bool AllowAutoScroll
+		Return ISGet.Bool("FLOW_FIELD","FlowField.Map.AllowAutoScroll")
+	End
+	
+	Set Bool AllowAutoScroll
+		ISSET("Bool","FLOW_FIELD","FlowField.Map.AllowAutoScroll",value)
+	End
+	
+	Get Int ScrollX
+		Return ISGET.Int("FLOW_FIELD","FlowField.Map.ScrollX")
+	End
+	Set Int ScrollX
+		ISSET("INT","FLOW_FIELD","FlowField.Map.ScrollX",value)
+	End
+	Get Int ScrollY
+		Return ISGET.Int("FLOW_FIELD","FlowField.Map.ScrollY")
+	End
+	Set Int ScrollY
+		ISSET("INT","FLOW_FIELD","FlowField.Map.ScrollY",value)
+	End
+	#endregion
 
 	Void MCall(String func,a,b,c,d,e,f,g,h)
 		String pr
@@ -92,6 +115,11 @@ Module
 		//print(sprintf ("Calling %s(%s)",func,pr))
 		State.Call("FLOW_FIELD",func,pr)
 	End
+
+	Void ScrollTo(Int X,Int Y,Int Speed = 1)
+		MCall("FlowField.Map.ScrollTo",X,Y,Speed)
+	End
+
 	
 	Void Schedule(String scriptfunction)
 		MCall("FlowField.Schedule.Schedule",scriptfunction)
@@ -176,6 +204,19 @@ Module
 	
 	Void ShowObj(string Tag)
 		ObjSet(Tag,"Visible",true)
+	End
+	
+	Void LayHideByLabel(string Layer,string Label)
+		MCall(sprintf("FlowField.Map.KthuraMap.Layer('%s').HideByLabel",Layer),Label)
+	End
+	Void LayShowByLabel(string Layer,string Label)
+		MCall(sprintf("FlowField.Map.KthuraMap.Layer('%s').ShowByLabel",Layer),Label)
+	End
+	Void HideByLabel(string Label)
+		MCall("FlowField.Map.CurLayer.HideByLabel",Label)
+	End
+	Void ShowByLabel(string Label)
+		MCall("FlowField.Map.CurLayer.ShowByLabel",Label)
 	End
 	
 	CONSTRUCTOR
