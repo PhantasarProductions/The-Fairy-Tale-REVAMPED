@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField/Kill.neil
-// Version: 21.08.22
+// Version: 21.08.23
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -71,17 +71,21 @@ Module
 		Return Ret
 	End
 	
-	Void LG()
-		NeilDoString(SaveGame.Data["PERMAKILLS.NEIL"],"SG:PermaKills.Neil")
+	Void CBLoadMap()
 		For LN,KL in sPairs(TheKills[FlowField.Map.LoadedMap] || {})
 			For Victim in Each(KL)
 				If FlowField.Map.KthuraMap.Layer(LN).HasTag(Victim)
 					FlowField.Map.KthuraMap.Layer(LN).Kill(Victim)
-					CSayF("LOAD> Killed: %s",Victim)
+					CSayF("LOAD> Killed: %s in %s",Victim,LN)
 				Else
-					CSayF("LOAD> Request to kill '%s' ignored (doesn't exist or is already killed)",Victim)
+					CSayF("LOAD> Request to kill '%s' (%s) ignored (doesn't exist or is already killed)",Victim,LN)
 				End
 			End
 		End
+	End
+	
+	Void LG()
+		NeilDoString(SaveGame.Data["PERMAKILLS.NEIL"],"SG:PermaKills.Neil")
+		//CBLoadMap()		
 	End
 End
