@@ -1,0 +1,89 @@
+// License Information:
+// **********************************************
+// 
+// src/Tricky Script/Script/MapScript/PRO_Dungeon_DragonCave.neil
+// (c) Jeroen Broks, 2021, All Rights Reserved.
+// 
+// This file contains material that is related
+// to a storyline that is which is strictly
+// copyrighted to Jeroen Broks.
+// 
+// This file may only be used in an unmodified
+// form with an unmodified version of the
+// software this file belongs to.
+// 
+// You may use this file for your study to see
+// how I solved certain things in the creation
+// of this project to see if you find valuable
+// leads for the creation of your own.
+// 
+// Mostly this file comes along with a project
+// that is for most part released under an
+// open source license and that means that if
+// you use that code with this file removed
+// from it, you can use it under that license.
+// Please check out the other files to find out
+// which license applies.
+// This file comes 'as-is' and in no possible
+// way the author can be held responsible of
+// any form of damages that may occur due to
+// the usage of this file
+// 
+// 
+// **********************************************
+// 
+// version: 21.08.23
+// End License Information
+
+#use "script/use/anyway"
+
+Group MScript
+
+	ReadOnly Bool HasDraw   = False
+	ReadOnly Bool HasUpdate = False
+	
+	Void BackToTown()
+		Map.GoToMap("PRO_Town_Vandar","TOWN","FromCave")
+	End
+	
+	Void NPC_Guard()
+		MapText("GUARD1")
+		Map.ScrollTo(Map.ScrollX,-Screen.H,3)
+		Map.HideObj("PLAYER")
+		MapText("GUARD2")
+		Map.AllowAutoScroll=true
+		MapText("GUARD3")
+		Map.Kill("NPC_Guard",true)
+		Map.Kill("Guard_Block",true)
+		Map.GoToLayer("#001","Start")
+		MapText("GUARD4")
+		//Lua.error("Rest not yet scripted")
+	End
+	
+	Void Terug()
+		If __Chapter==0
+			MapText("NIET_TERUG")
+		Else
+			Map.GoToLayer("#000","Einde")
+		End
+	End
+	
+	Void ShowSecret()
+		Map.ShowByLabel("Secret")
+	End
+	Void HideSecret()
+		Map.HideByLabel("Secret")
+	End
+	
+	Constructor
+		CSay("Welcome to the Dragon Cave")
+		ZA.TabEnter{"BackToTown","Terug"}
+		ZA.Enter("Secret","ShowSecret")
+		ZA.Leave("Secret","HideSecret")		
+		For SLay in Each{"#001","#006"}
+			CSayF("Hiding secrets on layer %s",SLay)
+			Map.LayHideByLabel(SLay,"Secret")
+		End
+	End
+		
+End
