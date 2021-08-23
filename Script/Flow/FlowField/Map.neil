@@ -78,10 +78,10 @@ Module
 		AllowAutoScroll = False
 		Int SX = 0 
 		Int SY = 0
-		Int NX = X
-		Int NY = Y
-		Int XX = X
-		Int XY = Y
+		Int NX = ScrollX
+		Int NY = ScrollY
+		Int XX = ScrollX
+		Int XY = ScrollY
 		If X<ScrollX
 			SX = math.max(1,Speed)
 			NX = X
