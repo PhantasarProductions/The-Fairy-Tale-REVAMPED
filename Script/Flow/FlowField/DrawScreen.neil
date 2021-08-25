@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField/DrawScreen.neil
-// Version: 21.08.21
+// Version: 21.08.24
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -79,6 +79,72 @@ Void AutoScroll()
 End
 
 
+
+Void FieldStats()
+	Static Int Alpha = -250
+	Static Int OldX
+	Static Int OldY
+	Static Table FntTable = { ["FieldInfo"] = ImageFont.Obtain("BIGTEXT"), ["Stat"] = ImageFont.Obtain("FNTSTATSTAT") }
+	Var Fnt
+	If OldX!=Player.X || OldY!=Player.Y
+		Alpha = -250
+		OldX,OldY=Player.X,Player.Y
+		Return
+	End
+	Alpha = math.min(255,Alpha+1)
+	If Alpha<=0
+		Return
+	End
+	plua stuff = {}
+	//local layer
+	Graphics.SetAlpha(Alpha)
+	//if Maps.Multi()==1 then layer = FlowField.Map.Layer end
+	stuff[1] = {"FSTIT",FlowField.Map.KthuraMap.Meta["Title"],"FieldInfo"}
+	if Left(FlowField.Map.Layer,1)=="#" 
+		stuff[2]={"FSROM",FlowField.Map.Layer} 
+	end
+    if FlowField.Map.RoomNames[FlowField.Map.Layer]
+    	stuff += {"FSRMN",FlowField.Map.RoomNames[FlowField.Map.Layer],"FieldInfo"} 
+    end
+    if gv.gInt.CASH>0
+    	stuff += {"FSCSH",gv.gINT.CASH}     
+    end
+    if gv.gInt.ORBS>0
+    	stuff += {"FSORB",gv.gINT.ORBS}
+    end
+    if gv.gInt.LEVELCAP>0 
+    	stuff += {"FSLVC",gv.gINT.LEVELCAP } 
+    end
+    if gv.gbool["&ALLOW.ENCOFF['"..FieldFlow.Map.LoadedMap.."']"]
+    	if Events.KeyHit(69)
+    		FieldFlow.Renc.rencon = !FieldFlow.Renc.rencon
+    	end
+    	stuff += {"FSREN",FieldFlow.Renc.RONOFF,"FieldInfo"}
+    else
+    	FieldFlow.renc.rencon = true
+    end
+    //stuff+= {'FSTIM',PlayTime()}    
+    If __newgameplus 
+    	stuff	+= {"FNGP","New Game +"}
+    End
+    for i,data in ipairs(stuff)
+    	__white
+    	//SetFont(data[3] or 'FieldStat')
+    	Fnt = FntTable[data[3] || "Stat"]
+    	Var Img = Image.LoadNew("GFX/Field Icons/"..data[1]..".png",data[1])
+    	Img.HotCenter()
+    	Img.Draw(35,i*35)
+    	Graphics.Color(180,255,0)
+    	If Alpha==255
+    		Fnt.DarkText(data[2],75,i*35,0,2)
+    	Else
+    		Fnt.Text(data[2],75,i*35,0,2)
+    	End
+    End
+    Graphics.SetAlpha(255)
+End
+
+
 Void _DS()
 	If FieldFlow.Map.Layer==""
 		Return
@@ -88,6 +154,8 @@ Void _DS()
 	FlowField.Map.KthuraMap.Draw(FieldFlow.Map.Layer,FieldFlow.Map.ScrollX,FieldFlow.Map.ScrollY)
 	FlowField.Compass.DrawAll()
 	MiniMessage.DrawAll()
+	FieldFlow.Renc.DrawGauge()
+	FieldStats()
 	If FlowField.Debug.MouseCoords
 		__White
 		int midx = Screen.W div 2
