@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField/ZoneAction.neil
-// Version: 21.08.02
+// Version: 21.08.23
 // Copyright (C) 2020, 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -49,7 +49,7 @@ class _ZoneAction
 	static void RoomChange(int inc,string exitpoint)
 		string cLay
 		var nLay
-		cLay = Map.Layer
+		cLay = FlowField.Map.Layer
 		assert(prefixed(cLay,"#"),"Next/Prev only works for rooms prefixed with a #")
 		assert(#cLay==4,"Invalid Next/Prev length!")
 		nLay = tonumber(right(cLay,3))
@@ -58,7 +58,7 @@ class _ZoneAction
 		if Map.HasTag("PLAYER")
 			Map.Kill("PLAYER")
 		end
-		Map.Layer = sprintf("#%03d",nLay + inc)
+		FlowField.Map.Layer = sprintf("#%03d",nLay + inc)
 		Map.SpawnPlayer(exitpoint)
 	end
 	
