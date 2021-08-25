@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Link.neilbundle/Map.Neil
-// Version: 21.08.23
+// Version: 21.08.24
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -40,6 +40,12 @@ Global Table MapScript
 Group Player
 	Set Int Dominance
 		Lua.Neil.Globals.Map.SetObj("PLAYER","Dominance",value)
+	End
+	Get Int X
+		Return ISGet.Int("FLOW_FIELD","FlowField.Map.CurLayer.Obj('PLAYER').X")
+	End
+	Get Int Y
+		Return ISGet.Int("FLOW_FIELD","FlowField.Map.CurLayer.Obj('PLAYER').Y")
 	End
 End
 
