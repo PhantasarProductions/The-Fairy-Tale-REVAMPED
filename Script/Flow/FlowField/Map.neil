@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField/Map.neil
-// Version: 21.08.23
+// Version: 21.08.24
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -49,6 +49,7 @@ Module
 	Bool AllowAutoScroll = True
 	Var ArriveFunc = Nil
 	String ArriveParam 
+	Table RoomNames = {}
 
 	Get String LoadedMap
 		Return gv.gstr.LoadedMap
