@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowSaveGame.neil
-// Version: 21.08.08
+// Version: 21.08.25
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -110,7 +110,7 @@ Global Void Apollo_Flow()
 	For i=0,MaxPerPage-1
 		Int Row = i div RowSize
 		Int Col = i % RowSize
-		Int X = Col * Math.floor(TileSize * 1.25)
+		Int X = (Col * Math.floor(TileSize * 1.25)) + (Row+5)
 		Int Y = math.ceil((Row+0.25) * Math.floor(TileSize * 1.25) + (Col * (TileSize Div (RowSize+2))))
 		If Mouse.MX>=X && Mouse.MY>=Y && Mouse.MX<=X+TileSize && Mouse.MY<=Y+TileSize
 			Hover = i
