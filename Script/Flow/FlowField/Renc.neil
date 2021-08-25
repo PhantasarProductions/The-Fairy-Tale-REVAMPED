@@ -1,0 +1,179 @@
+// License Information:
+// src/Tricky Script/Script/Flow/FlowField/Renc.neil
+// Version: 21.08.25
+// Copyright (C) 2021 Jeroen Petrus Broks
+// 
+// ===========================
+// This file is part of a project related to the Phantasar Chronicles or another
+// series or saga which is property of Jeroen P. Broks.
+// This means that it may contain references to a story-line plus characters
+// which are property of Jeroen Broks. These references may only be distributed
+// along with an unmodified version of the game.
+// 
+// As soon as you remove or replace ALL references to the storyline or character
+// references, or any termology specifically set up for the Phantasar universe,
+// or any other univers a story of Jeroen P. Broks is set up for,
+// the restrictions of this file are removed and will automatically become
+// zLib licensed (see below).
+// 
+// Please note that doing so counts as a modification and must be marked as such
+// in accordance to the zLib license.
+// ===========================
+// zLib license terms:
+// This software is provided 'as-is', without any express or implied
+// warranty.  In no event will the authors be held liable for any damages
+// arising from the use of this software.
+// Permission is granted to anyone to use this software for any purpose,
+// including commercial applications, and to alter it and redistribute it
+// freely, subject to the following restrictions:
+// 1. The origin of this software must not be misrepresented; you must not
+// claim that you wrote the original software. If you use this software
+// in a product, an acknowledgment in the product documentation would be
+// appreciated but is not required.
+// 2. Altered source versions must be plainly marked as such, and must not be
+// misrepresented as being the original software.
+// 3. This notice may not be removed or altered from any source distribution.
+// End License Information
+
+#macro __bmr 17
+
+#use "libs/xmath"
+
+module
+	ReadOnly Var Gauge = Image.Obtain("RENCGAUGE")
+	ReadOnly Table RRate = {}
+	ReadOnly Table Colors = {}
+	Bool RencOn=True
+	Table NEnc = {}	
+	Table Enemies = {}
+	Bool MapHasEnc
+	Int MaxEnc
+	Int RateLevel = 1
+	
+	Get String rOnOff
+		if RencOn
+			Return "On"
+		else
+			Return "Off"
+		End
+	End
+	
+	Void Color(Int R=255,Int G=255,Int B=255)
+		Int ModC = 1
+		If !RencOn
+			ModC = 2
+		End
+		Graphics.Color(R div ModC,G div ModC,B div ModC)
+	End
+	
+	Void DrawGauge()
+		Static Int FSin
+		Static Int GX = Screen.W + 250
+		Int GY = Screen.H - 150
+		Int WX
+		Var NE = NEnc[FlowField.Map.Layer]
+		If NE
+			WX = Screen.W - 80
+		Else
+			WX = Screen.W + 250
+		End
+		If GX>WX
+			GX--
+		ElseIf GX<WX
+			GX++
+		End
+		__Black
+		Graphics.Rect(GX-6,GY-100,12,100)
+		Int B=math.floor( ((NE||MaxEnc)/MaxEnc)*100)
+		For ix=GX-6,GX+6
+			FSin = ( FSin + 1 ) % 360
+			Color(math.abs(math.floor(Colors[RateLevel].R*xmath.sin((ix*__bmr)+FSin))),math.abs(math.floor(Colors[RateLevel].G*xmath.sin((ix*__bmr)+FSin))),math.abs(math.floor(Colors[RateLevel].B*xmath.sin((ix*__bmr)+FSin))))
+			Graphics.Line(ix,GY-1,ix,GY-B)
+		End
+		Color()
+		Gauge.Draw(GX,GY)
+	End
+	
+	Void StartEncounter()
+		CSay("Start Enoounter")
+		RateLevel = 1
+		NEnc[FlowField.Map.Layer]--
+	End
+	
+	Void UpdateGauge()
+		Static Int Cnt
+		If (!RencOn) || (!NEnc[FlowField.Map.Layer]) || NEnc[FlowField.Map.Layer]<=0 
+			Return
+		End
+		If FlowField.Map.CurLayer.HasTag("PLAYER") && FlowField.Map.CurLayer.Obj("PLAYER").Walking
+			Cnt = (Cnt+1)%(300 div __skill)
+			If Cnt==0
+				RateLevel++
+			End
+			If (!RRate[RateLevel]) || RRate[RateLevel]<=0
+				Return
+			End
+			If  (RateLevel==5 || Math.Random(1,RRate[RateLevel])==1)
+				// NEnc[FlowField.Map.Layer]>0
+				StartEncounter()
+			End
+		End
+	End
+	
+	
+	Void CBLoadMap()
+		NEnc = {}
+		Enemies = {}
+		For i=1,__skill
+			Var F = Split(FlowField.Map.KthuraMap.Meta["Foes"..i],";")
+			For Foe in Each(F)
+				pLua SF = Split(Foe,",")
+				For j=1,Lua.tonumber(SF[2] || "1") || 1
+					Enemies += SF[1]
+				End
+			End
+		End
+		MapHasEnc = #Enemies>0
+		If !MapHasEnc
+			Return
+		End
+		MaxEnc = Lua.tonumber(FlowField.Map.KthuraMap.Meta.MaxEnc) || 5		
+		For L in each(FlowField.Map.KthuraMap.Layers)
+			NEnc[L] = MaxEnc
+			CSayF("Encountering layer: %s",L)
+		End
+		For L in each(Split(FlowField.Map.KthuraMap.Meta.NoEncZones,","))
+			NEnc[L] = False
+			CSayF("Encountering layer: %s - Undone",L)
+		End
+		RateLevel = 1
+	End
+	
+	Constructor
+		Colors[1] = {["R"]=  0,["G"]=  0,["B"]=255}
+		Colors[2] = {["R"]=  0,["G"]=255,["B"]=  0}
+		Colors[3] = {["R"]=255,["G"]=180,["B"]=  0}
+		Colors[4] = {["R"]=255,["G"]=  0,["B"]=  0}	
+		Colors[5] = Colors[4] // Crash prevention!
+		Switch __skill
+			Case 1
+				RRate[1] = 0
+				RRate[2] = 0
+				RRate[3] = 1000000000
+				RRate[4] = 100000
+			Case 2
+				RRate[1] = 0
+				RRate[2] = 1000000000
+				RRate[3] = 10000000
+				RRate[4] = 100000
+			Case 3
+				RRate[1] = 1000000000
+				RRate[2] = 10000000
+				RRate[3] = 100000
+				RRate[4] = 1000
+			Default
+				Lua.error("INIT.RENC.RATE: Unknown skill:"..__skill) 
+		End
+		RRate[5] = 1 // Security as this should never be checked, but if it is, at least no crashes will come!
+	End
+End
