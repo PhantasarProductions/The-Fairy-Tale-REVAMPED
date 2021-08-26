@@ -1,0 +1,85 @@
+// License Information:
+// src/Tricky Script/Script/Flow/FlowCombat/Start.neil
+// Version: 21.08.26
+// Copyright (C) 2021 Jeroen Petrus Broks
+// 
+// ===========================
+// This file is part of a project related to the Phantasar Chronicles or another
+// series or saga which is property of Jeroen P. Broks.
+// This means that it may contain references to a story-line plus characters
+// which are property of Jeroen Broks. These references may only be distributed
+// along with an unmodified version of the game.
+// 
+// As soon as you remove or replace ALL references to the storyline or character
+// references, or any termology specifically set up for the Phantasar universe,
+// or any other univers a story of Jeroen P. Broks is set up for,
+// the restrictions of this file are removed and will automatically become
+// zLib licensed (see below).
+// 
+// Please note that doing so counts as a modification and must be marked as such
+// in accordance to the zLib license.
+// ===========================
+// zLib license terms:
+// This software is provided 'as-is', without any express or implied
+// warranty.  In no event will the authors be held liable for any damages
+// arising from the use of this software.
+// Permission is granted to anyone to use this software for any purpose,
+// including commercial applications, and to alter it and redistribute it
+// freely, subject to the following restrictions:
+// 1. The origin of this software must not be misrepresented; you must not
+// claim that you wrote the original software. If you use this software
+// in a product, an acknowledgment in the product documentation would be
+// appreciated but is not required.
+// 2. Altered source versions must be plainly marked as such, and must not be
+// misrepresented as being the original software.
+// 3. This notice may not be removed or altered from any source distribution.
+// End License Information
+Class InitFoe
+	String Foe
+	Int X
+	Int Y
+End
+
+Module
+
+	Var FoeList
+	String Arena
+	String Music
+	String Lose = "ERROR"
+	Var LastFoe = Nil
+	
+	Void StartPreparation()
+		FoeList = New LinkedList()
+	End
+	
+	Void AddFoe(String F)
+		Int Aantal = FoeList.Count
+		Int Col = Aantal div 3
+		Int Row = Aantal % 3
+		Int X = ((Col+1)*(_ASW div 5))-(row*(_ASW div 15))
+		Int Y = (_ASH div 2) + (row * (_ASH div 8))
+		LastFoe = New InitFoe()
+		LastFoe.Foe = F
+		FoeList.AddLast(LastFoe)
+	End
+	
+	Void Music()
+		Switch Music:upper()
+			Case "*RANDOM"
+				Table Bundle = JCR6.GetDir("Music/Combat/RandomEncounter")
+				Music.Push()
+				Music.Play(Bundle[math.random(1,#Bundle)])
+			Case "*BOSS"
+				Table Bundle = JCR6.GetDir("Music/Combat/Boss")
+				Music.Push()
+				Music.Play(Bundle[math.random(1,#Bundle)])
+			Default
+				Music.Push()
+				Music.Play(Music)
+		End
+	End
+	
+	Void Start()
+		Music()
+	End
+End
