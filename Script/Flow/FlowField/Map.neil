@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField/Map.neil
-// Version: 21.08.24
+// Version: 21.08.26
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -130,6 +130,16 @@ Module
 			ArriveParam = ""
 		End	
 	End
+	
+	Void StopWalking()
+		if !CurLayer.HasTag("PLAYER")
+			Return
+		End		
+		CurLayer.Obj("PLAYER").StopWalking()
+		ArriveFunc = nil
+		ArriveParam = ""
+	End
+
 	
 	Void CBLoadMap(string mapbundle)
 		AllowAutoScroll = true
