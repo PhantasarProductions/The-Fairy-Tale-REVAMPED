@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Link.neilbundle/Combat.neil
-// Version: 21.08.25
+// Version: 21.08.26
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -34,26 +34,84 @@
 // misrepresented as being the original software.
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
+#use "Libs/XMath"
+
 Module
 
-	Void Prepare()
+	Const Int PLineInt=2
+	
+	Get Int MidX
+		Return Screen.W div 2
+	End
+	Get Int MidY
+		Return Screen.H div 2
+	End
+	Get Int Radius
+		Return math.max(Screen.W,screen.H)
+	End
+	
+	Void Prepare(Int R=0,Int G=180,Int B=255,String BossHead="",String BossName="")
+		Bool BossPlaying()
+			If BossHead==""
+				Return False
+			End
+			lua.error("No music timing for boss yet!")
+		End
+		Int Time = 125
+		If BossHead!=""
+			Time = 500
+			Lua.error("Boss intro not yet fully set up")
+		End		
+		Repeat		
+			Graphics.Cls()
+			For li = 0,360,PLineInt
+				number ci = math.abs(xmath.Cos(li+Time))
+				Graphics.Color(math.floor(R*ci),math.floor(G*ci),math.floor(B*ci))
+				Graphics.Line(MidX,MidY,MidX+math.floor(xmath.sin(li)*Radius),MidY+math.floor(xmath.cos(li)*radius))
+			End
+			Graphics.Flip()
+			Events.Poll()
+			FPS.WaitMinTicks()
+			Time--
+		LoopWhile Time>0 || BossPlaying()
+		Lua.Neil.Globals.Loading()
+		State.LoadNew("FLOW_COMBAT","Script/Flow/FlowCombat.neil")
+		State.Call("FLOW_COMBAT","FlowCombat.Start.StartPreparation","nil")
+	End
+	
+	Void Boss(String BossHead, String BossName,Int R=255,Int G=0, Int B=0)
+		Prepare(R,G,B,BossHead,BossName)
+		ISSet("String","FLOW_COMBAT","FLowCombat.Start.Lose","GameOver")
 	End
 	
 	Void Start()
+		State.Call("FLOW_COMBAT","FlowCombat.Start.Start","nil")
 	End
 	
 	Set String NewEnemy
+		State.Call("FLOW_COMBAT","FlowCombat.Start.AddFoe",sprintf("'%s'",value))
 	End
 	
 	// Last Enemy X
 	Set Int LEX
+		ISSet("Int","FLOW_COMBAT","FLowCombat.Start.LastFoe.X",value)
 	End
 	
 	// Last Enemy Y
 	Set Int LEY
+		ISSet("Int","FLOW_COMBAT","FlowCombat.Start.LastFoe.Y",value)
 	End
 	
 	Set String Arena
+		ISSet("String","FLOW_COMBAT","FLowCombat.Start.Arena",value)
+	End
+	
+	Set String Lose
+		ISSet("String","FLOW_COMBAT","FLowCombat.Start.Lose",value)
+	End
+	
+	Set String Music
+		ISSet("String","FLOW_COMBAT","FLowCombat.Start.Music",value)
 	End
 	
 
