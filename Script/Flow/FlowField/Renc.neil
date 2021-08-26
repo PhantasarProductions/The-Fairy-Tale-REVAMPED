@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField/Renc.neil
-// Version: 21.08.25
+// Version: 21.08.26
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -85,7 +85,7 @@ module
 		__Black
 		Graphics.Rect(GX-6,GY-100,12,100)
 		Int B=math.floor( ((NE||MaxEnc)/MaxEnc)*100)
-		For ix=GX-6,GX+6
+		For ix=GX-6,GX+5
 			FSin = ( FSin + 1 ) % 360
 			Color(math.abs(math.floor(Colors[RateLevel].R*xmath.sin((ix*__bmr)+FSin))),math.abs(math.floor(Colors[RateLevel].G*xmath.sin((ix*__bmr)+FSin))),math.abs(math.floor(Colors[RateLevel].B*xmath.sin((ix*__bmr)+FSin))))
 			Graphics.Line(ix,GY-1,ix,GY-B)
@@ -95,9 +95,38 @@ module
 	End
 	
 	Void StartEncounter()
+		// Announce
 		CSay("Start Enoounter")
+		// Reset
 		RateLevel = 1
 		NEnc[FlowField.Map.Layer]--
+		// Set up encounter itself
+		Static Var Max
+		Static Var Tab
+		max = max || ({{1,2,3,4},{2,3,6,9},{3,6,9,9}})[__skill][party.count]
+		tab = tab || ({{1,1,1,2,2,3,1,1,2,3,4},{3,3,3,1,3,3,2,2,3,3,4,4,3,6,3,3,1,1,9},{3,3,3,6,6,9}})[__skill]
+		int num = tab[math.random(1,#tab)]
+		string arena = FieldFlow.Map.KthuraMap.Meta.Arena
+		//if not suffixed(arena,".png") then arena = arena..".png" end
+		num = math.min(num,max)
+		Combat.Prepare()
+		Combat.Arena = arena
+		Combat.Lose = "Respawn"
+		pLua aet = FieldFlow.Map.KthuraMap.Meta.AltEncounterTune
+		If aet and aet!=""
+			if ! suffixed(aet:lower(),".ogg") 
+				aet += ".ogg" 
+			end 
+			Combat.Music = aet
+		Else
+			Combat.Music = "*RANDOM"
+		End
+		Lua.assert(#Enemies>0,"I cannot run a Random Encounter without any monsters set")
+		For i=1,num 
+			Combat.NewEnemy = Enemies[math.random(1,#Enemies)]
+		end
+		FlowField.Map.StopWalking()
+		Combat.Start()
 	End
 	
 	Void UpdateGauge()
