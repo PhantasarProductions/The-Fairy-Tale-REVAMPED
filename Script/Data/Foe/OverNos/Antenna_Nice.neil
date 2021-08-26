@@ -1,0 +1,97 @@
+// Generated 8/26/2021 8:37:12 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	If Oversoul
+		Lua.error("Enemy 'OverNos/Antenna_Nice' does not support oversoul!")
+	End
+
+	Ret.DESC = ""
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/OverNos/Antenna_Nice.png"
+	Ret.NAME = "Nice Antenna"
+	Ret.ER_DARKNESS = 100
+	Ret.ER_EARTH = 100
+	Ret.ER_FLAME = 100
+	Ret.ER_FROST = 100
+	Ret.ER_LIGHT = 100
+	Ret.ER_LIGHTNING = 100
+	Ret.ER_WATER = 100
+	Ret.ER_WIND = 100
+	Ret.SR_CONFUSION = 1000
+	Ret.SR_CURSE = 1000
+	Ret.SR_DEATH = 1000
+	Ret.SR_DISEASE = 1000
+	Ret.SR_PARALYSIS = 1000
+	Ret.SR_PETRIFICATION = 1000
+	Ret.SR_POISON = 1000
+	Ret.SR_SILENCE = 1000
+	Ret.SR_SLEEP = 1000
+	Ret.SR_UNDEAD = 1000
+	Ret.VOCALTAG = "Antenna_Nice"
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 2
+		Ret.Stats.EVASION = 100
+		Ret.Stats.HP = 5
+		Ret.Stats.INTELLIGENCE = 800
+		Ret.Stats.POWER = 1
+		Ret.Stats.RESISTANCE = 2
+		Ret.Stats.SPEED = 3
+	End
+
+	Ret.Actions = {}
+	If True
+		Ret.Actions += "ABL_FOE_ENEMYVITALIZE"
+	End
+	If True && (__skill!=3)
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_CUREDISEASE"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_CUREDISEASE"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_CUREDISEASE"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_CUREDISEASE"
+	End
+	If True && (__skill!=3)
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_FIRSTAID"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_FIRSTAID"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_FIRSTAID"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_FIRSTAID"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_FIRSTAID"
+	End
+	If True && (__skill!=3)
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_GOODMORNING"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_GOODMORNING"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_GOODMORNING"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_GOODMORNING"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_GOODMORNING"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_HASPARONVITALIZATION"
+	End
+	If True && (__skill!=1)
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_HOLYSTRIKE"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_RECOVER"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_RECOVER"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_RECOVER"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
+		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
+		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
+		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
+		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
+	End
+	Return Ret
+End

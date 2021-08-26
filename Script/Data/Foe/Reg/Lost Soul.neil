@@ -1,0 +1,201 @@
+// Generated 8/26/2021 8:37:29 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	Ret.DESC = "Probably a victim of Nostramantu's madness.\nNow wanders his mansion forever until\nthe end of time."
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/Reg/Lost Soul.png"
+	Ret.Drops += "ITM_JUSDORANGE"
+	Ret.Drops += "ITM_JUSDORANGE"
+	Ret.Drops += "ITM_JUSDORANGE"
+	Ret.Drops += "ITM_JUSDORANGE"
+	Ret.Drops += "ITM_JUSDORANGE"
+	Ret.Drops += "ITM_JUSDORANGE"
+	Ret.Drops += "ITM_JUSDORANGE"
+	Ret.Drops += "ITM_JUSDORANGE"
+	Ret.Drops += "ITM_JUSDORANGE"
+	Ret.Drops += "ITM_JUSDORANGE"
+	Ret.Drops += "ITM_JUSDORANGE"
+	Ret.Drops += "ITM_JUSDORANGE"
+	Ret.Drops += "ITM_JUSDORANGE"
+	Ret.Drops += "ITM_JUSDORANGE"
+	Ret.Drops += "ITM_JUSDORANGE"
+	Ret.Drops += "ITM_JUSDORANGE"
+	Ret.Drops += "ITM_JUSDORANGE"
+	Ret.Drops += "ITM_JUSDORANGE"
+	Ret.Drops += "ITM_JUSDORANGE"
+	Ret.Drops += "ITM_JUSDORANGE"
+	Ret.Drops += "ITM_JUSDORANGE"
+	Ret.Drops += "ITM_JUSDORANGE"
+	Ret.Drops += "ITM_JUSDORANGE"
+	Ret.Drops += "ITM_JUSDORANGE"
+	Ret.Drops += "ITM_JUSDORANGE"
+	Ret.Drops += "ITM_HOLYWATER"
+	Ret.Drops += "ITM_HOLYWATER"
+	Ret.Drops += "ITM_HOLYWATER"
+	Ret.Drops += "ITM_HOLYWATER"
+	Ret.Drops += "ITM_HOLYWATER"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_BANANA"
+	Ret.Steal += "ITM_BANANA"
+	Ret.Steal += "ITM_BANANA"
+	Ret.Steal += "ITM_BANANA"
+	Ret.Steal += "ITM_BANANA"
+	Ret.Steal += "ITM_HOLYWATER"
+	Ret.Steal += "ITM_HOLYWATER"
+	Ret.Steal += "ITM_HOLYWATER"
+	Ret.Steal += "ITM_HOLYWATER"
+	Ret.Steal += "ITM_HOLYWATER"
+	Ret.Steal += "ITM_HOLYWATER"
+	Ret.Steal += "ITM_HOLYWATER"
+	Ret.Steal += "ITM_HOLYWATER"
+	Ret.Steal += "ITM_HOLYWATER"
+	Ret.Steal += "ITM_HOLYWATER"
+	Ret.Steal += "ITM_HOLYWATER"
+	Ret.Steal += "ITM_HOLYWATER"
+	Ret.Steal += "ITM_HOLYWATER"
+	Ret.Steal += "ITM_HOLYWATER"
+	Ret.Steal += "ITM_HOLYWATER"
+	Ret.Steal += "ITM_HOLYWATER"
+	Ret.Steal += "ITM_HOLYWATER"
+	Ret.Steal += "ITM_HOLYWATER"
+	Ret.Steal += "ITM_HOLYWATER"
+	Ret.Steal += "ITM_HOLYWATER"
+	Ret.Steal += "ITM_HOLYWATER"
+	Ret.Steal += "ITM_HOLYWATER"
+	Ret.Steal += "ITM_HOLYWATER"
+	Ret.Steal += "ITM_HOLYWATER"
+	Ret.Steal += "ITM_HOLYWATER"
+	Ret.Steal += "ITM_HOLYWATER"
+	Ret.Steal += "ITM_HOLYWATER"
+	Ret.Steal += "ITM_HOLYWATER"
+	Ret.Steal += "ITM_HOLYWATER"
+	Ret.Steal += "ITM_HOLYWATER"
+	Ret.NAME = "Lost Soul"
+	Ret.CASH = 123
+	Ret.ER_DARKNESS = 12345
+	Ret.ER_FLAME = -25
+	Ret.ER_LIGHT = -120
+	Ret.ER_LIGHTNING = -80
+	Ret.SR_CONFUSION = 100
+	Ret.SR_CURSE = 100
+	Ret.SR_DEATH = 100
+	Ret.SR_DISEASE = 100
+	Ret.SR_PARALYSIS = 100
+	Ret.SR_PETRIFICATION = 100
+	Ret.SR_POISON = 100
+	Ret.SR_SILENCE = 100
+	Ret.SR_SLEEP = 100
+	Ret.SR_UNDEAD = 100
+	Ret.VOCALTAG = "Lost Soul"
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 1
+		Ret.Stats.EVASION = 4
+		Ret.Stats.EXP = 4500
+		Ret.Stats.HP = 20000
+		Ret.Stats.INTELLIGENCE = 500
+		Ret.Stats.POWER = 400
+		Ret.Stats.RESISTANCE = 2
+		Ret.Stats.SPEED = 400
+	Else
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 2
+		Ret.Stats.EVASION = 1
+		Ret.Stats.EXP = 0
+		Ret.Stats.HP = 15000
+		Ret.Stats.INTELLIGENCE = 800
+		Ret.Stats.POWER = 3000
+		Ret.Stats.RESISTANCE = 2
+		Ret.Stats.SPEED = 100
+	End
+
+	Ret.Actions = {}
+	If True && (Oversoul)
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+	End
+	If True && (Oversoul) && (__skill!=2) && (__skill!=3)
+		Ret.Actions += "AAA_GUARD"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_FOE_CRUSH"
+		Ret.Actions += "ABL_FOE_CRUSH"
+		Ret.Actions += "ABL_FOE_CRUSH"
+		Ret.Actions += "ABL_FOE_CRUSH"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_FOE_DISINTEGRATE"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_FOE_SOULCRUSHINGSTORY"
+		Ret.Actions += "ABL_FOE_SOULCRUSHINGSTORY"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_MASTER_FANDALORA_DARKVISION"
+		Ret.Actions += "ABL_MASTER_FANDALORA_DARKVISION"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_MASTER_FANDALORA_DEATH"
+	End
+	If True && (Oversoul) && (__skill!=3)
+		Ret.Actions += "FOE_WATCHMOVE"
+		Ret.Actions += "FOE_WATCHMOVE"
+		Ret.Actions += "FOE_WATCHMOVE"
+		Ret.Actions += "FOE_WATCHMOVE"
+	End
+	If True && (Oversoul) && (__skill!=3)
+		Ret.Actions += "SILLY_ONE"
+		Ret.Actions += "SILLY_ONE"
+		Ret.Actions += "SILLY_ONE"
+		Ret.Actions += "SILLY_ONE"
+		Ret.Actions += "SILLY_ONE"
+		Ret.Actions += "SILLY_ONE"
+	End
+	If True && (Oversoul) && (__skill!=3)
+		Ret.Actions += "SILLY_ONES"
+		Ret.Actions += "SILLY_ONES"
+		Ret.Actions += "SILLY_ONES"
+		Ret.Actions += "SILLY_ONES"
+		Ret.Actions += "SILLY_ONES"
+	End
+	Return Ret
+End

@@ -1,0 +1,199 @@
+// Generated 8/26/2021 8:36:58 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	If Oversoul
+		Lua.error("Enemy 'Boss/InvisibleDemon' does not support oversoul!")
+	End
+
+	Ret.DESC = "Just because you can't see it\ndoesn't mean it's harmless"
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/boss/InvisibleDemon.png"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_ANABOLINEA"
+	Ret.Drops += "ITM_ANABOLINEA"
+	Ret.Drops += "ITM_ANABOLINEA"
+	Ret.Drops += "ITM_ANABOLINEA"
+	Ret.Drops += "ITM_ANABOLINEA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.NAME = "Invisible Demon"
+	Ret.CASH = 1000
+	Ret.ER_DARKNESS = -300
+	Ret.ER_EARTH = -80
+	Ret.ER_FLAME = -75
+	Ret.ER_FROST = 100
+	Ret.ER_LIGHT = -180
+	Ret.ER_LIGHTNING = -85
+	Ret.ER_WATER = 25
+	Ret.ER_WIND = 25
+	Ret.SR_CONFUSION = 100
+	Ret.SR_CURSE = 100
+	Ret.SR_DEATH = 100
+	Ret.SR_DISEASE = 100
+	Ret.SR_PARALYSIS = 100
+	Ret.SR_PETRIFICATION = 100
+	Ret.SR_POISON = 100
+	Ret.SR_SILENCE = 100
+	Ret.SR_SLEEP = 100
+	Ret.SR_UNDEAD = 140
+	Ret.VOCALTAG = "InvisibleDemon"
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 325
+		Ret.Stats.EVASION = 100
+		Ret.Stats.EXP = 5000
+		Ret.Stats.HP = 10000
+		Ret.Stats.INTELLIGENCE = 600
+		Ret.Stats.POWER = 600
+		Ret.Stats.RESISTANCE = 325
+		Ret.Stats.SPEED = 500
+	End
+
+	Ret.Actions = {}
+	If True
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+	End
+	If True && (__skill!=3)
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_CRUSH"
+		Ret.Actions += "ABL_FOE_CRUSH"
+		Ret.Actions += "ABL_FOE_CRUSH"
+		Ret.Actions += "ABL_FOE_CRUSH"
+		Ret.Actions += "ABL_FOE_CRUSH"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_DEMON_SOUL_BREAKER"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_DESPERATEATTACK"
+		Ret.Actions += "ABL_FOE_DESPERATEATTACK"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_SMITE"
+		Ret.Actions += "ABL_FOE_SMITE"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_SPORES"
+		Ret.Actions += "ABL_FOE_SPORES"
+		Ret.Actions += "ABL_FOE_SPORES"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_TAKEOVER"
+		Ret.Actions += "ABL_FOE_TAKEOVER"
+		Ret.Actions += "ABL_FOE_TAKEOVER"
+		Ret.Actions += "ABL_FOE_TAKEOVER"
+		Ret.Actions += "ABL_FOE_TAKEOVER"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_TAKEOVER2"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_TOTALEXHAUSTION"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
+		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
+		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
+		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
+		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
+		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
+	End
+	If True
+		Ret.Actions += "ABL_MASTER_FANDALORA_CURSE"
+		Ret.Actions += "ABL_MASTER_FANDALORA_CURSE"
+		Ret.Actions += "ABL_MASTER_FANDALORA_CURSE"
+		Ret.Actions += "ABL_MASTER_FANDALORA_CURSE"
+		Ret.Actions += "ABL_MASTER_FANDALORA_CURSE"
+		Ret.Actions += "ABL_MASTER_FANDALORA_CURSE"
+		Ret.Actions += "ABL_MASTER_FANDALORA_CURSE"
+		Ret.Actions += "ABL_MASTER_FANDALORA_CURSE"
+		Ret.Actions += "ABL_MASTER_FANDALORA_CURSE"
+		Ret.Actions += "ABL_MASTER_FANDALORA_CURSE"
+	End
+	Return Ret
+End

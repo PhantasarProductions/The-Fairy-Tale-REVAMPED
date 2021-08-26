@@ -1,0 +1,257 @@
+// Generated 8/26/2021 8:37:28 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	Ret.DESC = "The fella likes partying and loves to invite you,\nbut doesn't realize the misery it drags you in."
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/Reg/Leprechaun.png"
+	Ret.Drops += "ITM_CARROTPACKFISH"
+	Ret.Drops += "ITM_CARROTPACKFISH"
+	Ret.Drops += "ITM_CARROTPACKFISH"
+	Ret.Drops += "ITM_CARROTPACKFISH"
+	Ret.Drops += "ITM_CARROTPACKFISH"
+	Ret.Drops += "ITM_CARROTPACKFISH"
+	Ret.Drops += "ITM_CARROTPACKFISH"
+	Ret.Drops += "ITM_CARROTPACKFISH"
+	Ret.Drops += "ITM_CARROTPACKFISH"
+	Ret.Drops += "ITM_CARROTPACKFISH"
+	Ret.Drops += "ITM_MAGICDUST"
+	Ret.Drops += "ITM_MAGICDUST"
+	Ret.Drops += "ITM_MAGICDUST"
+	Ret.Drops += "ITM_MAGICDUST"
+	Ret.Drops += "ITM_MAGICDUST"
+	Ret.Drops += "ITM_MAGICDUST"
+	Ret.Drops += "ITM_MAGICDUST"
+	Ret.Drops += "ITM_MAGICDUST"
+	Ret.Drops += "ITM_MAGICDUST"
+	Ret.Drops += "ITM_MAGICDUST"
+	Ret.Drops += "ITM_MAGICDUST"
+	Ret.Drops += "ITM_MAGICDUST"
+	Ret.Drops += "ITM_MAGICDUST"
+	Ret.Drops += "ITM_MAGICDUST"
+	Ret.Drops += "ITM_MAGICDUST"
+	Ret.Drops += "ITM_MAGICDUST"
+	Ret.Drops += "ITM_MAGICDUST"
+	Ret.Drops += "ITM_MAGICDUST"
+	Ret.Drops += "ITM_MAGICDUST"
+	Ret.Drops += "ITM_MAGICDUST"
+	Ret.Drops += "ITM_MAGICDUST"
+	Ret.Drops += "ITM_MAGICDUST"
+	Ret.Drops += "ITM_MAGICDUST"
+	Ret.Drops += "ITM_MAGICDUST"
+	Ret.Drops += "ITM_MAGICDUST"
+	Ret.Steal += "WAND_II_WATT"
+	Ret.Steal += "WAND_II_KELVIN"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.Steal += "ITM_ANTIDOTES"
+	Ret.NAME = "Leprechaun"
+	Ret.CASH = 250
+	Ret.SR_CONFUSION = 5
+	Ret.SR_CURSE = 5
+	Ret.SR_DEATH = 35
+	Ret.SR_DISEASE = 5
+	Ret.SR_PARALYSIS = 5
+	Ret.SR_PETRIFICATION = 5
+	Ret.SR_POISON = 5
+	Ret.SR_SILENCE = 5
+	Ret.SR_SLEEP = 5
+	Ret.SR_UNDEAD = 100
+	Ret.VOCALTAG = "Leprechaun"
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 100
+		Ret.Stats.EVASION = 5
+		Ret.Stats.EXP = 100
+		Ret.Stats.HP = 100
+		Ret.Stats.INTELLIGENCE = 100
+		Ret.Stats.POWER = 100
+		Ret.Stats.RESISTANCE = 100
+		Ret.Stats.SPEED = 100
+	Else
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 200
+		Ret.Stats.EVASION = 1
+		Ret.Stats.EXP = 250
+		Ret.Stats.HP = 50000
+		Ret.Stats.INTELLIGENCE = 200
+		Ret.Stats.POWER = 200
+		Ret.Stats.RESISTANCE = 200
+		Ret.Stats.SPEED = 200
+	End
+
+	Ret.Actions = {}
+	If True && (Oversoul)
+		Ret.Actions += "ABL_FOE_BEER"
+		Ret.Actions += "ABL_FOE_BEER"
+		Ret.Actions += "ABL_FOE_BEER"
+		Ret.Actions += "ABL_FOE_BEER"
+		Ret.Actions += "ABL_FOE_BEER"
+		Ret.Actions += "ABL_FOE_BEER"
+		Ret.Actions += "ABL_FOE_BEER"
+		Ret.Actions += "ABL_FOE_BEER"
+		Ret.Actions += "ABL_FOE_BEER"
+		Ret.Actions += "ABL_FOE_BEER"
+		Ret.Actions += "ABL_FOE_BEER"
+		Ret.Actions += "ABL_FOE_BEER"
+		Ret.Actions += "ABL_FOE_BEER"
+		Ret.Actions += "ABL_FOE_BEER"
+		Ret.Actions += "ABL_FOE_BEER"
+		Ret.Actions += "ABL_FOE_BEER"
+		Ret.Actions += "ABL_FOE_BEER"
+		Ret.Actions += "ABL_FOE_BEER"
+		Ret.Actions += "ABL_FOE_BEER"
+		Ret.Actions += "ABL_FOE_BEER"
+		Ret.Actions += "ABL_FOE_BEER"
+		Ret.Actions += "ABL_FOE_BEER"
+		Ret.Actions += "ABL_FOE_BEER"
+		Ret.Actions += "ABL_FOE_BEER"
+		Ret.Actions += "ABL_FOE_BEER"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_FOE_FOOLGOLD"
+		Ret.Actions += "ABL_FOE_FOOLGOLD"
+		Ret.Actions += "ABL_FOE_FOOLGOLD"
+		Ret.Actions += "ABL_FOE_FOOLGOLD"
+		Ret.Actions += "ABL_FOE_FOOLGOLD"
+		Ret.Actions += "ABL_FOE_FOOLGOLD"
+		Ret.Actions += "ABL_FOE_FOOLGOLD"
+		Ret.Actions += "ABL_FOE_FOOLGOLD"
+		Ret.Actions += "ABL_FOE_FOOLGOLD"
+		Ret.Actions += "ABL_FOE_FOOLGOLD"
+		Ret.Actions += "ABL_FOE_FOOLGOLD"
+		Ret.Actions += "ABL_FOE_FOOLGOLD"
+		Ret.Actions += "ABL_FOE_FOOLGOLD"
+		Ret.Actions += "ABL_FOE_FOOLGOLD"
+		Ret.Actions += "ABL_FOE_FOOLGOLD"
+		Ret.Actions += "ABL_FOE_FOOLGOLD"
+		Ret.Actions += "ABL_FOE_FOOLGOLD"
+		Ret.Actions += "ABL_FOE_FOOLGOLD"
+		Ret.Actions += "ABL_FOE_FOOLGOLD"
+		Ret.Actions += "ABL_FOE_FOOLGOLD"
+		Ret.Actions += "ABL_FOE_FOOLGOLD"
+		Ret.Actions += "ABL_FOE_FOOLGOLD"
+		Ret.Actions += "ABL_FOE_FOOLGOLD"
+		Ret.Actions += "ABL_FOE_FOOLGOLD"
+		Ret.Actions += "ABL_FOE_FOOLGOLD"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_FOE_RANDOMIZER"
+		Ret.Actions += "ABL_FOE_RANDOMIZER"
+		Ret.Actions += "ABL_FOE_RANDOMIZER"
+		Ret.Actions += "ABL_FOE_RANDOMIZER"
+		Ret.Actions += "ABL_FOE_RANDOMIZER"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_TOTALEXHAUSTION"
+	End
+	Return Ret
+End

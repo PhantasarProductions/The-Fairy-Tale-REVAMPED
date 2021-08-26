@@ -1,0 +1,250 @@
+// Generated 8/26/2021 8:36:59 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	If Oversoul
+		Lua.error("Enemy 'Boss/Marrilona' does not support oversoul!")
+	End
+
+	Ret.DESC = "A fairy cursed with the power \nof the Black Dragon."
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/Boss/Marrilona.png"
+	Ret.NAME = "Marrilona"
+	Ret.CASH = 0
+	Ret.ER_DARKNESS = 12345678
+	Ret.ER_EARTH = 80
+	Ret.ER_FLAME = 80
+	Ret.ER_FROST = 80
+	Ret.ER_LIGHT = -195
+	Ret.ER_LIGHTNING = 80
+	Ret.ER_WATER = 80
+	Ret.ER_WIND = 80
+	Ret.SR_CONFUSION = 100
+	Ret.SR_CURSE = 100
+	Ret.SR_DEATH = 100
+	Ret.SR_DISEASE = 100
+	Ret.SR_PARALYSIS = 100
+	Ret.SR_PETRIFICATION = 100
+	Ret.SR_POISON = 100
+	Ret.SR_SILENCE = 100
+	Ret.SR_SLEEP = 100
+	Ret.SR_UNDEAD = 100
+	Ret.VOCALTAG = "Marrilona"
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 5
+		Ret.Stats.ENDURANCE = 5
+		Ret.Stats.EVASION = 5
+		Ret.Stats.EXP = 1
+		Ret.Stats.HP = 5
+		Ret.Stats.INTELLIGENCE = 5
+		Ret.Stats.POWER = 5
+		Ret.Stats.RESISTANCE = 5
+		Ret.Stats.SPEED = 5
+	End
+
+	Ret.Actions = {}
+	If True && (__skill!=2) && (__skill!=3)
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_CRUSH"
+		Ret.Actions += "ABL_FOE_CRUSH"
+		Ret.Actions += "ABL_FOE_CRUSH"
+		Ret.Actions += "ABL_FOE_CRUSH"
+		Ret.Actions += "ABL_FOE_CRUSH"
+	End
+	If True && (__skill!=1) && (__skill!=2)
+		Ret.Actions += "ABL_FOE_DEATHSPELL"
+	End
+	If True && (__skill!=1)
+		Ret.Actions += "ABL_FOE_DISINTEGRATE"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_HOLDPERSON"
+		Ret.Actions += "ABL_FOE_HOLDPERSON"
+		Ret.Actions += "ABL_FOE_HOLDPERSON"
+		Ret.Actions += "ABL_FOE_HOLDPERSON"
+		Ret.Actions += "ABL_FOE_HOLDPERSON"
+		Ret.Actions += "ABL_FOE_HOLDPERSON"
+		Ret.Actions += "ABL_FOE_HOLDPERSON"
+		Ret.Actions += "ABL_FOE_HOLDPERSON"
+		Ret.Actions += "ABL_FOE_HOLDPERSON"
+		Ret.Actions += "ABL_FOE_HOLDPERSON"
+		Ret.Actions += "ABL_FOE_HOLDPERSON"
+		Ret.Actions += "ABL_FOE_HOLDPERSON"
+		Ret.Actions += "ABL_FOE_HOLDPERSON"
+		Ret.Actions += "ABL_FOE_HOLDPERSON"
+		Ret.Actions += "ABL_FOE_HOLDPERSON"
+		Ret.Actions += "ABL_FOE_HOLDPERSON"
+		Ret.Actions += "ABL_FOE_HOLDPERSON"
+		Ret.Actions += "ABL_FOE_HOLDPERSON"
+		Ret.Actions += "ABL_FOE_HOLDPERSON"
+		Ret.Actions += "ABL_FOE_HOLDPERSON"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_HORROR"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_TAKEOVER"
+		Ret.Actions += "ABL_FOE_TAKEOVER"
+		Ret.Actions += "ABL_FOE_TAKEOVER"
+		Ret.Actions += "ABL_FOE_TAKEOVER"
+		Ret.Actions += "ABL_FOE_TAKEOVER"
+	End
+	If True && (__skill!=1) && (__skill!=2)
+		Ret.Actions += "ABL_FOE_TAKEOVER2"
+	End
+	If True && (__skill!=1)
+		Ret.Actions += "ABL_GLOOM"
+	End
+	If True && (__skill!=1)
+		Ret.Actions += "ABL_HERO_MARRILONA_CURSEDHEALING"
+	End
+	If True
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_ETERNALFLAME"
+	End
+	If True && (__skill!=1)
+		Ret.Actions += "ABL_HERO_MARRILONA_FIREBLAST"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
+		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
+		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
+		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
+		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
+		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
+		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
+		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
+		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
+		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
+		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
+		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
+	End
+	If True && (__skill!=1) && (__skill!=2)
+		Ret.Actions += "ABL_HERO_MARRILONA_HURRICANE"
+	End
+	If True && (__skill!=1) && (__skill!=2)
+		Ret.Actions += "ABL_HERO_MARRILONA_ICEBLAST"
+	End
+	If True && (__skill!=1) && (__skill!=2)
+		Ret.Actions += "ABL_HERO_MARRILONA_INFERNO"
+	End
+	If True && (__skill!=1) && (__skill!=2)
+		Ret.Actions += "ABL_HERO_MARRILONA_PROTECT"
+		Ret.Actions += "ABL_HERO_MARRILONA_PROTECT"
+		Ret.Actions += "ABL_HERO_MARRILONA_PROTECT"
+		Ret.Actions += "ABL_HERO_MARRILONA_PROTECT"
+		Ret.Actions += "ABL_HERO_MARRILONA_PROTECT"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_QUAKE"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_ROCK"
+		Ret.Actions += "ABL_HERO_MARRILONA_ROCK"
+		Ret.Actions += "ABL_HERO_MARRILONA_ROCK"
+		Ret.Actions += "ABL_HERO_MARRILONA_ROCK"
+		Ret.Actions += "ABL_HERO_MARRILONA_ROCK"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_SPEEDUP"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPEEDUP"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPEEDUP"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPEEDUP"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPEEDUP"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_SPLASH"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPLASH"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPLASH"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPLASH"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPLASH"
+	End
+	If True && (__skill!=1) && (__skill!=2)
+		Ret.Actions += "ABL_HERO_MARRILONA_TSUNAMI"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_ZAP"
+	End
+	If True
+	End
+	If True
+		Ret.Actions += "ABL_MASTER_FANDALORA_CURSE"
+		Ret.Actions += "ABL_MASTER_FANDALORA_CURSE"
+		Ret.Actions += "ABL_MASTER_FANDALORA_CURSE"
+		Ret.Actions += "ABL_MASTER_FANDALORA_CURSE"
+		Ret.Actions += "ABL_MASTER_FANDALORA_CURSE"
+	End
+	Return Ret
+End

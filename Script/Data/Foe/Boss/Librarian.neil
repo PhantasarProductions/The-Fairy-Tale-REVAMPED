@@ -1,0 +1,368 @@
+// Generated 8/26/2021 8:36:59 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	If Oversoul
+		Lua.error("Enemy 'Boss/Librarian' does not support oversoul!")
+	End
+
+	Ret.DESC = "Guardian of the Forbidden Library.\nDon't get on his bad side!\nIn fact don't enter the library at all, \nand he'll let you live."
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/Boss/Librarian.png"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "WAND_THUNDER"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.Steal += "WAND_THUNDER"
+	Ret.NAME = "Librarian"
+	Ret.CASH = 1
+	Ret.ER_DARKNESS = 50
+	Ret.ER_EARTH = 50
+	Ret.ER_FLAME = 50
+	Ret.ER_FROST = 50
+	Ret.ER_LIGHT = 50
+	Ret.ER_LIGHTNING = 50
+	Ret.ER_WATER = 50
+	Ret.ER_WIND = 50
+	Ret.SR_CONFUSION = 95
+	Ret.SR_CURSE = 100
+	Ret.SR_DEATH = 99
+	Ret.SR_DISEASE = 25
+	Ret.SR_PARALYSIS = 100
+	Ret.SR_PETRIFICATION = 100
+	Ret.SR_POISON = 40
+	Ret.SR_SILENCE = 100
+	Ret.SR_SLEEP = 98
+	Ret.SR_UNDEAD = 100
+	Ret.VOCALTAG = "Librarian"
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 2
+		Ret.Stats.EVASION = 0
+		Ret.Stats.EXP = 50
+		Ret.Stats.HP = 2000
+		Ret.Stats.INTELLIGENCE = 160
+		Ret.Stats.POWER = 100
+		Ret.Stats.RESISTANCE = 100
+		Ret.Stats.SPEED = 100
+	End
+
+	Ret.Actions = {}
+	If True
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_CRUSH"
+		Ret.Actions += "ABL_FOE_CRUSH"
+		Ret.Actions += "ABL_FOE_CRUSH"
+		Ret.Actions += "ABL_FOE_CRUSH"
+		Ret.Actions += "ABL_FOE_CRUSH"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_DESPERATEATTACK"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_SHOCKINGSTORIES"
+		Ret.Actions += "ABL_FOE_SHOCKINGSTORIES"
+		Ret.Actions += "ABL_FOE_SHOCKINGSTORIES"
+		Ret.Actions += "ABL_FOE_SHOCKINGSTORIES"
+		Ret.Actions += "ABL_FOE_SHOCKINGSTORIES"
+		Ret.Actions += "ABL_FOE_SHOCKINGSTORIES"
+		Ret.Actions += "ABL_FOE_SHOCKINGSTORIES"
+		Ret.Actions += "ABL_FOE_SHOCKINGSTORIES"
+		Ret.Actions += "ABL_FOE_SHOCKINGSTORIES"
+		Ret.Actions += "ABL_FOE_SHOCKINGSTORIES"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_SICKSTORIES"
+		Ret.Actions += "ABL_FOE_SICKSTORIES"
+		Ret.Actions += "ABL_FOE_SICKSTORIES"
+		Ret.Actions += "ABL_FOE_SICKSTORIES"
+		Ret.Actions += "ABL_FOE_SICKSTORIES"
+		Ret.Actions += "ABL_FOE_SICKSTORIES"
+		Ret.Actions += "ABL_FOE_SICKSTORIES"
+		Ret.Actions += "ABL_FOE_SICKSTORIES"
+		Ret.Actions += "ABL_FOE_SICKSTORIES"
+		Ret.Actions += "ABL_FOE_SICKSTORIES"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_SOULCRUSHINGSTORY"
+		Ret.Actions += "ABL_FOE_SOULCRUSHINGSTORY"
+		Ret.Actions += "ABL_FOE_SOULCRUSHINGSTORY"
+		Ret.Actions += "ABL_FOE_SOULCRUSHINGSTORY"
+		Ret.Actions += "ABL_FOE_SOULCRUSHINGSTORY"
+	End
+	If True && (__skill!=1) && (__skill!=2)
+		Ret.Actions += "ABL_HERO_JAKE_2PS"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
+		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
+		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
+		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
+		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_SPLASH"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPLASH"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPLASH"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPLASH"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPLASH"
+	End
+	If True
+		Ret.Actions += "ITM_SALVE"
+		Ret.Actions += "ITM_SALVE"
+		Ret.Actions += "ITM_SALVE"
+	End
+	Return Ret
+End

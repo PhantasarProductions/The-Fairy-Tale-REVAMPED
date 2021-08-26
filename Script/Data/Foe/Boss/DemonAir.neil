@@ -1,0 +1,280 @@
+// Generated 8/26/2021 8:36:51 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	If Oversoul
+		Lua.error("Enemy 'Boss/DemonAir' does not support oversoul!")
+	End
+
+	Ret.DESC = "A demon made out of air?\nWhat's Phantasar coming to?"
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/Boss/DemonAir.png"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_STORMBOTTLE"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_ANABOLINEA"
+	Ret.Steal += "ITM_ANABOLINEA"
+	Ret.Steal += "ITM_BANANA"
+	Ret.Steal += "ITM_BANANA"
+	Ret.Steal += "ITM_BANANA"
+	Ret.Steal += "ITM_BANANA"
+	Ret.NAME = "DemonAir"
+	Ret.CASH = 8000
+	Ret.ER_EARTH = -195
+	Ret.ER_LIGHTNING = 100
+	Ret.ER_WIND = 9000
+	Ret.SR_CONFUSION = 100
+	Ret.SR_CURSE = 100
+	Ret.SR_DEATH = 100
+	Ret.SR_DISEASE = 100
+	Ret.SR_PARALYSIS = 100
+	Ret.SR_PETRIFICATION = 100
+	Ret.SR_POISON = 100
+	Ret.SR_SILENCE = 100
+	Ret.SR_SLEEP = 100
+	Ret.SR_UNDEAD = 100
+	Ret.VOCALTAG = "DemonAir"
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 1
+		Ret.Stats.EVASION = 99
+		Ret.Stats.EXP = 50000
+		Ret.Stats.HP = 20000
+		Ret.Stats.INTELLIGENCE = 500
+		Ret.Stats.POWER = 500
+		Ret.Stats.RESISTANCE = 1
+		Ret.Stats.SPEED = 500
+	End
+
+	Ret.Actions = {}
+	If True
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_CRUSH"
+	End
+	If True && (__skill!=1)
+		Ret.Actions += "ABL_FOE_DEMON_SOUL_BREAKER"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_EVIL_EYE_PARALYZE"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_PARADIVE"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_RANDOMIZER"
+		Ret.Actions += "ABL_FOE_RANDOMIZER"
+		Ret.Actions += "ABL_FOE_RANDOMIZER"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_SLASH"
+		Ret.Actions += "ABL_FOE_SLASH"
+		Ret.Actions += "ABL_FOE_SLASH"
+		Ret.Actions += "ABL_FOE_SLASH"
+		Ret.Actions += "ABL_FOE_SLASH"
+		Ret.Actions += "ABL_FOE_SLASH"
+		Ret.Actions += "ABL_FOE_SLASH"
+		Ret.Actions += "ABL_FOE_SLASH"
+		Ret.Actions += "ABL_FOE_SLASH"
+		Ret.Actions += "ABL_FOE_SLASH"
+		Ret.Actions += "ABL_FOE_SLASH"
+		Ret.Actions += "ABL_FOE_SLASH"
+		Ret.Actions += "ABL_FOE_SLASH"
+		Ret.Actions += "ABL_FOE_SLASH"
+		Ret.Actions += "ABL_FOE_SLASH"
+		Ret.Actions += "ABL_FOE_SLASH"
+		Ret.Actions += "ABL_FOE_SLASH"
+		Ret.Actions += "ABL_FOE_SLASH"
+		Ret.Actions += "ABL_FOE_SLASH"
+		Ret.Actions += "ABL_FOE_SLASH"
+		Ret.Actions += "ABL_FOE_SLASH"
+		Ret.Actions += "ABL_FOE_SLASH"
+		Ret.Actions += "ABL_FOE_SLASH"
+		Ret.Actions += "ABL_FOE_SLASH"
+		Ret.Actions += "ABL_FOE_SLASH"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_TAKEOVER"
+	End
+	If True && (__skill!=1) && (__skill!=2)
+		Ret.Actions += "ABL_FOE_TAKEOVER2"
+	End
+	If True
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_RECOVER"
+	End
+	If True && (__skill!=1)
+		Ret.Actions += "ABL_HERO_JAKE_4PS"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_BREEZE"
+		Ret.Actions += "ABL_HERO_MARRILONA_BREEZE"
+		Ret.Actions += "ABL_HERO_MARRILONA_BREEZE"
+		Ret.Actions += "ABL_HERO_MARRILONA_BREEZE"
+	End
+	If True
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
+	End
+	If True && (__skill!=1)
+		Ret.Actions += "ABL_HERO_MARRILONA_HURRICANE"
+	End
+	If True && (__skill!=1) && (__skill!=2)
+		Ret.Actions += "ABL_MASTER_KRANDAR_5PS"
+	End
+	If True
+		Ret.Actions += "ABL_MASTER_RUBINE_INVADE"
+		Ret.Actions += "ABL_MASTER_RUBINE_INVADE"
+		Ret.Actions += "ABL_MASTER_RUBINE_INVADE"
+		Ret.Actions += "ABL_MASTER_RUBINE_INVADE"
+	End
+	If True
+		Ret.Actions += "ABL_MASTER_RUSSELL_SAFESHOT"
+		Ret.Actions += "ABL_MASTER_RUSSELL_SAFESHOT"
+		Ret.Actions += "ABL_MASTER_RUSSELL_SAFESHOT"
+		Ret.Actions += "ABL_MASTER_RUSSELL_SAFESHOT"
+	End
+	If True && (__skill!=3)
+		Ret.Actions += "SILLY_ONE"
+	End
+	Return Ret
+End

@@ -1,0 +1,169 @@
+// Generated 8/26/2021 8:37:34 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	Ret.DESC = "They have no allegiance to anyone.\nThey are decendants of the few humans\nwho never left Kokonora during the war,\nbut their tribe were criminals back then\nand their tribe are solely criminals now!"
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/reg/Thief/"
+	Ret.Drops += "EQP_JEWEL_TOPAZ"
+	Ret.Drops += "EQP_JEWEL_SAPPHIRE"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_ANABOLINEA"
+	Ret.Steal += "ITM_POTION"
+	Ret.Steal += "ITM_POTION"
+	Ret.Steal += "ITM_POTION"
+	Ret.Steal += "ITM_POTION"
+	Ret.Steal += "ITM_POTION"
+	Ret.Steal += "ITM_POTION"
+	Ret.Steal += "ITM_POTION"
+	Ret.Steal += "ITM_POTION"
+	Ret.Steal += "ITM_POTION"
+	Ret.Steal += "ITM_POTION"
+	Ret.Steal += "ITM_POTION"
+	Ret.Steal += "ITM_POTION"
+	Ret.Steal += "ITM_POTION"
+	Ret.Steal += "ITM_POTION"
+	Ret.Steal += "ITM_POTION"
+	Ret.Steal += "ITM_POTION"
+	Ret.Steal += "ITM_POTION"
+	Ret.Steal += "ITM_POTION"
+	Ret.Steal += "ITM_POTION"
+	Ret.Steal += "ITM_POTION"
+	Ret.Steal += "ITM_POTION"
+	Ret.Steal += "ITM_POTION"
+	Ret.Steal += "ITM_POTION"
+	Ret.Steal += "ITM_POTION"
+	Ret.Steal += "ITM_POTION"
+	Ret.Steal += "ITM_POTION"
+	Ret.Steal += "ITM_POTION"
+	Ret.Steal += "ITM_POTION"
+	Ret.Steal += "ITM_POTION"
+	Ret.Steal += "ITM_POTION"
+	Ret.Steal += "ITM_POTION"
+	Ret.Steal += "ITM_POTION"
+	Ret.Steal += "ITM_POTION"
+	Ret.Steal += "ITM_POTION"
+	Ret.Steal += "ITM_POTION"
+	Ret.Steal += "ITM_POTION"
+	Ret.Steal += "ITM_POTION"
+	Ret.Steal += "ITM_POTION"
+	Ret.Steal += "ITM_POTION"
+	Ret.Steal += "ITM_POTION"
+	Ret.Steal += "ITM_POTION"
+	Ret.Steal += "ITM_POTION"
+	Ret.Steal += "ITM_POTION"
+	Ret.Steal += "ITM_POTION"
+	Ret.Steal += "ITM_POTION"
+	Ret.Steal += "ITM_POTION"
+	Ret.Steal += "ITM_POTION"
+	Ret.Steal += "ITM_POTION"
+	Ret.Steal += "ITM_POTION"
+	Ret.Steal += "ITM_POTION"
+	Ret.NAME = "Robber"
+	Ret.CASH = 2500
+	Ret.SR_DEATH = 65
+	Ret.SR_UNDEAD = 50
+	Ret.VOCALTAG = "Robber"
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 300
+		Ret.Stats.EVASION = 25
+		Ret.Stats.EXP = 1500
+		Ret.Stats.HP = 2500
+		Ret.Stats.INTELLIGENCE = 500
+		Ret.Stats.POWER = 800
+		Ret.Stats.RESISTANCE = 300
+		Ret.Stats.SPEED = 200
+	Else
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 150
+		Ret.Stats.EVASION = 50
+		Ret.Stats.EXP = 3000
+		Ret.Stats.HP = 5000
+		Ret.Stats.INTELLIGENCE = 1000
+		Ret.Stats.POWER = 1600
+		Ret.Stats.RESISTANCE = 150
+		Ret.Stats.SPEED = 100
+	End
+
+	Ret.Actions = {}
+	If True && (Oversoul)
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+	End
+	If True && (Oversoul) && (__skill!=3)
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+	End
+	If True && (Oversoul) && (__skill!=1)
+		Ret.Actions += "ABL_FOE_MASOSADO"
+		Ret.Actions += "ABL_FOE_MASOSADO"
+		Ret.Actions += "ABL_FOE_MASOSADO"
+		Ret.Actions += "ABL_FOE_MASOSADO"
+		Ret.Actions += "ABL_FOE_MASOSADO"
+		Ret.Actions += "ABL_FOE_MASOSADO"
+		Ret.Actions += "ABL_FOE_MASOSADO"
+		Ret.Actions += "ABL_FOE_MASOSADO"
+		Ret.Actions += "ABL_FOE_MASOSADO"
+		Ret.Actions += "ABL_FOE_MASOSADO"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_FOE_PARADIVE"
+		Ret.Actions += "ABL_FOE_PARADIVE"
+		Ret.Actions += "ABL_FOE_PARADIVE"
+	End
+	If True && (Oversoul) && (__skill!=1)
+		Ret.Actions += "ABL_HERO_JAKE_2PS"
+		Ret.Actions += "ABL_HERO_JAKE_2PS"
+		Ret.Actions += "ABL_HERO_JAKE_2PS"
+	End
+	If True && (Oversoul) && (__skill!=1) && (__skill!=2)
+		Ret.Actions += "ABL_HERO_JAKE_4PS"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_MASTER_RUBINE_BACKSTAB"
+		Ret.Actions += "ABL_MASTER_RUBINE_BACKSTAB"
+	End
+	If True && (Oversoul) && (__skill!=1)
+		Ret.Actions += "ABL_MASTER_RUBINE_FASTDRAW"
+		Ret.Actions += "ABL_MASTER_RUBINE_FASTDRAW"
+		Ret.Actions += "ABL_MASTER_RUBINE_FASTDRAW"
+		Ret.Actions += "ABL_MASTER_RUBINE_FASTDRAW"
+	End
+	If True && (Oversoul) && (__skill!=1)
+		Ret.Actions += "ABL_MASTER_RUBINE_FOLLOWME"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_MASTER_RUBINE_INVADE"
+	End
+	If True && (Oversoul) && (__skill!=1)
+		Ret.Actions += "ABL_MASTER_RUBINE_POISONSTAB"
+		Ret.Actions += "ABL_MASTER_RUBINE_POISONSTAB"
+		Ret.Actions += "ABL_MASTER_RUBINE_POISONSTAB"
+	End
+	If True && (Oversoul) && (__skill!=1) && (__skill!=2)
+		Ret.Actions += "ABL_MASTER_RUSSELL_DECAPITATE"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_MASTER_RUSSELL_SAFESHOT"
+		Ret.Actions += "ABL_MASTER_RUSSELL_SAFESHOT"
+		Ret.Actions += "ABL_MASTER_RUSSELL_SAFESHOT"
+		Ret.Actions += "ABL_MASTER_RUSSELL_SAFESHOT"
+	End
+	Return Ret
+End

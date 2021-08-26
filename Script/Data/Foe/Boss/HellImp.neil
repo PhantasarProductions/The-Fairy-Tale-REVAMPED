@@ -1,0 +1,325 @@
+// Generated 8/26/2021 8:36:57 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	If Oversoul
+		Lua.error("Enemy 'Boss/HellImp' does not support oversoul!")
+	End
+
+	Ret.DESC = "Now these critters can be really dangerous."
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/Reg/imp.png"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.NAME = "Hell Imp"
+	Ret.CASH = 500
+	Ret.ER_DARKNESS = 100
+	Ret.ER_EARTH = 30
+	Ret.ER_FLAME = 95
+	Ret.ER_FROST = -200
+	Ret.ER_LIGHT = -250
+	Ret.ER_LIGHTNING = 13
+	Ret.ER_WATER = 25
+	Ret.ER_WIND = 10
+	Ret.SR_CONFUSION = 75
+	Ret.SR_CURSE = 40
+	Ret.SR_DEATH = 99
+	Ret.SR_DISEASE = 85
+	Ret.SR_PARALYSIS = 95
+	Ret.SR_PETRIFICATION = 100
+	Ret.SR_POISON = 76
+	Ret.SR_SILENCE = 85
+	Ret.SR_SLEEP = 75
+	Ret.SR_UNDEAD = 99
+	Ret.VOCALTAG = "HellImp"
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 750
+		Ret.Stats.EVASION = 10
+		Ret.Stats.EXP = 0
+		Ret.Stats.HP = 30000
+		Ret.Stats.INTELLIGENCE = 300
+		Ret.Stats.POWER = 1500
+		Ret.Stats.RESISTANCE = 250
+		Ret.Stats.SPEED = 400
+	End
+
+	Ret.Actions = {}
+	If True
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+	End
+	If True && (__skill!=3)
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+	End
+	If True
+	End
+	If True && (__skill!=1) && (__skill!=2)
+		Ret.Actions += "ABL_FOE_DISTRACT"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_EXHAUST"
+	End
+	If True && (__skill!=1)
+		Ret.Actions += "ABL_HERO_MARRILONA_BIO"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+	End
+	If True
+		Ret.Actions += "ABL_MASTER_RUBINE_FASTDRAW"
+		Ret.Actions += "ABL_MASTER_RUBINE_FASTDRAW"
+		Ret.Actions += "ABL_MASTER_RUBINE_FASTDRAW"
+	End
+	If True && (__skill!=1) && (__skill!=2)
+		Ret.Actions += "ABL_MASTER_RUBINE_FOLLOWME"
+		Ret.Actions += "ABL_MASTER_RUBINE_FOLLOWME"
+	End
+	If True && (__skill!=1) && (__skill!=2)
+		Ret.Actions += "ABL_MASTER_RUBINE_INVADE"
+	End
+	Return Ret
+End

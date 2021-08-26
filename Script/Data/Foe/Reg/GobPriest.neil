@@ -1,0 +1,268 @@
+// Generated 8/26/2021 8:37:23 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	Ret.DESC = "What? Do do have a priesthood?\nIs this some kind of a joke?"
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/reg/GobPriest.png"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_POTION"
+	Ret.Drops += "ITM_POTION"
+	Ret.Steal += "ITM_POTION"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_ANTIDOTE"
+	Ret.Steal += "ITM_ANTIDOTE"
+	Ret.Steal += "ITM_ANTIDOTE"
+	Ret.Steal += "ITM_ANTIDOTE"
+	Ret.Steal += "ITM_ANTIDOTE"
+	Ret.Steal += "ITM_ANTIDOTE"
+	Ret.Steal += "ITM_ANTIDOTE"
+	Ret.Steal += "ITM_ANTIDOTE"
+	Ret.Steal += "ITM_ANTIDOTE"
+	Ret.Steal += "ITM_ANTIDOTE"
+	Ret.Steal += "ITM_ANTIDOTE"
+	Ret.Steal += "ITM_ANTIDOTE"
+	Ret.Steal += "ITM_ANTIDOTE"
+	Ret.Steal += "ITM_ANTIDOTE"
+	Ret.Steal += "ITM_ANTIDOTE"
+	Ret.Steal += "ITM_ANTIDOTE"
+	Ret.Steal += "ITM_ANTIDOTE"
+	Ret.Steal += "ITM_ANTIDOTE"
+	Ret.Steal += "ITM_ANTIDOTE"
+	Ret.Steal += "ITM_ANTIDOTE"
+	Ret.Steal += "ITM_ANTIDOTE"
+	Ret.Steal += "ITM_ANTIDOTE"
+	Ret.Steal += "ITM_ANTIDOTE"
+	Ret.Steal += "ITM_ANTIDOTE"
+	Ret.Steal += "ITM_ANTIDOTE"
+	Ret.Steal += "ITM_ANTIDOTE"
+	Ret.Steal += "ITM_ANTIDOTE"
+	Ret.Steal += "ITM_ANTIDOTE"
+	Ret.Steal += "ITM_ANTIDOTE"
+	Ret.Steal += "ITM_ANTIDOTE"
+	Ret.Steal += "ITM_ANTIDOTE"
+	Ret.Steal += "ITM_ANTIDOTE"
+	Ret.Steal += "ITM_ANTIDOTE"
+	Ret.Steal += "ITM_ANTIDOTE"
+	Ret.Steal += "ITM_ANTIDOTE"
+	Ret.Steal += "ITM_ANTIDOTE"
+	Ret.Steal += "ITM_ANTIDOTE"
+	Ret.Steal += "ITM_ANTIDOTE"
+	Ret.Steal += "ITM_ANTIDOTE"
+	Ret.Steal += "ITM_ANTIDOTE"
+	Ret.Steal += "ITM_ANTIDOTE"
+	Ret.Steal += "ITM_ANTIDOTE"
+	Ret.Steal += "ITM_ANTIDOTE"
+	Ret.Steal += "ITM_ANTIDOTE"
+	Ret.Steal += "ITM_ANTIDOTE"
+	Ret.Steal += "ITM_ANTIDOTE"
+	Ret.Steal += "ITM_ANTIDOTE"
+	Ret.Steal += "ITM_ANTIDOTE"
+	Ret.Steal += "ITM_ANTIDOTE"
+	Ret.Steal += "ITM_ANTIDOTE"
+	Ret.NAME = "Goblin priest"
+	Ret.CASH = 0
+	Ret.ER_DARKNESS = 9999
+	Ret.ER_EARTH = -100
+	Ret.ER_FLAME = -100
+	Ret.ER_FROST = -100
+	Ret.ER_LIGHT = 200
+	Ret.ER_LIGHTNING = -100
+	Ret.ER_WATER = -100
+	Ret.ER_WIND = -100
+	Ret.SR_CURSE = 100
+	Ret.SR_DEATH = 2
+	Ret.SR_DISEASE = 85
+	Ret.SR_PARALYSIS = 76
+	Ret.SR_PETRIFICATION = 95
+	Ret.SR_POISON = 76
+	Ret.SR_SILENCE = 100
+	Ret.SR_UNDEAD = 100
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 19
+		Ret.Stats.EVASION = 1
+		Ret.Stats.EXP = 8
+		Ret.Stats.HP = 100
+		Ret.Stats.INTELLIGENCE = 5
+		Ret.Stats.POWER = 5
+		Ret.Stats.RESISTANCE = 200
+		Ret.Stats.SPEED = 45
+	Else
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 10
+		Ret.Stats.EVASION = 5
+		Ret.Stats.EXP = 20
+		Ret.Stats.HP = 111
+		Ret.Stats.INTELLIGENCE = 100
+		Ret.Stats.POWER = 5
+		Ret.Stats.RESISTANCE = 900
+		Ret.Stats.SPEED = 60
+	End
+
+	Ret.Actions = {}
+	If True && (Oversoul)
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_FIRSTAID"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_FIRSTAID"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_FIRSTAID"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_FIRSTAID"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_FIRSTAID"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_NEUTRALIZEPOISON"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_NEUTRALIZEPOISON"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_PURIFY"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_RECOVER"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_RECOVER"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_RECOVER"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_RECOVER"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_RECOVER"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_RECOVER"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_RECOVER"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_REMOVEPARALYSIS"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_REMOVEPARALYSIS"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_REMOVEPARALYSIS"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_VITALIZE"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_VITALIZE"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_VITALIZE"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_VITALIZE"
+	End
+	Return Ret
+End

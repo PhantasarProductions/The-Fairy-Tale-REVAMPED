@@ -1,0 +1,144 @@
+// Generated 8/26/2021 8:37:42 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	Ret.DESC = "Composed of pure water.\nAnd water is not only the source of life.\nIt can also be the source of DEATH!"
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/Reg/WaterElemental.png"
+	Ret.Drops += "ITM_POCKETTSUNAMI"
+	Ret.Drops += "ITM_POCKETTSUNAMI"
+	Ret.Drops += "ITM_POCKETTSUNAMI"
+	Ret.Drops += "ITM_POCKETTSUNAMI"
+	Ret.Drops += "ITM_POCKETTSUNAMI"
+	Ret.Drops += "ITM_POCKETTSUNAMI"
+	Ret.Drops += "ITM_POCKETTSUNAMI"
+	Ret.Drops += "ITM_POCKETTSUNAMI"
+	Ret.Drops += "ITM_POCKETTSUNAMI"
+	Ret.Drops += "ITM_POCKETTSUNAMI"
+	Ret.Drops += "ITM_WATERBUBBLE"
+	Ret.Drops += "ITM_WATERBUBBLE"
+	Ret.Drops += "ITM_WATERBUBBLE"
+	Ret.Drops += "ITM_WATERBUBBLE"
+	Ret.Drops += "ITM_WATERBUBBLE"
+	Ret.Drops += "ITM_WATERBUBBLE"
+	Ret.Drops += "ITM_WATERBUBBLE"
+	Ret.Drops += "ITM_WATERBUBBLE"
+	Ret.Drops += "ITM_WATERBUBBLE"
+	Ret.Drops += "ITM_WATERBUBBLE"
+	Ret.Drops += "ITM_WATERBUBBLE"
+	Ret.Drops += "ITM_WATERBUBBLE"
+	Ret.Drops += "ITM_WATERBUBBLE"
+	Ret.Drops += "ITM_WATERBUBBLE"
+	Ret.Drops += "ITM_WATERBUBBLE"
+	Ret.Drops += "ITM_WATERBUBBLE"
+	Ret.Drops += "ITM_WATERBUBBLE"
+	Ret.Drops += "ITM_WATERBUBBLE"
+	Ret.Drops += "ITM_WATERBUBBLE"
+	Ret.Drops += "ITM_WATERBUBBLE"
+	Ret.Drops += "ITM_WATERBUBBLE"
+	Ret.Drops += "ITM_WATERBUBBLE"
+	Ret.Drops += "ITM_WATERBUBBLE"
+	Ret.Drops += "ITM_WATERBUBBLE"
+	Ret.Drops += "ITM_WATERBUBBLE"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_ANABOLINEA"
+	Ret.Steal += "ITM_BANANA"
+	Ret.Steal += "ITM_BANANA"
+	Ret.Steal += "ITM_BANANA"
+	Ret.Steal += "ITM_BANANA"
+	Ret.Steal += "ITM_BANANA"
+	Ret.NAME = "Water Elemental"
+	Ret.CASH = 1
+	Ret.ER_EARTH = 0
+	Ret.ER_FLAME = -200
+	Ret.ER_FROST = -195
+	Ret.ER_LIGHTNING = -300
+	Ret.ER_WATER = 800
+	Ret.ER_WIND = 0
+	Ret.SR_CONFUSION = 100
+	Ret.SR_CURSE = 100
+	Ret.SR_DEATH = 80
+	Ret.SR_DISEASE = 100
+	Ret.SR_PARALYSIS = 5
+	Ret.SR_PETRIFICATION = 100
+	Ret.SR_POISON = 100
+	Ret.SR_SILENCE = 100
+	Ret.SR_SLEEP = 100
+	Ret.SR_UNDEAD = 100
+	Ret.VOCALTAG = "WaterElemental"
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 9999
+		Ret.Stats.EVASION = 0
+		Ret.Stats.EXP = 1256
+		Ret.Stats.HP = 12000
+		Ret.Stats.INTELLIGENCE = 650
+		Ret.Stats.POWER = 500
+		Ret.Stats.RESISTANCE = 9999
+		Ret.Stats.SPEED = 125
+	Else
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 99990
+		Ret.Stats.EXP = 12567
+		Ret.Stats.HP = 120000
+		Ret.Stats.INTELLIGENCE = 6500
+		Ret.Stats.POWER = 5000
+		Ret.Stats.RESISTANCE = 99990
+		Ret.Stats.SPEED = 1250
+	End
+
+	Ret.Actions = {}
+	If True && (Oversoul) && (__skill!=2) && (__skill!=3)
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_HERO_MARRILONA_CHILL"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_HERO_MARRILONA_CURSEDHEALING"
+		Ret.Actions += "ABL_HERO_MARRILONA_CURSEDHEALING"
+		Ret.Actions += "ABL_HERO_MARRILONA_CURSEDHEALING"
+		Ret.Actions += "ABL_HERO_MARRILONA_CURSEDHEALING"
+		Ret.Actions += "ABL_HERO_MARRILONA_CURSEDHEALING"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
+		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
+		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
+		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
+		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_HERO_MARRILONA_SPLASH"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPLASH"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPLASH"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPLASH"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPLASH"
+	End
+	If True && (Oversoul) && (__skill!=1)
+		Ret.Actions += "ABL_HERO_MARRILONA_TSUNAMI"
+		Ret.Actions += "ABL_HERO_MARRILONA_TSUNAMI"
+		Ret.Actions += "ABL_HERO_MARRILONA_TSUNAMI"
+	End
+	Return Ret
+End

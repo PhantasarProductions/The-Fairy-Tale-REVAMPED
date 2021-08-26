@@ -1,0 +1,224 @@
+// Generated 8/26/2021 8:37:17 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	If Oversoul
+		Lua.error("Enemy 'Reg/BSpook' does not support oversoul!")
+	End
+
+	Ret.DESC = "Can only attack, but it strikes hard"
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/Reg/BSpook.png"
+	Ret.Drops += "EQP_MARRILONA_AR7"
+	Ret.Drops += "EQP_MARRILONA_AR7"
+	Ret.Drops += "EQP_MARRILONA_AR7"
+	Ret.Drops += "EQP_MARRILONA_AR7"
+	Ret.Drops += "EQP_MARRILONA_AR7"
+	Ret.Drops += "EQP_MARRILONA_AR7"
+	Ret.Drops += "EQP_MARRILONA_AR7"
+	Ret.Drops += "EQP_MARRILONA_AR7"
+	Ret.Drops += "EQP_MARRILONA_AR7"
+	Ret.Drops += "EQP_MARRILONA_AR7"
+	Ret.Drops += "EQP_MARRILONA_AR7"
+	Ret.Drops += "EQP_MARRILONA_AR7"
+	Ret.Drops += "EQP_MARRILONA_AR7"
+	Ret.Drops += "EQP_MARRILONA_AR7"
+	Ret.Drops += "EQP_MARRILONA_AR7"
+	Ret.Drops += "EQP_MARRILONA_AR7"
+	Ret.Drops += "EQP_MARRILONA_AR7"
+	Ret.Drops += "EQP_MARRILONA_AR7"
+	Ret.Drops += "EQP_MARRILONA_AR7"
+	Ret.Drops += "EQP_MARRILONA_AR7"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Steal += "ITM_BANANA"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_JUSDORANGE"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.NAME = "BSpook"
+	Ret.CASH = 4
+	Ret.ER_DARKNESS = 8888
+	Ret.ER_EARTH = 100
+	Ret.ER_FLAME = -888
+	Ret.ER_FROST = 101
+	Ret.ER_LIGHT = -888
+	Ret.ER_LIGHTNING = 101
+	Ret.ER_WATER = 8000
+	Ret.ER_WIND = -800
+	Ret.SR_CONFUSION = 100
+	Ret.SR_CURSE = 100
+	Ret.SR_DEATH = 100
+	Ret.SR_DISEASE = 100
+	Ret.SR_PARALYSIS = 100
+	Ret.SR_PETRIFICATION = 100
+	Ret.SR_POISON = 100
+	Ret.SR_SILENCE = 100
+	Ret.SR_SLEEP = 100
+	Ret.SR_UNDEAD = 100
+	Ret.VOCALTAG = "BSpook"
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 1000
+		Ret.Stats.EVASION = 75
+		Ret.Stats.EXP = 950
+		Ret.Stats.HP = 5
+		Ret.Stats.INTELLIGENCE = 2000
+		Ret.Stats.POWER = 2456
+		Ret.Stats.RESISTANCE = 9999
+		Ret.Stats.SPEED = 1200
+	End
+
+	Ret.Actions = {}
+	If True
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+	End
+	If True && (__skill!=2) && (__skill!=3)
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+	End
+	Return Ret
+End

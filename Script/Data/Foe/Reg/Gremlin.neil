@@ -1,0 +1,197 @@
+// Generated 8/26/2021 8:37:24 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	Ret.DESC = "They roam the mines"
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/reg/Gremlin.png"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_DEATHCUBE"
+	Ret.Steal += "ITM_DEATHCUBE"
+	Ret.Steal += "ITM_HOLYSCROLL"
+	Ret.Steal += "ITM_HOLYSCROLL"
+	Ret.Steal += "ITM_HOLYSCROLL"
+	Ret.Steal += "ITM_HOLYSCROLL"
+	Ret.NAME = "Gremlin"
+	Ret.CASH = 75
+	Ret.ER_DARKNESS = 123456789
+	Ret.ER_EARTH = -300
+	Ret.ER_FLAME = -300
+	Ret.ER_FROST = -300
+	Ret.ER_LIGHT = -800
+	Ret.ER_LIGHTNING = -300
+	Ret.ER_WATER = -300
+	Ret.ER_WIND = -300
+	Ret.SR_CURSE = 100
+	Ret.SR_DEATH = 45
+	Ret.SR_DISEASE = 25
+	Ret.SR_PARALYSIS = 75
+	Ret.SR_PETRIFICATION = 100
+	Ret.SR_POISON = 50
+	Ret.SR_SILENCE = 100
+	Ret.SR_UNDEAD = 25
+	Ret.VOCALTAG = "Gremlin"
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 1
+		Ret.Stats.EVASION = 25
+		Ret.Stats.EXP = 123
+		Ret.Stats.HP = 123
+		Ret.Stats.INTELLIGENCE = 2
+		Ret.Stats.POWER = 1000
+		Ret.Stats.RESISTANCE = 3
+		Ret.Stats.SPEED = 9999
+	Else
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 1000
+		Ret.Stats.EVASION = 75
+		Ret.Stats.EXP = 200
+		Ret.Stats.HP = 500
+		Ret.Stats.INTELLIGENCE = 3
+		Ret.Stats.POWER = 2000
+		Ret.Stats.RESISTANCE = 4
+		Ret.Stats.SPEED = 100000
+	End
+
+	Ret.Actions = {}
+	If True && (Oversoul)
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+	End
+	Return Ret
+End

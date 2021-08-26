@@ -1,0 +1,212 @@
+// Generated 8/26/2021 8:37:40 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	Ret.DESC = "Her scream is lethal to all who hear it.\nThe problem is: All she can do is scream"
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/Reg/SpiritGirl.png"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_PHOENIX"
+	Ret.Drops += "ITM_CHERRY"
+	Ret.Drops += "ITM_CHERRY"
+	Ret.Drops += "ITM_CHERRY"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_ANABOLINEA"
+	Ret.Steal += "ITM_ANABOLINEA"
+	Ret.Steal += "ITM_ANABOLINEA"
+	Ret.Steal += "ITM_ANABOLINEA"
+	Ret.Steal += "ITM_ANABOLINEA"
+	Ret.Steal += "ITM_BANANA"
+	Ret.Steal += "ITM_BANANA"
+	Ret.NAME = "Spirit Girl"
+	Ret.CASH = 123
+	Ret.ER_DARKNESS = 900
+	Ret.ER_EARTH = 100
+	Ret.ER_FLAME = -200
+	Ret.ER_FROST = 100
+	Ret.ER_LIGHT = -900
+	Ret.ER_LIGHTNING = -200
+	Ret.ER_WATER = 100
+	Ret.ER_WIND = 100
+	Ret.SR_CONFUSION = 100
+	Ret.SR_CURSE = 100
+	Ret.SR_DEATH = 100
+	Ret.SR_DISEASE = 100
+	Ret.SR_PARALYSIS = 100
+	Ret.SR_PETRIFICATION = 100
+	Ret.SR_POISON = 100
+	Ret.SR_SILENCE = 100
+	Ret.SR_SLEEP = 100
+	Ret.SR_UNDEAD = 0
+	Ret.VOCALTAG = "GhostGirl"
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 1
+		Ret.Stats.EVASION = 0
+		Ret.Stats.EXP = 100
+		Ret.Stats.HP = 500
+		Ret.Stats.INTELLIGENCE = 1
+		Ret.Stats.POWER = 1
+		Ret.Stats.RESISTANCE = 1
+		Ret.Stats.SPEED = 1
+	Else
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 1
+		Ret.Stats.EVASION = 100
+		Ret.Stats.EXP = 200
+		Ret.Stats.HP = 650
+		Ret.Stats.INTELLIGENCE = 1
+		Ret.Stats.POWER = 1
+		Ret.Stats.RESISTANCE = 1
+		Ret.Stats.SPEED = 1
+	End
+
+	Ret.Actions = {}
+	If True && (Oversoul) && (__skill!=2) && (__skill!=3)
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_GG_DEATHSCREAM"
+		Ret.Actions += "ABL_GG_DEATHSCREAM"
+		Ret.Actions += "ABL_GG_DEATHSCREAM"
+		Ret.Actions += "ABL_GG_DEATHSCREAM"
+		Ret.Actions += "ABL_GG_DEATHSCREAM"
+		Ret.Actions += "ABL_GG_DEATHSCREAM"
+		Ret.Actions += "ABL_GG_DEATHSCREAM"
+		Ret.Actions += "ABL_GG_DEATHSCREAM"
+		Ret.Actions += "ABL_GG_DEATHSCREAM"
+		Ret.Actions += "ABL_GG_DEATHSCREAM"
+		Ret.Actions += "ABL_GG_DEATHSCREAM"
+		Ret.Actions += "ABL_GG_DEATHSCREAM"
+		Ret.Actions += "ABL_GG_DEATHSCREAM"
+		Ret.Actions += "ABL_GG_DEATHSCREAM"
+		Ret.Actions += "ABL_GG_DEATHSCREAM"
+		Ret.Actions += "ABL_GG_DEATHSCREAM"
+		Ret.Actions += "ABL_GG_DEATHSCREAM"
+		Ret.Actions += "ABL_GG_DEATHSCREAM"
+		Ret.Actions += "ABL_GG_DEATHSCREAM"
+		Ret.Actions += "ABL_GG_DEATHSCREAM"
+		Ret.Actions += "ABL_GG_DEATHSCREAM"
+		Ret.Actions += "ABL_GG_DEATHSCREAM"
+		Ret.Actions += "ABL_GG_DEATHSCREAM"
+		Ret.Actions += "ABL_GG_DEATHSCREAM"
+		Ret.Actions += "ABL_GG_DEATHSCREAM"
+	End
+	Return Ret
+End

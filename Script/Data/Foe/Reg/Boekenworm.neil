@@ -1,0 +1,180 @@
+// Generated 8/26/2021 8:37:17 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	Ret.DESC = "This creature reads a lot.\nKnows a lot of pestering stuff as a result."
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/reg/Boekenworm.png"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_FLAMEORB"
+	Ret.Drops += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_PURELITERATURE"
+	Ret.Steal += "ITM_PURELITERATURE"
+	Ret.Steal += "ITM_PURELITERATURE"
+	Ret.Steal += "ITM_PURELITERATURE"
+	Ret.Steal += "ITM_PURELITERATURE"
+	Ret.Steal += "ITM_PURELITERATURE"
+	Ret.Steal += "ITM_PURELITERATURE"
+	Ret.Steal += "ITM_PURELITERATURE"
+	Ret.Steal += "ITM_PURELITERATURE"
+	Ret.Steal += "ITM_PURELITERATURE"
+	Ret.Steal += "ITM_PURELITERATURE"
+	Ret.Steal += "ITM_PURELITERATURE"
+	Ret.Steal += "ITM_PURELITERATURE"
+	Ret.Steal += "ITM_PURELITERATURE"
+	Ret.Steal += "ITM_PURELITERATURE"
+	Ret.Steal += "ITM_PURELITERATURE"
+	Ret.Steal += "ITM_PURELITERATURE"
+	Ret.Steal += "ITM_PURELITERATURE"
+	Ret.Steal += "ITM_PURELITERATURE"
+	Ret.Steal += "ITM_PURELITERATURE"
+	Ret.Steal += "ITM_PURELITERATURE"
+	Ret.Steal += "ITM_PURELITERATURE"
+	Ret.Steal += "ITM_PURELITERATURE"
+	Ret.Steal += "ITM_PURELITERATURE"
+	Ret.Steal += "ITM_PURELITERATURE"
+	Ret.Steal += "ITM_PURELITERATURE"
+	Ret.Steal += "ITM_PURELITERATURE"
+	Ret.Steal += "ITM_PURELITERATURE"
+	Ret.Steal += "ITM_PURELITERATURE"
+	Ret.Steal += "ITM_PURELITERATURE"
+	Ret.Steal += "ITM_PURELITERATURE"
+	Ret.Steal += "ITM_PURELITERATURE"
+	Ret.Steal += "ITM_PURELITERATURE"
+	Ret.Steal += "ITM_PURELITERATURE"
+	Ret.Steal += "ITM_PURELITERATURE"
+	Ret.Steal += "ITM_PURELITERATURE"
+	Ret.Steal += "ITM_PURELITERATURE"
+	Ret.Steal += "ITM_PURELITERATURE"
+	Ret.Steal += "ITM_PURELITERATURE"
+	Ret.Steal += "ITM_PURELITERATURE"
+	Ret.Steal += "ITM_PURELITERATURE"
+	Ret.Steal += "ITM_PURELITERATURE"
+	Ret.Steal += "ITM_PURELITERATURE"
+	Ret.Steal += "ITM_PURELITERATURE"
+	Ret.Steal += "ITM_PURELITERATURE"
+	Ret.Steal += "ITM_PURELITERATURE"
+	Ret.Steal += "ITM_PURELITERATURE"
+	Ret.Steal += "ITM_PURELITERATURE"
+	Ret.Steal += "ITM_PURELITERATURE"
+	Ret.Steal += "ITM_PURELITERATURE"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_PANACEA"
+	Ret.NAME = "Book worm"
+	Ret.CASH = 3
+	Ret.ER_DARKNESS = 999
+	Ret.ER_EARTH = 100
+	Ret.ER_FLAME = -300
+	Ret.ER_FROST = 100
+	Ret.ER_LIGHT = 100
+	Ret.ER_LIGHTNING = 100
+	Ret.ER_WATER = -50
+	Ret.ER_WIND = 100
+	Ret.SR_CURSE = 100
+	Ret.SR_DEATH = 100
+	Ret.SR_DISEASE = 100
+	Ret.SR_PARALYSIS = 100
+	Ret.SR_PETRIFICATION = 100
+	Ret.SR_POISON = 100
+	Ret.SR_SILENCE = 100
+	Ret.SR_UNDEAD = 100
+	Ret.VOCALTAG = "Boekenworm"
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 2
+		Ret.Stats.EVASION = 5
+		Ret.Stats.EXP = 5
+		Ret.Stats.HP = 200
+		Ret.Stats.INTELLIGENCE = 100
+		Ret.Stats.POWER = 5
+		Ret.Stats.RESISTANCE = 5
+		Ret.Stats.SPEED = 9000
+	Else
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 200
+		Ret.Stats.EVASION = 25
+		Ret.Stats.EXP = 0
+		Ret.Stats.HP = 400
+		Ret.Stats.INTELLIGENCE = 100
+		Ret.Stats.POWER = 2
+		Ret.Stats.RESISTANCE = 500
+		Ret.Stats.SPEED = 90000
+	End
+
+	Ret.Actions = {}
+	If True && (Oversoul)
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_FOE_DISTRACT"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_FOE_SHOCKINGSTORIES"
+		Ret.Actions += "ABL_FOE_SHOCKINGSTORIES"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_FOE_SICKSTORIES"
+		Ret.Actions += "ABL_FOE_SICKSTORIES"
+		Ret.Actions += "ABL_FOE_SICKSTORIES"
+		Ret.Actions += "ABL_FOE_SICKSTORIES"
+		Ret.Actions += "ABL_FOE_SICKSTORIES"
+		Ret.Actions += "ABL_FOE_SICKSTORIES"
+		Ret.Actions += "ABL_FOE_SICKSTORIES"
+		Ret.Actions += "ABL_FOE_SICKSTORIES"
+		Ret.Actions += "ABL_FOE_SICKSTORIES"
+		Ret.Actions += "ABL_FOE_SICKSTORIES"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ITM_PURELITERATURE"
+		Ret.Actions += "ITM_PURELITERATURE"
+		Ret.Actions += "ITM_PURELITERATURE"
+		Ret.Actions += "ITM_PURELITERATURE"
+		Ret.Actions += "ITM_PURELITERATURE"
+		Ret.Actions += "ITM_PURELITERATURE"
+		Ret.Actions += "ITM_PURELITERATURE"
+		Ret.Actions += "ITM_PURELITERATURE"
+		Ret.Actions += "ITM_PURELITERATURE"
+		Ret.Actions += "ITM_PURELITERATURE"
+	End
+	Return Ret
+End

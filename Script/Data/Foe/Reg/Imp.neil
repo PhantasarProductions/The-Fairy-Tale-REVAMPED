@@ -1,0 +1,420 @@
+// Generated 8/26/2021 8:37:26 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	Ret.DESC = "Devillish creatures!\nThey kill whoever crosses their way."
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/Reg/Imp.png"
+	Ret.Drops += "ITM_CARROT"
+	Ret.Drops += "ITM_CARROT"
+	Ret.Drops += "ITM_CARROT"
+	Ret.Drops += "ITM_CARROT"
+	Ret.Drops += "ITM_CARROT"
+	Ret.Drops += "ITM_CARROT"
+	Ret.Drops += "ITM_CARROT"
+	Ret.Drops += "ITM_CARROT"
+	Ret.Drops += "ITM_CARROT"
+	Ret.Drops += "ITM_CARROT"
+	Ret.Drops += "ITM_CARROT"
+	Ret.Drops += "ITM_CARROT"
+	Ret.Drops += "ITM_CARROT"
+	Ret.Drops += "ITM_CARROT"
+	Ret.Drops += "ITM_CARROT"
+	Ret.Drops += "ITM_CARROT"
+	Ret.Drops += "ITM_CARROT"
+	Ret.Drops += "ITM_CARROT"
+	Ret.Drops += "ITM_CARROT"
+	Ret.Drops += "ITM_CARROT"
+	Ret.Drops += "ITM_CARROT"
+	Ret.Drops += "ITM_CARROT"
+	Ret.Drops += "ITM_CARROT"
+	Ret.Drops += "ITM_CARROT"
+	Ret.Drops += "ITM_CARROT"
+	Ret.Drops += "ITM_DEATHCUBE"
+	Ret.Drops += "ITM_DEATHCUBE"
+	Ret.Drops += "ITM_DEATHCUBE"
+	Ret.Drops += "ITM_DEATHCUBE"
+	Ret.Drops += "ITM_DEATHCUBE"
+	Ret.Drops += "ITM_DEATHCUBE"
+	Ret.Drops += "ITM_DEATHCUBE"
+	Ret.Drops += "ITM_DEATHCUBE"
+	Ret.Drops += "ITM_DEATHCUBE"
+	Ret.Drops += "ITM_DEATHCUBE"
+	Ret.Drops += "ITM_DEATHCUBE"
+	Ret.Drops += "ITM_DEATHCUBE"
+	Ret.Steal += "ITM_MANDRAKE"
+	Ret.Steal += "ITM_MANDRAKE"
+	Ret.Steal += "ITM_MANDRAKE"
+	Ret.Steal += "ITM_MANDRAKE"
+	Ret.Steal += "ITM_MANDRAKE"
+	Ret.Steal += "ITM_MANDRAKE"
+	Ret.Steal += "EQP_DANDOR_WP10"
+	Ret.Steal += "ITM_EEL"
+	Ret.Steal += "ITM_EEL"
+	Ret.Steal += "ITM_EEL"
+	Ret.Steal += "ITM_EEL"
+	Ret.Steal += "ITM_EEL"
+	Ret.Steal += "ITM_EEL"
+	Ret.Steal += "ITM_EEL"
+	Ret.Steal += "ITM_EEL"
+	Ret.Steal += "ITM_EEL"
+	Ret.Steal += "ITM_EEL"
+	Ret.Steal += "ITM_EEL"
+	Ret.Steal += "ITM_EEL"
+	Ret.Steal += "ITM_EEL"
+	Ret.Steal += "ITM_EEL"
+	Ret.Steal += "ITM_EEL"
+	Ret.Steal += "ITM_EEL"
+	Ret.Steal += "ITM_EEL"
+	Ret.Steal += "ITM_EEL"
+	Ret.Steal += "ITM_EEL"
+	Ret.Steal += "ITM_EEL"
+	Ret.Steal += "ITM_EEL"
+	Ret.Steal += "ITM_EEL"
+	Ret.Steal += "ITM_EEL"
+	Ret.Steal += "ITM_EEL"
+	Ret.Steal += "ITM_EEL"
+	Ret.NAME = "Imp"
+	Ret.CASH = 50
+	Ret.ER_DARKNESS = 75
+	Ret.ER_EARTH = 75
+	Ret.ER_FLAME = 75
+	Ret.ER_FROST = 75
+	Ret.ER_LIGHT = 75
+	Ret.ER_LIGHTNING = 75
+	Ret.ER_WATER = 75
+	Ret.ER_WIND = 75
+	Ret.SR_CURSE = 75
+	Ret.SR_DEATH = 75
+	Ret.SR_DISEASE = 75
+	Ret.SR_PARALYSIS = 75
+	Ret.SR_PETRIFICATION = 75
+	Ret.SR_POISON = 75
+	Ret.SR_SILENCE = 75
+	Ret.SR_UNDEAD = 75
+	Ret.VOCALTAG = "Imp"
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 280
+		Ret.Stats.EVASION = 50
+		Ret.Stats.EXP = 100
+		Ret.Stats.HP = 1600
+		Ret.Stats.INTELLIGENCE = 220
+		Ret.Stats.POWER = 310
+		Ret.Stats.RESISTANCE = 100
+		Ret.Stats.SPEED = 130
+	Else
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 560
+		Ret.Stats.EVASION = 90
+		Ret.Stats.EXP = 0
+		Ret.Stats.HP = 3200
+		Ret.Stats.INTELLIGENCE = 440
+		Ret.Stats.POWER = 620
+		Ret.Stats.RESISTANCE = 200
+		Ret.Stats.SPEED = 260
+	End
+
+	Ret.Actions = {}
+	If True && (Oversoul)
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+	End
+	If True && (Oversoul) && (__skill!=1) && (__skill!=2)
+		Ret.Actions += "ABL_FOE_CRUSH"
+		Ret.Actions += "ABL_FOE_CRUSH"
+		Ret.Actions += "ABL_FOE_CRUSH"
+		Ret.Actions += "ABL_FOE_CRUSH"
+		Ret.Actions += "ABL_FOE_CRUSH"
+		Ret.Actions += "ABL_FOE_CRUSH"
+		Ret.Actions += "ABL_FOE_CRUSH"
+		Ret.Actions += "ABL_FOE_CRUSH"
+		Ret.Actions += "ABL_FOE_CRUSH"
+		Ret.Actions += "ABL_FOE_CRUSH"
+		Ret.Actions += "ABL_FOE_CRUSH"
+		Ret.Actions += "ABL_FOE_CRUSH"
+		Ret.Actions += "ABL_FOE_CRUSH"
+		Ret.Actions += "ABL_FOE_CRUSH"
+		Ret.Actions += "ABL_FOE_CRUSH"
+		Ret.Actions += "ABL_FOE_CRUSH"
+		Ret.Actions += "ABL_FOE_CRUSH"
+		Ret.Actions += "ABL_FOE_CRUSH"
+		Ret.Actions += "ABL_FOE_CRUSH"
+		Ret.Actions += "ABL_FOE_CRUSH"
+	End
+	If True && (Oversoul) && (__skill!=1)
+		Ret.Actions += "ABL_FOE_DESPERATEATTACK"
+		Ret.Actions += "ABL_FOE_DESPERATEATTACK"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_FOE_HOLDPERSON"
+		Ret.Actions += "ABL_FOE_HOLDPERSON"
+		Ret.Actions += "ABL_FOE_HOLDPERSON"
+		Ret.Actions += "ABL_FOE_HOLDPERSON"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_FOE_PARADIVE"
+		Ret.Actions += "ABL_FOE_PARADIVE"
+		Ret.Actions += "ABL_FOE_PARADIVE"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_FOE_SMITE"
+		Ret.Actions += "ABL_FOE_SMITE"
+		Ret.Actions += "ABL_FOE_SMITE"
+		Ret.Actions += "ABL_FOE_SMITE"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_FOE_TAKEOVER"
+		Ret.Actions += "ABL_FOE_TAKEOVER"
+		Ret.Actions += "ABL_FOE_TAKEOVER"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_FOE_TAKEOVER2"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_FOE_TOTALEXHAUSTION"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_FOE_VENOMSTAB"
+		Ret.Actions += "ABL_FOE_VENOMSTAB"
+		Ret.Actions += "ABL_FOE_VENOMSTAB"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_FOE_VIRUSSTAB"
+		Ret.Actions += "ABL_FOE_VIRUSSTAB"
+		Ret.Actions += "ABL_FOE_VIRUSSTAB"
+	End
+	If True && (Oversoul) && (__skill!=1)
+		Ret.Actions += "ABL_GLOOM"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_FIRSTAID"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_FIRSTAID"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_FIRSTAID"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_RECOVER"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_RECOVER"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_REMOVEPARALYSIS"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_TREATMENT"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_VITALIZE"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_VITALIZE"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_VITALIZE"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_HERO_JAKE_2PS"
+		Ret.Actions += "ABL_HERO_JAKE_2PS"
+		Ret.Actions += "ABL_HERO_JAKE_2PS"
+		Ret.Actions += "ABL_HERO_JAKE_2PS"
+		Ret.Actions += "ABL_HERO_JAKE_2PS"
+	End
+	If True && (Oversoul) && (__skill!=1)
+		Ret.Actions += "ABL_HERO_JAKE_3PS"
+		Ret.Actions += "ABL_HERO_JAKE_3PS"
+	End
+	If True && (Oversoul) && (__skill!=1) && (__skill!=2)
+		Ret.Actions += "ABL_HERO_JAKE_4PS"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_HERO_JAKE_HEALBLADE"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_HERO_MARRILONA_BIO"
+		Ret.Actions += "ABL_HERO_MARRILONA_BIO"
+		Ret.Actions += "ABL_HERO_MARRILONA_BIO"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
+		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_HERO_MARRILONA_ZAP"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_HERO_SPEEDUP"
+		Ret.Actions += "ABL_HERO_SPEEDUP"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_MASTER_FANDALORA_DEATH"
+		Ret.Actions += "ABL_MASTER_FANDALORA_DEATH"
+		Ret.Actions += "ABL_MASTER_FANDALORA_DEATH"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_MASTER_FANDALORA_PHANTOM"
+		Ret.Actions += "ABL_MASTER_FANDALORA_PHANTOM"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_MASTER_RUBINE_FOLLOWME"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_MASTER_RUBINE_INVADE"
+		Ret.Actions += "ABL_MASTER_RUBINE_INVADE"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_MASTER_RUSSELL_DECAPITATE"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_MASTER_RUSSELL_SAFESHOT"
+		Ret.Actions += "ABL_MASTER_RUSSELL_SAFESHOT"
+		Ret.Actions += "ABL_MASTER_RUSSELL_SAFESHOT"
+		Ret.Actions += "ABL_MASTER_RUSSELL_SAFESHOT"
+		Ret.Actions += "ABL_MASTER_RUSSELL_SAFESHOT"
+		Ret.Actions += "ABL_MASTER_RUSSELL_SAFESHOT"
+		Ret.Actions += "ABL_MASTER_RUSSELL_SAFESHOT"
+		Ret.Actions += "ABL_MASTER_RUSSELL_SAFESHOT"
+		Ret.Actions += "ABL_MASTER_RUSSELL_SAFESHOT"
+		Ret.Actions += "ABL_MASTER_RUSSELL_SAFESHOT"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ITM_VIRUSBOMB"
+		Ret.Actions += "ITM_VIRUSBOMB"
+		Ret.Actions += "ITM_VIRUSBOMB"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ITM_VOLTABALL"
+		Ret.Actions += "ITM_VOLTABALL"
+	End
+	Return Ret
+End

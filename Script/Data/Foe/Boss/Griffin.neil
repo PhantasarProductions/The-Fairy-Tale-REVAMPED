@@ -1,0 +1,402 @@
+// Generated 8/26/2021 8:36:55 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	If Oversoul
+		Lua.error("Enemy 'Boss/Griffin' does not support oversoul!")
+	End
+
+	Ret.DESC = "Empowered by the power of the Mana Cave.\nThis beast guards its source of power with its life."
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/Boss/Griffin.png"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_SPIKEBOMB"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_ANABOLINEA"
+	Ret.Steal += "ITM_BANANA"
+	Ret.Steal += "ITM_BANANA"
+	Ret.NAME = "Mana Griffin"
+	Ret.CASH = 324
+	Ret.ER_DARKNESS = 100
+	Ret.ER_EARTH = 100
+	Ret.ER_FLAME = 100
+	Ret.ER_FROST = 100
+	Ret.ER_LIGHT = 100
+	Ret.ER_LIGHTNING = 100
+	Ret.ER_WATER = 100
+	Ret.ER_WIND = 100
+	Ret.SR_CONFUSION = 100
+	Ret.SR_CURSE = 100
+	Ret.SR_DEATH = 95
+	Ret.SR_DISEASE = 75
+	Ret.SR_PARALYSIS = 68
+	Ret.SR_PETRIFICATION = 100
+	Ret.SR_POISON = 80
+	Ret.SR_SILENCE = 100
+	Ret.SR_SLEEP = 100
+	Ret.SR_UNDEAD = 100
+	Ret.VOCALTAG = "Griffin"
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 800
+		Ret.Stats.EVASION = 25
+		Ret.Stats.HP = 123456
+		Ret.Stats.INTELLIGENCE = 700
+		Ret.Stats.POWER = 1200
+		Ret.Stats.RESISTANCE = 600
+		Ret.Stats.SPEED = 400
+	End
+
+	Ret.Actions = {}
+	If True
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+	End
+	If True && (__skill!=3)
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_DEMON_SOUL_BREAKER"
+		Ret.Actions += "ABL_FOE_DEMON_SOUL_BREAKER"
+		Ret.Actions += "ABL_FOE_DEMON_SOUL_BREAKER"
+		Ret.Actions += "ABL_FOE_DEMON_SOUL_BREAKER"
+		Ret.Actions += "ABL_FOE_DEMON_SOUL_BREAKER"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_EVIL_EYE_PARALYZE"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_EXHAUST"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_RANDOMIZER"
+		Ret.Actions += "ABL_FOE_RANDOMIZER"
+		Ret.Actions += "ABL_FOE_RANDOMIZER"
+		Ret.Actions += "ABL_FOE_RANDOMIZER"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_SLASH"
+		Ret.Actions += "ABL_FOE_SLASH"
+		Ret.Actions += "ABL_FOE_SLASH"
+		Ret.Actions += "ABL_FOE_SLASH"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_SMITE"
+		Ret.Actions += "ABL_FOE_SMITE"
+		Ret.Actions += "ABL_FOE_SMITE"
+		Ret.Actions += "ABL_FOE_SMITE"
+		Ret.Actions += "ABL_FOE_SMITE"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_TAKEOVER"
+		Ret.Actions += "ABL_FOE_TAKEOVER"
+		Ret.Actions += "ABL_FOE_TAKEOVER"
+		Ret.Actions += "ABL_FOE_TAKEOVER"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_TAKEOVER_STRIKE"
+		Ret.Actions += "ABL_FOE_TAKEOVER_STRIKE"
+		Ret.Actions += "ABL_FOE_TAKEOVER_STRIKE"
+		Ret.Actions += "ABL_FOE_TAKEOVER_STRIKE"
+		Ret.Actions += "ABL_FOE_TAKEOVER_STRIKE"
+	End
+	If True && (__skill!=1)
+		Ret.Actions += "ABL_FOE_TAKEOVER2"
+		Ret.Actions += "ABL_FOE_TAKEOVER2"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_THRILL"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_TWOEDGE"
+		Ret.Actions += "ABL_FOE_TWOEDGE"
+		Ret.Actions += "ABL_FOE_TWOEDGE"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
+		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
+		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
+		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
+		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
+		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
+		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
+		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
+		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
+		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_FIRSTAID"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_FIRSTAID"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_FIRSTAID"
+	End
+	If True && (__skill!=1)
+		Ret.Actions += "ABL_HERO_JAKE_2PS"
+		Ret.Actions += "ABL_HERO_JAKE_2PS"
+		Ret.Actions += "ABL_HERO_JAKE_2PS"
+		Ret.Actions += "ABL_HERO_JAKE_2PS"
+	End
+	If True && (__skill!=1) && (__skill!=2)
+		Ret.Actions += "ABL_HERO_JAKE_3PS"
+		Ret.Actions += "ABL_HERO_JAKE_3PS"
+		Ret.Actions += "ABL_HERO_JAKE_3PS"
+		Ret.Actions += "ABL_HERO_JAKE_3PS"
+		Ret.Actions += "ABL_HERO_JAKE_3PS"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_BIO"
+		Ret.Actions += "ABL_HERO_MARRILONA_BIO"
+		Ret.Actions += "ABL_HERO_MARRILONA_BIO"
+		Ret.Actions += "ABL_HERO_MARRILONA_BIO"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_BREEZE"
+		Ret.Actions += "ABL_HERO_MARRILONA_BREEZE"
+		Ret.Actions += "ABL_HERO_MARRILONA_BREEZE"
+		Ret.Actions += "ABL_HERO_MARRILONA_BREEZE"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_CHILL"
+		Ret.Actions += "ABL_HERO_MARRILONA_CHILL"
+		Ret.Actions += "ABL_HERO_MARRILONA_CHILL"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_CURSEDHEALING"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_ELECTROCUTION"
+		Ret.Actions += "ABL_HERO_MARRILONA_ELECTROCUTION"
+		Ret.Actions += "ABL_HERO_MARRILONA_ELECTROCUTION"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_ETERNALFLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_ETERNALFLAME"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_HANDOSTILLOR_VITALITY"
+		Ret.Actions += "ABL_HERO_MARRILONA_HANDOSTILLOR_VITALITY"
+		Ret.Actions += "ABL_HERO_MARRILONA_HANDOSTILLOR_VITALITY"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
+		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
+		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_HURRICANE"
+		Ret.Actions += "ABL_HERO_MARRILONA_HURRICANE"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_ICEBLAST"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_QUAKE"
+		Ret.Actions += "ABL_HERO_MARRILONA_QUAKE"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_ROCK"
+		Ret.Actions += "ABL_HERO_MARRILONA_ROCK"
+		Ret.Actions += "ABL_HERO_MARRILONA_ROCK"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_TSUNAMI"
+		Ret.Actions += "ABL_HERO_MARRILONA_TSUNAMI"
+		Ret.Actions += "ABL_HERO_MARRILONA_TSUNAMI"
+	End
+	If True
+		Ret.Actions += "ABL_MARRILONA_LIFEFORCE"
+	End
+	If True
+		Ret.Actions += "ABL_MASTER_FANDALORA_CURSE"
+		Ret.Actions += "ABL_MASTER_FANDALORA_CURSE"
+		Ret.Actions += "ABL_MASTER_FANDALORA_CURSE"
+	End
+	If True
+		Ret.Actions += "ABL_MASTER_FANDALORA_DARKNESS"
+		Ret.Actions += "ABL_MASTER_FANDALORA_DARKNESS"
+	End
+	If True && (__skill!=1)
+		Ret.Actions += "ABL_MASTER_FANDALORA_DEATH"
+	End
+	If True
+		Ret.Actions += "ABL_MASTER_FANDALORA_PHANTOM"
+		Ret.Actions += "ABL_MASTER_FANDALORA_PHANTOM"
+		Ret.Actions += "ABL_MASTER_FANDALORA_PHANTOM"
+	End
+	If True
+		Ret.Actions += "ABL_MASTER_RUSSELL_SAFESHOT"
+		Ret.Actions += "ABL_MASTER_RUSSELL_SAFESHOT"
+		Ret.Actions += "ABL_MASTER_RUSSELL_SAFESHOT"
+	End
+	Return Ret
+End

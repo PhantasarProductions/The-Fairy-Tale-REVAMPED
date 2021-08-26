@@ -1,0 +1,196 @@
+// Generated 8/26/2021 8:37:37 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	Ret.DESC = "Poisonous and cursed"
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/reg/ShadowShroom.png"
+	Ret.Drops += "ITM_CURSEDSPORES"
+	Ret.Drops += "ITM_CURSEDSPORES"
+	Ret.Drops += "ITM_CURSEDSPORES"
+	Ret.Drops += "ITM_CURSEDSPORES"
+	Ret.Drops += "ITM_CURSEDSPORES"
+	Ret.Drops += "ITM_CURSEDSPORES"
+	Ret.Drops += "ITM_CURSEDSPORES"
+	Ret.Drops += "ITM_CURSEDSPORES"
+	Ret.Drops += "ITM_CURSEDSPORES"
+	Ret.Drops += "ITM_CURSEDSPORES"
+	Ret.Drops += "ITM_CURSEDSPORES"
+	Ret.Drops += "ITM_CURSEDSPORES"
+	Ret.Drops += "ITM_CURSEDSPORES"
+	Ret.Drops += "ITM_CURSEDSPORES"
+	Ret.Drops += "ITM_CURSEDSPORES"
+	Ret.Drops += "ITM_CURSEDSPORES"
+	Ret.Drops += "ITM_CURSEDSPORES"
+	Ret.Drops += "ITM_CURSEDSPORES"
+	Ret.Drops += "ITM_CURSEDSPORES"
+	Ret.Drops += "ITM_CURSEDSPORES"
+	Ret.Drops += "WAND_DOOM"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_ANABOLINEA"
+	Ret.NAME = "Shadow Shroom"
+	Ret.CASH = 15
+	Ret.ER_DARKNESS = 100
+	Ret.ER_EARTH = 100
+	Ret.ER_FLAME = -500
+	Ret.ER_FROST = 100
+	Ret.ER_LIGHT = 100
+	Ret.ER_LIGHTNING = 100
+	Ret.ER_WATER = 100
+	Ret.ER_WIND = 100
+	Ret.SR_CURSE = 100
+	Ret.SR_DEATH = 100
+	Ret.SR_DISEASE = 100
+	Ret.SR_PARALYSIS = 100
+	Ret.SR_PETRIFICATION = 100
+	Ret.SR_POISON = 100
+	Ret.SR_SILENCE = 100
+	Ret.SR_UNDEAD = 100
+	Ret.VOCALTAG = "ShadowShroom"
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 99999
+		Ret.Stats.ENDURANCE = 99999
+		Ret.Stats.EVASION = 99
+		Ret.Stats.EXP = 25
+		Ret.Stats.HP = 999999
+		Ret.Stats.INTELLIGENCE = 99999
+		Ret.Stats.POWER = 99999
+		Ret.Stats.RESISTANCE = 99999
+		Ret.Stats.SPEED = 99999
+	Else
+		Ret.Stats.ACCURACY = 99999
+		Ret.Stats.ENDURANCE = 99999
+		Ret.Stats.EVASION = 99999
+		Ret.Stats.EXP = 0
+		Ret.Stats.HP = 99999
+		Ret.Stats.INTELLIGENCE = 99999
+		Ret.Stats.POWER = 99999
+		Ret.Stats.RESISTANCE = 99999
+		Ret.Stats.SPEED = 99999
+	End
+
+	Ret.Actions = {}
+	If True && (Oversoul)
+		Ret.Actions += "ITM_CURSEDSPORES"
+		Ret.Actions += "ITM_CURSEDSPORES"
+		Ret.Actions += "ITM_CURSEDSPORES"
+		Ret.Actions += "ITM_CURSEDSPORES"
+		Ret.Actions += "ITM_CURSEDSPORES"
+		Ret.Actions += "ITM_CURSEDSPORES"
+		Ret.Actions += "ITM_CURSEDSPORES"
+		Ret.Actions += "ITM_CURSEDSPORES"
+		Ret.Actions += "ITM_CURSEDSPORES"
+		Ret.Actions += "ITM_CURSEDSPORES"
+	End
+	Return Ret
+End

@@ -1,0 +1,230 @@
+// Generated 8/26/2021 8:37:17 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	Ret.DESC = "Still wanders the streets of Dandleton.\nNever to rest, always to suffer.\nNothing can save this poor soul.\nTheir damnation affects everybody\nwho comes close to them.\n\n(When you meet one you'll be damned until\nyou defeated him/her)."
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/Reg/DandletonCitizen/"
+	Ret.Drops += "ITM_CURSEDSPORES"
+	Ret.Drops += "ITM_CURSEDSPORES"
+	Ret.Drops += "ITM_CURSEDSPORES"
+	Ret.Drops += "ITM_CURSEDSPORES"
+	Ret.Drops += "ITM_CURSEDSPORES"
+	Ret.Drops += "ITM_CURSEDSPORES"
+	Ret.Drops += "ITM_CURSEDSPORES"
+	Ret.Drops += "ITM_CURSEDSPORES"
+	Ret.Drops += "ITM_CURSEDSPORES"
+	Ret.Drops += "ITM_CURSEDSPORES"
+	Ret.Drops += "ITM_CURSEDSPORES"
+	Ret.Drops += "ITM_CURSEDSPORES"
+	Ret.Drops += "ITM_CURSEDSPORES"
+	Ret.Drops += "ITM_CURSEDSPORES"
+	Ret.Drops += "ITM_CURSEDSPORES"
+	Ret.Drops += "ITM_CURSEDSPORES"
+	Ret.Drops += "ITM_CURSEDSPORES"
+	Ret.Drops += "ITM_CURSEDSPORES"
+	Ret.Drops += "ITM_CURSEDSPORES"
+	Ret.Drops += "ITM_CURSEDSPORES"
+	Ret.Drops += "ITM_CURSEDSPORES"
+	Ret.Drops += "ITM_CURSEDSPORES"
+	Ret.Drops += "ITM_CURSEDSPORES"
+	Ret.Drops += "ITM_CURSEDSPORES"
+	Ret.Drops += "ITM_CURSEDSPORES"
+	Ret.Drops += "EQP_JEWEL_DIAMOND"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_VOLTABALL"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.Steal += "ITM_CURSEDSPORES"
+	Ret.NAME = "Dandleton Citizen"
+	Ret.CASH = 1234
+	Ret.ER_DARKNESS = 900
+	Ret.ER_EARTH = 100
+	Ret.ER_FLAME = -112
+	Ret.ER_FROST = 100
+	Ret.ER_LIGHT = -195
+	Ret.ER_LIGHTNING = -124
+	Ret.ER_WATER = 0
+	Ret.ER_WIND = 0
+	Ret.SR_CONFUSION = 100
+	Ret.SR_CURSE = 100
+	Ret.SR_DEATH = 100
+	Ret.SR_DISEASE = 100
+	Ret.SR_PARALYSIS = 100
+	Ret.SR_PETRIFICATION = 100
+	Ret.SR_POISON = 100
+	Ret.SR_SILENCE = 100
+	Ret.SR_SLEEP = 100
+	Ret.SR_UNDEAD = 0
+	Ret.VOCALTAG = "DandletonCitizen"
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 500
+		Ret.Stats.EVASION = 5
+		Ret.Stats.EXP = 15000
+		Ret.Stats.HP = 6500
+		Ret.Stats.INTELLIGENCE = 900
+		Ret.Stats.POWER = 800
+		Ret.Stats.RESISTANCE = 500
+		Ret.Stats.SPEED = 250
+	Else
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 5000
+		Ret.Stats.EVASION = 50
+		Ret.Stats.EXP = 150000
+		Ret.Stats.HP = 65000
+		Ret.Stats.INTELLIGENCE = 9000
+		Ret.Stats.POWER = 8000
+		Ret.Stats.RESISTANCE = 5000
+		Ret.Stats.SPEED = 2500
+	End
+
+	Ret.Actions = {}
+	If True && (Oversoul)
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "AAA_GUARD"
+	End
+	If True && (Oversoul) && (__skill!=1)
+		Ret.Actions += "ABL_FOE_DEMON_SOUL_BREAKER"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_FOE_FATALPOISON"
+		Ret.Actions += "ABL_FOE_FATALPOISON"
+		Ret.Actions += "ABL_FOE_FATALPOISON"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_FOE_LIFEFORCE"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_FOE_TWOEDGE"
+		Ret.Actions += "ABL_FOE_TWOEDGE"
+		Ret.Actions += "ABL_FOE_TWOEDGE"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_FOE_VENOMSTAB"
+		Ret.Actions += "ABL_FOE_VENOMSTAB"
+		Ret.Actions += "ABL_FOE_VENOMSTAB"
+		Ret.Actions += "ABL_FOE_VENOMSTAB"
+		Ret.Actions += "ABL_FOE_VENOMSTAB"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_FOE_VIRUSSTAB"
+		Ret.Actions += "ABL_FOE_VIRUSSTAB"
+		Ret.Actions += "ABL_FOE_VIRUSSTAB"
+		Ret.Actions += "ABL_FOE_VIRUSSTAB"
+		Ret.Actions += "ABL_FOE_VIRUSSTAB"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ITM_CURSEDSPORES"
+		Ret.Actions += "ITM_CURSEDSPORES"
+		Ret.Actions += "ITM_CURSEDSPORES"
+		Ret.Actions += "ITM_CURSEDSPORES"
+		Ret.Actions += "ITM_CURSEDSPORES"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ITM_DAMNEDDUST"
+		Ret.Actions += "ITM_DAMNEDDUST"
+		Ret.Actions += "ITM_DAMNEDDUST"
+		Ret.Actions += "ITM_DAMNEDDUST"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ITM_EEL"
+		Ret.Actions += "ITM_EEL"
+		Ret.Actions += "ITM_EEL"
+	End
+	If True && (Oversoul)
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ITM_FISH"
+		Ret.Actions += "ITM_FISH"
+		Ret.Actions += "ITM_FISH"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ITM_FLAMEORB"
+		Ret.Actions += "ITM_FLAMEORB"
+		Ret.Actions += "ITM_FLAMEORB"
+		Ret.Actions += "ITM_FLAMEORB"
+	End
+	If True && (Oversoul) && (__skill!=1)
+		Ret.Actions += "ITM_FLAMEORBS"
+		Ret.Actions += "ITM_FLAMEORBS"
+	End
+	Return Ret
+End

@@ -1,0 +1,259 @@
+// Generated 8/26/2021 8:37:02 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	If Oversoul
+		Lua.error("Enemy 'Boss/MONK4' does not support oversoul!")
+	End
+
+	Ret.DESC = "The weakest HP wise of the 4 monks\nBut also the most strongest in other stats.\n\nHe's also most eager to \"help\" you\n(unless you're playing the hard mode)."
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/Reg/Devil Monk From Hell/Male2.png"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_ANABOLINEA"
+	Ret.Steal += "WAND_II_VOLCANOWAND"
+	Ret.Steal += "WAND_II_VOLCANOWAND"
+	Ret.Steal += "WAND_II_VOLCANOWAND"
+	Ret.Steal += "WAND_II_VOLCANOWAND"
+	Ret.Steal += "WAND_II_VOLCANOWAND"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_ANABOLINEA"
+	Ret.NAME = "Leonnard - Devil Monk From Hell"
+	Ret.CASH = 666
+	Ret.ER_DARKNESS = 1234
+	Ret.ER_EARTH = 95
+	Ret.ER_FLAME = 12345
+	Ret.ER_FROST = -199
+	Ret.ER_LIGHT = -112
+	Ret.ER_LIGHTNING = 75
+	Ret.ER_WATER = -100
+	Ret.ER_WIND = 80
+	Ret.SR_CONFUSION = 100
+	Ret.SR_CURSE = 100
+	Ret.SR_DEATH = 100
+	Ret.SR_DISEASE = 100
+	Ret.SR_PARALYSIS = 100
+	Ret.SR_PETRIFICATION = 100
+	Ret.SR_POISON = 100
+	Ret.SR_SILENCE = 100
+	Ret.SR_SLEEP = 100
+	Ret.SR_UNDEAD = 100
+	Ret.VOCALTAG = "MONK4"
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 800
+		Ret.Stats.EVASION = 60
+		Ret.Stats.EXP = 666
+		Ret.Stats.HP = 2000
+		Ret.Stats.INTELLIGENCE = 1000
+		Ret.Stats.POWER = 1000
+		Ret.Stats.RESISTANCE = 650
+		Ret.Stats.SPEED = 2000
+	End
+
+	Ret.Actions = {}
+	If True && (__skill!=2) && (__skill!=3)
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_CRUSH"
+		Ret.Actions += "ABL_FOE_CRUSH"
+		Ret.Actions += "ABL_FOE_CRUSH"
+		Ret.Actions += "ABL_FOE_CRUSH"
+		Ret.Actions += "ABL_FOE_CRUSH"
+	End
+	If True && (__skill!=1) && (__skill!=2)
+		Ret.Actions += "ABL_FOE_DEATHSPELL"
+		Ret.Actions += "ABL_FOE_DEATHSPELL"
+		Ret.Actions += "ABL_FOE_DEATHSPELL"
+		Ret.Actions += "ABL_FOE_DEATHSPELL"
+		Ret.Actions += "ABL_FOE_DEATHSPELL"
+	End
+	If True && (__skill!=1)
+		Ret.Actions += "ABL_FOE_DEMON_SOUL_BREAKER"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_DISINTEGRATE"
+		Ret.Actions += "ABL_FOE_DISINTEGRATE"
+		Ret.Actions += "ABL_FOE_DISINTEGRATE"
+		Ret.Actions += "ABL_FOE_DISINTEGRATE"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_HORROR"
+		Ret.Actions += "ABL_FOE_HORROR"
+		Ret.Actions += "ABL_FOE_HORROR"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_SETTHESTAGEONFIRE"
+		Ret.Actions += "ABL_FOE_SETTHESTAGEONFIRE"
+		Ret.Actions += "ABL_FOE_SETTHESTAGEONFIRE"
+		Ret.Actions += "ABL_FOE_SETTHESTAGEONFIRE"
+		Ret.Actions += "ABL_FOE_SETTHESTAGEONFIRE"
+		Ret.Actions += "ABL_FOE_SETTHESTAGEONFIRE"
+		Ret.Actions += "ABL_FOE_SETTHESTAGEONFIRE"
+		Ret.Actions += "ABL_FOE_SETTHESTAGEONFIRE"
+		Ret.Actions += "ABL_FOE_SETTHESTAGEONFIRE"
+		Ret.Actions += "ABL_FOE_SETTHESTAGEONFIRE"
+		Ret.Actions += "ABL_FOE_SETTHESTAGEONFIRE"
+		Ret.Actions += "ABL_FOE_SETTHESTAGEONFIRE"
+		Ret.Actions += "ABL_FOE_SETTHESTAGEONFIRE"
+		Ret.Actions += "ABL_FOE_SETTHESTAGEONFIRE"
+		Ret.Actions += "ABL_FOE_SETTHESTAGEONFIRE"
+		Ret.Actions += "ABL_FOE_SETTHESTAGEONFIRE"
+		Ret.Actions += "ABL_FOE_SETTHESTAGEONFIRE"
+		Ret.Actions += "ABL_FOE_SETTHESTAGEONFIRE"
+		Ret.Actions += "ABL_FOE_SETTHESTAGEONFIRE"
+		Ret.Actions += "ABL_FOE_SETTHESTAGEONFIRE"
+	End
+	If True && (__skill!=1)
+		Ret.Actions += "ABL_FOE_TAKEOVER"
+	End
+	If True && (__skill!=1) && (__skill!=2)
+		Ret.Actions += "ABL_FOE_TAKEOVER2"
+		Ret.Actions += "ABL_FOE_TAKEOVER2"
+		Ret.Actions += "ABL_FOE_TAKEOVER2"
+		Ret.Actions += "ABL_FOE_TAKEOVER2"
+		Ret.Actions += "ABL_FOE_TAKEOVER2"
+	End
+	If True && (__skill!=1)
+		Ret.Actions += "ABL_FOE_TOTALEXHAUSTION"
+		Ret.Actions += "ABL_FOE_TOTALEXHAUSTION"
+		Ret.Actions += "ABL_FOE_TOTALEXHAUSTION"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
+		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_WELCOMEINHELL"
+		Ret.Actions += "ABL_FOE_WELCOMEINHELL"
+		Ret.Actions += "ABL_FOE_WELCOMEINHELL"
+		Ret.Actions += "ABL_FOE_WELCOMEINHELL"
+		Ret.Actions += "ABL_FOE_WELCOMEINHELL"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_FIRSTAID"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_FIRSTAID"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_FIRSTAID"
+	End
+	If True && (__skill!=1) && (__skill!=2)
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_HASPARONVITALIZATION"
+	End
+	If True && (__skill!=1)
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_VITALIZE"
+	End
+	If True && (__skill!=1) && (__skill!=2)
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_WHIZZY"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_JAKE_FLAMEBLADE"
+		Ret.Actions += "ABL_HERO_JAKE_FLAMEBLADE"
+		Ret.Actions += "ABL_HERO_JAKE_FLAMEBLADE"
+		Ret.Actions += "ABL_HERO_JAKE_FLAMEBLADE"
+		Ret.Actions += "ABL_HERO_JAKE_FLAMEBLADE"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+	End
+	If True && (__skill!=1) && (__skill!=2)
+		Ret.Actions += "ABL_HERO_MARRILONA_INFERNO"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_ZAP"
+		Ret.Actions += "ABL_HERO_MARRILONA_ZAP"
+	End
+	If True
+		Ret.Actions += "ABL_MASTER_FREYA_REJUVENATE"
+		Ret.Actions += "ABL_MASTER_FREYA_REJUVENATE"
+		Ret.Actions += "ABL_MASTER_FREYA_REJUVENATE"
+		Ret.Actions += "ABL_MASTER_FREYA_REJUVENATE"
+		Ret.Actions += "ABL_MASTER_FREYA_REJUVENATE"
+	End
+	If True && (__skill!=1)
+		Ret.Actions += "ABL_MASTER_FREYA_ULTRAHEAL"
+	End
+	If True && (__skill!=1) && (__skill!=2)
+		Ret.Actions += "ABL_MASTER_FREYA_VIGOR"
+	End
+	If True && (__skill!=1)
+		Ret.Actions += "ABL_MASTER_RUBINE_FOLLOWME"
+		Ret.Actions += "ABL_MASTER_RUBINE_FOLLOWME"
+		Ret.Actions += "ABL_MASTER_RUBINE_FOLLOWME"
+	End
+	If True
+		Ret.Actions += "ABL_MASTER_RUSSELL_SAFESHOT"
+		Ret.Actions += "ABL_MASTER_RUSSELL_SAFESHOT"
+		Ret.Actions += "ABL_MASTER_RUSSELL_SAFESHOT"
+		Ret.Actions += "ABL_MASTER_RUSSELL_SAFESHOT"
+	End
+	If True && (__skill!=3)
+		Ret.Actions += "SILLY_ONE"
+		Ret.Actions += "SILLY_ONE"
+		Ret.Actions += "SILLY_ONE"
+		Ret.Actions += "SILLY_ONE"
+		Ret.Actions += "SILLY_ONE"
+		Ret.Actions += "SILLY_ONE"
+		Ret.Actions += "SILLY_ONE"
+		Ret.Actions += "SILLY_ONE"
+		Ret.Actions += "SILLY_ONE"
+		Ret.Actions += "SILLY_ONE"
+		Ret.Actions += "SILLY_ONE"
+		Ret.Actions += "SILLY_ONE"
+		Ret.Actions += "SILLY_ONE"
+		Ret.Actions += "SILLY_ONE"
+		Ret.Actions += "SILLY_ONE"
+		Ret.Actions += "SILLY_ONE"
+		Ret.Actions += "SILLY_ONE"
+		Ret.Actions += "SILLY_ONE"
+		Ret.Actions += "SILLY_ONE"
+		Ret.Actions += "SILLY_ONE"
+	End
+	If True && (__skill!=3)
+		Ret.Actions += "SILLY_ONES"
+		Ret.Actions += "SILLY_ONES"
+		Ret.Actions += "SILLY_ONES"
+		Ret.Actions += "SILLY_ONES"
+		Ret.Actions += "SILLY_ONES"
+		Ret.Actions += "SILLY_ONES"
+		Ret.Actions += "SILLY_ONES"
+		Ret.Actions += "SILLY_ONES"
+		Ret.Actions += "SILLY_ONES"
+		Ret.Actions += "SILLY_ONES"
+	End
+	Return Ret
+End

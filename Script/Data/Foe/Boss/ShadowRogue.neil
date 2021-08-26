@@ -1,0 +1,137 @@
+// Generated 8/26/2021 8:37:06 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	If Oversoul
+		Lua.error("Enemy 'Boss/ShadowRogue' does not support oversoul!")
+	End
+
+	Ret.DESC = "Restless corpse of a dead rogue.\nHaunts old ruins and still tries\nto rob people... eternally."
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/boss/ShadowRogue.png"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_ANABOLINEA"
+	Ret.Steal += "ITM_ANABOLINEA"
+	Ret.Steal += "ITM_ANABOLINEA"
+	Ret.Steal += "ITM_ANABOLINEA"
+	Ret.Steal += "ITM_ANABOLINEA"
+	Ret.Steal += "ITM_ANABOLINEA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_CHERRY"
+	Ret.Steal += "ITM_CHERRY"
+	Ret.Steal += "ITM_CHERRY"
+	Ret.Steal += "ITM_CHERRY"
+	Ret.Steal += "ITM_CHERRY"
+	Ret.Steal += "ITM_CHERRY"
+	Ret.Steal += "ITM_CHERRY"
+	Ret.Steal += "ITM_CHERRY"
+	Ret.Steal += "ITM_CHERRY"
+	Ret.Steal += "ITM_CHERRY"
+	Ret.Steal += "ITM_CHERRY"
+	Ret.Steal += "ITM_CHERRY"
+	Ret.Steal += "ITM_CHERRY"
+	Ret.Steal += "ITM_CHERRY"
+	Ret.Steal += "ITM_CHERRY"
+	Ret.Steal += "ITM_CHERRY"
+	Ret.Steal += "ITM_CHERRY"
+	Ret.Steal += "ITM_CHERRY"
+	Ret.Steal += "ITM_CHERRY"
+	Ret.Steal += "ITM_CHERRY"
+	Ret.Steal += "ITM_CHERRY"
+	Ret.Steal += "ITM_CHERRY"
+	Ret.Steal += "ITM_CHERRY"
+	Ret.Steal += "ITM_CHERRY"
+	Ret.Steal += "ITM_CHERRY"
+	Ret.NAME = "Shadow Rogue"
+	Ret.CASH = 255
+	Ret.ER_DARKNESS = 12345
+	Ret.ER_EARTH = 100
+	Ret.ER_FLAME = -100
+	Ret.ER_FROST = 100
+	Ret.ER_LIGHT = -300
+	Ret.ER_LIGHTNING = -150
+	Ret.ER_WATER = 100
+	Ret.ER_WIND = 100
+	Ret.SR_CONFUSION = 100
+	Ret.SR_CURSE = 100
+	Ret.SR_DEATH = 100
+	Ret.SR_DISEASE = 100
+	Ret.SR_PARALYSIS = 100
+	Ret.SR_PETRIFICATION = 100
+	Ret.SR_POISON = 100
+	Ret.SR_SILENCE = 100
+	Ret.SR_SLEEP = 100
+	Ret.SR_UNDEAD = 100
+	Ret.VOCALTAG = "ShadowRogue"
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 64
+		Ret.Stats.EVASION = 35
+		Ret.Stats.EXP = 123
+		Ret.Stats.HP = 1500
+		Ret.Stats.INTELLIGENCE = 90
+		Ret.Stats.POWER = 70
+		Ret.Stats.RESISTANCE = 69
+		Ret.Stats.SPEED = 100
+	End
+
+	Ret.Actions = {}
+	If True && (__skill!=1)
+		Ret.Actions += "ABL_NPSH_OVERNAME"
+		Ret.Actions += "ABL_NPSH_OVERNAME"
+		Ret.Actions += "ABL_NPSH_OVERNAME"
+	End
+	If True && (__skill!=1) && (__skill!=2)
+		Ret.Actions += "ABL_NPSR_DOOD"
+	End
+	If True
+		Ret.Actions += "ABL_NPSR_GIF"
+		Ret.Actions += "ABL_NPSR_GIF"
+		Ret.Actions += "ABL_NPSR_GIF"
+		Ret.Actions += "ABL_NPSR_GIF"
+		Ret.Actions += "ABL_NPSR_GIF"
+	End
+	If True
+		Ret.Actions += "ABL_NPSR_RUG"
+		Ret.Actions += "ABL_NPSR_RUG"
+	End
+	If True
+		Ret.Actions += "ABL_NPSR_VERLAM"
+		Ret.Actions += "ABL_NPSR_VERLAM"
+		Ret.Actions += "ABL_NPSR_VERLAM"
+		Ret.Actions += "ABL_NPSR_VERLAM"
+		Ret.Actions += "ABL_NPSR_VERLAM"
+	End
+	If True
+		Ret.Actions += "ABL_NPSR_VLOEK"
+		Ret.Actions += "ABL_NPSR_VLOEK"
+		Ret.Actions += "ABL_NPSR_VLOEK"
+		Ret.Actions += "ABL_NPSR_VLOEK"
+		Ret.Actions += "ABL_NPSR_VLOEK"
+	End
+	If True
+		Ret.Actions += "ABL_NPSR_ZIEKTE"
+		Ret.Actions += "ABL_NPSR_ZIEKTE"
+		Ret.Actions += "ABL_NPSR_ZIEKTE"
+		Ret.Actions += "ABL_NPSR_ZIEKTE"
+		Ret.Actions += "ABL_NPSR_ZIEKTE"
+	End
+	Return Ret
+End

@@ -1,0 +1,202 @@
+// Generated 8/26/2021 8:37:38 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	Ret.DESC = "Just an animated skeleton"
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/Reg/Skeleton.png"
+	Ret.Drops += "ITM_BELL"
+	Ret.Drops += "ITM_BELL"
+	Ret.Drops += "ITM_BELL"
+	Ret.Drops += "ITM_BELL"
+	Ret.Drops += "ITM_BELL"
+	Ret.Drops += "ITM_CARROT"
+	Ret.Drops += "ITM_CARROT"
+	Ret.Drops += "ITM_CARROT"
+	Ret.Drops += "ITM_CARROT"
+	Ret.Drops += "ITM_CARROT"
+	Ret.Steal += "ITM_CARROT"
+	Ret.Steal += "ITM_CARROT"
+	Ret.Steal += "ITM_CARROT"
+	Ret.Steal += "ITM_CARROT"
+	Ret.Steal += "ITM_CARROT"
+	Ret.Steal += "ITM_CARROT"
+	Ret.Steal += "ITM_CARROT"
+	Ret.Steal += "ITM_CARROT"
+	Ret.Steal += "ITM_CARROT"
+	Ret.Steal += "ITM_CARROT"
+	Ret.Steal += "ITM_CARROT"
+	Ret.Steal += "ITM_CARROT"
+	Ret.Steal += "ITM_CARROT"
+	Ret.Steal += "ITM_CARROT"
+	Ret.Steal += "ITM_CARROT"
+	Ret.Steal += "ITM_CARROT"
+	Ret.Steal += "ITM_CARROT"
+	Ret.Steal += "ITM_CARROT"
+	Ret.Steal += "ITM_CARROT"
+	Ret.Steal += "ITM_CARROT"
+	Ret.Steal += "ITM_CARROT"
+	Ret.Steal += "ITM_CARROT"
+	Ret.Steal += "ITM_CARROT"
+	Ret.Steal += "ITM_CARROT"
+	Ret.Steal += "ITM_CARROT"
+	Ret.Steal += "ITM_PHOENIX"
+	Ret.Steal += "ITM_PHOENIX"
+	Ret.Steal += "ITM_PHOENIX"
+	Ret.Steal += "ITM_PHOENIX"
+	Ret.Steal += "ITM_PHOENIX"
+	Ret.Steal += "ITM_PHOENIX"
+	Ret.Steal += "ITM_PHOENIX"
+	Ret.Steal += "ITM_PHOENIX"
+	Ret.Steal += "ITM_PHOENIX"
+	Ret.Steal += "ITM_PHOENIX"
+	Ret.Steal += "ITM_PHOENIX"
+	Ret.Steal += "ITM_PHOENIX"
+	Ret.Steal += "ITM_PHOENIX"
+	Ret.Steal += "ITM_PHOENIX"
+	Ret.Steal += "ITM_PHOENIX"
+	Ret.Steal += "ITM_PHOENIX"
+	Ret.Steal += "ITM_PHOENIX"
+	Ret.Steal += "ITM_PHOENIX"
+	Ret.Steal += "ITM_PHOENIX"
+	Ret.Steal += "ITM_PHOENIX"
+	Ret.Steal += "ITM_PHOENIX"
+	Ret.Steal += "ITM_PHOENIX"
+	Ret.Steal += "ITM_PHOENIX"
+	Ret.Steal += "ITM_PHOENIX"
+	Ret.Steal += "ITM_PHOENIX"
+	Ret.Steal += "ITM_SALVE"
+	Ret.Steal += "ITM_SALVE"
+	Ret.Steal += "ITM_SALVE"
+	Ret.Steal += "ITM_SALVE"
+	Ret.Steal += "ITM_SALVE"
+	Ret.Steal += "ITM_SALVE"
+	Ret.Steal += "ITM_SALVE"
+	Ret.Steal += "ITM_SALVE"
+	Ret.Steal += "ITM_SALVE"
+	Ret.Steal += "ITM_SALVE"
+	Ret.Steal += "ITM_SALVE"
+	Ret.Steal += "ITM_SALVE"
+	Ret.Steal += "ITM_SALVE"
+	Ret.Steal += "ITM_SALVE"
+	Ret.Steal += "ITM_SALVE"
+	Ret.Steal += "ITM_SALVE"
+	Ret.Steal += "ITM_SALVE"
+	Ret.Steal += "ITM_SALVE"
+	Ret.Steal += "ITM_SALVE"
+	Ret.Steal += "ITM_SALVE"
+	Ret.Steal += "ITM_SALVE"
+	Ret.Steal += "ITM_SALVE"
+	Ret.Steal += "ITM_SALVE"
+	Ret.Steal += "ITM_SALVE"
+	Ret.Steal += "ITM_SALVE"
+	Ret.Steal += "ITM_SALVE"
+	Ret.Steal += "ITM_SALVE"
+	Ret.Steal += "ITM_SALVE"
+	Ret.Steal += "ITM_SALVE"
+	Ret.Steal += "ITM_SALVE"
+	Ret.Steal += "ITM_SALVE"
+	Ret.Steal += "ITM_SALVE"
+	Ret.Steal += "ITM_SALVE"
+	Ret.Steal += "ITM_SALVE"
+	Ret.Steal += "ITM_SALVE"
+	Ret.Steal += "ITM_SALVE"
+	Ret.Steal += "ITM_SALVE"
+	Ret.Steal += "ITM_SALVE"
+	Ret.Steal += "ITM_SALVE"
+	Ret.Steal += "ITM_SALVE"
+	Ret.Steal += "ITM_SALVE"
+	Ret.Steal += "ITM_SALVE"
+	Ret.Steal += "ITM_SALVE"
+	Ret.Steal += "ITM_SALVE"
+	Ret.Steal += "ITM_SALVE"
+	Ret.Steal += "ITM_SALVE"
+	Ret.Steal += "ITM_SALVE"
+	Ret.Steal += "ITM_SALVE"
+	Ret.Steal += "ITM_SALVE"
+	Ret.Steal += "ITM_SALVE"
+	Ret.NAME = "Skeleton"
+	Ret.CASH = 4
+	Ret.ER_DARKNESS = 300
+	Ret.ER_EARTH = 100
+	Ret.ER_FLAME = -100
+	Ret.ER_FROST = 100
+	Ret.ER_LIGHT = -300
+	Ret.ER_LIGHTNING = -120
+	Ret.ER_WATER = 75
+	Ret.ER_WIND = 75
+	Ret.SR_CURSE = 100
+	Ret.SR_DEATH = 100
+	Ret.SR_DISEASE = 100
+	Ret.SR_PARALYSIS = 100
+	Ret.SR_PETRIFICATION = 100
+	Ret.SR_POISON = 100
+	Ret.SR_SILENCE = 100
+	Ret.SR_UNDEAD = 100
+	Ret.VOCALTAG = "Skeleton"
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 75
+		Ret.Stats.ENDURANCE = 1
+		Ret.Stats.EVASION = 0
+		Ret.Stats.EXP = 8
+		Ret.Stats.HP = 100
+		Ret.Stats.INTELLIGENCE = 1
+		Ret.Stats.POWER = 250
+		Ret.Stats.RESISTANCE = 1
+		Ret.Stats.SPEED = 1
+	Else
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 2
+		Ret.Stats.EVASION = 0
+		Ret.Stats.EXP = 10
+		Ret.Stats.HP = 200
+		Ret.Stats.INTELLIGENCE = 2
+		Ret.Stats.POWER = 500
+		Ret.Stats.RESISTANCE = 2
+		Ret.Stats.SPEED = 2
+	End
+
+	Ret.Actions = {}
+	If True && (Oversoul)
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+	End
+	If True && (__skill!=1)
+		Ret.Actions += "ABL_HERO_JAKE_2PS"
+	End
+	Return Ret
+End

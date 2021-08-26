@@ -1,0 +1,131 @@
+// Generated 8/26/2021 8:37:19 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	Ret.DESC = "All it can do is hit you.\nBut its force is a killed"
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/Reg/EarthElemental.png"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_BANANAS"
+	Ret.Steal += "ITM_POCKETTSUNAMI"
+	Ret.Steal += "ITM_SAUERKRAUT"
+	Ret.Steal += "ITM_SAUERKRAUT"
+	Ret.Steal += "ITM_SAUERKRAUT"
+	Ret.Steal += "ITM_SAUERKRAUT"
+	Ret.Steal += "ITM_SAUERKRAUT"
+	Ret.Steal += "ITM_SAUERKRAUT"
+	Ret.Steal += "ITM_SAUERKRAUT"
+	Ret.Steal += "ITM_SAUERKRAUT"
+	Ret.Steal += "ITM_SAUERKRAUT"
+	Ret.Steal += "ITM_SAUERKRAUT"
+	Ret.Steal += "ITM_SAUERKRAUT"
+	Ret.Steal += "ITM_SAUERKRAUT"
+	Ret.Steal += "ITM_SAUERKRAUT"
+	Ret.Steal += "ITM_SAUERKRAUT"
+	Ret.Steal += "ITM_SAUERKRAUT"
+	Ret.Steal += "ITM_SAUERKRAUT"
+	Ret.Steal += "ITM_SAUERKRAUT"
+	Ret.Steal += "ITM_SAUERKRAUT"
+	Ret.Steal += "ITM_SAUERKRAUT"
+	Ret.Steal += "ITM_SAUERKRAUT"
+	Ret.Steal += "ITM_SAUERKRAUT"
+	Ret.Steal += "ITM_SAUERKRAUT"
+	Ret.Steal += "ITM_SAUERKRAUT"
+	Ret.Steal += "ITM_SAUERKRAUT"
+	Ret.Steal += "ITM_SAUERKRAUT"
+	Ret.Steal += "ITM_SAUERKRAUT"
+	Ret.Steal += "ITM_SAUERKRAUT"
+	Ret.Steal += "ITM_SAUERKRAUT"
+	Ret.Steal += "ITM_SAUERKRAUT"
+	Ret.Steal += "ITM_SAUERKRAUT"
+	Ret.Steal += "ITM_SAUERKRAUT"
+	Ret.Steal += "ITM_SAUERKRAUT"
+	Ret.Steal += "ITM_SAUERKRAUT"
+	Ret.Steal += "ITM_SAUERKRAUT"
+	Ret.Steal += "ITM_SAUERKRAUT"
+	Ret.Steal += "ITM_SAUERKRAUT"
+	Ret.Steal += "ITM_SAUERKRAUT"
+	Ret.Steal += "ITM_SAUERKRAUT"
+	Ret.Steal += "ITM_SAUERKRAUT"
+	Ret.Steal += "ITM_SAUERKRAUT"
+	Ret.Steal += "ITM_SAUERKRAUT"
+	Ret.Steal += "ITM_SAUERKRAUT"
+	Ret.Steal += "ITM_SAUERKRAUT"
+	Ret.Steal += "ITM_SAUERKRAUT"
+	Ret.Steal += "ITM_SAUERKRAUT"
+	Ret.Steal += "ITM_SAUERKRAUT"
+	Ret.Steal += "ITM_SAUERKRAUT"
+	Ret.Steal += "ITM_SAUERKRAUT"
+	Ret.Steal += "ITM_SAUERKRAUT"
+	Ret.Steal += "ITM_SAUERKRAUT"
+	Ret.Steal += "ITM_BELL"
+	Ret.Steal += "ITM_BELL"
+	Ret.Steal += "ITM_BELL"
+	Ret.Steal += "ITM_BELL"
+	Ret.NAME = "Earth Elemental"
+	Ret.CASH = 1
+	Ret.ER_DARKNESS = 100
+	Ret.ER_EARTH = 500
+	Ret.ER_FLAME = 100
+	Ret.ER_FROST = 100
+	Ret.ER_LIGHT = -100
+	Ret.ER_LIGHTNING = 100
+	Ret.ER_WATER = 100
+	Ret.ER_WIND = -800
+	Ret.SR_CONFUSION = 100
+	Ret.SR_CURSE = 100
+	Ret.SR_DEATH = 100
+	Ret.SR_DISEASE = 100
+	Ret.SR_PARALYSIS = 100
+	Ret.SR_PETRIFICATION = 100
+	Ret.SR_POISON = 100
+	Ret.SR_SILENCE = 100
+	Ret.SR_SLEEP = 100
+	Ret.SR_UNDEAD = 100
+	Ret.VOCALTAG = "EarthElemental"
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 95
+		Ret.Stats.ENDURANCE = 12345678
+		Ret.Stats.EVASION = 0
+		Ret.Stats.EXP = 125
+		Ret.Stats.HP = 1000000000
+		Ret.Stats.INTELLIGENCE = 1
+		Ret.Stats.POWER = 12345678
+		Ret.Stats.RESISTANCE = 1
+		Ret.Stats.SPEED = 5
+	Else
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 12345678
+		Ret.Stats.EVASION = 100
+		Ret.Stats.EXP = 250
+		Ret.Stats.HP = 2000000
+		Ret.Stats.INTELLIGENCE = 1
+		Ret.Stats.POWER = 12345678
+		Ret.Stats.RESISTANCE = 1
+		Ret.Stats.SPEED = 6
+	End
+
+	Ret.Actions = {}
+	If True && (Oversoul)
+		Ret.Actions += "AAA_ATTACK"
+	End
+	If True && (Oversoul) && (__skill!=2) && (__skill!=3)
+		Ret.Actions += "AAA_GUARD"
+	End
+	Return Ret
+End

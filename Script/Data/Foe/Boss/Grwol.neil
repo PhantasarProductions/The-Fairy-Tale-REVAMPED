@@ -1,0 +1,140 @@
+// Generated 8/26/2021 8:36:55 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	If Oversoul
+		Lua.error("Enemy 'Boss/Grwol' does not support oversoul!")
+	End
+
+	Ret.DESC = "Ugly simple minded created, \nbut also one with great hunger"
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/Boss/Grwol.png"
+	Ret.NAME = "Grwol"
+	Ret.ER_DARKNESS = 100
+	Ret.ER_EARTH = 10
+	Ret.ER_FLAME = 25
+	Ret.ER_FROST = -15
+	Ret.ER_LIGHT = -25
+	Ret.ER_LIGHTNING = -10
+	Ret.ER_WATER = -5
+	Ret.ER_WIND = 10
+	Ret.SR_CONFUSION = 100
+	Ret.SR_CURSE = 100
+	Ret.SR_DEATH = 100
+	Ret.SR_DISEASE = 100
+	Ret.SR_PARALYSIS = 95
+	Ret.SR_PETRIFICATION = 85
+	Ret.SR_POISON = 75
+	Ret.SR_SILENCE = 100
+	Ret.SR_SLEEP = 95
+	Ret.SR_UNDEAD = 100
+	Ret.VOCALTAG = "Grwol"
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 300
+		Ret.Stats.EVASION = 4
+		Ret.Stats.EXP = 50000
+		Ret.Stats.HP = 50000
+		Ret.Stats.INTELLIGENCE = 100
+		Ret.Stats.POWER = 800
+		Ret.Stats.RESISTANCE = 300
+		Ret.Stats.SPEED = 400
+	End
+
+	Ret.Actions = {}
+	If True && (__skill!=3)
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+	End
+	If True && (__skill!=2) && (__skill!=3)
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_CRUSH"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_DEMON_SOUL_BREAKER"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_EXHAUST"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_LIFEDRAIN"
+		Ret.Actions += "ABL_FOE_LIFEDRAIN"
+		Ret.Actions += "ABL_FOE_LIFEDRAIN"
+		Ret.Actions += "ABL_FOE_LIFEDRAIN"
+		Ret.Actions += "ABL_FOE_LIFEDRAIN"
+		Ret.Actions += "ABL_FOE_LIFEDRAIN"
+		Ret.Actions += "ABL_FOE_LIFEDRAIN"
+		Ret.Actions += "ABL_FOE_LIFEDRAIN"
+		Ret.Actions += "ABL_FOE_LIFEDRAIN"
+		Ret.Actions += "ABL_FOE_LIFEDRAIN"
+		Ret.Actions += "ABL_FOE_LIFEDRAIN"
+		Ret.Actions += "ABL_FOE_LIFEDRAIN"
+		Ret.Actions += "ABL_FOE_LIFEDRAIN"
+		Ret.Actions += "ABL_FOE_LIFEDRAIN"
+		Ret.Actions += "ABL_FOE_LIFEDRAIN"
+		Ret.Actions += "ABL_FOE_LIFEDRAIN"
+		Ret.Actions += "ABL_FOE_LIFEDRAIN"
+		Ret.Actions += "ABL_FOE_LIFEDRAIN"
+		Ret.Actions += "ABL_FOE_LIFEDRAIN"
+		Ret.Actions += "ABL_FOE_LIFEDRAIN"
+		Ret.Actions += "ABL_FOE_LIFEDRAIN"
+		Ret.Actions += "ABL_FOE_LIFEDRAIN"
+		Ret.Actions += "ABL_FOE_LIFEDRAIN"
+		Ret.Actions += "ABL_FOE_LIFEDRAIN"
+		Ret.Actions += "ABL_FOE_LIFEDRAIN"
+	End
+	If True && (__skill!=1)
+		Ret.Actions += "ABL_FOE_LIFEFORCE"
+		Ret.Actions += "ABL_FOE_LIFEFORCE"
+		Ret.Actions += "ABL_FOE_LIFEFORCE"
+		Ret.Actions += "ABL_FOE_LIFEFORCE"
+		Ret.Actions += "ABL_FOE_LIFEFORCE"
+		Ret.Actions += "ABL_FOE_LIFEFORCE"
+		Ret.Actions += "ABL_FOE_LIFEFORCE"
+		Ret.Actions += "ABL_FOE_LIFEFORCE"
+		Ret.Actions += "ABL_FOE_LIFEFORCE"
+		Ret.Actions += "ABL_FOE_LIFEFORCE"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_TAKEOVER"
+	End
+	Return Ret
+End

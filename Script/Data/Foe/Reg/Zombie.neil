@@ -1,0 +1,237 @@
+// Generated 8/26/2021 8:37:44 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	If Oversoul
+		Lua.error("Enemy 'Reg/Zombie' does not support oversoul!")
+	End
+
+	Ret.DESC = "Restless soul in a rotting body.\nWonders around mindlessly\nuntil being freed from its evil\ncurse, or whatever keeps it bound."
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/REG/Zombie.png"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.Drops += "ITM_SALVE"
+	Ret.NAME = "Zombie"
+	Ret.CASH = 5
+	Ret.ER_DARKNESS = 500
+	Ret.ER_EARTH = 75
+	Ret.ER_FLAME = -100
+	Ret.ER_FROST = 100
+	Ret.ER_LIGHT = -999
+	Ret.ER_LIGHTNING = -75
+	Ret.ER_WATER = 0
+	Ret.ER_WIND = 0
+	Ret.SR_CURSE = 100
+	Ret.SR_DEATH = 100
+	Ret.SR_DISEASE = 100
+	Ret.SR_PARALYSIS = 100
+	Ret.SR_PETRIFICATION = 100
+	Ret.SR_POISON = 100
+	Ret.SR_SILENCE = 100
+	Ret.SR_UNDEAD = 100
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 75
+		Ret.Stats.ENDURANCE = 20
+		Ret.Stats.EVASION = 2
+		Ret.Stats.EXP = 3
+		Ret.Stats.HP = 55
+		Ret.Stats.INTELLIGENCE = 1
+		Ret.Stats.POWER = 25
+		Ret.Stats.RESISTANCE = 1
+		Ret.Stats.SPEED = 75
+	End
+
+	Ret.Actions = {}
+	If True
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+	End
+	Return Ret
+End

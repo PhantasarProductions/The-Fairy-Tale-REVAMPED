@@ -1,0 +1,216 @@
+// Generated 8/26/2021 8:37:26 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	Ret.DESC = "Looks the same. Is even called the same.\nBut it's definitely stronger."
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/Reg/Imp.png"
+	Ret.Drops += "ITM_JUSDORANGE"
+	Ret.Drops += "ITM_JUSDORANGE"
+	Ret.Drops += "ITM_JUSDORANGE"
+	Ret.Drops += "ITM_JUSDORANGE"
+	Ret.Drops += "ITM_JUSDORANGE"
+	Ret.Drops += "ITM_UBERPOTION"
+	Ret.Drops += "ITM_UBERPOTION"
+	Ret.Drops += "ITM_UBERPOTION"
+	Ret.Steal += "ITM_ANABOLINEA"
+	Ret.Steal += "ITM_BANANA"
+	Ret.Steal += "ITM_ANABOLINEA"
+	Ret.NAME = "Imp"
+	Ret.CASH = 100
+	Ret.ER_DARKNESS = 75
+	Ret.ER_EARTH = 75
+	Ret.ER_FLAME = 75
+	Ret.ER_FROST = 75
+	Ret.ER_LIGHT = 75
+	Ret.ER_LIGHTNING = 75
+	Ret.ER_WATER = 75
+	Ret.ER_WIND = 75
+	Ret.SR_CONFUSION = 75
+	Ret.SR_CURSE = 75
+	Ret.SR_DEATH = 75
+	Ret.SR_DISEASE = 75
+	Ret.SR_PARALYSIS = 75
+	Ret.SR_PETRIFICATION = 75
+	Ret.SR_POISON = 75
+	Ret.SR_SILENCE = 75
+	Ret.SR_SLEEP = 75
+	Ret.SR_UNDEAD = 75
+	Ret.VOCALTAG = "Imp"
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 99
+		Ret.Stats.ENDURANCE = 560
+		Ret.Stats.EVASION = 50
+		Ret.Stats.EXP = 1234
+		Ret.Stats.HP = 3200
+		Ret.Stats.INTELLIGENCE = 440
+		Ret.Stats.POWER = 620
+		Ret.Stats.RESISTANCE = 200
+		Ret.Stats.SPEED = 260
+	Else
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 1120
+		Ret.Stats.EVASION = 80
+		Ret.Stats.EXP = 0
+		Ret.Stats.HP = 6400
+		Ret.Stats.INTELLIGENCE = 880
+		Ret.Stats.POWER = 1240
+		Ret.Stats.RESISTANCE = 400
+		Ret.Stats.SPEED = 520
+	End
+
+	Ret.Actions = {}
+	If True && (Oversoul)
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+	End
+	If True && (Oversoul) && (__skill!=1) && (__skill!=2)
+		Ret.Actions += "ABL_FOE_GAZE"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_FOE_GRAVITY"
+		Ret.Actions += "ABL_FOE_GRAVITY"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_FOE_PARADIVE"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_FOE_TAKEOVER"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_FOE_TOTALEXHAUSTION"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_FOE_VENOMSTAB"
+		Ret.Actions += "ABL_FOE_VENOMSTAB"
+		Ret.Actions += "ABL_FOE_VENOMSTAB"
+		Ret.Actions += "ABL_FOE_VENOMSTAB"
+		Ret.Actions += "ABL_FOE_VENOMSTAB"
+		Ret.Actions += "ABL_FOE_VENOMSTAB"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_FOE_VIRUSSTAB"
+		Ret.Actions += "ABL_FOE_VIRUSSTAB"
+		Ret.Actions += "ABL_FOE_VIRUSSTAB"
+		Ret.Actions += "ABL_FOE_VIRUSSTAB"
+		Ret.Actions += "ABL_FOE_VIRUSSTAB"
+		Ret.Actions += "ABL_FOE_VIRUSSTAB"
+	End
+	Return Ret
+End

@@ -1,0 +1,231 @@
+// Generated 8/26/2021 8:37:29 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	If Oversoul
+		Lua.error("Enemy 'Reg/litworm' does not support oversoul!")
+	End
+
+	Ret.DESC = "It's gonna LECTURE you!\nGet it, get it?"
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/reg/Boekenworm.png"
+	Ret.Drops += "ITM_ANABOLINEA"
+	Ret.Drops += "ITM_ANABOLINEA"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_PURELITERATURE"
+	Ret.Steal += "ITM_PURELITERATURE"
+	Ret.Steal += "ITM_PURELITERATURE"
+	Ret.Steal += "ITM_PURELITERATURE"
+	Ret.Steal += "ITM_PURELITERATURE"
+	Ret.Steal += "ITM_BANANA"
+	Ret.NAME = "Literature Worm"
+	Ret.CASH = 75
+	Ret.ER_DARKNESS = 100
+	Ret.ER_EARTH = 50
+	Ret.ER_FLAME = -199
+	Ret.ER_FROST = 100
+	Ret.ER_LIGHT = 95
+	Ret.ER_LIGHTNING = 100
+	Ret.ER_WATER = -123
+	Ret.ER_WIND = 50
+	Ret.SR_CONFUSION = 100
+	Ret.SR_CURSE = 0
+	Ret.SR_DEATH = 75
+	Ret.SR_DISEASE = 100
+	Ret.SR_PARALYSIS = 50
+	Ret.SR_PETRIFICATION = 100
+	Ret.SR_POISON = 60
+	Ret.SR_SILENCE = 100
+	Ret.SR_SLEEP = 20
+	Ret.SR_UNDEAD = 5
+	Ret.VOCALTAG = "litworm"
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 300
+		Ret.Stats.ENDURANCE = 2
+		Ret.Stats.EVASION = 2
+		Ret.Stats.EXP = 1234
+		Ret.Stats.HP = 1234
+		Ret.Stats.INTELLIGENCE = 300
+		Ret.Stats.POWER = 300
+		Ret.Stats.RESISTANCE = 2
+		Ret.Stats.SPEED = 300
+	End
+
+	Ret.Actions = {}
+	If True && (__skill!=3)
+		Ret.Actions += "AAA_ATTACK"
+	End
+	If True && (__skill!=2) && (__skill!=3)
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_CRUSH"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_HORROR"
+		Ret.Actions += "ABL_FOE_HORROR"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_RANDOMIZER"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_RANDOMIZERTOTAL"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_SETTHESTAGEONFIRE"
+		Ret.Actions += "ABL_FOE_SETTHESTAGEONFIRE"
+		Ret.Actions += "ABL_FOE_SETTHESTAGEONFIRE"
+		Ret.Actions += "ABL_FOE_SETTHESTAGEONFIRE"
+		Ret.Actions += "ABL_FOE_SETTHESTAGEONFIRE"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_SHOCKINGSTORIES"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_SICKSTORIES"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_SOULCRUSHINGSTORY"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_TAKEOVER"
+		Ret.Actions += "ABL_FOE_TAKEOVER"
+	End
+	If True && (__skill!=1)
+		Ret.Actions += "ABL_FOE_TAKEOVER2"
+		Ret.Actions += "ABL_FOE_TAKEOVER2"
+		Ret.Actions += "ABL_FOE_TAKEOVER2"
+		Ret.Actions += "ABL_FOE_TAKEOVER2"
+		Ret.Actions += "ABL_FOE_TAKEOVER2"
+	End
+	If True
+		Ret.Actions += "ITM_PURELITERATURE"
+		Ret.Actions += "ITM_PURELITERATURE"
+		Ret.Actions += "ITM_PURELITERATURE"
+		Ret.Actions += "ITM_PURELITERATURE"
+		Ret.Actions += "ITM_PURELITERATURE"
+		Ret.Actions += "ITM_PURELITERATURE"
+		Ret.Actions += "ITM_PURELITERATURE"
+		Ret.Actions += "ITM_PURELITERATURE"
+		Ret.Actions += "ITM_PURELITERATURE"
+		Ret.Actions += "ITM_PURELITERATURE"
+		Ret.Actions += "ITM_PURELITERATURE"
+		Ret.Actions += "ITM_PURELITERATURE"
+	End
+	Return Ret
+End

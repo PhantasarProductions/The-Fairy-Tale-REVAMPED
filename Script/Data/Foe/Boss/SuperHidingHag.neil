@@ -1,0 +1,354 @@
+// Generated 8/26/2021 8:37:08 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	If Oversoul
+		Lua.error("Enemy 'Boss/SuperHidingHag' does not support oversoul!")
+	End
+
+	Ret.DESC = "She cannot be seen, and is a terrible enemy.\nHer tactical moves can really get the best of ya"
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/reg/HidingHag.png"
+	Ret.Drops += "ITM_ANABOLINEA"
+	Ret.Drops += "ITM_ANABOLINEA"
+	Ret.Drops += "ITM_ANABOLINEA"
+	Ret.Drops += "ITM_ANABOLINEA"
+	Ret.Drops += "ITM_ANABOLINEA"
+	Ret.Drops += "ITM_ANABOLINEA"
+	Ret.Drops += "ITM_ANABOLINEA"
+	Ret.Drops += "ITM_ANABOLINEA"
+	Ret.Drops += "ITM_ANABOLINEA"
+	Ret.Drops += "ITM_ANABOLINEA"
+	Ret.Drops += "ITM_ANABOLINEA"
+	Ret.Drops += "ITM_ANABOLINEA"
+	Ret.Drops += "ITM_ANABOLINEA"
+	Ret.Drops += "ITM_ANABOLINEA"
+	Ret.Drops += "ITM_ANABOLINEA"
+	Ret.Drops += "ITM_ANABOLINEA"
+	Ret.Drops += "ITM_ANABOLINEA"
+	Ret.Drops += "ITM_ANABOLINEA"
+	Ret.Drops += "ITM_ANABOLINEA"
+	Ret.Drops += "ITM_ANABOLINEA"
+	Ret.Drops += "ITM_ANABOLINEA"
+	Ret.Drops += "ITM_ANABOLINEA"
+	Ret.Drops += "ITM_ANABOLINEA"
+	Ret.Drops += "ITM_ANABOLINEA"
+	Ret.Drops += "ITM_ANABOLINEA"
+	Ret.Drops += "ITM_ANABOLINEA"
+	Ret.Drops += "ITM_ANABOLINEA"
+	Ret.Drops += "ITM_ANABOLINEA"
+	Ret.Drops += "ITM_ANABOLINEA"
+	Ret.Drops += "ITM_ANABOLINEA"
+	Ret.Drops += "ITM_ANABOLINEA"
+	Ret.Drops += "ITM_ANABOLINEA"
+	Ret.Drops += "ITM_ANABOLINEA"
+	Ret.Drops += "ITM_ANABOLINEA"
+	Ret.Drops += "ITM_ANABOLINEA"
+	Ret.Drops += "ITM_ANABOLINEA"
+	Ret.Drops += "ITM_ANABOLINEA"
+	Ret.Drops += "ITM_ANABOLINEA"
+	Ret.Drops += "ITM_ANABOLINEA"
+	Ret.Drops += "ITM_ANABOLINEA"
+	Ret.Drops += "ITM_ANABOLINEA"
+	Ret.Drops += "ITM_ANABOLINEA"
+	Ret.Drops += "ITM_ANABOLINEA"
+	Ret.Drops += "ITM_ANABOLINEA"
+	Ret.Drops += "ITM_ANABOLINEA"
+	Ret.Drops += "ITM_ANABOLINEA"
+	Ret.Drops += "ITM_ANABOLINEA"
+	Ret.Drops += "ITM_ANABOLINEA"
+	Ret.Drops += "ITM_ANABOLINEA"
+	Ret.Drops += "ITM_ANABOLINEA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_ANABOLINEA"
+	Ret.Steal += "ITM_ANABOLINEA"
+	Ret.Steal += "ITM_ANABOLINEA"
+	Ret.Steal += "ITM_ANABOLINEA"
+	Ret.Steal += "ITM_ANABOLINEA"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.Steal += "ITM_POISONDART"
+	Ret.NAME = "Super Hiding Hag"
+	Ret.CASH = 20000
+	Ret.ER_DARKNESS = 65535
+	Ret.ER_EARTH = 100
+	Ret.ER_FLAME = -75
+	Ret.ER_FROST = 100
+	Ret.ER_LIGHT = -195
+	Ret.ER_LIGHTNING = -140
+	Ret.ER_WATER = 100
+	Ret.ER_WIND = 100
+	Ret.SR_CONFUSION = 100
+	Ret.SR_CURSE = 100
+	Ret.SR_DEATH = 100
+	Ret.SR_DISEASE = 100
+	Ret.SR_PARALYSIS = 100
+	Ret.SR_PETRIFICATION = 100
+	Ret.SR_POISON = 100
+	Ret.SR_SILENCE = 100
+	Ret.SR_SLEEP = 100
+	Ret.SR_UNDEAD = 100
+	Ret.VOCALTAG = "SuperHidingHag"
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 9999
+		Ret.Stats.EVASION = 99
+		Ret.Stats.EXP = 2000
+		Ret.Stats.HP = 65535
+		Ret.Stats.INTELLIGENCE = 9999
+		Ret.Stats.POWER = 9999
+		Ret.Stats.RESISTANCE = 1
+		Ret.Stats.SPEED = 9999
+	End
+
+	Ret.Actions = {}
+	If True
+		Ret.Actions += "ABL_FOE_CRUSH"
+		Ret.Actions += "ABL_FOE_CRUSH"
+		Ret.Actions += "ABL_FOE_CRUSH"
+		Ret.Actions += "ABL_FOE_CRUSH"
+		Ret.Actions += "ABL_FOE_CRUSH"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_DEMON_SOUL_BREAKER"
+		Ret.Actions += "ABL_FOE_DEMON_SOUL_BREAKER"
+		Ret.Actions += "ABL_FOE_DEMON_SOUL_BREAKER"
+		Ret.Actions += "ABL_FOE_DEMON_SOUL_BREAKER"
+		Ret.Actions += "ABL_FOE_DEMON_SOUL_BREAKER"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_GAZE"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_HOLDPERSON"
+		Ret.Actions += "ABL_FOE_HOLDPERSON"
+		Ret.Actions += "ABL_FOE_HOLDPERSON"
+		Ret.Actions += "ABL_FOE_HOLDPERSON"
+		Ret.Actions += "ABL_FOE_HOLDPERSON"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_TAKEOVER"
+		Ret.Actions += "ABL_FOE_TAKEOVER"
+		Ret.Actions += "ABL_FOE_TAKEOVER"
+		Ret.Actions += "ABL_FOE_TAKEOVER"
+		Ret.Actions += "ABL_FOE_TAKEOVER"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_TAKEOVER2"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_TOTALEXHAUSTION"
+		Ret.Actions += "ABL_FOE_TOTALEXHAUSTION"
+		Ret.Actions += "ABL_FOE_TOTALEXHAUSTION"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
+		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
+		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
+		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
+		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
+		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
+		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
+		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
+		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
+		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
+	End
+	If True
+		Ret.Actions += "ABL_GLOOM"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_SPEEDUP"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPEEDUP"
+	End
+	If True
+	End
+	If True && (__skill!=3)
+		Ret.Actions += "FOE_WATCHMOVE"
+		Ret.Actions += "FOE_WATCHMOVE"
+		Ret.Actions += "FOE_WATCHMOVE"
+		Ret.Actions += "FOE_WATCHMOVE"
+		Ret.Actions += "FOE_WATCHMOVE"
+		Ret.Actions += "FOE_WATCHMOVE"
+		Ret.Actions += "FOE_WATCHMOVE"
+		Ret.Actions += "FOE_WATCHMOVE"
+		Ret.Actions += "FOE_WATCHMOVE"
+		Ret.Actions += "FOE_WATCHMOVE"
+	End
+	Return Ret
+End

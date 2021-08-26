@@ -1,0 +1,170 @@
+// Generated 8/26/2021 8:36:49 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	If Oversoul
+		Lua.error("Enemy 'Boss/Beholder' does not support oversoul!")
+	End
+
+	Ret.DESC = "The ultimate master of death and destruction.\nThey say its eye is its only weak spot.\nIt hate you, it hates everything, \nbut the only thing it hates more\nis an other Beholder."
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/Boss/Beholder.png"
+	Ret.Steal += "ITM_ANABOLINEA"
+	Ret.NAME = "Beholder"
+	Ret.CASH = 250
+	Ret.ER_DARKNESS = 100
+	Ret.ER_EARTH = 100
+	Ret.ER_FLAME = 100
+	Ret.ER_FROST = 100
+	Ret.ER_LIGHT = 100
+	Ret.ER_LIGHTNING = 100
+	Ret.ER_WATER = 100
+	Ret.ER_WIND = 100
+	Ret.SR_CONFUSION = 100
+	Ret.SR_CURSE = 200
+	Ret.SR_DEATH = 1000
+	Ret.SR_DISEASE = 300
+	Ret.SR_PARALYSIS = 400
+	Ret.SR_PETRIFICATION = 500
+	Ret.SR_POISON = 600
+	Ret.SR_SILENCE = 700
+	Ret.SR_SLEEP = 800
+	Ret.SR_UNDEAD = 900
+	Ret.VOCALTAG = "Beholder"
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 95
+		Ret.Stats.ENDURANCE = 200
+		Ret.Stats.EVASION = 4
+		Ret.Stats.EXP = 800
+		Ret.Stats.HP = 6000
+		Ret.Stats.INTELLIGENCE = 400
+		Ret.Stats.POWER = 300
+		Ret.Stats.RESISTANCE = 9999
+		Ret.Stats.SPEED = 400
+	End
+
+	Ret.Actions = {}
+	If True && (__skill!=3)
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+	End
+	If True && (__skill!=1)
+		Ret.Actions += "ABL_FOE_CRUSH"
+		Ret.Actions += "ABL_FOE_CRUSH"
+		Ret.Actions += "ABL_FOE_CRUSH"
+		Ret.Actions += "ABL_FOE_CRUSH"
+		Ret.Actions += "ABL_FOE_CRUSH"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_DEATHSPELL"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_DEMON_SOUL_BREAKER"
+		Ret.Actions += "ABL_FOE_DEMON_SOUL_BREAKER"
+		Ret.Actions += "ABL_FOE_DEMON_SOUL_BREAKER"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_DISINTEGRATE"
+		Ret.Actions += "ABL_FOE_DISINTEGRATE"
+		Ret.Actions += "ABL_FOE_DISINTEGRATE"
+		Ret.Actions += "ABL_FOE_DISINTEGRATE"
+		Ret.Actions += "ABL_FOE_DISINTEGRATE"
+		Ret.Actions += "ABL_FOE_DISINTEGRATE"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_GAZE"
+		Ret.Actions += "ABL_FOE_GAZE"
+		Ret.Actions += "ABL_FOE_GAZE"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_HOLDPERSON"
+		Ret.Actions += "ABL_FOE_HOLDPERSON"
+		Ret.Actions += "ABL_FOE_HOLDPERSON"
+		Ret.Actions += "ABL_FOE_HOLDPERSON"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_PARADIVE"
+		Ret.Actions += "ABL_FOE_PARADIVE"
+		Ret.Actions += "ABL_FOE_PARADIVE"
+		Ret.Actions += "ABL_FOE_PARADIVE"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_SMITE"
+		Ret.Actions += "ABL_FOE_SMITE"
+		Ret.Actions += "ABL_FOE_SMITE"
+	End
+	If True && (__skill!=1)
+		Ret.Actions += "ABL_FOE_TAKEOVER"
+		Ret.Actions += "ABL_FOE_TAKEOVER"
+		Ret.Actions += "ABL_FOE_TAKEOVER"
+		Ret.Actions += "ABL_FOE_TAKEOVER"
+	End
+	If True && (__skill!=1) && (__skill!=2)
+		Ret.Actions += "ABL_FOE_TAKEOVER2"
+		Ret.Actions += "ABL_FOE_TAKEOVER2"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_TOTALEXHAUSTION"
+		Ret.Actions += "ABL_FOE_TOTALEXHAUSTION"
+		Ret.Actions += "ABL_FOE_TOTALEXHAUSTION"
+		Ret.Actions += "ABL_FOE_TOTALEXHAUSTION"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
+		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
+		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
+	End
+	If True
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_RECOVER"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_RECOVER"
+	End
+	If True && (__skill!=1)
+		Ret.Actions += "ABL_HERO_SPEEDUP"
+		Ret.Actions += "ABL_HERO_SPEEDUP"
+	End
+	If True
+		Ret.Actions += "ABL_MASTER_FANDALORA_DARKNESS"
+		Ret.Actions += "ABL_MASTER_FANDALORA_DARKNESS"
+		Ret.Actions += "ABL_MASTER_FANDALORA_DARKNESS"
+		Ret.Actions += "ABL_MASTER_FANDALORA_DARKNESS"
+	End
+	Return Ret
+End

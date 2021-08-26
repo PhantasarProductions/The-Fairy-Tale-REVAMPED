@@ -1,0 +1,116 @@
+// Generated 8/26/2021 8:36:51 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	If Oversoul
+		Lua.error("Enemy 'Boss/Dandor' does not support oversoul!")
+	End
+
+	Ret.DESC = "Found cursed in the forest.\nWanted to eat Marrilona due to this cuse"
+	Ret.IMAGE = "GFX/Actors/Bundled/Player/Dandor.East.png"
+	Ret.NAME = "Dandor"
+	Ret.CASH = 1
+	Ret.SR_CONFUSION = 85
+	Ret.SR_CURSE = 50
+	Ret.SR_DEATH = 100
+	Ret.SR_DISEASE = 50
+	Ret.SR_PARALYSIS = 50
+	Ret.SR_PETRIFICATION = 50
+	Ret.SR_POISON = 75
+	Ret.SR_SILENCE = 50
+	Ret.SR_SLEEP = 50
+	Ret.SR_UNDEAD = 100
+	Ret.VOCALTAG = "Dandor"
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 78
+		Ret.Stats.ENDURANCE = 16
+		Ret.Stats.EVASION = 1
+		Ret.Stats.EXP = 250
+		Ret.Stats.HP = 2310
+		Ret.Stats.INTELLIGENCE = 3
+		Ret.Stats.POWER = 247
+		Ret.Stats.RESISTANCE = 12
+		Ret.Stats.SPEED = 25
+	End
+
+	Ret.Actions = {}
+	If True
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+	End
+	If True && (__skill!=3)
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+	End
+	If True && (__skill!=1)
+		Ret.Actions += "ABL_HERO_DANDOR_AXESMASH"
+		Ret.Actions += "ABL_HERO_DANDOR_AXESMASH"
+		Ret.Actions += "ABL_HERO_DANDOR_AXESMASH"
+		Ret.Actions += "ABL_HERO_DANDOR_AXESMASH"
+		Ret.Actions += "ABL_HERO_DANDOR_AXESMASH"
+	End
+	Return Ret
+End

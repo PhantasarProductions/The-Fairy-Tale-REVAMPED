@@ -1,0 +1,207 @@
+// Generated 8/26/2021 8:36:49 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	If Oversoul
+		Lua.error("Enemy 'Boss/Aqua' does not support oversoul!")
+	End
+
+	Ret.DESC = "Protector of the Water Spirata"
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/boss/Aqua.png"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_HEALSHOWER"
+	Ret.Drops += "ITM_APPLE"
+	Ret.NAME = "Aqua"
+	Ret.CASH = 100
+	Ret.ER_DARKNESS = 0
+	Ret.ER_EARTH = 0
+	Ret.ER_FLAME = 100
+	Ret.ER_FROST = -50
+	Ret.ER_LIGHT = 0
+	Ret.ER_LIGHTNING = -150
+	Ret.ER_WATER = 200
+	Ret.ER_WIND = 0
+	Ret.SR_CONFUSION = 100
+	Ret.SR_CURSE = 100
+	Ret.SR_DEATH = 100
+	Ret.SR_DISEASE = 100
+	Ret.SR_PARALYSIS = 100
+	Ret.SR_PETRIFICATION = 100
+	Ret.SR_POISON = 100
+	Ret.SR_SILENCE = 100
+	Ret.SR_SLEEP = 100
+	Ret.SR_UNDEAD = 100
+	Ret.VOCALTAG = "Aqua"
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 89
+		Ret.Stats.ENDURANCE = 80
+		Ret.Stats.EVASION = 10
+		Ret.Stats.EXP = 100
+		Ret.Stats.HP = 5000
+		Ret.Stats.INTELLIGENCE = 160
+		Ret.Stats.POWER = 90
+		Ret.Stats.RESISTANCE = 140
+		Ret.Stats.SPEED = 120
+	End
+
+	Ret.Actions = {}
+	If True
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+	End
+	If True && (__skill!=3)
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_CRUSH"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
+		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_SPLASH"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPLASH"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPLASH"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPLASH"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPLASH"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPLASH"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPLASH"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPLASH"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPLASH"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPLASH"
+	End
+	If True && (__skill!=1)
+		Ret.Actions += "ABL_HERO_MARRILONA_TSUNAMI"
+		Ret.Actions += "ABL_HERO_MARRILONA_TSUNAMI"
+	End
+	Return Ret
+End

@@ -1,0 +1,130 @@
+// Generated 8/26/2021 8:37:36 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	Ret.DESC = "All temptation, no violence, but that doesn't \nmean she's not dangerous"
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/Reg/Mermaid/"
+	Ret.Drops += "ITM_BANANAS"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Drops += "ITM_BANANA"
+	Ret.Steal += "ITM_CHERRY"
+	Ret.Steal += "ITM_CHERRY"
+	Ret.Steal += "ITM_CHERRY"
+	Ret.Steal += "ITM_CHERRY"
+	Ret.Steal += "ITM_CHERRY"
+	Ret.Steal += "ITM_CHERRY"
+	Ret.Steal += "ITM_CHERRY"
+	Ret.Steal += "ITM_CHERRY"
+	Ret.Steal += "ITM_CHERRY"
+	Ret.Steal += "ITM_CHERRY"
+	Ret.Steal += "ITM_CHERRY"
+	Ret.Steal += "ITM_CHERRY"
+	Ret.Steal += "ITM_CARROTPACKFISH"
+	Ret.Steal += "ITM_CARROTPACKFISH"
+	Ret.Steal += "ITM_CARROTPACKFISH"
+	Ret.Steal += "ITM_MULTIPHOENIX"
+	Ret.Steal += "ITM_MULTIPHOENIX"
+	Ret.Steal += "ITM_MULTIPHOENIX"
+	Ret.Steal += "ITM_MULTIPHOENIX"
+	Ret.NAME = "Sea Maid"
+	Ret.CASH = 1
+	Ret.ER_FLAME = -100
+	Ret.ER_FROST = -150
+	Ret.ER_LIGHTNING = -200
+	Ret.ER_WATER = 999
+	Ret.SR_CONFUSION = 100
+	Ret.SR_CURSE = 100
+	Ret.SR_DEATH = 25
+	Ret.SR_DISEASE = 70
+	Ret.SR_PARALYSIS = 0
+	Ret.SR_PETRIFICATION = 100
+	Ret.SR_POISON = 45
+	Ret.SR_SILENCE = 100
+	Ret.SR_SLEEP = 30
+	Ret.SR_UNDEAD = 10
+	Ret.VOCALTAG = "SeaMaid"
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 1
+		Ret.Stats.EVASION = 5
+		Ret.Stats.EXP = 120
+		Ret.Stats.HP = 1200
+		Ret.Stats.INTELLIGENCE = 1
+		Ret.Stats.POWER = 1
+		Ret.Stats.RESISTANCE = 200
+		Ret.Stats.SPEED = 300
+	Else
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 1
+		Ret.Stats.EVASION = 100
+		Ret.Stats.EXP = 240
+		Ret.Stats.HP = 2400
+		Ret.Stats.INTELLIGENCE = 1
+		Ret.Stats.POWER = 1
+		Ret.Stats.RESISTANCE = 400
+		Ret.Stats.SPEED = 400
+	End
+
+	Ret.Actions = {}
+	If True && (Oversoul) && (__skill!=2) && (__skill!=3)
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+	End
+	If True && (Oversoul) && (__skill!=1) && (__skill!=2)
+		Ret.Actions += "ABL_FOE_FOOLGOLD"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_FOE_MERMAID_TEMPATION"
+		Ret.Actions += "ABL_FOE_MERMAID_TEMPATION"
+		Ret.Actions += "ABL_FOE_MERMAID_TEMPATION"
+		Ret.Actions += "ABL_FOE_MERMAID_TEMPATION"
+		Ret.Actions += "ABL_FOE_MERMAID_TEMPATION"
+		Ret.Actions += "ABL_FOE_MERMAID_TEMPATION"
+		Ret.Actions += "ABL_FOE_MERMAID_TEMPATION"
+		Ret.Actions += "ABL_FOE_MERMAID_TEMPATION"
+		Ret.Actions += "ABL_FOE_MERMAID_TEMPATION"
+		Ret.Actions += "ABL_FOE_MERMAID_TEMPATION"
+		Ret.Actions += "ABL_FOE_MERMAID_TEMPATION"
+		Ret.Actions += "ABL_FOE_MERMAID_TEMPATION"
+		Ret.Actions += "ABL_FOE_MERMAID_TEMPATION"
+		Ret.Actions += "ABL_FOE_MERMAID_TEMPATION"
+		Ret.Actions += "ABL_FOE_MERMAID_TEMPATION"
+		Ret.Actions += "ABL_FOE_MERMAID_TEMPATION"
+		Ret.Actions += "ABL_FOE_MERMAID_TEMPATION"
+		Ret.Actions += "ABL_FOE_MERMAID_TEMPATION"
+		Ret.Actions += "ABL_FOE_MERMAID_TEMPATION"
+		Ret.Actions += "ABL_FOE_MERMAID_TEMPATION"
+		Ret.Actions += "ABL_FOE_MERMAID_TEMPATION"
+		Ret.Actions += "ABL_FOE_MERMAID_TEMPATION"
+		Ret.Actions += "ABL_FOE_MERMAID_TEMPATION"
+		Ret.Actions += "ABL_FOE_MERMAID_TEMPATION"
+		Ret.Actions += "ABL_FOE_MERMAID_TEMPATION"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_FOE_TAKEOVER"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_FOE_TAKEOVER2"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_FOE_TOTALEXHAUSTION"
+		Ret.Actions += "ABL_FOE_TOTALEXHAUSTION"
+	End
+	Return Ret
+End

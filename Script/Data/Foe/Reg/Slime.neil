@@ -1,0 +1,235 @@
+// Generated 8/26/2021 8:37:39 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	If Oversoul
+		Lua.error("Enemy 'Reg/Slime' does not support oversoul!")
+	End
+
+	Ret.DESC = "A miserable excuse for a monster.\nWhy are they there in every RPG world?"
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/reg/Slime.png"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.NAME = "Slimey"
+	Ret.CASH = 1
+	Ret.ER_DARKNESS = -1000
+	Ret.ER_EARTH = -1000
+	Ret.ER_FLAME = -1000
+	Ret.ER_FROST = -1000
+	Ret.ER_LIGHT = -1000
+	Ret.ER_LIGHTNING = -1000
+	Ret.ER_WATER = -1000
+	Ret.ER_WIND = -1000
+	Ret.SR_CURSE = 100
+	Ret.SR_DEATH = 100
+	Ret.SR_DISEASE = 100
+	Ret.SR_PARALYSIS = 0
+	Ret.SR_PETRIFICATION = 100
+	Ret.SR_POISON = 100
+	Ret.SR_SILENCE = 100
+	Ret.SR_UNDEAD = 100
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 95
+		Ret.Stats.ENDURANCE = 1
+		Ret.Stats.EVASION = 1
+		Ret.Stats.EXP = 1
+		Ret.Stats.HP = 5
+		Ret.Stats.INTELLIGENCE = 1
+		Ret.Stats.POWER = 10
+		Ret.Stats.RESISTANCE = 1
+		Ret.Stats.SPEED = 1
+	End
+
+	Ret.Actions = {}
+	If True
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+	End
+	If True && (__skill!=1) && (__skill!=2)
+		Ret.Actions += "ABL_HERO_JAKE_4PS"
+	End
+	Return Ret
+End

@@ -1,0 +1,93 @@
+// Generated 8/26/2021 8:36:56 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	If Oversoul
+		Lua.error("Enemy 'Boss/Harry1' does not support oversoul!")
+	End
+
+	Ret.DESC = "Jake's rival.\nDesperately tries to prove himself\nto be a better warrior."
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/boss/Harry.png"
+	Ret.NAME = "Harry"
+	Ret.CASH = 100
+	Ret.SR_CONFUSION = 50
+	Ret.SR_CURSE = 100
+	Ret.SR_DEATH = 100
+	Ret.SR_DISEASE = 25
+	Ret.SR_PARALYSIS = 75
+	Ret.SR_PETRIFICATION = 100
+	Ret.SR_POISON = 50
+	Ret.SR_SILENCE = 200
+	Ret.SR_SLEEP = 25
+	Ret.SR_UNDEAD = 100
+	Ret.VOCALTAG = "Harry"
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 98
+		Ret.Stats.ENDURANCE = 60
+		Ret.Stats.EVASION = 5
+		Ret.Stats.EXP = 25
+		Ret.Stats.HP = 1200
+		Ret.Stats.INTELLIGENCE = 65
+		Ret.Stats.POWER = 85
+		Ret.Stats.RESISTANCE = 35
+		Ret.Stats.SPEED = 65
+	End
+
+	Ret.Actions = {}
+	If True
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+	End
+	If True
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_DESPERATEATTACK"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+	End
+	If True
+		Ret.Actions += "ITM_APPLE"
+		Ret.Actions += "ITM_APPLE"
+		Ret.Actions += "ITM_APPLE"
+		Ret.Actions += "ITM_APPLE"
+		Ret.Actions += "ITM_APPLE"
+	End
+	Return Ret
+End

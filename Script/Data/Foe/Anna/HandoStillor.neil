@@ -1,0 +1,377 @@
+// Generated 8/26/2021 8:36:46 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	If Oversoul
+		Lua.error("Enemy 'Anna/HandoStillor' does not support oversoul!")
+	End
+
+	Ret.DESC = "Mirror Image of Hando Stillor!\nMainly a healer, but that can be a dangerous trait too!"
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/anna/HandoStillor.png"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_AMBROSIA"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.Drops += "ITM_TONSBANANAS"
+	Ret.NAME = "Hando Stillor"
+	Ret.CASH = 500
+	Ret.ER_DARKNESS = -200
+	Ret.ER_EARTH = 25
+	Ret.ER_FLAME = 25
+	Ret.ER_FROST = 25
+	Ret.ER_LIGHT = 100
+	Ret.ER_LIGHTNING = 75
+	Ret.ER_WATER = 25
+	Ret.ER_WIND = 25
+	Ret.SR_CONFUSION = 100
+	Ret.SR_CURSE = 90
+	Ret.SR_DEATH = 95
+	Ret.SR_DISEASE = 70
+	Ret.SR_PARALYSIS = 90
+	Ret.SR_PETRIFICATION = 100
+	Ret.SR_POISON = 80
+	Ret.SR_SILENCE = 100
+	Ret.SR_SLEEP = 70
+	Ret.SR_UNDEAD = 99
+	Ret.VOCALTAG = "HandoStillor"
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 1
+		Ret.Stats.EVASION = 1
+		Ret.Stats.EXP = 1000000
+		Ret.Stats.HP = 1
+		Ret.Stats.INTELLIGENCE = 1
+		Ret.Stats.POWER = 1
+		Ret.Stats.RESISTANCE = 1
+		Ret.Stats.SPEED = 1
+	End
+
+	Ret.Actions = {}
+	If True && (__skill!=3)
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+	End
+	If True && (__skill!=3)
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_CUREDISEASE"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_FIRESTORM"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_FIRESTORM"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_FIRESTORM"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_FIRESTORM"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_FIRESTORM"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_FIRSTAID"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_FIRSTAID"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_FIRSTAID"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_FIRSTAID"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_FIRSTAID"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_GOODMORNING"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_GOODMORNING"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_GOODMORNING"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_GOODMORNING"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_GOODMORNING"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_HASPARONVITALIZATION"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_HASPARONVITALIZATION"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_HASPARONVITALIZATION"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_HASPARONVITALIZATION"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_HASPARONVITALIZATION"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_HOLYSTRIKE"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_HOLYSTRIKE"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_HOLYSTRIKE"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_HOLYSTRIKE"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_HOLYSTRIKE"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_KNEELBEFOREME"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_KNEELBEFOREME"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_KNEELBEFOREME"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_KNEELBEFOREME"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_KNEELBEFOREME"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_NEUTRALIZEPOISON"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_NEUTRALIZEPOISON"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_NEUTRALIZEPOISON"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_NEUTRALIZEPOISON"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_NEUTRALIZEPOISON"
+	End
+	If True
+	End
+	If True
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_PURIFY"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_PURIFY"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_PURIFY"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_PURIFY"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_PURIFY"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_RECOVER"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_RECOVER"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_RECOVER"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_RECOVER"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_RECOVER"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_REMOVEPARALYSIS"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_REMOVEPARALYSIS"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_REMOVEPARALYSIS"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_REMOVEPARALYSIS"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_REMOVEPARALYSIS"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_SMITE"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_SMITE"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_SMITE"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_SMITE"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_SMITE"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_SMITE"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_SMITE"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_SMITE"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_SMITE"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_SMITE"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_STICKSWING"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_STICKSWING"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_STICKSWING"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_TREATMENT"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_TREATMENT"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_TREATMENT"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_TREATMENT"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_TREATMENT"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_VITALIZE"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_VITALIZE"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_VITALIZE"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_VITALIZE"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_VITALIZE"
+	End
+	Return Ret
+End

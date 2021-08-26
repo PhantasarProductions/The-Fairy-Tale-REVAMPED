@@ -1,0 +1,242 @@
+// Generated 8/26/2021 8:36:56 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	If Oversoul
+		Lua.error("Enemy 'Boss/Harry2' does not support oversoul!")
+	End
+
+	Ret.DESC = "He still hasn't learned his lesson"
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/boss/harry.png"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_ANTIDOTE"
+	Ret.Drops += "ITM_HEALINGHERB"
+	Ret.Drops += "ITM_HEALINGHERB"
+	Ret.Drops += "ITM_HEALINGHERB"
+	Ret.Steal += "ITM_ANTIDOTE"
+	Ret.Steal += "ITM_ANTIDOTE"
+	Ret.Steal += "ITM_ANTIDOTE"
+	Ret.Steal += "ITM_ANTIDOTE"
+	Ret.Steal += "ITM_ANTIDOTE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_APPLE"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.NAME = "Harry"
+	Ret.CASH = 10
+	Ret.ER_DARKNESS = -1
+	Ret.ER_EARTH = -1
+	Ret.ER_FLAME = -1
+	Ret.ER_FROST = -1
+	Ret.ER_LIGHT = -1
+	Ret.ER_LIGHTNING = -1
+	Ret.ER_WATER = -1
+	Ret.ER_WIND = -1
+	Ret.SR_CONFUSION = 85
+	Ret.SR_CURSE = 3
+	Ret.SR_DEATH = 100
+	Ret.SR_DISEASE = 50
+	Ret.SR_PARALYSIS = 85
+	Ret.SR_PETRIFICATION = 95
+	Ret.SR_POISON = 45
+	Ret.SR_SILENCE = 66
+	Ret.SR_SLEEP = 80
+	Ret.SR_UNDEAD = 95
+	Ret.VOCALTAG = "harry"
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 90
+		Ret.Stats.ENDURANCE = 20
+		Ret.Stats.EVASION = 0
+		Ret.Stats.EXP = 50
+		Ret.Stats.HP = 2500
+		Ret.Stats.INTELLIGENCE = 20
+		Ret.Stats.POWER = 20
+		Ret.Stats.RESISTANCE = 20
+		Ret.Stats.SPEED = 20
+	End
+
+	Ret.Actions = {}
+	If True
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_DESPERATEATTACK"
+		Ret.Actions += "ABL_FOE_DESPERATEATTACK"
+		Ret.Actions += "ABL_FOE_DESPERATEATTACK"
+		Ret.Actions += "ABL_FOE_DESPERATEATTACK"
+		Ret.Actions += "ABL_FOE_DESPERATEATTACK"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_VENOMSTAB"
+		Ret.Actions += "ABL_FOE_VENOMSTAB"
+		Ret.Actions += "ABL_FOE_VENOMSTAB"
+		Ret.Actions += "ABL_FOE_VENOMSTAB"
+		Ret.Actions += "ABL_FOE_VENOMSTAB"
+	End
+	If True
+		Ret.Actions += "ITM_SALVE"
+		Ret.Actions += "ITM_SALVE"
+		Ret.Actions += "ITM_SALVE"
+	End
+	Return Ret
+End

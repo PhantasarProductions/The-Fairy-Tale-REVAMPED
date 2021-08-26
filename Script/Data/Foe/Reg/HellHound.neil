@@ -1,0 +1,235 @@
+// Generated 8/26/2021 8:37:25 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	Ret.DESC = "A dog lusting for fire.\nThis can't be good."
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/reg/HellHound.png"
+	Ret.Drops += "ITM_FLAMEORB"
+	Ret.Drops += "ITM_FLAMEORB"
+	Ret.Drops += "ITM_FLAMEORB"
+	Ret.Drops += "ITM_FLAMEORB"
+	Ret.Drops += "ITM_FLAMEORB"
+	Ret.Drops += "ITM_FLAMEORB"
+	Ret.Drops += "ITM_FLAMEORB"
+	Ret.Drops += "ITM_FLAMEORB"
+	Ret.Drops += "ITM_FLAMEORB"
+	Ret.Drops += "ITM_FLAMEORB"
+	Ret.Drops += "ITM_FLAMEORB"
+	Ret.Drops += "ITM_FLAMEORB"
+	Ret.Drops += "ITM_FLAMEORB"
+	Ret.Drops += "ITM_FLAMEORB"
+	Ret.Drops += "ITM_FLAMEORB"
+	Ret.Drops += "ITM_FLAMEORB"
+	Ret.Drops += "ITM_FLAMEORB"
+	Ret.Drops += "ITM_FLAMEORB"
+	Ret.Drops += "ITM_FLAMEORB"
+	Ret.Drops += "ITM_FLAMEORB"
+	Ret.Drops += "ITM_FLAMEORB"
+	Ret.Drops += "ITM_FLAMEORB"
+	Ret.Drops += "ITM_FLAMEORB"
+	Ret.Drops += "ITM_FLAMEORB"
+	Ret.Drops += "ITM_FLAMEORB"
+	Ret.Drops += "ITM_FLAMEORB"
+	Ret.Drops += "ITM_FLAMEORB"
+	Ret.Drops += "ITM_FLAMEORB"
+	Ret.Drops += "ITM_FLAMEORB"
+	Ret.Drops += "ITM_FLAMEORB"
+	Ret.Drops += "ITM_FLAMEORB"
+	Ret.Drops += "ITM_FLAMEORB"
+	Ret.Drops += "ITM_FLAMEORB"
+	Ret.Drops += "ITM_FLAMEORB"
+	Ret.Drops += "ITM_FLAMEORB"
+	Ret.Drops += "ITM_FLAMEORB"
+	Ret.Drops += "ITM_FLAMEORB"
+	Ret.Drops += "ITM_FLAMEORB"
+	Ret.Drops += "ITM_FLAMEORB"
+	Ret.Drops += "ITM_FLAMEORB"
+	Ret.Drops += "ITM_FLAMEORB"
+	Ret.Drops += "ITM_FLAMEORB"
+	Ret.Drops += "ITM_FLAMEORB"
+	Ret.Drops += "ITM_FLAMEORB"
+	Ret.Drops += "ITM_FLAMEORB"
+	Ret.Drops += "ITM_FLAMEORB"
+	Ret.Drops += "ITM_FLAMEORB"
+	Ret.Drops += "ITM_FLAMEORB"
+	Ret.Drops += "ITM_FLAMEORB"
+	Ret.Drops += "ITM_FLAMEORB"
+	Ret.Drops += "ITM_CARROT"
+	Ret.Drops += "ITM_CARROT"
+	Ret.Drops += "ITM_CARROT"
+	Ret.Drops += "ITM_CARROT"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_CARROT"
+	Ret.Steal += "ITM_CARROT"
+	Ret.Steal += "ITM_CARROT"
+	Ret.Steal += "ITM_CARROT"
+	Ret.Steal += "ITM_CARROT"
+	Ret.Steal += "ITM_POTION"
+	Ret.NAME = "Hell Hound"
+	Ret.CASH = 75
+	Ret.ER_DARKNESS = 50
+	Ret.ER_EARTH = 0
+	Ret.ER_FLAME = 1000
+	Ret.ER_FROST = -200
+	Ret.ER_LIGHT = -50
+	Ret.ER_LIGHTNING = 0
+	Ret.ER_WATER = -75
+	Ret.ER_WIND = 0
+	Ret.SR_CURSE = 75
+	Ret.SR_DEATH = 75
+	Ret.SR_DISEASE = 50
+	Ret.SR_PARALYSIS = 54
+	Ret.SR_PETRIFICATION = 100
+	Ret.SR_POISON = 75
+	Ret.SR_SILENCE = 80
+	Ret.SR_UNDEAD = 95
+	Ret.VOCALTAG = "HellHound"
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 200
+		Ret.Stats.EVASION = 5
+		Ret.Stats.EXP = 12
+		Ret.Stats.HP = 500
+		Ret.Stats.INTELLIGENCE = 250
+		Ret.Stats.POWER = 200
+		Ret.Stats.RESISTANCE = 200
+		Ret.Stats.SPEED = 200
+	Else
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 40
+		Ret.Stats.EVASION = 50
+		Ret.Stats.EXP = 15
+		Ret.Stats.HP = 1000
+		Ret.Stats.INTELLIGENCE = 400
+		Ret.Stats.POWER = 400
+		Ret.Stats.RESISTANCE = 40
+		Ret.Stats.SPEED = 400
+	End
+
+	Ret.Actions = {}
+	If True && (Oversoul)
+		Ret.Actions += "AAA_ATTACK"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_HERO_MARRILONA_FIREBLAST"
+		Ret.Actions += "ABL_HERO_MARRILONA_FIREBLAST"
+		Ret.Actions += "ABL_HERO_MARRILONA_FIREBLAST"
+		Ret.Actions += "ABL_HERO_MARRILONA_FIREBLAST"
+		Ret.Actions += "ABL_HERO_MARRILONA_FIREBLAST"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+	End
+	If True && (Oversoul)
+	End
+	Return Ret
+End

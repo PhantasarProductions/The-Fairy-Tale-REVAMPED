@@ -1,0 +1,270 @@
+// Generated 8/26/2021 8:37:23 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	Ret.DESC = "A pope along the goblins?\nWhat is the world coming to?\nIs it powerful?"
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/reg/GobPriest.png"
+	Ret.Drops += "EQP_JEWEL_ONYX"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Drops += "ITM_HOLYHANDGRENATE"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "EQP_JEWEL_ONYX"
+	Ret.Steal += "EQP_JEWEL_ONYX"
+	Ret.Steal += "EQP_JEWEL_ONYX"
+	Ret.Steal += "EQP_JEWEL_ONYX"
+	Ret.Steal += "EQP_JEWEL_ONYX"
+	Ret.Steal += "EQP_JEWEL_ONYX"
+	Ret.Steal += "EQP_JEWEL_ONYX"
+	Ret.Steal += "EQP_JEWEL_ONYX"
+	Ret.Steal += "EQP_JEWEL_ONYX"
+	Ret.Steal += "EQP_JEWEL_ONYX"
+	Ret.Steal += "WAND_II_SAINT"
+	Ret.NAME = "Goblin Pope"
+	Ret.CASH = 777
+	Ret.ER_DARKNESS = -500
+	Ret.ER_EARTH = 25
+	Ret.ER_FLAME = 25
+	Ret.ER_FROST = 25
+	Ret.ER_LIGHT = 123456
+	Ret.ER_LIGHTNING = 60
+	Ret.ER_WATER = 25
+	Ret.ER_WIND = 25
+	Ret.SR_CONFUSION = 100
+	Ret.SR_CURSE = 95
+	Ret.SR_DEATH = 98
+	Ret.SR_DISEASE = 75
+	Ret.SR_PARALYSIS = 80
+	Ret.SR_PETRIFICATION = 100
+	Ret.SR_POISON = 80
+	Ret.SR_SILENCE = 100
+	Ret.SR_SLEEP = 95
+	Ret.SR_UNDEAD = 70
+	Ret.VOCALTAG = "GobPope"
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 6
+		Ret.Stats.EVASION = 25
+		Ret.Stats.EXP = 4500
+		Ret.Stats.HP = 10000
+		Ret.Stats.INTELLIGENCE = 1500
+		Ret.Stats.POWER = 5
+		Ret.Stats.RESISTANCE = 99999
+		Ret.Stats.SPEED = 250
+	Else
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 6
+		Ret.Stats.EVASION = 100
+		Ret.Stats.EXP = 3500
+		Ret.Stats.HP = 1000000000
+		Ret.Stats.INTELLIGENCE = 99999
+		Ret.Stats.POWER = 5
+		Ret.Stats.RESISTANCE = 99999
+		Ret.Stats.SPEED = 400
+	End
+
+	Ret.Actions = {}
+	If True && (Oversoul) && (__skill!=2) && (__skill!=3)
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
+		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
+		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
+		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
+		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_HERO_MARRILONA_PROTECT"
+		Ret.Actions += "ABL_HERO_MARRILONA_PROTECT"
+		Ret.Actions += "ABL_HERO_MARRILONA_PROTECT"
+		Ret.Actions += "ABL_HERO_MARRILONA_PROTECT"
+		Ret.Actions += "ABL_HERO_MARRILONA_PROTECT"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_HERO_MARRILONA_SPEEDUP"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPEEDUP"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPEEDUP"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPEEDUP"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPEEDUP"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPEEDUP"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPEEDUP"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPEEDUP"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPEEDUP"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPEEDUP"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPEEDUP"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPEEDUP"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPEEDUP"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPEEDUP"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPEEDUP"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPEEDUP"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPEEDUP"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPEEDUP"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPEEDUP"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPEEDUP"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_MASTER_FREYA_REJUVENATE"
+		Ret.Actions += "ABL_MASTER_FREYA_REJUVENATE"
+		Ret.Actions += "ABL_MASTER_FREYA_REJUVENATE"
+		Ret.Actions += "ABL_MASTER_FREYA_REJUVENATE"
+		Ret.Actions += "ABL_MASTER_FREYA_REJUVENATE"
+		Ret.Actions += "ABL_MASTER_FREYA_REJUVENATE"
+		Ret.Actions += "ABL_MASTER_FREYA_REJUVENATE"
+		Ret.Actions += "ABL_MASTER_FREYA_REJUVENATE"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_MASTER_FREYA_ULTRAHEAL"
+		Ret.Actions += "ABL_MASTER_FREYA_ULTRAHEAL"
+		Ret.Actions += "ABL_MASTER_FREYA_ULTRAHEAL"
+		Ret.Actions += "ABL_MASTER_FREYA_ULTRAHEAL"
+		Ret.Actions += "ABL_MASTER_FREYA_ULTRAHEAL"
+		Ret.Actions += "ABL_MASTER_FREYA_ULTRAHEAL"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_MASTER_FREYA_VIGOR"
+		Ret.Actions += "ABL_MASTER_FREYA_VIGOR"
+	End
+	If True && (Oversoul) && (__skill!=1)
+		Ret.Actions += "ABL_MASTER_RUBINE_FOLLOWME"
+		Ret.Actions += "ABL_MASTER_RUBINE_FOLLOWME"
+		Ret.Actions += "ABL_MASTER_RUBINE_FOLLOWME"
+		Ret.Actions += "ABL_MASTER_RUBINE_FOLLOWME"
+		Ret.Actions += "ABL_MASTER_RUBINE_FOLLOWME"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_MASTER_RUBINE_INVADE"
+		Ret.Actions += "ABL_MASTER_RUBINE_INVADE"
+		Ret.Actions += "ABL_MASTER_RUBINE_INVADE"
+		Ret.Actions += "ABL_MASTER_RUBINE_INVADE"
+		Ret.Actions += "ABL_MASTER_RUBINE_INVADE"
+		Ret.Actions += "ABL_MASTER_RUBINE_INVADE"
+		Ret.Actions += "ABL_MASTER_RUBINE_INVADE"
+		Ret.Actions += "ABL_MASTER_RUBINE_INVADE"
+		Ret.Actions += "ABL_MASTER_RUBINE_INVADE"
+		Ret.Actions += "ABL_MASTER_RUBINE_INVADE"
+		Ret.Actions += "ABL_MASTER_RUBINE_INVADE"
+		Ret.Actions += "ABL_MASTER_RUBINE_INVADE"
+		Ret.Actions += "ABL_MASTER_RUBINE_INVADE"
+		Ret.Actions += "ABL_MASTER_RUBINE_INVADE"
+		Ret.Actions += "ABL_MASTER_RUBINE_INVADE"
+		Ret.Actions += "ABL_MASTER_RUBINE_INVADE"
+		Ret.Actions += "ABL_MASTER_RUBINE_INVADE"
+		Ret.Actions += "ABL_MASTER_RUBINE_INVADE"
+		Ret.Actions += "ABL_MASTER_RUBINE_INVADE"
+		Ret.Actions += "ABL_MASTER_RUBINE_INVADE"
+		Ret.Actions += "ABL_MASTER_RUBINE_INVADE"
+		Ret.Actions += "ABL_MASTER_RUBINE_INVADE"
+		Ret.Actions += "ABL_MASTER_RUBINE_INVADE"
+		Ret.Actions += "ABL_MASTER_RUBINE_INVADE"
+		Ret.Actions += "ABL_MASTER_RUBINE_INVADE"
+	End
+	Return Ret
+End

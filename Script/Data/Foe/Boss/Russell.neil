@@ -1,0 +1,154 @@
+// Generated 8/26/2021 8:37:05 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	If Oversoul
+		Lua.error("Enemy 'Boss/Russell' does not support oversoul!")
+	End
+
+	Ret.DESC = "He THINKS he's a pirate.\nNobody knows where he got his\nobsession from since there are no\ntrade ships and thus nu pirates on\nthe seas of Phantasar."
+	Ret.IMAGE = "GFX/Actors/Single/Humans/Russell.png"
+	Ret.Drops += "ITM_INFERNOORB"
+	Ret.Drops += "ITM_INFERNOORB"
+	Ret.Drops += "ITM_INFERNOORB"
+	Ret.Drops += "ITM_INFERNOORB"
+	Ret.Drops += "ITM_INFERNOORB"
+	Ret.Drops += "ITM_MANDRAKE"
+	Ret.Steal += "ITM_STORMBOTTLE"
+	Ret.Steal += "ITM_STORMBOTTLE"
+	Ret.Steal += "ITM_STORMBOTTLE"
+	Ret.Steal += "ITM_STORMBOTTLE"
+	Ret.Steal += "ITM_STORMBOTTLE"
+	Ret.Steal += "EQP_JAKE_WP10"
+	Ret.Steal += "EQP_JEWEL_EMERALD"
+	Ret.NAME = "Russell"
+	Ret.CASH = 500
+	Ret.ER_DARKNESS = 25
+	Ret.ER_EARTH = 0
+	Ret.ER_FLAME = -25
+	Ret.ER_FROST = 25
+	Ret.ER_LIGHT = -10
+	Ret.ER_LIGHTNING = 40
+	Ret.ER_WATER = 95
+	Ret.ER_WIND = 80
+	Ret.SR_CONFUSION = 75
+	Ret.SR_CURSE = 95
+	Ret.SR_DEATH = 100
+	Ret.SR_DISEASE = 85
+	Ret.SR_PARALYSIS = 100
+	Ret.SR_PETRIFICATION = 100
+	Ret.SR_POISON = 75
+	Ret.SR_SILENCE = 95
+	Ret.SR_SLEEP = 60
+	Ret.SR_UNDEAD = 85
+	Ret.VOCALTAG = "Russell"
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 95
+		Ret.Stats.ENDURANCE = 300
+		Ret.Stats.EVASION = 10
+		Ret.Stats.EXP = 1000
+		Ret.Stats.HP = 3000
+		Ret.Stats.INTELLIGENCE = 70
+		Ret.Stats.POWER = 350
+		Ret.Stats.RESISTANCE = 40
+		Ret.Stats.SPEED = 60
+	End
+
+	Ret.Actions = {}
+	If True
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+	End
+	If True
+		Ret.Actions += "AAA_GUARD"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_DISTRACT"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_VENOMSTAB"
+		Ret.Actions += "ABL_FOE_VENOMSTAB"
+		Ret.Actions += "ABL_FOE_VENOMSTAB"
+		Ret.Actions += "ABL_FOE_VENOMSTAB"
+		Ret.Actions += "ABL_FOE_VENOMSTAB"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_VIRUSSTAB"
+		Ret.Actions += "ABL_FOE_VIRUSSTAB"
+		Ret.Actions += "ABL_FOE_VIRUSSTAB"
+		Ret.Actions += "ABL_FOE_VIRUSSTAB"
+		Ret.Actions += "ABL_FOE_VIRUSSTAB"
+	End
+	If True && (__skill!=1)
+		Ret.Actions += "ABL_HERO_JAKE_2PS"
+	End
+	If True
+		Ret.Actions += "ABL_MASTER_RUBINE_POISONSTAB"
+		Ret.Actions += "ABL_MASTER_RUBINE_POISONSTAB"
+		Ret.Actions += "ABL_MASTER_RUBINE_POISONSTAB"
+		Ret.Actions += "ABL_MASTER_RUBINE_POISONSTAB"
+	End
+	If True
+		Ret.Actions += "ABL_MASTER_RUSSEL_DECAPITATE"
+		Ret.Actions += "ABL_MASTER_RUSSEL_DECAPITATE"
+		Ret.Actions += "ABL_MASTER_RUSSEL_DECAPITATE"
+		Ret.Actions += "ABL_MASTER_RUSSEL_DECAPITATE"
+		Ret.Actions += "ABL_MASTER_RUSSEL_DECAPITATE"
+	End
+	If True && (__skill!=1) && (__skill!=2)
+		Ret.Actions += "ABL_MASTER_RUSSELL_GENOCIDE"
+	End
+	If True
+		Ret.Actions += "ABL_MASTER_RUSSELL_SAFESHOT"
+		Ret.Actions += "ABL_MASTER_RUSSELL_SAFESHOT"
+		Ret.Actions += "ABL_MASTER_RUSSELL_SAFESHOT"
+		Ret.Actions += "ABL_MASTER_RUSSELL_SAFESHOT"
+		Ret.Actions += "ABL_MASTER_RUSSELL_SAFESHOT"
+		Ret.Actions += "ABL_MASTER_RUSSELL_SAFESHOT"
+	End
+	If True
+		Ret.Actions += "ITM_HEALINGHERB"
+		Ret.Actions += "ITM_HEALINGHERB"
+		Ret.Actions += "ITM_HEALINGHERB"
+		Ret.Actions += "ITM_HEALINGHERB"
+		Ret.Actions += "ITM_HEALINGHERB"
+	End
+	If True
+		Ret.Actions += "ITM_POTION"
+		Ret.Actions += "ITM_POTION"
+		Ret.Actions += "ITM_POTION"
+		Ret.Actions += "ITM_POTION"
+		Ret.Actions += "ITM_POTION"
+	End
+	Return Ret
+End

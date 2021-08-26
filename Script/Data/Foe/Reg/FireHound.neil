@@ -1,0 +1,99 @@
+// Generated 8/26/2021 8:37:21 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	Ret.DESC = "It loves fire.\nIt hates the cold"
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/reg/HellHound.png"
+	Ret.Drops += "ITM_FLAMEORB"
+	Ret.Drops += "ITM_FLAMEORB"
+	Ret.Drops += "ITM_FLAMEORB"
+	Ret.Drops += "ITM_FLAMEORB"
+	Ret.Drops += "ITM_FLAMEORB"
+	Ret.Drops += "ITM_FLAMEORB"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Drops += "ITM_APPLE"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_POTION"
+	Ret.Steal += "ITM_POTION"
+	Ret.Steal += "ITM_PHOENIX"
+	Ret.Steal += "ITM_PHOENIX"
+	Ret.NAME = "Fire Hound"
+	Ret.CASH = 6
+	Ret.ER_DARKNESS = 100
+	Ret.ER_FLAME = 500
+	Ret.ER_FROST = -100
+	Ret.ER_WATER = -75
+	Ret.SR_CURSE = 100
+	Ret.SR_DEATH = 100
+	Ret.SR_DISEASE = 100
+	Ret.SR_PARALYSIS = 100
+	Ret.SR_PETRIFICATION = 100
+	Ret.SR_POISON = 20
+	Ret.SR_SILENCE = 100
+	Ret.SR_UNDEAD = 100
+	Ret.VOCALTAG = "FireHound"
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 53
+		Ret.Stats.EVASION = 3
+		Ret.Stats.EXP = 4
+		Ret.Stats.HP = 286
+		Ret.Stats.INTELLIGENCE = 120
+		Ret.Stats.POWER = 100
+		Ret.Stats.RESISTANCE = 35
+		Ret.Stats.SPEED = 100
+	Else
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 100
+		Ret.Stats.EVASION = 6
+		Ret.Stats.EXP = 2
+		Ret.Stats.HP = 500
+		Ret.Stats.INTELLIGENCE = 240
+		Ret.Stats.POWER = 200
+		Ret.Stats.RESISTANCE = 60
+		Ret.Stats.SPEED = 200
+	End
+
+	Ret.Actions = {}
+	If True && (Oversoul)
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+	End
+	Return Ret
+End

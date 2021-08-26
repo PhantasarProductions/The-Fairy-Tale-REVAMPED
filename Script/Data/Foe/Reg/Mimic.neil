@@ -1,0 +1,128 @@
+// Generated 8/26/2021 8:37:32 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	Ret.DESC = "Monster mimicking a treasure chest.\nEither that or the chest is cursed.\nEither way, it's very very dangerous."
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/reg/Mimic/"
+	Ret.Drops += "EQP_ACC_RINGWENIARIA"
+	Ret.Drops += "EQP_MARRILONA_AR9"
+	Ret.Drops += "EQP_MARRILONA_AR9"
+	Ret.Drops += "EQP_MARRILONA_AR9"
+	Ret.Drops += "EQP_MARRILONA_AR9"
+	Ret.Steal += "ITM_ANABOLINEA"
+	Ret.Steal += "ITM_ANABOLINEA"
+	Ret.Steal += "ITM_ANABOLINEA"
+	Ret.Steal += "ITM_ANABOLINEA"
+	Ret.Steal += "ITM_ANABOLINEA"
+	Ret.Steal += "EQP_HANDOSTILLOR_AR9"
+	Ret.Steal += "EQP_JAKE_AR9"
+	Ret.NAME = "Mimic"
+	Ret.CASH = 20
+	Ret.SR_CONFUSION = 100
+	Ret.SR_CURSE = 100
+	Ret.SR_DEATH = 100
+	Ret.SR_DISEASE = 100
+	Ret.SR_PARALYSIS = 100
+	Ret.SR_PETRIFICATION = 100
+	Ret.SR_POISON = 100
+	Ret.SR_SILENCE = 100
+	Ret.SR_SLEEP = 100
+	Ret.SR_UNDEAD = 100
+	Ret.VOCALTAG = "Mimic"
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 75
+		Ret.Stats.EVASION = 75
+		Ret.Stats.EXP = 5000
+		Ret.Stats.HP = 2500
+		Ret.Stats.INTELLIGENCE = 950
+		Ret.Stats.POWER = 950
+		Ret.Stats.RESISTANCE = 75
+		Ret.Stats.SPEED = 700
+	Else
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 500
+		Ret.Stats.EVASION = 100
+		Ret.Stats.EXP = 0
+		Ret.Stats.HP = 8000
+		Ret.Stats.INTELLIGENCE = 1200
+		Ret.Stats.POWER = 1200
+		Ret.Stats.RESISTANCE = 500
+		Ret.Stats.SPEED = 1200
+	End
+
+	Ret.Actions = {}
+	If True && (Oversoul)
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+	End
+	If True && (Oversoul) && (__skill!=3)
+		Ret.Actions += "AAA_GUARD"
+	End
+	If True && (Oversoul) && (__skill!=1)
+		Ret.Actions += "ABL_FOE_CRUSH"
+		Ret.Actions += "ABL_FOE_CRUSH"
+	End
+	If True && (Oversoul) && (__skill!=1)
+		Ret.Actions += "ABL_FOE_EXHAUST"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_FOE_FOOLGOLD"
+		Ret.Actions += "ABL_FOE_FOOLGOLD"
+		Ret.Actions += "ABL_FOE_FOOLGOLD"
+	End
+	If True && (Oversoul) && (__skill!=1) && (__skill!=2)
+		Ret.Actions += "ABL_FOE_HORROR"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_FOE_SLASH"
+		Ret.Actions += "ABL_FOE_SLASH"
+		Ret.Actions += "ABL_FOE_SLASH"
+		Ret.Actions += "ABL_FOE_SLASH"
+		Ret.Actions += "ABL_FOE_SLASH"
+	End
+	If True && (Oversoul) && (__skill!=1)
+		Ret.Actions += "ABL_FOE_TAKEOVER"
+	End
+	If True && (Oversoul) && (__skill!=1) && (__skill!=2)
+		Ret.Actions += "ABL_FOE_TAKEOVER2"
+	End
+	If True && (Oversoul) && (__skill!=1) && (__skill!=2)
+		Ret.Actions += "ABL_FOE_TOTALEXHAUSTION"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
+		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_GLOOM"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_MASTER_RUBINE_INVADE"
+		Ret.Actions += "ABL_MASTER_RUBINE_INVADE"
+		Ret.Actions += "ABL_MASTER_RUBINE_INVADE"
+		Ret.Actions += "ABL_MASTER_RUBINE_INVADE"
+		Ret.Actions += "ABL_MASTER_RUBINE_INVADE"
+	End
+	Return Ret
+End

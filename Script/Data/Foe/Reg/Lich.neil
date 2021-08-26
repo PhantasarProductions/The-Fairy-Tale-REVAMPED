@@ -1,0 +1,230 @@
+// Generated 8/26/2021 8:37:28 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	Ret.DESC = "Yikes, this fellow can be dangerous!"
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/Reg/Lich.png"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_PURELITERATURE"
+	Ret.Drops += "ITM_CARROT"
+	Ret.Drops += "ITM_CARROT"
+	Ret.Drops += "ITM_CARROT"
+	Ret.Drops += "ITM_CARROT"
+	Ret.Drops += "ITM_CARROT"
+	Ret.Drops += "ITM_CARROT"
+	Ret.Drops += "ITM_CARROT"
+	Ret.Drops += "ITM_CARROT"
+	Ret.Drops += "ITM_CARROT"
+	Ret.Drops += "ITM_CARROT"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_AMBROSIA"
+	Ret.Steal += "ITM_ANABOLINEA"
+	Ret.Steal += "EQP_JAKE_AR10"
+	Ret.Steal += "EQP_JAKE_AR10"
+	Ret.Steal += "EQP_JAKE_AR10"
+	Ret.Steal += "EQP_JAKE_AR10"
+	Ret.Steal += "EQP_JAKE_AR10"
+	Ret.Steal += "EQP_JAKE_AR10"
+	Ret.Steal += "EQP_JAKE_AR10"
+	Ret.Steal += "EQP_JAKE_AR10"
+	Ret.Steal += "EQP_JAKE_AR10"
+	Ret.Steal += "EQP_JAKE_AR10"
+	Ret.NAME = "Lich"
+	Ret.ER_DARKNESS = 500
+	Ret.ER_EARTH = 100
+	Ret.ER_FLAME = -25
+	Ret.ER_FROST = 100
+	Ret.ER_LIGHT = -180
+	Ret.ER_LIGHTNING = -100
+	Ret.ER_WATER = 100
+	Ret.ER_WIND = 100
+	Ret.SR_CURSE = 100
+	Ret.SR_DEATH = 100
+	Ret.SR_DISEASE = 100
+	Ret.SR_PARALYSIS = 100
+	Ret.SR_PETRIFICATION = 100
+	Ret.SR_POISON = 100
+	Ret.SR_SILENCE = 100
+	Ret.SR_UNDEAD = 0
+	Ret.VOCALTAG = "Lich"
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 5
+		Ret.Stats.EVASION = 4
+		Ret.Stats.EXP = 100
+		Ret.Stats.HP = 400
+		Ret.Stats.INTELLIGENCE = 480
+		Ret.Stats.POWER = 480
+		Ret.Stats.RESISTANCE = 5
+		Ret.Stats.SPEED = 250
+	Else
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 10
+		Ret.Stats.EVASION = 8
+		Ret.Stats.EXP = 75
+		Ret.Stats.HP = 800
+		Ret.Stats.INTELLIGENCE = 960
+		Ret.Stats.POWER = 960
+		Ret.Stats.RESISTANCE = 10
+		Ret.Stats.SPEED = 500
+	End
+
+	Ret.Actions = {}
+	If True && (Oversoul)
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_FOE_CRUSH"
+		Ret.Actions += "ABL_FOE_CRUSH"
+		Ret.Actions += "ABL_FOE_CRUSH"
+	End
+	If True && (Oversoul) && (__skill!=1) && (__skill!=2)
+		Ret.Actions += "ABL_FOE_DEMON_SOUL_BREAKER"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_FOE_HOLDPERSON"
+		Ret.Actions += "ABL_FOE_HOLDPERSON"
+		Ret.Actions += "ABL_FOE_HOLDPERSON"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_FOE_PARADIVE"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_FOE_TAKEOVER"
+		Ret.Actions += "ABL_FOE_TAKEOVER"
+		Ret.Actions += "ABL_FOE_TAKEOVER"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_FOE_TAKEOVER2"
+		Ret.Actions += "ABL_FOE_TAKEOVER2"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_FOE_TOTALEXHAUSTION"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_HERO_MARRILONA_CHILL"
+		Ret.Actions += "ABL_HERO_MARRILONA_CHILL"
+		Ret.Actions += "ABL_HERO_MARRILONA_CHILL"
+		Ret.Actions += "ABL_HERO_MARRILONA_CHILL"
+		Ret.Actions += "ABL_HERO_MARRILONA_CHILL"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_HERO_MARRILONA_CURSEDHEALING"
+		Ret.Actions += "ABL_HERO_MARRILONA_CURSEDHEALING"
+		Ret.Actions += "ABL_HERO_MARRILONA_CURSEDHEALING"
+		Ret.Actions += "ABL_HERO_MARRILONA_CURSEDHEALING"
+		Ret.Actions += "ABL_HERO_MARRILONA_CURSEDHEALING"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_MASTER_FANDALORA_DARKNESS"
+		Ret.Actions += "ABL_MASTER_FANDALORA_DARKNESS"
+		Ret.Actions += "ABL_MASTER_FANDALORA_DARKNESS"
+		Ret.Actions += "ABL_MASTER_FANDALORA_DARKNESS"
+		Ret.Actions += "ABL_MASTER_FANDALORA_DARKNESS"
+		Ret.Actions += "ABL_MASTER_FANDALORA_DARKNESS"
+		Ret.Actions += "ABL_MASTER_FANDALORA_DARKNESS"
+		Ret.Actions += "ABL_MASTER_FANDALORA_DARKNESS"
+		Ret.Actions += "ABL_MASTER_FANDALORA_DARKNESS"
+		Ret.Actions += "ABL_MASTER_FANDALORA_DARKNESS"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_MASTER_FANDALORA_DARKVISION"
+		Ret.Actions += "ABL_MASTER_FANDALORA_DARKVISION"
+	End
+	If True && (Oversoul) && (__skill!=1)
+		Ret.Actions += "ABL_MASTER_FANDALORA_DEATH"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_MASTER_RUBINE_INVADE"
+		Ret.Actions += "ABL_MASTER_RUBINE_INVADE"
+		Ret.Actions += "ABL_MASTER_RUBINE_INVADE"
+	End
+	Return Ret
+End

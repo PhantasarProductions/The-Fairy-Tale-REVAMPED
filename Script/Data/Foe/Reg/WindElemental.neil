@@ -1,0 +1,180 @@
+// Generated 8/26/2021 8:37:43 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	Ret.DESC = "It's solely composed of air.\nIs there something you can do?"
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/Reg/WindElemental.png"
+	Ret.Drops += "ITM_CARROTS"
+	Ret.Drops += "ITM_CARROTS"
+	Ret.Drops += "ITM_CARROTS"
+	Ret.Drops += "ITM_CARROTS"
+	Ret.Drops += "ITM_CARROTS"
+	Ret.Drops += "ITM_CARROTS"
+	Ret.Drops += "ITM_CARROTS"
+	Ret.Drops += "ITM_CARROTS"
+	Ret.Drops += "ITM_CARROTS"
+	Ret.Drops += "ITM_CARROTS"
+	Ret.Drops += "ITM_CARROTS"
+	Ret.Drops += "ITM_CARROTS"
+	Ret.Drops += "ITM_CARROTS"
+	Ret.Drops += "ITM_CARROTS"
+	Ret.Drops += "ITM_CARROTS"
+	Ret.Drops += "ITM_CARROTS"
+	Ret.Drops += "ITM_CARROTS"
+	Ret.Drops += "ITM_CARROTS"
+	Ret.Drops += "ITM_CARROTS"
+	Ret.Drops += "ITM_CARROTS"
+	Ret.Drops += "ITM_CARROTS"
+	Ret.Drops += "ITM_CARROTS"
+	Ret.Drops += "ITM_CARROTS"
+	Ret.Drops += "ITM_CARROTS"
+	Ret.Drops += "ITM_CARROTS"
+	Ret.Drops += "ITM_CARROTS"
+	Ret.Drops += "ITM_CARROTS"
+	Ret.Drops += "ITM_CARROTS"
+	Ret.Drops += "ITM_CARROTS"
+	Ret.Drops += "ITM_CARROTS"
+	Ret.Drops += "EQP_ACC_THIEFCLOAK"
+	Ret.Drops += "EQP_ACC_THIEFCLOAK"
+	Ret.Drops += "EQP_ACC_THIEFCLOAK"
+	Ret.Steal += "WAND_II_HURRICANE"
+	Ret.Steal += "ITM_TRUMPCARD"
+	Ret.Steal += "ITM_TRUMPCARD"
+	Ret.Steal += "ITM_TRUMPCARD"
+	Ret.Steal += "ITM_TRUMPCARD"
+	Ret.Steal += "ITM_TRUMPCARD"
+	Ret.Steal += "ITM_TRUMPCARD"
+	Ret.Steal += "ITM_TRUMPCARD"
+	Ret.Steal += "ITM_TRUMPCARD"
+	Ret.Steal += "ITM_TRUMPCARD"
+	Ret.Steal += "ITM_TRUMPCARD"
+	Ret.Steal += "ITM_TRUMPCARD"
+	Ret.Steal += "ITM_TRUMPCARD"
+	Ret.Steal += "ITM_TRUMPCARD"
+	Ret.Steal += "ITM_TRUMPCARD"
+	Ret.Steal += "ITM_TRUMPCARD"
+	Ret.Steal += "ITM_ANABOLINEA"
+	Ret.Steal += "ITM_ANABOLINEA"
+	Ret.NAME = "Wind Elemental"
+	Ret.CASH = 5
+	Ret.ER_DARKNESS = 100
+	Ret.ER_EARTH = -500
+	Ret.ER_FLAME = 100
+	Ret.ER_FROST = 100
+	Ret.ER_LIGHT = 100
+	Ret.ER_LIGHTNING = 100
+	Ret.ER_WATER = 100
+	Ret.ER_WIND = 200
+	Ret.SR_CONFUSION = 100
+	Ret.SR_CURSE = 100
+	Ret.SR_DEATH = 25
+	Ret.SR_DISEASE = 100
+	Ret.SR_PARALYSIS = 100
+	Ret.SR_PETRIFICATION = 100
+	Ret.SR_POISON = 100
+	Ret.SR_SILENCE = 100
+	Ret.SR_SLEEP = 100
+	Ret.SR_UNDEAD = 100
+	Ret.VOCALTAG = "WindElemental"
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 10
+		Ret.Stats.EVASION = 100
+		Ret.Stats.EXP = 75
+		Ret.Stats.HP = 250
+		Ret.Stats.INTELLIGENCE = 700
+		Ret.Stats.POWER = 10
+		Ret.Stats.RESISTANCE = 600
+		Ret.Stats.SPEED = 10000
+	Else
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 5
+		Ret.Stats.EVASION = 100
+		Ret.Stats.EXP = 125
+		Ret.Stats.HP = 500
+		Ret.Stats.INTELLIGENCE = 1400
+		Ret.Stats.POWER = 5
+		Ret.Stats.RESISTANCE = 1200
+		Ret.Stats.SPEED = 2000
+	End
+
+	Ret.Actions = {}
+	If True && (Oversoul) && (__skill!=3)
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+	End
+	If True && (Oversoul) && (__skill!=3)
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_FOE_CURSEDWIND"
+		Ret.Actions += "ABL_FOE_CURSEDWIND"
+		Ret.Actions += "ABL_FOE_CURSEDWIND"
+		Ret.Actions += "ABL_FOE_CURSEDWIND"
+		Ret.Actions += "ABL_FOE_CURSEDWIND"
+		Ret.Actions += "ABL_FOE_CURSEDWIND"
+		Ret.Actions += "ABL_FOE_CURSEDWIND"
+		Ret.Actions += "ABL_FOE_CURSEDWIND"
+		Ret.Actions += "ABL_FOE_CURSEDWIND"
+	End
+	If True && (Oversoul) && (__skill!=1) && (__skill!=2)
+		Ret.Actions += "ABL_FOE_FOOLGOLD"
+		Ret.Actions += "ABL_FOE_FOOLGOLD"
+		Ret.Actions += "ABL_FOE_FOOLGOLD"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_HERO_MARRILONA_BREEZE"
+		Ret.Actions += "ABL_HERO_MARRILONA_BREEZE"
+		Ret.Actions += "ABL_HERO_MARRILONA_BREEZE"
+		Ret.Actions += "ABL_HERO_MARRILONA_BREEZE"
+		Ret.Actions += "ABL_HERO_MARRILONA_BREEZE"
+		Ret.Actions += "ABL_HERO_MARRILONA_BREEZE"
+		Ret.Actions += "ABL_HERO_MARRILONA_BREEZE"
+		Ret.Actions += "ABL_HERO_MARRILONA_BREEZE"
+		Ret.Actions += "ABL_HERO_MARRILONA_BREEZE"
+		Ret.Actions += "ABL_HERO_MARRILONA_BREEZE"
+		Ret.Actions += "ABL_HERO_MARRILONA_BREEZE"
+		Ret.Actions += "ABL_HERO_MARRILONA_BREEZE"
+		Ret.Actions += "ABL_HERO_MARRILONA_BREEZE"
+		Ret.Actions += "ABL_HERO_MARRILONA_BREEZE"
+		Ret.Actions += "ABL_HERO_MARRILONA_BREEZE"
+		Ret.Actions += "ABL_HERO_MARRILONA_BREEZE"
+		Ret.Actions += "ABL_HERO_MARRILONA_BREEZE"
+		Ret.Actions += "ABL_HERO_MARRILONA_BREEZE"
+		Ret.Actions += "ABL_HERO_MARRILONA_BREEZE"
+		Ret.Actions += "ABL_HERO_MARRILONA_BREEZE"
+		Ret.Actions += "ABL_HERO_MARRILONA_BREEZE"
+		Ret.Actions += "ABL_HERO_MARRILONA_BREEZE"
+		Ret.Actions += "ABL_HERO_MARRILONA_BREEZE"
+		Ret.Actions += "ABL_HERO_MARRILONA_BREEZE"
+		Ret.Actions += "ABL_HERO_MARRILONA_BREEZE"
+	End
+	If True && (Oversoul)
+		Ret.Actions += "ABL_HERO_MARRILONA_CHILL"
+		Ret.Actions += "ABL_HERO_MARRILONA_CHILL"
+		Ret.Actions += "ABL_HERO_MARRILONA_CHILL"
+	End
+	If True && (Oversoul) && (__skill!=1)
+		Ret.Actions += "ABL_HERO_MARRILONA_HURRICANE"
+	End
+	Return Ret
+End

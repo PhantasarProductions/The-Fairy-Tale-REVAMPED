@@ -1,0 +1,207 @@
+// Generated 8/26/2021 8:37:18 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	If Oversoul
+		Lua.error("Enemy 'Reg/DragonKeeper' does not support oversoul!")
+	End
+
+	Ret.DESC = "Dead and cursed.\nThese poor souls are what is left of the \nonce proud order of Dragon Keepers,\nheld in high regard by everyone. \nNow they are cursed lost souls\nwho will very likely never find rest."
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/reg/DragonKeeper/"
+	Ret.Drops += "ITM_CARROT"
+	Ret.Drops += "ITM_CARROT"
+	Ret.Drops += "ITM_CARROT"
+	Ret.Drops += "ITM_POTION"
+	Ret.Drops += "ITM_POTION"
+	Ret.Drops += "ITM_POTION"
+	Ret.Drops += "ITM_POTION"
+	Ret.Drops += "ITM_POTION"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_FLAMEORB"
+	Ret.Steal += "ITM_PURELITERATURE"
+	Ret.Steal += "ITM_PURELITERATURE"
+	Ret.Steal += "EQP_JEWEL_SMALLTOPAZ"
+	Ret.NAME = "Dragon Keeper"
+	Ret.CASH = 10
+	Ret.ER_DARKNESS = 200
+	Ret.ER_EARTH = 100
+	Ret.ER_FLAME = -65
+	Ret.ER_FROST = 100
+	Ret.ER_LIGHT = -180
+	Ret.ER_LIGHTNING = -100
+	Ret.ER_WATER = 80
+	Ret.ER_WIND = 75
+	Ret.SR_CURSE = 100
+	Ret.SR_DEATH = 100
+	Ret.SR_DISEASE = 100
+	Ret.SR_PARALYSIS = 100
+	Ret.SR_PETRIFICATION = 100
+	Ret.SR_POISON = 100
+	Ret.SR_SILENCE = 100
+	Ret.SR_UNDEAD = 100
+	Ret.VOCALTAG = "DragonKeeper"
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 50
+		Ret.Stats.EVASION = 5
+		Ret.Stats.EXP = 10
+		Ret.Stats.HP = 500
+		Ret.Stats.INTELLIGENCE = 180
+		Ret.Stats.POWER = 180
+		Ret.Stats.RESISTANCE = 50
+		Ret.Stats.SPEED = 60
+	End
+
+	Ret.Actions = {}
+	If True
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+	End
+	If True
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_CHILL"
+		Ret.Actions += "ABL_HERO_MARRILONA_CHILL"
+		Ret.Actions += "ABL_HERO_MARRILONA_CHILL"
+		Ret.Actions += "ABL_HERO_MARRILONA_CHILL"
+		Ret.Actions += "ABL_HERO_MARRILONA_CHILL"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_ETERNALFLAME"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_PROTECT"
+		Ret.Actions += "ABL_HERO_MARRILONA_PROTECT"
+		Ret.Actions += "ABL_HERO_MARRILONA_PROTECT"
+		Ret.Actions += "ABL_HERO_MARRILONA_PROTECT"
+		Ret.Actions += "ABL_HERO_MARRILONA_PROTECT"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_ROCK"
+		Ret.Actions += "ABL_HERO_MARRILONA_ROCK"
+		Ret.Actions += "ABL_HERO_MARRILONA_ROCK"
+		Ret.Actions += "ABL_HERO_MARRILONA_ROCK"
+		Ret.Actions += "ABL_HERO_MARRILONA_ROCK"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_SPLASH"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPLASH"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPLASH"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPLASH"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPLASH"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_ZAP"
+		Ret.Actions += "ABL_HERO_MARRILONA_ZAP"
+		Ret.Actions += "ABL_HERO_MARRILONA_ZAP"
+		Ret.Actions += "ABL_HERO_MARRILONA_ZAP"
+		Ret.Actions += "ABL_HERO_MARRILONA_ZAP"
+	End
+	If True
+		Ret.Actions += "ABL_MASTER_RUBINE_BACKSTAB"
+	End
+	Return Ret
+End
