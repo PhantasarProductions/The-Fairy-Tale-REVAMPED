@@ -1,6 +1,6 @@
 // License Information:
-// src/Tricky Script/Script/Flow/FlowCombat.neil
-// Version: 21.08.26
+// src/Tricky Script/Script/Flow/FlowCombat/Class_Hero.neil
+// Version: 21.08.27
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -35,46 +35,8 @@
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
 
-#use "Script/Use/Anyway"
-#use "libs/LinkedList"
-
-#macro _ASW 1200
-#macro _ASH 900
-
-
-Table _real = {}
-
-QuickMeta FlowCombat
-	Index
-		plua k = Key:upper()
-		If !_real[k]
-			Lua.error("No field named: "..Key)
-		End
-		return _real[k]		
-	End
-	NewIndex
-		Lua.error("Sorry! All fields of FlowField are ReadOnly!")
-	End
+Class Hero Extends Fighter
+	
 End
 
-Init
-	Screen.NewAlt(_ASW,_ASH,"COMBAT")
-	Table Bundle = JCR6.GetDir("Script/Flow/FlowCombat")
-	int Aantal = #Bundle
-	Progress.Create("LOADCOMBAT",Aantal,255,0,0)
-	CSayF("Loading %d combat sub-modules!",#Bundle)
-	For idx,File in iPairs(Bundle)
-		Progress.LOADCOMBAT=idx
-		Loading()
-		Table Gespleten = Split(File,"/")
-		String Gestript = Gespleten[#Gespleten]:upper()
-		Gestript = Replace(Gestript,".NEIL","")
-		If Prefixed(File,"#") || Suffixed(File,"#")
-			CSayF("Skipping section %d/%d: %s => %s",idx,Aantal,File,Gestript)
-		Else
-			CSayF(" Loading section %d/%d: %s => %s",idx,Aantal,File,Gestript)
-			_real[Gestript] = NeilUse(Replace(File:upper(),".NEIL",""),"FLOWCOMABAT."..Gestript)
-		End
-	End	
-	Progress.Kill("LOADCOMBAT")
-End
+Return Foe

@@ -1,6 +1,6 @@
 // License Information:
-// src/Tricky Script/Script/Flow/FlowCombat.neil
-// Version: 21.08.26
+// src/Tricky Script/Script/Flow/FlowCombat/AAA_Fighter.neil
+// Version: 21.08.27
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -34,47 +34,64 @@
 // misrepresented as being the original software.
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
-
-#use "Script/Use/Anyway"
-#use "libs/LinkedList"
-
-#macro _ASW 1200
-#macro _ASH 900
-
-
-Table _real = {}
-
-QuickMeta FlowCombat
-	Index
-		plua k = Key:upper()
-		If !_real[k]
-			Lua.error("No field named: "..Key)
+Class Fighter
+	Static Table ByTag = {}
+	Static Table ByTeam = {}
+	
+	ReadOnly String Tag
+	ReadOnly String Team
+	Readonly Var Stats
+	
+	Get Var Char
+		Return RPGChar[Tag]
+	End
+	
+	Get Int HP
+		Return Char.Points.HP.Have
+	End
+	Set Int HP
+		Char.Points.HP.Have = value
+	End
+	Get Int HPMax
+		Return Char.Points.HP.Maximum
+	End
+	Get Int AP
+		Return 0
+	End
+	Get Int APMax
+		Return 0
+	End
+	
+	Int X
+	Int Y
+	
+	
+	Abstract Void Draw()
+	
+	
+	Static Void ClearAll()
+		ByTag = {}
+		ByTeam = {["Hero"] = {}, ["Foe"]={} }
+	End
+	
+	// First upper rest lower
+	Static String FURL(string s)
+		Return (Left(s,1):upper())..(Right(s,#s-1):lower())
+	End
+	
+	Constructor(String _Tag,String _Team)
+		Tag  = _Tag
+		Team = _Team
+		ByTag[Tag] = Self
+		ByTeam[Team][Tag] = Self
+		
+		Int _stat_index(s,string Key)
+			return Char.Stat["END_"..FURL(Key)]
 		End
-		return _real[k]		
+		Stats = Lua.setmetatable({},{["__index"]=_stat_index})
+		CSayF("Created fighter '%s' for team: %s",_Tag,_Team)
 	End
-	NewIndex
-		Lua.error("Sorry! All fields of FlowField are ReadOnly!")
-	End
+	
 End
 
-Init
-	Screen.NewAlt(_ASW,_ASH,"COMBAT")
-	Table Bundle = JCR6.GetDir("Script/Flow/FlowCombat")
-	int Aantal = #Bundle
-	Progress.Create("LOADCOMBAT",Aantal,255,0,0)
-	CSayF("Loading %d combat sub-modules!",#Bundle)
-	For idx,File in iPairs(Bundle)
-		Progress.LOADCOMBAT=idx
-		Loading()
-		Table Gespleten = Split(File,"/")
-		String Gestript = Gespleten[#Gespleten]:upper()
-		Gestript = Replace(Gestript,".NEIL","")
-		If Prefixed(File,"#") || Suffixed(File,"#")
-			CSayF("Skipping section %d/%d: %s => %s",idx,Aantal,File,Gestript)
-		Else
-			CSayF(" Loading section %d/%d: %s => %s",idx,Aantal,File,Gestript)
-			_real[Gestript] = NeilUse(Replace(File:upper(),".NEIL",""),"FLOWCOMABAT."..Gestript)
-		End
-	End	
-	Progress.Kill("LOADCOMBAT")
-End
+Return Fighter

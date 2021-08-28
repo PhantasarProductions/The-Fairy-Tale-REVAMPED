@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Start.neil
-// Version: 21.08.26
+// Version: 21.08.27
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -49,6 +49,7 @@ Module
 	Var LastFoe = Nil
 	
 	Void StartPreparation()
+		Fighter.ClearAll()
 		FoeList = New LinkedList()
 	End
 	
@@ -80,6 +81,11 @@ Module
 	End
 	
 	Void Start()
+		For F in FoeList
+			Var MF = Foe.Compile(F.Foe,NeilUse("Script/Data/Foe/"..F.Foe))
+			MF.X = F.X
+			MF.Y = F.Y
+		End
 		Music()
 	End
 End
