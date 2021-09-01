@@ -1,5 +1,5 @@
 // License Information:
-// src/Tricky Script/Script/Flow/FlowCombat/Class_Hero.neil
+// src/Tricky Script/Script/Flow/FlowCombat/DrawScreen.neil
 // Version: 21.08.28
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
@@ -34,9 +34,41 @@
 // misrepresented as being the original software.
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
+Module
 
-Class Hero Extends Fighter
+	Delegate ArenaPre
+	Delegate ArenaPst
+	Var      ArenaImg
 	
-End
+	Void LoadArena(string Ar)
+		String ArN = Replace(Ar:upper(),".PNG","")
+		String ArI = ("GFX/Combat/Arena/"..Ar):upper()
+		If (Right(Ari,4)!=".PNG") 
+			ArI += ".PNG"
+		End
+		If JCR6.EntryExists(ArI)
+			CSayF("Loading arena image: %s",ArI)
+			ArenaImg = Image.Load(ArI)
+		Else
+			CSayF("Skipped loading arena image: %s (does not exist)",ArI)
+		End
+		If JCR6.EntryExists("Script/Data/Arena/"..ArN..".neil")
+			NeilUse("Script/Data/Arena/"..ArN)
+		End
+	End
 
-Return Foe
+	Void Run()
+		// Arena
+		ArenaPre()
+		If ArenaImg
+			ArenaImg.ASDraw("COMBAT",0,0)
+		End
+		ArenaPst()
+	End
+	
+	Constructor
+		ArenaPre = Niks
+		ArenaPst = Niks
+	End
+
+End

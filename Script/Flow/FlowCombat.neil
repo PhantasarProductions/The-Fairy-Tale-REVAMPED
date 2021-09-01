@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat.neil
-// Version: 21.08.26
+// Version: 21.08.28
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -39,7 +39,7 @@
 #use "libs/LinkedList"
 
 #macro _ASW 1200
-#macro _ASH 900
+#macro _ASH 980
 
 
 Table _real = {}
@@ -77,4 +77,9 @@ Init
 		End
 	End	
 	Progress.Kill("LOADCOMBAT")
+End
+
+Global Void Apollo_Flow()
+	Dev.ToConsole()
+	FlowCombat.DrawScreen.Run()
 End

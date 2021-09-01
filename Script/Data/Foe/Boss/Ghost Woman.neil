@@ -1,4 +1,4 @@
-// Generated 8/26/2021 8:36:53 PM
+// Generated 8/28/2021 5:55:39 PM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -306,3 +306,5 @@ Table _R(Bool Oversoul)
 	End
 	Return Ret
 End
+Return _R
+

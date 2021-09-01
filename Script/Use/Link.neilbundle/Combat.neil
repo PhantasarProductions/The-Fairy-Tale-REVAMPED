@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Link.neilbundle/Combat.neil
-// Version: 21.08.26
+// Version: 21.08.28
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -111,7 +111,7 @@ Module
 	End
 	
 	Set String Music
-		ISSet("String","FLOW_COMBAT","FLowCombat.Start.Music",value)
+		ISSet("String","FLOW_COMBAT","FLowCombat.Start.FMusic",value)
 	End
 	
 

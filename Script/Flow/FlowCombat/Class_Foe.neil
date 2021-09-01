@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Class_Foe.neil
-// Version: 21.08.27
+// Version: 21.08.28
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -62,26 +62,26 @@ Class Foe Extends Fighter
 	End
 	
 	Static String MakeTag(int _n)
-		return sPrintF("FOE%03d",n)
+		return sPrintF("FOE%03d",_n)
 	End
 	
 	Static Var Compile(string F,var Rw,int _num=0,_oversoul)
-		If _num=0
+		If _num==0
 			Repeat
 				_num++
 			LoopWhile Self.ByTag[MakeTag(_num)]
 		End
 		CSayF("Compiling Foe: %s on spot %03d",F,_num)
 		Var WFoe = new Foe(MakeTag(_num),"Foe")
-		Oversoul = _oversoul==true
-		WFoe.Raw = Rw(Oversoul)
+		WFoe.Oversoul = _oversoul==true
+		WFoe.Raw = Rw(WFoe.Oversoul)
 		WFoe.NorImage = Image.Load(WFoe.Raw.IMAGE,"NOR"..WFoe.Tag)
-		WFoe.NegImage = Image.Load(Replace(Raw.IMAGE:upper(),".PNG",".NEGATIVE.PNG"),"NEG"..WFOE.Tag)
+		WFoe.NegImage = Image.Load(Replace(WFoe.Raw.IMAGE:upper(),".PNG",".NEGATIVE.PNG"),"NEG"..WFOE.Tag)
 		WFoe.NorImage.HotBottomCenter()
 		WFoe.NegImage.HotBottomCenter()
 		RPGChar.Create(WFoe.Tag)
-		WFoe.Char.Name=WFoe.Raw.Name		
-		For k,v in Pairs(Raw.Stats)
+		WFoe.Char.Name=WFoe.Raw.NAME
+		For k,v in Pairs(WFoe.Raw.Stats)
 			If k!="EXP"
 				string Key                        = self.FURL(k)
 				WFoe.Char.Stats["BASE_"..Key]     = v
@@ -91,8 +91,11 @@ Class Foe Extends Fighter
 			End
 		End
 		WFoe.Char.Points.HP.MaxCopy  = "END_HP"
-		WFoe.Char.Points.HP.Have     = RPGChar[char].Points.HP.Maximum
+		WFoe.Char.Points.HP.Have     = WFoe.Char.Points.HP.Maximum
 		Return WFoe
+	End
+	
+	Void Draw()
 	End
 End
 

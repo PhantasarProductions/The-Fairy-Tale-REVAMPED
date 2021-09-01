@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField/Renc.neil
-// Version: 21.08.26
+// Version: 21.08.28
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -123,7 +123,7 @@ module
 		End
 		Lua.assert(#Enemies>0,"I cannot run a Random Encounter without any monsters set")
 		For i=1,num 
-			Combat.NewEnemy = Enemies[math.random(1,#Enemies)]
+			Combat.NewEnemy = "Reg/"..Enemies[math.random(1,#Enemies)]
 		end
 		FlowField.Map.StopWalking()
 		Combat.Start()

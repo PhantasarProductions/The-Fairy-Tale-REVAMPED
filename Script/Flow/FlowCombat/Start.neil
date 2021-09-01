@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Start.neil
-// Version: 21.08.27
+// Version: 21.08.28
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -44,7 +44,7 @@ Module
 
 	Var FoeList
 	String Arena
-	String Music
+	String FMusic
 	String Lose = "ERROR"
 	Var LastFoe = Nil
 	
@@ -64,8 +64,8 @@ Module
 		FoeList.AddLast(LastFoe)
 	End
 	
-	Void Music()
-		Switch Music:upper()
+	Void StartMusic()
+		Switch FMusic:upper()
 			Case "*RANDOM"
 				Table Bundle = JCR6.GetDir("Music/Combat/RandomEncounter")
 				Music.Push()
@@ -81,11 +81,13 @@ Module
 	End
 	
 	Void Start()
-		For F in FoeList
+		For F in FoeList.Each
 			Var MF = Foe.Compile(F.Foe,NeilUse("Script/Data/Foe/"..F.Foe))
 			MF.X = F.X
 			MF.Y = F.Y
 		End
-		Music()
+		FlowCombat.DrawScreen.LoadArena(Arena)
+		StartMusic()
+		Flow.Current="COMBAT"
 	End
 End
