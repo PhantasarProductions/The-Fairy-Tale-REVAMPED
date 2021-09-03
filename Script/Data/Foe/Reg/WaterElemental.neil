@@ -1,4 +1,4 @@
-// Generated 8/28/2021 5:56:29 PM
+// Generated 9/3/2021 5:50:03 PM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -9,6 +9,7 @@ Table _R(Bool Oversoul)
 	Ret.Steal = {}
 
 	Ret.AI = "default"
+	Ret.Boss = false
 	Ret.DESC = "Composed of pure water.\nAnd water is not only the source of life.\nIt can also be the source of DEATH!"
 	Ret.IMAGE = "GFX/Combat/Fighters/Foe/Reg/WaterElemental.png"
 	Ret.Drops += "ITM_POCKETTSUNAMI"
