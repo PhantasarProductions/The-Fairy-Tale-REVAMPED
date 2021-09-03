@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/AAA_Fighter.neil
-// Version: 21.08.28
+// Version: 21.09.02
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -38,9 +38,20 @@ Class Fighter
 	Static Table ByTag = {}
 	Static Table ByTeam = {}
 	
-	ReadOnly String Tag
-	ReadOnly String Team
-	Readonly Var Stats
+	String Tag
+	String Team
+	Var Stats
+	
+	String Stage = "IDLE"
+	
+	// This seems useless, but allows me to override in Heros
+	Bool _DrawThis = True
+	Get Bool DrawThis
+		Return _DrawThis
+	End
+	Set Bool DrawThis
+		_DrawThis = Value
+	End
 	
 	Get Var Char
 		Return RPGChar[Tag]
@@ -79,7 +90,7 @@ Class Fighter
 		Return (Left(s,1):upper())..(Right(s,#s-1):lower())
 	End
 	
-	Constructor(String _Tag,String _Team)
+	Void SetUp(String _Tag,String _Team)
 		Tag  = _Tag
 		Team = _Team
 		ByTag[Tag] = Self
@@ -90,6 +101,14 @@ Class Fighter
 		End
 		Stats = Lua.setmetatable({},{["__index"]=_stat_index})
 		CSayF("Created fighter '%s' for team: %s",_Tag,_Team)
+	End
+	
+	Static Void DrawAll(Bool AllowTarget)
+		For FTag,FDat in Pairs(ByTag)
+			If FDat.DrawThis
+				FDat.Draw()
+			End
+		End
 	End
 	
 End

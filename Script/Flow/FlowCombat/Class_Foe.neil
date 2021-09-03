@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Class_Foe.neil
-// Version: 21.08.28
+// Version: 21.09.02
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -43,6 +43,18 @@ Class Foe Extends Fighter
 	Var NorImage
 	Var NegImage
 	
+	Get Bool TarByFoe
+		Return Self.HP>9
+	End
+	Get Bool TarByHero
+		Return Self.HP>9
+	End
+	
+		
+	
+	Number DeadScale = 1
+	Int FlashCount
+	
 	Bool Oversoul	
 	
 	Int Num
@@ -72,7 +84,8 @@ Class Foe Extends Fighter
 			LoopWhile Self.ByTag[MakeTag(_num)]
 		End
 		CSayF("Compiling Foe: %s on spot %03d",F,_num)
-		Var WFoe = new Foe(MakeTag(_num),"Foe")
+		Var WFoe = new Foe()
+		WFoe.Setup(MakeTag(_num),"Foe")
 		WFoe.Oversoul = _oversoul==true
 		WFoe.Raw = Rw(WFoe.Oversoul)
 		WFoe.NorImage = Image.Load(WFoe.Raw.IMAGE,"NOR"..WFoe.Tag)
@@ -84,10 +97,14 @@ Class Foe Extends Fighter
 		For k,v in Pairs(WFoe.Raw.Stats)
 			If k!="EXP"
 				string Key                        = self.FURL(k)
+				If Key:upper()=="HP" 
+					Key="HP"
+				End
 				WFoe.Char.Stats["BASE_"..Key]     = v
 				WFoe.Char.Stats["BUFF_"..Key]     = 0
 				WFoe.Char.Stats["END_" ..Key]     = 0
 				WFoe.Char.StatScript["END_"..Key] = "SUM:"..WFoe.Tag..".".."BUFF_"..Key..".".."BASE_"..Key
+				CSayF("- Stat.%s = { BASE = %d, END = %d }",Key,WFoe.Char.Stats["BASE_"..Key],WFoe.Char.Stats["END_"..Key])
 			End
 		End
 		WFoe.Char.Points.HP.MaxCopy  = "END_HP"
@@ -96,6 +113,29 @@ Class Foe Extends Fighter
 	End
 	
 	Void Draw()
+		If self.HP==0
+			Self.Stage="KO"
+		End
+		Switch Self.Stage
+			Case "IDLE"
+				NorImage.ASDraw("COMBAT",Self.X,Self.Y)
+			Case "KO"
+				Lua.error("Death animation not yet done")
+			Default
+				Static Bool Neg
+				If FPS.Ticks % 25
+					Neg = !Neg
+					FlashCount = (FlashCount+1) % 5
+					If FlashCount==0
+						Self.Stage = "IDLE"
+					End
+				End
+				If Neg
+					NegImage.ASDraw("COMBAT",Self.X,Self.Y)
+				Else
+					NorImage.ASDraw("COMBAT",Self.X,Self.Y)
+				End
+		End
 	End
 End
 

@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/DrawScreen.neil
-// Version: 21.08.28
+// Version: 21.09.02
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -64,6 +64,8 @@ Module
 			ArenaImg.ASDraw("COMBAT",0,0)
 		End
 		ArenaPst()
+		// Fighters
+		Fighter.DrawAll()
 	End
 	
 	Constructor

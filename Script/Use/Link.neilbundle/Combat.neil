@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Link.neilbundle/Combat.neil
-// Version: 21.08.28
+// Version: 21.09.02
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -38,7 +38,7 @@
 
 Module
 
-	Const Int PLineInt=2
+	Const Number PLineInt=0.50
 	
 	Get Int MidX
 		Return Screen.W div 2
@@ -58,6 +58,7 @@ Module
 			lua.error("No music timing for boss yet!")
 		End
 		Int Time = 125
+		Int m = 360-math.random(0,125)
 		If BossHead!=""
 			Time = 500
 			Lua.error("Boss intro not yet fully set up")
@@ -65,7 +66,8 @@ Module
 		Repeat		
 			Graphics.Cls()
 			For li = 0,360,PLineInt
-				number ci = math.abs(xmath.Cos(li+Time))
+				//number ci = math.abs(xmath.Cos(li+((FPS.Ticks div 10) % 360)))
+				number ci = math.abs(xmath.Cos(li+Time+m))
 				Graphics.Color(math.floor(R*ci),math.floor(G*ci),math.floor(B*ci))
 				Graphics.Line(MidX,MidY,MidX+math.floor(xmath.sin(li)*Radius),MidY+math.floor(xmath.cos(li)*radius))
 			End

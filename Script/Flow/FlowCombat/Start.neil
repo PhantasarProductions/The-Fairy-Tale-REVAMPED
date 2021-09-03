@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Start.neil
-// Version: 21.08.28
+// Version: 21.09.02
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -58,9 +58,11 @@ Module
 		Int Col = Aantal div 3
 		Int Row = Aantal % 3
 		Int X = ((Col+1)*(_ASW div 5))-(row*(_ASW div 15))
-		Int Y = (_ASH div 2) + (row * (_ASH div 8))
+		Int Y = (_ASH div 2) + (row * (_ASH div 8)) + 20
 		LastFoe = New InitFoe()
 		LastFoe.Foe = F
+		LastFoe.X = X
+		LastFoe.Y = Y
 		FoeList.AddLast(LastFoe)
 	End
 	
@@ -82,9 +84,15 @@ Module
 	
 	Void Start()
 		For F in FoeList.Each
+			CSayF("Adding foe %s on position (%04d,%04d)",F.Foe,F.X,F.Y)
 			Var MF = Foe.Compile(F.Foe,NeilUse("Script/Data/Foe/"..F.Foe))
 			MF.X = F.X
 			MF.Y = F.Y
+		End
+		For i=1,4
+			If RPGParty[i] && RPGParty[i]!=""
+				Hero.Compile(RPGParty[i])
+			End
 		End
 		FlowCombat.DrawScreen.LoadArena(Arena)
 		StartMusic()

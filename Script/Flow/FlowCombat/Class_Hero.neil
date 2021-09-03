@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Class_Hero.neil
-// Version: 21.08.28
+// Version: 21.09.03
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -36,6 +36,46 @@
 // End License Information
 
 Class Hero Extends Fighter
+
+	Int Num
+	Int AttackFrame = 0
+	Const Int AttackFrames = 100
+	Const Var Images = {}
+	
+	Get Bool DrawThis
+		return RPGParty[num] == self.Tag
+	End
+
+	Static Void Compile(String _Tag)
+		Var WHero = new Hero()
+		WHero.Setup(_Tag,"Hero")
+		WHero.Num = Party.MemNum(_Tag)
+		WHero.Y = (((_ASH - 600) div (Party.Count+1)) * WHero.Num) + 500
+		WHero.X = (_ASW div 2) + ( ((_ASW div 2) div (Party.Count+1)) * WHero.Num)
+	End
+	
+	Void Draw()
+		Static String Format = "GFX/Combat/Fighters/Hero/%s.%s.png"
+		String DTag = Self.Stage
+		if Self.HP==0
+			Self.Stage="KO"
+		End
+		Switch Self.Stage
+			Case "ATTACK"
+				DTag = SprintF("Attack.%d",math.max(1,AttackFrame div 3))				
+			Case "KO"
+				If Self.HP>0
+					Self.Stage="IDLE"
+				End
+			Default
+		End
+		Image.AltScale("COMBAT",2,2)
+		String ITag = self.Tag.."."..DTag
+		Images[ITag] = Images[ITag] || Image.LoadNew(SprintF(Format,Self.Tag,DTag),ITag)
+		Images[ITag].HotBottomCenter()
+		Images[ITag].ASDraw("COMBAT",Self.X,Self.Y)
+		Image.AltScale("COMBAT",1,1)
+	End
 	
 End
 
