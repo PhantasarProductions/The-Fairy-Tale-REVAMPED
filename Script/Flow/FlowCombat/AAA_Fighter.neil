@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/AAA_Fighter.neil
-// Version: 21.09.02
+// Version: 21.09.04
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -41,6 +41,7 @@ Class Fighter
 	String Tag
 	String Team
 	Var Stats
+	Int CardResetSpot = 0
 	
 	String Stage = "IDLE"
 	

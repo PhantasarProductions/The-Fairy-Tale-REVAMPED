@@ -1,5 +1,5 @@
 // License Information:
-// src/Tricky Script/Script/Flow/FlowCombat.neil
+// src/Tricky Script/Script/Flow/FlowCombat/AAA_Stage.neil
 // Version: 21.09.04
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
@@ -34,54 +34,63 @@
 // misrepresented as being the original software.
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
-
-#use "Script/Use/Anyway"
-#use "libs/LinkedList"
-
-#macro _ASW 1200
-#macro _ASH 980
-
-
-Table _real = {}
-
-QuickMeta FlowCombat
-	Index
-		plua k = Key:upper()
-		If !_real[k]
-			Lua.error("No field named: "..Key)
-		End
-		return _real[k]		
+Class Stage
+	Static Table Map = {}
+	Static Var _Current
+	Static Get Var Current
+		_Current = _Current || Map.IDLE
+		return _Current
 	End
-	NewIndex
-		Lua.error("Sorry! All fields of FlowField are ReadOnly!")
+	Static Set Var Current
+		if Lua.type(Value)=="string"
+			_Current = Map[Value:upper()]
+			Lua.assert(_Current,"No combat stage called \""..Value.."\" present!")
+			CSayF("Combat stage is now set to %s",Value)
+		Else			
+			_Current = Value || Map.IDLE
+		End
+		
+	End	
+	
+	Static Void Register(string Name,St)
+		Map[name:upper()]=st
+		CSayF("Combat Stage %s contains %s",Name,lua.tostring(st))
+	End
+	
+	Void Draw()
+	End
+	
+	Abstract Void Update()
+	
+End
+
+Class Stage_IDLE extends Stage
+	
+	Get Var Cards
+		Return FlowCombat.Cards
+	End
+
+	Void Update()		
+		If !Cards.Present(1)
+			Cards.DelFirst()
+		End
+	End
+End
+
+Class Stage_Wait extends Stage
+	Int Time
+	Void Update()
+		Time = (Time+1) % 200
+		//CSayF("Wait time: %03d",Time)
+		If Time==0
+			Stage.Current=nil
+		End
 	End
 End
 
 Init
-	Screen.NewAlt(_ASW,_ASH,"COMBAT")
-	Table Bundle = JCR6.GetDir("Script/Flow/FlowCombat")
-	int Aantal = #Bundle
-	Progress.Create("LOADCOMBAT",Aantal,255,0,0)
-	CSayF("Loading %d combat sub-modules!",#Bundle)
-	For idx,File in iPairs(Bundle)
-		Progress.LOADCOMBAT=idx
-		Loading()
-		Table Gespleten = Split(File,"/")
-		String Gestript = Gespleten[#Gespleten]:upper()
-		Gestript = Replace(Gestript,".NEIL","")
-		If Prefixed(File,"#") || Suffixed(File,"#")
-			CSayF("Skipping section %d/%d: %s => %s",idx,Aantal,File,Gestript)
-		Else
-			CSayF(" Loading section %d/%d: %s => %s",idx,Aantal,File,Gestript)
-			_real[Gestript] = NeilUse(Replace(File:upper(),".NEIL",""),"FLOWCOMABAT."..Gestript)
-		End
-	End	
-	Progress.Kill("LOADCOMBAT")
+	Stage.Register("IDLE",new Stage_IDLE())
+	Stage.Register("WAIT",new Stage_Wait())
 End
 
-Global Void Apollo_Flow()
-	__White
-	Dev.ToConsole()
-	FlowCombat.DrawScreen.Run()
-	FlowCombat.AAA_Stage.Current.Update()
-End
+Return Stage

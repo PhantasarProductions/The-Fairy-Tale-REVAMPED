@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Link.neilbundle/Combat.neil
-// Version: 21.09.02
+// Version: 21.09.04
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -57,7 +57,7 @@ Module
 			End
 			lua.error("No music timing for boss yet!")
 		End
-		Int Time = 125
+		Int Time = 100
 		Int m = 360-math.random(0,125)
 		If BossHead!=""
 			Time = 500

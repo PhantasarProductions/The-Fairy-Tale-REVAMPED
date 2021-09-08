@@ -1,0 +1,225 @@
+// License Information:
+// src/Tricky Script/Script/Flow/FlowCombat/Cards.neil
+// Version: 21.09.04
+// Copyright (C) 2021 Jeroen Petrus Broks
+// 
+// ===========================
+// This file is part of a project related to the Phantasar Chronicles or another
+// series or saga which is property of Jeroen P. Broks.
+// This means that it may contain references to a story-line plus characters
+// which are property of Jeroen Broks. These references may only be distributed
+// along with an unmodified version of the game.
+// 
+// As soon as you remove or replace ALL references to the storyline or character
+// references, or any termology specifically set up for the Phantasar universe,
+// or any other univers a story of Jeroen P. Broks is set up for,
+// the restrictions of this file are removed and will automatically become
+// zLib licensed (see below).
+// 
+// Please note that doing so counts as a modification and must be marked as such
+// in accordance to the zLib license.
+// ===========================
+// zLib license terms:
+// This software is provided 'as-is', without any express or implied
+// warranty.  In no event will the authors be held liable for any damages
+// arising from the use of this software.
+// Permission is granted to anyone to use this software for any purpose,
+// including commercial applications, and to alter it and redistribute it
+// freely, subject to the following restrictions:
+// 1. The origin of this software must not be misrepresented; you must not
+// claim that you wrote the original software. If you use this software
+// in a product, an acknowledgment in the product documentation would be
+// appreciated but is not required.
+// 2. Altered source versions must be plainly marked as such, and must not be
+// misrepresented as being the original software.
+// 3. This notice may not be removed or altered from any source distribution.
+// End License Information
+Module Class
+#region Static Crap
+	Const Int ToY = 50
+	Const Int CW = 42
+	Const Int CH = 82
+	Static Get Int MxX 
+		Return Screen.W - 25
+	End
+	
+	Static Var Lijst
+	Static ReadOnly Var Slide = Audio.Obtain("CARDSLIDE")
+	
+	Static Get Int Highest
+		Int R = 0
+		For i in pairs(Lijst)
+			R = math.max(R,i)
+		End
+		Return R
+	End
+	Static Get Var HighestCard
+		Return Lijst[Highest]
+	End
+	
+	Static Void Add(Int idx,String FighterTag,Action,Joker)
+		While Lijst[idx] && (!Lijst[idx].None)
+			idx++
+		End
+		Lijst[idx] = Self(FighterTag,Action,Joker)
+	End
+	
+	Static Void DelShift(Int idx=1)
+		Int M = Highest
+		For I = idx,M
+			//For J=I,M
+				//CSayF("Delshift %d-%d (%d)",I,M,J)
+				Lijst[I]=Lijst[I+1]
+			//End
+		End
+	End
+	
+	Static Void DelFirst()
+		Slide.Play()
+		DelShift(1)
+	End
+	
+	Static Void DrawCard(int i)
+		var crd = Lijst[i]
+		If crd
+			crd.Img.Draw(crd.X,crd.Y)
+		Else 
+			Lijst[i] = Self("None")
+		End
+	End
+	
+	Static Void DrawCards()
+		Graphics.SetScale(1,1)
+		For i=25,1,-1
+			DrawCard(i)
+			Var crd = Lijst[i]
+			crd.Y = math.max(ToY,Crd.Y-4)
+			Int wx=(MxX-10)-(i*20)
+			If i==1
+				wx=MxX 
+			End			
+			crd.x = Math.Min(wx,crd.x+4)			
+		End
+	End
+	
+	Static Void Neutralize(int i)
+		Var crd = Lijst[i]
+		Lijst[i] = Self("NONE")
+		Lijst[i].X = crd.X
+		Lijst[i].Y = crd.Y
+	End
+	
+	Static Void StartEffectCards()	
+		For i=1,25
+			Lijst[i] = Lijst[i] || self("None")
+			var crd = Lijst[i]
+			crd.x = -(i*50)
+			crd.y = Screen.H+(i*60)
+		End
+	End
+	
+	Static Table Order
+	
+	Static Void CreateOrder()		
+		Order = { ["speedtable"] = {}, ["tagorder"] = {}, ["iorder"] = {} }
+		plua sid
+		plua strid
+		// first set up a table easily usable by spairs.
+		// for group,groupdata in pairs(Fighters) do
+		//for idx,data in pairs(groupdata) do
+		For k,v In Pairs(Fighter.ByTag)
+     		sid = 10000 - v.Stats.Speed
+     		strid = sprintf("%05d",sid)
+     		While order.speedtable[strid]
+     			sid++
+     			strid = sprintf("%05d",sid)
+     		End
+     		//order.speedtable[strid] = {group=group,idx=idx,tag=data.tag}
+     		order.speedtable[strid] = k
+     		//End
+     	End
+     	// And let us now set up the actual work order
+     	Int oid = 0
+     	For key,fid In sPairs(order.speedtable) 
+     		oid++
+     		order.tagorder[fid]=oid
+     		order.iorder[oid] = fid
+     		//If fid.group=="Foe" then fid.letter=Fighters.Foe[fid.idx].letter end
+     	End
+     End
+     
+     Static Void SetupInitialCards(empty)
+     	CreateOrder()
+     	Lijst = Lijst or {}
+     	If empty 
+     		Lijst={} 
+     	End
+     	//plua card
+     	plua cidx
+     	For i,data in pairs(order.iorder)
+     		cidx=i*3
+     		//Cards[cidx] = Cards[cidx] or {}
+     		Lijst[cidx] = Self(data)
+     		//card = Cards[cidx]
+     		//card.data=data
+     		//CSay("Defining card: "..cidx) CSay(serialize("card["..cidx.."]",card))
+     	End
+     	//CSay(serialize('Cards',Cards))
+     End
+     
+     Static Bool Present(int i)
+     	//CSayF("Check Present %d. Lijst[%d]=%s;   Lijst[%d].None=%s (Tag: %s)",i,i,lua.tostring(Lijst[i]),i,lua.tostring(Lijst[i].None),Lijst[i].FightTag)
+     	Return Lijst[i] && (!Lijst[i].None)
+     End
+
+#endregion
+
+#region Actual Class
+	Int X = -200
+	Int Y 
+	Var Action
+	Var Joker
+	Bool None
+	String FightTag
+	Get String FightTeam
+		Return Fighter.ByTag[FightTag].Team
+	End
+	Get Var Fight
+		Return Fighter.ByTag[FightTag]
+	End
+	
+	Get Var Img
+		Static Table Imgs = {}
+		String Tag
+		If None
+			Tag = "Backside"
+		ElseIf Action
+			Tag = "Ability"
+		ElseIf Joker
+			Tag = "Joker"
+		Elseif FightTeam=="Hero"
+			Tag = "HERO_"..(FightTag:upper())
+		ElseIf FightTeam=="Foe"
+			if Fight.Boss
+				Tag = "BOSS_"..(Fight.CLetter:upper())
+			Else
+				Tag = "FOE_"..(Fight.CLetter:upper())
+			End
+		Else
+			Lua.error("Invalid card! Can't retrieve image for that")
+		End
+		Imgs[Tag] = Imgs[Tag] || Image.LoadNew("GFX/Combat/Cards/"..Tag..".PNG",Tag:upper())
+		Imgs[Tag].HotCenter()
+		Return Imgs[Tag]
+	End
+		
+	Constructor(String FT,Act,Jok)
+		FightTag = FT
+		Action = Act
+		Joker = Jok
+		None = FT:upper()=="NONE"
+		Y = ToY
+	End
+	
+#endregion
+End

@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Class_Foe.neil
-// Version: 21.09.02
+// Version: 21.09.04
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -73,6 +73,19 @@ Class Foe Extends Fighter
 		Return Chr(num+64)
 	End
 	
+	
+	Get String CLetter
+		If num>26
+			Return "Unknown"
+		End
+		Return Chr(num+64)
+	End
+
+	Get Bool Boss
+		Return Raw.Boss==true
+	End
+	
+	
 	Static String MakeTag(int _n)
 		return sPrintF("FOE%03d",_n)
 	End
@@ -86,6 +99,7 @@ Class Foe Extends Fighter
 		CSayF("Compiling Foe: %s on spot %03d",F,_num)
 		Var WFoe = new Foe()
 		WFoe.Setup(MakeTag(_num),"Foe")
+		WFoe.Num=_num
 		WFoe.Oversoul = _oversoul==true
 		WFoe.Raw = Rw(WFoe.Oversoul)
 		WFoe.NorImage = Image.Load(WFoe.Raw.IMAGE,"NOR"..WFoe.Tag)

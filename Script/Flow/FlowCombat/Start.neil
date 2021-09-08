@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Start.neil
-// Version: 21.09.02
+// Version: 21.09.04
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -51,6 +51,7 @@ Module
 	Void StartPreparation()
 		Fighter.ClearAll()
 		FoeList = New LinkedList()
+		FlowCombat.Cards.Lijst = {}
 	End
 	
 	Void AddFoe(String F)
@@ -95,7 +96,10 @@ Module
 			End
 		End
 		FlowCombat.DrawScreen.LoadArena(Arena)
+		FlowCombat.Cards.SetupInitialCards(true)
+		FlowCombat.Cards.StartEffectCards()
 		StartMusic()
 		Flow.Current="COMBAT"
+		Stage.Current="WAIT"
 	End
 End

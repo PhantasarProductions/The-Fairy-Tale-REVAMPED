@@ -79,4 +79,17 @@ Class Hero Extends Fighter
 	
 End
 
+Class Stage_PlayerInput_Main Extends Stage
+
+	Void Draw()
+	End
+	
+	Void Update()
+	End
+End
+
+Init
+	Stage.Register("PLAYERINPUT_MAIN",new Stage_PlayerInput_Main())
+End
+
 Return Foe
