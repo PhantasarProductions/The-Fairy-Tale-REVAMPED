@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat.neil
-// Version: 21.09.04
+// Version: 21.09.09
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -48,7 +48,7 @@ QuickMeta FlowCombat
 	Index
 		plua k = Key:upper()
 		If !_real[k]
-			Lua.error("No field named: "..Key)
+			Lua.error("No FlowCombat field named: "..Key)
 		End
 		return _real[k]		
 	End

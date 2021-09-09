@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Class_Hero.neil
-// Version: 21.09.03
+// Version: 21.09.09
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -79,17 +79,117 @@ Class Hero Extends Fighter
 	
 End
 
+Bool AAlways()
+	Return True
+End
+
+// Player Input Menu Item
+Class PIMI
+	Static Int A
+	ReadOnly Int X
+	ReadOnly Int Y
+	ReadOnly Delegate Allow
+	ReadOnly Delegate Action
+	ReadOnly Var Icon
+	ReadOnly Static Var Lst = new LinkedList()
+	Int Alpha
+	
+	
+	Constructor(String _icon,int _x,int _y,_Action,_Allow)
+		Lua.assert(Lua.type(_Action)=="function","Function needed for _Action parameter when constructing a PIMI. Now I got a "..Lua.type(_Action).." (".._icon..")")
+		X = _x
+		Y = _y
+		Icon = Image.LoadNew("GFX/Combat/Menu/".._icon..".png","COMBAT_PIMI_"..(_icon:upper()))
+		Icon.HotCenter()
+		Action = _Action
+		Allow = _Allow || AAlways
+		Alpha = A
+		A -= 100
+	End
+End
+
 Class Stage_PlayerInput_Main Extends Stage
 
+	Static Table Banners = {}
+	Static Table Portraits = {}
+	Static Int Alpha 
+	Static String Exe
+	Static Get Var CEx
+		Return Fighter.ByTag[Exe]
+	End
+
 	Void Draw()
+		Int MdX = Screen.W div 2
+		Int MdY = Screen.H div 2
+		For P in PIMI.lst.Each
+			P.Alpha = math.min(255,P.Alpha+1)
+			If P.Alpha>0
+				Graphics.SetAlpha(P.Alpha)
+				P.Icon.Draw(MdX+P.X,MdX+P.Y)
+			End
+		End
+		Graphics.SetAlpha(Alpha)
+		Alpha = math.min(255,Alpha+1)
+		__white
+		Portraits[Exe].Draw(MdX-250,MdY)
+		Banners[Exe].Draw(MdX,MdY-250)
+		Graphics.SetAlpha(255)
 	End
 	
 	Void Update()
 	End
+	
+	Static Void ComeToMe(String _Exe)
+		Exe = _Exe
+		Alpha = 0
+		Portraits[Exe] = Image.LoadNew("GFX/BoxText/Portret/"..Exe.."/General.png","PIMI_POR_"..Exe)
+		Banners[Exe]   = Image.LoadNew("GFX/Combat/HeroBanners/"..Exe..".png","PIMI_BAN_"..Exe)
+		Portraits[Exe].HotCenter()
+		Banners[Exe].HotCenter()	
+		Stage.Current = "PLAYERINPUT_MAIN"
+	End
 End
+// Laziness!
+Const Var SPIM = Stage_PlayerInput_Main
+
+#region PIMI reactions
+Void PIMI_Attack()
+End
+
+Void PIMI_Ability()
+End
+
+Void PIMI_Items()
+End
+
+Void PIMI_Spirata()
+	Lua.error("Spirata not implemented yet!")
+End
+
+Void PIMI_Guard()
+End
+
+Bool NotNostra()
+	Return SPIM.Exe!="Nostramantu"
+End
+
+Bool HasSpirata()
+	String Exe = SPIM.Exe
+	If Prefixed(Exe,"Jake")
+		Exe = "Jake"
+	End
+	return gv.gbool("HASSPIRATA."..Exe)
+End
+#endregion
+
 
 Init
 	Stage.Register("PLAYERINPUT_MAIN",new Stage_PlayerInput_Main())
+	PIMI.Lst.AddLast(new PIMI("Attack",0,0,PIMI_Attack))
+	PIMI.Lst.AddLast(new PIMI("Ability",0,-50,PIMI_Ability,NotNostra))
+	PIMI.Lst.AddLast(new PIMI("Spirata",0,50,PIMI_Spirata,HasSpirata))
+	PIMI.Lst.AddLast(new PIMI("Items",-50,0,PIMI_Items))
+	PIMI.Lst.AddLast(new PIMI("Guard",50,0,PIMI_Guard))
 End
 
 Return Foe

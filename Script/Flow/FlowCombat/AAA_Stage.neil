@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/AAA_Stage.neil
-// Version: 21.09.04
+// Version: 21.09.09
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -69,10 +69,16 @@ Class Stage_IDLE extends Stage
 	Get Var Cards
 		Return FlowCombat.Cards
 	End
+	
+	Get Var FirstCard
+		Return FlowCombat.Cards[1]
+	End
 
 	Void Update()		
 		If !Cards.Present(1)
 			Cards.DelFirst()
+		ElseIf FirstCard.FightTeam=="Hero" && (!FirstCard.Action)
+			Lua.Neil.Globals.Stage_PlayerInput_Main.ComeToMe(FirstCard.FightTag)
 		End
 	End
 End
