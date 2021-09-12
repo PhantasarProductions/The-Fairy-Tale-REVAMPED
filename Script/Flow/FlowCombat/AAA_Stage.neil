@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/AAA_Stage.neil
-// Version: 21.09.09
+// Version: 21.09.10
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -40,6 +40,9 @@ Class Stage
 	Static Get Var Current
 		_Current = _Current || Map.IDLE
 		return _Current
+	End
+	Get String FlashChar
+		Return ""
 	End
 	Static Set Var Current
 		if Lua.type(Value)=="string"

@@ -1,5 +1,5 @@
 // License Information:
-// src/Tricky Script/Script/Flow/FlowCombat.neil
+// src/Tricky Script/Script/Flow/FlowCombat/Class_Action.neil
 // Version: 21.09.10
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
@@ -34,55 +34,75 @@
 // misrepresented as being the original software.
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
+Void __ReadOnly()
+	Lua.error("Targets array is read-only!")
+End
 
-#use "Script/Use/Anyway"
-#use "libs/LinkedList"
+Class Action
 
-#macro _ASW 1200
-#macro _ASH 980
-
-
-Table _real = {}
-
-QuickMeta FlowCombat
-	Index
-		plua k = Key:upper()
-		If !_real[k]
-			Lua.error("No FlowCombat field named: "..Key)
-		End
-		return _real[k]		
+	ReadOnly String ActTag
+	Get Var Act
+		Return Item[ActTag]
 	End
-	NewIndex
-		Lua.error("Sorry! All fields of FlowField are ReadOnly!")
+	
+	ReadOnly String ExeTag
+	Get Var Executor
+		Return Fighter.ByTag[ExeTag]
 	End
-End
+	
+	ReadOnly Table TarTags
+	ReadOnly Table Targets
+	
+	// These can be easily set through the _XVars
+	ReadOnly Bool CheckAfterAction = False
+	ReadOnly Bool DeductAP = False
+	ReadOnly Bool ConsumeItem = False
+	ReadOnly Bool AwardSkillExperience = False
 
-Init
-	Screen.NewAlt(_ASW,_ASH,"COMBAT")
-	Table Bundle = JCR6.GetDir("Script/Flow/FlowCombat")
-	int Aantal = #Bundle
-	Progress.Create("LOADCOMBAT",Aantal,255,0,0)
-	CSayF("Loading %d combat sub-modules!",#Bundle)
-	For idx,File in iPairs(Bundle)
-		Progress.LOADCOMBAT=idx
-		Loading()
-		Table Gespleten = Split(File,"/")
-		String Gestript = Gespleten[#Gespleten]:upper()
-		Gestript = Replace(Gestript,".NEIL","")
-		If Prefixed(File,"#") || Suffixed(File,"#")
-			CSayF("Skipping section %d/%d: %s => %s",idx,Aantal,File,Gestript)
-		Else
-			CSayF(" Loading section %d/%d: %s => %s",idx,Aantal,File,Gestript)
-			_real[Gestript] = NeilUse(Replace(File:upper(),".NEIL",""),"FLOWCOMABAT."..Gestript)
+	Constructor(String _Act,String _Exe,Table _Targets,_XVars)
+		CSayF("Creating action %s for %s",_Act,_Exe)
+		ActTag = _Act
+		ExeTag = _Exe
+		For k,v in Pairs(_XVars || {})
+			Self[k] = v
+			CSayF("= Extra Variable %s => %s",k,Lua.tostring(v))
 		End
-	End	
-	Progress.Kill("LOADCOMBAT")
+		TarTags = _Targets
+		Var TarEach()
+			Int i=0
+			Return Var()
+				i++
+				If i>#TarTags
+					Return nil,nil
+				End
+				Return Fighter.ByTag[TarTags[i]],i
+			End
+		End
+		Var TarIndex(s,idx)
+			Switch Lua.type(idx)
+				Case "nil"
+					Lua.error("No index for action targets received!")
+				case "number"
+					Lua.assert(math.floor(idx)==idx,"Action target index not integer")
+					return Fighter.ByTag[TarTags[idx]]
+				case "string"
+					Switch idx:upper()
+						case "COUNT" "LEN" "CNT" "LENGTH"
+							return #TarTags
+						case "EACH"
+							return TarEach
+						default
+							Lua.error("Unknown action target command: "..idx)
+					End
+				default
+					Lua.error("Illegal target index. I cannot handle a "..Lua.type(idx).." for this!")
+			End
+		End
+		Targets = Lua.setmetatable({},{["__index"]=TarIndex,["__newindex"]=__ReadOnly})
+	End
+
 End
 
-Global Void Apollo_Flow()
-	__White
-	Dev.ToConsole()
-	FlowCombat.DrawScreen.Run()
-	FlowCombat.AAA_Stage.Current.Update()
-	Party.Boxes(FlowCombat.AAA_Stage.Current.FlashChar)
-End
+
+// This is just for multifunctionality
+Return Action

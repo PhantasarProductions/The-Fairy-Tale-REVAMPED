@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Class_Foe.neil
-// Version: 21.09.04
+// Version: 21.09.12
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -42,12 +42,21 @@ Class Foe Extends Fighter
 	Var Raw
 	Var NorImage
 	Var NegImage
+	Number Scale = 1
 	
 	Get Bool TarByFoe
 		Return Self.HP>9
 	End
 	Get Bool TarByHero
 		Return Self.HP>9
+	End
+	
+	Get Int W
+		Return NorImage.Width * Scale
+	End
+	
+	Get Int H
+		Return NorImage.Height * Scale
 	End
 	
 		

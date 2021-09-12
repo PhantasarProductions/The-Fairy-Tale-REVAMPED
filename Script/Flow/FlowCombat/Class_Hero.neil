@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Class_Hero.neil
-// Version: 21.09.09
+// Version: 21.09.12
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -48,10 +48,12 @@ Class Hero Extends Fighter
 
 	Static Void Compile(String _Tag)
 		Var WHero = new Hero()
-		WHero.Setup(_Tag,"Hero")
+		CSayF("Compiling hero %s",_Tag)
+		WHero.Setup(_Tag,"Hero")		
 		WHero.Num = Party.MemNum(_Tag)
 		WHero.Y = (((_ASH - 600) div (Party.Count+1)) * WHero.Num) + 500
 		WHero.X = (_ASW div 2) + ( ((_ASW div 2) div (Party.Count+1)) * WHero.Num)
+		//WHero.Char = RPGChar[_Tag]
 	End
 	
 	Void Draw()
@@ -79,6 +81,116 @@ Class Hero Extends Fighter
 	
 End
 
+
+
+
+Class Stage_PlayerSelectTarget Extends Stage
+	Static Var Act
+	Static Int OldMouseX
+	Static Int OldMouseY
+	Static Var Targets
+	ReadOnly Static Var Fnt = ImageFont.Obtain("SYSFONT")
+	Static Get String WantTarget
+		Return Act.Act.Target
+	End
+	
+	Static Void ComeToMe(_Act)
+		Act = _Act
+		Stage.Current = "PLAYERINPUT_SELECTTARGET"
+		OldMouseX = -10000
+		OldMouseY = -10000
+		Targets = nil
+	End
+	
+	Void Update()
+		If OldMouseX==Mouse.MX && OldMouseY==Mouse.MY
+			Mouse.Draw()
+			Return
+		End
+		OldMouseX,OldMouseY = Mouse.MX,Mouse.MY
+		Switch WantTarget
+			Case "OS"
+				Targets = Targets || {Act.Act.ExeTag}
+			Case "EV" 
+				If !Targets
+					Targets = {}
+					For K,_ in sPairs(Fighter.ByTag)
+						Targets += K
+					End
+				End
+			Case "AA"
+				If !Targets
+					Targets = {}
+					For K,F in sPairs(Fighter.ByTag)
+						If F.Team=="Hero"
+							Targets += K
+						End
+					End
+				End
+			Case "AF"
+				If !Targets
+					Targets = {}
+					For K,F in sPairs(Fighter.ByTag)
+						If F.Team=="Foe"
+							Targets += K
+						End
+					End
+				End
+			Case "1F"
+				Targets = Targets || {}
+				For K,F in sPairs(Fighter.ByTag)
+					Int TX
+					Int TY
+					Int TW
+					Int TH
+					TX,TY,TW,TH = F.TrueCoords()
+					If F.Team=="Foe" && Mouse.MX>TX-(TW div 2) && Mouse.MX<TX+(TW div 2) && Mouse.MY<TY && Mouse.MY>TY-TH
+						Targets[1]=K
+					End
+				End
+			Case "1A"
+				Targets = Targets || {}
+				For K,F in sPairs(Fighter.ByTag)
+					Int TX
+					Int TY
+					Int TW
+					Int TH
+					TX,TY,TW,TH = F.TrueCoords()
+					If F.Team=="Hero" && Mouse.MX>TX-(TW div 2) && Mouse.MX<TX+(TW div 2) && Mouse.MY<TY && Mouse.MY>TY-TH
+						Targets[1]=K
+					End
+				End
+			Default
+				Lua.error("Unknown target type: "..WantTarget)
+		End
+		Mouse.Draw()
+	End
+	
+	Get String FlashChar
+		Return Act.ExeTag
+	End
+
+	
+	Void Draw()
+		For Tag in Each(Targets)
+			Var F = Fighter.ByTag[Tag]
+			Bool ShowBar = True
+			Bool BarKnown = True
+			Int TX = F.TX
+			Int TY = F.TY - (F.TH div 2)
+			If F.Team=="Foe"
+				ShowBar  = __skill != 3
+				BarKnown = __skill == 1 || Killed[Tag]>0
+				__Yellow
+				Fnt.DarkText(F.Letter..". ",TX,TY,1,0)
+			End
+			__White
+			Fnt.DarkText(F.Name,TX,TY)
+		End
+	End
+End
+
+
 Bool AAlways()
 	Return True
 End
@@ -92,13 +204,22 @@ Class PIMI
 	ReadOnly Delegate Action
 	ReadOnly Var Icon
 	ReadOnly Static Var Lst = new LinkedList()
+	ReadOnly String Name
 	Int Alpha
 	
+	Get Int TX
+		Return (Screen.W div 2) + X
+	End
+
+	Get Int TY
+		Return (Screen.H div 2) + Y
+	End
 	
 	Constructor(String _icon,int _x,int _y,_Action,_Allow)
 		Lua.assert(Lua.type(_Action)=="function","Function needed for _Action parameter when constructing a PIMI. Now I got a "..Lua.type(_Action).." (".._icon..")")
 		X = _x
 		Y = _y
+		Name = _Icon
 		Icon = Image.LoadNew("GFX/Combat/Menu/".._icon..".png","COMBAT_PIMI_"..(_icon:upper()))
 		Icon.HotCenter()
 		Action = _Action
@@ -110,6 +231,7 @@ End
 
 Class Stage_PlayerInput_Main Extends Stage
 
+	Static ReadOnly Var Fnt = ImageFont.Obtain("SYSFONT")
 	Static Table Banners = {}
 	Static Table Portraits = {}
 	Static Int Alpha 
@@ -117,15 +239,38 @@ Class Stage_PlayerInput_Main Extends Stage
 	Static Get Var CEx
 		Return Fighter.ByTag[Exe]
 	End
+	
+	Static Get Var Executor
+		//Return RPGChar[Exe]
+		Return Fighter.ByTag[Exe]
+	End
+
+	Get String FlashChar
+		Return Exe
+	End
 
 	Void Draw()
 		Int MdX = Screen.W div 2
 		Int MdY = Screen.H div 2
+		String HText = ""
+		Graphics.SetScale(1,1)
 		For P in PIMI.lst.Each
 			P.Alpha = math.min(255,P.Alpha+1)
 			If P.Alpha>0
 				Graphics.SetAlpha(P.Alpha)
-				P.Icon.Draw(MdX+P.X,MdX+P.Y)
+				If (!P.Allow())
+					Graphics.Color(100,100,100)
+				ElseIf Mouse.MX>P.TX-20 && Mouse.MX<P.TX+20 && Mouse.MY>P.TY-20 && Mouse.MY<P.TY+20
+					__White
+					HText = P.Name
+					If Mouse.ML
+						P.Action()
+					End
+				Else
+					Graphics.Color(180,180,180)
+					//Fnt.DarkText(Sprintf("(%d,%d)-(%d,%d) O:(%d,%d), M:(%d,%d)",P.TX-20,P.TY-20,P.TX+20,P.TY+20,P.TX,P.TY,Mouse.MX,Mouse.MY),P.TX,P.TY) // Debug line!
+				End
+				P.Icon.Draw(MdX+P.X,MdY+P.Y)
 			End
 		End
 		Graphics.SetAlpha(Alpha)
@@ -134,6 +279,8 @@ Class Stage_PlayerInput_Main Extends Stage
 		Portraits[Exe].Draw(MdX-250,MdY)
 		Banners[Exe].Draw(MdX,MdY-250)
 		Graphics.SetAlpha(255)
+		Mouse.Draw()
+		Fnt.DarkText(HText,Mouse.MX+5,Mouse.MY+40)
 	End
 	
 	Void Update()
@@ -154,6 +301,13 @@ Const Var SPIM = Stage_PlayerInput_Main
 
 #region PIMI reactions
 Void PIMI_Attack()
+	String WAbl = "AAA_ATTACK"
+	Var It = Item[ SPIM.Executor.Char.Data.EQUIP_Weapon ]
+	If It.ITM_WeaponAbility
+		WAbl = SPIM.Executor.Char.Data.EQUIP_Weapon
+	End
+	Var Act = new Action(WAbl,{},{["CheckAfterAction"]=true})
+	Stage_PlayerSelectTarget.ComeToMe(Act)
 End
 
 Void PIMI_Ability()
@@ -178,13 +332,14 @@ Bool HasSpirata()
 	If Prefixed(Exe,"Jake")
 		Exe = "Jake"
 	End
-	return gv.gbool("HASSPIRATA."..Exe)
+	return gv.gbool["HASSPIRATA."..Exe]
 End
 #endregion
 
 
 Init
 	Stage.Register("PLAYERINPUT_MAIN",new Stage_PlayerInput_Main())
+	Stage.Register("PLAYERINPUT_SELECTTARGET",new Stage_PlayerSelectTarget())
 	PIMI.Lst.AddLast(new PIMI("Attack",0,0,PIMI_Attack))
 	PIMI.Lst.AddLast(new PIMI("Ability",0,-50,PIMI_Ability,NotNostra))
 	PIMI.Lst.AddLast(new PIMI("Spirata",0,50,PIMI_Spirata,HasSpirata))

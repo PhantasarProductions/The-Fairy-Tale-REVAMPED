@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/AAA_Fighter.neil
-// Version: 21.09.04
+// Version: 21.09.12
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -73,9 +73,57 @@ Class Fighter
 	Get Int APMax
 		Return 0
 	End
-	
+	Get Int W
+		Return 0
+	End
+	Get Int H
+		Return 0
+	End
+
 	Int X
 	Int Y
+	
+	Final Var TrueCoords()
+		Return Screen.AltRectData("COMBAT",X,Y,W,H)
+	End
+	
+	Get Int TX
+		Int RX
+		Int RY
+		Int RW
+		Int RH
+		RX,RY,RW,RH = TrueCoords()
+		Return RX
+	End
+		
+	Get Int TY
+		Int RX
+		Int RY
+		Int RW
+		Int RH
+		RX,RY,RW,RH = TrueCoords()
+		Return RY
+	End
+	
+	Get Int TW
+		Int RX
+		Int RY
+		Int RW
+		Int RH
+		RX,RY,RW,RH = TrueCoords()
+		Return RW
+	End
+	
+	Get Int TH
+		Int RX
+		Int RY
+		Int RW
+		Int RH
+		RX,RY,RW,RH = TrueCoords()
+		Return RH
+	End
+
+	
 	
 	
 	Abstract Void Draw()
