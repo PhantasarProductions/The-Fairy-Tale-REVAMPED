@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/AAA_Fighter.neil
-// Version: 21.09.12
+// Version: 21.09.13
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -56,6 +56,10 @@ Class Fighter
 	
 	Get Var Char
 		Return RPGChar[Tag]
+	End
+	
+	Get String Name
+		Return Char.Name
 	End
 	
 	Get Int HP
@@ -127,7 +131,7 @@ Class Fighter
 	
 	
 	Abstract Void Draw()
-	
+	Abstract Bool Pose(Action)
 	
 	Static Void ClearAll()
 		ByTag = {}

@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/AAA_Stage.neil
-// Version: 21.09.10
+// Version: 21.09.12
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -64,6 +64,10 @@ Class Stage
 	End
 	
 	Abstract Void Update()
+	
+	Void Debug()
+		CSayF("The current stage has no specific debug")
+	End
 	
 End
 

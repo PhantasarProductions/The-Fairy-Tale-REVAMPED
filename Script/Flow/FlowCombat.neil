@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat.neil
-// Version: 21.09.10
+// Version: 21.09.16
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -56,6 +56,7 @@ QuickMeta FlowCombat
 		Lua.error("Sorry! All fields of FlowField are ReadOnly!")
 	End
 End
+Global Const Var CombatFlow = FlowCombat 
 
 Init
 	Screen.NewAlt(_ASW,_ASH,"COMBAT")

@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Class_Hero.neil
-// Version: 21.09.12
+// Version: 21.09.16
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -79,6 +79,13 @@ Class Hero Extends Fighter
 		Image.AltScale("COMBAT",1,1)
 	End
 	
+	Bool Pose(Act)	 	
+	 	AttackFrame = (AttackFrame + 1) % AttackFrames 
+	 	Self.Stage = Act.Act.Stance
+	 	Return AttackFrame == 0
+	 End
+
+	
 End
 
 
@@ -102,9 +109,25 @@ Class Stage_PlayerSelectTarget Extends Stage
 		Targets = nil
 	End
 	
+	Void Debug()
+		CSayF("Action Title: %s",Act.Act.Title)
+		CSayF("= Executor: %s",Act.ExeTag)
+		CSayF("= Want Target: %s",WantTarget)
+		CSay("= Targets selected:")
+		For i,t in ipairs(Targets)
+			CSayF(". = Target #%d (%s) in hover",i,t)
+		End
+		CSay("= Targets available in general:")
+		For tag,data in spairs(Lua.Neil.Globals.Fighter.ByTag)
+			CSayF("= %s True:(%d,%d) %dx%d / AS(%d,%d) %dx%d",tag,data.TX,Data.TY,Data.TW,Data.TH,Data.X,Data.Y,Data.W,Data.H)
+		End
+		CSayF("Mouse: (%d,%d)",Mouse.MX,Mouse.MY)
+	End
+		
+		
+	
 	Void Update()
-		If OldMouseX==Mouse.MX && OldMouseY==Mouse.MY
-			Mouse.Draw()
+		If OldMouseX==Mouse.MX && OldMouseY==Mouse.MY && (!Mouse.ML)
 			Return
 		End
 		OldMouseX,OldMouseY = Mouse.MX,Mouse.MY
@@ -138,6 +161,7 @@ Class Stage_PlayerSelectTarget Extends Stage
 				End
 			Case "1F"
 				Targets = Targets || {}
+				Targets[1] = nil
 				For K,F in sPairs(Fighter.ByTag)
 					Int TX
 					Int TY
@@ -150,6 +174,7 @@ Class Stage_PlayerSelectTarget Extends Stage
 				End
 			Case "1A"
 				Targets = Targets || {}
+				Targets[1] = nil
 				For K,F in sPairs(Fighter.ByTag)
 					Int TX
 					Int TY
@@ -162,8 +187,16 @@ Class Stage_PlayerSelectTarget Extends Stage
 				End
 			Default
 				Lua.error("Unknown target type: "..WantTarget)
+		End		
+		If Mouse.ML && #Targets>0
+			Int i=0
+			Repeat
+				i++
+				Act.TarTags[i]=Targets[i]
+			LoopWhile Targets[i]
+			// ^ This seems like an odd way to do it, but this guarantees the transfer went well ^
+			CombatFlow.Execution.ComeToMe(Act,CombatFlow.Cards.Lijst[1])
 		End
-		Mouse.Draw()
 	End
 	
 	Get String FlashChar
@@ -182,11 +215,33 @@ Class Stage_PlayerSelectTarget Extends Stage
 				ShowBar  = __skill != 3
 				BarKnown = __skill == 1 || Killed[Tag]>0
 				__Yellow
-				Fnt.DarkText(F.Letter..". ",TX,TY,1,0)
+				Fnt.DarkText(F.Letter..". ",TX,TY-3,1,1)
 			End
 			__White
-			Fnt.DarkText(F.Name,TX,TY)
+			Fnt.DarkText(F.Name,TX,TY-3,0,1)
+			If ShowBar
+				Int BarSize = Fnt.TextWidth(F.Name)
+				Graphics.Color(123,123,123)
+				Graphics.Rect(TX,TY,BarSize,20)
+				If BarKnown
+					Int G = math.floor( (F.HP / F.HPMax) *255)
+					Graphics.Color(255-G,G,0)
+					Graphics.Rect(TX,TY,math.floor( (F.HP / F.HPMax) * BarSize),20)
+				Else
+					Graphics.Color(math.random(0,255),math.random(0,255),math.random(0,255))
+					Fnt.DarkText("?",TX+(BarSize div 2),TY+10,2,2)
+				End
+			End
 		End
+		__Red
+		Fnt.DarkText("X",3,3)
+		If (Mouse.ML && Mouse.MX<30 && Mouse.MY<20) || Events.KeyHit(27)
+			//Lua.Neil.Globals.SPIM.ComeToMe(Act.ExeTag)
+			Stage.Current = "PLAYERINPUT_MAIN"
+		End
+		__White				
+		Fnt.DarkText(sprintF("%s: %s",Act.Executor.Name,Act.Act.Title),30,3)
+		Mouse.Draw()
 	End
 End
 
@@ -297,7 +352,7 @@ Class Stage_PlayerInput_Main Extends Stage
 	End
 End
 // Laziness!
-Const Var SPIM = Stage_PlayerInput_Main
+ReadOnly Var SPIM = Stage_PlayerInput_Main
 
 #region PIMI reactions
 Void PIMI_Attack()
@@ -306,7 +361,7 @@ Void PIMI_Attack()
 	If It.ITM_WeaponAbility
 		WAbl = SPIM.Executor.Char.Data.EQUIP_Weapon
 	End
-	Var Act = new Action(WAbl,{},{["CheckAfterAction"]=true})
+	Var Act = new Action(WAbl,SPIM.Exe,{},{["CheckAfterAction"]=true})
 	Stage_PlayerSelectTarget.ComeToMe(Act)
 End
 

@@ -160,6 +160,10 @@ Class Foe Extends Fighter
 				End
 		End
 	End
+	
+	 Bool Pose(Act)
+	 	Lua.error("No foe pose implemented yet")
+	 End
 End
 
 Return Foe

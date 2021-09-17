@@ -1,5 +1,5 @@
 // License Information:
-// src/Tricky Script/Script/Flow/FlowCombat/DrawScreen.neil
+// src/Tricky Script/Script/Flow/FlowCombat/Execution.neil
 // Version: 21.09.16
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
@@ -34,49 +34,83 @@
 // misrepresented as being the original software.
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
-Module
+#Use "Script/Use/Misc/Box"
+#macro __Execution CombatFlow.Execution
 
-	Delegate ArenaPre
-	Delegate ArenaPst
-	Var      ArenaImg
+Class Stage_Execution Extends Stage
+
+	#region Basic crap
+	Static ReadOnly Int ASiz = 60
+	Static ReadOnly Var AFnt = ImageFont.Obtain("BIGTEXT")
+	Static Readonly Int AYPS = Screen.H div 20	
+	Static Var ABox 
+	Static String ExStage
+	Static Var Act
+	Static Var Card
+	Static Int Time
+	Static Bool DoShowBox
+	Static Void ComeToMe(_Act,_Card)
+		Act          = _Act
+		Card         = _Card
+		ExStage      = "Start"
+		Time         = 250
+		Self.Current = "Execution"
+		DoShowBox    = True
+	End
 	
-	Void LoadArena(string Ar)
-		String ArN = Replace(Ar:upper(),".PNG","")
-		String ArI = ("GFX/Combat/Arena/"..Ar):upper()
-		If (Right(Ari,4)!=".PNG") 
-			ArI += ".PNG"
-		End
-		If JCR6.EntryExists(ArI)
-			CSayF("Loading arena image: %s",ArI)
-			ArenaImg = Image.Load(ArI)
-		Else
-			CSayF("Skipped loading arena image: %s (does not exist)",ArI)
-		End
-		If JCR6.EntryExists("Script/Data/Arena/"..ArN..".neil")
-			NeilUse("Script/Data/Arena/"..ArN)
+	Void Update()
+		Self["Update_"..ExStage]()
+		//DoShowBox = Stage.Current == Self
+	End
+	
+	Void Draw()		
+		Self["Draw_"..ExStage]()
+	End
+	
+	Static Void ShowBox()
+		If DoShowBox
+			ABox.Draw()
+			AFnt.DarkText(Act.Act.Title,Screen.W div 2,AYPS + (ASiz div 2),2,2)
+			If Card
+				Image.Rotate = -30
+				card.Img.XDraw(50,AYPS + (ASiz div 2))
+				Image.Rotate = 0
+			End
 		End
 	End
 
-	Void Run()
-		// Arena
-		ArenaPre()
-		If ArenaImg
-			ArenaImg.ASDraw("COMBAT",0,0)
+	#endregion
+	
+	
+	
+	#region Start
+	Const Delegate Draw_Start = NIKS
+	Void Update_Start()
+		Time--
+		If Time==0
+			ExStage="Pose"
 		End
-		ArenaPst()
-		// Fighters
-		Fighter.DrawAll()
-		// Stage specific draw
-		Stage.Current.Draw()
-		// Cards (must be second last
-		FlowCombat.Cards.DrawCards()
-		// Big message (must be last)
-		FlowCombat.Execution.ShowBox()
 	End
+	#endregion
+	
+	#region Pose
+	Const Delegate Draw_Pose = NIKS
+	Void Update_Pose()
+		If Act.Executor.Pose(Act)
+			ExStage="SpellAni"
+		End
+	End
+	#endregion
 	
 	Constructor
-		ArenaPre = Niks
-		ArenaPst = Niks
+		ABox = ABox || new Box(0,AYPS,Screen.W,ASiz,false)
 	End
 
+
 End
+
+Init
+	Stage.Register("Execution",new Stage_Execution())
+End
+
+Return Stage_Execution

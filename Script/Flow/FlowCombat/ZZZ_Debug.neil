@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.09.02
+// version: 21.09.12
 // End License Information
 Global Void CONSOLE_Fighters()
 	For F,D in sPairs(Fighter.ByTag)
@@ -42,4 +42,8 @@ End
 
 Global Void CONSOLE_AutoScale()
 	CSayF("Autoscale X=%f; Y=%f",Screen.AltAutoScale("COMBAT"))
+End
+
+Global Void CONSOLE_StageDebug()
+	Stage.Current.Debug()
 End

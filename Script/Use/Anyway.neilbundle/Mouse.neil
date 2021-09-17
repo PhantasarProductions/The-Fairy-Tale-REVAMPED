@@ -1,7 +1,7 @@
 // License Information:
 // src/Tricky Script/Script/Use/Anyway.neilbundle/Mouse.neil
 // Mouse
-// version: 21.07.28
+// version: 21.09.13
 // Copyright (C) 2021 Jeroen P. Broks
 // This software is provided 'as-is', without any express or implied
 // warranty.  In no event will the authors be held liable for any damages
@@ -37,6 +37,7 @@ Module
 	void Draw()
 		static var pointer = Image.Obtain("MOUSE")
 		__White
+		Graphics.SetScale(1,1)
 		pointer.Draw(MX,MY)
 	end
 	
