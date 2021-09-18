@@ -62,9 +62,9 @@ Class Hero Extends Fighter
 		if Self.HP==0
 			Self.Stage="KO"
 		End
-		Switch Self.Stage
+		Switch Self.Stage:upper()
 			Case "ATTACK"
-				DTag = SprintF("Attack.%d",math.max(1,AttackFrame div 3))				
+				DTag = SprintF("Attack.%d",math.max(1,math.min(2,AttackFrame div 30)))				
 			Case "KO"
 				If Self.HP>0
 					Self.Stage="IDLE"

@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Execution.neil
-// Version: 21.09.17
+// Version: 21.09.18
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -98,6 +98,37 @@ Class Stage_Execution Extends Stage
 	Void Update_Pose()
 		If Act.Executor.Pose(Act)
 			ExStage="SpellAni"
+		End
+	End
+	#endregion
+	
+	#region SpellAni
+	Var SpellAni
+	Void Update_SpellAni()
+		Static Bool Initiated = False
+		if Act.Act.SpellAni==""
+			Initiated = False
+			SpellAni = nil
+			ExStage="Effect"
+			Return
+		End
+		if !Initiated
+			SpellAni = NeilUse("Script/Use/Combat/SpellAni/"..Act.Act.SpellAni)
+			SpellAni.Start(Act.Act.SpellAni_Arg)
+			Initiated = True
+		End
+		SpellAni.Update()
+		If SpellAni.Ended
+			Initiated = False
+			SpellAni = nil
+			ExStage="Effect"
+			Return
+		End
+	End
+	
+	Void Draw_SpellAni()
+		If SpellAni
+			SpellAni.Draw()
 		End
 	End
 	#endregion
