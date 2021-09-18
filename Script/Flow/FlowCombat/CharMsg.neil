@@ -1,0 +1,10 @@
+
+Global Void CharMsg(Ch,String Msg,Int R=255,Int G=255, Int B=255)
+	Var _Ch = Ch
+	if Lua.type(CH)=="string"
+		_Ch=Fighter.Bytag[CH]
+	End
+	MiniMessage.NewMsg(Msg,_CH.TX, _CH.TY, R, G, B)
+End
+
+Return CharMsg

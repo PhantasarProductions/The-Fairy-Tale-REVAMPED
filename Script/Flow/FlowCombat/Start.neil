@@ -101,5 +101,6 @@ Module
 		StartMusic()
 		Flow.Current="COMBAT"
 		Stage.Current="WAIT"
+		VicQ = "PERFECT"
 	End
 End

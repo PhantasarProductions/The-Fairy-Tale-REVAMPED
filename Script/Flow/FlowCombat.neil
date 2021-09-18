@@ -36,6 +36,7 @@
 // End License Information
 
 #use "Script/Use/Anyway"
+#use "Script/Use/Misc/MiniMessage"
 #use "libs/LinkedList"
 
 #macro _ASW 1200
@@ -43,6 +44,8 @@
 
 
 Table _real = {}
+
+Global String VicQ = "PERFECT"
 
 QuickMeta FlowCombat
 	Index

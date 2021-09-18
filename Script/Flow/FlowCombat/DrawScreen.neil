@@ -68,6 +68,8 @@ Module
 		Fighter.DrawAll()
 		// Stage specific draw
 		Stage.Current.Draw()
+		// MiniMessages
+		MiniMessage.DrawAll()
 		// Cards (must be second last
 		FlowCombat.Cards.DrawCards()
 		// Big message (must be last)

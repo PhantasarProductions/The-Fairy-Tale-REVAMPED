@@ -37,9 +37,195 @@
 Group Effect
 	
 	Var Target
+	Var Action
+	Int LastDamageDone
+	
+	Get Var Act
+		Return Action.Act
+	End
+	
+	Int SVal(s)
+		return tonumber(s) || 0
+	End
+	
+	Int Rand(A,B)
+		If !B
+			Return math.random(0,math.floor(A))
+		Else
+			Return math.random(math.floor(A),math.floor(B))
+		End
+	End
+		
+	
+	Int Hurt(String tag,Number damage,string element="None")
+		pLua eleprot = RPGChar[tag].SafeStat["END_ER_"..(element)]
+		pLua hp  = RPGChar[tag].Points.HP
+		pLua modifier = -(eleprot/100)
+		pLua dmg = damage
+		
+		
+		if tag=="Dandor"
+			pLua r = rand(1,4^__skill)
+			if r==1
+				dmg=0
+				// MS.Run("BOXTEXT","LoadData","COMBAT/LEARN;COMBATLEARN")
+				BOXTEXT.Load("COMBATLEARN","Combat/Learn")
+				Boxtext.Serial("COMBATLEARN","AUTO_DANDOR","FLOW_COMBAT")
+			end
+		end
+		dmg = round(dmg + round(dmg*mod))
+		fighter.bytag[tag].StatusChanges = fighter.bytag[tag].StatusChanges or {}
+		
+		// alt damage routine
+		for s,d in pairs(fighterbytag[tag].StatusChanges)
+			if d.HalfDamage
+				dmg=math.ceil(dmg/2)
+			end
+			if d.BlockHurt and dmg>=0
+				dmg=0
+			end
+		end
+		
+		// default damage routine
+		if eleprot<-200
+      		// Fatal
+      		if dmg>0
+      			dmg = hp.Have
+      		end
+      		charmsg(tag,"DEATH!",255,0,0)
+      		hp.Minimum=0
+      	elseif eleprot<-100 
+      		// Very weak
+      		charmsg(tag,dmg,255,0,0)
+      	elseif eleprot<0
+      		// Weak
+      		charmsg(tag,dmg,200,10,0)
+      	elseif eleprot==0 
+      		// No weak no defense either
+      		charmsg(tag,dmg,255,255,255)
+      	elseif eleprot<100 
+      		// Higher resistant
+      		charmsg(tag,dmg,140,140,140)
+      	elseif eleprot==100 
+      		// Immune
+      		dmg=0
+      		charmsg(tag,"NO EFFECT!",255,180,0)
+      	else  
+      		// Absorb
+      		for k,d in pairs(fighterbytag[tag].StatusChanges ) 
+      			if d.BlockHeal 
+      				dmg=0
+      			end
+      		end
+      		charmsg(tag,math.abs(dmg),180,255,0)
+      	end
+      	if fighterbytag[tag].group=="Hero"
+      		if gv.gbool.["CHEAT.GOD"]
+      			dmg=0 
+      		end 
+      		// God Mode
+      		RPGChar[tag].Points.AP+= 6 div __skill
+      	End
+      	hp.Have -= dmg 
+      	// Yeah that even works for absorb, as a negative value is then in dmg and two negatives make one positive.
+      	CSay(tag.." has "..hp.Have.." HP left")
+      	// RPG.Points(tag,'HP') -- Any minimums and maximums are now taken in order automatically.
+      	//if hp.Have<=0 
+      		// SetStatus(tag,'Death',true)
+      	// End
+      	if tag=="Marrilona" and gv.gint["HANDICAP.MARRILONA"]>0
+      		gv.gint["HANDICAP.MARRILONA"] += math.ceil(dmg div __skill))
+      	end
+      	CSay(tag.." suffered "..dmg.." damage")
+      	if (not prefixed(tag,"FOE")) and ((not VicQ) or upper(VicQ)=="PERFECT") 
+      		VicQ="General" 
+      	end
+      	return dmg
+    end
+	
+	
+	// The calcuation has been copied from the original source code and been adapted
+	// To Neil and the underlying APIs.
+	Get Bool Attack
+		// function Attack(act,g,i,na) // Original
+		String g = Target.Team
+		
+		CSay("Attack on: "..sval(g).."/"..sval(i))
+		// Init
+		//local ttag = Fighters[g][i].tag
+		String ttag = Target
+		String atag = Act.executor.tag
+		Number atk = RPGChar[atag].Stat["END_"..act.Attack_AttackStat] * ((act.Attack or 100)/100)
+		Number def = 0
+		Bool voided = False
+		If act.Attack_DefenseStat!="None" 
+			def = RPGChar[ttag].Stat["END_"..act.Attack_DefenseStat] 
+		End
+		
+		// Defense modifier based on difficulty settings
+		Table defmod = { ["Foe"] = {0.25,0.50,0.75},["Hero"]={0.50,0.30,0.15}}
+		def = def * defmod[g][__skill]
+		// Damage itself
+		Number rate = atk-def
+		Number damage = math.max(1,rate + rand(rate / 4))
+		//if damage<1 then damage=1 end -- Never less than 1 HP damage.
+		
+		// Critical
+		pLua criticalrate = 0
+		pLua critical = False
+		critical = RPGChar[atag].SafeStat["END_Critical"]>0
+		critical = critical && rand(0,100)<RPGChar[atag].SafeStat["END_Critical"]
+		critical = critical || act.Attack_Desperate // Must be last (and most be "or" in stead of "and" or this doesn't work).
+		If critical 
+			damage = rand(damage,damage*2)
+			charmsg(ttag,"Critical!",255,0,0)
+		End
+		
+		// Dandor skills
+		If ttag=="Dandor" and prefixed(atag,"FOE") 
+			//-- Attacks from confused allies won't count!
+			#if FOUT_NEGEER
+			//--[[ Fout, Jeroentje! Fout!
+			//if act.Attack_DefenseStat=="Power" or act.Attack_DefenseStat=="Endurance" and RPG.PointsExists("Dandor","SK_EXP_2")~=0 then RPG.Points("Dandor","SK_EXP_2").inc(damage)
+			//elseif act.Attack_DefenseStat=="Intelligence" or act.Attack_DefenseStat=="Resistance" and RPG.PointsExists("Dandor","SK_EXP_3")~=0 then RPG.Points("Dandor","SK_EXP_3").inc(damage) end
+			//]]
+			#fi
+			if (act.Attack_DefenseStat=="Power" or act.Attack_DefenseStat=="Endurance") and RPG.PointsExists("Dandor","SK_EXP_2")!=0 
+				Party.IncSkill("Dandor",2,damage)
+			elseif (act.Attack_DefenseStat=="Intelligence" or act.Attack_DefenseStat=="Resistance") and RPG.PointsExists("Dandor","SK_EXP_3")!=0 
+				Party.IncSkill("Dandor",3,damage) 
+			end
+		end
+		
+		// Rubine's void
+		If g=="Hero" and RPGChar[ttag].Data.Master=="Rubine" and rand(1,(skill*2)^2)==1
+			charmsg(ttag,"Voided",180,255)
+			RPGChar[ttag].Points.AP += 12 div __skill
+			voided=true
+		End
+		
+		// And let's put it all through now...
+		if !voided 
+			lastdamagedone = Hurt(ttag,damage,act.Attack_Element) 
+		end
+		
+		pLua mychar = fighter.bytag[ttag]
+		if mychar.statuschanges
+			for s,d in pairs(mychar.statuschanges) 
+				if d.AttackExpire
+					mychar.statuschanges[s] = nil 
+				end
+			end
+		end
+		
+		// If enemies respond to certain attacks, let's init that effect then, shall we?
+		// TODO: Sort this out! (Gendrabroe most of all has to deal with this!
+		//;(HitBy[mychar.HitBy or 'Nothing'] or Nothing)(ttag,act.Attack_Element,act.Attack_AttackStat,act.Attack_DefenseStat,{damage=damage,executor=atag})       
+		Return True
+    end	
 
 	Bool Run(Action,_Target)
-		Bool Ret = false
+		Bool Ret = False
 		Switch Lua.type(_Target)
 			Case "string"
 				Target = Fighter.ByTag[_Target]
@@ -48,12 +234,15 @@ Group Effect
 			Default
 				Lua.error("Cannot handle target of type: "..Lua.type(_Target))
 		End
+		Action = Action
 		
 		// Check hit / critical / desperation
 		
 		// Cure status changes (must be first)
 		// Healing
 		// Attack
+		Ret = Attack || Ret
+		
 		// Buffs & Debuffs
 		// Script
 		// Cause status changes (must be last)
