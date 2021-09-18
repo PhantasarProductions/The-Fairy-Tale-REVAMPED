@@ -35,6 +35,32 @@
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
 Group Effect
+	
+	Var Target
+
+	Bool Run(Action,_Target)
+		Bool Ret = false
+		Switch Lua.type(_Target)
+			Case "string"
+				Target = Fighter.ByTag[_Target]
+			Case "table"
+				Target = _Target
+			Default
+				Lua.error("Cannot handle target of type: "..Lua.type(_Target))
+		End
+		
+		// Check hit / critical / desperation
+		
+		// Cure status changes (must be first)
+		// Healing
+		// Attack
+		// Buffs & Debuffs
+		// Script
+		// Cause status changes (must be last)
+		
+		// Return result
+		Return Ret
+	End
 End
 
 Return Effect
