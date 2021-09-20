@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Execution.neil
-// Version: 21.09.18
+// Version: 21.09.20
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -131,6 +131,19 @@ Class Stage_Execution Extends Stage
 			SpellAni.Draw()
 		End
 	End
+	#endregion
+	
+	#region Effect
+	Const Delegate Draw_Effect = NIKS
+	Void Update_Effect()
+		For Tar in Act.Targets.Each
+			If !Effect.Run(Act,Tar)
+				charmsg(tar.tag,"Miss")
+			End
+		End
+		ExStage="AfterAction"
+	End
+
 	#endregion
 	
 	Constructor
