@@ -303,6 +303,17 @@ deftable icommandtable
 			end
 		end
 	end
+	STACKDUMP = void()
+		Var Out = split(IS_StackDump(),"\n")
+		For i,l in ipairs(Out)
+			int B = math.floor( (i/#Out)*255)
+			int G = math.floor( (i/#Out)*180)
+			int R = 255-B
+			CLine.Write(l,R,G,0)
+			Cout(l,"\n")
+		End
+	End
+		
 end
 
 
