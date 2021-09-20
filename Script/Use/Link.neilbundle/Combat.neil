@@ -57,7 +57,7 @@ Module
 			End
 			lua.error("No music timing for boss yet!")
 		End
-		Int Time = 100
+		Int Time = 90
 		Int m = 360-math.random(0,125)
 		If BossHead!=""
 			Time = 500
