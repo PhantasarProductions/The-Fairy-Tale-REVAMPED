@@ -76,7 +76,7 @@ Group Effect
 				Boxtext.Serial("COMBATLEARN","AUTO_DANDOR","FLOW_COMBAT")
 			end
 		end
-		dmg = round(dmg + round(dmg*mod))
+		dmg = round(dmg + round(dmg*modifier))
 		fighter.bytag[tag].StatusChanges = fighter.bytag[tag].StatusChanges or {}
 		
 		// alt damage routine
@@ -153,7 +153,8 @@ Group Effect
 		// function Attack(act,g,i,na) // Original
 		String g = Target.Team
 		
-		CSay("Attack on: "..sval(g).."/"..sval(i))
+		//CSay("Attack on: "..sval(g).."/"..sval(i))
+		CSayF("Attack on %s.%s",Target.Team,Target.Tag)
 		// Init
 		//local ttag = Fighters[g][i].tag
 		String ttag = Target
