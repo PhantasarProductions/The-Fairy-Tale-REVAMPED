@@ -40,6 +40,9 @@ Group Effect
 	Var Action
 	Int LastDamageDone
 	
+	Const Delegate ToNumber = Lua.tonumber
+	Const Delegate Upper = Lua.string.upper
+	
 	Get Var Act
 		Return Action.Act
 	End
@@ -77,7 +80,7 @@ Group Effect
 		fighter.bytag[tag].StatusChanges = fighter.bytag[tag].StatusChanges or {}
 		
 		// alt damage routine
-		for s,d in pairs(fighterbytag[tag].StatusChanges)
+		for s,d in pairs(Fighter.ByTag[tag].StatusChanges)
 			if d.HalfDamage
 				dmg=math.ceil(dmg/2)
 			end
@@ -112,14 +115,14 @@ Group Effect
       		charmsg(tag,"NO EFFECT!",255,180,0)
       	else  
       		// Absorb
-      		for k,d in pairs(fighterbytag[tag].StatusChanges ) 
+      		for k,d in pairs(Fighter.ByTag[tag].StatusChanges ) 
       			if d.BlockHeal 
       				dmg=0
       			end
       		end
       		charmsg(tag,math.abs(dmg),180,255,0)
       	end
-      	if fighterbytag[tag].group=="Hero"
+      	if Fighter.ByTag[tag].group=="Hero"
       		if gv.gbool.["CHEAT.GOD"]
       			dmg=0 
       		end 
@@ -190,15 +193,15 @@ Group Effect
 			//elseif act.Attack_DefenseStat=="Intelligence" or act.Attack_DefenseStat=="Resistance" and RPG.PointsExists("Dandor","SK_EXP_3")~=0 then RPG.Points("Dandor","SK_EXP_3").inc(damage) end
 			//]]
 			#fi
-			if (act.Attack_DefenseStat=="Power" or act.Attack_DefenseStat=="Endurance") and RPG.PointsExists("Dandor","SK_EXP_2")!=0 
+			if (act.Attack_DefenseStat=="Power" or act.Attack_DefenseStat=="Endurance") and RPGChar.Dandor.Points.LVL_Skill2>0 
 				Party.IncSkill("Dandor",2,damage)
-			elseif (act.Attack_DefenseStat=="Intelligence" or act.Attack_DefenseStat=="Resistance") and RPG.PointsExists("Dandor","SK_EXP_3")!=0 
+			elseif (act.Attack_DefenseStat=="Intelligence" or act.Attack_DefenseStat=="Resistance") and RPGChar.Dandor.LVL_Skill3>0 
 				Party.IncSkill("Dandor",3,damage) 
 			end
 		end
 		
 		// Rubine's void
-		If g=="Hero" and RPGChar[ttag].Data.Master=="Rubine" and rand(1,(skill*2)^2)==1
+		If g=="Hero" and RPGChar[ttag].Data.Master=="Rubine" and rand(1,(__skill*2)^2)==1
 			charmsg(ttag,"Voided",180,255)
 			RPGChar[ttag].Points.AP += 12 div __skill
 			voided=true

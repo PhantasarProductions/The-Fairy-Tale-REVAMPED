@@ -77,7 +77,7 @@ Init
 			CSayF("Skipping section %d/%d: %s => %s",idx,Aantal,File,Gestript)
 		Else
 			CSayF(" Loading section %d/%d: %s => %s",idx,Aantal,File,Gestript)
-			_real[Gestript] = NeilUse(Replace(File:upper(),".NEIL",""),"FLOWCOMABAT."..Gestript)
+			_real[Gestript] = NeilUse(Replace(File:upper(),".NEIL",""),"FLOWCOMBAT."..Gestript)
 		End
 	End	
 	Progress.Kill("LOADCOMBAT")
