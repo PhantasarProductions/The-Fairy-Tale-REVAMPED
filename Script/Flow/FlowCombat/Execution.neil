@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Execution.neil
-// Version: 21.09.20
+// Version: 21.09.21
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -136,9 +136,10 @@ Class Stage_Execution Extends Stage
 	#region Effect
 	Const Delegate Draw_Effect = NIKS
 	Void Update_Effect()
-		For Tar in Act.Targets.Each
-			If !Effect.Run(Act,Tar)
-				charmsg(tar.tag,"Miss")
+		//For Tar,TarTag,idx in Act.Targets.Each
+		For TarTag in Each(Act.TarTags)
+			If !Effect.Run(Act,TarTag)
+				charmsg(tartag,"Miss")
 			End
 		End
 		ExStage="AfterAction"

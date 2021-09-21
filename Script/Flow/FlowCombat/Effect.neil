@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Effect.neil
-// Version: 21.09.20
+// Version: 21.09.21
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -43,6 +43,10 @@ Group Effect
 	Const Delegate ToNumber = Lua.tonumber
 	Const Delegate Upper = Lua.string.upper
 	
+	Get Var Executor
+		Return Action.Executor
+	End
+	
 	Get Var Act
 		Return Action.Act
 	End
@@ -77,7 +81,9 @@ Group Effect
 			end
 		end
 		dmg = round(dmg + round(dmg*modifier))
+		Lua.assert(fighter.bytag[tag],"NIL-record: "..tag)
 		fighter.bytag[tag].StatusChanges = fighter.bytag[tag].StatusChanges or {}
+		
 		
 		// alt damage routine
 		for s,d in pairs(Fighter.ByTag[tag].StatusChanges)
@@ -122,7 +128,7 @@ Group Effect
       		end
       		charmsg(tag,math.abs(dmg),180,255,0)
       	end
-      	if Fighter.ByTag[tag].group=="Hero"
+      	if Fighter.ByTag[tag].Team=="Hero"
       		if gv.gbool["CHEAT.GOD"]
       			dmg=0 
       		end 
@@ -157,8 +163,8 @@ Group Effect
 		CSayF("Attack on %s.%s",Target.Team,Target.Tag)
 		// Init
 		//local ttag = Fighters[g][i].tag
-		String ttag = Target
-		String atag = Act.executor.tag
+		String ttag = Target.Tag
+		String atag = Executor.tag
 		Number atk = RPGChar[atag].Stat["END_"..act.Attack_AttackStat] * ((act.Attack or 100)/100)
 		Number def = 0
 		Bool voided = False
@@ -228,17 +234,18 @@ Group Effect
 		Return True
     end	
 
-	Bool Run(Action,_Target)
+	Bool Run(_Action,_Target)
 		Bool Ret = False
 		Switch Lua.type(_Target)
 			Case "string"
 				Target = Fighter.ByTag[_Target]
+				Lua.assert(Target,"COMBAT.EFFECT: Target definition failed: ".._Target)
 			Case "table"
 				Target = _Target
 			Default
 				Lua.error("Cannot handle target of type: "..Lua.type(_Target))
 		End
-		Action = Action
+		Action = _Action
 		
 		// Check hit / critical / desperation
 		

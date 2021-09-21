@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Class_Action.neil
-// Version: 21.09.10
+// Version: 21.09.21
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -75,7 +75,7 @@ Class Action
 				If i>#TarTags
 					Return nil,nil
 				End
-				Return Fighter.ByTag[TarTags[i]],i
+				Return Fighter.ByTag[TarTags[i]],TarTags[i],i
 			End
 		End
 		Var TarIndex(s,idx)
@@ -90,7 +90,7 @@ Class Action
 						case "COUNT" "LEN" "CNT" "LENGTH"
 							return #TarTags
 						case "EACH"
-							return TarEach
+							return TarEach()
 						default
 							Lua.error("Unknown action target command: "..idx)
 					End
