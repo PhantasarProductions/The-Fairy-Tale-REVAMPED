@@ -123,7 +123,7 @@ Group Effect
       		charmsg(tag,math.abs(dmg),180,255,0)
       	end
       	if Fighter.ByTag[tag].group=="Hero"
-      		if gv.gbool.["CHEAT.GOD"]
+      		if gv.gbool["CHEAT.GOD"]
       			dmg=0 
       		end 
       		// God Mode
@@ -137,7 +137,7 @@ Group Effect
       		// SetStatus(tag,'Death',true)
       	// End
       	if tag=="Marrilona" and gv.gint["HANDICAP.MARRILONA"]>0
-      		gv.gint["HANDICAP.MARRILONA"] += math.ceil(dmg div __skill))
+      		gv.gint["HANDICAP.MARRILONA"] += math.ceil(dmg div __skill)
       	end
       	CSay(tag.." suffered "..dmg.." damage")
       	if (not prefixed(tag,"FOE")) and ((not VicQ) or upper(VicQ)=="PERFECT") 
