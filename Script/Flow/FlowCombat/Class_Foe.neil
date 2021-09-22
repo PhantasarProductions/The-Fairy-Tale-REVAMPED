@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Class_Foe.neil
-// Version: 21.09.17
+// Version: 21.09.22
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -43,6 +43,8 @@ Class Foe Extends Fighter
 	Var NorImage
 	Var NegImage
 	Number Scale = 1
+	
+	Bool _CheckKilled = False
 	
 	Get Bool TarByFoe
 		Return Self.HP>9
@@ -135,6 +137,32 @@ Class Foe Extends Fighter
 		Return WFoe
 	End
 	
+	Void CheckKilled()
+		If !_CheckKilled
+			// TODO: Experience / Money Drops / Item Drops
+		End
+		_CheckKilled = True
+	End
+	
+	
+	Number _KillScale = 0
+	Get Number NKillScale
+		Return math.max(0,1 - _KillScale)
+	End
+	Get Number PKillScale
+		Return 1 + _KillScale
+	End
+	
+	Void DrawKO()
+		CheckKilled()
+		if NKillScale>0
+			Image.AltScale("COMBAT",NKillScale,PKillScale)
+			NorImage.ASDraw("COMBAT",Self.X,Self.Y)
+			Image.AltScale("COMBAT",1,1)
+			_KillScale += 0.1
+		End
+	End
+	
 	Void Draw()
 		If self.HP==0
 			Self.Stage="KO"
@@ -143,7 +171,8 @@ Class Foe Extends Fighter
 			Case "IDLE"
 				NorImage.ASDraw("COMBAT",Self.X,Self.Y)
 			Case "KO"
-				Lua.error("Death animation not yet done")
+				//Lua.error("Death animation not yet done")
+				DrawKO()
 			Default
 				Static Bool Neg
 				If FPS.Ticks % 25
