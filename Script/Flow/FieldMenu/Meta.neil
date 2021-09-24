@@ -1,0 +1,126 @@
+// License Information:
+// **********************************************
+// 
+// src/Tricky Script/Script/Flow/FieldMenu/Meta.neil
+// (c) Jeroen Broks, 2021, All Rights Reserved.
+// 
+// This file contains material that is related
+// to a storyline that is which is strictly
+// copyrighted to Jeroen Broks.
+// 
+// This file may only be used in an unmodified
+// form with an unmodified version of the
+// software this file belongs to.
+// 
+// You may use this file for your study to see
+// how I solved certain things in the creation
+// of this project to see if you find valuable
+// leads for the creation of your own.
+// 
+// Mostly this file comes along with a project
+// that is for most part released under an
+// open source license and that means that if
+// you use that code with this file removed
+// from it, you can use it under that license.
+// Please check out the other files to find out
+// which license applies.
+// This file comes 'as-is' and in no possible
+// way the author can be held responsible of
+// any form of damages that may occur due to
+// the usage of this file
+// 
+// 
+// **********************************************
+// 
+// version: 21.09.23
+// End License Information
+Const String BCD = "GFX/Big_Char/"
+
+QuickMeta MetaPic
+	Index
+		Static Var _P
+		_P = _P || {}
+		key = key:upper()
+		_P[key] = _P[key] || { ["IMG"] = Image.LoadNew(BCD..key..".png","FMMB_"..key) }
+		return _P[key]		
+	End
+End
+
+Module
+	
+	ReadOnly Var BigFnt  = ImageFont.Obtain("BIGTEXT")
+	ReadOnly Var LitFnt = ImageFont.Obtain("FNTSTATSTAT")
+	
+	Void Pic(ubox,string CharTag)
+		If Prefixed(CharTag,"Jake")
+			CharTag="Jake"
+		End
+		Var MP = MetaPic[CharTag]
+		If !MP.X
+			Int PW = MP.IMG.Width
+			Int PH = MP.IMG.Height
+			Number D = ubox.h / PH
+			Int IW = math.floor(math.min(ubox.w,PW*D))
+			Int IX = ubox.w-IW
+			MP.Y = ubox.y
+			MP.X = IX + ubox.x
+			MP.W = IW 
+			MP.H = ubox.h
+		End
+		__White
+		Graphics.SetAlpha(200)
+		MP.IMG.Stretch(MP.X,MP.Y,MP.W,MP.H)
+		Graphics.SetAlpha(255)		
+	End
+	
+	Void Flow(uBox,string CharTag,string situation)
+		Pic(ubox,CharTag)
+		String Name
+		Switch CharTag
+			Case "Jake_Human" "Jake_Fairy"
+				Name = "Jake Daniel Werrington"
+			Case "Marrilona"
+				Name = "Marrilona, daughter of Fandalora"
+			Case "Krandar"
+				Name = "Krandar, son of Gandophar"
+			Case "Nostramantu" "Nostramantu_Elder"
+				Name = "Nostramantu, son of Sulamon"
+			Case "Feenalaria" "Feenalaria_Dress" "Feenalaria_Fairy"
+				Name = "Feenalaria, daughter of Vandar"
+			Default
+				Name = Chartag
+		End
+		__Ember
+		BigFnt.DarkText(Name,ubox.x+10,ubox.y+10)
+		__White
+		LitFnt.DarkText(RPGChar[CharTag].Data.Race.." "..RPGChar[CharTag].Data.Sex,ubox.x+10,ubox.y+50)
+		Int BarSiz = (ubox.w - 30)
+		For i=1,5
+			String SkName = RPGCHar[CharTag].Data[sPrintF("Skill%d",i)]			
+			Var SkLvl = RPGChar[CharTag].Points[sPrintF("LVL_Skill%d",i)]
+			Var SkExp = RPGChar[CharTag].Points[sPrintF("EXP_Skill%d",i)]
+			Int SkSiz = math.floor((SkExp.Have / SkExp.Maximum) * BarSiz)
+			Int Y = ubox.y+100+(i*50)
+			If SkName==""
+				// Nothing!
+			ElseIf SkLvl.Have<=0
+				Graphics.Color(127,127,127)
+				LitFnt.DarkText("???",ubox.x+10,Y,0,1)
+			Else
+				If SkLvl.have<SkLvl.Maximum
+					Graphics.Color(127,127,127)
+					Graphics.Rect(ubox.x+15,Y-5,BarSiz,5)
+				End
+				__Red
+				Graphics.Rect(ubox.x+15,Y-5,SkSiz,5)
+				__White
+				LitFnt.DarkText(Skname,ubox.x+10,Y,0,1)
+				LitFnt.DarkText(sPrintF("Lv. %03d",SkLvl.Have),ubox.x+ubox.w-15,Y,1,1)
+			End
+		End
+	End
+	
+	Constructor
+	End
+		
+End
