@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Effect.neil
-// Version: 21.09.21
+// Version: 21.09.25
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -233,6 +233,22 @@ Group Effect
 		//;(HitBy[mychar.HitBy or 'Nothing'] or Nothing)(ttag,act.Attack_Element,act.Attack_AttackStat,act.Attack_DefenseStat,{damage=damage,executor=atag})       
 		Return True
     end	
+    
+    Get Bool XTurnCard
+    	If Act.ADDCARD_Char_Number && Act.ADDCARD_Char_Number>=0
+    		Int maxmove = ({ ["Foe"] = {100,1000,5000}, ["Hero"]={5000,1000,95} })[Action.Executor.Team][__skill]
+        	Int moved = 0
+        	For ak=1,Act.ADDCARD_Char_Number
+        		If moved<maxmove
+        			//If AddCard(card2add,ak*(act.ADDCARD_Char_Interval or 2)) then moved=moved+1 end
+        			FlowCombat.Cards.Add(ak*math.max(2,Act.ADDCARD_Char_Interval || 2),Action.Executor.Tag)
+        		End
+        	End
+        	Return True
+        End
+        Return False
+    End
+    
 
 	Bool Run(_Action,_Target)
 		Bool Ret = False
@@ -256,6 +272,8 @@ Group Effect
 		
 		// Buffs & Debuffs
 		// Script
+		// Target gets extra turn cards
+		Ret = XTurnCard || Ret
 		// Cause status changes (must be last)
 		
 		// Return result

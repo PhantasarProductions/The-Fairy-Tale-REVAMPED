@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Class_Foe.neil
-// Version: 21.09.22
+// Version: 21.09.25
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -43,6 +43,7 @@ Class Foe Extends Fighter
 	Var NorImage
 	Var NegImage
 	Number Scale = 1
+
 	
 	Bool _CheckKilled = False
 	
@@ -110,6 +111,7 @@ Class Foe Extends Fighter
 		CSayF("Compiling Foe: %s on spot %03d",F,_num)
 		Var WFoe = new Foe()
 		WFoe.Setup(MakeTag(_num),"Foe")
+		WFoe.File = F
 		WFoe.Num=_num
 		WFoe.Oversoul = _oversoul==true
 		WFoe.Raw = Rw(WFoe.Oversoul)

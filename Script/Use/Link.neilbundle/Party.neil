@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.09.02
+// version: 21.09.25
 // End License Information
 
 Void LoadPartySub()
@@ -83,5 +83,39 @@ Module
   			End
   		End
   		Return 0
+  	End
+  	
+  	Delegate SkillLvlUpMsg
+  	Table SLUC
+  	
+  	Void IncSkill(String Tag, Int Skill, Int Experience,Force)
+  		String TagLevel = sPrintF("LVL_Skill%d",Skill)
+  		String TagExpnc = sPrintF("LVL_Skill%d",Skill)
+  		String TagTitle = sPrintF("Skill%d",Skill)
+  		RPGChar[Tag].Points.LVL_Skill1.Have = math.max(1,RPGChar[Tag].Points.LVL_Skill1.Have) 
+  		If (RPGChar[Tag].Points[TagLevel].Have>0 || Force) && RPGChar[Tag].Points[TagLevel].Have<RPGChar[Tag].Points[TagLevel].Maximum
+  			RPGChar[Tag].Points[TagExpnc].Have += Experience
+  			If RPGChar[Tag].Points[TagExpnc].Have == RPGChar[Tag].Points[TagExpnc].Maximum
+  				RPGChar[Tag].Points[TagExpnc].Have = 0
+  				SkillLvlUpMsg(Tag,RPGChar[Tag].Data[TagTitle].." level up",SLUC[Skill][1],SLUC[Skill][2],SLUC[Skill][3])
+  				Var SLUV = NeilUse("Script/Data/Char/"..Tag.."/SkillUp")
+  				For k,v in sPairs(SLUV)
+  					Lua.Neil.Globals.CSayF("Due to skill %d going up on %s stat '%s' goes up by %02d",Skill,Tag,k,v)
+  					RPGChar[Tag].Stat["PERMABUFF_"..k] += v
+  				End
+  			End
+  		End
+  	End
+  	
+  	Constructor
+  		Void Niks()
+  		End
+  		SkillLvlUpMsg = NIKS
+  		SLUC = {}
+  		SLUC += {  0,255,255}
+  		SLUC += {255,  0,  0}
+  		SLUC += {  0,255,  0}
+  		SLUC += {255,180,180}
+  		SLUC += {255, 68,  0}  			
   	End
 End

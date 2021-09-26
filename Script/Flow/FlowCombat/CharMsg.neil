@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/CharMsg.neil
-// Version: 21.09.20
+// Version: 21.09.25
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -41,6 +41,10 @@ Global Void CharMsg(Ch,String Msg,Int R=255,Int G=255, Int B=255)
 		_Ch=Fighter.Bytag[CH]
 	End
 	MiniMessage.NewMsg(Msg,_CH.TX, _CH.TY, R, G, B)
+End
+
+Init
+	Party.SkillLvlUpMsg = CharMsg
 End
 
 Return CharMsg

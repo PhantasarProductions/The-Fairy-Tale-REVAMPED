@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/AAA_Fighter.neil
-// Version: 21.09.21
+// Version: 21.09.26
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -74,7 +74,15 @@ Class Fighter
 		Return Char.Points.HP.Maximum
 	End
 	Get Int AP
+		If Team=="Hero"
+			Return Char.Points.AP.Have
+		End
 		Return 0
+	End
+	Set Int AP
+		If Team=="Hero"
+			Char.Points.AP.Have = value
+		End
 	End
 	Get Int APMax
 		Return 0
@@ -85,6 +93,7 @@ Class Fighter
 	Get Int H
 		Return 0
 	End
+	
 
 	Int X
 	Int Y

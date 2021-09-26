@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Execution.neil
-// Version: 21.09.21
+// Version: 21.09.25
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -34,8 +34,9 @@
 // misrepresented as being the original software.
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
+
 #Use "Script/Use/Misc/Box"
-#macro __Execution CombatFlow.Execution
+#Macro __Execution CombatFlow.Execution
 
 Class Stage_Execution Extends Stage
 
@@ -106,6 +107,7 @@ Class Stage_Execution Extends Stage
 	Var SpellAni
 	Void Update_SpellAni()
 		Static Bool Initiated = False
+		DoShowBox = False
 		if Act.Act.SpellAni==""
 			Initiated = False
 			SpellAni = nil
@@ -144,8 +146,55 @@ Class Stage_Execution Extends Stage
 		End
 		ExStage="AfterAction"
 	End
-
 	#endregion
+	
+	#region After Action
+	Const Delegate Draw_AfterAction = NIKS
+	Static Var AfterActions = {}
+	
+	Void Update_AfterAction()
+		// After Action Script 
+		String AA_Dir = "Script/Use/Combat/AfterAction/"
+		String AA_File = AA_Dir
+		Switch Act.Executor.Team
+			Case "Hero"
+				String T = Act.Executor.Tag
+				Switch Act.Executor.Tag
+					Case "Jake_Human" "Jake_Fairy"
+						T = "Jake"
+					Default
+				End
+				AA_File += "Hero/"..T
+			Case "Foe"
+				AA_File += "Foe/"..Act.Executor.File
+			Default
+				Lua.error("Invalid team")
+		End
+		If JCR6.EntryExists(AA_File..".neil")
+			AfterActions[AA_File] = AfterActions[AA_File] || NeilUse(AA_File)
+			AfterActions[AA_File](Act)
+		End
+			
+		If Act.Executor.Team=="Hero"
+			// To make sure only the last one to act speaks and moves (in boss they all move, but only the last actor speaks)
+			LastAction = Act.Executor.Tag
+			// Pose to normal
+			Act.Executor.Stage = "IDLE"
+			// AP Up
+			Act.Executor.AP += Act.Act.rew_GainAP
+			// Skill up
+			For ski=1,5
+				Party.IncSkill(Act.Executor.Tag,ski,Act.Act["rew_GainSkill"..ski],Act.Act["rew_CreateSkill"..ski])
+			End
+		End
+		// Is there a message? (Should only be used for learning new spells).
+		If act.aftermsg!=""
+			CharMsg(act.executor.tag,act.aftermsg,0,180,255)
+		End
+		// Lastly remove the front card and go back to the "IDLE" mode
+		FlowCombat.Cards.DelShift()
+		Stage.Current = Nil
+	End
 	
 	Constructor
 		ABox = ABox || new Box(0,AYPS,Screen.W,ASiz,false)
