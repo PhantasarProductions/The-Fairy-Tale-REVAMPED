@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/AAA_Stage.neil
-// Version: 21.09.12
+// Version: 21.10.02
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -80,8 +80,26 @@ Class Stage_IDLE extends Stage
 	Get Var FirstCard
 		Return FlowCombat.Cards[1]
 	End
+	
+	Void CardCheck()		
+		For FTag,FDat in PAIRS(Fighter.ByTag)
+			Bool Found = False
+			If FDat.HP>0
+				For _,C in PAIRS(Cards.Lijst)
+					Found = Found || ( (!C.Joker) && (!C.Action) && C.FightTag==FTag )  
+				End
+				If !Found
+					Int spot = ( 25 + (Cards.Order.tagorder[FTag] * 2)+ (math.floor(math.random(1,Cards.Order.tagorder[FTag])/2)) )
+					Cards.Add(Spot,FTag)
+					CSayF("No cards for %s so automatically added one on spot #%d",FTag,Spot)
+				End
+			End
+		End
+	End
+		
 
 	Void Update()		
+		CardCheck()
 		If !Cards.Present(1)
 			Cards.DelFirst()
 		ElseIf FirstCard.FightTeam=="Hero" && (!FirstCard.Action)
