@@ -1,4 +1,4 @@
-// Generated 9/3/2021 5:49:44 PM
+// Generated 9/29/2021 9:21:16 PM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -15,6 +15,16 @@ Table _R(Bool Oversoul)
 
 	Ret.DESC = "Invisible and dangerous"
 	Ret.IMAGE = "GFX/Combat/Fighters/Foe/reg/HidingHag.png"
+	Ret.DropRate_1 = 0
+	Ret.DropItem_1 = "ITM_AMBROSIA"
+	Ret.DropRate_2 = 0
+	Ret.DropItem_2 = "ITM_AMBROSIA"
+	Ret.StealRate_1 = 0
+	Ret.StealItem_1 = "ITM_AMBROSIA"
+	Ret.StealRate_2 = 0
+	Ret.StealItem_2 = "ITM_AMBROSIA"
+	Ret.StealRate_3 = 0
+	Ret.StealItem_3 = "ITM_AMBROSIA"
 	Ret.NAME = "Hiding Hag"
 	Ret.ER_DARKNESS = 100
 	Ret.ER_EARTH = 100

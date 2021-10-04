@@ -1,4 +1,4 @@
-// Generated 9/3/2021 5:50:04 PM
+// Generated 9/29/2021 9:21:33 PM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -11,57 +11,16 @@ Table _R(Bool Oversoul)
 	Ret.AI = "default"
 	Ret.DESC = "It's solely composed of air.\nIs there something you can do?"
 	Ret.IMAGE = "GFX/Combat/Fighters/Foe/Reg/WindElemental.png"
-	Ret.Drops += "ITM_CARROTS"
-	Ret.Drops += "ITM_CARROTS"
-	Ret.Drops += "ITM_CARROTS"
-	Ret.Drops += "ITM_CARROTS"
-	Ret.Drops += "ITM_CARROTS"
-	Ret.Drops += "ITM_CARROTS"
-	Ret.Drops += "ITM_CARROTS"
-	Ret.Drops += "ITM_CARROTS"
-	Ret.Drops += "ITM_CARROTS"
-	Ret.Drops += "ITM_CARROTS"
-	Ret.Drops += "ITM_CARROTS"
-	Ret.Drops += "ITM_CARROTS"
-	Ret.Drops += "ITM_CARROTS"
-	Ret.Drops += "ITM_CARROTS"
-	Ret.Drops += "ITM_CARROTS"
-	Ret.Drops += "ITM_CARROTS"
-	Ret.Drops += "ITM_CARROTS"
-	Ret.Drops += "ITM_CARROTS"
-	Ret.Drops += "ITM_CARROTS"
-	Ret.Drops += "ITM_CARROTS"
-	Ret.Drops += "ITM_CARROTS"
-	Ret.Drops += "ITM_CARROTS"
-	Ret.Drops += "ITM_CARROTS"
-	Ret.Drops += "ITM_CARROTS"
-	Ret.Drops += "ITM_CARROTS"
-	Ret.Drops += "ITM_CARROTS"
-	Ret.Drops += "ITM_CARROTS"
-	Ret.Drops += "ITM_CARROTS"
-	Ret.Drops += "ITM_CARROTS"
-	Ret.Drops += "ITM_CARROTS"
-	Ret.Drops += "EQP_ACC_THIEFCLOAK"
-	Ret.Drops += "EQP_ACC_THIEFCLOAK"
-	Ret.Drops += "EQP_ACC_THIEFCLOAK"
-	Ret.Steal += "WAND_II_HURRICANE"
-	Ret.Steal += "ITM_TRUMPCARD"
-	Ret.Steal += "ITM_TRUMPCARD"
-	Ret.Steal += "ITM_TRUMPCARD"
-	Ret.Steal += "ITM_TRUMPCARD"
-	Ret.Steal += "ITM_TRUMPCARD"
-	Ret.Steal += "ITM_TRUMPCARD"
-	Ret.Steal += "ITM_TRUMPCARD"
-	Ret.Steal += "ITM_TRUMPCARD"
-	Ret.Steal += "ITM_TRUMPCARD"
-	Ret.Steal += "ITM_TRUMPCARD"
-	Ret.Steal += "ITM_TRUMPCARD"
-	Ret.Steal += "ITM_TRUMPCARD"
-	Ret.Steal += "ITM_TRUMPCARD"
-	Ret.Steal += "ITM_TRUMPCARD"
-	Ret.Steal += "ITM_TRUMPCARD"
-	Ret.Steal += "ITM_ANABOLINEA"
-	Ret.Steal += "ITM_ANABOLINEA"
+	Ret.DropRate_1 = 30
+	Ret.DropItem_1 = "ITM_CARROTS"
+	Ret.DropRate_2 = 3
+	Ret.DropItem_2 = "EQP_ACC_THIEFCLOAK"
+	Ret.StealRate_1 = 1
+	Ret.StealItem_1 = "WAND_II_HURRICANE"
+	Ret.StealRate_2 = 15
+	Ret.StealItem_2 = "ITM_TRUMPCARD"
+	Ret.StealRate_3 = 2
+	Ret.StealItem_3 = "ITM_ANABOLINEA"
 	Ret.NAME = "Wind Elemental"
 	Ret.CASH = 5
 	Ret.ER_DARKNESS = 100

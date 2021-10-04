@@ -1,4 +1,4 @@
-// Generated 9/3/2021 5:49:44 PM
+// Generated 9/29/2021 9:21:15 PM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -15,33 +15,16 @@ Table _R(Bool Oversoul)
 
 	Ret.DESC = "A dangerous bird of prey"
 	Ret.IMAGE = "GFX/Combat/Fighters/Foe/reg/Hawk.png"
-	Ret.Drops += "ITM_FLAMEORB"
-	Ret.Drops += "ITM_FLAMEORB"
-	Ret.Drops += "ITM_FLAMEORB"
-	Ret.Drops += "ITM_CARROT"
-	Ret.Steal += "ITM_CARROT"
-	Ret.Steal += "ITM_CARROT"
-	Ret.Steal += "ITM_CARROT"
-	Ret.Steal += "ITM_CARROT"
-	Ret.Steal += "ITM_CARROT"
-	Ret.Steal += "ITM_CARROT"
-	Ret.Steal += "ITM_CARROT"
-	Ret.Steal += "ITM_CARROT"
-	Ret.Steal += "ITM_CARROT"
-	Ret.Steal += "ITM_CARROT"
-	Ret.Steal += "ITM_APPLE"
-	Ret.Steal += "ITM_APPLE"
-	Ret.Steal += "ITM_APPLE"
-	Ret.Steal += "ITM_PANACEA"
-	Ret.Steal += "ITM_PANACEA"
-	Ret.Steal += "ITM_PANACEA"
-	Ret.Steal += "ITM_PANACEA"
-	Ret.Steal += "ITM_PANACEA"
-	Ret.Steal += "ITM_PANACEA"
-	Ret.Steal += "ITM_PANACEA"
-	Ret.Steal += "ITM_PANACEA"
-	Ret.Steal += "ITM_PANACEA"
-	Ret.Steal += "ITM_PANACEA"
+	Ret.DropRate_1 = 3
+	Ret.DropItem_1 = "ITM_FLAMEORB"
+	Ret.DropRate_2 = 1
+	Ret.DropItem_2 = "ITM_CARROT"
+	Ret.StealRate_1 = 10
+	Ret.StealItem_1 = "ITM_CARROT"
+	Ret.StealRate_2 = 3
+	Ret.StealItem_2 = "ITM_APPLE"
+	Ret.StealRate_3 = 10
+	Ret.StealItem_3 = "ITM_PANACEA"
 	Ret.NAME = "Hawk"
 	Ret.CASH = 10
 	Ret.SR_DEATH = 60

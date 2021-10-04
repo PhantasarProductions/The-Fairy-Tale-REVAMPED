@@ -1,4 +1,4 @@
-// Generated 9/3/2021 5:49:55 PM
+// Generated 9/29/2021 9:21:26 PM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -11,26 +11,16 @@ Table _R(Bool Oversoul)
 	Ret.AI = "default"
 	Ret.DESC = "It's red and it's spooky"
 	Ret.IMAGE = "GFX/Combat/Fighters/Foe/reg/RSpook.png"
-	Ret.Drops += "ITM_ANTIDOTE"
-	Ret.Drops += "ITM_ANTIDOTE"
-	Ret.Drops += "ITM_ANTIDOTE"
-	Ret.Drops += "ITM_ANTIDOTE"
-	Ret.Drops += "ITM_ANTIDOTE"
-	Ret.Drops += "ITM_ANTIDOTE"
-	Ret.Drops += "ITM_ANTIDOTE"
-	Ret.Drops += "ITM_ANTIDOTE"
-	Ret.Drops += "ITM_ANTIDOTE"
-	Ret.Drops += "ITM_ANTIDOTE"
-	Ret.Drops += "ITM_FLAMEORB"
-	Ret.Steal += "ITM_SALVE"
-	Ret.Steal += "ITM_SALVE"
-	Ret.Steal += "ITM_SALVE"
-	Ret.Steal += "ITM_SALVE"
-	Ret.Steal += "ITM_SALVE"
-	Ret.Steal += "ITM_APPLE"
-	Ret.Steal += "ITM_FLAMEORB"
-	Ret.Steal += "ITM_FLAMEORB"
-	Ret.Steal += "ITM_FLAMEORB"
+	Ret.DropRate_1 = 10
+	Ret.DropItem_1 = "ITM_ANTIDOTE"
+	Ret.DropRate_2 = 1
+	Ret.DropItem_2 = "ITM_FLAMEORB"
+	Ret.StealRate_1 = 5
+	Ret.StealItem_1 = "ITM_SALVE"
+	Ret.StealRate_2 = 1
+	Ret.StealItem_2 = "ITM_APPLE"
+	Ret.StealRate_3 = 3
+	Ret.StealItem_3 = "ITM_FLAMEORB"
 	Ret.NAME = "Red Spook"
 	Ret.CASH = 3
 	Ret.ER_DARKNESS = 75

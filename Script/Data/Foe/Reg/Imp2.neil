@@ -1,4 +1,4 @@
-// Generated 9/3/2021 5:49:46 PM
+// Generated 9/29/2021 9:21:17 PM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -11,17 +11,16 @@ Table _R(Bool Oversoul)
 	Ret.AI = "default"
 	Ret.DESC = "Looks the same. Is even called the same.\nBut it's definitely stronger."
 	Ret.IMAGE = "GFX/Combat/Fighters/Foe/Reg/Imp.png"
-	Ret.Drops += "ITM_JUSDORANGE"
-	Ret.Drops += "ITM_JUSDORANGE"
-	Ret.Drops += "ITM_JUSDORANGE"
-	Ret.Drops += "ITM_JUSDORANGE"
-	Ret.Drops += "ITM_JUSDORANGE"
-	Ret.Drops += "ITM_UBERPOTION"
-	Ret.Drops += "ITM_UBERPOTION"
-	Ret.Drops += "ITM_UBERPOTION"
-	Ret.Steal += "ITM_ANABOLINEA"
-	Ret.Steal += "ITM_BANANA"
-	Ret.Steal += "ITM_ANABOLINEA"
+	Ret.DropRate_1 = 5
+	Ret.DropItem_1 = "ITM_JUSDORANGE"
+	Ret.DropRate_2 = 3
+	Ret.DropItem_2 = "ITM_UBERPOTION"
+	Ret.StealRate_1 = 1
+	Ret.StealItem_1 = "ITM_ANABOLINEA"
+	Ret.StealRate_2 = 1
+	Ret.StealItem_2 = "ITM_BANANA"
+	Ret.StealRate_3 = 1
+	Ret.StealItem_3 = "ITM_ANABOLINEA"
 	Ret.NAME = "Imp"
 	Ret.CASH = 100
 	Ret.ER_DARKNESS = 75

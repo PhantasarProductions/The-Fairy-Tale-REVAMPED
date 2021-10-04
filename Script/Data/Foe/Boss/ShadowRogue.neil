@@ -1,4 +1,4 @@
-// Generated 9/3/2021 5:49:24 PM
+// Generated 9/29/2021 9:20:59 PM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -16,45 +16,16 @@ Table _R(Bool Oversoul)
 
 	Ret.DESC = "Restless corpse of a dead rogue.\nHaunts old ruins and still tries\nto rob people... eternally."
 	Ret.IMAGE = "GFX/Combat/Fighters/Foe/boss/ShadowRogue.png"
-	Ret.Drops += "ITM_AMBROSIA"
-	Ret.Drops += "ITM_AMBROSIA"
-	Ret.Drops += "ITM_AMBROSIA"
-	Ret.Drops += "ITM_ANABOLINEA"
-	Ret.Steal += "ITM_ANABOLINEA"
-	Ret.Steal += "ITM_ANABOLINEA"
-	Ret.Steal += "ITM_ANABOLINEA"
-	Ret.Steal += "ITM_ANABOLINEA"
-	Ret.Steal += "ITM_ANABOLINEA"
-	Ret.Steal += "ITM_AMBROSIA"
-	Ret.Steal += "ITM_AMBROSIA"
-	Ret.Steal += "ITM_AMBROSIA"
-	Ret.Steal += "ITM_AMBROSIA"
-	Ret.Steal += "ITM_AMBROSIA"
-	Ret.Steal += "ITM_CHERRY"
-	Ret.Steal += "ITM_CHERRY"
-	Ret.Steal += "ITM_CHERRY"
-	Ret.Steal += "ITM_CHERRY"
-	Ret.Steal += "ITM_CHERRY"
-	Ret.Steal += "ITM_CHERRY"
-	Ret.Steal += "ITM_CHERRY"
-	Ret.Steal += "ITM_CHERRY"
-	Ret.Steal += "ITM_CHERRY"
-	Ret.Steal += "ITM_CHERRY"
-	Ret.Steal += "ITM_CHERRY"
-	Ret.Steal += "ITM_CHERRY"
-	Ret.Steal += "ITM_CHERRY"
-	Ret.Steal += "ITM_CHERRY"
-	Ret.Steal += "ITM_CHERRY"
-	Ret.Steal += "ITM_CHERRY"
-	Ret.Steal += "ITM_CHERRY"
-	Ret.Steal += "ITM_CHERRY"
-	Ret.Steal += "ITM_CHERRY"
-	Ret.Steal += "ITM_CHERRY"
-	Ret.Steal += "ITM_CHERRY"
-	Ret.Steal += "ITM_CHERRY"
-	Ret.Steal += "ITM_CHERRY"
-	Ret.Steal += "ITM_CHERRY"
-	Ret.Steal += "ITM_CHERRY"
+	Ret.DropRate_1 = 3
+	Ret.DropItem_1 = "ITM_AMBROSIA"
+	Ret.DropRate_2 = 1
+	Ret.DropItem_2 = "ITM_ANABOLINEA"
+	Ret.StealRate_1 = 5
+	Ret.StealItem_1 = "ITM_ANABOLINEA"
+	Ret.StealRate_2 = 5
+	Ret.StealItem_2 = "ITM_AMBROSIA"
+	Ret.StealRate_3 = 25
+	Ret.StealItem_3 = "ITM_CHERRY"
 	Ret.NAME = "Shadow Rogue"
 	Ret.CASH = 255
 	Ret.ER_DARKNESS = 12345

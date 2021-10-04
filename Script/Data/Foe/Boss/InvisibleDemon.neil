@@ -1,4 +1,4 @@
-// Generated 9/3/2021 5:49:16 PM
+// Generated 9/29/2021 9:20:51 PM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -16,41 +16,16 @@ Table _R(Bool Oversoul)
 
 	Ret.DESC = "Just because you can't see it\ndoesn't mean it's harmless"
 	Ret.IMAGE = "GFX/Combat/Fighters/Foe/boss/InvisibleDemon.png"
-	Ret.Drops += "ITM_AMBROSIA"
-	Ret.Drops += "ITM_AMBROSIA"
-	Ret.Drops += "ITM_AMBROSIA"
-	Ret.Drops += "ITM_AMBROSIA"
-	Ret.Drops += "ITM_AMBROSIA"
-	Ret.Drops += "ITM_ANABOLINEA"
-	Ret.Drops += "ITM_ANABOLINEA"
-	Ret.Drops += "ITM_ANABOLINEA"
-	Ret.Drops += "ITM_ANABOLINEA"
-	Ret.Drops += "ITM_ANABOLINEA"
-	Ret.Steal += "ITM_AMBROSIA"
-	Ret.Steal += "ITM_AMBROSIA"
-	Ret.Steal += "ITM_AMBROSIA"
-	Ret.Steal += "ITM_AMBROSIA"
-	Ret.Steal += "ITM_AMBROSIA"
-	Ret.Steal += "ITM_AMBROSIA"
-	Ret.Steal += "ITM_AMBROSIA"
-	Ret.Steal += "ITM_AMBROSIA"
-	Ret.Steal += "ITM_AMBROSIA"
-	Ret.Steal += "ITM_AMBROSIA"
-	Ret.Steal += "ITM_AMBROSIA"
-	Ret.Steal += "ITM_AMBROSIA"
-	Ret.Steal += "ITM_AMBROSIA"
-	Ret.Steal += "ITM_AMBROSIA"
-	Ret.Steal += "ITM_AMBROSIA"
-	Ret.Steal += "ITM_AMBROSIA"
-	Ret.Steal += "ITM_AMBROSIA"
-	Ret.Steal += "ITM_AMBROSIA"
-	Ret.Steal += "ITM_AMBROSIA"
-	Ret.Steal += "ITM_AMBROSIA"
-	Ret.Steal += "ITM_AMBROSIA"
-	Ret.Steal += "ITM_AMBROSIA"
-	Ret.Steal += "ITM_AMBROSIA"
-	Ret.Steal += "ITM_AMBROSIA"
-	Ret.Steal += "ITM_AMBROSIA"
+	Ret.DropRate_1 = 5
+	Ret.DropItem_1 = "ITM_AMBROSIA"
+	Ret.DropRate_2 = 5
+	Ret.DropItem_2 = "ITM_ANABOLINEA"
+	Ret.StealRate_1 = 25
+	Ret.StealItem_1 = "ITM_AMBROSIA"
+	Ret.StealRate_2 = 0
+	Ret.StealItem_2 = "ITM_AMBROSIA"
+	Ret.StealRate_3 = 0
+	Ret.StealItem_3 = "ITM_AMBROSIA"
 	Ret.NAME = "Invisible Demon"
 	Ret.CASH = 1000
 	Ret.ER_DARKNESS = -300

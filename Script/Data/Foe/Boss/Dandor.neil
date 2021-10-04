@@ -1,4 +1,4 @@
-// Generated 9/3/2021 5:49:08 PM
+// Generated 9/29/2021 9:20:45 PM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -16,6 +16,16 @@ Table _R(Bool Oversoul)
 
 	Ret.DESC = "Found cursed in the forest.\nWanted to eat Marrilona due to this cuse"
 	Ret.IMAGE = "GFX/Actors/Bundled/Player/Dandor.East.png"
+	Ret.DropRate_1 = 0
+	Ret.DropItem_1 = "ITM_ANTIDOTE"
+	Ret.DropRate_2 = 0
+	Ret.DropItem_2 = "ITM_ANTIDOTE"
+	Ret.StealRate_1 = 0
+	Ret.StealItem_1 = "ITM_ANTIDOTE"
+	Ret.StealRate_2 = 0
+	Ret.StealItem_2 = "ITM_ANTIDOTE"
+	Ret.StealRate_3 = 0
+	Ret.StealItem_3 = "ITM_ANTIDOTE"
 	Ret.NAME = "Dandor"
 	Ret.CASH = 1
 	Ret.SR_CONFUSION = 85

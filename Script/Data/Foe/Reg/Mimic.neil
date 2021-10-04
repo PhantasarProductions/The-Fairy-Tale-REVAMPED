@@ -1,4 +1,4 @@
-// Generated 9/3/2021 5:49:52 PM
+// Generated 9/29/2021 9:21:23 PM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -11,18 +11,16 @@ Table _R(Bool Oversoul)
 	Ret.AI = "default"
 	Ret.DESC = "Monster mimicking a treasure chest.\nEither that or the chest is cursed.\nEither way, it's very very dangerous."
 	Ret.IMAGE = "GFX/Combat/Fighters/Foe/reg/Mimic/"
-	Ret.Drops += "EQP_ACC_RINGWENIARIA"
-	Ret.Drops += "EQP_MARRILONA_AR9"
-	Ret.Drops += "EQP_MARRILONA_AR9"
-	Ret.Drops += "EQP_MARRILONA_AR9"
-	Ret.Drops += "EQP_MARRILONA_AR9"
-	Ret.Steal += "ITM_ANABOLINEA"
-	Ret.Steal += "ITM_ANABOLINEA"
-	Ret.Steal += "ITM_ANABOLINEA"
-	Ret.Steal += "ITM_ANABOLINEA"
-	Ret.Steal += "ITM_ANABOLINEA"
-	Ret.Steal += "EQP_HANDOSTILLOR_AR9"
-	Ret.Steal += "EQP_JAKE_AR9"
+	Ret.DropRate_1 = 1
+	Ret.DropItem_1 = "EQP_ACC_RINGWENIARIA"
+	Ret.DropRate_2 = 4
+	Ret.DropItem_2 = "EQP_MARRILONA_AR9"
+	Ret.StealRate_1 = 5
+	Ret.StealItem_1 = "ITM_ANABOLINEA"
+	Ret.StealRate_2 = 1
+	Ret.StealItem_2 = "EQP_HANDOSTILLOR_AR9"
+	Ret.StealRate_3 = 1
+	Ret.StealItem_3 = "EQP_JAKE_AR9"
 	Ret.NAME = "Mimic"
 	Ret.CASH = 20
 	Ret.SR_CONFUSION = 100

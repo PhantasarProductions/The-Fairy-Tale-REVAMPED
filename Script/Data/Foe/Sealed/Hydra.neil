@@ -1,4 +1,4 @@
-// Generated 9/3/2021 5:50:09 PM
+// Generated 9/29/2021 9:21:37 PM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -16,9 +16,16 @@ Table _R(Bool Oversoul)
 	Ret.DESC = "Cut one head off and 3 more will return.\nBut Marrilona can seal of the wound with a fire spell.\nBasically any fire based attack may do the job."
 	Ret.HITBY = "Hydra"
 	Ret.IMAGE = "GFX/Combat/Fighters/Foe/Sealed/Hydra.png"
-	Ret.Drops += "ITM_AMBROSIA"
-	Ret.Drops += "ITM_ANABOLINEA"
-	Ret.Drops += "ITM_ANABOLINEA"
+	Ret.DropRate_1 = 1
+	Ret.DropItem_1 = "ITM_AMBROSIA"
+	Ret.DropRate_2 = 2
+	Ret.DropItem_2 = "ITM_ANABOLINEA"
+	Ret.StealRate_1 = 0
+	Ret.StealItem_1 = "ITM_ANABOLINEA"
+	Ret.StealRate_2 = 0
+	Ret.StealItem_2 = "ITM_AMBROSIA"
+	Ret.StealRate_3 = 0
+	Ret.StealItem_3 = "ITM_AMBROSIA"
 	Ret.NAME = "Hydra"
 	Ret.CASH = 1
 	Ret.ER_DARKNESS = 250

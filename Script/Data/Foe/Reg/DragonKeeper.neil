@@ -1,4 +1,4 @@
-// Generated 9/3/2021 5:49:37 PM
+// Generated 9/29/2021 9:21:10 PM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -15,27 +15,16 @@ Table _R(Bool Oversoul)
 
 	Ret.DESC = "Dead and cursed.\nThese poor souls are what is left of the \nonce proud order of Dragon Keepers,\nheld in high regard by everyone. \nNow they are cursed lost souls\nwho will very likely never find rest."
 	Ret.IMAGE = "GFX/Combat/Fighters/Foe/reg/DragonKeeper/"
-	Ret.Drops += "ITM_CARROT"
-	Ret.Drops += "ITM_CARROT"
-	Ret.Drops += "ITM_CARROT"
-	Ret.Drops += "ITM_POTION"
-	Ret.Drops += "ITM_POTION"
-	Ret.Drops += "ITM_POTION"
-	Ret.Drops += "ITM_POTION"
-	Ret.Drops += "ITM_POTION"
-	Ret.Steal += "ITM_FLAMEORB"
-	Ret.Steal += "ITM_FLAMEORB"
-	Ret.Steal += "ITM_FLAMEORB"
-	Ret.Steal += "ITM_FLAMEORB"
-	Ret.Steal += "ITM_FLAMEORB"
-	Ret.Steal += "ITM_FLAMEORB"
-	Ret.Steal += "ITM_FLAMEORB"
-	Ret.Steal += "ITM_FLAMEORB"
-	Ret.Steal += "ITM_FLAMEORB"
-	Ret.Steal += "ITM_FLAMEORB"
-	Ret.Steal += "ITM_PURELITERATURE"
-	Ret.Steal += "ITM_PURELITERATURE"
-	Ret.Steal += "EQP_JEWEL_SMALLTOPAZ"
+	Ret.DropRate_1 = 3
+	Ret.DropItem_1 = "ITM_CARROT"
+	Ret.DropRate_2 = 5
+	Ret.DropItem_2 = "ITM_POTION"
+	Ret.StealRate_1 = 10
+	Ret.StealItem_1 = "ITM_FLAMEORB"
+	Ret.StealRate_2 = 2
+	Ret.StealItem_2 = "ITM_PURELITERATURE"
+	Ret.StealRate_3 = 1
+	Ret.StealItem_3 = "EQP_JEWEL_SMALLTOPAZ"
 	Ret.NAME = "Dragon Keeper"
 	Ret.CASH = 10
 	Ret.ER_DARKNESS = 200

@@ -1,4 +1,4 @@
-// Generated 9/3/2021 5:49:33 PM
+// Generated 9/29/2021 9:21:06 PM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -12,6 +12,16 @@ Table _R(Bool Oversoul)
 	Ret.Boss = false
 	Ret.DESC = "These are stronger than regular thieves.\nWatch out"
 	Ret.IMAGE = "GFX/Combat/Fighters/Foe/reg/Thief/"
+	Ret.DropRate_1 = 0
+	Ret.DropItem_1 = "ITM_ANTIDOTE"
+	Ret.DropRate_2 = 0
+	Ret.DropItem_2 = "ITM_ANTIDOTE"
+	Ret.StealRate_1 = 0
+	Ret.StealItem_1 = "ITM_ANTIDOTE"
+	Ret.StealRate_2 = 0
+	Ret.StealItem_2 = "ITM_ANTIDOTE"
+	Ret.StealRate_3 = 0
+	Ret.StealItem_3 = "ITM_ANTIDOTE"
 	Ret.NAME = "Bandit"
 	Ret.CASH = 25
 	Ret.SR_DEATH = 78

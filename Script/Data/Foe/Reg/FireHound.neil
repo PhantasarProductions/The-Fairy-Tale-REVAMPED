@@ -1,4 +1,4 @@
-// Generated 9/3/2021 5:49:40 PM
+// Generated 9/29/2021 9:21:12 PM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -11,23 +11,16 @@ Table _R(Bool Oversoul)
 	Ret.AI = "default"
 	Ret.DESC = "It loves fire.\nIt hates the cold"
 	Ret.IMAGE = "GFX/Combat/Fighters/Foe/reg/HellHound.png"
-	Ret.Drops += "ITM_FLAMEORB"
-	Ret.Drops += "ITM_FLAMEORB"
-	Ret.Drops += "ITM_FLAMEORB"
-	Ret.Drops += "ITM_FLAMEORB"
-	Ret.Drops += "ITM_FLAMEORB"
-	Ret.Drops += "ITM_FLAMEORB"
-	Ret.Drops += "ITM_APPLE"
-	Ret.Drops += "ITM_APPLE"
-	Ret.Steal += "ITM_FLAMEORB"
-	Ret.Steal += "ITM_FLAMEORB"
-	Ret.Steal += "ITM_FLAMEORB"
-	Ret.Steal += "ITM_FLAMEORB"
-	Ret.Steal += "ITM_FLAMEORB"
-	Ret.Steal += "ITM_POTION"
-	Ret.Steal += "ITM_POTION"
-	Ret.Steal += "ITM_PHOENIX"
-	Ret.Steal += "ITM_PHOENIX"
+	Ret.DropRate_1 = 6
+	Ret.DropItem_1 = "ITM_FLAMEORB"
+	Ret.DropRate_2 = 2
+	Ret.DropItem_2 = "ITM_APPLE"
+	Ret.StealRate_1 = 5
+	Ret.StealItem_1 = "ITM_FLAMEORB"
+	Ret.StealRate_2 = 2
+	Ret.StealItem_2 = "ITM_POTION"
+	Ret.StealRate_3 = 2
+	Ret.StealItem_3 = "ITM_PHOENIX"
 	Ret.NAME = "Fire Hound"
 	Ret.CASH = 6
 	Ret.ER_DARKNESS = 100

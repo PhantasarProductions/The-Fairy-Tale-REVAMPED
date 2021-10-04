@@ -1,4 +1,4 @@
-// Generated 9/3/2021 5:49:43 PM
+// Generated 9/29/2021 9:21:15 PM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -11,39 +11,16 @@ Table _R(Bool Oversoul)
 	Ret.AI = "default"
 	Ret.DESC = "They roam the mines"
 	Ret.IMAGE = "GFX/Combat/Fighters/Foe/reg/Gremlin.png"
-	Ret.Drops += "ITM_AMBROSIA"
-	Ret.Drops += "ITM_PHOENIX"
-	Ret.Drops += "ITM_PHOENIX"
-	Ret.Drops += "ITM_PHOENIX"
-	Ret.Drops += "ITM_PHOENIX"
-	Ret.Drops += "ITM_PHOENIX"
-	Ret.Drops += "ITM_PHOENIX"
-	Ret.Drops += "ITM_PHOENIX"
-	Ret.Drops += "ITM_PHOENIX"
-	Ret.Drops += "ITM_PHOENIX"
-	Ret.Drops += "ITM_PHOENIX"
-	Ret.Drops += "ITM_PHOENIX"
-	Ret.Drops += "ITM_PHOENIX"
-	Ret.Drops += "ITM_PHOENIX"
-	Ret.Drops += "ITM_PHOENIX"
-	Ret.Drops += "ITM_PHOENIX"
-	Ret.Drops += "ITM_PHOENIX"
-	Ret.Drops += "ITM_PHOENIX"
-	Ret.Drops += "ITM_PHOENIX"
-	Ret.Drops += "ITM_PHOENIX"
-	Ret.Drops += "ITM_PHOENIX"
-	Ret.Drops += "ITM_PHOENIX"
-	Ret.Drops += "ITM_PHOENIX"
-	Ret.Drops += "ITM_PHOENIX"
-	Ret.Drops += "ITM_PHOENIX"
-	Ret.Drops += "ITM_PHOENIX"
-	Ret.Steal += "ITM_AMBROSIA"
-	Ret.Steal += "ITM_DEATHCUBE"
-	Ret.Steal += "ITM_DEATHCUBE"
-	Ret.Steal += "ITM_HOLYSCROLL"
-	Ret.Steal += "ITM_HOLYSCROLL"
-	Ret.Steal += "ITM_HOLYSCROLL"
-	Ret.Steal += "ITM_HOLYSCROLL"
+	Ret.DropRate_1 = 1
+	Ret.DropItem_1 = "ITM_AMBROSIA"
+	Ret.DropRate_2 = 25
+	Ret.DropItem_2 = "ITM_PHOENIX"
+	Ret.StealRate_1 = 1
+	Ret.StealItem_1 = "ITM_AMBROSIA"
+	Ret.StealRate_2 = 2
+	Ret.StealItem_2 = "ITM_DEATHCUBE"
+	Ret.StealRate_3 = 4
+	Ret.StealItem_3 = "ITM_HOLYSCROLL"
 	Ret.NAME = "Gremlin"
 	Ret.CASH = 75
 	Ret.ER_DARKNESS = 123456789

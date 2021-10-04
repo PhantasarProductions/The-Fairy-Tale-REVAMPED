@@ -1,4 +1,4 @@
-// Generated 9/3/2021 5:50:04 PM
+// Generated 9/29/2021 9:21:33 PM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -11,18 +11,16 @@ Table _R(Bool Oversoul)
 	Ret.AI = "default"
 	Ret.DESC = "A predator who can be pretty deadly"
 	Ret.IMAGE = "GFX/Combat/Fighters/Foe/reg/Wolf.png"
-	Ret.Drops += "ITM_APPLE"
-	Ret.Drops += "ITM_MAGICDUST"
-	Ret.Drops += "ITM_MAGICDUST"
-	Ret.Drops += "ITM_MAGICDUST"
-	Ret.Drops += "ITM_MAGICDUST"
-	Ret.Drops += "ITM_MAGICDUST"
-	Ret.Steal += "ITM_CARROT"
-	Ret.Steal += "ITM_ANTIDOTE"
-	Ret.Steal += "ITM_ANTIDOTE"
-	Ret.Steal += "ITM_HEALSHOWER"
-	Ret.Steal += "ITM_HEALSHOWER"
-	Ret.Steal += "ITM_HEALSHOWER"
+	Ret.DropRate_1 = 1
+	Ret.DropItem_1 = "ITM_APPLE"
+	Ret.DropRate_2 = 5
+	Ret.DropItem_2 = "ITM_MAGICDUST"
+	Ret.StealRate_1 = 1
+	Ret.StealItem_1 = "ITM_CARROT"
+	Ret.StealRate_2 = 2
+	Ret.StealItem_2 = "ITM_ANTIDOTE"
+	Ret.StealRate_3 = 3
+	Ret.StealItem_3 = "ITM_HEALSHOWER"
 	Ret.NAME = "Wolf"
 	Ret.CASH = 50
 	Ret.ER_DARKNESS = -25

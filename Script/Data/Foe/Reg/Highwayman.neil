@@ -1,4 +1,4 @@
-// Generated 9/3/2021 5:49:45 PM
+// Generated 9/29/2021 9:21:16 PM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -11,53 +11,16 @@ Table _R(Bool Oversoul)
 	Ret.AI = "default"
 	Ret.DESC = "Nasty ones.\nKeep your hands on your valuables."
 	Ret.IMAGE = "GFX/Combat/Fighters/Foe/reg/Thief/"
-	Ret.Drops += "ITM_DEATHCUBE"
-	Ret.Drops += "ITM_POTION"
-	Ret.Drops += "ITM_POTION"
-	Ret.Drops += "ITM_POTION"
-	Ret.Drops += "ITM_POTION"
-	Ret.Drops += "ITM_POTION"
-	Ret.Drops += "ITM_POTION"
-	Ret.Drops += "ITM_POTION"
-	Ret.Drops += "ITM_POTION"
-	Ret.Drops += "ITM_POTION"
-	Ret.Drops += "ITM_POTION"
-	Ret.Drops += "ITM_POTION"
-	Ret.Drops += "ITM_POTION"
-	Ret.Drops += "ITM_POTION"
-	Ret.Drops += "ITM_POTION"
-	Ret.Drops += "ITM_POTION"
-	Ret.Drops += "ITM_POTION"
-	Ret.Drops += "ITM_POTION"
-	Ret.Drops += "ITM_POTION"
-	Ret.Drops += "ITM_POTION"
-	Ret.Drops += "ITM_POTION"
-	Ret.Drops += "ITM_POTION"
-	Ret.Drops += "ITM_POTION"
-	Ret.Drops += "ITM_POTION"
-	Ret.Drops += "ITM_POTION"
-	Ret.Drops += "ITM_POTION"
-	Ret.Steal += "ITM_ANABOLINEA"
-	Ret.Steal += "ITM_INFERNOORB"
-	Ret.Steal += "ITM_INFERNOORB"
-	Ret.Steal += "ITM_INFERNOORB"
-	Ret.Steal += "ITM_INFERNOORB"
-	Ret.Steal += "ITM_INFERNOORB"
-	Ret.Steal += "ITM_VOLTABALL"
-	Ret.Steal += "ITM_VOLTABALL"
-	Ret.Steal += "ITM_VOLTABALL"
-	Ret.Steal += "ITM_VOLTABALL"
-	Ret.Steal += "ITM_VOLTABALL"
-	Ret.Steal += "ITM_VOLTABALL"
-	Ret.Steal += "ITM_VOLTABALL"
-	Ret.Steal += "ITM_VOLTABALL"
-	Ret.Steal += "ITM_VOLTABALL"
-	Ret.Steal += "ITM_VOLTABALL"
-	Ret.Steal += "ITM_VOLTABALL"
-	Ret.Steal += "ITM_VOLTABALL"
-	Ret.Steal += "ITM_VOLTABALL"
-	Ret.Steal += "ITM_VOLTABALL"
-	Ret.Steal += "ITM_VOLTABALL"
+	Ret.DropRate_1 = 1
+	Ret.DropItem_1 = "ITM_DEATHCUBE"
+	Ret.DropRate_2 = 25
+	Ret.DropItem_2 = "ITM_POTION"
+	Ret.StealRate_1 = 1
+	Ret.StealItem_1 = "ITM_ANABOLINEA"
+	Ret.StealRate_2 = 5
+	Ret.StealItem_2 = "ITM_INFERNOORB"
+	Ret.StealRate_3 = 15
+	Ret.StealItem_3 = "ITM_VOLTABALL"
 	Ret.NAME = "Highwayman"
 	Ret.CASH = 25
 	Ret.ER_DARKNESS = 0

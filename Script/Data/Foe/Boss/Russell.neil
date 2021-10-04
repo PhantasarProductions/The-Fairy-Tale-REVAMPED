@@ -1,4 +1,4 @@
-// Generated 9/3/2021 5:49:23 PM
+// Generated 9/29/2021 9:20:58 PM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -16,19 +16,16 @@ Table _R(Bool Oversoul)
 
 	Ret.DESC = "He THINKS he's a pirate.\nNobody knows where he got his\nobsession from since there are no\ntrade ships and thus nu pirates on\nthe seas of Phantasar."
 	Ret.IMAGE = "GFX/Actors/Single/Humans/Russell.png"
-	Ret.Drops += "ITM_INFERNOORB"
-	Ret.Drops += "ITM_INFERNOORB"
-	Ret.Drops += "ITM_INFERNOORB"
-	Ret.Drops += "ITM_INFERNOORB"
-	Ret.Drops += "ITM_INFERNOORB"
-	Ret.Drops += "ITM_MANDRAKE"
-	Ret.Steal += "ITM_STORMBOTTLE"
-	Ret.Steal += "ITM_STORMBOTTLE"
-	Ret.Steal += "ITM_STORMBOTTLE"
-	Ret.Steal += "ITM_STORMBOTTLE"
-	Ret.Steal += "ITM_STORMBOTTLE"
-	Ret.Steal += "EQP_JAKE_WP10"
-	Ret.Steal += "EQP_JEWEL_EMERALD"
+	Ret.DropRate_1 = 5
+	Ret.DropItem_1 = "ITM_INFERNOORB"
+	Ret.DropRate_2 = 1
+	Ret.DropItem_2 = "ITM_MANDRAKE"
+	Ret.StealRate_1 = 5
+	Ret.StealItem_1 = "ITM_STORMBOTTLE"
+	Ret.StealRate_2 = 1
+	Ret.StealItem_2 = "EQP_JAKE_WP10"
+	Ret.StealRate_3 = 1
+	Ret.StealItem_3 = "EQP_JEWEL_EMERALD"
 	Ret.NAME = "Russell"
 	Ret.CASH = 500
 	Ret.ER_DARKNESS = 25

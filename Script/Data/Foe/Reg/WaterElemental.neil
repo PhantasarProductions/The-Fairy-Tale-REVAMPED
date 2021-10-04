@@ -1,4 +1,4 @@
-// Generated 9/3/2021 5:50:03 PM
+// Generated 9/29/2021 9:21:32 PM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -12,48 +12,16 @@ Table _R(Bool Oversoul)
 	Ret.Boss = false
 	Ret.DESC = "Composed of pure water.\nAnd water is not only the source of life.\nIt can also be the source of DEATH!"
 	Ret.IMAGE = "GFX/Combat/Fighters/Foe/Reg/WaterElemental.png"
-	Ret.Drops += "ITM_POCKETTSUNAMI"
-	Ret.Drops += "ITM_POCKETTSUNAMI"
-	Ret.Drops += "ITM_POCKETTSUNAMI"
-	Ret.Drops += "ITM_POCKETTSUNAMI"
-	Ret.Drops += "ITM_POCKETTSUNAMI"
-	Ret.Drops += "ITM_POCKETTSUNAMI"
-	Ret.Drops += "ITM_POCKETTSUNAMI"
-	Ret.Drops += "ITM_POCKETTSUNAMI"
-	Ret.Drops += "ITM_POCKETTSUNAMI"
-	Ret.Drops += "ITM_POCKETTSUNAMI"
-	Ret.Drops += "ITM_WATERBUBBLE"
-	Ret.Drops += "ITM_WATERBUBBLE"
-	Ret.Drops += "ITM_WATERBUBBLE"
-	Ret.Drops += "ITM_WATERBUBBLE"
-	Ret.Drops += "ITM_WATERBUBBLE"
-	Ret.Drops += "ITM_WATERBUBBLE"
-	Ret.Drops += "ITM_WATERBUBBLE"
-	Ret.Drops += "ITM_WATERBUBBLE"
-	Ret.Drops += "ITM_WATERBUBBLE"
-	Ret.Drops += "ITM_WATERBUBBLE"
-	Ret.Drops += "ITM_WATERBUBBLE"
-	Ret.Drops += "ITM_WATERBUBBLE"
-	Ret.Drops += "ITM_WATERBUBBLE"
-	Ret.Drops += "ITM_WATERBUBBLE"
-	Ret.Drops += "ITM_WATERBUBBLE"
-	Ret.Drops += "ITM_WATERBUBBLE"
-	Ret.Drops += "ITM_WATERBUBBLE"
-	Ret.Drops += "ITM_WATERBUBBLE"
-	Ret.Drops += "ITM_WATERBUBBLE"
-	Ret.Drops += "ITM_WATERBUBBLE"
-	Ret.Drops += "ITM_WATERBUBBLE"
-	Ret.Drops += "ITM_WATERBUBBLE"
-	Ret.Drops += "ITM_WATERBUBBLE"
-	Ret.Drops += "ITM_WATERBUBBLE"
-	Ret.Drops += "ITM_WATERBUBBLE"
-	Ret.Steal += "ITM_AMBROSIA"
-	Ret.Steal += "ITM_ANABOLINEA"
-	Ret.Steal += "ITM_BANANA"
-	Ret.Steal += "ITM_BANANA"
-	Ret.Steal += "ITM_BANANA"
-	Ret.Steal += "ITM_BANANA"
-	Ret.Steal += "ITM_BANANA"
+	Ret.DropRate_1 = 10
+	Ret.DropItem_1 = "ITM_POCKETTSUNAMI"
+	Ret.DropRate_2 = 25
+	Ret.DropItem_2 = "ITM_WATERBUBBLE"
+	Ret.StealRate_1 = 1
+	Ret.StealItem_1 = "ITM_AMBROSIA"
+	Ret.StealRate_2 = 1
+	Ret.StealItem_2 = "ITM_ANABOLINEA"
+	Ret.StealRate_3 = 5
+	Ret.StealItem_3 = "ITM_BANANA"
 	Ret.NAME = "Water Elemental"
 	Ret.CASH = 1
 	Ret.ER_EARTH = 0
