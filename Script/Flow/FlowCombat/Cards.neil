@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Cards.neil
-// Version: 21.09.09
+// Version: 21.10.03
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -180,6 +180,7 @@ Module Class
 #endregion
 
 #region Actual Class
+
 	Int X = -200
 	Int Y 
 	Var Action
@@ -224,6 +225,9 @@ Module Class
 		Joker = Jok
 		None = FT:upper()=="NONE"
 		Y = ToY
+		For _,C in pairs(Lijst)
+			X = math.min(X,C.X-60)
+		End
 	End
 	
 #endregion
