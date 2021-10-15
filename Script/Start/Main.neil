@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.09.03
+// version: 21.10.15
 // End License Information
 
 #macro wh_Image 1
@@ -83,6 +83,8 @@ init
 	LAsset.C("GFX/Algemeen/pointer.png","MOUSE",wh_Image)
 	LAsset.C("GFX/Algemeen/Background.png","BACKGROUND",wh_Image)
 	LAsset.C("GFX/Combat/RENC/Gauge.png","RENCGAUGE",wh_Image)
+	LAsset.C("GFX/Scroll/Down.png","DOWN",wh_Image)
+	LAsset.C("GFX/Scroll/Up.png","UP",wh_Image)
 	LAsset.C("Fonts/SysFont.jfbf","SYSFONT",wh_Font)
 	LAsset.C("Fonts/Coolvetica.jfbf",    "BOXTEXT",wh_Font)
 	LAsset.C("Fonts/Coolvetica.Big.jfbf","BIGTEXT",wh_Font)

@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowSaveGame.neil
-// Version: 21.08.25
+// Version: 21.10.15
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -44,6 +44,8 @@ ReadOnly Var Back = Image.Obtain("BACKGROUND")
 ReadOnly Int TileSize = math.min(Screen.W,Screen.H) div ((MaxPerPage div RowSize) + 3)
 ReadOnly Var TFont = ImageFont.Obtain("BIGTEXT")
 ReadOnly Var SFont = ImageFont.Obtain("FNTSBAR")
+ReadOnly Var Up = Image.Obtain("UP")
+ReadOnly Var Down = Image.Obtain("DOWN")
 
 ReadOnly Table ImgHeader = { ["SAVE"]=Image.Load("GFX/Logo/Save Game.png"), ["LOAD"]=Image.Load("GFX/Logo/Load Game.png") }
 ReadOnly Var Saving = Image.Load("GFX/Loading/Saving.png")
@@ -56,7 +58,11 @@ Int MarrilonaW
 
 Table HasSave = {}
 
-Int Page = 1
+Global Int Page = 1
+Global Table PageNames = {}
+
+
+
 
 Void GetMarrilona()
 	Switch OS.date("%m/%d")
@@ -95,7 +101,22 @@ Void RenewPage()
 	End
 End
 
+Void SavePage()
+	CSay("Generating page name output data")
+	string os = "// Generated\n\nInit\n"
+	os += sPrintF("\tPage = %9d\n",Page)
+	For i,name in pairs(PageNames)
+		os += sPrintF("\tPageNames[%9d] = \"%s\"\n",i,name)
+	End
+	os += "End\n\n"
+	CSay("Saving page data")
+	SaveGame.SaveIndieString("Pages.neil",os)
+End
+
 Global Void Apollo_Flow()
+	Static Int PgX
+	Static Int PuY=20
+	Static Int PdY=Screen.H-80	
 	Int Hover = -1
 	Dev.ToConsole()
 	__White
@@ -112,6 +133,7 @@ Global Void Apollo_Flow()
 		Int Col = i % RowSize
 		Int X = (Col * Math.floor(TileSize * 1.25)) + (Row+5)
 		Int Y = math.ceil((Row+0.25) * Math.floor(TileSize * 1.25) + (Col * (TileSize Div (RowSize+2))))
+		PgX = math.max(PgX,X+TileSize+10)
 		If Mouse.MX>=X && Mouse.MY>=Y && Mouse.MX<=X+TileSize && Mouse.MY<=Y+TileSize
 			Hover = i
 			__Ember
@@ -158,6 +180,7 @@ Global Void Apollo_Flow()
 	End
 	If Mouse.ML
 		If Hover>=0 
+			SavePage()
 			String SG_File = GetSGFileName(Page,Hover)
 			Switch Situation
 				Case "SAVE"
@@ -179,8 +202,24 @@ Global Void Apollo_Flow()
 					Lua.error("Unknown sg situation: "..Situation)
 			End				
 		End
+		If Mouse.MX>PgX && Mouse.MX<PgX+40
+			CSayF("Click Scroll! (%d,%d)",Mouse.MX,Mouse.MY)
+			If Mouse.MY>PuY && Mouse.MY<PuY+40 && Page>1
+				Page--
+			End
+			If Mouse.MY>PdY && Mouse.MY<PdY+40 && Page<999999
+				Page++
+			End
+		End
 	End
-		
+	If Page>1
+		Up.Draw(PgX,PuY)		
+	End
+	If Page<999999
+		Down.Draw(PgX,PdY)
+	End
+	PageNames[Page] = PageNames[Page] || sPrintf("Page: %06d",Page)
+	sFont.Text(PageNames[Page],Screen.W div 2,Screen.H-5,2,1)
 	Mouse.Draw()
 End
 
@@ -197,4 +236,7 @@ Init
 		Faces += Image.Load("GFX/BoxText/Portret/"..F.."/General.png")
 	End
 	RenewPage()
+	plua s = SaveGame.LoadIndieString("Pages.neil")
+	NeilDoString(s || "Init\nEnd\n")
+	PageNames[page] = PageNames[page] || sprintf("Page: %09d",page)
 End
