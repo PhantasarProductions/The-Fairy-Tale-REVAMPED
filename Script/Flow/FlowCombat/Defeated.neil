@@ -1,0 +1,13 @@
+Bool __defeated(string gr)
+	Bool ret = true
+	For t,dat in pairs(Fighter.ByTag)
+		If dat.Team==gr
+			ret = ret && dat.HP==0
+		End
+		//CSayF("Want group %s; Is Group %s; HP %d; Ret %s",gr,Dat.Team,dat.HP,tostring(Ret))
+	End
+	//CsayF("Resulting: %s",tostring(Ret))
+	Return ret
+End
+
+Return __defeated

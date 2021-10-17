@@ -69,6 +69,8 @@ Class Stage
 		CSayF("The current stage has no specific debug")
 	End
 	
+	Bool DontCheckForVictory = False
+	
 End
 
 Class Stage_IDLE extends Stage

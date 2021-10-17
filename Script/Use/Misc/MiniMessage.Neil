@@ -52,6 +52,7 @@ Class __minimessage_ret
 	
 	ReadOnly String Msg
 
+	Int Delay = 0
 	Int Count = 0
 	Int _DEG = math.random(0,360)
 	Get Int Deg
@@ -72,6 +73,11 @@ Class __minimessage_ret
 		G = _G
 		B = _B
 		Msg = _Msg
+		For Chk in Lijst.Each
+			If math.abs(_Y-Chk.Y)<30 && math.abs(_X-Chk.X)<100
+				Delay = 50 - math.abs(_Y-Chk.Y)
+			End
+		End
 	End
 	
 	Static Void NewMsg(String Msg,Int X, Int Y,Int R=255, Int G=255, Int B=255)
@@ -87,10 +93,14 @@ Class __minimessage_ret
 	
 	Static Void DrawAll()
 		For M,L in Lijst.Each
-			M.Draw()
-			M.Count++
-			If M.Count>MaxCount
-				L.UnLink()
+			If M.Delay>0
+				Delay--
+			Else
+				M.Draw()
+				M.Count++
+				If M.Count>MaxCount
+					L.UnLink()
+				End
 			End
 		End
 	End

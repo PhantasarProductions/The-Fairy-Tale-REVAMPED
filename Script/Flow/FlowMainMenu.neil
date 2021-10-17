@@ -277,7 +277,7 @@ class MenuItem
 		return Events.MouseY()
 	end
 	get bool hover
-		return ComeIn && my>Screen.H-200 && mx>x-(iw div 2) && mx<x+(iw div 2)
+		return ComeIn && Y<Screen.H && my>Screen.H-200 && mx>x-(iw div 2) && mx<x+(iw div 2)
 	end
 	
 	readonly int ID
@@ -393,7 +393,7 @@ class MenuItem
 		end
 		if y>Screen.H-20
 			y--
-			CSayF("Bringing in the menu. y=%04d",y)
+			//CSayF("Bringing in the menu. y=%04d",y)
 		end		
 		for It in ItemList.Each
 			It.Show()

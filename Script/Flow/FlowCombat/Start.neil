@@ -77,6 +77,8 @@ Module
 				Table Bundle = JCR6.GetDir("Music/Combat/Boss")
 				Music.Push()
 				Music.Play(Bundle[math.random(1,#Bundle)])
+			Case "*NOCHANGE" "*NOCHANGE*"
+							
 			Default
 				Music.Push()
 				Music.Play(Music)

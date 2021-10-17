@@ -91,6 +91,7 @@ Class Stage_Execution Extends Stage
 		If Time==0
 			ExStage="Pose"
 		End
+		Self.DontCheckForVictory = True
 	End
 	#endregion
 	

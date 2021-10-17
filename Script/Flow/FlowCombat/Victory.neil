@@ -1,0 +1,83 @@
+Class Stage_Victory extends Stage
+
+	Static Var Vic
+	Static Var VicTune = Audio.LoadNew("Music/Combat/Victory.ogg","VIC_TUNE")
+	Static Var Banner  = Image.LoadNew("GFX/Combat/End/YouWin.png","VIC_YOUWIN")
+	
+	Static Number BanScale
+	Const Number ScaleInc = 0.004
+	
+	Static Void Shout()
+		// Vocals/Combat/Hero/Jake/Victory/Boss.ogg
+		String Ch		
+		Switch LastAction
+			case ""
+				Return
+			Case "Jake_Human" "Jake_Fairy"
+				Ch = "Jake"
+			Default
+				Ch = LastAction
+		End
+		String FL = sPrintF("Vocals/Combat/Hero/%s/Victory/%s.ogg",Ch,VicQ)
+		CSayF("= Shout: %s",FL)
+		If JCR6.HasEntry(FL)
+			Audio.LoadNew(FL,sprintF("VICTORYQUOTE_%s_%s",Ch,VicQ)).Play()
+		End	
+		If VicQ=="BOSS"
+			For _,d in pairs(Fighter.ByTag)
+				If d.Team=="Hero"
+					d.Sage = "VICTORY"
+				End
+			End
+		Else
+			Fighter.ByTag[LastAction].Stage = "VICTORY"
+		End		
+	End
+		
+
+	Static Void Check()
+		If Vic==Stage.Current
+			Return
+		End
+		//Csay("DEBUG CHECK VICTORY!")
+		Bool Won = FlowCombat.Defeated("Foe")
+		//CSay("Enemy defeated: %s",tostring(Won))
+		If Won
+			CSay("Party wins, initiating victory stage")
+			Stage.Current="VICTORY"
+			Banner.HotCenter()
+			If Music.Available
+				If !Prefixed(FlowCombat.Start.FMusic:upper(),"*NOCHANGE")
+					Music.Stop()
+					VicTune.Play()
+					CSay("= Victory tune")
+				End
+			End
+			BanScale=0
+			Shout()
+		End
+	End
+
+	Void Update()
+		BanScale = math.min(1,BanScale+ScaleInc)
+		If BanScale>=1
+			Flow.Current="FIELD"
+			If !Prefixed(FlowCombat.Start.FMusic:upper(),"*NOCHANGE")
+				Music.Pop()
+			End
+		End
+	End
+
+	Void Draw()
+		Graphics.Scale(BanScale,BanScale)
+		Banner.Draw(Screen.W div 2, Screen.H div 5)
+	End
+
+End
+
+Init
+	Stage_Victory.Vic = new Stage_Victory()
+	Stage.Register("VICTORY",Stage_Victory.Vic)
+End
+
+Return Stage_Victory

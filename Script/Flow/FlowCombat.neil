@@ -90,5 +90,8 @@ Global Void Apollo_Flow()
 	Dev.ToConsole()
 	FlowCombat.DrawScreen.Run()
 	FlowCombat.AAA_Stage.Current.Update()
+	If !Lua.Neil.Globals.Stage.Current.DontCheckForVictory
+		FlowCombat.Victory.Check()
+	End
 	Party.Boxes(FlowCombat.AAA_Stage.Current.FlashChar)
 End
