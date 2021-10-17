@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Misc/MiniMessage.Neil
-// Version: 21.08.21
+// Version: 21.10.17
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -94,7 +94,7 @@ Class __minimessage_ret
 	Static Void DrawAll()
 		For M,L in Lijst.Each
 			If M.Delay>0
-				Delay--
+				M.Delay--
 			Else
 				M.Draw()
 				M.Count++
