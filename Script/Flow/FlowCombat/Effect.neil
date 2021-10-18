@@ -133,7 +133,7 @@ Group Effect
       			dmg=0 
       		end 
       		// God Mode
-      		RPGChar[tag].Points.AP+= 6 div __skill
+      		RPGChar[tag].Points.AP.Have+= 6 div __skill
       	End
       	hp.Have -= dmg 
       	// Yeah that even works for absorb, as a negative value is then in dmg and two negatives make one positive.
@@ -168,6 +168,9 @@ Group Effect
 		Number atk = RPGChar[atag].Stat["END_"..act.Attack_AttackStat] * ((act.Attack or 100)/100)
 		Number def = 0
 		Bool voided = False
+		If Atk==0
+			Return False
+		End
 		If act.Attack_DefenseStat!="None" 
 			def = RPGChar[ttag].Stat["END_"..act.Attack_DefenseStat] 
 		End
