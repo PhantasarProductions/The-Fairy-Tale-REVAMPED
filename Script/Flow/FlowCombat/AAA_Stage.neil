@@ -101,11 +101,30 @@ Class Stage_IDLE extends Stage
 		
 
 	Void Update()		
+		Static Table AI = {}
 		CardCheck()
 		If !Cards.Present(1)
 			Cards.DelFirst()
 		ElseIf FirstCard.FightTeam=="Hero" && (!FirstCard.Action)
-			Lua.Neil.Globals.Stage_PlayerInput_Main.ComeToMe(FirstCard.FightTag)
+			If Fighter.ByTag[FirstCard.FightTag].HP<=0
+				Cards.DelFirst()				
+			Else
+				Lua.Neil.Globals.Stage_PlayerInput_Main.ComeToMe(FirstCard.FightTag)
+			End
+		ElseIf FirstCard.FightTeam=="Foe" && (!FirstCard.Action)
+			If Fighter.ByTag[FirstCard.FightTag].HP<=0
+				Cards.DelFirst()				
+			Else
+				Var Foe = Fighter.ByTag[FirstCard.FightTag]
+				Var Act = Foe.AI.Decide(Foe)
+				If !Act
+					CSayF("Foe %s failed to get a proper move!",Foe.Tag)
+					FlowCombat.charmsg(Foe.Tag,"Can't decide",255,180,0)
+				Else
+					FlowCombat.Execution.ComeToMe(Act,FirstCard)
+				End
+			End
+			
 		End
 	End
 End
