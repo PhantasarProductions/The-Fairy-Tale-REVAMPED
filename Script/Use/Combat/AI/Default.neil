@@ -1,0 +1,88 @@
+// License Information:
+// src/Tricky Script/Script/Use/Combat/AI/Default.neil
+// Version: 21.10.18
+// Copyright (C) 2021 Jeroen Petrus Broks
+// 
+// ===========================
+// This file is part of a project related to the Phantasar Chronicles or another
+// series or saga which is property of Jeroen P. Broks.
+// This means that it may contain references to a story-line plus characters
+// which are property of Jeroen Broks. These references may only be distributed
+// along with an unmodified version of the game.
+// 
+// As soon as you remove or replace ALL references to the storyline or character
+// references, or any termology specifically set up for the Phantasar universe,
+// or any other univers a story of Jeroen P. Broks is set up for,
+// the restrictions of this file are removed and will automatically become
+// zLib licensed (see below).
+// 
+// Please note that doing so counts as a modification and must be marked as such
+// in accordance to the zLib license.
+// ===========================
+// zLib license terms:
+// This software is provided 'as-is', without any express or implied
+// warranty.  In no event will the authors be held liable for any damages
+// arising from the use of this software.
+// Permission is granted to anyone to use this software for any purpose,
+// including commercial applications, and to alter it and redistribute it
+// freely, subject to the following restrictions:
+// 1. The origin of this software must not be misrepresented; you must not
+// claim that you wrote the original software. If you use this software
+// in a product, an acknowledgment in the product documentation would be
+// appreciated but is not required.
+// 2. Altered source versions must be plainly marked as such, and must not be
+// misrepresented as being the original software.
+// 3. This notice may not be removed or altered from any source distribution.
+// End License Information
+Module
+
+	String GetRandomTarget(String Team)
+		Table TR = Fighter.GetTags(Team)
+		return TR[math.random(1,#TR)]
+	End
+
+	Var Decide(Foe)
+		If type(Foe)=="string"
+			Return Decide(Fighter.ByTag[Foe])
+		End
+		String ActTag = Foe.Raw.Actions[math.random(1,#Foe.Raw.Actions)]
+		Var Tars
+		Bool Ok
+		Int CountDown = 20000
+		Var ActAct = Item[ActTag]
+		Repeat
+			CountDown--
+			if CountDown<0
+				Lua.error("Default AI Time-Out!")
+			End
+			Switch ActAct.Target
+				Case "OS"
+					Tars = {Foe.Tag}
+					Ok = True
+				Case "EV"
+					Tars = Fighter.GetTags()
+					Ok = True
+				Case "AA"
+					Tars = Fighter.GetTags("Foe")
+					Ok = True
+				Case "AF"
+					Tars = Fighter.GetTags("Hero")
+					Ok = True
+				Case "1F"
+					String GRT = GetRandomTarget("Hero")
+					Tars = { GRT }
+					Ok = Fighter.ByTag[GRT].HP>0
+				Case "1A"
+					String GRT = GetRandomTarget("Foe")
+					Tars = { GRT }
+					Ok = Fighter.ByTag[GRT].HP>0
+				Default
+					Lua.error("COMBAT.AI.DEFAULT("..Foe.Tag..","..ActTag.."): Unknown Target Type: "..ActAct.Target)
+			End
+		Until Ok
+		// TODO: Prepare action class
+		Return New Action(ActTag,Foe.Tag,Tars)
+		//Lua.error("No return for Default AI (yet)")
+	End
+
+End
