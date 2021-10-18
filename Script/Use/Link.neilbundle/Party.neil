@@ -90,13 +90,14 @@ Module
   	
   	Void IncSkill(String Tag, Int Skill, Int Experience,Force)
   		String TagLevel = sPrintF("LVL_Skill%d",Skill)
-  		String TagExpnc = sPrintF("LVL_Skill%d",Skill)
+  		String TagExpnc = sPrintF("EXP_Skill%d",Skill)
   		String TagTitle = sPrintF("Skill%d",Skill)
   		RPGChar[Tag].Points.LVL_Skill1.Have = math.max(1,RPGChar[Tag].Points.LVL_Skill1.Have) 
   		If (RPGChar[Tag].Points[TagLevel].Have>0 || Force) && RPGChar[Tag].Points[TagLevel].Have<RPGChar[Tag].Points[TagLevel].Maximum
   			RPGChar[Tag].Points[TagExpnc].Have += Experience
-  			If RPGChar[Tag].Points[TagExpnc].Have == RPGChar[Tag].Points[TagExpnc].Maximum
+  			If RPGChar[Tag].Points[TagExpnc].Have >= RPGChar[Tag].Points[TagExpnc].Maximum
   				RPGChar[Tag].Points[TagExpnc].Have = 0
+  				RPGChar[Tag].Points[TagLevel].Have ++
   				SkillLvlUpMsg(Tag,RPGChar[Tag].Data[TagTitle].." level up",SLUC[Skill][1],SLUC[Skill][2],SLUC[Skill][3])
   				Var SLUV = NeilUse("Script/Data/Char/"..Tag.."/SkillUp")
   				For k,v in sPairs(SLUV)
