@@ -49,6 +49,17 @@ Class Foe Extends Fighter
 	Var NegImage
 	Number Scale = 1
 
+	Get String AITag
+		Return Raw.AI
+	End
+	
+	Static Table AIBase = {}
+	
+	Get Var AI
+		AIBase[AITag] = AIBase[AITag] || NeilUse(sPrintF("Script/Use/Combat/AI/%s",AITag))		
+		Return AIBase[AITag]
+	End
+
 	
 	Bool _CheckKilled = False
 	
@@ -71,6 +82,7 @@ Class Foe Extends Fighter
 	
 	Number DeadScale = 1
 	Int FlashCount
+	Bool FlashEnd
 	
 	Bool Oversoul	
 	
@@ -266,18 +278,22 @@ end
 		End
 		Switch Self.Stage
 			Case "IDLE"
-				NorImage.ASDraw("COMBAT",Self.X,Self.Y)
+				NorImage.ASDraw("COMBAT",Self.X,Self.Y)			
 			Case "KO"
 				//Lua.error("Death animation not yet done")
 				DrawKO()
 			Default
 				Static Bool Neg
-				If FPS.Ticks % 25
+				Static Int OTicks
+				//If FPS.Ticks % 25 == 0
+				if math.abs(FPS.Ticks - OTicks) > 50
+					OTicks = FPS.Ticks
 					Neg = !Neg
 					FlashCount = (FlashCount+1) % 5
-					If FlashCount==0
-						Self.Stage = "IDLE"
-					End
+					//If FlashCount==0
+					//	Self.Stage = "IDLE"
+					//End
+					FlashEnd = FlashCount == 0
 				End
 				If Neg
 					NegImage.ASDraw("COMBAT",Self.X,Self.Y)
@@ -287,9 +303,18 @@ end
 		End
 	End
 	
-	 Bool Pose(Act)
-	 	Lua.error("No foe pose implemented yet")
-	 End
+	
+	Bool Pose(Act)
+	 	//Lua.error("No foe pose implemented yet")
+	 	If (FlashEnd)
+	 		Self.Stage="IDLE"
+	 	Else
+	 		Self.Stage="MOVE"
+	 	End
+	 	Var Ret = FlashEnd==True
+	 	FlashEnd = False
+	 	Return Ret
+	End
 End
 
 Return Foe
