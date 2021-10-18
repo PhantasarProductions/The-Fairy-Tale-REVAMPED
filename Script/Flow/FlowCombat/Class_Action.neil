@@ -59,7 +59,7 @@ Class Action
 	ReadOnly Bool ConsumeItem = False
 	ReadOnly Bool AwardSkillExperience = False
 	ReadOnly String AfterMsg = ""
-
+	
 	Constructor(String _Act,String _Exe,Table _Targets,_XVars)
 		CSayF("Creating action %s for %s",_Act,_Exe)
 		ActTag = _Act
