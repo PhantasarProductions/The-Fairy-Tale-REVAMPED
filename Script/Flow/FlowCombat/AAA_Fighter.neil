@@ -41,7 +41,7 @@ Class Fighter
 	Static Table GetTags(string Team="*")
 		Table Ret = {}
 		For Tag,Dat in sPairs(ByTag)
-			If Tag=="*" || Tag==Dat.Team
+			If Team=="*" || Team==Dat.Team
 				Ret += Tag
 			End
 		End
