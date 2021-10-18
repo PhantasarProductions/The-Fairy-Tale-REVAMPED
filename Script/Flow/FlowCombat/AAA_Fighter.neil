@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/AAA_Fighter.neil
-// Version: 21.09.26
+// Version: 21.10.18
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -37,6 +37,16 @@
 Class Fighter
 	Static Table ByTag = {}
 	Static Table ByTeam = {}
+	
+	Static Table GetTags(string Team="*")
+		Table Ret = {}
+		For Tag,Dat in sPairs(ByTag)
+			If Tag=="*" || Tag==Dat.Team
+				Ret += Tag
+			End
+		End
+		Return Ret
+	End
 	
 	String Tag
 	String Team
