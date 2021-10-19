@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowSaveGame.neil
-// Version: 21.10.15
+// Version: 21.10.20
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -206,9 +206,11 @@ Global Void Apollo_Flow()
 			CSayF("Click Scroll! (%d,%d)",Mouse.MX,Mouse.MY)
 			If Mouse.MY>PuY && Mouse.MY<PuY+40 && Page>1
 				Page--
+				RenewPage()
 			End
 			If Mouse.MY>PdY && Mouse.MY<PdY+40 && Page<999999
 				Page++
+				RenewPage()
 			End
 		End
 	End
@@ -235,8 +237,8 @@ Init
 	For F in Each { "Jake", "Marrilona", "Dandor", "Hando Stillor",   "Harry", "Sandra", "Fandalora", "Sasha Funda",  "Chief Werrington", "Cherry", "Feenalaria", "Nostramantu" }
 		Faces += Image.Load("GFX/BoxText/Portret/"..F.."/General.png")
 	End
-	RenewPage()
 	plua s = SaveGame.LoadIndieString("Pages.neil")
 	NeilDoString(s || "Init\nEnd\n")
+	RenewPage()
 	PageNames[page] = PageNames[page] || sprintf("Page: %09d",page)
 End
