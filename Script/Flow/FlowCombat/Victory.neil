@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Victory.neil
-// Version: 21.10.18
+// Version: 21.10.19
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -100,6 +100,24 @@ Class Stage_Victory extends Stage
 			Flow.Current="FIELD"
 			If !Prefixed(FlowCombat.Start.FMusic:upper(),"*NOCHANGE")
 				Music.Pop()
+			End
+		End
+		plua vit
+		plua hp
+		String tag
+		For i=1,4
+			tag=RPGParty[i]
+			if tag!=""
+				vit = RPGChar[Tag].Points.VIT
+				hp  = RPGChar[Tag].Points.HP
+				if hp.Have==0
+					hp.Have=1
+					exprate[tag] = 0
+				end
+				if vit.Have>0 && hp.Have<hp.Maximum
+					hp.Have +=  math.ceil(hp.Maximum/(200/__skill))
+					vit.Have = vit.Have - 1
+				end
 			End
 		End
 	End
