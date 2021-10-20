@@ -249,6 +249,9 @@ end
 	Void CheckKilled()
 		If !_CheckKilled
 			KillAward()
+			If Boss
+				VicQ = "Boss"
+			End
 		End
 		_CheckKilled = True
 	End
@@ -268,7 +271,7 @@ end
 			Image.AltScale("COMBAT",NKillScale,PKillScale)
 			NorImage.ASDraw("COMBAT",Self.X,Self.Y)
 			Image.AltScale("COMBAT",1,1)
-			_KillScale += 0.1
+			_KillScale += 0.1			
 		End
 	End
 	
