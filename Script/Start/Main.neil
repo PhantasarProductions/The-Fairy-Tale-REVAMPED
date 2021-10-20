@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.10.15
+// version: 21.10.20
 // End License Information
 
 #macro wh_Image 1
@@ -86,8 +86,9 @@ init
 	LAsset.C("GFX/Scroll/Down.png","DOWN",wh_Image)
 	LAsset.C("GFX/Scroll/Up.png","UP",wh_Image)
 	LAsset.C("Fonts/SysFont.jfbf","SYSFONT",wh_Font)
-	LAsset.C("Fonts/Coolvetica.jfbf",    "BOXTEXT",wh_Font)
-	LAsset.C("Fonts/Coolvetica.Big.jfbf","BIGTEXT",wh_Font)
+	LAsset.C("Fonts/Coolvetica.jfbf",        "BOXTEXT",wh_Font)
+	LAsset.C("Fonts/Coolvetica.Big.jfbf",    "BIGTEXT",wh_Font)
+	LAsset.C("Fonts/Coolvetica.VeryBig.jfbf","VBGTEXT",wh_Font)
 	LAsset.C("Fonts/monof55.20.jfbf","FNTSBAR",wh_Font)
 	LAsset.C("Fonts/monof55.25.jfbf","FNTEQP",wh_Font)
 	LAsset.C("Fonts/monof55.35.jfbf","FNTSTATSTAT",wh_Font)	

@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Link.neilbundle/Combat.neil
-// Version: 21.09.20
+// Version: 21.10.20
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -51,18 +51,27 @@ Module
 	End
 	
 	Void Prepare(Int R=0,Int G=180,Int B=255,String BossHead="",String BossName="")
+		Number AlphaH=0
+		Number AlphaB=0
+		Static Var BossAudio
+		Static Var BHF = ImageFont.Obtain("BIGTEXT")
+		Static Var BBF = ImageFont.Obtain("VBGTEXT")
 		Bool BossPlaying()
 			If BossHead==""
 				Return False
 			End
-			lua.error("No music timing for boss yet!")
+			Return AlphaH<1 && AlphaB<1 && BossAudio & BossAudio.Playing
+			//lua.error("No music timing for boss yet!")
 		End
-		Int Time = 90
+		Int Time = 45
 		Int m = 360-math.random(0,125)
 		If BossHead!=""
-			Time = 500
-			Lua.error("Boss intro not yet fully set up")
-		End		
+			Time = 250
+			BossAudio = BossAudio || Audio.LoadNew("Audio/Combat/Boss Intro.ogg","BOSS_INTRO")
+			Lua.Neil.Globals.Music.Stop()
+			BossAudio.Play()
+		End
+		
 		Repeat		
 			Graphics.Cls()
 			For li = 0,360,PLineInt
@@ -71,10 +80,28 @@ Module
 				Graphics.Color(math.floor(R*ci),math.floor(G*ci),math.floor(B*ci))
 				Graphics.Line(MidX,MidY,MidX+math.floor(xmath.sin(li)*Radius),MidY+math.floor(xmath.cos(li)*radius))
 			End
+			Time--
+			if BossHead!=""
+				Graphics.Color(255,255,255)
+				AlphaH = math.min(1,AlphaH+0.1)
+				AlphaB = math.min(1,AlphaB+0.009)
+				Graphics.SetAlpha(math.floor(AlphaH*255))
+				If AlphaH>=1
+					BHF.DarkText(BossHead,Screen.W div 2, (Screen.H div 2) - 20 , 2, 1)
+				Else
+					BHF.Text(BossHead,Screen.W div 2, (Screen.H div 2) - 20 , 2, 1)
+				End
+				Graphics.SetAlpha(math.floor(AlphaB*255))
+				If AlphaH>=1
+					BBF.DarkText(BossName,Screen.W div 2, (Screen.H div 2) + 20 , 2, 0)
+				Else
+					BBF.Text(BossName,Screen.W div 2, (Screen.H div 2) + 20 , 2, 0)
+				End
+				Graphics.SetAlpha(255)
+			End
 			Graphics.Flip()
 			Events.Poll()
 			FPS.WaitMinTicks()
-			Time--
 		LoopWhile Time>0 || BossPlaying()
 		Lua.Neil.Globals.Loading()
 		State.LoadNew("FLOW_COMBAT","Script/Flow/FlowCombat.neil")
@@ -116,5 +143,20 @@ Module
 		ISSet("String","FLOW_COMBAT","FLowCombat.Start.FMusic",value)
 	End
 	
+	Void QuickBoss(string Header,String BossName,String Boss1,string Boss2="",string Boss3="",string Boss4="")
+		
+		Boss(Header,BossName)
+		Arena = Lua.Neil.Globals.Map.Arena
+		Music = "*BOSS"
+		Lose = "GameOver"
+		For Boss in Each{Boss1,Boss2,Boss3,Boss4}
+			If Boss!=""
+				NewEnemy = "Boss/"..Boss
+			End
+		End
+		Lua.Neil.Globals.Map.StopWalking()
+		Start()
+	End
+
 
 End

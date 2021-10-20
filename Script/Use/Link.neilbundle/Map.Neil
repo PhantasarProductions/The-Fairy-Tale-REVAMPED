@@ -47,6 +47,10 @@ Group Player
 	Get Int Y
 		Return ISGet.Int("FLOW_FIELD","FlowField.Map.CurLayer.Obj('PLAYER').Y")
 	End
+	
+	Void StopWalking()
+		Lua.Neil.Globals.Map.StopWalking()
+	End
 End
 
 // For the "Follow the leader" effect
@@ -227,6 +231,14 @@ Module
 	
 	Void ReMap()
 		MCall("FlowField.Map.KthuraMap.ReMap","nil")
+	End
+	
+	Void StopWalking()
+		MCall("FlowField.Map.StopWalking","nil")
+	End
+	
+	Get String Arena
+		Return ISGET.String("FLOW_FIELD","FieldFlow.Map.KthuraMap.Meta.Arena")
 	End
 	
 	CONSTRUCTOR
