@@ -32,12 +32,12 @@
 // 
 // **********************************************
 // 
-// version: 21.07.23
+// version: 21.10.20
 // End License Information
 Module
-	askillup1 = {"Power",2}
-	askillup2 = {"Intelligence",1}
-	askillup3 = {"Speed",1}
-	askillup4 = {"HP",1}
-	askillup5 = {"Endurance",2}
+	Var askillup1 = {"Power",2}
+	Var askillup2 = {"Intelligence",1}
+	Var askillup3 = {"Speed",1}
+	Var askillup4 = {"HP",1}
+	Var askillup5 = {"Endurance",2}
 End
