@@ -173,12 +173,35 @@ Group MScript
 
 	#endregion
 	
+	
+	#region Jenny + Boss
+	Link JennyDone = gv.gbool.PRO_DUNGEON_DRAGON_JENNY_SAVED
+	
+	Void NPC_Jenny()
+		If Self.JennyDone
+			Map.GoToLayer("#008","Start")
+			Return
+		End
+		MapText("JENNY_PREBOSS")
+		//Lua.error("Boss not yet configured")
+		Schedule.Add("PostBoss")
+		Combat.QuickBoss("Leader of the Goblins","Goblin King","GobKing")
+	End
+	
+	Void PostBoss()
+		Self.JennyDone = true		
+		Lua.error("Post boss script not available yet")
+	End
+	#endregion
+		
+	
 	Constructor
 		CSay("Welcome to the Dragon Cave")
 		ZA.TabEnter{"BackToTown","Terug"}
 		ZA.Enter("Secret","ShowSecret")
 		ZA.Leave("Secret","HideSecret")
 		ZA.Enter("StartPuzzle")
+		ZA.Enter("Jenny_BackZone","NPC_Jenny")
 		For SLay in Each{"#001","#006"}
 			CSayF("Hiding secrets on layer %s",SLay)
 			Map.LayHideByLabel(SLay,"Secret")
