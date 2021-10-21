@@ -84,11 +84,13 @@ module
 		End
 		__Black
 		Graphics.Rect(GX-6,GY-100,12,100)
-		Int B=math.floor( ((NE||MaxEnc)/MaxEnc)*100)
-		For ix=GX-6,GX+5
-			FSin = ( FSin + 1 ) % 360
-			Color(math.abs(math.floor(Colors[RateLevel].R*xmath.sin((ix*__bmr)+FSin))),math.abs(math.floor(Colors[RateLevel].G*xmath.sin((ix*__bmr)+FSin))),math.abs(math.floor(Colors[RateLevel].B*xmath.sin((ix*__bmr)+FSin))))
-			Graphics.Line(ix,GY-1,ix,GY-B)
+		If MaxEnc>0 
+			Int B=math.floor( ((NE||MaxEnc)/MaxEnc)*100)
+			For ix=GX-6,GX+5
+				FSin = ( FSin + 1 ) % 360
+				Color(math.abs(math.floor(Colors[RateLevel].R*xmath.sin((ix*__bmr)+FSin))),math.abs(math.floor(Colors[RateLevel].G*xmath.sin((ix*__bmr)+FSin))),math.abs(math.floor(Colors[RateLevel].B*xmath.sin((ix*__bmr)+FSin))))
+				Graphics.Line(ix,GY-1,ix,GY-B)
+			End
 		End
 		Color()
 		Gauge.Draw(GX,GY)
