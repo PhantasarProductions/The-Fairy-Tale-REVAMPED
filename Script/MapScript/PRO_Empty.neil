@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.07.29
+// version: 21.10.21
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -48,5 +48,14 @@ Group MScript
 		Schedule.Add("StartPrologue")
 	End
 	
+	Void StartMarrilona()
+		MapText("MARRILONA")
+		Map.GoToMap("PRO_Town_FrEndor","MARRILONA","Birthday")
+		Schedule.Add("StartPrologue")
+	End
+	
+	Constructor
+		Map.AllowAutoScroll = False
+	End
 	
 End
