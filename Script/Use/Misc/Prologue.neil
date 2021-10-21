@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.07.20
+// version: 21.10.21
 // End License Information
 
 // Hmmm
@@ -47,6 +47,7 @@ QuickMeta PrologueDone
 	
 	NewIndex
 		gv.gbool["Prologue_"..key] = value
+		Lua.Neil.Globals.CsayF("Prologue %s set to %s",key,lua.tostring(value))
 	End
 	
 End
@@ -54,6 +55,13 @@ End
 module
 	
 	ReadOnly Var Done = PrologueDone
+	
+	Bool HasDone(string ch)
+		bool ret = Done[ch]
+		Done[ch]=true
+		Lua.Neil.Globals.CSayF("Prologue %s has been closed now!",ch)
+		return ret
+	End
 	
 	Void GoSelect()
 		State.Load("FLOW_PROLOGUESELECT","Script/Flow/FlowPrologueCharSelect.neil")
