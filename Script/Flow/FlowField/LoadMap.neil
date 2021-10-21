@@ -112,6 +112,7 @@ Void RetLoadMap(string mapbundle)
 				Lua.error("Unknown action type!")
 		End		
 	End
+	FlowField.Map.Layer = FlowField.Map.KthuraMap.Layers[1]
 	Progress.Kill("LOADMAP")
 End
 
