@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.10.20
+// version: 21.10.21
 // End License Information
 
 #use "script/use/anyway"
@@ -189,10 +189,13 @@ Group MScript
 	End
 	
 	Void PostBoss()
-		Self.JennyDone = true		
-		Lua.error("Post boss script not available yet")
+		Self.JennyDone = true
+		MapText("JENNY_POSTBOSS")
+		Map.GoToMap("PRO_Town_Vandar","CHIEF","Entrance")
+		Schedule.Add("End_Prologue")
+		//Lua.error("Post boss script not available yet")
 	End
-	#endregion
+	#endregion		
 		
 	
 	Constructor
