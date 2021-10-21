@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Link.neilbundle/Map.Neil
-// Version: 21.10.20
+// Version: 21.10.21
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -239,6 +239,10 @@ Module
 	
 	Get String Arena
 		Return ISGET.String("FLOW_FIELD","FieldFlow.Map.KthuraMap.Meta.Arena")
+	End
+	
+	Void GoToSave()
+		MCall("FieldFlow.GoToSave","nil")
 	End
 	
 	CONSTRUCTOR
