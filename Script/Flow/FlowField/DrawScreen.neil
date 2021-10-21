@@ -68,7 +68,7 @@ Void AutoPlayerTex()
 End
 
 Void AutoScroll()
-	If (!FlowField.Map.CurLayer.HasTag("PLAYER")) || (FlowField.Map.AllowAutoScroll)
+	If (FlowField.Map.CurLayer.HasTag("PLAYER")) && (FlowField.Map.AllowAutoScroll)
 		Var PL=FlowField.Map.CurLayer.Obj("PLAYER")
 		Int W
 		Int H
@@ -86,6 +86,9 @@ Void FieldStats()
 	Static Int OldY
 	Static Table FntTable = { ["FieldInfo"] = ImageFont.Obtain("BIGTEXT"), ["Stat"] = ImageFont.Obtain("FNTSTATSTAT") }
 	Var Fnt
+	if !FlowField.Map.CurLayer.HasTag("PLAYER")
+		Return
+	End
 	If OldX!=Player.X || OldY!=Player.Y
 		Alpha = -250
 		OldX,OldY=Player.X,Player.Y
