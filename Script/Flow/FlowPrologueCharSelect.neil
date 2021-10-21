@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.07.29
+// version: 21.10.21
 // End License Information
 #use "Script/Use/Anyway"
 #use "Script/Use/Misc/Prologue"
@@ -113,7 +113,7 @@ Global Void Apollo_Flow()
 		Party.CreateChar(PersonCard.Lst[Sel].Name, 1)
 		Switch PersonCard.Lst[Sel].Name
 			Case "Jake" 
-				RPGParty[1] = "Jake_Human"
+				RPGParty[1] = "Jake_Human"			
 			Case "HandoStillor"
 				RPGParty[1] = "HandoStillor"
 				RPGChar.HandoStillor.Name = "Hando Stillor"
