@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Link.neilbundle/Combat.neil
-// Version: 21.10.20
+// Version: 21.10.21
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -92,7 +92,7 @@ Module
 					BHF.Text(BossHead,Screen.W div 2, (Screen.H div 2) - 20 , 2, 1)
 				End
 				Graphics.SetAlpha(math.floor(AlphaB*255))
-				If AlphaH>=1
+				If AlphaB>=1
 					BBF.DarkText(BossName,Screen.W div 2, (Screen.H div 2) + 20 , 2, 0)
 				Else
 					BBF.Text(BossName,Screen.W div 2, (Screen.H div 2) + 20 , 2, 0)
