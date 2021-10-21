@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.08.22
+// version: 21.10.21
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -119,6 +119,12 @@ Group MScript
 		End
 	End
 	#endregion
+	
+	Void End_Prologue()
+		MapText("POST_BOSS")
+		Map.GoToMap("PRO_TheEnd","JAKE","Start")
+		//Schedule.Add("SaveEndPrologue")
+	End
 
 	
 	Void Bye()
