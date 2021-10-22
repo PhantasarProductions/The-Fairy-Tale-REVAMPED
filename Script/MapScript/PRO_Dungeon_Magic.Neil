@@ -1,7 +1,7 @@
 // License Information:
 // **********************************************
 // 
-// src/Tricky Script/Script/MapScript/PRO_Town_Frendor.neil
+// src/Tricky Script/Script/MapScript/PRO_Dungeon_Magic.Neil
 // (c) Jeroen Broks, 2021, All Rights Reserved.
 // 
 // This file contains material that is related
@@ -34,55 +34,10 @@
 // 
 // version: 21.10.22
 // End License Information
-
-#use "Script/Use/Misc/Prologue"
-#use "Script/Use/Anyway"
-
 Group MScript
 
 	ReadOnly Bool HasDraw   = False
 	ReadOnly Bool HasUpdate = False
 	
-	#region Prologue Start
-	Void StartPrologue()
-		MapText("JARIG")
-	End
 	
-	Void NPC_YanneeInside()
-		If Done.Prologue_Marrilona_SpokenToYanee
-			MapText("YANNEE_PROLOGUE2")
-		Else
-			MapText("YANNEE_PROLOGUE1")
-		End
-	End
-	
-	Void ExitHouse()
-		If Done.Prologue_Marrilona_SpokenToYanee
-			Map.GoToLayer("TOWN","exitfrom_marrilona")
-		Else
-			MapText("FANDALORA_PROLOGUE")
-			Map.GoToLayer("ELDER","Marrilona")
-			MapText("ELDER_PROLOGUE")
-			Map.GoToMap("PRO_DUNGEON_MAGIC","#001","Start")
-		End
-	End
-	
-	#endregion
-	
-	#region Fandalora
-	Void NPC_Fandalora()
-		// Prologue
-		If !Prologue.Done.Marrilona
-			MapText("FANDALORA_PROLOGUE")
-			Return
-		End
-		// Dandor
-		// Master
-		Lua.error("Master Fandalora not yet scripted")
-	End
-	#endregion
-		
-	Constructor
-		ZA.Enter("ExitHouse")
-	End
 End
