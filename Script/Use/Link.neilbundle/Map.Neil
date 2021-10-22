@@ -256,8 +256,7 @@ Module
 			return f
 		end
 		m.__index = idx
-		MapScript = Lua.setmetatable({},m)
-		
+		MapScript = Lua.setmetatable({},m)		
 		string MetaIndex(s,string key)
 			//CSayF("Remoye Map Meta Request: %s",key)
 			return ISGET.STRING("FLOW_FIELD",sprintf("FlowField.Map.KthuraMap.Meta[\"%s\"]",key))
