@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField/Clickable.neil
-// Version: 21.08.22
+// Version: 21.10.22
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -88,6 +88,7 @@ Module Class
 	Static Void CBLoadMap()
 		CSay("Generate register of clickables")
 		Clear()
+		FlowField.Map.KthuraMap.ReMap()
 		For L in each(FlowField.Map.KthuraMap.Layers)
 			Var Lay = FlowField.Map.KthuraMap.Layer(L)
 			//Table rItems = Map.LRItems
@@ -134,8 +135,16 @@ Module Class
 	ReadOnly Var ArriveEvent
 	ReadOnly String ArriveParam
 	
+	
+	Const Bool Debug = True 
 	ReadOnly Bool Clicked(Int X, Int Y)
+		If Debug
+			CSayF("Checking clickable object %s(%04d,%04d)",Tag,X,Y)
+		End
 		If !FieldFlow.Map.CurLayer.HasTag(Tag)
+			If Debug
+				CSayF("= No such object here, so I'll pass")
+			End
 			Return False
 		End
 		Return FieldFlow.Map.CurLayer.Obj(Tag).PixInObj(x,y)
