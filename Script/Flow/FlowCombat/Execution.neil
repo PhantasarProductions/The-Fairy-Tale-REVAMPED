@@ -90,6 +90,14 @@ Class Stage_Execution Extends Stage
 		Time--
 		If Time==0
 			ExStage="Pose"
+			String ch = Act.Executor.Tag
+			If prefixed(ch,"Jake")
+				Ch = "Jake"
+			End
+			String Voc = sPrintF("Vocals/Combat/%s/%s/Action/%s.ogg",Act.Executor.Team,Ch,Act.Act.Voice)
+			If JCR6.HasEntry(Voc)
+				Audio.LoadNew(Voc,sprintf("CombatVoice.%s.%s.%s",Act.Executor.Team,Ch,Act.Act.Voice)).Play()
+			End
 		End
 		Self.DontCheckForVictory = True
 	End
