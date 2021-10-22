@@ -152,6 +152,9 @@ Void _DS()
 	If FieldFlow.Map.Layer==""
 		Return
 	End
+	If FieldFlow.Map.MSDraw
+		MapScript.PreDraw()
+	End
 	AutoPlayerTex()
 	AutoScroll()
 	FlowField.Map.KthuraMap.Draw(FieldFlow.Map.Layer,FieldFlow.Map.ScrollX,FieldFlow.Map.ScrollY)
@@ -174,6 +177,12 @@ Void _DS()
 		End
 		FlowField.Font.SmallFixed.Text(sPrintF("Walking(%s)",Lua.tostring(FieldFlow.Map.CurLayer.Obj("PLAYER").Walking)),midx,200,2)
 		FlowField.Font.SmallFixed.Text(sPrintF("Arrival(%s,%s)",Lua.tostring(FieldFlow.Map.ArriveFunc),FieldFlow.Map.ArriveParam),midx,225,2)
+	End
+	If FieldFlow.Map.MSDraw
+		MapScript.PostDraw()
+	End
+	If FieldFlow.Map.MSUpdate
+		MapScript.Update()
 	End
 End
 

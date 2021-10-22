@@ -34,10 +34,29 @@
 // 
 // version: 21.10.22
 // End License Information
+
+#use "Libs/XMath"
+#use "Script/Use/Anyway"
+
 Group MScript
 
-	ReadOnly Bool HasDraw   = False
-	ReadOnly Bool HasUpdate = False
+	ReadOnly Bool HasDraw   = True
+	ReadOnly Bool HasUpdate = True
 	
+	Void Update()
+		Static Int Deg
+		Deg = (Deg + 1) % 360
+		Map.SetObj("Obstacle_Next","Rotation",Deg)
+	End
+	
+	ReadOnly Delegate PostDraw = NIKS
+	
+	Void PreDraw()
+		Blop.Draw()
+	End
+	
+	Constructor
+		Blop.Create(80)
+	End
 	
 End
