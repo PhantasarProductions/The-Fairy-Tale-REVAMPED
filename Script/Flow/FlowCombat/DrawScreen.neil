@@ -52,8 +52,10 @@ Module
 		Else
 			CSayF("Skipped loading arena image: %s (does not exist)",ArI)
 		End
-		If JCR6.EntryExists("Script/Data/Arena/"..ArN..".neil")
-			NeilUse("Script/Data/Arena/"..ArN)
+		If JCR6.EntryExists("Script/Use/Combat/Arena/"..ArN..".neil")
+			Var AScr = NeilUse("Script/Use/Combat/Arena/"..ArN)
+			ArenaPre = AScr.Pre
+			ArenaPst = AScr.Pst
 		End
 	End
 
