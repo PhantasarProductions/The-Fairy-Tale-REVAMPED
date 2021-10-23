@@ -32,14 +32,18 @@
 // 
 // **********************************************
 // 
-// version: 21.10.22
+// version: 21.10.23
 // End License Information
 
 #use "Libs/XMath"
 #use "Script/Use/Anyway"
 
+
+#macro PuzSolved gv.gbool.Prologue_Marrilona_MagicSubSpace_Puzzle_Solved
+
 Group MScript
 
+	#region Plasma & Teleporters
 	ReadOnly Bool HasDraw   = True
 	ReadOnly Bool HasUpdate = True
 	
@@ -47,6 +51,9 @@ Group MScript
 		Static Int Deg
 		Deg = (Deg + 1) % 360
 		Map.SetObj("Obstacle_Next","Rotation",Deg)
+		If Map.Layer=="#004"
+			Self.BarrierLift()
+		End
 	End
 	
 	ReadOnly Delegate PostDraw = NIKS
@@ -54,9 +61,74 @@ Group MScript
 	Void PreDraw()
 		Blop.Draw()
 	End
+	#region
+	
+	#region Puzzle
+	Table PuzzTab = {False, False, False, False, True}
+	Void Check()
+		Bool S = true
+		For i=1,5
+			If PuzzTab[i]
+				Map.SetObj("Z"..i,"R",255)
+				Map.SetObj("Z"..i,"B",0)
+			Else
+				Map.SetObj("Z"..i,"B",255)
+				Map.SetObj("Z"..i,"R",0)
+			End
+			S = S && PuzzTab[i]
+			
+		End
+		If S
+			PuzSolved = true
+			For i=1,5
+				Map.Kill("Z"..i,true)
+			End
+		End
+	End
+	
+	Void Z1()
+		PuzzTab[1] = !PuzzTab[1]
+		PuzzTab[5] = !PuzzTab[5]
+		Check()
+	End
+	Void Z2()
+		PuzzTab[2] = !PuzzTab[2]
+		PuzzTab[5] = !PuzzTab[5]
+		Check()
+	End
+	Void Z3()
+		PuzzTab[3] = !PuzzTab[3]
+		PuzzTab[5] = !PuzzTab[5]
+		Check()
+	End
+	Void Z4()
+		PuzzTab[4] = !PuzzTab[4]
+		PuzzTab[5] = !PuzzTab[5]
+		Check()
+	End
+	Void Z5()
+		For i = 1,5 
+			PuzzTab[i] = !PuzzTab[i]
+		End
+		Check()
+	End
+	Void BarrierLift()
+		Static Int A = 0
+		If PuzSolved
+			A = math.min(255,A+1)
+			Map.SetObj("Barrier","Alpha",A)
+			Map.SetObj("Barrier","ForcePassible",A>=255)
+		End
+	End
+	
+	#endregion
+	
 	
 	Constructor
 		Blop.Create(80)
+		For i=1,5
+			ZA.Enter("Z"..i)
+		End
 	End
 	
 End
