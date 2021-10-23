@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Subs/SubItems.neil
-// Version: 21.08.21
+// Version: 21.10.23
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -206,7 +206,7 @@ Global Void SetItemHas(string itTag,int num)
 	Inventory[itTag:upper()] = math.max(math.min(num,maxitem),0)
 End
 
-Global Bool Allow(string itTag, string Filter)
+Global Bool Allow(string itTag, string Filter,string Char="")
 	itTag = itTag:upper()
 	Filter = Filter:upper()
 	LoadedItems[itTag] = LoadedItems[itTag] || NeilUse("Script/Data/IAA/"..ItTag)
@@ -228,8 +228,16 @@ Global Bool Allow(string itTag, string Filter)
 			Return MyItem.ITM_Type=="KeyItem"
 		Case "SELLABLE"
 			Return (MyItem.ITM_Sellable || MyItem.ITM_ShopPrice>0) && MyItem.ITM_Type!="KeyItem"
-		Default
-			Lua.error("Unknown item filter: "..Filter)
+		Default			
+			If Prefixed(Filter,"FOR")
+				If (MyItem.ITM_Type=="Weapon" || MyItem.ITM_Type=="Armor")
+					Return MyItem.ITM_EQP_For==Char
+				ElseIf MyItem.ITM_Type=="Accesoiry"
+					Return MyItem["ITM_ACC_"..Char]
+				End
+			Else
+				Lua.error("Unknown item filter: "..Filter)
+			End
 	End
 End
 
@@ -278,7 +286,7 @@ Global String OverView(int x, int y, int w, int h, string Filters,string char)
 			Case "Jake_Human" "Jake_Fairy"
 				CFI = Replace(CFI,"<ch>","Jake")
 			Case "Marrilona" "Dandor" 
-				CFI = Replace(CF,"<ch>",Char)
+				CFI = Replace(CFI,"<ch>",Char)
 			Case "HandoStillor"
 				CFI = Replace(CFI,"<ch>","Hando Stillor")
 			Default
@@ -286,7 +294,7 @@ Global String OverView(int x, int y, int w, int h, string Filters,string char)
 					CFI=""
 				End
 		End
-		Int TW = FilFnt.TextWidth(fitem)
+		Int TW = FilFnt.TextWidth(CFI)
 		Int WH = TW div 2
 		Int FX = (i * FW)+x
 		if i==CurrentFilter[Filters]
@@ -296,7 +304,7 @@ Global String OverView(int x, int y, int w, int h, string Filters,string char)
 			Graphics.Rect(FX-WH,y+5,TW,40,true)
 		End
 		Graphics.Color(255,180,0)
-		If CF!="" && MY>Y && MY<Y+50 && MX>FX-WH && MX<FX+WH
+		If CFI!="" && MY>Y && MY<Y+50 && MX>FX-WH && MX<FX+WH
 			Graphics.Color(255,255,0)
 			If ML
 				CurrentFilter[Filters] = i
@@ -311,7 +319,7 @@ Global String OverView(int x, int y, int w, int h, string Filters,string char)
 		LoadedItems[iTag] = LoadedItems[iTag] || NeilUse("Script/Data/IAA/"..iTag)
 		Var iData = LoadedItems[iTag]
 		
-		If iY>=0 && iY<=H-150 && iNum>0 && Allow(iTag,ListOfFilters[Filters][CurrentFilter[Filters]])
+		If iY>=0 && iY<=H-150 && iNum>0 && Allow(iTag,ListOfFilters[Filters][CurrentFilter[Filters]],Char)
 			Int MDX = 0
 			Int DX = X+10
 			Int DY = Y+iY+100
