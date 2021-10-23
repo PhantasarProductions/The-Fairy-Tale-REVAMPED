@@ -53,6 +53,10 @@ Class Action
 	ReadOnly Table TarTags
 	ReadOnly Table Targets
 	
+	Get Table Targets_Tag
+		Return TarTags
+	End
+	
 	// These can be easily set through the _XVars
 	ReadOnly Bool CheckAfterAction = False
 	ReadOnly Bool DeductAP = False
@@ -74,7 +78,7 @@ Class Action
 			Return Var()
 				i++
 				If i>#TarTags
-					Return nil,nil
+					Return nil,nil,nil
 				End
 				Return Fighter.ByTag[TarTags[i]],TarTags[i],i
 			End

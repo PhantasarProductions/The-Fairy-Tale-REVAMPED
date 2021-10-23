@@ -125,7 +125,7 @@ Class Stage_Execution Extends Stage
 		End
 		if !Initiated
 			SpellAni = NeilUse("Script/Use/Combat/SpellAni/"..Act.Act.SpellAni)
-			SpellAni.Start(Act.Act.SpellAni_Arg)
+			SpellAni.Start(Act,Act.Act.SpellAni_Arg)
 			Initiated = True
 		End
 		SpellAni.Update()
