@@ -1,4 +1,4 @@
-// Generated 9/29/2021 9:21:09 PM
+// Generated 10/23/2021 12:25:33 PM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -22,10 +22,6 @@ Table _R(Bool Oversoul)
 	Ret.StealRate_3 = 0
 	Ret.StealItem_3 = "ITM_AMBROSIA"
 	Ret.NAME = "Dandleton Kid"
-	Ret.ER_DARKNESS = 900
-	Ret.ER_FLAME = -200
-	Ret.ER_LIGHT = -400
-	Ret.ER_LIGHTNING = -200
 	Ret.SR_CONFUSION = 100
 	Ret.SR_CURSE = 100
 	Ret.SR_DEATH = 100
@@ -45,6 +41,10 @@ Table _R(Bool Oversoul)
 	If !Oversoul
 		Ret.Stats.ACCURACY = 100
 		Ret.Stats.ENDURANCE = 5
+		Ret.Stats.ER_DARKNESS = 900
+		Ret.Stats.ER_FLAME = -200
+		Ret.Stats.ER_LIGHT = -400
+		Ret.Stats.ER_LIGHTNING = -200
 		Ret.Stats.EVASION = 25
 		Ret.Stats.EXP = 9500
 		Ret.Stats.HP = 5
@@ -55,6 +55,10 @@ Table _R(Bool Oversoul)
 	Else
 		Ret.Stats.ACCURACY = 100
 		Ret.Stats.ENDURANCE = 4
+		Ret.Stats.ER_DARKNESS = 900
+		Ret.Stats.ER_FLAME = -200
+		Ret.Stats.ER_LIGHT = -400
+		Ret.Stats.ER_LIGHTNING = -200
 		Ret.Stats.EVASION = 100
 		Ret.Stats.EXP = 100
 		Ret.Stats.HP = 5

@@ -1,4 +1,4 @@
-// Generated 9/29/2021 9:21:10 PM
+// Generated 10/23/2021 12:25:33 PM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -23,14 +23,6 @@ Table _R(Bool Oversoul)
 	Ret.StealItem_3 = "WAND_II_VOLCANOWAND"
 	Ret.NAME = "Devil Monk From Hell"
 	Ret.CASH = 666
-	Ret.ER_DARKNESS = 150
-	Ret.ER_EARTH = 100
-	Ret.ER_FLAME = 8000
-	Ret.ER_FROST = -199
-	Ret.ER_LIGHT = -100
-	Ret.ER_LIGHTNING = 100
-	Ret.ER_WATER = -80
-	Ret.ER_WIND = 75
 	Ret.SR_CONFUSION = 100
 	Ret.SR_CURSE = 100
 	Ret.SR_DEATH = 90
@@ -50,6 +42,14 @@ Table _R(Bool Oversoul)
 	If !Oversoul
 		Ret.Stats.ACCURACY = 95
 		Ret.Stats.ENDURANCE = 140
+		Ret.Stats.ER_DARKNESS = 150
+		Ret.Stats.ER_EARTH = 100
+		Ret.Stats.ER_FLAME = 8000
+		Ret.Stats.ER_FROST = -199
+		Ret.Stats.ER_LIGHT = -100
+		Ret.Stats.ER_LIGHTNING = 100
+		Ret.Stats.ER_WATER = -80
+		Ret.Stats.ER_WIND = 75
 		Ret.Stats.EVASION = 10
 		Ret.Stats.EXP = 125
 		Ret.Stats.HP = 2000
@@ -60,6 +60,14 @@ Table _R(Bool Oversoul)
 	Else
 		Ret.Stats.ACCURACY = 100
 		Ret.Stats.ENDURANCE = 200
+		Ret.Stats.ER_DARKNESS = 150
+		Ret.Stats.ER_EARTH = 100
+		Ret.Stats.ER_FLAME = 8000
+		Ret.Stats.ER_FROST = -199
+		Ret.Stats.ER_LIGHT = -100
+		Ret.Stats.ER_LIGHTNING = 100
+		Ret.Stats.ER_WATER = -80
+		Ret.Stats.ER_WIND = 75
 		Ret.Stats.EVASION = 25
 		Ret.Stats.EXP = 250
 		Ret.Stats.HP = 4000

@@ -1,4 +1,4 @@
-// Generated 9/29/2021 9:20:54 PM
+// Generated 10/23/2021 12:25:17 PM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -28,14 +28,6 @@ Table _R(Bool Oversoul)
 	Ret.StealItem_3 = "WAND_II_VOLCANOWAND"
 	Ret.NAME = "Lucy - Devil Monk From Hell"
 	Ret.CASH = 666
-	Ret.ER_DARKNESS = 1234
-	Ret.ER_EARTH = 85
-	Ret.ER_FLAME = 12345
-	Ret.ER_FROST = -199
-	Ret.ER_LIGHT = -175
-	Ret.ER_LIGHTNING = 100
-	Ret.ER_WATER = -70
-	Ret.ER_WIND = 25
 	Ret.SR_CONFUSION = 100
 	Ret.SR_CURSE = 100
 	Ret.SR_DEATH = 99
@@ -55,6 +47,14 @@ Table _R(Bool Oversoul)
 	If !Oversoul
 		Ret.Stats.ACCURACY = 60
 		Ret.Stats.ENDURANCE = 500
+		Ret.Stats.ER_DARKNESS = 1234
+		Ret.Stats.ER_EARTH = 85
+		Ret.Stats.ER_FLAME = 12345
+		Ret.Stats.ER_FROST = -199
+		Ret.Stats.ER_LIGHT = -175
+		Ret.Stats.ER_LIGHTNING = 100
+		Ret.Stats.ER_WATER = -70
+		Ret.Stats.ER_WIND = 25
 		Ret.Stats.EVASION = 30
 		Ret.Stats.EXP = 666
 		Ret.Stats.HP = 4000

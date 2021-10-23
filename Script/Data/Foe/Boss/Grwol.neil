@@ -1,4 +1,4 @@
-// Generated 9/29/2021 9:20:49 PM
+// Generated 10/23/2021 12:25:11 PM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -27,14 +27,6 @@ Table _R(Bool Oversoul)
 	Ret.StealRate_3 = 0
 	Ret.StealItem_3 = "ITM_AMBROSIA"
 	Ret.NAME = "Grwol"
-	Ret.ER_DARKNESS = 100
-	Ret.ER_EARTH = 10
-	Ret.ER_FLAME = 25
-	Ret.ER_FROST = -15
-	Ret.ER_LIGHT = -25
-	Ret.ER_LIGHTNING = -10
-	Ret.ER_WATER = -5
-	Ret.ER_WIND = 10
 	Ret.SR_CONFUSION = 100
 	Ret.SR_CURSE = 100
 	Ret.SR_DEATH = 100
@@ -54,6 +46,14 @@ Table _R(Bool Oversoul)
 	If !Oversoul
 		Ret.Stats.ACCURACY = 100
 		Ret.Stats.ENDURANCE = 300
+		Ret.Stats.ER_DARKNESS = 100
+		Ret.Stats.ER_EARTH = 10
+		Ret.Stats.ER_FLAME = 25
+		Ret.Stats.ER_FROST = -15
+		Ret.Stats.ER_LIGHT = -25
+		Ret.Stats.ER_LIGHTNING = -10
+		Ret.Stats.ER_WATER = -5
+		Ret.Stats.ER_WIND = 10
 		Ret.Stats.EVASION = 4
 		Ret.Stats.EXP = 50000
 		Ret.Stats.HP = 50000

@@ -1,4 +1,4 @@
-// Generated 9/29/2021 9:21:35 PM
+// Generated 10/23/2021 12:26:00 PM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -23,13 +23,6 @@ Table _R(Bool Oversoul)
 	Ret.StealItem_3 = "ITM_DRAGONFIRE"
 	Ret.NAME = "Zombie Doctor"
 	Ret.CASH = 1
-	Ret.ER_DARKNESS = 500
-	Ret.ER_EARTH = 95
-	Ret.ER_FLAME = -180
-	Ret.ER_FROST = 100
-	Ret.ER_LIGHT = -200
-	Ret.ER_LIGHTNING = -195
-	Ret.ER_WIND = 0
 	Ret.SR_CONFUSION = 100
 	Ret.SR_CURSE = 100
 	Ret.SR_DEATH = 100
@@ -49,6 +42,13 @@ Table _R(Bool Oversoul)
 	If !Oversoul
 		Ret.Stats.ACCURACY = 100
 		Ret.Stats.ENDURANCE = 3
+		Ret.Stats.ER_DARKNESS = 500
+		Ret.Stats.ER_EARTH = 95
+		Ret.Stats.ER_FLAME = -180
+		Ret.Stats.ER_FROST = 100
+		Ret.Stats.ER_LIGHT = -200
+		Ret.Stats.ER_LIGHTNING = -195
+		Ret.Stats.ER_WIND = 0
 		Ret.Stats.EVASION = 25
 		Ret.Stats.EXP = 25
 		Ret.Stats.HP = 1200
@@ -59,6 +59,13 @@ Table _R(Bool Oversoul)
 	Else
 		Ret.Stats.ACCURACY = 100
 		Ret.Stats.ENDURANCE = 3
+		Ret.Stats.ER_DARKNESS = 500
+		Ret.Stats.ER_EARTH = 95
+		Ret.Stats.ER_FLAME = -180
+		Ret.Stats.ER_FROST = 100
+		Ret.Stats.ER_LIGHT = -200
+		Ret.Stats.ER_LIGHTNING = -195
+		Ret.Stats.ER_WIND = 0
 		Ret.Stats.EVASION = 25
 		Ret.Stats.EXP = 0
 		Ret.Stats.HP = 12000

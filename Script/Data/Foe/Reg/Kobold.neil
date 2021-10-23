@@ -1,4 +1,4 @@
-// Generated 9/29/2021 9:21:18 PM
+// Generated 10/23/2021 12:25:42 PM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -23,14 +23,6 @@ Table _R(Bool Oversoul)
 	Ret.StealItem_3 = "ITM_APPLE"
 	Ret.NAME = "Kobold"
 	Ret.CASH = 5
-	Ret.ER_DARKNESS = -300
-	Ret.ER_EARTH = -300
-	Ret.ER_FLAME = -300
-	Ret.ER_FROST = -300
-	Ret.ER_LIGHT = -300
-	Ret.ER_LIGHTNING = -300
-	Ret.ER_WATER = -300
-	Ret.ER_WIND = -300
 	Ret.SR_DEATH = 80
 	Ret.VOCALTAG = "Kobold"
 
@@ -41,6 +33,14 @@ Table _R(Bool Oversoul)
 	If !Oversoul
 		Ret.Stats.ACCURACY = 100
 		Ret.Stats.ENDURANCE = 20
+		Ret.Stats.ER_DARKNESS = -300
+		Ret.Stats.ER_EARTH = -300
+		Ret.Stats.ER_FLAME = -300
+		Ret.Stats.ER_FROST = -300
+		Ret.Stats.ER_LIGHT = -300
+		Ret.Stats.ER_LIGHTNING = -300
+		Ret.Stats.ER_WATER = -300
+		Ret.Stats.ER_WIND = -300
 		Ret.Stats.EVASION = 25
 		Ret.Stats.EXP = 3
 		Ret.Stats.HP = 100
@@ -51,6 +51,14 @@ Table _R(Bool Oversoul)
 	Else
 		Ret.Stats.ACCURACY = 100
 		Ret.Stats.ENDURANCE = 10
+		Ret.Stats.ER_DARKNESS = -300
+		Ret.Stats.ER_EARTH = -300
+		Ret.Stats.ER_FLAME = -300
+		Ret.Stats.ER_FROST = -300
+		Ret.Stats.ER_LIGHT = -300
+		Ret.Stats.ER_LIGHTNING = -300
+		Ret.Stats.ER_WATER = -300
+		Ret.Stats.ER_WIND = -300
 		Ret.Stats.EVASION = 100
 		Ret.Stats.EXP = 10
 		Ret.Stats.HP = 100000

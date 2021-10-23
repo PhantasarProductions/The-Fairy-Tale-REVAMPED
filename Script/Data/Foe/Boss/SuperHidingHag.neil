@@ -1,4 +1,4 @@
-// Generated 9/29/2021 9:21:00 PM
+// Generated 10/23/2021 12:25:23 PM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -28,14 +28,6 @@ Table _R(Bool Oversoul)
 	Ret.StealItem_3 = "ITM_POISONDART"
 	Ret.NAME = "Super Hiding Hag"
 	Ret.CASH = 20000
-	Ret.ER_DARKNESS = 65535
-	Ret.ER_EARTH = 100
-	Ret.ER_FLAME = -75
-	Ret.ER_FROST = 100
-	Ret.ER_LIGHT = -195
-	Ret.ER_LIGHTNING = -140
-	Ret.ER_WATER = 100
-	Ret.ER_WIND = 100
 	Ret.SR_CONFUSION = 100
 	Ret.SR_CURSE = 100
 	Ret.SR_DEATH = 100
@@ -55,6 +47,14 @@ Table _R(Bool Oversoul)
 	If !Oversoul
 		Ret.Stats.ACCURACY = 100
 		Ret.Stats.ENDURANCE = 9999
+		Ret.Stats.ER_DARKNESS = 65535
+		Ret.Stats.ER_EARTH = 100
+		Ret.Stats.ER_FLAME = -75
+		Ret.Stats.ER_FROST = 100
+		Ret.Stats.ER_LIGHT = -195
+		Ret.Stats.ER_LIGHTNING = -140
+		Ret.Stats.ER_WATER = 100
+		Ret.Stats.ER_WIND = 100
 		Ret.Stats.EVASION = 99
 		Ret.Stats.EXP = 2000
 		Ret.Stats.HP = 65535

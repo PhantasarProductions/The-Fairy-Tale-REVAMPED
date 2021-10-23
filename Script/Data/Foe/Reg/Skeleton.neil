@@ -1,4 +1,4 @@
-// Generated 9/29/2021 9:21:29 PM
+// Generated 10/23/2021 12:25:54 PM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -23,14 +23,6 @@ Table _R(Bool Oversoul)
 	Ret.StealItem_3 = "ITM_SALVE"
 	Ret.NAME = "Skeleton"
 	Ret.CASH = 4
-	Ret.ER_DARKNESS = 300
-	Ret.ER_EARTH = 100
-	Ret.ER_FLAME = -100
-	Ret.ER_FROST = 100
-	Ret.ER_LIGHT = -300
-	Ret.ER_LIGHTNING = -120
-	Ret.ER_WATER = 75
-	Ret.ER_WIND = 75
 	Ret.SR_CURSE = 100
 	Ret.SR_DEATH = 100
 	Ret.SR_DISEASE = 100
@@ -48,6 +40,14 @@ Table _R(Bool Oversoul)
 	If !Oversoul
 		Ret.Stats.ACCURACY = 75
 		Ret.Stats.ENDURANCE = 1
+		Ret.Stats.ER_DARKNESS = 300
+		Ret.Stats.ER_EARTH = 100
+		Ret.Stats.ER_FLAME = -100
+		Ret.Stats.ER_FROST = 100
+		Ret.Stats.ER_LIGHT = -300
+		Ret.Stats.ER_LIGHTNING = -120
+		Ret.Stats.ER_WATER = 75
+		Ret.Stats.ER_WIND = 75
 		Ret.Stats.EVASION = 0
 		Ret.Stats.EXP = 8
 		Ret.Stats.HP = 100
@@ -58,6 +58,14 @@ Table _R(Bool Oversoul)
 	Else
 		Ret.Stats.ACCURACY = 100
 		Ret.Stats.ENDURANCE = 2
+		Ret.Stats.ER_DARKNESS = 300
+		Ret.Stats.ER_EARTH = 100
+		Ret.Stats.ER_FLAME = -100
+		Ret.Stats.ER_FROST = 100
+		Ret.Stats.ER_LIGHT = -300
+		Ret.Stats.ER_LIGHTNING = -120
+		Ret.Stats.ER_WATER = 75
+		Ret.Stats.ER_WIND = 75
 		Ret.Stats.EVASION = 0
 		Ret.Stats.EXP = 10
 		Ret.Stats.HP = 200

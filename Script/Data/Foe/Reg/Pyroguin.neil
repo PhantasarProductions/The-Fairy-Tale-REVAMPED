@@ -1,4 +1,4 @@
-// Generated 9/29/2021 9:21:24 PM
+// Generated 10/23/2021 12:25:49 PM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -23,14 +23,6 @@ Table _R(Bool Oversoul)
 	Ret.StealItem_3 = "ITM_HEALSHOWER"
 	Ret.NAME = "Pyroguin"
 	Ret.CASH = 10
-	Ret.ER_DARKNESS = 100
-	Ret.ER_EARTH = 50
-	Ret.ER_FLAME = 800
-	Ret.ER_FROST = -180
-	Ret.ER_LIGHT = -50
-	Ret.ER_LIGHTNING = -20
-	Ret.ER_WATER = -80
-	Ret.ER_WIND = 70
 	Ret.SR_CONFUSION = 100
 	Ret.SR_CURSE = 100
 	Ret.SR_DEATH = 100
@@ -50,6 +42,14 @@ Table _R(Bool Oversoul)
 	If !Oversoul
 		Ret.Stats.ACCURACY = 100
 		Ret.Stats.ENDURANCE = 5
+		Ret.Stats.ER_DARKNESS = 100
+		Ret.Stats.ER_EARTH = 50
+		Ret.Stats.ER_FLAME = 800
+		Ret.Stats.ER_FROST = -180
+		Ret.Stats.ER_LIGHT = -50
+		Ret.Stats.ER_LIGHTNING = -20
+		Ret.Stats.ER_WATER = -80
+		Ret.Stats.ER_WIND = 70
 		Ret.Stats.EVASION = 30
 		Ret.Stats.EXP = 700
 		Ret.Stats.HP = 20
@@ -60,6 +60,14 @@ Table _R(Bool Oversoul)
 	Else
 		Ret.Stats.ACCURACY = 100
 		Ret.Stats.ENDURANCE = 5
+		Ret.Stats.ER_DARKNESS = 100
+		Ret.Stats.ER_EARTH = 50
+		Ret.Stats.ER_FLAME = 800
+		Ret.Stats.ER_FROST = -180
+		Ret.Stats.ER_LIGHT = -50
+		Ret.Stats.ER_LIGHTNING = -20
+		Ret.Stats.ER_WATER = -80
+		Ret.Stats.ER_WIND = 70
 		Ret.Stats.EVASION = 100
 		Ret.Stats.EXP = 1
 		Ret.Stats.HP = 40

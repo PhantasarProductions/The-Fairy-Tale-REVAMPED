@@ -144,6 +144,9 @@ Class Foe Extends Fighter
 				If Key:upper()=="HP" 
 					Key="HP"
 				End
+				If Prefixed(Key,"Er_")
+					Key="ER_"..self.FURL(Right(Key,#Key-3))
+				End
 				WFoe.Char.Stats["BASE_"..Key]     = v
 				WFoe.Char.Stats["BUFF_"..Key]     = 0
 				WFoe.Char.Stats["END_" ..Key]     = 0

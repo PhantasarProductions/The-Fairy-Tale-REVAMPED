@@ -1,4 +1,4 @@
-// Generated 9/29/2021 9:20:57 PM
+// Generated 10/23/2021 12:25:20 PM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -28,14 +28,6 @@ Table _R(Bool Oversoul)
 	Ret.StealItem_3 = "ITM_ANABOLINEA"
 	Ret.NAME = "Petit Roi"
 	Ret.CASH = 1000
-	Ret.ER_DARKNESS = 75
-	Ret.ER_EARTH = 75
-	Ret.ER_FLAME = 75
-	Ret.ER_FROST = 75
-	Ret.ER_LIGHT = 75
-	Ret.ER_LIGHTNING = 75
-	Ret.ER_WATER = 75
-	Ret.ER_WIND = 75
 	Ret.SR_CONFUSION = 75
 	Ret.SR_CURSE = 75
 	Ret.SR_DEATH = 75
@@ -55,6 +47,14 @@ Table _R(Bool Oversoul)
 	If !Oversoul
 		Ret.Stats.ACCURACY = 109
 		Ret.Stats.ENDURANCE = 660
+		Ret.Stats.ER_DARKNESS = 75
+		Ret.Stats.ER_EARTH = 75
+		Ret.Stats.ER_FLAME = 75
+		Ret.Stats.ER_FROST = 75
+		Ret.Stats.ER_LIGHT = 75
+		Ret.Stats.ER_LIGHTNING = 75
+		Ret.Stats.ER_WATER = 75
+		Ret.Stats.ER_WIND = 75
 		Ret.Stats.EVASION = 60
 		Ret.Stats.EXP = 12345
 		Ret.Stats.HP = 32000

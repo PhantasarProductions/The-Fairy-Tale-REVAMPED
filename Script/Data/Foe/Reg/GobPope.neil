@@ -1,4 +1,4 @@
-// Generated 9/29/2021 9:21:14 PM
+// Generated 10/23/2021 12:25:38 PM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -23,14 +23,6 @@ Table _R(Bool Oversoul)
 	Ret.StealItem_3 = "WAND_II_SAINT"
 	Ret.NAME = "Goblin Pope"
 	Ret.CASH = 777
-	Ret.ER_DARKNESS = -500
-	Ret.ER_EARTH = 25
-	Ret.ER_FLAME = 25
-	Ret.ER_FROST = 25
-	Ret.ER_LIGHT = 123456
-	Ret.ER_LIGHTNING = 60
-	Ret.ER_WATER = 25
-	Ret.ER_WIND = 25
 	Ret.SR_CONFUSION = 100
 	Ret.SR_CURSE = 95
 	Ret.SR_DEATH = 98
@@ -50,6 +42,14 @@ Table _R(Bool Oversoul)
 	If !Oversoul
 		Ret.Stats.ACCURACY = 100
 		Ret.Stats.ENDURANCE = 6
+		Ret.Stats.ER_DARKNESS = -500
+		Ret.Stats.ER_EARTH = 25
+		Ret.Stats.ER_FLAME = 25
+		Ret.Stats.ER_FROST = 25
+		Ret.Stats.ER_LIGHT = 123456
+		Ret.Stats.ER_LIGHTNING = 60
+		Ret.Stats.ER_WATER = 25
+		Ret.Stats.ER_WIND = 25
 		Ret.Stats.EVASION = 25
 		Ret.Stats.EXP = 4500
 		Ret.Stats.HP = 10000
@@ -60,6 +60,14 @@ Table _R(Bool Oversoul)
 	Else
 		Ret.Stats.ACCURACY = 100
 		Ret.Stats.ENDURANCE = 6
+		Ret.Stats.ER_DARKNESS = -500
+		Ret.Stats.ER_EARTH = 25
+		Ret.Stats.ER_FLAME = 25
+		Ret.Stats.ER_FROST = 25
+		Ret.Stats.ER_LIGHT = 123456
+		Ret.Stats.ER_LIGHTNING = 60
+		Ret.Stats.ER_WATER = 25
+		Ret.Stats.ER_WIND = 25
 		Ret.Stats.EVASION = 100
 		Ret.Stats.EXP = 3500
 		Ret.Stats.HP = 1000000000

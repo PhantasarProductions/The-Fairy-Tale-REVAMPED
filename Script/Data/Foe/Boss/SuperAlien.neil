@@ -1,4 +1,4 @@
-// Generated 9/29/2021 9:21:00 PM
+// Generated 10/23/2021 12:25:22 PM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -28,14 +28,6 @@ Table _R(Bool Oversoul)
 	Ret.StealItem_3 = "ITM_EEL"
 	Ret.NAME = "Rjafhkfhafjklhgjd"
 	Ret.CASH = 250
-	Ret.ER_DARKNESS = 1000
-	Ret.ER_EARTH = 10000
-	Ret.ER_FLAME = 10000
-	Ret.ER_FROST = 10000
-	Ret.ER_LIGHT = -750
-	Ret.ER_LIGHTNING = 10000
-	Ret.ER_WATER = 10000
-	Ret.ER_WIND = 10000
 	Ret.SR_CONFUSION = 100
 	Ret.SR_CURSE = 100
 	Ret.SR_DEATH = 100
@@ -55,6 +47,14 @@ Table _R(Bool Oversoul)
 	If !Oversoul
 		Ret.Stats.ACCURACY = 100
 		Ret.Stats.ENDURANCE = 10000
+		Ret.Stats.ER_DARKNESS = 1000
+		Ret.Stats.ER_EARTH = 10000
+		Ret.Stats.ER_FLAME = 10000
+		Ret.Stats.ER_FROST = 10000
+		Ret.Stats.ER_LIGHT = -750
+		Ret.Stats.ER_LIGHTNING = 10000
+		Ret.Stats.ER_WATER = 10000
+		Ret.Stats.ER_WIND = 10000
 		Ret.Stats.EVASION = 75
 		Ret.Stats.EXP = 10000
 		Ret.Stats.HP = 10000

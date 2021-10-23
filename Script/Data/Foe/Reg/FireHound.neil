@@ -1,4 +1,4 @@
-// Generated 9/29/2021 9:21:12 PM
+// Generated 10/23/2021 12:25:36 PM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -23,10 +23,6 @@ Table _R(Bool Oversoul)
 	Ret.StealItem_3 = "ITM_PHOENIX"
 	Ret.NAME = "Fire Hound"
 	Ret.CASH = 6
-	Ret.ER_DARKNESS = 100
-	Ret.ER_FLAME = 500
-	Ret.ER_FROST = -100
-	Ret.ER_WATER = -75
 	Ret.SR_CURSE = 100
 	Ret.SR_DEATH = 100
 	Ret.SR_DISEASE = 100
@@ -44,6 +40,10 @@ Table _R(Bool Oversoul)
 	If !Oversoul
 		Ret.Stats.ACCURACY = 100
 		Ret.Stats.ENDURANCE = 53
+		Ret.Stats.ER_DARKNESS = 100
+		Ret.Stats.ER_FLAME = 500
+		Ret.Stats.ER_FROST = -100
+		Ret.Stats.ER_WATER = -75
 		Ret.Stats.EVASION = 3
 		Ret.Stats.EXP = 4
 		Ret.Stats.HP = 286
@@ -54,6 +54,10 @@ Table _R(Bool Oversoul)
 	Else
 		Ret.Stats.ACCURACY = 100
 		Ret.Stats.ENDURANCE = 100
+		Ret.Stats.ER_DARKNESS = 100
+		Ret.Stats.ER_FLAME = 500
+		Ret.Stats.ER_FROST = -100
+		Ret.Stats.ER_WATER = -75
 		Ret.Stats.EVASION = 6
 		Ret.Stats.EXP = 2
 		Ret.Stats.HP = 500

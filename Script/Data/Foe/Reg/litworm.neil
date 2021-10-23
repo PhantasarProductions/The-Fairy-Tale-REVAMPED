@@ -1,4 +1,4 @@
-// Generated 9/29/2021 9:21:20 PM
+// Generated 10/23/2021 12:25:44 PM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -27,14 +27,6 @@ Table _R(Bool Oversoul)
 	Ret.StealItem_3 = "ITM_BANANA"
 	Ret.NAME = "Literature Worm"
 	Ret.CASH = 75
-	Ret.ER_DARKNESS = 100
-	Ret.ER_EARTH = 50
-	Ret.ER_FLAME = -199
-	Ret.ER_FROST = 100
-	Ret.ER_LIGHT = 95
-	Ret.ER_LIGHTNING = 100
-	Ret.ER_WATER = -123
-	Ret.ER_WIND = 50
 	Ret.SR_CONFUSION = 100
 	Ret.SR_CURSE = 0
 	Ret.SR_DEATH = 75
@@ -54,6 +46,14 @@ Table _R(Bool Oversoul)
 	If !Oversoul
 		Ret.Stats.ACCURACY = 300
 		Ret.Stats.ENDURANCE = 2
+		Ret.Stats.ER_DARKNESS = 100
+		Ret.Stats.ER_EARTH = 50
+		Ret.Stats.ER_FLAME = -199
+		Ret.Stats.ER_FROST = 100
+		Ret.Stats.ER_LIGHT = 95
+		Ret.Stats.ER_LIGHTNING = 100
+		Ret.Stats.ER_WATER = -123
+		Ret.Stats.ER_WIND = 50
 		Ret.Stats.EVASION = 2
 		Ret.Stats.EXP = 1234
 		Ret.Stats.HP = 1234

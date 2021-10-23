@@ -1,4 +1,4 @@
-// Generated 9/29/2021 9:21:03 PM
+// Generated 10/23/2021 12:25:26 PM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -28,13 +28,6 @@ Table _R(Bool Oversoul)
 	Ret.StealItem_3 = "ITM_AMBROSIA"
 	Ret.NAME = "Vandar"
 	Ret.CASH = 1200000
-	Ret.ER_DARKNESS = 500
-	Ret.ER_EARTH = 100
-	Ret.ER_FLAME = -180
-	Ret.ER_FROST = 100
-	Ret.ER_LIGHT = -200
-	Ret.ER_LIGHTNING = -195
-	Ret.ER_WATER = 75
 	Ret.SR_CONFUSION = 1000
 	Ret.SR_CURSE = 1000
 	Ret.SR_DEATH = 1000
@@ -54,6 +47,13 @@ Table _R(Bool Oversoul)
 	If !Oversoul
 		Ret.Stats.ACCURACY = 100
 		Ret.Stats.ENDURANCE = 5
+		Ret.Stats.ER_DARKNESS = 500
+		Ret.Stats.ER_EARTH = 100
+		Ret.Stats.ER_FLAME = -180
+		Ret.Stats.ER_FROST = 100
+		Ret.Stats.ER_LIGHT = -200
+		Ret.Stats.ER_LIGHTNING = -195
+		Ret.Stats.ER_WATER = 75
 		Ret.Stats.EVASION = 25
 		Ret.Stats.EXP = 500000000
 		Ret.Stats.HP = 123456

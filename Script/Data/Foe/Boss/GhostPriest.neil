@@ -1,4 +1,4 @@
-// Generated 9/29/2021 9:20:47 PM
+// Generated 10/23/2021 12:25:09 PM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -28,14 +28,6 @@ Table _R(Bool Oversoul)
 	Ret.StealItem_3 = "ITM_SALVE"
 	Ret.NAME = "Ghost Priest"
 	Ret.CASH = 10000
-	Ret.ER_DARKNESS = 500
-	Ret.ER_EARTH = 100
-	Ret.ER_FLAME = -95
-	Ret.ER_FROST = 100
-	Ret.ER_LIGHT = -99999
-	Ret.ER_LIGHTNING = -98
-	Ret.ER_WATER = -70
-	Ret.ER_WIND = 25
 	Ret.SR_CONFUSION = 100
 	Ret.SR_CURSE = 100
 	Ret.SR_DEATH = 100
@@ -54,6 +46,14 @@ Table _R(Bool Oversoul)
 	If !Oversoul
 		Ret.Stats.ACCURACY = 100
 		Ret.Stats.ENDURANCE = 1
+		Ret.Stats.ER_DARKNESS = 500
+		Ret.Stats.ER_EARTH = 100
+		Ret.Stats.ER_FLAME = -95
+		Ret.Stats.ER_FROST = 100
+		Ret.Stats.ER_LIGHT = -99999
+		Ret.Stats.ER_LIGHTNING = -98
+		Ret.Stats.ER_WATER = -70
+		Ret.Stats.ER_WIND = 25
 		Ret.Stats.EVASION = 25
 		Ret.Stats.EXP = 50
 		Ret.Stats.HP = 600

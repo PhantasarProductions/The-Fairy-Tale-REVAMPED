@@ -1,4 +1,4 @@
-// Generated 9/29/2021 9:20:55 PM
+// Generated 10/23/2021 12:25:17 PM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -28,14 +28,6 @@ Table _R(Bool Oversoul)
 	Ret.StealItem_3 = "ITM_ANABOLINEA"
 	Ret.NAME = "Leonnard - Devil Monk From Hell"
 	Ret.CASH = 666
-	Ret.ER_DARKNESS = 1234
-	Ret.ER_EARTH = 95
-	Ret.ER_FLAME = 12345
-	Ret.ER_FROST = -199
-	Ret.ER_LIGHT = -112
-	Ret.ER_LIGHTNING = 75
-	Ret.ER_WATER = -100
-	Ret.ER_WIND = 80
 	Ret.SR_CONFUSION = 100
 	Ret.SR_CURSE = 100
 	Ret.SR_DEATH = 100
@@ -55,6 +47,14 @@ Table _R(Bool Oversoul)
 	If !Oversoul
 		Ret.Stats.ACCURACY = 100
 		Ret.Stats.ENDURANCE = 800
+		Ret.Stats.ER_DARKNESS = 1234
+		Ret.Stats.ER_EARTH = 95
+		Ret.Stats.ER_FLAME = 12345
+		Ret.Stats.ER_FROST = -199
+		Ret.Stats.ER_LIGHT = -112
+		Ret.Stats.ER_LIGHTNING = 75
+		Ret.Stats.ER_WATER = -100
+		Ret.Stats.ER_WIND = 80
 		Ret.Stats.EVASION = 60
 		Ret.Stats.EXP = 666
 		Ret.Stats.HP = 2000

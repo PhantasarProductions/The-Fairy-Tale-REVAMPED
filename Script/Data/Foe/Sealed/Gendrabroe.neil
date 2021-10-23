@@ -1,4 +1,4 @@
-// Generated 9/29/2021 9:21:36 PM
+// Generated 10/23/2021 12:26:02 PM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -29,14 +29,6 @@ Table _R(Bool Oversoul)
 	Ret.StealItem_3 = "EQP_ACC_RINGWENIARIA"
 	Ret.NAME = "Gendrabroe"
 	Ret.CASH = 1234
-	Ret.ER_DARKNESS = -50
-	Ret.ER_EARTH = -50
-	Ret.ER_FLAME = -50
-	Ret.ER_FROST = -50
-	Ret.ER_LIGHT = -50
-	Ret.ER_LIGHTNING = -50
-	Ret.ER_WATER = -50
-	Ret.ER_WIND = -50
 	Ret.SR_CONFUSION = 100
 	Ret.SR_CURSE = 100
 	Ret.SR_DEATH = 100
@@ -56,6 +48,14 @@ Table _R(Bool Oversoul)
 	If !Oversoul
 		Ret.Stats.ACCURACY = 100
 		Ret.Stats.ENDURANCE = 3
+		Ret.Stats.ER_DARKNESS = -50
+		Ret.Stats.ER_EARTH = -50
+		Ret.Stats.ER_FLAME = -50
+		Ret.Stats.ER_FROST = -50
+		Ret.Stats.ER_LIGHT = -50
+		Ret.Stats.ER_LIGHTNING = -50
+		Ret.Stats.ER_WATER = -50
+		Ret.Stats.ER_WIND = -50
 		Ret.Stats.EVASION = 0
 		Ret.Stats.EXP = 100000
 		Ret.Stats.HP = 15000

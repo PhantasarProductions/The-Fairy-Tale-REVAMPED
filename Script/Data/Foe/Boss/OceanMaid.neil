@@ -1,4 +1,4 @@
-// Generated 9/29/2021 9:20:57 PM
+// Generated 10/23/2021 12:25:20 PM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -28,12 +28,6 @@ Table _R(Bool Oversoul)
 	Ret.StealItem_3 = "ITM_CHERRY"
 	Ret.NAME = "Ocean maid"
 	Ret.CASH = 10
-	Ret.ER_DARKNESS = 100
-	Ret.ER_FLAME = -100
-	Ret.ER_FROST = -120
-	Ret.ER_LIGHT = -125
-	Ret.ER_LIGHTNING = -200
-	Ret.ER_WATER = 1100
 	Ret.SR_CONFUSION = 1001
 	Ret.SR_CURSE = 1002
 	Ret.SR_DEATH = 1007
@@ -53,6 +47,12 @@ Table _R(Bool Oversoul)
 	If !Oversoul
 		Ret.Stats.ACCURACY = 100
 		Ret.Stats.ENDURANCE = 1200
+		Ret.Stats.ER_DARKNESS = 100
+		Ret.Stats.ER_FLAME = -100
+		Ret.Stats.ER_FROST = -120
+		Ret.Stats.ER_LIGHT = -125
+		Ret.Stats.ER_LIGHTNING = -200
+		Ret.Stats.ER_WATER = 1100
 		Ret.Stats.EVASION = 25
 		Ret.Stats.EXP = 10000
 		Ret.Stats.HP = 250000

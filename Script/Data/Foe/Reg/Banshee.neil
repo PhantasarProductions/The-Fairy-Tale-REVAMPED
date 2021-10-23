@@ -1,4 +1,4 @@
-// Generated 9/29/2021 9:21:07 PM
+// Generated 10/23/2021 12:25:30 PM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -22,14 +22,6 @@ Table _R(Bool Oversoul)
 	Ret.StealRate_3 = 25
 	Ret.StealItem_3 = "ITM_TRUMPCARD"
 	Ret.NAME = "Banshee"
-	Ret.ER_DARKNESS = 400
-	Ret.ER_EARTH = 100
-	Ret.ER_FLAME = -75
-	Ret.ER_FROST = 100
-	Ret.ER_LIGHT = -999
-	Ret.ER_LIGHTNING = -100
-	Ret.ER_WATER = -1
-	Ret.ER_WIND = 100
 	Ret.SR_CONFUSION = 199
 	Ret.SR_CURSE = 100
 	Ret.SR_DEATH = 100
@@ -49,6 +41,14 @@ Table _R(Bool Oversoul)
 	If !Oversoul
 		Ret.Stats.ACCURACY = 100
 		Ret.Stats.ENDURANCE = 5
+		Ret.Stats.ER_DARKNESS = 400
+		Ret.Stats.ER_EARTH = 100
+		Ret.Stats.ER_FLAME = -75
+		Ret.Stats.ER_FROST = 100
+		Ret.Stats.ER_LIGHT = -999
+		Ret.Stats.ER_LIGHTNING = -100
+		Ret.Stats.ER_WATER = -1
+		Ret.Stats.ER_WIND = 100
 		Ret.Stats.EVASION = 100
 		Ret.Stats.EXP = 75
 		Ret.Stats.HP = 500
@@ -59,6 +59,14 @@ Table _R(Bool Oversoul)
 	Else
 		Ret.Stats.ACCURACY = 100
 		Ret.Stats.ENDURANCE = 5
+		Ret.Stats.ER_DARKNESS = 400
+		Ret.Stats.ER_EARTH = 100
+		Ret.Stats.ER_FLAME = -75
+		Ret.Stats.ER_FROST = 100
+		Ret.Stats.ER_LIGHT = -999
+		Ret.Stats.ER_LIGHTNING = -100
+		Ret.Stats.ER_WATER = -1
+		Ret.Stats.ER_WIND = 100
 		Ret.Stats.EVASION = 100
 		Ret.Stats.EXP = 1
 		Ret.Stats.HP = 90000

@@ -1,4 +1,4 @@
-// Generated 9/29/2021 9:21:14 PM
+// Generated 10/23/2021 12:25:37 PM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -27,14 +27,6 @@ Table _R(Bool Oversoul)
 	Ret.StealItem_3 = "ITM_ANTIDOTE"
 	Ret.NAME = "Goblin"
 	Ret.CASH = 2
-	Ret.ER_DARKNESS = 0
-	Ret.ER_EARTH = 0
-	Ret.ER_FLAME = 0
-	Ret.ER_FROST = 0
-	Ret.ER_LIGHT = 0
-	Ret.ER_LIGHTNING = 0
-	Ret.ER_WATER = 0
-	Ret.ER_WIND = 0
 	Ret.SR_CURSE = 20
 	Ret.SR_DEATH = 1
 	Ret.SR_DISEASE = 0
@@ -51,6 +43,14 @@ Table _R(Bool Oversoul)
 	If !Oversoul
 		Ret.Stats.ACCURACY = 85
 		Ret.Stats.ENDURANCE = 15
+		Ret.Stats.ER_DARKNESS = 0
+		Ret.Stats.ER_EARTH = 0
+		Ret.Stats.ER_FLAME = 0
+		Ret.Stats.ER_FROST = 0
+		Ret.Stats.ER_LIGHT = 0
+		Ret.Stats.ER_LIGHTNING = 0
+		Ret.Stats.ER_WATER = 0
+		Ret.Stats.ER_WIND = 0
 		Ret.Stats.EVASION = 0
 		Ret.Stats.EXP = 3
 		Ret.Stats.HP = 10

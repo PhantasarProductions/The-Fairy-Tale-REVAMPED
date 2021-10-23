@@ -1,4 +1,4 @@
-// Generated 9/29/2021 9:21:28 PM
+// Generated 10/23/2021 12:25:53 PM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -23,14 +23,6 @@ Table _R(Bool Oversoul)
 	Ret.StealItem_3 = "WAND_II_SPRINGTIJ"
 	Ret.NAME = "Siren"
 	Ret.CASH = 20
-	Ret.ER_DARKNESS = 100
-	Ret.ER_EARTH = 0
-	Ret.ER_FLAME = -200
-	Ret.ER_FROST = -75
-	Ret.ER_LIGHT = -100
-	Ret.ER_LIGHTNING = -400
-	Ret.ER_WATER = 200
-	Ret.ER_WIND = 100
 	Ret.SR_CONFUSION = 75
 	Ret.SR_CURSE = 35
 	Ret.SR_DEATH = 45
@@ -50,6 +42,14 @@ Table _R(Bool Oversoul)
 	If !Oversoul
 		Ret.Stats.ACCURACY = 100
 		Ret.Stats.ENDURANCE = 1200
+		Ret.Stats.ER_DARKNESS = 100
+		Ret.Stats.ER_EARTH = 0
+		Ret.Stats.ER_FLAME = -200
+		Ret.Stats.ER_FROST = -75
+		Ret.Stats.ER_LIGHT = -100
+		Ret.Stats.ER_LIGHTNING = -400
+		Ret.Stats.ER_WATER = 200
+		Ret.Stats.ER_WIND = 100
 		Ret.Stats.EVASION = 50
 		Ret.Stats.EXP = 75
 		Ret.Stats.HP = 2000
@@ -60,6 +60,14 @@ Table _R(Bool Oversoul)
 	Else
 		Ret.Stats.ACCURACY = 100
 		Ret.Stats.ENDURANCE = 9000
+		Ret.Stats.ER_DARKNESS = 100
+		Ret.Stats.ER_EARTH = 0
+		Ret.Stats.ER_FLAME = -200
+		Ret.Stats.ER_FROST = -75
+		Ret.Stats.ER_LIGHT = -100
+		Ret.Stats.ER_LIGHTNING = -400
+		Ret.Stats.ER_WATER = 200
+		Ret.Stats.ER_WIND = 100
 		Ret.Stats.EVASION = 100
 		Ret.Stats.EXP = 250
 		Ret.Stats.HP = 200000
