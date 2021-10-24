@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Subs/SubItems.neil
-// Version: 21.10.23
+// Version: 21.10.25
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -378,6 +378,21 @@ Void LoadAbilityList(String Char,Force)
 		LoadAbilityList("Jake_Fairy",true)		
 	End
 	Categorize(Char)
+End
+
+Global String AblCheckLearn(String Char)
+	For tag,abl in pairs(Abilities[Char].Ability)
+		Bool ReqOk=!abl.Unlocked
+		For si=1,5 
+			If Dat["Req"..si]>0
+				ReqOk = ReqOk && RPGChar[Char].Points["LVL_Skill"..si].Have>=Dat["Req"..si]
+			End
+		End
+		if ReqOk
+			Return tag
+		End
+	End
+	Return ""
 End
 
 Global String AblOverview(String Char,int x, int y, int w, int h,string situation)
