@@ -1,0 +1,99 @@
+// License Information:
+// **********************************************
+// 
+// src/Tricky Script/Script/Flow/FlowManaOrb.neil
+// (c) Jeroen Broks, 2021, All Rights Reserved.
+// 
+// This file contains material that is related
+// to a storyline that is which is strictly
+// copyrighted to Jeroen Broks.
+// 
+// This file may only be used in an unmodified
+// form with an unmodified version of the
+// software this file belongs to.
+// 
+// You may use this file for your study to see
+// how I solved certain things in the creation
+// of this project to see if you find valuable
+// leads for the creation of your own.
+// 
+// Mostly this file comes along with a project
+// that is for most part released under an
+// open source license and that means that if
+// you use that code with this file removed
+// from it, you can use it under that license.
+// Please check out the other files to find out
+// which license applies.
+// This file comes 'as-is' and in no possible
+// way the author can be held responsible of
+// any form of damages that may occur due to
+// the usage of this file
+// 
+// 
+// **********************************************
+// 
+// version: 21.10.25
+// End License Information
+#use "Script/Use/Anyway"
+
+
+ReadOnly Table Elem = {"Fire","Wind","Water","Earth"}
+ReadOnly Var Back = Image.Obtain("BACKGROUND")
+
+ReadOnly Var Font = ImageFont.Obtain("BIGTEXT")
+
+ReadOnly Table Pics = {}
+
+String Char
+
+Global Void ComeToMe(String _Char)
+	Char = _Char
+	Flow.Current = "MANAORB"
+End
+
+Init 
+	For c in Each{"Jake","Marrilona"}
+		Pics[c] = Image.Load(sprintf("GFX/Big_Char/%s.png",c))
+	End
+End
+
+Global Void PartyClick(int i,string ch)
+	Switch Ch
+		Case "Jake_Human" "Jake_Fairy"
+			Char="Jake"
+		Case "Marrilona"
+			Char="Marrilona"
+		Default
+	End
+End
+
+Global Void Apollo_Flow()
+	String DChar = Char
+	If DChar=="Jake" 
+		DChar="Jake_Human"
+	End
+	Graphics.Color(255,255,255)
+	Back.Tile(0,0,Screen.W,Screen.H)
+	Graphics.Color(255,180,0)
+	Font.DarkText("Which element do you want to activate for "..Char.."?",Screen.W div 2,50,2)
+	For i0,e in pairs(Elem)
+		Int i = i0+1
+		Int Y = 125+(i*55)
+		Graphics.Color(255,255,255)
+		If RPGChar[DChar].Points["LVL_Skill"..i].Have>0
+			Graphics.Color(255,0,0)
+		ElseIf Mouse.MY>Y && Mouse.MY<Y+50
+			Graphics.Color(180,255,0)
+			If Mouse.ML
+				//RPGChar[DChar].Points["LVL_Skill"..i].Have=i
+				Party.SetSkill(DChar,i,1)
+				gv.gint.ManaOrb_LastChosen = i0
+				Flow.Current="FIELD"
+			End
+		End
+		Font.DarkText(e,Screen.W div 2,Y,2)
+	End
+	Dev.ToConsole()
+	Party.Boxes(Char)
+	Mouse.Draw()
+End
