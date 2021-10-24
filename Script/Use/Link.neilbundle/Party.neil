@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.10.19
+// version: 21.10.25
 // End License Information
 
 Void LoadPartySub()
@@ -88,6 +88,10 @@ Module
   	Delegate SkillLvlUpMsg
   	Table SLUC
   	
+  	Void SetSkill(String Tag, Int Skill, Int Level)
+  		State.Call("PARTY","SubParty.SetSkill",Sprintf("\"%s\",%d,%d",Tag,Skill,Level))
+  	End
+  	
   	Void IncSkill(String Tag, Int Skill, Int Experience,Force)
   		String TagLevel = sPrintF("LVL_Skill%d",Skill)
   		String TagExpnc = sPrintF("EXP_Skill%d",Skill)
@@ -97,7 +101,8 @@ Module
   			RPGChar[Tag].Points[TagExpnc].Have += Experience
   			If RPGChar[Tag].Points[TagExpnc].Have >= RPGChar[Tag].Points[TagExpnc].Maximum
   				RPGChar[Tag].Points[TagExpnc].Have = 0
-  				RPGChar[Tag].Points[TagLevel].Have ++
+  				//RPGChar[Tag].Points[TagLevel].Have ++
+  				SetSkill(Tag,Skill,RPGChar[Tag].Points[TagLevel].Have+1)
   				SkillLvlUpMsg(Tag,RPGChar[Tag].Data[TagTitle].." level up",SLUC[Skill][1],SLUC[Skill][2],SLUC[Skill][3])
   				Var SLUV = NeilUse("Script/Data/Char/"..Tag.."/SkillUp")
   				For k,v in sPairs(SLUV)
