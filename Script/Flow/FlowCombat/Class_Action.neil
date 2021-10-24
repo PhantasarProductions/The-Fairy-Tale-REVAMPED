@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Class_Action.neil
-// Version: 21.10.23
+// Version: 21.10.25
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -62,6 +62,7 @@ Class Action
 	ReadOnly Bool DeductAP = False
 	ReadOnly Bool ConsumeItem = False
 	ReadOnly Bool AwardSkillExperience = False
+	ReadOnly Bool Teaching = False
 	ReadOnly String AfterMsg = ""
 	
 	Constructor(String _Act,String _Exe,Table _Targets,_XVars)

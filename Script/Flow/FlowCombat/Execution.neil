@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Execution.neil
-// Version: 21.10.23
+// Version: 21.10.25
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -194,6 +194,9 @@ Class Stage_Execution Extends Stage
 			// Skill up
 			For ski=1,5
 				Party.IncSkill(Act.Executor.Tag,ski,Act.Act["rew_GainSkill"..ski],Act.Act["rew_CreateSkill"..ski])
+			End
+			If Teaching
+				CharMsg(act.executor.tag,"Learned: "..Act.Act.Title,180,0,255)
 			End
 		End
 		// Is there a message? (Should only be used for learning new spells).

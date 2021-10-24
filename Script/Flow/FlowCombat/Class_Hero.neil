@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Class_Hero.neil
-// Version: 21.09.17
+// Version: 21.10.25
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -354,6 +354,61 @@ End
 // Laziness!
 ReadOnly Var SPIM = Stage_PlayerInput_Main
 
+Var CheckAbilityLearn(Act)
+	__LoadItemState
+	string Abl = ISGET.String("SUB_ITEMS",sPrintF("AblCheckLearn('%s')",Act.Executor.Tag))
+	If Abl==""
+		Return Act
+	End
+	Var ActAbl=Item[Abl]
+	Table ActTar
+	Switch ActAbl.Target
+		Case "OS" "1A"
+			ActTar = { Act.Executor.Tag }
+		Case "EV"
+			ActTar = {}
+			For k,_ in pairs(Fighter.ByTag)
+				ActTar += k
+			End
+		Case "AF"
+			ActTar = {}
+			For k,A in pairs(Fighter.ByTag)
+				If A.Team=="Foe" 
+					ActTar += k
+				End
+			End
+		Case "AA"
+			ActTar = {}
+			For k,A in pairs(Fighter.ByTag)
+				If A.Team=="Hero" 
+					ActTar += k
+				End
+			End
+		Case "1F"
+			If #Act.TarTags==1 && #Act.Targets[1].Team=="Foe"
+				ActTar = Act.TarTags
+			Else
+				int TimeOut=10000
+				string TT
+				Repeat
+					TimeOut--
+					If TimeOut<0
+						Lua.error("Ability learn random target time-out")
+						Return
+					End
+					Table TR = Fighter.GetTags("Foe")
+					TT = TR[math.random(1,#TR)]
+				Until Fighter.ByTag[TT].HP>0
+				ActTar = {TT}
+			End
+		Default
+			Lua.error("Ability learn target error: "..ActAbl.Target)			
+	End
+	BoxText.Serial("LEARNABILITY", Act.Executor.Tag:upper(), "FLOW_COMBAT")
+	ISSET("Bool","SUB_ITEMS",sprintf("Abilities.%s.Ability.Unlocked",Act.Executor.Tag),true)
+	Return new Action(Abl,Act.Executor.Tag,ActTar,{["Teaching"]=True})
+End
+
 #region PIMI reactions
 Void PIMI_Attack()
 	String WAbl = "AAA_ATTACK"
@@ -362,6 +417,7 @@ Void PIMI_Attack()
 		WAbl = SPIM.Executor.Char.Data.EQUIP_Weapon
 	End
 	Var Act = new Action(WAbl,SPIM.Exe,{},{["CheckAfterAction"]=true})
+	Act = CheckAbilityLearn(Act)
 	Stage_PlayerSelectTarget.ComeToMe(Act)
 End
 
