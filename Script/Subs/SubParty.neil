@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.08.12
+// version: 21.10.25
 // End License Information
 
 #Use "Script/Use/Anyway"
@@ -114,7 +114,7 @@ Group SubParty
 	End
 	
 	Void SetSkill(string char,int i,int level)
-		SetSkill(RPGChar[char].Points["EXP_Skill"..i],RPGChar[char].Points["LVL_Skill"..i],Level)
+		_SetSkill(RPGChar[char].Points["EXP_Skill"..i],RPGChar[char].Points["LVL_Skill"..i],Level)
 	End
 	
 	Void CreateCharacter(string char, int level)
