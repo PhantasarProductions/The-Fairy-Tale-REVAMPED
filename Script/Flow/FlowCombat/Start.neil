@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Start.neil
-// Version: 21.10.17
+// Version: 21.10.25
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -46,6 +46,7 @@ Module
 	String Arena
 	String FMusic
 	String Lose = "ERROR"
+	String StartEvent = ""
 	Var LastFoe = Nil
 	
 	Void StartPreparation()
@@ -59,7 +60,7 @@ Module
 		Int Col = Aantal div 3
 		Int Row = Aantal % 3
 		Int X = ((Col+1)*(_ASW div 5))-(row*(_ASW div 15))
-		Int Y = (_ASH div 2) + (row * (_ASH div 8)) + 20
+		Int Y = (_ASH div 2) + (row * (_ASH div 9)) + 40
 		LastFoe = New InitFoe()
 		LastFoe.Foe = F
 		LastFoe.X = X
@@ -104,5 +105,9 @@ Module
 		Flow.Current="COMBAT"
 		Stage.Current="WAIT"
 		VicQ = "PERFECT"
+		If StartEvent!=""
+			CSayF("Running combat start event '%s'",StartEvent) 
+			Map.Script(StartEvent)
+		End
 	End
 End
