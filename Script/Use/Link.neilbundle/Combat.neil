@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Link.neilbundle/Combat.neil
-// Version: 21.10.21
+// Version: 21.10.25
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -141,6 +141,10 @@ Module
 	
 	Set String Music
 		ISSet("String","FLOW_COMBAT","FLowCombat.Start.FMusic",value)
+	End
+	
+	Set String StartEvent
+		ISSet("String","FLOW_COMBAT","FLowCombat.Start.StartEvent",value)
 	End
 	
 	Void QuickBoss(string Header,String BossName,String Boss1,string Boss2="",string Boss3="",string Boss4="")
