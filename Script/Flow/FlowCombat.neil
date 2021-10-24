@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat.neil
-// Version: 21.10.17
+// Version: 21.10.25
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -83,7 +83,12 @@ Init
 		End
 	End	
 	Progress.Kill("LOADCOMBAT")
+	BoxText.Load("LEARNABILITY","COMBAT/LEARN")
 End
+
+Global Void BoxText_Back()
+	FlowCombat.DrawScreen.Run()
+End	
 
 Global Void Apollo_Flow()
 	__White
