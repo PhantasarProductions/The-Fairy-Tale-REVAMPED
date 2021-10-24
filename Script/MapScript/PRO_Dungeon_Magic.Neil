@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.10.23
+// version: 21.10.25
 // End License Information
 
 #use "Libs/XMath"
@@ -121,6 +121,14 @@ Group MScript
 		End
 	End
 	
+	#endregion
+	
+	#region The End
+	Void NPC_ManaOrb()
+		MapText("ORB")
+		Map.GoToMap("PRO_Town_Frendor","ELDER","Marrilona")
+		Schedule.Add("ElderManaOrb")
+	End
 	#endregion
 	
 	

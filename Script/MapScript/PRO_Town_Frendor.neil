@@ -32,10 +32,11 @@
 // 
 // **********************************************
 // 
-// version: 21.10.22
+// version: 21.10.25
 // End License Information
 
 #use "Script/Use/Misc/Prologue"
+#use "Script/Use/Misc/ManaOrb"
 #use "Script/Use/Anyway"
 
 Group MScript
@@ -65,8 +66,7 @@ Group MScript
 			MapText("ELDER_PROLOGUE")
 			Map.GoToMap("PRO_DUNGEON_MAGIC","#001","Start")
 		End
-	End
-	
+	End	
 	#endregion
 	
 	#region Fandalora
@@ -81,8 +81,44 @@ Group MScript
 		Lua.error("Master Fandalora not yet scripted")
 	End
 	#endregion
+	
+	
+	
+	#region Mana Orb
+	Void ElderManaOrb()
+		MapText("ELDER_MANAORB")
+		ManaOrb()
+		Schedule.Add("OrbChosen")
+	End
+	
+	Void OrbChosen()
+		//String Elem = ({"","Fire","Wind","Water","Earth"})[gv.gint.ManaOrb_LastChosen]
+		MapText("ELDER_OVER")
+		MapText("MARRILONA_OVER"..gv.gint.ManaOrb_LastChosen)
+		MapText("ELDER_WARNING")
+	End
+	
+	Void Elder_Exit()
+		MapText("ELDER_WARNING")
+		Combat.Boss("Hungry Fellow","Dwarf")
+		Combat.Arena = Lua.Neil.Globals.Map.Arena
+		Combat.Music = "*BOSS"
+		Combat.Lose = "Continue"
+		Combat.NewEnemy = "Boss/Dwarf"
+		Combat.StartEvent = "StartBoss"
+		Lua.Neil.Globals.Map.StopWalking()
+		Combat.Start()
+		Schedule.Add("PostBoss")
+	End
+	
+	Void StartBoss()
+		MapText("STARTDWARFBOSS","FLOW_COMBAT")
+		RPGChar.FOE001.Points.HP.Minimum = RPGChar.FOE001.Points.HP.Maximum
+	End		
+	#endregion
 		
 	Constructor
 		ZA.Enter("ExitHouse")
+		ZA.Enter("Elder_Exit")
 	End
 End
