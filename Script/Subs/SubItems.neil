@@ -381,11 +381,14 @@ Void LoadAbilityList(String Char,Force)
 End
 
 Global String AblCheckLearn(String Char)
+	If (!Abilities[char])
+		NeilUse("Script/Data/Char/"..char.."/Abilities")
+	End
 	For tag,abl in pairs(Abilities[Char].Ability)
-		Bool ReqOk=!abl.Unlocked
-		For si=1,5 
-			If Dat["Req"..si]>0
-				ReqOk = ReqOk && RPGChar[Char].Points["LVL_Skill"..si].Have>=Dat["Req"..si]
+		Bool ReqOk=!abl.Unlocked		
+		For si=1,5 			
+			If Abl["Req"..si]>0
+				ReqOk = ReqOk && RPGChar[Char].Points["LVL_Skill"..si].Have>=Abl["Req"..si]
 			End
 		End
 		if ReqOk

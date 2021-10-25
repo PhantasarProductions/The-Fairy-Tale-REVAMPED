@@ -418,7 +418,11 @@ Void PIMI_Attack()
 	End
 	Var Act = new Action(WAbl,SPIM.Exe,{},{["CheckAfterAction"]=true})
 	Act = CheckAbilityLearn(Act)
-	Stage_PlayerSelectTarget.ComeToMe(Act)
+	If Act.Teaching
+		CombatFlow.Execution.ComeToMe(Act,CombatFlow.Cards.Lijst[1])
+	Else
+		Stage_PlayerSelectTarget.ComeToMe(Act)		
+	End
 End
 
 Void PIMI_Ability()
