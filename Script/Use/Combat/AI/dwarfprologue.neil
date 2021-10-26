@@ -1,0 +1,13 @@
+Module
+	ReadOnly Var DAI 
+	Var Decide(Foe)
+		if Foe.HP>1
+			Return DAI.Decide(Foe)
+		End
+		Return new Action("SPECIAL_AXESMASH",Foe.Tag,{"Marrilona"})
+	End
+	
+	Constructor
+		DAI  = NeilUse("Script/Use/Combat/AI/Default")
+	End
+End
