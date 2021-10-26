@@ -45,6 +45,14 @@ Class Hero Extends Fighter
 	Get Bool DrawThis
 		return RPGParty[num] == self.Tag
 	End
+	
+	Get Int H
+		Return 128
+	End
+	Get Int W
+		Return 64
+	End
+
 
 	Static Void Compile(String _Tag)
 		Var WHero = new Hero()
