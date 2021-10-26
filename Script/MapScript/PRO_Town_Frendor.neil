@@ -113,7 +113,8 @@ Group MScript
 	
 	Void StartBoss()
 		MapText("STARTDWARFBOSS","FLOW_COMBAT")
-		RPGChar.FOE001.Points.HP.Minimum = RPGChar.FOE001.Points.HP.Maximum
+		//RPGChar.FOE001.Points.HP.Minimum = RPGChar.FOE001.Points.HP.Maximum
+		RPGChar.FOE001.Points.HP.Minimum = 1 
 	End		
 	#endregion
 		
