@@ -405,7 +405,7 @@ Var CheckAbilityLearn(Act)
 			Lua.error("Ability learn target error: "..ActAbl.Target)			
 	End
 	BoxText.Serial("LEARNABILITY", Act.Executor.Tag:upper(), "FLOW_COMBAT")
-	ISSET("Bool","SUB_ITEMS",sprintf("Abilities.%s.Ability.Unlocked",Act.Executor.Tag),true)
+	//ISSET("Bool","SUB_ITEMS",sprintf("Abilities.%s.Ability.Unlocked",Act.Executor.Tag),true)
 	Return new Action(Abl,Act.Executor.Tag,ActTar,{["Teaching"]=True})
 End
 
