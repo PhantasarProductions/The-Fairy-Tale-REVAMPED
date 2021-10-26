@@ -71,7 +71,7 @@ module
 				for i=1,35
 					Graphics.SetAlpha(255)
 					Graphics.Color(math.random(0,255),math.random(0,255),math.random(0,255))
-					self.Glitter.Draw(tar.X+(math.random(0,tar.W*2)-tar.W),tar.Y-math.random(0,tar.H))
+					self.Glitter.Draw(tar.tX+(math.random(0,tar.tW*2)-tar.tW),tar.tY-math.random(0,tar.tH))
 				end
 			end
 		end
