@@ -259,10 +259,12 @@ Global Void Explain(it)
 		// By lack of a proper overload I guess this will have to do
 		LoadedItems[it] = LoadedItems[it] || NeilUse("Script/Data/IAA/"..It)
 		Explain(LoadedItems[it])
+		return
 	End
 	Int MX = Events.MouseX()
 	Int MY = Events.MouseY()
 	Graphics.Color(255,255,255)
+	//FitText.Dark(FilFnt,"DEBUG FUCK!",MX+10,MY+100)
 	FitText.Dark(FilFnt,it.Desc,MX+10,MY+100)
 End
 
@@ -454,7 +456,7 @@ Global String AblOverview(String Char,int x, int y, int w, int h,string situatio
 			ItmFnt.DarkText(Dat.ShowAPCost,X+W-(80+DX),AY)
 			If Hover
 				If Dat.Unlocked
-					Explain(Dat)
+					Explain(Abl)
 				Else
 					Int EY = MY+100
 					If Dat.ReqByStory 

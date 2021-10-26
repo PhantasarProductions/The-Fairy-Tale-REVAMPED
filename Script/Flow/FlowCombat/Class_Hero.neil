@@ -35,6 +35,9 @@
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
 
+
+#use "Script/Use/Misc/Box"
+
 Class Hero Extends Fighter
 
 	Int Num
@@ -213,7 +216,7 @@ Class Stage_PlayerSelectTarget Extends Stage
 
 	
 	Void Draw()
-		For Tag in Each(Targets)
+		For Tag in Each(Targets || {})
 			Var F = Fighter.ByTag[Tag]
 			Bool ShowBar = True
 			Bool BarKnown = True
@@ -292,6 +295,8 @@ Class PIMI
 	End
 End
 
+
+
 Class Stage_PlayerInput_Main Extends Stage
 
 	Static ReadOnly Var Fnt = ImageFont.Obtain("SYSFONT")
@@ -361,6 +366,50 @@ Class Stage_PlayerInput_Main Extends Stage
 End
 // Laziness!
 ReadOnly Var SPIM = Stage_PlayerInput_Main
+
+
+Class Stage_PlayerInput_Ability Extends Stage
+
+	ReadOnly Int BX = 100
+	ReadOnly Int BY = 100
+	ReadOnly Int BW = Screen.W - 200
+	ReadOnly Int BH = Screen.H - 400
+	
+	Var ubox 
+	
+	Static String Exe
+	Static Get Var CEx
+		Return Fighter.ByTag[Exe]
+	End
+	
+	Static Get Var Executor
+		//Return RPGChar[Exe]
+		Return Fighter.ByTag[Exe]
+	End
+	
+	String Chosen = ""
+
+	Void Draw()
+		ubox = ubox ||  new Box(BX,BY,BW,BH,False)
+		ubox.Draw()
+		Chosen = Item.AbilityOverview(Exe,bx,by,bw,bh,"InCombat")
+		Mouse.Draw()
+	End
+	
+	Void Update()
+		If Chosen!=""
+			Bool Deduct = True
+			// TODO: Marrilona no AP use when HP is too low
+			var Act = new Action(Chosen,Exe,{},{["DeductAP"]=Deduct})
+			Stage_PlayerSelectTarget.ComeToMe(Act)
+		End
+	End
+	
+	Static Void ComeToMe(String _Exe)
+		Exe = _Exe
+		Stage.Current = "PLAYERINPUT_ABILITY"
+	End
+End
 
 Var CheckAbilityLearn(Act)
 	__LoadItemState
@@ -434,6 +483,7 @@ Void PIMI_Attack()
 End
 
 Void PIMI_Ability()
+	Stage_PlayerInput_Ability.ComeToMe(SPIM.Exe)
 End
 
 Void PIMI_Items()
@@ -463,6 +513,7 @@ End
 Init
 	Stage.Register("PLAYERINPUT_MAIN",new Stage_PlayerInput_Main())
 	Stage.Register("PLAYERINPUT_SELECTTARGET",new Stage_PlayerSelectTarget())
+	Stage.Register("PLAYERINPUT_ABILITY",new Stage_PlayerInput_Ability())
 	PIMI.Lst.AddLast(new PIMI("Attack",0,0,PIMI_Attack))
 	PIMI.Lst.AddLast(new PIMI("Ability",0,-50,PIMI_Ability,NotNostra))
 	PIMI.Lst.AddLast(new PIMI("Spirata",0,50,PIMI_Spirata,HasSpirata))
