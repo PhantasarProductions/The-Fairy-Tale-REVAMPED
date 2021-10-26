@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.10.03
+// version: 21.10.26
 // End License Information
 Global Void CONSOLE_Fighters()
 	For F,D in sPairs(Fighter.ByTag)
@@ -129,4 +129,3 @@ Global Void CONSOLE_Points(tags)
 			End
 	end
 end
-
