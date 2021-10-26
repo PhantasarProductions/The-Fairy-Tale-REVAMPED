@@ -84,3 +84,49 @@ Global Void CONSOLE_Kill(victims)
 			end
 	end
 end
+
+Global Void CONSOLE_Points(tags) 
+	//print(sprintf("Kill request> \"%s\"",victim || "<Huh?>"))
+	string tag
+	switch lua.type(tags) 
+		case "table"
+			for k,v in pairs(tags) 
+				print(k,v) 
+			end
+			tags=tags[1] || "ALL"
+		case "string"
+			Tag=Tags
+	end
+	switch tag:upper()
+		case "HERO" "HEROES"
+			for t,dat in spairs(Fighter.ByTag)
+				if dat.Team=="Hero"
+					CONSOLE_Points(t)
+				end
+			end
+		case "FOE" "FOES" "ENEMY" "ENEMIES" "MONSTER" "MONSTERS"
+			for t,dat in spairs(Fighter.ByTag)
+				if dat.Team=="Foe"
+					CONSOLE_Points(t)
+				end
+			end
+		case "" "ALL" 
+			//CSay("I need more input!")
+			for t,dat in spairs(Fighter.ByTag)
+				CONSOLE_Points(t)
+			end
+		default
+			Var c = Fighter.ByTag[tag]
+			CSayF("- %s %s",c.Team,tag)
+			Table t = {"HP","AP"}
+			If c.Team=="Hero"
+				t+= "VIT"
+			End
+			For p in each(t)
+				var pnt = c.char.points[p]
+				//CSayF("Lua.types: %s -- Lua.typemini(%s)(value: '%s') -- Lua.typemaxi(%s) -- Lua.typehave(%s)",p,Lua.type(pnt.Minimum),pnt.Minimum,Lua.type(pnt.Maximum),Lua.type(pnt.Have))
+				CSayF("= %s; Min: %06d; Max: %06d; Hav: %06d",p,pnt.Minimum,pnt.Maximum,pnt.Have)
+			End
+	end
+end
+
