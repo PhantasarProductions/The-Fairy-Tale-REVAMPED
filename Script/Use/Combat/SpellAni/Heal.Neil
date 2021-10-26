@@ -62,21 +62,20 @@ module
 	bool _Ended = false
 	void Draw()
 		// Count on it!
-		self.Cycles ++
-		
+		self.Cycles ++		
 		// Draw it all!
 		// for tar in each(act.Targets)
 		for ti=1,#act.Targets_Tag
 			plua tar = act.Targets[ti]
 			if tar
-				for i=1,35 
+				for i=1,35
+					Graphics.SetAlpha(255)
 					Graphics.Color(math.random(0,255),math.random(0,255),math.random(0,255))
 					self.Glitter.Draw(tar.X+(math.random(0,tar.W*2)-tar.W),tar.Y-math.random(0,tar.H))
 				end
 			end
 		end
 		__white
-		
 		_Ended = self.Cycles>=self.MaxCycles
 	end
 	
