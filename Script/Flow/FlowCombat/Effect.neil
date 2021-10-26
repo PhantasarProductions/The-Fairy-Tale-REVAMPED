@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Effect.neil
-// Version: 21.10.19
+// Version: 21.10.26
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -151,7 +151,8 @@ Group Effect
       	end
       	return dmg
     end
-	
+	     
+    
 	
 	// The calcuation has been copied from the original source code and been adapted
 	// To Neil and the underlying APIs.
@@ -168,7 +169,7 @@ Group Effect
 		Number atk = RPGChar[atag].Stat["END_"..act.Attack_AttackStat] * ((act.Attack or 100)/100)
 		Number def = 0
 		Bool voided = False
-		If Atk==0
+		If Atk<=0
 			Return False
 		End
 		If act.Attack_DefenseStat!="None" 
@@ -252,6 +253,28 @@ Group Effect
         Return False
     End
     
+    Get Bool Heal
+    	If Act.Heal<=0
+    		Return False
+    	End
+    	Int HV
+    	Switch Act.Heal_Type
+    		Case "Absolute"
+    			HV = Act.Heal
+    		Case "Percent"
+    			HV = math.ceil( (Target.HPMax/100)*Act.Heal)
+    		Case "StatPercent"
+    			HV = math.ceil( (Action.Executor.Char.Stat["END_"..Act.Heal_StatPercent])*(Act.Heal/100) )
+    		Default
+    			Lua.error("Unknown HealType: "..Act.Heal_Type)
+    	End
+    	// TODO: Heal => Damage if Undead status
+    	
+    	CSayF("Heaing %s with %s extra hitpoints",Target.Tag,Lua.tostring(HV))
+    	charmsg(Target.Tag,math.abs(HV),180,255,0)
+    	Target.HP += HV
+    	Return True
+    End
 
 	Bool Run(_Action,_Target)
 		Bool Ret = False
@@ -270,6 +293,8 @@ Group Effect
 		
 		// Cure status changes (must be first)
 		// Healing
+		Ret = Heal || Ret
+		
 		// Attack
 		Ret = Attack || Ret
 		
