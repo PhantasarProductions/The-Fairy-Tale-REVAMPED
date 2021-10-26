@@ -385,13 +385,15 @@ Global String AblCheckLearn(String Char)
 		NeilUse("Script/Data/Char/"..char.."/Abilities")
 	End
 	For tag,abl in pairs(Abilities[Char].Ability)
+		Print(type("ABLCHECKLEARN> "),type(abl),tag)
 		Bool ReqOk=!abl.Unlocked		
 		For si=1,5 			
 			If Abl["Req"..si]>0
-				ReqOk = ReqOk && RPGChar[Char].Points["LVL_Skill"..si].Have>=Abl["Req"..si]
+				ReqOk = ReqOk && (!abl.Unlocked) && RPGChar[Char].Points["LVL_Skill"..si].Have>=Abl["Req"..si]
 			End
 		End
 		if ReqOk
+			abl.Unlocked=true
 			Return tag
 		End
 	End
