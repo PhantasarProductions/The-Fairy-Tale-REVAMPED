@@ -1,0 +1,145 @@
+// License Information:
+// src/Tricky Script/Script/Flow/FlowCombat/Wiped.neil
+// Version: 21.10.27
+// Copyright (C) 2021 Jeroen Petrus Broks
+// 
+// ===========================
+// This file is part of a project related to the Phantasar Chronicles or another
+// series or saga which is property of Jeroen P. Broks.
+// This means that it may contain references to a story-line plus characters
+// which are property of Jeroen Broks. These references may only be distributed
+// along with an unmodified version of the game.
+// 
+// As soon as you remove or replace ALL references to the storyline or character
+// references, or any termology specifically set up for the Phantasar universe,
+// or any other univers a story of Jeroen P. Broks is set up for,
+// the restrictions of this file are removed and will automatically become
+// zLib licensed (see below).
+// 
+// Please note that doing so counts as a modification and must be marked as such
+// in accordance to the zLib license.
+// ===========================
+// zLib license terms:
+// This software is provided 'as-is', without any express or implied
+// warranty.  In no event will the authors be held liable for any damages
+// arising from the use of this software.
+// Permission is granted to anyone to use this software for any purpose,
+// including commercial applications, and to alter it and redistribute it
+// freely, subject to the following restrictions:
+// 1. The origin of this software must not be misrepresented; you must not
+// claim that you wrote the original software. If you use this software
+// in a product, an acknowledgment in the product documentation would be
+// appreciated but is not required.
+// 2. Altered source versions must be plainly marked as such, and must not be
+// misrepresented as being the original software.
+// 3. This notice may not be removed or altered from any source distribution.
+// End License Information
+Group WipeDo
+
+	Void GameOver()
+		Flow.Quit()
+	End
+	
+	Void Continue()
+		Flow.Current="FIELD"
+		If !Prefixed(FlowCombat.Start.FMusic:upper(),"*NOCHANGE")
+			Music.Pop()
+		End
+		For i=1,4
+			String tag=RPGParty[i]
+			If tag!=""
+				RPGChar[Tag].Points.HP.Have = 1
+			End
+		End		
+	End
+	
+End
+
+
+Class Stage_Wiped extends Stage
+
+	Static Var Vic
+	Static ReadOnly Var BanWiped    = Image.LoadNew("GFX/Combat/End/Wiped.png","COMBAT_WIPED")
+	Static ReadOnly Var BanGameOver = Image.LoadNew("GFX/Combat/End/Game Over.png","COMBAT_GAMEOVER")
+
+	Static Var Banner
+	Static Number BanScale = 0
+	Const Number ScaleInc = 0.004
+
+	
+	Static Get String WhatToDo
+		Return FlowCombat.Start.Lose:upper()
+	End
+	
+	Constructor
+		Vic = Self
+	End
+
+	Static Bool Check()
+		If Vic==Stage.Current
+			Return False
+		End
+		//Csay("DEBUG CHECK VICTORY!")
+		Bool Won = FlowCombat.Defeated("Hero")
+		//CSay("Enemy defeated: %s",tostring(Won))
+		If Won
+			CSay("Party loses, initiating victory stage")
+			Stage.Current="WIPED"
+			Banner = BanWiped
+			If WhatToDo=="GAMEOVER"
+				Banner = BanGameOver
+			End
+			Banner.HotCenter()
+			//If Music.Available
+			//	If !Prefixed(FlowCombat.Start.FMusic:upper(),"*NOCHANGE")
+			//		Music.Stop()
+			//		VicTune.Play()
+			//		CSay("= Victory tune")
+			//	End
+			//End
+			BanScale=0
+			//Shout()
+		End
+	End
+
+	Void Update()
+		BanScale = math.min(1,(BanScale || 0)+ScaleInc)
+		If BanScale>=1
+			CsayF("Wipe animation done. Staring up handler '%s' now")
+			WipeDo[WhatToDo]()			
+			Return
+		End
+		//plua vit
+		plua hp
+		String tag
+		//For i=1,4
+			//tag=RPGParty[i]
+			//if tag!=""
+				//vit = RPGChar[Tag].Points.VIT
+				//hp  = RPGChar[Tag].Points.HP
+				//if hp.Have==0
+				//	hp.Have=1
+				//	exprate[tag] = 0
+				//end
+				//if vit.Have>0 && hp.Have<hp.Maximum
+				//	hp.Have +=  math.ceil(hp.Maximum/(200/__skill))
+				//	vit.Have = vit.Have - 1
+				//end
+			//End
+		//End
+	End
+
+	Void Draw()
+		Graphics.Scale(BanScale,BanScale)
+		Banner.Draw(Screen.W div 2, Screen.H div 5)
+	End
+	
+
+End
+
+Init
+	Stage.Register("WIPED",new Stage_Wiped())
+End
+
+
+Return Stage_Wiped
