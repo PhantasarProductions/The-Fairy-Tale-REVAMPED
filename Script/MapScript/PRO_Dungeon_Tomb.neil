@@ -1,7 +1,7 @@
 // License Information:
 // **********************************************
 // 
-// src/Tricky Script/Script/MapScript/PRO_Empty.neil
+// src/Tricky Script/Script/MapScript/PRO_Dungeon_Tomb.neil
 // (c) Jeroen Broks, 2021, All Rights Reserved.
 // 
 // This file contains material that is related
@@ -42,27 +42,9 @@ Group MScript
 	ReadOnly Bool HasDraw   = False
 	ReadOnly Bool HasUpdate = False
 	
-	Void StartJake()
-		MapText("JAKE")
-		Map.GoToMap("PRO_Town_Vandar","TOWN","Dojo")
-		Schedule.Add("StartPrologue")
-	End
-	
-	Void StartMarrilona()
-		MapText("MARRILONA")
-		Map.GoToMap("PRO_Town_Frendor","MARRILONA","Birthday")
-		Schedule.Add("StartPrologue")
-	End
-	
-	Void StartDandor()
-		RPGChar.Dandor.Points.LVL_Skill1.Have = 30 div __skill
-		MapText("DANDOR")
-		Map.GoToMap("PRO_Dungeon_Tomb","#000","Start")
-		Schedule.Add("StartPrologue")
-	End
-	
-	Constructor
-		Map.AllowAutoScroll = False
+	Void StartPrologue()
+		MapText("SANDRA_A")
+		MapText("SANDRA_B")
 	End
 	
 End

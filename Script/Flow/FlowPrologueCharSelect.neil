@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.10.21
+// version: 21.10.28
 // End License Information
 #use "Script/Use/Anyway"
 #use "Script/Use/Misc/Prologue"
@@ -44,9 +44,11 @@ Class PersonCard
 	
 	ReadOnly Var Card
 	ReadOnly String Name
+	ReadOnly Int Lvl
 	
-	Constructor(string N)
+	Constructor(string N,int L=1)
 		Name = N
+		Lvl  = L
 		Card = Image.Load("GFX/PrologueChar/"..N..".png")
 		Card.HotCenter()
 	End
@@ -73,7 +75,16 @@ Init
 	//new Box(0,0,Screen.W,Screen.H)
 	For Ch in each { "Jake", "Marrilona", "Dandor", "HandoStillor" }
 		If !Prologue.Done[Ch]
-			PersonCard.Lst.Push_Back( New PersonCard(Ch) )
+			Int L 
+			Switch Ch
+				Case "Dandor"					
+					L = 30-((__skill-1)*5)
+				Case "HandoStillor"
+					L = 18 div __skill
+				Default
+					L = 1
+			End
+			PersonCard.Lst.Push_Back( New PersonCard(Ch,L) )
 			Klaar = false
 		End
 	End
@@ -110,7 +121,7 @@ Global Void Apollo_Flow()
 		Graphics.Flip()
 		Mouse.Flush()
 		FPS.Sleep(400)
-		Party.CreateChar(PersonCard.Lst[Sel].Name, 1)
+		Party.CreateChar(PersonCard.Lst[Sel].Name, PersonCard.Lst[Sel].Lvl)
 		Switch PersonCard.Lst[Sel].Name
 			Case "Jake" 
 				RPGParty[1] = "Jake_Human"			

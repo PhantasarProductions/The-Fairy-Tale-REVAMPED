@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.10.25
+// version: 21.10.28
 // End License Information
 
 #Use "Script/Use/Anyway"
@@ -285,7 +285,7 @@ Group SubParty
 				Fnt.DarkText(HP.Have,barx+barwidth,B.Y+35,1,1)
 			End
 			// AP
-			Do
+			If RPGChar[ch].Points.AP.Maximum>0
 				Var AP = RPGChar[ch].Points.AP
 				Number Breuk = AP.Have / AP.Maximum
 				Int APG = math.floor(180*Breuk)			
