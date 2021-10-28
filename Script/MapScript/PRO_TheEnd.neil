@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.10.22
+// version: 21.10.28
 // End License Information
 #use "Script/Use/Misc/Prologue"
 #use "Script/Use/Anyway"
@@ -40,6 +40,11 @@ Const Table Chars = {"Jake","Marrilona","Dandor","HandoStillor"}
 
 
 Group RealThing
+
+	ReadOnly Bool HasDraw   = False
+	ReadOnly Bool HasUpdate = False
+
+
 	Void EndPrologue(string Char)
 		For i=1,100
 			Graphics.Flip()
@@ -76,6 +81,10 @@ QuickMeta MScript
 				RealThing[key]()
 			End
 		End
+		If Prefixed(key:upper(),"HAS")
+			Return False
+		End
+		
 		Return Exe
 	End
 End
