@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Class_Hero.neil
-// Version: 21.10.27
+// Version: 21.10.28
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -402,6 +402,7 @@ Class Stage_PlayerInput_Ability Extends Stage
 			// TODO: Marrilona no AP use when HP is too low
 			var Act = new Action(Chosen,Exe,{},{["DeductAP"]=Deduct})
 			Stage_PlayerSelectTarget.ComeToMe(Act)
+			Chosen=""
 		End
 	End
 	
