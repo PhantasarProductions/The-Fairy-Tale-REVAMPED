@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Class_Hero.neil
-// Version: 21.10.26
+// Version: 21.10.27
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -71,12 +71,12 @@ Class Hero Extends Fighter
 		Static String Format = "GFX/Combat/Fighters/Hero/%s.%s.png"
 		String DTag = Self.Stage
 		if Self.HP==0
-			Self.Stage="KO"
+			Self.Stage="DEAD"
 		End
 		Switch Self.Stage:upper()
 			Case "ATTACK"
 				DTag = SprintF("Attack.%d",math.max(1,math.min(2,AttackFrame div 30)))				
-			Case "KO"
+			Case "DEAD"
 				If Self.HP>0
 					Self.Stage="IDLE"
 				End

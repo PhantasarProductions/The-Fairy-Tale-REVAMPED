@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.10.26
+// version: 21.10.27
 // End License Information
 
 #use "Script/Use/Misc/Prologue"
@@ -103,7 +103,7 @@ Group MScript
 		Combat.Boss("Hungry Fellow","Dwarf")
 		Combat.Arena = Lua.Neil.Globals.Map.Arena
 		Combat.Music = "*BOSS"
-		Combat.Lose = "Continue"
+		Combat.Lose = "GameOver"
 		Combat.NewEnemy = "Boss/Dwarf"
 		Combat.StartEvent = "StartBoss"
 		Lua.Neil.Globals.Map.StopWalking()

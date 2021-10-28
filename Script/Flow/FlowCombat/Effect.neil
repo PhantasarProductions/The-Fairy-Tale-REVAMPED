@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Effect.neil
-// Version: 21.10.26
+// Version: 21.10.27
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -275,9 +275,19 @@ Group Effect
     	Target.HP += HV
     	Return True
     End
+    
+    Get Bool Script
+    	Static Table Scripts
+    	String S = Act.EffectScript:upper()
+    	if S==""
+    		Return False
+    	End
+    	Scripts[S] = Scripts[S] || NeilUse("Script/Use/Combat/ActScript/"..Act.EffectScript)
+    	Return Scripts[S](Act,Target)
+    End
 
 	Bool Run(_Action,_Target)
-		Bool Ret = False
+		Bool Ret = False		
 		Switch Lua.type(_Target)
 			Case "string"
 				Target = Fighter.ByTag[_Target]
@@ -300,6 +310,7 @@ Group Effect
 		
 		// Buffs & Debuffs
 		// Script
+		Ret = Script || Ret
 		// Target gets extra turn cards
 		Ret = XTurnCard || Ret
 		// Cause status changes (must be last)
