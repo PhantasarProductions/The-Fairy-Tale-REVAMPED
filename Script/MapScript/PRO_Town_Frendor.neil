@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.10.27
+// version: 21.10.28
 // End License Information
 
 #use "Script/Use/Misc/Prologue"
@@ -109,6 +109,16 @@ Group MScript
 		Lua.Neil.Globals.Map.StopWalking()
 		Combat.Start()
 		Schedule.Add("PostBoss")
+	End
+	
+	Void PostBoss()
+		Music.Stop()
+		Map.GoToLayer("BLACK","Start")
+		MapText("ELDER_OPENEYES")
+		Map.GoToLayer("MARRILONA","MarrilonaBed")
+		Map.ShowObj("PRE_NOS")
+		MapText("ELDER_ENDPROLOGUE")
+		Map.GoToMap("PRO_TheEnd","MARRILONA","Start")
 	End
 	
 	Void StartBoss()
