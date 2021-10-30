@@ -61,7 +61,13 @@ Group MScript
 		Schedule.Add("StartPrologue")
 	End
 	
-		
+	Void StartHandoStillor()
+		RPGChar.HandoStillor.Points.LVL_Skill1.Have =  6 div __skill
+		RPGChar.HandoStillor.Points.LVL_Skill1.Have = 12 div __skill
+		MapText("HANDOSTILLOR")
+		Map.GoToMap("PRO_HUB_Weniaria","LOBBY","Hando")
+		Schedule.Add("StartPrologue")
+	End
 	
 	Constructor
 		Map.AllowAutoScroll = False
