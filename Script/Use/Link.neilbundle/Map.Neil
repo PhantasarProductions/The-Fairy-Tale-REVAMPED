@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Link.neilbundle/Map.Neil
-// Version: 21.10.25
+// Version: 21.10.30
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -206,6 +206,10 @@ Module
 	
 	Void Kill(String Tag, bool perma)
 		MCall("FlowField.Kill.Kill",Tag,perma==true)
+	End
+	
+	Void KillByPrefix(String Tag,perma)
+		MCall("FlowField.Kill.KillByPrefix",Tag,perma==true)
 	End
 	
 	Void HideObj(string Tag)

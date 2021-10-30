@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField/Kill.neil
-// Version: 21.08.23
+// Version: 21.10.30
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -52,6 +52,14 @@ Module
 			CSayF("Killed: %s",Tag)
 		Else
 			CSayF("Request to kill '%s' ignored (doesn't exist or is already killed)",Tag)
+		End
+	End
+	
+	Void KillByPrefix(String Pre,bool Permanent)
+		For T in each(FlowField.Map.CurLayer.TagListArray)
+			If Prefixed(T,Pre)
+				Kill(T,Permanent)
+			End
 		End
 	End
 	
