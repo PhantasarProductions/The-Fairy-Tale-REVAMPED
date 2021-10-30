@@ -38,11 +38,15 @@
 #use "Script/Use/Anyway"
 #use "Script/Use/Misc/PuzSet"
 
+#macro __DoneBrug gv.gbool.Prologue_Dandor_FeenalariasTomb_Brug
+#macro __BrugAlph gv.gint.Prologue_Dandor_FeenalariasTomb_Brug_Alpha
+
 Group TrueMScript
 
 
 	ReadOnly Bool HasDraw   = False
-	ReadOnly Bool HasUpdate = False
+	ReadOnly Bool HasUpdate = True
+	
 
 	Void PuzzleField()
 		PuzSet.Start()
@@ -55,8 +59,74 @@ Group TrueMScript
 		MapText("SANDRA_B")
 	End
 	
+	Void To001()
+		Map.GoToLayer("#001","From007")
+	End
+	
+	Void To007()
+		Map.GoToLayer("#007","Einde")
+	End
+	
+	Void NPC_Brug()
+		Map.SetObj("NPC_Brug","Texture","GFX/Textures/Switch/Left.png")
+		__DoneBrug = True
+	End
+	
+	Void Update()
+		Static Bool BrugCheck = False
+		If Map.Layer=="#001" && __DoneBrug
+			__BrugAlph = math.min(255,__BrugAlph+1)
+			For i=1,2
+				If !BrugCheck
+					Map.SetObj("BRUG"..i,"ForcePassible",true)
+					CSay("Bridges can be passed now")
+					// Must prevent slowdown due to needless remapping
+				End				
+				Map.SetObj("BRUG"..i,"Alpha",__BrugAlph)
+			End
+			BrugCheck=True
+		End
+	End
+	
+	Void StartBoss()
+		if Done.Prologue_Dandor_Boss_ShadowSweeper
+			Return
+		End
+		Combat.QuickBoss("Master of Darkness","Shadow Sweeper","ShadowSweeper")
+		Map.Kill("Boss",true)
+	End
+	
+	Void EnterGrave()
+		Music.Play("music/hub/angevin.ogg")
+		Map.GoToLayer("GRAVE","Start")		
+	End
+	
+	Void ExitGrave()
+		Music.Play("music/dungeon/d'amour.ogg")
+		Map.GoToLayer("#001","FromGrave")
+	End
+	
+	Void GrafEvent()
+		If !Done.Prologue_Dandor_Feenalaria_Tomb_Completed
+			Player.StopWalking()
+			Player.WalkTo("Prologue_Dandor")
+			For i=1,2
+				MapText("FEENA_PROLOGUE_"..i)
+			End
+			Map.GoToMap("PRO_TheEnd","DANDOR","Start")
+			Return
+		End
+	End
+	
+	
 	Constructor
 		ZA.Enter("PuzzleField")
+		ZA.Enter("To001")
+		ZA.Enter("To007")
+		ZA.Enter("StartBoss")
+		ZA.Enter("EnterGrave")
+		ZA.Enter("ExitGrave")
+		ZA.Enter("GrafEvent")		
 		For i=1,16
 			ZA.Enter("Sym"..i)
 		End
