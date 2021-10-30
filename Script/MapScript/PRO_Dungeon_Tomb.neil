@@ -32,19 +32,47 @@
 // 
 // **********************************************
 // 
-// version: 21.10.28
+// version: 21.10.30
 // End License Information
 
 #use "Script/Use/Anyway"
+#use "Script/Use/Misc/PuzSet"
 
-Group MScript
+Group TrueMScript
+
 
 	ReadOnly Bool HasDraw   = False
 	ReadOnly Bool HasUpdate = False
+
+	Void PuzzleField()
+		PuzSet.Start()
+	End
+	
+	Link Sym = PuzSet.Action
 	
 	Void StartPrologue()
 		MapText("SANDRA_A")
 		MapText("SANDRA_B")
 	End
 	
+	Constructor
+		ZA.Enter("PuzzleField")
+		For i=1,16
+			ZA.Enter("Sym"..i)
+		End
+	End
+	
+End
+
+QuickMeta MScript
+	index
+		If Prefixed(key,"Sym")
+			Void r()
+				TrueMScript.Sym(key,"Block")
+			End
+			Return R
+		Else
+			Return TrueMScript[key]
+		End
+	End
 End
