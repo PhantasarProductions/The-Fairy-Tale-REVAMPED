@@ -1,0 +1,195 @@
+// License Information:
+// src/Tricky Script/Script/Use/Misc/PuzSet.neil
+// Version: 21.10.30
+// Copyright (C) 2021 Jeroen Petrus Broks
+// 
+// ===========================
+// This file is part of a project related to the Phantasar Chronicles or another
+// series or saga which is property of Jeroen P. Broks.
+// This means that it may contain references to a story-line plus characters
+// which are property of Jeroen Broks. These references may only be distributed
+// along with an unmodified version of the game.
+// 
+// As soon as you remove or replace ALL references to the storyline or character
+// references, or any termology specifically set up for the Phantasar universe,
+// or any other univers a story of Jeroen P. Broks is set up for,
+// the restrictions of this file are removed and will automatically become
+// zLib licensed (see below).
+// 
+// Please note that doing so counts as a modification and must be marked as such
+// in accordance to the zLib license.
+// ===========================
+// zLib license terms:
+// This software is provided 'as-is', without any express or implied
+// warranty.  In no event will the authors be held liable for any damages
+// arising from the use of this software.
+// Permission is granted to anyone to use this software for any purpose,
+// including commercial applications, and to alter it and redistribute it
+// freely, subject to the following restrictions:
+// 1. The origin of this software must not be misrepresented; you must not
+// claim that you wrote the original software. If you use this software
+// in a product, an acknowledgment in the product documentation would be
+// appreciated but is not required.
+// 2. Altered source versions must be plainly marked as such, and must not be
+// misrepresented as being the original software.
+// 3. This notice may not be removed or altered from any source distribution.
+// End License Information
+Module
+
+	ReadOnly Int DefaultNum = 16
+	Int Num
+	String TexReg
+	
+	Table MLSolved
+	Get String MLTag
+		CSay("= Requested MLTag")
+		//Return Map.LoadedMap.."."..Map.Layer
+		CSay("= = Getting Map")
+		String LM = Map.LoadedMap
+		CSay("= = Getting Layer")
+		LM+=Map.Layer
+		CSay("= = Returning")
+		Return LM
+	End
+	
+		
+	Bool IsSolved(string k)
+		CSayF("Checking solved %s => %s",k,tostring(gv.gbool["SET_PUZZLE_"..k]))
+		return gv.gbool["SET_PUZZLE_"..k]
+	End
+	
+	Void SetSolved(string k, bool v)
+		gv.gbool["SET_PUZZLE_"..k] = v
+	End
+	
+	Get Bool Solved
+		CSay("= Check solved requested")
+		String Tag = MLTag
+		CSayF("= Solved.Tag = %s",Tag)
+		//Return MLSolved[Tag]
+		Return IsSolved(Tag)
+	End
+	
+	Set Bool Solved
+		//MLSolved[MLTag] = Value
+		SetSolved(MLTag,Value)
+	End
+	
+	Int UR = 0
+	Int UG = 0
+	Int UB = 255
+	Int PR = 255
+	Int PG = 0
+	Int PB = 0
+	
+	ReadOnly Table TexDefault = { "Klein Vierkant.png","Kras.png","Cirkel in een cirkel.png","Kruis Boven.png","Kruis Onder.png","Kruis.png","Ruit.png","Schuin Kruis met Stippen.png","Schuin Kruis.png","Driehoek.png","Elipse Verticaal.png","Elipse Horizontaal.png","Cirkel.png","Rechthoek Verticaal.png","Rechthoek Horizontaal.png","Vierkant.png"}
+	ReadOnly String DirDefault = "GFX/Textures/Shapes/"	
+
+	ReadOnly Table TexMine = { "I.png","II.png","III.png","IV.png","V.png","VI.png","VII.png","VIII.png","IX.PNG","X.png"}
+	ReadOnly String DirMine = "GFX/Textures/Shapes/Mine/"
+	
+	Int Correct1
+	Int Correct2
+	Table Pressed
+	
+	Void QC(string tag, string P)
+		for d in each{"R","G","B"}
+			Map.SetObj(Tag,d,self[P..D])
+		end
+	End
+	
+	Void Start(int N=0,string TReg="")
+		CSay("Puzzle start request")
+		If Solved
+			CSay("= Solved! Request ignored")
+			Return
+		End
+		CSay("= Not yet solved so let's move on!")
+		If N<=0
+			Num = DefaultNum	
+		Else
+			Num = N
+		End
+		If TReg==""
+			TReg="Default"
+		End
+		CSayF("= Number of tiles: %d; Texture set: %s",Num,TReg)
+		Table Used = {}
+		Repeat
+			Correct1 = math.random(1,Num)
+			Correct2 = math.random(1,Num)
+		LoopWhile Correct1==Correct2
+		int C2
+		CSayF("Correct tiles: %02d/%02d",Correct1,Correct2)
+		Table Tab = Self["Tex"..TReg]
+		For i=1,Num
+			CSayF("Setting tile: %02d/%02d",i,Num)
+			Int TimeOut=10000
+			Int RT
+			Repeat
+				TimeOut--
+				If TimeOut<0
+					Lua.error("Puzzle initiation time-out! ("..i..") Stage 1") // Safety pre-caution
+				End
+				RT = math.random(1,#Tab)
+			LoopWhile Used[RT]			
+			Used[RT]=i
+			Pressed = {}
+			if i==Correct1
+				C2=RT
+			End
+		End
+		For value,index in pairs(Used)
+				// Order seems odd, but it has to be this way
+				If index==correct2
+					Map.ObjSet("Sym"..Index,"Texture",Self["Dir"..TReg]..Tab[C2])
+				Else
+					Map.ObjSet("Sym"..Index,"Texture",Self["Dir"..TReg]..Tab[value])
+				End
+				QC("Sym"..index,"U")
+				
+		End
+	End
+	
+	Void Action(string Tag,string BarPrefix)
+		Int TNum = Lua.tonumber(Right(Tag,#Tag-3))
+		Pressed[TNum] = !Pressed[TNum]
+		if Pressed[TNum]
+			QC(Tag,"P")
+		Else
+			QC(Tag,"U")
+		End
+		Bool Ok = True
+		For i=1,Num
+			If i==Correct1
+				Ok = Ok && (Pressed[i]==true)
+			Elseif i==Correct2
+				Ok = Ok && (Pressed[i]==true)
+			Else
+				Ok = Ok && (Pressed[i]!=true)
+			End
+		End
+		If Ok
+			Audio.LoadNew("Audio/SFX/Solved.ogg","SOLVED").Play()
+			Solved = True
+			For i=1,Num
+				Map.Kill("Sym"..i,True)
+			End
+			Map.KillByPrefix(BarPrefix,True)
+		End
+		
+	End
+
+	
+	Constructor
+		CSay("Loading PuzSet")
+		Bool Index(string k)
+			CSayF("Checking solved %s => %s",k,tostring(gv.gbool["SET_PUZZLE_"..k]))
+			return gv.gbool["SET_PUZZLE_"..k]
+		End
+		Void NewId(string k, bool v)
+			gv.gbool["SET_PUZZLE_"..k] = v
+		End
+		MLSolved = Lua.setmetatable({},{["__index"]=Index,["__newindex"]=NewId})
+	End
+End
