@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.10.28
+// version: 21.10.30
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -60,6 +60,8 @@ Group MScript
 		Map.GoToMap("PRO_Dungeon_Tomb","#000","Start")
 		Schedule.Add("StartPrologue")
 	End
+	
+		
 	
 	Constructor
 		Map.AllowAutoScroll = False
