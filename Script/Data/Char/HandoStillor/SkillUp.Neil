@@ -35,9 +35,9 @@
 // version: 21.07.23
 // End License Information
 Module
-	askillup1 = {'Power',1}
-	askillup2 = {'Intelligence',2}
-	askillup3 = {}
-	askillup4 = {}
-	askillup5 = {}
+	Var aSkillUp1 = {'Power',1}
+	Var aSkillUp2 = {'Intelligence',2}
+	Var aSkillUp3 = {}
+	Var aSkillUp4 = {}
+	Var aSkillUp5 = {}
 End
