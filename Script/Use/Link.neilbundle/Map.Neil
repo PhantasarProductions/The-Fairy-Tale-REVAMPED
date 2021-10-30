@@ -38,18 +38,25 @@
 Global Table MapScript
 
 Group Player
+
 	Set Int Dominance
 		Lua.Neil.Globals.Map.SetObj("PLAYER","Dominance",value)
 	End
+	
 	Get Int X
 		Return ISGet.Int("FLOW_FIELD","FlowField.Map.CurLayer.Obj('PLAYER').X")
 	End
+	
 	Get Int Y
 		Return ISGet.Int("FLOW_FIELD","FlowField.Map.CurLayer.Obj('PLAYER').Y")
 	End
 	
 	Void StopWalking()
 		Lua.Neil.Globals.Map.StopWalking()
+	End
+	
+	Void WalkTo(a,b,c)
+		Lua.Neil.Globals.Map.MCall("FlowField.Map.CurLayer.Obj('PLAYER').WalkTo",a,b,c)
 	End
 End
 
