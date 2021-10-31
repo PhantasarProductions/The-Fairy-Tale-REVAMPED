@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField/Renc.neil
-// Version: 21.10.21
+// Version: 21.10.31
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -119,6 +119,7 @@ module
 			if ! suffixed(aet:lower(),".ogg") 
 				aet += ".ogg" 
 			end 
+			CSayF("= Alt combat tune: %s (%s)",aet,Lua.type(aet))
 			Combat.Music = aet
 		Else
 			Combat.Music = "*RANDOM"
