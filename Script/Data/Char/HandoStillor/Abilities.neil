@@ -1,0 +1,118 @@
+// License Information:
+// **********************************************
+// 
+// src/Tricky Script/Script/Data/Char/HandoStillor/Abilities.neil
+// (c) Jeroen Broks, 2021, All Rights Reserved.
+// 
+// This file contains material that is related
+// to a storyline that is which is strictly
+// copyrighted to Jeroen Broks.
+// 
+// This file may only be used in an unmodified
+// form with an unmodified version of the
+// software this file belongs to.
+// 
+// You may use this file for your study to see
+// how I solved certain things in the creation
+// of this project to see if you find valuable
+// leads for the creation of your own.
+// 
+// Mostly this file comes along with a project
+// that is for most part released under an
+// open source license and that means that if
+// you use that code with this file removed
+// from it, you can use it under that license.
+// Please check out the other files to find out
+// which license applies.
+// This file comes 'as-is' and in no possible
+// way the author can be held responsible of
+// any form of damages that may occur due to
+// the usage of this file
+// 
+// 
+// **********************************************
+// 
+// version: 21.10.31
+// End License Information
+Init
+
+//local fullversion = JCR6.Exists('ID/ID.Data.Full')==1
+//local skill = Sys.Val(Var.C('%SKILL'))
+//local newgameplus = Var.C("&NEWGAMEPLUS")=="TRUE"
+
+// No demo this time, since we already have the old game, and development goes quicker anyway
+// As I don't have to redesign maps nor do I have to make new assets
+plua fullversion = true
+
+
+// Macros in pure code is NEVER a good idea
+plua skill = gv.gint.Skill
+plua newgameplus = gv.gbool.newgameplus
+
+plua r
+
+#pure
+
+r = {
+                 ["1. Level 1"]  = {
+                         abl_hero_handostillor_firstaid = { [2] = 1 },           -- 1
+                         abl_hero_handostillor_neutralizepoison = { [2] = 7 },   -- 2
+                         abl_hero_handostillor_removeparalysis = { [2] = 9 },    -- 3
+                         abl_hero_handostillor_stickswing = { 20 },              -- 4
+                         abl_hero_handostillor_recover = { [2] = 12 },           -- 5
+                         abl_hero_handostillor_curedisease = { [2]=14 },         -- 6
+                         abl_hero_handostillor_holystrike = { 20,20 }   ,        -- 7
+                         abl_hero_handostillor_vitalize = { [2] = 25 }   ,       -- 8
+                         abl_hero_handostillor_removeparalysis = { [2] = 16 },   -- 9
+                         abl_hero_handostillor_purify = { [2] = 65 }             -- 10
+                         
+                 },
+          }
+          
+if fullversion then -- Thats right Hando Stillor will not get his level #2 and level #3 spells unless you have the full version of the game.          
+   r["2. Level 2"] = { abl_hero_handostillor_cleanse = { [2]=3*skill }, --1 
+                       abl_hero_handostillor_treatment = { [2]=(2^skill)+skill }, -- 2
+                       abl_hero_handostillor_goodmorning = {[2]=5*skill}, -- 3
+                       abl_hero_handostillor_revive = {[2] = 12*skill }, -- 4
+                       abl_hero_handostillor_hasparonvitalization = {[2]=15*skill}, -- 5
+                       abl_hero_handostillor_twinkle = {[2]=6*skill},              -- 6
+                       abl_hero_handostillor_kneelbeforeme = {16,80},               -- 7
+                       abl_hero_marrilona_handostillor_vitality = {14*skill,14*skill} -- 8 
+                     }  
+   r["3. Level 3"] = { abl_hero_handostillor_pray = { 5*skill, math.ceil(3^skill) }, -- 1
+                       abl_hero_handostillor_smite = {(skill^skill)+(2*skill)},                    -- 2
+                       abl_hero_handostillor_whizzy = {[2]=50},                                    -- 3
+                       abl_hero_handostillor_prayforall = { 8*skill, math.ceil(3^skill) *2 }       -- 4
+                     }
+
+--if r["3. Level 3"] then
+  if skill~=3 then 
+     r["3. Level 3"].abl_hero_handostillor_resurrect = { [2] = ({20,50})[skill]} --5
+     r["3. Level 3"].abl_hero_handostillor_everybodykneelbeforeme = {10*skill,95}  --6 
+   end 
+--end  
+  if newgameplus then
+     r["3. Level 3"].abl_hero_handostillor_firestorm = { [1]=9*skill,[2]=({25,60,90})[skill]} -- 7
+  end
+end             
+#endpure
+
+QuickWork(r,"HandoStillor")
+
+// Abilities Hando Stillor has the required skills for from the start
+// Should also be listed from the start
+if Done.HandoStillor_SetUpBaseAbilities
+	Return
+End
+for _,c in pairs(r)
+	for tag,req in pairs(c)
+		Bool HvOk = True
+		For i,need in pairs(req)
+			HvOk = HvOk && RPGChar.HandoStillor.Points["LVL_Skill"..i].Have>=need
+		End
+		gv.gBool["HandoStillor."..tag]=HvOk
+	end
+end
+
+// End init
+end
