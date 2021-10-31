@@ -34,10 +34,20 @@
 // 
 // version: 21.10.30
 // End License Information
+
+#use "Script/Use/Anyway"
+
 Group MScript
 
 	ReadOnly Bool HasDraw   = False
 	ReadOnly Bool HasUpdate = False
+	
+	Void StartPrologue()
+		For l in each{"A","B"}
+			MapText("SASHA_"..l)
+		End
+		Map.GoToMap("PRO_DUNGEON_CRYPT","#000","Start")
+	End
 	
 	
 End
