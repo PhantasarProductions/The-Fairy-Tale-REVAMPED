@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.09.25
+// version: 21.10.30
 // End License Information
 Const String BCD = "GFX/Big_Char/"
 
@@ -81,6 +81,8 @@ Module
 				Name = "Jake Daniel Werrington"
 			Case "Marrilona"
 				Name = "Marrilona, daughter of Fandalora"
+			Case "HandoStillor"
+				Name = "Hando Stillor"
 			Case "Krandar"
 				Name = "Krandar, son of Gandophar"
 			Case "Nostramantu" "Nostramantu_Elder"
@@ -99,7 +101,7 @@ Module
 			String SkName = RPGCHar[CharTag].Data[sPrintF("Skill%d",i)]			
 			Var SkLvl = RPGChar[CharTag].Points[sPrintF("LVL_Skill%d",i)]
 			Var SkExp = RPGChar[CharTag].Points[sPrintF("EXP_Skill%d",i)]
-			Int SkSiz = math.floor((SkExp.Have / SkExp.Maximum) * BarSiz)
+			Int SkSiz = math.floor((SkExp.Have / math.max(SkExp.Maximum,1)) * BarSiz)
 			Int Y = ubox.y+100+(i*50)
 			If SkName==""
 				// Nothing!
@@ -110,6 +112,10 @@ Module
 				If SkLvl.have<SkLvl.Maximum
 					Graphics.Color(127,127,127)
 					Graphics.Rect(ubox.x+15,Y-5,BarSiz,5)
+					If SkExp.Maximum==0
+						SkExp.Maximum = 125*__skill
+						CSayF("Correction on experience max skill %d",i)
+					End
 				End
 				__Red
 				Graphics.Rect(ubox.x+15,Y-5,SkSiz,5)
