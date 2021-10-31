@@ -62,10 +62,10 @@ Group MScript
 	End
 	
 	Void StartHandoStillor()
-		RPGChar.HandoStillor.Points.LVL_Skill1.Have =  6 div __skill
-		RPGChar.HandoStillor.Points.LVL_Skill1.Have = 12 div __skill
+		RPGChar.HandoStillor.Points.LVL_Skill1.Have = math.max(1, 6 div __skill)
+		RPGChar.HandoStillor.Points.LVL_Skill2.Have = math.max(1,12 div __skill)
 		MapText("HANDOSTILLOR")
-		Map.GoToMap("PRO_HUB_Weniaria","LOBBY","Hando")
+		Map.GoToMap("PRO_HUB_Weniaria","HALL","Hando")
 		Schedule.Add("StartPrologue")
 	End
 	
