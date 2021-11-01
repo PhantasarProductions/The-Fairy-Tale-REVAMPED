@@ -1,0 +1,107 @@
+// License Information:
+// src/Tricky Script/Script/MapScript/PRO_Dungeon_Crypt.neil
+// Version: 21.11.01
+// Copyright (C) 2021 Jeroen Petrus Broks
+// 
+// ===========================
+// This file is part of a project related to the Phantasar Chronicles or another
+// series or saga which is property of Jeroen P. Broks.
+// This means that it may contain references to a story-line plus characters
+// which are property of Jeroen Broks. These references may only be distributed
+// along with an unmodified version of the game.
+// 
+// As soon as you remove or replace ALL references to the storyline or character
+// references, or any termology specifically set up for the Phantasar universe,
+// or any other univers a story of Jeroen P. Broks is set up for,
+// the restrictions of this file are removed and will automatically become
+// zLib licensed (see below).
+// 
+// Please note that doing so counts as a modification and must be marked as such
+// in accordance to the zLib license.
+// ===========================
+// zLib license terms:
+// This software is provided 'as-is', without any express or implied
+// warranty.  In no event will the authors be held liable for any damages
+// arising from the use of this software.
+// Permission is granted to anyone to use this software for any purpose,
+// including commercial applications, and to alter it and redistribute it
+// freely, subject to the following restrictions:
+// 1. The origin of this software must not be misrepresented; you must not
+// claim that you wrote the original software. If you use this software
+// in a product, an acknowledgment in the product documentation would be
+// appreciated but is not required.
+// 2. Altered source versions must be plainly marked as such, and must not be
+// misrepresented as being the original software.
+// 3. This notice may not be removed or altered from any source distribution.
+// End License Information
+
+#use "Script/Use/Anyway"
+
+Group TrueScript
+
+	ReadOnly Bool HasDraw   = False
+	ReadOnly Bool HasUpdate = False
+	
+	ReadOnly int LightZones = 10
+	
+	Int Lit = -1
+
+	Void AllDark()
+		if Lit>=0
+			Return
+		End
+		Lit=0
+		For i=0,LightZones
+			Map.ColorByLabel("BLZ"..i,0,0,0)
+		End
+	End
+	
+	Void LightCandles(Int z)
+		if z<lit
+			Return
+		End
+		lit=z
+		For i=0,LightZones
+			Int v = math.max(1,i-z)
+			Map.ColorByLabel("BLZ"..i,255 div v,180 div v,0)
+		End
+		Map.TexByLabel("BLZ"..z,"GFX/Textures/Objects/Kaars.jpbf","Obstacle")
+		if Map.HasTag("Boss")
+			Map.SetObj("Boss","Texture","GFX/Combat/Fighters/Foe/Reg/Zombie.png")
+		End
+	End
+	
+	Void StartBoss()
+		Map.Kill("StartBoss",true)
+		Map.Kill("Boss",true)		
+		Combat.Boss("Undead Leader","Super Zombie")
+		Combat.Arena = Lua.Neil.Globals.Map.Arena
+		Combat.Music = "Combat/AltBoss/Day Of Chaos.ogg"
+		Combat.Lose = "GameOver"
+		Combat.NewEnemy = "Boss/SuperZombie"		
+		Combat.Start()
+		Lua.Neil.Globals.Map.StopWalking()
+	End
+	
+	Void ResetRespawn()
+		Respawn.Reset()
+	End
+	
+	Constructor
+		ZA.TabEnter{"AllDark","StartBoss","ResetRespawn"}
+		for i=1,lightzones
+			ZA.Enter("ABZ"..i)
+		end
+	End
+	
+End
+
+QuickMeta MScript
+	index
+		If Prefixed(Key,"ABZ")
+			TrueScript.LightCandles(Lua.tonumber(Right(Key,#Key-3)))
+			Return NIKS
+		End
+		Return TrueScript[Key]
+	End
+End
