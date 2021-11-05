@@ -1,0 +1,189 @@
+// License Information:
+// **********************************************
+// 
+// src/Tricky Script/Script/Use/Misc/Steps.neil
+// (c) Jeroen Broks, 2016, 2017, 2021, All Rights Reserved.
+// 
+// This file contains material that is related
+// to a storyline that is which is strictly
+// copyrighted to Jeroen Broks.
+// 
+// This file may only be used in an unmodified
+// form with an unmodified version of the
+// software this file belongs to.
+// 
+// You may use this file for your study to see
+// how I solved certain things in the creation
+// of this project to see if you find valuable
+// leads for the creation of your own.
+// 
+// Mostly this file comes along with a project
+// that is for most part released under an
+// open source license and that means that if
+// you use that code with this file removed
+// from it, you can use it under that license.
+// Please check out the other files to find out
+// which license applies.
+// This file comes 'as-is' and in no possible
+// way the author can be held responsible of
+// any form of damages that may occur due to
+// the usage of this file
+// 
+// 
+// **********************************************
+// 
+// version: 21.11.05
+// End License Information
+Module
+
+	ReadOnly Delegate Rand = math.random
+
+	#region config
+	Int Width
+	Int Height
+	Int PlusX
+	Int PlusY
+	Int TileSize = 32
+	String TilePrefix
+	String Correct
+	#endregion
+	
+	Var StepsZADone
+	//Var StepsPuzzle
+	Var Field = {}
+	String Wrong
+	
+	Get Var StepsPuzzle
+		Return Self
+	End
+	
+	Void Fail(cell)
+		//Maps.Obj.Kill(tag)
+		Map.Kill(cell.Tag)
+		Map.HideObj("PLAYER") //Actors.Actor("PLAYER").Visible=0
+		Audio.LoadNew("Audio/Dungeon/FallingDown.ogg","FALLDOWN").Play()
+		Graphics.Cls()
+		Map.DrawScreen()
+		Graphics.Flip()
+		FPS.Sleep(150)
+		//-- InitStepsPuzzleA(StepsPuzzle.Table)
+		//Maps.Obj.Kill("PLAYER")
+		//SpawnPlayer("Start")
+		Map.GotoLayer(Map.Layer,"Start")
+	End
+	
+	Void RemoveBadCells()
+		for t,cell in pairs(Field || {})
+			if cell.Action==Fail
+				Map.Kill(t)
+				CSayF("Removed bad tyle %s",t)
+			end
+		end
+	End
+	
+	Void Start(Table _config)
+		Static Bool StartDone = False
+		If StartDone
+			StartDone = True
+			Return
+		End
+		For k,v in pairs(_config)
+			Self[k]=v
+		End
+		
+		//s
+		//Loading()
+		Progress.Create("Steps1",width,    0, 255,   0)
+		Progress.Create("Steps2",Height, 255, 165,   0)
+		Progress.Create("Steps3",    26, 255,   0,   0)
+		ConfiguringData()
+		StepsZADone = StepsZADone or {}
+		//StepsPuzzle = {}
+		//StepsPuzzle.Table = _config
+		Field = {}
+		// Set up all the rows
+		for i=1,height 
+			Field[i] = {} 
+		end 
+		Wrong = ""
+		for i=65,90
+			Progress.Steps3=i-64
+			ConfiguringData()
+        	plua have=false
+        	for i2=1,#correct 
+        		have=have || mid(correct,i2,1)==chr(i) 
+        	end
+        	if !have 
+        		Wrong += chr(i) 
+        	end
+        end
+        CSay("Steps puzzle: ")
+        plua cur = rand(1,width-2)
+        // Let's get ready to rumble
+        int action = 10
+        for y=1,height 
+        	Progress.Steps2=y
+        	plua range = {cur,cur+1}
+        	plua ry = Lua.tonumber(right(y,1))
+        	if ry==0 || ry==2 || ry==4 || ry==6 || ry==8 
+        		action=rand(1,10)
+        	end
+        	Switch action
+            	CASE 1
+            		plua tocur = rand(1,cur)
+            		range = {tocur,cur+1}
+            		cur = tocur
+            	CASE 2
+            		plua tocur = rand(cur,width-2)
+            		range = {cur,tocur+1}
+            	DEFAULT
+            end
+            for x=1,width 
+            	progress.Steps1=x
+            	ConfiguringData()
+            	plua ox=((x-1)*(tilesize or 32))+(plusx or 0)
+            	plua oy=((y-1)*(tilesize or 32))+(plusy or 0)
+            	plua cell = {}
+            	cell.Tag="TILEX"..x.."Y"..y
+            	Field[cell.Tag]=cell
+            	cell.x=ox
+            	cell.y=oy
+            	if x>=range[1] && x<=range[2]
+            		cell.action=Niks
+            		cell.letter=mid(StepsPuzzle.Correct,rand(1,#Correct),1)
+            	else
+            		cell.action=Fail
+            		cell.letter=mid(StepsPuzzle.Wrong  ,rand(1,#Wrong  ),1)
+            	end
+            	if !StepsZADone[cell.Tag] 
+            		ZA.Enter(cell.Tag,"StepsAction_"..cell.Tag); 
+            		StepsZADone[cell.Tag]=true 
+            	end
+            	//if Maps.Obj.Exists(cell.Tag)==0
+            	if !Map.HasTag(cell.Tag)
+            		//local o = Maps.Obj.CreateObject("TiledArea",cell.Tag)
+            		Map.NewObj("StretchedArea",cell.Tag)
+            		Map.SetObj(cell.Tag,"X",cell.x)
+            		Map.SetObj(cell.Tag,"Y",cell.y)
+            		Map.SetObj(cell.Tag,"W",tilesize)
+            		Map.SetObj(cell.Tag,"H",tilesize)
+            		Map.SetObj(cell.Tag,"Texture","GFX/Textures/AlphabetTiles/"..tileprefix..cell.letter..".png")
+            		Map.SetObj(cell.Tag,"Impassible",false)
+            		Map.SetObj(cell.Tag,"ForcePassible",true)
+            		Map.SetObj(cell.Tag,"Visible",true)
+            	end
+            end
+        end
+		//e
+		for i=1,3
+			Progress.Kill("Steps"..i)
+		end
+	End
+	
+	
+	Void Action(string Tag)
+		Lua.assert(Field[Tag],SPrintF("There is no steps tile tagged '%s'",Tag))
+		Field[tag]:action()
+	End
+	
+End

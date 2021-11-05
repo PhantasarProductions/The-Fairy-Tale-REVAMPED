@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.10.21
+// version: 21.11.03
 // End License Information
 
 #use "script/use/anyway"
@@ -201,14 +201,14 @@ Group MScript
 	Constructor
 		CSay("Welcome to the Dragon Cave")
 		ZA.TabEnter{"BackToTown","Terug"}
-		ZA.Enter("Secret","ShowSecret")
-		ZA.Leave("Secret","HideSecret")
+		//ZA.Enter("Secret","ShowSecret")
+		//ZA.Leave("Secret","HideSecret")
 		ZA.Enter("StartPuzzle")
 		ZA.Enter("Jenny_BackZone","NPC_Jenny")
-		For SLay in Each{"#001","#006"}
-			CSayF("Hiding secrets on layer %s",SLay)
-			Map.LayHideByLabel(SLay,"Secret")
-		End
+		//For SLay in Each{"#001","#006"}
+		//	CSayF("Hiding secrets on layer %s",SLay)
+		//	Map.LayHideByLabel(SLay,"Secret")
+		//End
 	End
 		
 End

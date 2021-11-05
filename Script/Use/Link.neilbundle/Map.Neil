@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Link.neilbundle/Map.Neil
-// Version: 21.10.31
+// Version: 21.11.05
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -164,6 +164,13 @@ Module
 		Schedule("SPAWN:"..SpawnPoint)
 	End
 	
+	Void GoToMapPos(string aMap,string aLayer,Int X, Int Y)
+		LoadMap(aMap)
+		Schedule("LAYER:"..aLayer)
+		Schedule("SPAWNPOS:"..X..","..Y)
+	End
+
+	
 	Void GoToLayer(string aLayer, string SpawnPoint)
 		If HasTag("PLAYER")
 			Self.Kill("PLAYER",False)
@@ -262,6 +269,14 @@ Module
 	
 	Void TexByLabel(String Zone,String Tex,String Kind="ALL")
 		MCall("FieldFlow.Map.CurLayer.TexByLabel",Zone,Tex,Kind)
+	End
+	
+	Void NewObj(string Kind, string Tag="")
+		MCall("FieldFlow.Map.CurLayer.NewObj",Kind,Tag)
+	End
+	
+	Void DrawScreen()
+		MCall("FieldFlow.DrawScreen","nil")
 	End
 	
 	CONSTRUCTOR

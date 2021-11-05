@@ -61,12 +61,54 @@ Void NostraPop()
 	End
 End
 
+Void Wipe()
+	Var R = Lua.Neil.Globals.Respawn
+	Var M = Lua.Neil.Globals.Map
+	if R.IsInn
+		M.GoToMap(R.Map,R.Layer,"Respawn")
+		M.Schedule("MAPTEXT:RESPAWN")
+	Else
+		M.GoToMapPos(R.Map,R.Layer,R.X,R.Y)
+	End
+	Switch __Skill		
+		Case 2
+			__Cash = __Cash div 2
+		Case 3
+			__Cash = __Cash div 6
+		Default
+	End
+	For i=1,4
+		If RPGParty[i] && RPGParty[i]!=""
+			Var Ch  = RPGChar[RPGParty[i]]
+			Var HP  = Ch.Points.HP
+			Var AP  = Ch.Points.AP
+			Var VIT = Ch.Points.VIT
+			Switch __Skill
+				Case 1
+					HP.Have = HP.Maximum
+					AP.Have = AP.Maximum
+					VIT.Have = VIT.Maximum
+				Case 2
+					HP.Have = 1
+				Case 3
+					HP.Have = 1
+					AP.Have = 0
+				Default
+					Lua.error("Unknown wipe skill: "..__skill)
+			End
+		End
+	End
+End	
+				
+
 QuickMeta QM__Respawn
 	Index
 		Key = Key:upper()
 		Switch Key
 			Case "RESET"
 				Return Reset
+			Case "WIPE"
+				Return Wipe
 			Default
 				Lua.assert(T[Key],"R: No type for respawn class key: "..key)
 				Return gv["g"..T[Key]]["Respawn_"..Key]
@@ -76,8 +118,8 @@ QuickMeta QM__Respawn
 	NewIndex
 		Key = Key:upper()
 		Switch Key
-			Case "RESET"
-				Lua.Error("Respawn.Reset is a read only value")
+			Case "RESET" "WIPE"
+				Lua.Error("Respawn."..key.." is a read only value")
 			Default
 				Lua.assert(T[Key],"W: No type for respawn class key: "..key)
 				gv["g"..T[Key]]["Respawn_"..Key] = Value

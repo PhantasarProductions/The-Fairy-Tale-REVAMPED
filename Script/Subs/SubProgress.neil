@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Subs/SubProgress.neil
-// Version: 21.08.01
+// Version: 21.11.04
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -79,16 +79,21 @@ Class ProgressBar
 		End
 	End
 	
-	Static Void LDNG()
+	Static Void LDNG(int sit)
 		Static Var Back = Image.Obtain("BACKGROUND")
-		Static Var Banner = Image.Obtain("LOADING")
-		Banner.HotCenter()
+		Static Var Banner = { Image.Obtain("LOADING"),Image.Obtain("CONFIGURINGDATA") }
+		for i=1,2
+			Banner[i].HotCenter()
+		end
 		Graphics.Color(255,255,255)
+		Graphics.Scale(1,1)
 		Back.Tile(0,0,Screen.W,Screen.H)
-		Banner.Draw(Screen.W div 2, Screen.H div 2)
+		Lua.assert(Banner[sit],"No 'loading' banner for situation: "..sit)
+		Banner[sit].Draw(Screen.W div 2, Screen.H div 2)
 		DrawAll()
 		Graphics.Flip()
 		Events.Poll()
 	End
+		
 
 End

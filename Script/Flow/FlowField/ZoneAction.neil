@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField/ZoneAction.neil
-// Version: 21.08.23
+// Version: 21.11.03
 // Copyright (C) 2020, 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -87,6 +87,26 @@ class _ZoneAction
 		RoomChange(-1,"Einde")
 	end
 	
+	Static Void ShowSecret()
+		FlowField.Map.CurLayer.ShowByLabel("Secret")
+	End
+	
+	Static Void HideSecret(string L="")
+		Var Lay
+		If L==""
+			Lay = FlowField.Map.CurLayer
+		ElseIf L=="*"
+			For IL in each(FlowField.Map.KthuraMap.Layers)
+				HideSecret(IL)				
+			End
+			Return
+		Else
+			Lay = FlowField.Map.KthuraMap.Layer(L)
+		ENd
+		Lay.HideByLabel("Secret")
+	End
+
+	
 	static void Reset()
 		self.AltNext = nil;
 		self.List = self.List or {}
@@ -96,10 +116,12 @@ class _ZoneAction
 		for k,v in pairs(self.List) 
 			v.Clear()
 		end
-		
+		//_ZoneAction.HideSecret("*")
 		var vd
 		vd = new _ZoneAction("Enter","Next",_ZoneAction.NextRoom)
 		vd = new _ZoneAction("Enter","Prev",_ZoneAction.PrevRoom)
+		vd = new _ZoneAction("Enter","Secret",_ZoneAction.ShowSecret)
+		vd = new _ZoneAction("Leave","Secret",_ZoneAction.HideSecret)
 		//vd = new _ZoneAction("Enter","Delisto",WorldMap.Delisto)
 		//vd = new _ZoneAction("Enter","Aeria",WorldMap.Aeria)
 		//vd = new _ZoneAction("Enter","Dyrt",WorldMap.Dyrt)

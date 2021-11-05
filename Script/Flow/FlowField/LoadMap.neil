@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField/LoadMap.neil
-// Version: 21.10.21
+// Version: 21.11.03
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -75,6 +75,7 @@ End
 
 Void Remap()
 	FlowField.Map.KthuraMap.Remap()
+	FlowField.ZoneAction.HideSecret("*")
 End
 
 Init
@@ -90,7 +91,7 @@ Init
 	// MapScript always second last
 	LoadActions += LoadMapScript
 	// Music always the very last
-	LoadActions += LoadMapMusic
+	LoadActions += LoadMapMusic	
 End
 
 Void RetLoadMap(string mapbundle)

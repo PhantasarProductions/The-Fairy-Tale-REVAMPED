@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Wiped.neil
-// Version: 21.10.27
+// Version: 21.11.01
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -51,6 +51,12 @@ Group WipeDo
 				RPGChar[Tag].Points.HP.Have = 1
 			End
 		End		
+	End
+	
+	Void Respawn()
+		Music.PopVoid()		
+		Lua.Neil.Globals.Respawn.Wipe()
+		Flow.Current="FIELD"
 	End
 	
 End

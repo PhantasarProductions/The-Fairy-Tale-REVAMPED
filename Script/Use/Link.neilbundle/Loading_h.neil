@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Link.neilbundle/Loading_h.neil
-// Version: 21.07.28
+// Version: 21.11.04
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -84,5 +84,10 @@ End
 
 Global Void Loading()
 	LoadLoading()
-	State.Call("SUB_LOADING","ProgressBar.LDNG","nil")
+	State.Call("SUB_LOADING","ProgressBar.LDNG","1")
+End
+
+Global Void ConfiguringData()
+	LoadLoading()
+	State.Call("SUB_LOADING","ProgressBar.LDNG","2")
 End

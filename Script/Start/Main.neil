@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.10.20
+// version: 21.11.04
 // End License Information
 
 #macro wh_Image 1
@@ -80,6 +80,7 @@ init
 	// Configure loading assets
 	LAsset.C("GFX/MainMenu/Pascal Quote.png","PASCAL_QUOTE",wh_Image) // Must always be first
 	LAsset.C("GFX/Loading/Loading.png","LOADING",wh_Image)
+	LAsset.C("GFX/Loading/Configuring Data.png","CONFIGURINGDATA",wh_Image)
 	LAsset.C("GFX/Algemeen/pointer.png","MOUSE",wh_Image)
 	LAsset.C("GFX/Algemeen/Background.png","BACKGROUND",wh_Image)
 	LAsset.C("GFX/Combat/RENC/Gauge.png","RENCGAUGE",wh_Image)

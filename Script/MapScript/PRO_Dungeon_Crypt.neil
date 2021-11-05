@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/MapScript/PRO_Dungeon_Crypt.neil
-// Version: 21.11.01
+// Version: 21.11.05
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -36,6 +36,7 @@
 // End License Information
 
 #use "Script/Use/Anyway"
+#use "Script/Use/Misc/Steps"
 
 Group TrueScript
 
@@ -87,8 +88,43 @@ Group TrueScript
 		Respawn.Reset()
 	End
 	
+	Get Bool _StepsPuzzle
+		static Bool AlreadyDone
+		if AlreadyDone			
+			return true
+		End
+		AlreadyDone = true
+		return gv.gbool.prologue_handostillor_crypt_steps
+	End
+	
+	Set Bool _StepsPuzzle
+		gv.gbool.prologue_handostillor_crypt_steps = value
+	End
+	
+	Void StartPuzzle()
+		If ! _StepsPuzzle 
+			Steps.Start({["width"]=30,["height"]=16,["plusx"]=64,["plusy"]=160,["tilesize"]=32,["tileprefix"]="YurgonTile_",["correct"]="WENIARIA"}) 
+		End
+	End
+	
+	Void PuzzleSolved()
+		Audio.LoadNew("Audio/SFX/Solved.ogg","SOLVED").Play()
+		Steps.RemoveBadCells()
+		_StepsPuzzle = True
+	End
+	
+	Void ToEnd()
+		// Makes sure the ZA is empty, as the puzzle was really a killer on the performance
+		Map.GoToMap("PRO_Dungeon_Crypt","#008","Start")
+		Music.Play("Music/Hub/Angevin.ogg")
+	End
+	
+	Void LeaveEnd()
+		Map.GoToMap("PRO_Dungeon_Crypt","#007","Einde")
+	End
+	
 	Constructor
-		ZA.TabEnter{"AllDark","StartBoss","ResetRespawn"}
+		ZA.TabEnter{"AllDark","StartBoss","ResetRespawn","StartPuzzle","PuzzleSolved","ToEnd","LeaveEnd"}
 		for i=1,lightzones
 			ZA.Enter("ABZ"..i)
 		end
@@ -101,6 +137,11 @@ QuickMeta MScript
 		If Prefixed(Key,"ABZ")
 			TrueScript.LightCandles(Lua.tonumber(Right(Key,#Key-3)))
 			Return NIKS
+		ElseIf Prefixed(key,"StepsAction_")
+			Var k = split(key,"_")
+			CSayF("Action %s",key)
+			Steps.Action(k[2])
+			Return Niks
 		End
 		Return TrueScript[Key]
 	End
