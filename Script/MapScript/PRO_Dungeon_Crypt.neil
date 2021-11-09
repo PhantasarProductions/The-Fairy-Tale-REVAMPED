@@ -115,7 +115,10 @@ Group TrueScript
 	
 	Void ToEnd()
 		// Makes sure the ZA is empty, as the puzzle was really a killer on the performance
-		Map.GoToMap("PRO_Dungeon_Crypt","#008","Start")
+		Map.GoToMap("PRO_Dungeon_Crypt","#008","Start")		
+	End
+	
+	Void Angevin()
 		Music.Play("Music/Hub/Angevin.ogg")
 	End
 	
@@ -123,8 +126,13 @@ Group TrueScript
 		Map.GoToMap("PRO_Dungeon_Crypt","#007","Einde")
 	End
 	
+	Void InitEnd()
+		MapText("THE_END")
+		Map.GoToMap("PRO_TheEnd","HANDO STILLOR","Start")
+	End
+	
 	Constructor
-		ZA.TabEnter{"AllDark","StartBoss","ResetRespawn","StartPuzzle","PuzzleSolved","ToEnd","LeaveEnd"}
+		ZA.TabEnter{"AllDark","StartBoss","ResetRespawn","StartPuzzle","PuzzleSolved","ToEnd","LeaveEnd","Angevin","InitEnd" }
 		for i=1,lightzones
 			ZA.Enter("ABZ"..i)
 		end
