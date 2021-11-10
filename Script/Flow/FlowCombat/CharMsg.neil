@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/CharMsg.neil
-// Version: 21.09.25
+// Version: 21.11.10
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -43,8 +43,24 @@ Global Void CharMsg(Ch,String Msg,Int R=255,Int G=255, Int B=255)
 	MiniMessage.NewMsg(Msg,_CH.TX, _CH.TY, R, G, B)
 End
 
+Void UpSkillBonus(string Ch,int skl)
+	EXPRate[Ch] = EXPRate[Ch] || 1
+	Switch __Skill
+		Case 1
+			EXPRate[Ch] += (skl*0.005)
+		Case 2
+			EXPRate[Ch] += (skl*0.001)
+		Case 3
+			EXPRate[Ch] += 0.0001
+		Default
+			EXPRate[Ch] = -100
+			// Cheaters don't deserve experience points!
+	End
+End
+	
 Init
 	Party.SkillLvlUpMsg = CharMsg
+	Party.SkillUpBonus = UpSkillBonus
 End
 
 Return CharMsg
