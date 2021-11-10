@@ -1,4 +1,4 @@
-// Generated 10/23/2021 12:25:38 PM
+// Generated 11/10/2021 10:16:56 PM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -59,23 +59,23 @@ Table _R(Bool Oversoul)
 	End
 
 	Ret.Actions = {}
-	If True && (Oversoul) && (__skill!=3)
+	If True && (__skill!=3)
 		Ret.Actions += "AAA_ATTACK"
 		Ret.Actions += "AAA_ATTACK"
 		Ret.Actions += "AAA_ATTACK"
 		Ret.Actions += "AAA_ATTACK"
 		Ret.Actions += "AAA_ATTACK"
 	End
-	If True && (Oversoul)
+	If True
 	End
-	If True && (Oversoul) && (__skill!=1)
+	If True && (__skill!=1)
 		Ret.Actions += "ABL_FOE_VENOMSTAB"
 		Ret.Actions += "ABL_FOE_VENOMSTAB"
 		Ret.Actions += "ABL_FOE_VENOMSTAB"
 		Ret.Actions += "ABL_FOE_VENOMSTAB"
 		Ret.Actions += "ABL_FOE_VENOMSTAB"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_FOE_VIRUSSTAB"
 		Ret.Actions += "ABL_FOE_VIRUSSTAB"
 		Ret.Actions += "ABL_FOE_VIRUSSTAB"

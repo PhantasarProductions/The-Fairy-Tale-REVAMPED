@@ -1,4 +1,4 @@
-// Generated 10/23/2021 12:25:43 PM
+// Generated 11/10/2021 10:17:01 PM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -75,7 +75,7 @@ Table _R(Bool Oversoul)
 	End
 
 	Ret.Actions = {}
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "AAA_ATTACK"
 		Ret.Actions += "AAA_ATTACK"
 		Ret.Actions += "AAA_ATTACK"
@@ -127,72 +127,72 @@ Table _R(Bool Oversoul)
 		Ret.Actions += "AAA_ATTACK"
 		Ret.Actions += "AAA_ATTACK"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "AAA_GUARD"
 		Ret.Actions += "AAA_GUARD"
 		Ret.Actions += "AAA_GUARD"
 		Ret.Actions += "AAA_GUARD"
 		Ret.Actions += "AAA_GUARD"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_FOE_CRUSH"
 		Ret.Actions += "ABL_FOE_CRUSH"
 		Ret.Actions += "ABL_FOE_CRUSH"
 	End
-	If True && (Oversoul) && (__skill!=1) && (__skill!=2)
+	If True && (__skill!=1) && (__skill!=2)
 		Ret.Actions += "ABL_FOE_DEMON_SOUL_BREAKER"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_FOE_DISTRACT"
 		Ret.Actions += "ABL_FOE_DISTRACT"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_FOE_EXHAUST"
 		Ret.Actions += "ABL_FOE_EXHAUST"
 		Ret.Actions += "ABL_FOE_EXHAUST"
 		Ret.Actions += "ABL_FOE_EXHAUST"
 		Ret.Actions += "ABL_FOE_EXHAUST"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_FOE_HOLDPERSON"
 		Ret.Actions += "ABL_FOE_HOLDPERSON"
 		Ret.Actions += "ABL_FOE_HOLDPERSON"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_FOE_PARADIVE"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_FOE_TAKEOVER"
 		Ret.Actions += "ABL_FOE_TAKEOVER"
 		Ret.Actions += "ABL_FOE_TAKEOVER"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_FOE_TAKEOVER2"
 		Ret.Actions += "ABL_FOE_TAKEOVER2"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_FOE_TOTALEXHAUSTION"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_GLOOM"
 		Ret.Actions += "ABL_GLOOM"
 		Ret.Actions += "ABL_GLOOM"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_HERO_MARRILONA_CHILL"
 		Ret.Actions += "ABL_HERO_MARRILONA_CHILL"
 		Ret.Actions += "ABL_HERO_MARRILONA_CHILL"
 		Ret.Actions += "ABL_HERO_MARRILONA_CHILL"
 		Ret.Actions += "ABL_HERO_MARRILONA_CHILL"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_HERO_MARRILONA_CURSEDHEALING"
 		Ret.Actions += "ABL_HERO_MARRILONA_CURSEDHEALING"
 		Ret.Actions += "ABL_HERO_MARRILONA_CURSEDHEALING"
 		Ret.Actions += "ABL_HERO_MARRILONA_CURSEDHEALING"
 		Ret.Actions += "ABL_HERO_MARRILONA_CURSEDHEALING"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_MASTER_FANDALORA_DARKNESS"
 		Ret.Actions += "ABL_MASTER_FANDALORA_DARKNESS"
 		Ret.Actions += "ABL_MASTER_FANDALORA_DARKNESS"
@@ -204,14 +204,14 @@ Table _R(Bool Oversoul)
 		Ret.Actions += "ABL_MASTER_FANDALORA_DARKNESS"
 		Ret.Actions += "ABL_MASTER_FANDALORA_DARKNESS"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_MASTER_FANDALORA_DARKVISION"
 		Ret.Actions += "ABL_MASTER_FANDALORA_DARKVISION"
 	End
-	If True && (Oversoul) && (__skill!=1)
+	If True && (__skill!=1)
 		Ret.Actions += "ABL_MASTER_FANDALORA_DEATH"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_MASTER_RUBINE_INVADE"
 		Ret.Actions += "ABL_MASTER_RUBINE_INVADE"
 		Ret.Actions += "ABL_MASTER_RUBINE_INVADE"

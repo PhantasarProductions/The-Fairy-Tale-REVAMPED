@@ -1,4 +1,4 @@
-// Generated 10/23/2021 12:25:39 PM
+// Generated 11/10/2021 10:16:57 PM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -76,10 +76,10 @@ Table _R(Bool Oversoul)
 	End
 
 	Ret.Actions = {}
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "AAA_ATTACK"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "AAA_GUARD"
 		Ret.Actions += "AAA_GUARD"
 		Ret.Actions += "AAA_GUARD"
@@ -91,7 +91,7 @@ Table _R(Bool Oversoul)
 		Ret.Actions += "AAA_GUARD"
 		Ret.Actions += "AAA_GUARD"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
 		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
 		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
@@ -103,14 +103,14 @@ Table _R(Bool Oversoul)
 		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
 		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_HERO_MARRILONA_FIREBLAST"
 		Ret.Actions += "ABL_HERO_MARRILONA_FIREBLAST"
 		Ret.Actions += "ABL_HERO_MARRILONA_FIREBLAST"
 		Ret.Actions += "ABL_HERO_MARRILONA_FIREBLAST"
 		Ret.Actions += "ABL_HERO_MARRILONA_FIREBLAST"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
 		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
 		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
@@ -137,7 +137,7 @@ Table _R(Bool Oversoul)
 		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
 		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
 	End
-	If True && (Oversoul)
+	If True
 	End
 	Return Ret
 End

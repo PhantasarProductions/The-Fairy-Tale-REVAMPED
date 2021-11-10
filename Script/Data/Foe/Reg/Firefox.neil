@@ -1,4 +1,4 @@
-// Generated 10/23/2021 12:25:35 PM
+// Generated 11/10/2021 10:16:52 PM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -77,7 +77,7 @@ Table _R(Bool Oversoul)
 	End
 
 	Ret.Actions = {}
-	If True && (Oversoul) && (__skill!=3)
+	If True && (__skill!=3)
 		Ret.Actions += "AAA_GUARD"
 		Ret.Actions += "AAA_GUARD"
 		Ret.Actions += "AAA_GUARD"
@@ -104,7 +104,7 @@ Table _R(Bool Oversoul)
 		Ret.Actions += "AAA_GUARD"
 		Ret.Actions += "AAA_GUARD"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_FOE_FLAMEBITE"
 		Ret.Actions += "ABL_FOE_FLAMEBITE"
 		Ret.Actions += "ABL_FOE_FLAMEBITE"

@@ -1,4 +1,4 @@
-// Generated 10/23/2021 12:25:50 PM
+// Generated 11/10/2021 10:17:07 PM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -62,7 +62,7 @@ Table _R(Bool Oversoul)
 	End
 
 	Ret.Actions = {}
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "AAA_ATTACK"
 		Ret.Actions += "AAA_ATTACK"
 		Ret.Actions += "AAA_ATTACK"
@@ -89,26 +89,26 @@ Table _R(Bool Oversoul)
 		Ret.Actions += "AAA_ATTACK"
 		Ret.Actions += "AAA_ATTACK"
 	End
-	If True && (Oversoul) && (__skill!=3)
+	If True && (__skill!=3)
 		Ret.Actions += "AAA_GUARD"
 		Ret.Actions += "AAA_GUARD"
 		Ret.Actions += "AAA_GUARD"
 		Ret.Actions += "AAA_GUARD"
 		Ret.Actions += "AAA_GUARD"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_FOE_DISTRACT"
 		Ret.Actions += "ABL_FOE_DISTRACT"
 		Ret.Actions += "ABL_FOE_DISTRACT"
 		Ret.Actions += "ABL_FOE_DISTRACT"
 		Ret.Actions += "ABL_FOE_DISTRACT"
 	End
-	If True && (Oversoul) && (__skill!=1)
+	If True && (__skill!=1)
 		Ret.Actions += "ABL_FOE_FATALPOISON"
 		Ret.Actions += "ABL_FOE_FATALPOISON"
 		Ret.Actions += "ABL_FOE_FATALPOISON"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_FOE_MASOSADO"
 		Ret.Actions += "ABL_FOE_MASOSADO"
 		Ret.Actions += "ABL_FOE_MASOSADO"

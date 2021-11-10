@@ -1,4 +1,4 @@
-// Generated 10/23/2021 12:25:39 PM
+// Generated 11/10/2021 10:16:56 PM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -76,10 +76,10 @@ Table _R(Bool Oversoul)
 	End
 
 	Ret.Actions = {}
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "AAA_ATTACK"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_FOE_DISTRACT"
 		Ret.Actions += "ABL_FOE_DISTRACT"
 		Ret.Actions += "ABL_FOE_DISTRACT"
@@ -111,7 +111,7 @@ Table _R(Bool Oversoul)
 		Ret.Actions += "ABL_FOE_DISTRACT"
 		Ret.Actions += "ABL_FOE_DISTRACT"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_FOE_EXHAUST"
 		Ret.Actions += "ABL_FOE_EXHAUST"
 		Ret.Actions += "ABL_FOE_EXHAUST"
@@ -163,13 +163,13 @@ Table _R(Bool Oversoul)
 		Ret.Actions += "ABL_FOE_EXHAUST"
 		Ret.Actions += "ABL_FOE_EXHAUST"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_FOE_TAKEOVER"
 	End
-	If True && (__skill!=1)
+	If True && (Oversoul) && (__skill!=1)
 		Ret.Actions += "ABL_FOE_TAKEOVER2"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_GLOOM"
 		Ret.Actions += "ABL_GLOOM"
 		Ret.Actions += "ABL_GLOOM"
@@ -191,7 +191,7 @@ Table _R(Bool Oversoul)
 		Ret.Actions += "ABL_GLOOM"
 		Ret.Actions += "ABL_GLOOM"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_MASTER_FANDALORA_CURSE"
 		Ret.Actions += "ABL_MASTER_FANDALORA_CURSE"
 		Ret.Actions += "ABL_MASTER_FANDALORA_CURSE"
@@ -218,7 +218,7 @@ Table _R(Bool Oversoul)
 		Ret.Actions += "ABL_MASTER_FANDALORA_CURSE"
 		Ret.Actions += "ABL_MASTER_FANDALORA_CURSE"
 	End
-	If True && (Oversoul) && (__skill!=1) && (__skill!=2)
+	If True && (__skill!=1) && (__skill!=2)
 		Ret.Actions += "ITM_DEATHCUBE"
 	End
 	Return Ret

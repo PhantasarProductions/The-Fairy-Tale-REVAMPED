@@ -1,4 +1,4 @@
-// Generated 10/23/2021 12:25:34 PM
+// Generated 11/10/2021 10:16:52 PM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -74,28 +74,28 @@ Table _R(Bool Oversoul)
 	End
 
 	Ret.Actions = {}
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "AAA_ATTACK"
 		Ret.Actions += "AAA_ATTACK"
 		Ret.Actions += "AAA_ATTACK"
 		Ret.Actions += "AAA_ATTACK"
 		Ret.Actions += "AAA_ATTACK"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "AAA_GUARD"
 		Ret.Actions += "AAA_GUARD"
 		Ret.Actions += "AAA_GUARD"
 		Ret.Actions += "AAA_GUARD"
 		Ret.Actions += "AAA_GUARD"
 	End
-	If True && (Oversoul) && (__skill!=1) && (__skill!=2)
+	If True && (__skill!=1) && (__skill!=2)
 		Ret.Actions += "ABL_FOE_CRUSH"
 		Ret.Actions += "ABL_FOE_CRUSH"
 		Ret.Actions += "ABL_FOE_CRUSH"
 		Ret.Actions += "ABL_FOE_CRUSH"
 		Ret.Actions += "ABL_FOE_CRUSH"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_FOE_FLAMEONSELF"
 		Ret.Actions += "ABL_FOE_FLAMEONSELF"
 		Ret.Actions += "ABL_FOE_FLAMEONSELF"
@@ -122,7 +122,7 @@ Table _R(Bool Oversoul)
 		Ret.Actions += "ABL_FOE_FLAMEONSELF"
 		Ret.Actions += "ABL_FOE_FLAMEONSELF"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
 		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
 		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
@@ -174,22 +174,22 @@ Table _R(Bool Oversoul)
 		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
 		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_FOE_LIFEDRAIN"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_FOE_LIFEFORCE"
 	End
-	If True && (Oversoul) && (__skill!=1)
+	If True && (__skill!=1)
 		Ret.Actions += "ABL_FOE_TAKEOVER"
 	End
-	If True && (Oversoul) && (__skill!=1) && (__skill!=2)
+	If True && (__skill!=1) && (__skill!=2)
 		Ret.Actions += "ABL_FOE_TAKEOVER2"
 	End
-	If True && (Oversoul) && (__skill!=1)
+	If True && (__skill!=1)
 		Ret.Actions += "ABL_HERO_MARRILONA_ETERNALFLAME"
 	End
-	If True && (Oversoul) && (__skill!=1) && (__skill!=2)
+	If True && (__skill!=1) && (__skill!=2)
 		Ret.Actions += "ABL_HERO_MARRILONA_FIREBLAST"
 		Ret.Actions += "ABL_HERO_MARRILONA_FIREBLAST"
 		Ret.Actions += "ABL_HERO_MARRILONA_FIREBLAST"
@@ -201,7 +201,7 @@ Table _R(Bool Oversoul)
 		Ret.Actions += "ABL_HERO_MARRILONA_FIREBLAST"
 		Ret.Actions += "ABL_HERO_MARRILONA_FIREBLAST"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
 		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
 		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
@@ -263,7 +263,7 @@ Table _R(Bool Oversoul)
 		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
 		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
 	End
-	If True && (Oversoul) && (__skill!=1) && (__skill!=2)
+	If True && (__skill!=1) && (__skill!=2)
 		Ret.Actions += "ABL_HERO_MARRILONA_INFERNO"
 	End
 	Return Ret

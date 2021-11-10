@@ -1,4 +1,4 @@
-// Generated 10/23/2021 12:25:38 PM
+// Generated 11/10/2021 10:16:55 PM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -78,7 +78,7 @@ Table _R(Bool Oversoul)
 	End
 
 	Ret.Actions = {}
-	If True && (Oversoul) && (__skill!=2) && (__skill!=3)
+	If True && (__skill!=2) && (__skill!=3)
 		Ret.Actions += "AAA_GUARD"
 		Ret.Actions += "AAA_GUARD"
 		Ret.Actions += "AAA_GUARD"
@@ -100,21 +100,21 @@ Table _R(Bool Oversoul)
 		Ret.Actions += "AAA_GUARD"
 		Ret.Actions += "AAA_GUARD"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
 		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
 		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
 		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
 		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_HERO_MARRILONA_PROTECT"
 		Ret.Actions += "ABL_HERO_MARRILONA_PROTECT"
 		Ret.Actions += "ABL_HERO_MARRILONA_PROTECT"
 		Ret.Actions += "ABL_HERO_MARRILONA_PROTECT"
 		Ret.Actions += "ABL_HERO_MARRILONA_PROTECT"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_HERO_MARRILONA_SPEEDUP"
 		Ret.Actions += "ABL_HERO_MARRILONA_SPEEDUP"
 		Ret.Actions += "ABL_HERO_MARRILONA_SPEEDUP"
@@ -136,7 +136,7 @@ Table _R(Bool Oversoul)
 		Ret.Actions += "ABL_HERO_MARRILONA_SPEEDUP"
 		Ret.Actions += "ABL_HERO_MARRILONA_SPEEDUP"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_MASTER_FREYA_REJUVENATE"
 		Ret.Actions += "ABL_MASTER_FREYA_REJUVENATE"
 		Ret.Actions += "ABL_MASTER_FREYA_REJUVENATE"
@@ -146,7 +146,7 @@ Table _R(Bool Oversoul)
 		Ret.Actions += "ABL_MASTER_FREYA_REJUVENATE"
 		Ret.Actions += "ABL_MASTER_FREYA_REJUVENATE"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_MASTER_FREYA_ULTRAHEAL"
 		Ret.Actions += "ABL_MASTER_FREYA_ULTRAHEAL"
 		Ret.Actions += "ABL_MASTER_FREYA_ULTRAHEAL"
@@ -154,18 +154,18 @@ Table _R(Bool Oversoul)
 		Ret.Actions += "ABL_MASTER_FREYA_ULTRAHEAL"
 		Ret.Actions += "ABL_MASTER_FREYA_ULTRAHEAL"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_MASTER_FREYA_VIGOR"
 		Ret.Actions += "ABL_MASTER_FREYA_VIGOR"
 	End
-	If True && (Oversoul) && (__skill!=1)
+	If True && (__skill!=1)
 		Ret.Actions += "ABL_MASTER_RUBINE_FOLLOWME"
 		Ret.Actions += "ABL_MASTER_RUBINE_FOLLOWME"
 		Ret.Actions += "ABL_MASTER_RUBINE_FOLLOWME"
 		Ret.Actions += "ABL_MASTER_RUBINE_FOLLOWME"
 		Ret.Actions += "ABL_MASTER_RUBINE_FOLLOWME"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_MASTER_RUBINE_INVADE"
 		Ret.Actions += "ABL_MASTER_RUBINE_INVADE"
 		Ret.Actions += "ABL_MASTER_RUBINE_INVADE"

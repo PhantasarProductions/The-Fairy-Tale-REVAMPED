@@ -1,4 +1,4 @@
-// Generated 10/23/2021 12:25:29 PM
+// Generated 11/10/2021 10:16:47 PM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -54,7 +54,7 @@ Table _R(Bool Oversoul)
 	End
 
 	Ret.Actions = {}
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "AAA_ATTACK"
 		Ret.Actions += "AAA_ATTACK"
 		Ret.Actions += "AAA_ATTACK"
@@ -66,41 +66,41 @@ Table _R(Bool Oversoul)
 		Ret.Actions += "AAA_ATTACK"
 		Ret.Actions += "AAA_ATTACK"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "AAA_GUARD"
 		Ret.Actions += "AAA_GUARD"
 		Ret.Actions += "AAA_GUARD"
 		Ret.Actions += "AAA_GUARD"
 		Ret.Actions += "AAA_GUARD"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_FOE_CRUSH"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_FOE_DISTRACT"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_FOE_TAKEOVER"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_FOE_VENOMSTAB"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_FOE_VIRUSSTAB"
 	End
-	If True && (Oversoul) && (__skill!=1) && (__skill!=2)
+	If True && (__skill!=1) && (__skill!=2)
 		Ret.Actions += "ABL_HERO_JAKE_2PS"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ITM_ANTIDOTE"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ITM_APPLE"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ITM_FLAMEORB"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ITM_HEALINGHERB"
 		Ret.Actions += "ITM_HEALINGHERB"
 	End

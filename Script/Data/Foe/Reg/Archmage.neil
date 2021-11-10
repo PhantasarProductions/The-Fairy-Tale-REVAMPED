@@ -1,4 +1,4 @@
-// Generated 10/23/2021 12:25:29 PM
+// Generated 11/10/2021 10:16:47 PM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -78,7 +78,7 @@ Table _R(Bool Oversoul)
 	End
 
 	Ret.Actions = {}
-	If True && (Oversoul) && (__skill!=2) && (__skill!=3)
+	If True && (__skill!=2) && (__skill!=3)
 		Ret.Actions += "AAA_ATTACK"
 		Ret.Actions += "AAA_ATTACK"
 		Ret.Actions += "AAA_ATTACK"
@@ -180,49 +180,49 @@ Table _R(Bool Oversoul)
 		Ret.Actions += "AAA_ATTACK"
 		Ret.Actions += "AAA_ATTACK"
 	End
-	If True && (Oversoul) && (__skill!=3)
+	If True && (__skill!=3)
 		Ret.Actions += "AAA_GUARD"
 		Ret.Actions += "AAA_GUARD"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_FOE_CRUSH"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_FOE_DEATHSPELL"
 		Ret.Actions += "ABL_FOE_DEATHSPELL"
 		Ret.Actions += "ABL_FOE_DEATHSPELL"
 		Ret.Actions += "ABL_FOE_DEATHSPELL"
 		Ret.Actions += "ABL_FOE_DEATHSPELL"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_FOE_DEMON_SOUL_BREAKER"
 		Ret.Actions += "ABL_FOE_DEMON_SOUL_BREAKER"
 		Ret.Actions += "ABL_FOE_DEMON_SOUL_BREAKER"
 		Ret.Actions += "ABL_FOE_DEMON_SOUL_BREAKER"
 		Ret.Actions += "ABL_FOE_DEMON_SOUL_BREAKER"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_FOE_DISINTEGRATE"
 		Ret.Actions += "ABL_FOE_DISINTEGRATE"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_FOE_EXHAUST"
 		Ret.Actions += "ABL_FOE_EXHAUST"
 		Ret.Actions += "ABL_FOE_EXHAUST"
 		Ret.Actions += "ABL_FOE_EXHAUST"
 		Ret.Actions += "ABL_FOE_EXHAUST"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_FOE_HORROR"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_FOE_SMITE"
 		Ret.Actions += "ABL_FOE_SMITE"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_FOE_TAKEOVER2"
 	End
-	If True && (Oversoul) && (__skill!=1)
+	If True && (__skill!=1)
 		Ret.Actions += "ABL_FOE_TOTALEXHAUSTION"
 		Ret.Actions += "ABL_FOE_TOTALEXHAUSTION"
 		Ret.Actions += "ABL_FOE_TOTALEXHAUSTION"
@@ -249,7 +249,7 @@ Table _R(Bool Oversoul)
 		Ret.Actions += "ABL_FOE_TOTALEXHAUSTION"
 		Ret.Actions += "ABL_FOE_TOTALEXHAUSTION"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
 		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
 		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
@@ -276,156 +276,156 @@ Table _R(Bool Oversoul)
 		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
 		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_FOE_WELCOMEINHELL"
 		Ret.Actions += "ABL_FOE_WELCOMEINHELL"
 		Ret.Actions += "ABL_FOE_WELCOMEINHELL"
 		Ret.Actions += "ABL_FOE_WELCOMEINHELL"
 		Ret.Actions += "ABL_FOE_WELCOMEINHELL"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_HERO_MARRILONA_BIO"
 		Ret.Actions += "ABL_HERO_MARRILONA_BIO"
 		Ret.Actions += "ABL_HERO_MARRILONA_BIO"
 		Ret.Actions += "ABL_HERO_MARRILONA_BIO"
 		Ret.Actions += "ABL_HERO_MARRILONA_BIO"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_HERO_MARRILONA_CURSEDHEALING"
 		Ret.Actions += "ABL_HERO_MARRILONA_CURSEDHEALING"
 		Ret.Actions += "ABL_HERO_MARRILONA_CURSEDHEALING"
 		Ret.Actions += "ABL_HERO_MARRILONA_CURSEDHEALING"
 		Ret.Actions += "ABL_HERO_MARRILONA_CURSEDHEALING"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_HERO_MARRILONA_ELECTROCUTION"
 		Ret.Actions += "ABL_HERO_MARRILONA_ELECTROCUTION"
 		Ret.Actions += "ABL_HERO_MARRILONA_ELECTROCUTION"
 		Ret.Actions += "ABL_HERO_MARRILONA_ELECTROCUTION"
 		Ret.Actions += "ABL_HERO_MARRILONA_ELECTROCUTION"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_HERO_MARRILONA_ETERNALFLAME"
 		Ret.Actions += "ABL_HERO_MARRILONA_ETERNALFLAME"
 		Ret.Actions += "ABL_HERO_MARRILONA_ETERNALFLAME"
 		Ret.Actions += "ABL_HERO_MARRILONA_ETERNALFLAME"
 		Ret.Actions += "ABL_HERO_MARRILONA_ETERNALFLAME"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_HERO_MARRILONA_FIREBLAST"
 		Ret.Actions += "ABL_HERO_MARRILONA_FIREBLAST"
 		Ret.Actions += "ABL_HERO_MARRILONA_FIREBLAST"
 		Ret.Actions += "ABL_HERO_MARRILONA_FIREBLAST"
 		Ret.Actions += "ABL_HERO_MARRILONA_FIREBLAST"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
 		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
 		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
 		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
 		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
 		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
 		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
 		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
 		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_HERO_MARRILONA_HURRICANE"
 		Ret.Actions += "ABL_HERO_MARRILONA_HURRICANE"
 		Ret.Actions += "ABL_HERO_MARRILONA_HURRICANE"
 		Ret.Actions += "ABL_HERO_MARRILONA_HURRICANE"
 		Ret.Actions += "ABL_HERO_MARRILONA_HURRICANE"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_HERO_MARRILONA_ICEBLAST"
 		Ret.Actions += "ABL_HERO_MARRILONA_ICEBLAST"
 		Ret.Actions += "ABL_HERO_MARRILONA_ICEBLAST"
 		Ret.Actions += "ABL_HERO_MARRILONA_ICEBLAST"
 		Ret.Actions += "ABL_HERO_MARRILONA_ICEBLAST"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_HERO_MARRILONA_INFERNO"
 		Ret.Actions += "ABL_HERO_MARRILONA_INFERNO"
 		Ret.Actions += "ABL_HERO_MARRILONA_INFERNO"
 		Ret.Actions += "ABL_HERO_MARRILONA_INFERNO"
 		Ret.Actions += "ABL_HERO_MARRILONA_INFERNO"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_HERO_MARRILONA_PROTECT"
 		Ret.Actions += "ABL_HERO_MARRILONA_PROTECT"
 		Ret.Actions += "ABL_HERO_MARRILONA_PROTECT"
 		Ret.Actions += "ABL_HERO_MARRILONA_PROTECT"
 		Ret.Actions += "ABL_HERO_MARRILONA_PROTECT"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_HERO_MARRILONA_QUAKE"
 		Ret.Actions += "ABL_HERO_MARRILONA_QUAKE"
 		Ret.Actions += "ABL_HERO_MARRILONA_QUAKE"
 		Ret.Actions += "ABL_HERO_MARRILONA_QUAKE"
 		Ret.Actions += "ABL_HERO_MARRILONA_QUAKE"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_HERO_MARRILONA_ROCK"
 		Ret.Actions += "ABL_HERO_MARRILONA_ROCK"
 		Ret.Actions += "ABL_HERO_MARRILONA_ROCK"
 		Ret.Actions += "ABL_HERO_MARRILONA_ROCK"
 		Ret.Actions += "ABL_HERO_MARRILONA_ROCK"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_HERO_MARRILONA_SPEEDUP"
 		Ret.Actions += "ABL_HERO_MARRILONA_SPEEDUP"
 		Ret.Actions += "ABL_HERO_MARRILONA_SPEEDUP"
 		Ret.Actions += "ABL_HERO_MARRILONA_SPEEDUP"
 		Ret.Actions += "ABL_HERO_MARRILONA_SPEEDUP"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_HERO_MARRILONA_SPLASH"
 		Ret.Actions += "ABL_HERO_MARRILONA_SPLASH"
 		Ret.Actions += "ABL_HERO_MARRILONA_SPLASH"
 		Ret.Actions += "ABL_HERO_MARRILONA_SPLASH"
 		Ret.Actions += "ABL_HERO_MARRILONA_SPLASH"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_HERO_MARRILONA_TSUNAMI"
 		Ret.Actions += "ABL_HERO_MARRILONA_TSUNAMI"
 		Ret.Actions += "ABL_HERO_MARRILONA_TSUNAMI"
 		Ret.Actions += "ABL_HERO_MARRILONA_TSUNAMI"
 		Ret.Actions += "ABL_HERO_MARRILONA_TSUNAMI"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_HERO_MARRILONA_ZAP"
 		Ret.Actions += "ABL_HERO_MARRILONA_ZAP"
 		Ret.Actions += "ABL_HERO_MARRILONA_ZAP"
 		Ret.Actions += "ABL_HERO_MARRILONA_ZAP"
 		Ret.Actions += "ABL_HERO_MARRILONA_ZAP"
 	End
-	If True && (Oversoul)
+	If True
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_MASTER_FEENA_COCYTUS"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_MASTER_FEENA_DROWN"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_MASTER_FEENA_FULLPOWER"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_MASTER_FEENA_KATRINA"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_MASTER_FEENA_MAGMABLAST"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_MASTER_FEENA_MEGAQUAKE"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_MASTER_FEENA_SCYLLA"
 	End
-	If True && (Oversoul)
+	If True
 	End
 	Return Ret
 End

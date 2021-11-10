@@ -1,4 +1,4 @@
-// Generated 10/23/2021 12:25:36 PM
+// Generated 11/10/2021 10:16:54 PM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -78,113 +78,113 @@ Table _R(Bool Oversoul)
 	End
 
 	Ret.Actions = {}
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "AAA_ATTACK"
 		Ret.Actions += "AAA_ATTACK"
 		Ret.Actions += "AAA_ATTACK"
 		Ret.Actions += "AAA_ATTACK"
 		Ret.Actions += "AAA_ATTACK"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "AAA_GUARD"
 		Ret.Actions += "AAA_GUARD"
 		Ret.Actions += "AAA_GUARD"
 		Ret.Actions += "AAA_GUARD"
 		Ret.Actions += "AAA_GUARD"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_FOE_CRUSH"
 		Ret.Actions += "ABL_FOE_CRUSH"
 		Ret.Actions += "ABL_FOE_CRUSH"
 		Ret.Actions += "ABL_FOE_CRUSH"
 		Ret.Actions += "ABL_FOE_CRUSH"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_FOE_DEATHSPELL"
 		Ret.Actions += "ABL_FOE_DEATHSPELL"
 		Ret.Actions += "ABL_FOE_DEATHSPELL"
 		Ret.Actions += "ABL_FOE_DEATHSPELL"
 		Ret.Actions += "ABL_FOE_DEATHSPELL"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_FOE_DEMON_SOUL_BREAKER"
 		Ret.Actions += "ABL_FOE_DEMON_SOUL_BREAKER"
 		Ret.Actions += "ABL_FOE_DEMON_SOUL_BREAKER"
 		Ret.Actions += "ABL_FOE_DEMON_SOUL_BREAKER"
 		Ret.Actions += "ABL_FOE_DEMON_SOUL_BREAKER"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_FOE_DESPERATEATTACK"
 		Ret.Actions += "ABL_FOE_DESPERATEATTACK"
 		Ret.Actions += "ABL_FOE_DESPERATEATTACK"
 		Ret.Actions += "ABL_FOE_DESPERATEATTACK"
 		Ret.Actions += "ABL_FOE_DESPERATEATTACK"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_FOE_DISINTEGRATE"
 		Ret.Actions += "ABL_FOE_DISINTEGRATE"
 		Ret.Actions += "ABL_FOE_DISINTEGRATE"
 		Ret.Actions += "ABL_FOE_DISINTEGRATE"
 		Ret.Actions += "ABL_FOE_DISINTEGRATE"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_FOE_ENERGYDRAIN"
 		Ret.Actions += "ABL_FOE_ENERGYDRAIN"
 		Ret.Actions += "ABL_FOE_ENERGYDRAIN"
 		Ret.Actions += "ABL_FOE_ENERGYDRAIN"
 		Ret.Actions += "ABL_FOE_ENERGYDRAIN"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_FOE_EVIL_EYE"
 		Ret.Actions += "ABL_FOE_EVIL_EYE"
 		Ret.Actions += "ABL_FOE_EVIL_EYE"
 		Ret.Actions += "ABL_FOE_EVIL_EYE"
 		Ret.Actions += "ABL_FOE_EVIL_EYE"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_FOE_EVIL_EYE_PARALYZE"
 		Ret.Actions += "ABL_FOE_EVIL_EYE_PARALYZE"
 		Ret.Actions += "ABL_FOE_EVIL_EYE_PARALYZE"
 		Ret.Actions += "ABL_FOE_EVIL_EYE_PARALYZE"
 		Ret.Actions += "ABL_FOE_EVIL_EYE_PARALYZE"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_FOE_EVIL_EYE_PETRIFY"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_FOE_EXHAUST"
 		Ret.Actions += "ABL_FOE_EXHAUST"
 		Ret.Actions += "ABL_FOE_EXHAUST"
 		Ret.Actions += "ABL_FOE_EXHAUST"
 		Ret.Actions += "ABL_FOE_EXHAUST"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_FOE_FATALPOISON"
 		Ret.Actions += "ABL_FOE_FATALPOISON"
 		Ret.Actions += "ABL_FOE_FATALPOISON"
 		Ret.Actions += "ABL_FOE_FATALPOISON"
 		Ret.Actions += "ABL_FOE_FATALPOISON"
 	End
-	If True && (Oversoul) && (__skill!=1) && (__skill!=2)
+	If True && (__skill!=1) && (__skill!=2)
 		Ret.Actions += "ABL_FOE_FOOLGOLD"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_FOE_HOLDPERSON"
 	End
-	If True && (Oversoul) && (__skill!=1) && (__skill!=2)
+	If True && (__skill!=1) && (__skill!=2)
 		Ret.Actions += "ABL_FOE_HORROR"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_FOE_LIFEDRAIN"
 		Ret.Actions += "ABL_FOE_LIFEDRAIN"
 		Ret.Actions += "ABL_FOE_LIFEDRAIN"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_FOE_LIFEFORCE"
 		Ret.Actions += "ABL_FOE_LIFEFORCE"
 		Ret.Actions += "ABL_FOE_LIFEFORCE"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_FOE_RANDOMIZER"
 		Ret.Actions += "ABL_FOE_RANDOMIZER"
 		Ret.Actions += "ABL_FOE_RANDOMIZER"
@@ -211,34 +211,34 @@ Table _R(Bool Oversoul)
 		Ret.Actions += "ABL_FOE_RANDOMIZER"
 		Ret.Actions += "ABL_FOE_RANDOMIZER"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_FOE_TAKEOVER"
 		Ret.Actions += "ABL_FOE_TAKEOVER"
 		Ret.Actions += "ABL_FOE_TAKEOVER"
 		Ret.Actions += "ABL_FOE_TAKEOVER"
 		Ret.Actions += "ABL_FOE_TAKEOVER"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_FOE_TAKEOVER_STRIKE"
 		Ret.Actions += "ABL_FOE_TAKEOVER_STRIKE"
 		Ret.Actions += "ABL_FOE_TAKEOVER_STRIKE"
 		Ret.Actions += "ABL_FOE_TAKEOVER_STRIKE"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_FOE_TAKEOVER2"
 		Ret.Actions += "ABL_FOE_TAKEOVER2"
 		Ret.Actions += "ABL_FOE_TAKEOVER2"
 	End
-	If True && (Oversoul) && (__skill!=1) && (__skill!=2)
+	If True && (__skill!=1) && (__skill!=2)
 		Ret.Actions += "ABL_FOE_THRILL"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_FOE_TWOEDGE"
 		Ret.Actions += "ABL_FOE_TWOEDGE"
 		Ret.Actions += "ABL_FOE_TWOEDGE"
 		Ret.Actions += "ABL_FOE_TWOEDGE"
 	End
-	If True && (Oversoul)
+	If True
 		Ret.Actions += "ABL_GLOOM"
 		Ret.Actions += "ABL_GLOOM"
 		Ret.Actions += "ABL_GLOOM"
