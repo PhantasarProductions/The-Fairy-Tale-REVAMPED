@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FieldMenu/Status.neil
-// Version: 21.08.20
+// Version: 21.11.09
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -80,6 +80,24 @@ Module
         	StatFnt.DarkText(s,x+25,y+100+(i*35))
         	__Ember
         	StatFnt.DarkText(RPGChar[chartag].Stat["END_"..s]..procentteken[procent[s]==true],(x+w)-25,y+100+(i*35),1,0)
+        End
+        // Experience
+        __White
+        StatFnt.DarkText("Experience needed",x+25,y+400)
+        StatFnt.DarkText("Level",x+25,y+435)
+        if RPGChar[chartag].Stat.Level<__LevelCap
+        	__Ember
+        	StatFnt.DarkText(""..RPGChar[chartag].Stat.Experience,(x+w)-25,y+400,1)
+        Else
+        	__Red
+        	StatFnt.DarkText("---",(x+w)-25,y+400,1)
+        End
+        if RPGChar[chartag].Stat.Level<=__LevelCap
+        	__Ember
+        	StatFnt.DarkText(""..RPGChar[chartag].Stat.Level,(x+w)-25,y+435,1)
+        Else
+        	__Red
+        	StatFnt.DarkText("---",(x+w)-25,y+435,1)
         End
         // Skills
         RPGChar[chartag].Points.LVL_Skill1.Have = math.max(RPGChar[chartag].Points.LVL_Skill1.Have,1)
