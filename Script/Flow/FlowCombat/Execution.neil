@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Execution.neil
-// Version: 21.10.25
+// Version: 21.11.10
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -191,6 +191,8 @@ Class Stage_Execution Extends Stage
 			Act.Executor.Stage = "IDLE"
 			// AP Up
 			Act.Executor.AP += Act.Act.rew_GainAP
+			// Exp Rate
+			ExpRate[Act.Executor.Tag]+= 0.003 - (__skill/1000)
 			// Skill up
 			For ski=1,5
 				Party.IncSkill(Act.Executor.Tag,ski,Act.Act["rew_GainSkill"..ski],Act.Act["rew_CreateSkill"..ski])

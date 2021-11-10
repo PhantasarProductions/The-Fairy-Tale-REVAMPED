@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Effect.neil
-// Version: 21.10.28
+// Version: 21.11.10
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -129,12 +129,24 @@ Group Effect
       		charmsg(tag,math.abs(dmg),180,255,0)
       	end
       	if Fighter.ByTag[tag].Team=="Hero"
+      		// God Mode
       		if gv.gbool["CHEAT.GOD"]
       			dmg=0 
       		end 
-      		// God Mode
+      		// Damage
       		RPGChar[tag].Points.AP.Have+= 6 div __skill
-      	End
+      		// EXP Rate up
+      		Switch __skill
+      			case 1
+      				EXPRate[Tag]+= (dmg/RPGChar[tag].Points.HP.Have)/100
+      			case 2
+      				EXPRate[Tag]+= (dmg/RPGChar[tag].Points.HP.Maximum)/1000
+      			case 3
+      				EXPRate[Tag]+=0.0000001
+      			Default
+      		      	EXPRate[Tag]-=1
+      		End
+      	End       
       	hp.Have -= dmg 
       	// Yeah that even works for absorb, as a negative value is then in dmg and two negatives make one positive.
       	CSay(tag.." has "..hp.Have.." HP left")
@@ -181,7 +193,7 @@ Group Effect
 		def = def * defmod[g][__skill]
 		// Damage itself
 		Number rate = atk-def
-		Number damage = math.max(1,rate + rand(rate / 4))
+		Number damage = math.max(1,rate + rand(math.max(1,rate div 4)))
 		//if damage<1 then damage=1 end -- Never less than 1 HP damage.
 		
 		// Critical
@@ -214,7 +226,7 @@ Group Effect
 		// Rubine's void
 		If g=="Hero" and RPGChar[ttag].Data.Master=="Rubine" and rand(1,(__skill*2)^2)==1
 			charmsg(ttag,"Voided",180,255)
-			RPGChar[ttag].Points.AP += 12 div __skill
+			RPGChar[ttag].Points.AP.Have += 12 div __skill
 			voided=true
 		End
 		
