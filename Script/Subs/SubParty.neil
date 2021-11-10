@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.10.28
+// version: 21.11.10
 // End License Information
 
 #Use "Script/Use/Anyway"
@@ -53,6 +53,7 @@ Group SubParty
 	Table Pictures = {}
 	
 	ReadOnly Var Fnt = ImageFont.Obtain("FNTSBAR") 
+	ReadOnly Var BFnt = ImageFont.Obtain("FNTSTATSTAT")
 
 	Void GrabLevel(string char,Int Level, noauto)
 		String n = char
@@ -224,6 +225,10 @@ Group SubParty
 		Pictures[ch].Hot(0,Pictures[ch].H)
 		Pictures[ch].Draw(X,Y)
 	End
+	
+	Table LvScale = {}
+	Var ImgLevelUp = Image.Load(  "GFX/Party/Level Up.png","LevelUp")
+	Var AudLevelUp = Audio.Load("Audio/Party/Level Up.ogg","LevelUp")
 
 
 	Void Boxes(string HLChar="")
@@ -231,7 +236,7 @@ Group SubParty
 		Int C  = PartyCount
 		Int M3 = 0
 		Int W = Screen.W Div C
-		Int Hover=0
+		Int Hover=0		
 		Graphics.Scale(1,1)
 		If C==3
 			M3 = Screen.W % 3
@@ -243,12 +248,28 @@ Group SubParty
 			if i==3
 				W2+=M3
 			End
+			LvScale[Ch] = LvScale[Ch] || 0
 			// Background Box
 			Boxes[i].X = (W*(i-1))
 			Boxes[i].Y = __BoxPosY
 			Boxes[i].W = W2
 			Boxes[i].H = 100
 			Boxes[i].Draw()
+			if LvScale[Ch]>0
+				LvScale[Ch] = (LvScale[Ch]+1) % 2500
+				Graphics.SetScale(math.min(LvScale[Ch] / 1000,1))
+				ImgLevelUp.Draw(Boxes[i].X+(Boxes[i].W div 2),Boxes[i].Y-5)
+			End
+			If RPGChar[Ch].Stat.Level<__LevelCap && RPGChar[Ch].Stat.Experience<=0
+				ImgLevelUp.HotBottomCenter()
+				AudLevelUp.Play()
+				LvScale[Ch]=1
+				RPGChar[Ch].Stat.Level++
+				Grablevel(Ch,RPGChar[Ch].Stat.Level)
+				RPGChar[ch].Stat.Experience += EXP.ByLevel(RPGChar[Ch].Stat.Level)
+				RPGChar[ch].Points.HP.Have     = RPGChar[ch].Points.HP.Maximum
+				RPGChar[ch].Points.VIT.Have    = RPGChar[ch].Points.VIT.Maximum
+			End
 			If Mouse.MX>Boxes[i].X && Mouse.MY>Boxes[i].Y && Mouse.MX<Boxes[i].X+Boxes[i].W && Mouse.MY<Boxes[i].Y+Boxes[i].H
 				Hover=i
 				__Ember
@@ -312,7 +333,13 @@ Group SubParty
 				Fnt.DarkText("VIT",barx,B.Y+85,1,1)
 				Fnt.DarkText(VIT.Have,barx+barwidth,B.Y+85,1,1)
 			End
-			// Level (if appliccable)
+			// Level (if appliccable)			
+			If RPGChar[ch].Stat.Level<=__LevelCap
+				__White
+				Fnt.DarkText("Lv.",B.X,B.Y+B.H,0,1)
+				__Ember
+				BFnt.DarkText(Lua.tostring(RPGChar[ch].Stat.Level),B.X+25,B.Y+B.H,0,1)
+			End
 		End
 		If Mouse.ML && Hover>0
 			State.Call(Flow.Current,"PartyClick",sprintf("%d,\"%s\"",Hover,RPGParty[Hover]))
