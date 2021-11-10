@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Link.neilbundle/Map.Neil
-// Version: 21.11.05
+// Version: 21.11.09
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -277,6 +277,19 @@ Module
 	
 	Void DrawScreen()
 		MCall("FieldFlow.DrawScreen","nil")
+	End
+	
+	Void Chapter(int i)
+		__Chapter = i
+		MCall("FieldFlow.Chapter.Start",i)
+	End
+	
+	Set Bool AllowEncOff
+		gv.gbool["ALLOWENCOUNTEROFF_"..LoadedMap] = Value
+	End
+	
+	Get Bool AllowEncOff
+		return gv.gbool["ALLOWENCOUNTEROFF_"..LoadedMap] || (Chapter>0 && Prefixed(LoadedMap:upper(),"PRO_"))
 	End
 	
 	CONSTRUCTOR
