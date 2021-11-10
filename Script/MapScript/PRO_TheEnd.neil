@@ -32,18 +32,37 @@
 // 
 // **********************************************
 // 
-// version: 21.10.28
+// version: 21.11.09
 // End License Information
 #use "Script/Use/Misc/Prologue"
 #use "Script/Use/Anyway"
 Const Table Chars = {"Jake","Marrilona","Dandor","HandoStillor"}
 
+#undef ForceJake
+#undef ForceMarrilona
 
 Group RealThing
 
 	ReadOnly Bool HasDraw   = False
 	ReadOnly Bool HasUpdate = False
-
+	
+	Void ChainToGame()
+		Table ChCode = {"Jake_Human","Marrilona"}
+		Table Char = {"Jake","Marrilona"}
+		Int Pick = (ADT.Second % 2) + 1
+		#if ForceJake
+			Pick = 1
+		#fi
+		#if ForceMarrilona
+			Pick = 2
+		#fi
+		CSayF("Chosen character: %s",Char[Pick])
+		RPGParty[1] = ChCode[Pick]
+		Map.GoToMap("CH1_DUNGEON_FrendorBushes","FRENDORBUSHES","Start_"..Char[Pick])
+		Schedule.Add("StartChapter1")
+		RPGChar.Jake_Human.Points.HP.Have = RPGChar.Jake_Human.Points.HP.Maximum
+		RPGChar.Marrilona.Points.HP.Have = RPGChar.Marrilona.HP.Maximum
+	End
 
 	Void EndPrologue(string Char)
 		For i=1,100
@@ -57,7 +76,8 @@ Group RealThing
 				AllDone = AllDone && Prologue.Done[Ch]
 			End
 			If AllDone
-				Lua.error("All prologues done -> Continuation script not yet written")
+				//Lua.error("All prologues done -> Continuation script not yet written")
+				ChainToGame()
 				Return
 			End
 			Prologue.GoSelect()
