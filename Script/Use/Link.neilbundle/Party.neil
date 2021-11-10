@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.10.25
+// version: 21.11.10
 // End License Information
 
 Void LoadPartySub()
@@ -86,6 +86,7 @@ Module
   	End
   	
   	Delegate SkillLvlUpMsg
+  	Delegate SkillUpBonus
   	Table SLUC
   	
   	Void SetSkill(String Tag, Int Skill, Int Level)
@@ -104,6 +105,7 @@ Module
   				//RPGChar[Tag].Points[TagLevel].Have ++
   				SetSkill(Tag,Skill,RPGChar[Tag].Points[TagLevel].Have+1)
   				SkillLvlUpMsg(Tag,RPGChar[Tag].Data[TagTitle].." level up",SLUC[Skill][1],SLUC[Skill][2],SLUC[Skill][3])
+  				SkillUpBonus(Tag,RPGChar[Tag].Points[TagLevel].Have)
   				Var SLUV = NeilUse("Script/Data/Char/"..Tag.."/SkillUp")
   				For k,v in sPairs(SLUV)
   					Lua.Neil.Globals.CSayF("Due to skill %d going up on %s stat '%s' goes up by %02d",Skill,Tag,k,v)
@@ -117,6 +119,7 @@ Module
   		Void Niks()
   		End
   		SkillLvlUpMsg = NIKS
+  		SkillUpBonus = NIKS
   		SLUC = {}
   		SLUC += {  0,255,255}
   		SLUC += {255,  0,  0}
