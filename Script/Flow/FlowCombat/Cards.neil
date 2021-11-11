@@ -90,6 +90,7 @@ Module Class
 	
 	Static Void DrawCards()
 		Graphics.SetScale(1,1)
+		__White
 		For i=25,1,-1
 			DrawCard(i)
 			Var crd = Lijst[i]
