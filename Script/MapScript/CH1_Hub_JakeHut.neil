@@ -42,7 +42,7 @@ Group MScript
 	ReadOnly Bool HasDraw   = False
 	ReadOnly Bool HasUpdate = False
 	
-	Void Music()
+	Void MapMusic()
 		If !Done.Chapter1_BeenInJakeHutBefore
 			Music.Play("Sys/Silence.ogg")
 			CSay("First time in Jake's hut, so let's keep it quite for now!")

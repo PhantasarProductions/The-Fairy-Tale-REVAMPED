@@ -53,7 +53,7 @@ Void LoadMapMusic(string LM)
 	If Prefixed(FlowField.Map.KthuraMap.Meta.Music,"*")
 		Switch FlowField.Map.KthuraMap.Meta.Music:upper()
 			Case "*SCRIPT" "^*SCRIPT*"
-				MapScript.Music()
+				MapScript.MapMusic()
 			Default
 				Lua.error("Special case "..FlowField.Map.KthuraMap.Meta.Music.." for music not supported")
 		End
