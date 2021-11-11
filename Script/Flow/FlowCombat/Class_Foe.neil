@@ -187,7 +187,7 @@ Class Foe Extends Fighter
         	If __NewGamePlus
            		xget = xget * (4-skill) 
            	end
-           	RPGChar[ch].Stat.EXP -= xget
+           	RPGChar[ch].Stat.Experience -= xget
            	CSayF("=> %d:%09d EXP",i,xget)
            	CSayF("=> %d:Rate 3.5f",i,rate)
            	charmsg(ch,"EXP "..xget,rand(0,255),rand(0,255),rand(0,255))
