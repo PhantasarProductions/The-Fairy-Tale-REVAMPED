@@ -37,6 +37,8 @@
 
 #use "Script/Use/Anyway"
 
+#macro __BossDone gv.gbool.Done_Chapter1_FrendorBushes_Boss
+
 Group MScript
 
 	ReadOnly Bool HasDraw   = False
@@ -63,7 +65,43 @@ Group MScript
 		End
 	End
 		
+	Void Boss_Marrilona()
+		MapText("BOSS_MARRILONA")
+		Combat.Boss("Another","Dwarf")
+		Combat.Arena = Lua.Neil.Globals.Map.Arena
+		Combat.Music = "*BOSS"
+		Combat.Lose = "GameOver"
+		Combat.NewEnemy = "Boss/Dwarf"
+		Combat.StartEvent = "StartBoss_Marrilona"
+		Lua.Neil.Globals.Map.StopWalking()
+		Combat.Start()
+		Schedule.Add("PostBoss_Marrilona")
+	End
 	
+	Void StartBoss_Marrilona()
+		MapText("STARTBOSS_MARRILONA","FLOW_COMBAT")		
+		RPGChar.FOE001.Points.HP.Minimum = 1
+	End
+	
+	Void PostBoss_Marrilona()
+		Map.GoToMap("CH1_HUB_JAKEHUT","BLACK","Yeah")
+		Schedule.Add("Start_Marrilona")
+	End
+	
+	Void Leave()
+		If !__BossDone
+			Switch RPGParty[1]
+				Case "Jake_Human"
+					MapText("DONTGO_JAKE")
+				Case "Marrilona"
+					MapText("DONTGO_MARRILONA")
+				Default
+					Lua.error("Can't handle: "..RPGParty[1])
+			End
+			Return
+		End
+		Lua.error("Leaving not yet implemented")
+	End
 	
 	Constructor
 		If !__NewGamePlus
@@ -72,6 +110,9 @@ Group MScript
 		If !Done.Chapter1Announced
 			Map.Chapter(1)
 		End
+		ZA.TabEnter{"Boss_Jake","Boss_Marrilona"}
+		ZA.Enter("ExitSouthWest","Leave")
+		ZA.Enter("ExitNorthEast","Leave")
 	End
 	
 End
