@@ -51,7 +51,12 @@ End
 
 Void LoadMapMusic(string LM)
 	If Prefixed(FlowField.Map.KthuraMap.Meta.Music,"*")
-		Lua.error("Special cases for music not yet supported")
+		Switch FlowField.Map.KthuraMap.Meta.Music:upper()
+			Case "*SCRIPT" "^*SCRIPT*"
+				MapScript.Music()
+			Default
+				Lua.error("Special case "..FlowField.Map.KthuraMap.Meta.Music.." for music not supported")
+		End
 		Return
 	End
 	String MusFile = FlowField.Map.KthuraMap.Meta.Music
