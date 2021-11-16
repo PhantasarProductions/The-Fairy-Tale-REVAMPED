@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField/DrawScreen.neil
-// Version: 21.11.10
+// Version: 21.11.12
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -59,10 +59,10 @@ Void AutoPlayerTex()
 				End
 				PL.Texture = "GFX/Actors/Bundled/Player/".. RPGParty[i] .. "." .. PL.Wind .. ".jpbf"
 			End
-		Else
-			If i>1 && RPGParty[i]!=""
-				Lua.error("No followers for leader cannot yet be spawned... Combe back later!")
-			End
+		//Else
+		//	If i>1 && RPGParty[i]!=""
+				//Lua.error("No followers for leader cannot yet be spawned... Combe back later!")
+		//	End
 		End
 	End
 End
