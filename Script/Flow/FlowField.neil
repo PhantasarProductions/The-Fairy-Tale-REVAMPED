@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField.neil
-// Version: 21.08.25
+// Version: 21.11.11
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -94,6 +94,7 @@ End
 Global Void Apollo_Flow()
 	Dev.ToConsole()
 	FlowField.DrawScreen()
+	FlowField.FollowTheLeader.Run()
 	FlowField.Renc.UpdateGauge()
 	Party.Boxes()
 	FlowField.Schedule.DoScheduled()
