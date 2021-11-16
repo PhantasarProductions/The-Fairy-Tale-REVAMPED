@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Link.neilbundle/Item.neil
-// Version: 21.08.21
+// Version: 21.11.14
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -137,4 +137,13 @@ Void __TagNewIndex(s,string Key,value)
 End
 
 Var Ret = Lua.setmetatable({},{["__index"]=__TagIndex,["__newindex"]=__TagNewIndex})
+
+Global Bool TeachSkill(String Ch,String Skl)
+	If ISGet.Bool("SUB_ITEMS",sprintf("Abilities.%s.Skill['%s']~=nil",ch))
+		Return False
+	End
+	State.Call("SUB_ITEMS","AblRec.NewSkill",sprintf("'%s','%s'",Ch,Skl))
+	Return True
+End
+
 Return Ret

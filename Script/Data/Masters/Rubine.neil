@@ -1,0 +1,133 @@
+// License Information:
+// **********************************************
+// 
+// src/Tricky Script/Script/Data/Masters/Rubine.neil
+// (c) Jeroen Broks, 2009, 2021, All Rights Reserved.
+// 
+// This file contains material that is related
+// to a storyline that is which is strictly
+// copyrighted to Jeroen Broks.
+// 
+// This file may only be used in an unmodified
+// form with an unmodified version of the
+// software this file belongs to.
+// 
+// You may use this file for your study to see
+// how I solved certain things in the creation
+// of this project to see if you find valuable
+// leads for the creation of your own.
+// 
+// Mostly this file comes along with a project
+// that is for most part released under an
+// open source license and that means that if
+// you use that code with this file removed
+// from it, you can use it under that license.
+// Please check out the other files to find out
+// which license applies.
+// This file comes 'as-is' and in no possible
+// way the author can be held responsible of
+// any form of damages that may occur due to
+// the usage of this file
+// 
+// 
+// **********************************************
+// 
+// version: 21.11.14
+// End License Information
+
+Module
+
+	Get Bool requirement() 
+		Return true
+	End
+
+	Var Abl
+	Void DefAbl()
+		plua _Abl
+		#pure
+		_Abl = {
+                     [ 20] = 'abl_master_rubine_pickpocket',
+                     [ 40] = 'abl_master_rubine_poisonstab',
+                     [ 60] = 'abl_master_rubine_invade',
+                     [200] = 'abl_master_rubine_backstab',
+                     [400] = 'abl_master_rubine_followme'
+              }              
+		#endpure
+		Abl = _Abl
+		if __newgameplus 
+			abl[30] = "abl_master_rubine_fastdraw" 
+		end
+	End
+
+	Bool All = False
+
+	// Should return true if master actually decides to teach something	
+	Bool Teach(string Ch)
+    	all = true
+    	bool maylearn = true
+    	bool rabl = false
+    	for truereq,abl in pairs(abl) 
+    		// DEFINITELY NOT ipairs!!!!!
+    		int req 
+    		req = truereq*(__skill-1)
+    		if __skill==1 
+    			req=truereq div 2 
+    		end
+    		if maylearn and RPGChar[ch].Stat.RubinePoints>=req and (!Done["MASTER.RUBINE."..ch.."."..abl])
+    			//Console.Write(RPG.Stat(ch,"RubinePoints")..">="..req.." so let's teach!",180,255,0)
+    			maylearn=false
+    			rabl=abl
+    		else
+    			all = all && gv.gbool["MASTER.RUBINE."..ch.."."..abl]
+    		end
+    	end
+    	return rabl 
+    	//,all
+    end
+    
+    Void Appoint(String ch)
+      //Console.Write('Creating point for Rubine on '..ch,255,255,255)
+      //Master_DefStat(ch,"RubinePoints",0)
+      RPGChar[ch].Stats.RubinePoints=0
+     End
+     
+     
+     Void Dismiss(ch)
+     	//RPG.DelStat(ch,"RubinePoints")
+     	// More trouble than it's worth
+     End
+
+     Var Stats
+     Table Desc = {"Rubine is a female thief","She rewards the ability to find money","You score a point each time you find money","Score enough points to learn new skills","","While you study under Rubine,","there is 1 to "..math.abs((__skill*2)^2).." chance","an attack can be completely voided",""}
+
+     Void DefStats()
+     	plua _stats
+     	// Spd +25%, Atk -10%, End -5%, Int -10%, Res - 5%, Acc +5%, eva +5%     	
+     	#pure
+     	_stats = {
+     		Speed = 25,
+     		Power = -10,
+     		Endurance = -10,
+     		Intelligence = -10,
+     		Resistance = -10,
+     		Accuracy = 5,
+     		Evasion = 5
+     	}
+     	#endpure
+     	Stats = _stats
+     	Desc[#Desc+1]=({"In easy mode you only need half the points, normally required for a new skill","","In hard mode you need twice the points to learn a new skill"})[__skill]
+     End
+     
+     String ShowScore(ch)
+     	Return ""..RPGChar[ch].Stat.RubinePoints
+     End
+     
+     ReadOnly String Name = "Rubine"
+     ReadOnly String ID   = "Rubine"
+     ReadOnly Bool   HideRates = False
+
+     Constructor
+     	DefStats()
+     	DefAbl()
+     End
+End

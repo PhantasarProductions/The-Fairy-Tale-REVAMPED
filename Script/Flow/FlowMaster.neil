@@ -1,0 +1,419 @@
+// License Information:
+// src/Tricky Script/Script/Flow/FlowMaster.neil
+// Version: 21.11.16
+// Copyright (C) 2016, 2017, 2021 Jeroen Petrus Broks
+// 
+// ===========================
+// This file is part of a project related to the Phantasar Chronicles or another
+// series or saga which is property of Jeroen P. Broks.
+// This means that it may contain references to a story-line plus characters
+// which are property of Jeroen Broks. These references may only be distributed
+// along with an unmodified version of the game.
+// 
+// As soon as you remove or replace ALL references to the storyline or character
+// references, or any termology specifically set up for the Phantasar universe,
+// or any other univers a story of Jeroen P. Broks is set up for,
+// the restrictions of this file are removed and will automatically become
+// zLib licensed (see below).
+// 
+// Please note that doing so counts as a modification and must be marked as such
+// in accordance to the zLib license.
+// ===========================
+// zLib license terms:
+// This software is provided 'as-is', without any express or implied
+// warranty.  In no event will the authors be held liable for any damages
+// arising from the use of this software.
+// Permission is granted to anyone to use this software for any purpose,
+// including commercial applications, and to alter it and redistribute it
+// freely, subject to the following restrictions:
+// 1. The origin of this software must not be misrepresented; you must not
+// claim that you wrote the original software. If you use this software
+// in a product, an acknowledgment in the product documentation would be
+// appreciated but is not required.
+// 2. Altered source versions must be plainly marked as such, and must not be
+// misrepresented as being the original software.
+// 3. This notice may not be removed or altered from any source distribution.
+// End License Information
+
+#use "Script/Use/Anyway"
+
+QuickMeta Unlocked
+	Index
+		Return gv.gbool["MASTER_UNLOCKED_"..key]
+	End
+	
+	NewIndex
+		gv.gbool["MASTER_UNLOCKED_"..key] = value==true
+	End
+End
+
+
+Group FlowMaster
+	//Unlocked = Unlocked or {}
+	ReadOnly Table sptag = { [false]="INTRO",[true]="BACK"}
+	ReadOnly Var pointer 
+	ReadOnly Table FullList = {"Fandalora","Feenalaria","Freya","Krandar","Midas","Rubine","Russell"}
+	//Image.Hot(pointer,Image.Width(pointer)/2,Image.Height(pointer))
+
+	// function GALE_OnLoad()
+	//	stx = LC('screen.margin.left')
+	//	sty = LC('screen.margin.top')
+	// end  
+
+	// Kept for reference, but Feena should now check this herself in her own 
+	// Data lib
+	// function FeenaCheckAll()
+    //	local masters = {'Fandalora','Freya','Krandar','Midas','Rubine','Russell'}
+    //	local ret = true
+    // 	for m in each(masters) do ret=ret and Unlocked[m] end
+    // 	Var.D("&ACTIVATE.FEENALARIA.MASTER",upper(ret==true))
+    // end
+    Var AppSet
+
+    Var cMaster
+    
+    var MData(string id)
+    	return NeilUse("Script/Data/Masters/"..id)
+    End
+    
+    Void Speak(string id)
+    	//cMaster = jinc('Script/JINC/Masters/'..id..".lua")
+    	cMaster = MData(id)
+    	//cMaster.name = cMaster.name || id
+    	//cMaster.id = id
+    	//cMaster.id = id
+    	//if (not Unlocked[id]) and cMaster.requirement and (not cMaster.requirement()) then
+    	If (!Unlocked[id]) && (!cMaster.Requirement)
+    		MapText(id:upper().."_NOTREADY")
+    		Return
+    	End
+    	MapText(id:upper().."_"..sptag[Unlocked[id]==true])
+    	For i=1,4
+    		String ch=RPGParty[i]
+    		If ch!="" && RPGChar[ch].Data.Master==id
+    			//local teach,allteach = cMaster.teach(ch)
+    			plua teach=cMaster.Teach(ch)
+    			//CSay("teach = "..sval(teach))
+    			//CSay("alltech = "..sval(allteach))
+    			if teach and TeachSkill(ch,teach)
+    				//local i = ItemGet(teach) --Var.C('$MASTERABLCODE'))
+    				plua i = Item[teach]
+    				gv.gString.MASTERCHAR=ch //Var.D("$MASTERCHAR",RPG.GetName(ch))
+    				gv.gString.MASTERMOVE=i.Title //Var.D("$MASTERMOVE",i.Title)
+    				MapText(id:upper().."_LEARN")
+    			End
+    			If cMaster.all
+    				MapText(id:upper().."_ALL")
+    				gv.gbool["MASTER.ALL."..id]=true
+    			End
+    		End
+    	End
+    	Unlocked[id] = true
+    	AppSet = {}
+    	For i=1,4
+    		String ch = RPGParty[i]
+    		if ch!="" 
+    			AppSet[i] = RPGChar[ch].Data.Master==id 
+    		end
+    	end
+    	Graphics.Cls()
+    	//Loading()
+    	//LAURA.Flow('MASTER')
+    	Flow.Current="MASTER"
+    End
+    
+    //function MasterList()
+    //	local ret
+    //	for m,b in spairs(Unlocked) do
+    //		if b then
+    //			if ret then ret = ret ..",\n\t" else ret = "return {\t" end
+    //			ret = ret .. '"'..m..'"'
+    //		end
+    //	end
+    //ret = ret .."\n}"
+    //Var.D("$MASTERLIST",ret)
+    //CSay(ret)
+    //end
+        
+   Var BFnt = ImageFont.Obtain("FNTSTATSTAT")
+   Void Eyes(string Mid,int x,int y)   
+   //mid,mdata,x,y)
+   		
+   		Static Table ImgEyes = {} 
+   		//SetFont("MasterContent")
+   		for i,ch in Party.pairs()
+        	if RPGChar[ch].Data.Master==mid
+        		__white
+        		string che = ch
+        		if Prefixed(Ch,"Jake_")
+        			che="Jake" 
+        		End
+        		ImgEyes[che] = ImgEyes[che] || Image.LoadNew(sprintf("GFX/Eyes/%s.png",che),sPrintF("EYES_%s",che))
+        		ImgEyes[che].Draw(x-100,y+(i*21))
+        		//Eyes(ch,x-100,y+(i*21))
+        		//plua = mdata
+        		Graphics.Color(0,180,255)
+        		BFnt.DarkText(mdata(Mid).ShowScore(ch),x-110,y+(i*21)+20,2,1)
+        	end
+        end
+	end
+
+	//function MasterAbl(mid,mdata,x,py)
+	Void Abl(String Mid,int x,int py)
+		//SetFont("MasterContent")
+		Int y = py
+		//plua _item
+		For i,a in pairs(mdata(Mid).abl) 
+			y += 20
+			if !mdata(MID).HideRates 
+				__ember
+				BFnt.DarkText(i,x+100,y,1,0) //,0,180,255) 
+			End
+			//item = ItemGet(a)
+			__white
+			BFnt.DarkText(item[a].Title,x+110,y,0,0) //,255,255,255)
+		End
+	End
+
+	Void Dismiss(string ch,string master,nomorejake)
+		CSay("Dismiss master "..master.." from "..ch)
+		//local stats = mysplit(RPG.StatFields(ch),";")
+		plua stats = RPGChar[ch].StatTable
+		for st in each(stats) 
+			if prefixed(st,"MASTER_") 
+				//RPG.DelStat(ch,st)
+				RPGChar[ch].Stat[st]=0
+				CSay(" =  Flush Stat: "..st) 
+			else 
+				CSay(" = Ignore Stat: "..st) 
+			end
+		end
+		//local tmaster = jinc('Script/JINC/Masters/'..master..".lua")
+		plua tmaster = mData(master)
+		//;(tmaster.dismiss or Nothing)(ch)
+		tmaster.dismiss()
+		RPGChar[ch].Data.Master=""
+		if !nomorejake
+			//if ch=="Jake_Human" and RPG.CharExists('Jake_Fairy')==1 then Master_Dismiss('Jake_Fairy',master,true) end
+			//if ch=='Jake_Fairy'                                     then Master_Dismiss('Jake_Human',master,true) end
+		end
+		CSayF("Master %s has been dismissed as master of character %s",master,ch)
+	end
+
+	// function Master_DefStat(ch,stat,value)
+    // RPG.DefStat(ch,stat,Sys.Val(value))
+    // if ch=='Jake_Human' and RPG.CharExists('Jake_Fairy')==1 then RPG.LinkStat('Jake_Human','Jake_Fairy',stat) end
+    // if ch=='Jake_Fairy'                                     then RPG.LinkStat('Jake_Fairy','Jake_Human',stat) end
+    // end
+    
+    Void Stat(String Char)
+    	if Prefixed(Char,"Jake")
+    		Char="Jake_Human"
+    	End
+    	If RPGChar[Char].Data.Master==""
+    		Return
+    	End
+    	plua tmaster = mData(RPGChar[Char].Data.Master)
+    	For key,value in spairs(tmaster.stats)
+    		RPGChar[Char].Stats["MASTER_"..key] = math.ceil(RPGChar[Char].Stats["BASE_"..key] * (value/100))
+    	End
+    End
+    	
+    Void Appoint(String ch,String master)
+    	CSay("Appoint master "..master.." to "..ch)
+    	//jincdebug = true -- Something went wrong here, and I need to investigate. Must be on 'rem' in release. ;)
+    	//local tmaster = jinc('Script/JINC/Masters/'..master..".lua","local function Master_DefStat(c,s,v) MS.Run('MASTER','Master_DefStat',c..';'..s..';'..v) end")
+    	//for key,value in spairs(tmaster.stats) do
+    	//    Master_DefStat(ch,"MASTER_"..key,value)
+    	//end
+    	//(tmaster.appoint or Nothing)(ch)
+    	mdata(master).Appoint(ch)
+    	RPGChar[ch].Data.Master=master
+    	Stat(ch)
+    	//-- --[[ Brute fix attempt. I hope this fixes the issues.
+    	//if ch=='Jake_Human' and RPG.CharExists('Jake_Fairy')==1 then RPG.LinkData('Jake_Human','Jake_Fairy','Master') end
+    	//if ch=='Jake_Fairy'                                     then RPG.LinkData('Jake_Fairy','Jake_Human','Master') end
+    	//-- ]]
+    	CSayF("Master %s has been appointed to character %s",master,ch)
+    End
+    
+    Void EndSession()
+    	plua id = cMaster.id
+    	//for i,ch in iParty(true) do
+    	for i,ch in Party.Pairs()
+    		CSay("Checking: "..i.."; "..ch)
+    		plua oldmaster = ""
+    		//if RPG.DataExists(ch,"Master")~=0 then oldmaster = RPG.GetData(ch,"Master") end
+    		oldmaster = RPGChar[ch].Data.Master
+    		if oldmaster!="" && oldmaster!=id && AppSet[i] 
+    			Lua.Neil.Globals.FlowMaster.Dismiss(ch,oldmaster) 
+    		end
+    		if (!AppSet[i]) and oldmaster==id 
+    			Lua.Neil.Globals.FlowMaster.Dismiss(ch,id) 
+    		end
+    		if AppSet[i] && oldmaster!=id 
+    			Lua.Neil.Globals.FlowMaster.Appoint(ch,id) 
+    		end
+    	end
+    	Flow.Current="FIELD" //LAURA.Flow('FIELD')
+    	MapText(id:upper().."_BYE")
+    end
+    
+   	Constructor
+		Pointer = Image.LoadNew("GFX/Algemeen/CharPointer.png","CharPointer")
+		Pointer.HotBottomCenter()
+	End
+
+    
+End
+
+#region Flow
+Table A_Col = { [true]={255,180,0},[false]={50,50,50}}
+//function MAIN_FLOW()
+Global Void Apollo_Flow()
+	Dev.ToConsole()
+	Static ReadOnly Var Back = Image.Obtain("BACKGROUND")
+	Static ReadOnly Var BFnt = ImageFont.Obtain("BIGTEXT")
+	Static ReadOnly Var CFnt = ImageFont.Obtain("BOXTEXT")
+	Static ReadOnly Var SFnt = ImageFont.Obtain("FNTSTATSTAT")
+    //local jl,jr = joyhit(joy_left),joyhit(joy_right)
+    //local jp = 0
+    //local mx,my = MouseCoords()
+    Graphics.Cls()
+    //Box(stx,sty,SW,SH-100)
+    Back.Tile(0,0,Screen.W,Screen.H)    
+    //SetFont('MasterHeader')
+    __Ember
+    BFnt.DarkText(FlowMaster.cMaster.name,20,20,0,0)
+    //SetFont("MasterContent")
+    __White
+    CFnt.DarkText("Click characters to appoint them to this master or to dismiss them",20,80)
+    plua Center_X = Screen.W div 2
+    plua Center_Y = Screen.H div 2
+    plua gy={120,120}
+    plua col={{180,255,0},{255,0,0}}
+    plua gx = {{20,Center_X-10},{Center_X+20,Screen.W-100}}
+    for key,value in spairs(FlowMaster.cMaster.stats || {}) 
+        Int rij=1
+        if value<0 
+        	rij=2 
+        end
+        __White
+        SFnt.DarkText(key,gx[rij][1],gy[rij])
+        Graphics.Color(col[rij][1],col[rij][2],col[rij][3])
+        SFnt.DarkText(value.."%",gx[rij][2],gy[rij],1,0)
+        gy[rij]=gy[rij]+20
+    end
+    for i,l in ipairs(FlowMaster.cMaster.Desc or {}) 
+        CFnt.DarkText(l,20,gy[1]+20+(i*20))
+    end    
+    FlowMaster.Eyes(FlowMaster.cMaster.id,Screen.W-40,40)
+    FlowMaster.Abl(FlowMaster.cMaster.id,gx[2][1],gy[2]+20)
+    //CHW = CHW or (SW/4)
+    plua CHW = Screen.W div Party.Count
+    for i=1,4 
+        if FlowMaster.AppSet[i]!=nil 
+           plua C=A_Col[FlowMaster.AppSet[i]]
+           Graphics.Color(C[1],C[2],C[3])
+           plua CHX = (CHW*(i-1))+(CHW div 2)           
+           FlowMaster.Pointer.Draw(CHX,Screen.H-130) //Image.Show(pointer,CHX,(SH-sty)-120)
+           //-- DarkText(CHW..";"..i..";"..sval(CHW*i)..";"..sval((SH-sty)-10),0,i*25)           
+           //if (mousehit(1) or joyhit('CONFIRM')) and ClickedChar(i) then FlowMaster.AppSet[i]=not FlowMaster.AppSet[i] end
+           //if (INP.KeyH(i+49)==1) then FlowMaster.AppSet[i]=not FlowMaster.AppSet[i] end           	
+           if Events.KeyHit(i+48)
+              FlowMaster.AppSet[i]=not FlowMaster.AppSet[i]
+           end
+           //if mx>=CHW*i and mx<=CHW*(i+1) then jp=i end 
+        end
+    end
+    //jp = math.floor(mx/CHW)
+    //if      jl and jp>0 then INP.MoveMouse(((jp-1)*CHW)+(CHW/2),SH-25)
+    //elseif  jr and jp<3 then INP.MoveMouse(((jp+1)*CHW)+(CHW/2),SH-25) end
+    //if mousehit(2) or joyhit('CANCEL') or INP.KeyH(KEY_ESCAPE)==1 then Master_EndSession() end
+    if Mouse.MR
+    	FlowMaster.EndSession()
+    End
+    party.Boxes() //ShowParty()    
+    Mouse.Draw() //ShowMouse()
+    //Flip()
+end
+
+Global Void PartyClick(int i,string ch)
+	CSayF("PartyClick(%d,'%s')",i,ch)
+	For j=1,4
+		If ch==RPGParty[j]
+			FlowMaster.AppSet[j]=!FlowMaster.AppSet[j]
+		End
+	End
+End
+#endregion
+
+// Menu overview functions
+
+Global Void MasterData(string id,int sizes_x,int sizes_y,int sizes_w,int sizes_h)
+	Static Var omd = nil
+	Static Var OverViewMaster
+	Static ReadOnly Var BFnt = ImageFont.Obtain("NIGTEXT")
+	Static ReadOnly Var CFnt = ImageFont.Obtain("BOXTEXT")
+	Static ReadOnly Var SFnt = ImageFont.Obtain("FNTSTATSTAT")
+	if omd!=id 
+		//OverViewMaster = jinc('Script/JINC/Masters/'..id..".lua") omd = id end
+		Overviewmaster = FlowMaster.mdata(id)
+	End
+	plua mymaster = OverViewMaster // I am LAZY!!!
+	//SetFont('MasterHeader')
+	__Ember
+	BFnt.DarkText(mymaster.name,20,20,0,0) //,255,180,0)
+	// SetFont("MasterContent")
+	plua gy={sizes_y+20,sizes_y+20}
+	Static Var col={{180,255,0},{255,0,0}}
+	Int Center_X = Screen.W Div 2
+	Int Center_Y = Screen.H Div 2
+	plua gx = {{Center_X div 2,Center_X-10},{Center_X+20,(Center_X+20)+(Center_X div 2)}}
+	for key,value in spairs(mymaster.stats || {})
+		plua rij=1
+		if value<0 
+			rij=2
+		end
+		SFnt.DarkText(key,gx[rij][1],gy[rij])
+		Graphics.Color(col[rij][1],col[rij][2],col[rij][3])
+		SFnt.DarkText(value.."%",gx[rij][2],gy[rij],1,0) //,col[rij][1],col[rij][2],col[rij][3])
+		gy[rij]=gy[rij]+20
+     end
+     for i,l in ipairs(mymaster.Desc || {})
+     	CFnt.DarkText(l,100,gy[1]+20+(i*20))
+     end
+     FlowMaster.Abl(id,gx[2][1],gy[2]+20)
+     FlowMaster.Eyes(id,sizes_w-20,sizes_y+20)
+end
+
+//function MasterOverview(ssizes)
+global Void MasterOverview(int sizes_x,int sizes_y,int sizes_w,int sizes_h)
+	//local fsizes = loadstring('return '..ssizes); if not fsizes then Sys.Crash('Sizes wrong!','Sizes,',ssizes) end
+    //local sizes = fsizes()
+    Static ReadOnly Var CFnt = ImageFont.Obtain("BOXTEXT")
+    Static Int MasterPos = 1
+    //MasterPos = MasterPos or 1
+    Int i=0
+    plua c = {[true]={255,180,0},[false]={255,255,255}}
+    //Int count = 0    
+    //local mx,my = MouseCoords()    
+    //for masterid,_ in spairs(Unlocked) do
+    For masterid in each(FlowMaster.FullList)
+        i = i + 1
+        //SetFont('MastersList')
+        Graphics.Color(c[i==MasterPos][1],c[i==MasterPos][2],c[i==MasterPos][3])
+        CFnt.DarkText(masterid,sizes_x+10,sizes_y+(i*15),0,0) //,c[i==MasterPos][1],c[i==MasterPos][2],c[i==MasterPos][3])
+        if i==MasterPos  
+        	MasterData(masterid,sizes_x,sizes_y,sizes_w,sizes_h) 
+        end
+        //count=i
+        //if mx<200 and my>Sizes_y+(i*15) and my<Sizes_y+(i*15)+15 and mousehit(1) then MasterPos=i end
+        if mouse.mx<200 && mouse.my>Sizes_y+(i*15) && mouse.my<Sizes_y+(i*15)+15 && Mouse.ML 
+        	MasterPos=i 
+        end
+    end
+    //if (INP.KeyH(KEY_DOWN)==1 or joyhit(joy_down)) and MasterPos<count then MasterPos = MasterPos + 1 end
+    //if (INP.KeyH(KEY_UP  )==1 or joyhit(joy_up  )) and MasterPos>    1 then MasterPos = MasterPos - 1 end
+    //local count=1  
+end

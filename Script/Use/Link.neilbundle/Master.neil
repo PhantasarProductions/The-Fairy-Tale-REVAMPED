@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.09.30
+// version: 21.11.14
 // End License Information
 Module
 
@@ -68,6 +68,11 @@ Module
 				Inc(RPGParty[i],Master,Key,Value)
 			End
 		End
+	End
+	
+	Void Speak(string Master)
+		State.LoadNew("FLOW_MASTER","Script/Flow/FlowMaster.Neil")
+		State.Call("FLOW_MASTER","FlowMaster.Speak",sprintf("'%s'",Master))
 	End
 		
 End

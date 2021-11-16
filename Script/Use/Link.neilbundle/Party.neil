@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.11.10
+// version: 21.11.14
 // End License Information
 
 Void LoadPartySub()
@@ -64,6 +64,21 @@ Module
   	Void Portrait(String Ch,Int X,Int Y)
   		LoadPartySub()
   		State.Call("PARTY","SubParty.Portrait",Sprintf("\"%s\",%d,%d",Ch,X,Y))
+  	End
+  	
+  	Var Pairs()
+  		int i=0
+  		Var Ret()
+  			i++
+  			If i>4 
+  				Return nil,nil
+  			ElseIf RPGParty[i]==""
+  				Return nil,nil
+  			Else
+  				Return i,RPGParty[i]
+  			End
+  		End
+  		Return Ret
   	End
   	
   	Get Int Count
