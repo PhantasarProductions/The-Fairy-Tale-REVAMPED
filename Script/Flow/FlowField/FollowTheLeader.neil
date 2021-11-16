@@ -1,0 +1,117 @@
+// License Information:
+// src/Tricky Script/Script/Flow/FlowField/FollowTheLeader.neil
+// Version: 21.11.13
+// Copyright (C) 2021 Jeroen Petrus Broks
+// 
+// ===========================
+// This file is part of a project related to the Phantasar Chronicles or another
+// series or saga which is property of Jeroen P. Broks.
+// This means that it may contain references to a story-line plus characters
+// which are property of Jeroen Broks. These references may only be distributed
+// along with an unmodified version of the game.
+// 
+// As soon as you remove or replace ALL references to the storyline or character
+// references, or any termology specifically set up for the Phantasar universe,
+// or any other univers a story of Jeroen P. Broks is set up for,
+// the restrictions of this file are removed and will automatically become
+// zLib licensed (see below).
+// 
+// Please note that doing so counts as a modification and must be marked as such
+// in accordance to the zLib license.
+// ===========================
+// zLib license terms:
+// This software is provided 'as-is', without any express or implied
+// warranty.  In no event will the authors be held liable for any damages
+// arising from the use of this software.
+// Permission is granted to anyone to use this software for any purpose,
+// including commercial applications, and to alter it and redistribute it
+// freely, subject to the following restrictions:
+// 1. The origin of this software must not be misrepresented; you must not
+// claim that you wrote the original software. If you use this software
+// in a product, an acknowledgment in the product documentation would be
+// appreciated but is not required.
+// 2. Altered source versions must be plainly marked as such, and must not be
+// misrepresented as being the original software.
+// 3. This notice may not be removed or altered from any source distribution.
+// End License Information
+Module
+	Var PlayTag
+
+	Void SpawnNew(int n)
+		If n==1
+			Return
+		End
+		if (!FlowField.Map.CurrentLayer.HasTag("PLAYER"..n)) && RPGParty[n] && RPGParty[n]!=""
+			CSayF("Need follower on spot #%d > %s",n,RPGParty[n])
+			FlowField.Map.CurrentLayer.Spawn("PLAYER"..n,"PLAYER")
+			Var o = FlowField.Map.CurrentLayer.Obj(PlayTag[n])
+			o.Texture = sPrintF("GFX/Actors/Bundled/Player/%s.South.jpbf",RPGParty[n])
+		end
+	End
+	
+	Void Pop(string spot,string wind,bool instant)
+		For i=1,4
+			If  RPGParty[i] && RPGParty[i]!=""
+				SpawnNew(i)
+				Var o = FlowField.Map.CurrentLayer.Obj(PlayTag[i])
+				o.StopWalking()
+				o.Texture = sPrintF("GFX/Actors/Bundled/Player/%s.%s.jpbf",RPGParty[i],Wind)
+				if Instant
+					if Prefixed(RPGParty[i],"Jake_") && FlowField.Map.CurrentLayer.Obj(spot.."Jake")
+						o.X = FlowField.Map.CurrentLayer.Obj(spot.."Jake").X
+						o.Y = FlowField.Map.CurrentLayer.Obj(spot.."Jake").Y
+					else
+						o.X = FlowField.Map.CurrentLayer.Obj(spot..RPGParty[i]).X
+						o.Y = FlowField.Map.CurrentLayer.Obj(spot..RPGParty[i]).Y
+					End
+				Else
+					o.WalkTo(spot..PlayTag[i])
+				End
+			End
+		End
+	End
+	
+	Void Run()
+		If (!FlowField.Map.CurrentLayer.HasTag("PLAYER"))
+			Return
+		End		
+		Static Int OX
+		Static Int OY
+		If math.abs(Player.X-OX)>40 || math.abs(Player.Y-OY)>40 
+			For i=2,4
+				If RPGParty[i] && RPGParty[i]!=""
+					SpawnNew(i)
+					Var PL = FlowField.Map.CurLayer.Obj(PlayTag[i-1])
+					Var o  = FlowField.Map.CurrentLayer.Obj(PlayTag[i])
+					if !o.walking
+						Switch PL.Wind:lower()
+							Case "north"
+								o.WalkTo(PL.X,PL.Y+32)
+							Case "south"
+								o.WalkTo(PL.X,PL.Y-32)
+							Case "west"
+								o.WalkTo(PL.X+32,PL.Y)
+							Case "east"
+								o.WalkTo(PL.X-32,PL.Y)
+							Default
+						End
+					End
+				End
+			End
+			FlowField.Map.CurLayer.RemapDominance()
+			OX = Player.X
+			OY = Player.Y
+		End
+	End
+	
+	Constructor
+		String PTIndex(s,int key)
+			If key==1
+				Return "PLAYER"
+			Else
+				Return "PLAYER"..key
+			End
+		End
+		PlayTag = lua.setmetatable({},{["__index"]=PTIndex})
+	End
+End
