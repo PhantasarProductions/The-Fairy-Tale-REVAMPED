@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.11.11
+// version: 21.11.13
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -41,6 +41,8 @@ Group MScript
 
 	ReadOnly Bool HasDraw   = False
 	ReadOnly Bool HasUpdate = False
+	
+	String WhoJoins
 	
 	Void MapMusic()
 		If !Done.Chapter1_BeenInJakeHutBefore
@@ -51,16 +53,56 @@ Group MScript
 		End
 	End
 	
+	#region Love
 	Void Love()
-		Lua.error("Rest not scripted yet! Hang on!")
+		Map.GotoLayer("INTERIOR","Start")
+		Map.Pop("Love","East",true)
+		Map.SetObj("PLAYER", "Texture","GFX/Actors/Bundled/Player/Jake_East.East.jpbf")
+		Map.SetObj("PLAYER2","Texture","GFX/Actors/Bundled/Player/Marrilona.West.jpbf")
+		MapText("LOVE_1")
+		Map.ShowObj("Harry")
+		MapText("LOVE_2")
+		Map.HideObj("Harry")
+		MapText("LOVE_3")
+		//Lua.error("Rest not scripted yet! Hang on!")
+		MapText("LOVE_JOIN_"..WhoJoins)
+		MapMusic()
+		Respawn.Reset()
 	End
 	
 	Void Start_Marrilona()
-		MapText("LOVE0")
+		MapText("LOVE_0")
 		RPGChar.Marrilona.Stats.EXP -= 100
 		RPGParty[1] = "Jake_Human"
 		RPGParty[2] = "Marrilona"
+		WhoJoins="Jake"
 		Love()
 	End
+	#endregion
+	
+	#region Enter and leave the hut
+	Void ExitHut()
+		Map.GoToLayer("EXTERIOR","Hutspot")
+		// Word joke: It does of course mean Hut spot, but "hutspot" is also 
+		// the name of a Dutch dish with mashed potatos, carrots and onions.
+	End
+	
+	Void NPC_Hut()
+		Map.GoToLayer("INTERIOR","Start")
+	End
+	#endregion
+	
+	#region People at the camp
+	Void NPC_Rubine()
+		Master.Speak("Rubine")
+	End
+	#endregion
+	
+	
+	#region Linking it all up
+	Constructor
+		ZA.TabEnter{"ExitHut"}
+	End
+	#endregion
 	
 End
