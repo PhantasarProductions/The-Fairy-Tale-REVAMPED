@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowMaster.neil
-// Version: 21.11.16
+// Version: 21.11.17
 // Copyright (C) 2016, 2017, 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -353,7 +353,7 @@ End
 Global Void MasterData(string id,int sizes_x,int sizes_y,int sizes_w,int sizes_h)
 	Static Var omd = nil
 	Static Var OverViewMaster
-	Static ReadOnly Var BFnt = ImageFont.Obtain("NIGTEXT")
+	Static ReadOnly Var BFnt = ImageFont.Obtain("BIGTEXT")
 	Static ReadOnly Var CFnt = ImageFont.Obtain("BOXTEXT")
 	Static ReadOnly Var SFnt = ImageFont.Obtain("FNTSTATSTAT")
 	if omd!=id 
@@ -375,6 +375,7 @@ Global Void MasterData(string id,int sizes_x,int sizes_y,int sizes_w,int sizes_h
 		if value<0 
 			rij=2
 		end
+		__White
 		SFnt.DarkText(key,gx[rij][1],gy[rij])
 		Graphics.Color(col[rij][1],col[rij][2],col[rij][3])
 		SFnt.DarkText(value.."%",gx[rij][2],gy[rij],1,0) //,col[rij][1],col[rij][2],col[rij][3])
@@ -400,19 +401,25 @@ global Void MasterOverview(int sizes_x,int sizes_y,int sizes_w,int sizes_h)
     //local mx,my = MouseCoords()    
     //for masterid,_ in spairs(Unlocked) do
     For masterid in each(FlowMaster.FullList)
-        i = i + 1
-        //SetFont('MastersList')
-        Graphics.Color(c[i==MasterPos][1],c[i==MasterPos][2],c[i==MasterPos][3])
-        CFnt.DarkText(masterid,sizes_x+10,sizes_y+(i*15),0,0) //,c[i==MasterPos][1],c[i==MasterPos][2],c[i==MasterPos][3])
-        if i==MasterPos  
-        	MasterData(masterid,sizes_x,sizes_y,sizes_w,sizes_h) 
-        end
-        //count=i
-        //if mx<200 and my>Sizes_y+(i*15) and my<Sizes_y+(i*15)+15 and mousehit(1) then MasterPos=i end
-        if mouse.mx<200 && mouse.my>Sizes_y+(i*15) && mouse.my<Sizes_y+(i*15)+15 && Mouse.ML 
-        	MasterPos=i 
+    	if Unlocked[MasterID]
+        	i = i + 1
+        	//SetFont('MastersList')
+        	Graphics.Color(c[i==MasterPos][1],c[i==MasterPos][2],c[i==MasterPos][3])
+        	CFnt.DarkText(masterid,sizes_x+10,sizes_y+(i*15),0,0) //,c[i==MasterPos][1],c[i==MasterPos][2],c[i==MasterPos][3])
+        	if i==MasterPos  
+        		MasterData(masterid,sizes_x,sizes_y,sizes_w,sizes_h) 
+        	end
+        	//count=i
+        	//if mx<200 and my>Sizes_y+(i*15) and my<Sizes_y+(i*15)+15 and mousehit(1) then MasterPos=i end
+        	if mouse.mx<200 && mouse.my>Sizes_y+(i*15) && mouse.my<Sizes_y+(i*15)+15 && Mouse.ML 
+        		MasterPos=i 
+        	end
         end
     end
+    If i==0
+    	__Red
+    	CFnt.DarkText("No masters have yet been unlocked",Screen.W div 2, Screen.H div 2)
+    End
     //if (INP.KeyH(KEY_DOWN)==1 or joyhit(joy_down)) and MasterPos<count then MasterPos = MasterPos + 1 end
     //if (INP.KeyH(KEY_UP  )==1 or joyhit(joy_up  )) and MasterPos>    1 then MasterPos = MasterPos - 1 end
     //local count=1  

@@ -32,9 +32,11 @@
 // 
 // **********************************************
 // 
-// version: 21.08.10
+// version: 21.11.17
 // End License Information
 Module
 	Void Flow(uBox,string CharTag,string situation)
+		State.LoadNew("FLOW_MASTER","Script/Flow/FlowMaster.Neil")
+		State.Call("FLOW_MASTER","MasterOverview",sprintf("%d,%d,%d,%d",ubox.x,ubox.y,ubox.w,ubox.h))
 	End
 End

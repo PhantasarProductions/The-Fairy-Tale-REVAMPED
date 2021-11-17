@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FieldMenu/Status.neil
-// Version: 21.11.09
+// Version: 21.11.17
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -98,6 +98,12 @@ Module
         Else
         	__Red
         	StatFnt.DarkText("---",(x+w)-25,y+435,1)
+        End
+        If RPGChar[chartag].Data.Master!=""
+        	__White
+        	StatFnt.DarkText("Master",x+25,y+490)
+        	__Ember
+        	StatFnt.DarkText(RPGChar[chartag].Data.Master,(x+w)-25,y+490,1)
         End
         // Skills
         RPGChar[chartag].Points.LVL_Skill1.Have = math.max(RPGChar[chartag].Points.LVL_Skill1.Have,1)
