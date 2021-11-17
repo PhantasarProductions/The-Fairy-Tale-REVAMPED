@@ -1,0 +1,110 @@
+Bool Ja()
+	Static Var Fnt = ImageFont.Obtain("BIGFONT")
+	Repeat
+		Events.Poll()
+		Graphics.Cls()
+		Map.DrawScreen()
+		__White
+		Fnt.DarkText("Do you wish to rest here?",Screen.W div 2,Screen.H div 2,2,2)
+		Int w =  Screen.W div 4
+		int h = (Screen.H div 2) + 60
+		If Mouse.MX<w and Mouse.MY>h And Mouse.MY<h+60
+			Graphics.Color(180,255,0)
+			If Mouse.ML
+				Return True
+			End
+		Else
+			Graphics.Color(0,255,0)
+		end
+		Fnt.DarkText("Yes",w,h,1)
+		If Mouse.MX>w*3 and Mouse.MY>h And Mouse.MY<h+60
+			Graphics.Color(255,0,0)
+			If Mouse.ML
+				Return False
+			End
+		Else
+			Graphics.Color(180,0,0)
+		End
+		Fnt.DarkText("No",w*3,h)
+		Graphics.Flip()
+	Forever
+End
+
+Void RestRecover()
+  Plua chars
+  Plua foe
+  chars,foe = {},{}
+  //for t in ICHARS() do
+  For t in Each(RPGChar.All)
+    If prefixed(t,"FOE") 
+    	foe[#foe+1]=t 
+    Else 
+    	chars[#chars+1]=t 
+    End    
+  End
+  For f in each(foe) 
+  	RPGChar.Kill(f) 
+  End
+  For ch in each(chars) 
+      RPGChar[ch].Points.HP.Have  = RPGChar[ch].Points.HP.Maximum
+      RPGChar[ch].Points.VIT.Have = RPGChar[ch].Points.VIT.Maximum
+      RPGChar[ch].Points.AP.Have  = ({RPGChar[ch].Points.AP.Maximum,RPGChar[ch].Points.AP.Have,0})[__skill]
+  End
+End
+	
+
+Void _Inn(free)
+	Int innprice = 0
+	Static Table baseprice = {30,0,100}
+	Static Table multi = {0,5,10}
+	If !free
+		innprice = baseprice[__skill]
+		For i=1,4
+			If RPG.PartyTag(i)!=""
+            	innprice = innprice + (multi[_skill]*RPGChar[RPGParty[i].Stat.Level)
+            End
+        End
+  	End
+  	gv.gint.InnPrice=innprice //Var.D("%INNPRICE",innprice)
+  	MapText("INN")
+  	String t = "INN"
+  	If free
+  		t="INN_FREE" 
+  	End
+  	
+  	//local Ja = RunQuestion("INN",t)==1
+  	if Ja()
+  		If __Cash<innpric
+        	MapText("INN_NOMONEY")
+        	Return
+        End
+        __cash -= innprice //dec('%CASH',innprice)
+        If music.available
+        	//StopMusic()
+        	Music.Push()
+        	Music.Stop()
+        	Audio.LoadNew("Music/Gen/Sleep.ogg","INN").Play()
+        End
+        For alpha=1,255
+        	Graphics.Cls()
+        	Map.DrawScreen()
+        	__Black
+        	Graphics.SetAlpha(alpha)
+        	Graphics.Rect(0,0,Screen.W+100,Screen.H+100)
+        	Graphics.SetAlpha(255)
+        	Graphics.Flip()
+        End
+        // -- Time.Sleep(2500)
+        FPS.Sleep(2500)
+        //SFXWait('INN')
+        RestRecover()
+        //SetRespawnSpot()
+        Respawn.Reset(True)
+        If music.available
+        	//StartMusic()
+        	Music.Pop()
+        End
+	End
+End
+
+Return _Inn
