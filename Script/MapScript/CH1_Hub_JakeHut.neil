@@ -36,6 +36,7 @@
 // End License Information
 
 #use "Script/Use/Anyway"
+#use "Script/Use/Misc/Inn"
 
 Group MScript
 
@@ -95,6 +96,10 @@ Group MScript
 	#region People at the camp
 	Void NPC_Rubine()
 		Master.Speak("Rubine")
+	End
+	
+	Void NPC_Fanny()
+		Inn()
 	End
 	#endregion
 	
