@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Anyway.neilbundle/Algemeen.neil
-// Version: 21.11.09
+// Version: 21.11.27
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -38,11 +38,12 @@
 #use "libs/keys"
 
 
-#macro __White  Graphics.Color(255,255,255)
-#macro __Ember  Graphics.Color(255,180,  0)
-#macro __Black  Graphics.Color(  0,  0,  0)
-#macro __Red    Graphics.Color(255,  0,  0)
-#macro __Yellow Graphics.Color(255,255,  0)
+#macro __White   Graphics.Color(255,255,255)
+#macro __Ember   Graphics.Color(255,180,  0)
+#macro __Black   Graphics.Color(  0,  0,  0)
+#macro __Red     Graphics.Color(255,  0,  0)
+#macro __Yellow  Graphics.Color(255,255,  0)
+#macro __SkyBlue Graphics.Color(  0,180,255)
 
 #macro __Lang gv.gstring.LANG
 #macro __Skill gv.gint.Skill
