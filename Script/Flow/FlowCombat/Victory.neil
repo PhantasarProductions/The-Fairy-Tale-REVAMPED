@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Victory.neil
-// Version: 21.10.19
+// Version: 21.11.26
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -98,6 +98,7 @@ Class Stage_Victory extends Stage
 		BanScale = math.min(1,BanScale+ScaleInc)
 		If BanScale>=1
 			Flow.Current="FIELD"
+			Ach.Auto()
 			If !Prefixed(FlowCombat.Start.FMusic:upper(),"*NOCHANGE")
 				Music.Pop()
 			End
