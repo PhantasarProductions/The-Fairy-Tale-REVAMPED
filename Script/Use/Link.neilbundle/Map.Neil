@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Link.neilbundle/Map.Neil
-// Version: 21.11.11
+// Version: 21.11.26
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -73,6 +73,10 @@ QuickMeta Players
 End
 
 Module
+
+	Get Var Ach
+		Return Lua.Neil.Globals.Ach
+	End
 
 	ReadOnly Var Meta
 	
@@ -147,7 +151,7 @@ Module
 			MCall("FlowField.Schedule.Add","LOAD:"..Map)
 		Else
 			MCall("FlowField.LoadMap",Map)
-		End
+		End		
 	End
 	
 	Void Load(string Map)
@@ -162,6 +166,7 @@ Module
 		LoadMap(aMap)
 		Schedule("LAYER:"..aLayer)
 		Schedule("SPAWN:"..SpawnPoint)
+		Ach.Auto()
 	End
 	
 	Void GoToMapPos(string aMap,string aLayer,Int X, Int Y)
@@ -183,6 +188,7 @@ Module
 		End
 		MCall("FlowField.Map.SetLayer",aLayer)
 		Self.Spawn("PLAYER",SpawnPoint)
+		Ach.Auto()
 	End
 	
 	Void Spawn(string ActTag,a,b)
