@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.11.10
+// version: 21.11.26
 // End License Information
 
 #Use "Script/Use/Anyway"
@@ -232,6 +232,7 @@ Group SubParty
 
 
 	Void Boxes(string HLChar="")
+		Ach.Show()
 		Static Table Boxes = { new Box(0,__BoxPosY,20,128,false),new Box(0,__BoxPosY,20,128,false),new Box(0,__BoxPosY,20,128,false),new Box(0,__BoxPosY,20,128,false)}
 		Int C  = PartyCount
 		Int M3 = 0

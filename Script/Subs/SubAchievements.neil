@@ -1,0 +1,200 @@
+// License Information:
+// src/Tricky Script/Script/Subs/SubAchievements.neil
+// Version: 21.11.28
+// Copyright (C) 2021 Jeroen Petrus Broks
+// 
+// ===========================
+// This file is part of a project related to the Phantasar Chronicles or another
+// series or saga which is property of Jeroen P. Broks.
+// This means that it may contain references to a story-line plus characters
+// which are property of Jeroen Broks. These references may only be distributed
+// along with an unmodified version of the game.
+// 
+// As soon as you remove or replace ALL references to the storyline or character
+// references, or any termology specifically set up for the Phantasar universe,
+// or any other univers a story of Jeroen P. Broks is set up for,
+// the restrictions of this file are removed and will automatically become
+// zLib licensed (see below).
+// 
+// Please note that doing so counts as a modification and must be marked as such
+// in accordance to the zLib license.
+// ===========================
+// zLib license terms:
+// This software is provided 'as-is', without any express or implied
+// warranty.  In no event will the authors be held liable for any damages
+// arising from the use of this software.
+// Permission is granted to anyone to use this software for any purpose,
+// including commercial applications, and to alter it and redistribute it
+// freely, subject to the following restrictions:
+// 1. The origin of this software must not be misrepresented; you must not
+// claim that you wrote the original software. If you use this software
+// in a product, an acknowledgment in the product documentation would be
+// appreciated but is not required.
+// 2. Altered source versions must be plainly marked as such, and must not be
+// misrepresented as being the original software.
+// 3. This notice may not be removed or altered from any source distribution.
+// End License Information
+
+#use "Script/Use/Anyway"
+#use "Script/Use/Misc/Box"
+#use "Libs/LinkedList"
+#use "Libs/Keys"
+
+ReadOnly Var Fnt = ImageFont.Obtain("BIGTEXT")
+ReadOnly Var SysFont = ImageFont.Obtain("SYSFONT")
+
+QuickMeta Awarded
+	index
+		//Medals.Award(key)
+		return gv.gbool["Awarded_"..key]
+	end
+	newindex
+		gv.gbool["Awarded_"..key] = value
+	end
+end
+
+Class ABox
+	Static ReadOnly Var Boxes = new LinkedList()
+	ReadOnly Var TrueBox
+	ReadOnly String AchTitle
+	Get Int Y
+		return TrueBox.Y
+	End
+	Set Int Y
+		TrueBox.Y = Value
+	End
+	Get Int H
+		Return TrueBox.H
+	End
+	Void Draw()
+		TrueBox.Draw()
+		__Ember
+		SysFont.Text("Achievement obtained",Screen.W div 2,Y+5,2,0)
+		__White
+		Fnt.Text(AchTitle,Screen.W div 2,(Y+H)-5,2,1)
+	End
+	Constructor(string Tit)
+		int KY = Screen.H+200
+		for B in Boxes.Each
+			KY = math.max(KY,B.Y+200)
+		End
+		AchTitle = Tit
+		TrueBox = new Box(20,KY,Screen.W-40,75)
+	End
+End
+
+Group SubAch
+
+	ReadOnly Var Dat
+	
+	
+	Void Synchronize()
+		CSayF("Synchronizing Achievements with Medals")
+		For k,_ in spairs(Dat)
+			If Awarded[k]
+				CSayF("=> '%s'",k)
+				Medals.Award(k)
+			End
+		End
+	End
+	
+	Void ShowBoxes()
+		For B,L in ABox.Boxes.Each
+			B.Draw()
+			B.y--
+			If B.y<-100
+				L.UnLink()
+			End
+		End
+	End
+	
+	Void Award(string Tag)
+		If Awarded[Tag]
+			Return
+		End
+		Awarded[Tag] = True
+		Medals.Award(Tag)
+		ABox.Boxes.AddLast(new ABox(Dat[Tag].Title))
+	End
+	
+	Void AutoAward()
+		For K,V in sPairs(Dat)
+			If V.AutoVar!=""
+				Var CVar = Split(V.AutoVar," ")
+				Var CVal = Split(V.AutoVal," ")
+				Lua.assert(#CVar==#CVal,SprintF("AutoAward checkup number mismatch in '%s'. %d variables and %d values",K,#CVar,#CVal))
+				Bool Check = True
+				For i=1,#CVar
+					String ChTp = Left(CVar[i],1)
+					String ChVr = Right(CVar[i],#CVar[1]-1)
+					Int ChVi = Lua.tonumber(CVal[i]) || 0
+					bool ChVb = CVal[i]:upper()=="TRUE"
+					Switch ChTp
+						Case "="
+							Check = Check && gv.gint[ChVr]==ChVi
+						Case ">"
+							Check = Check && gv.gint[ChVr]>ChVi
+						Case "<"
+							Check = Check && gv.gint[ChVr]<ChVi
+						case "&"
+							Check = Check && gv.gbool[ChVr]==ChVb
+						Default
+							Lua.error("Unknown check '%s'(%s) in %s",ChTp,CVar[i],K)
+					End
+				End
+				If Check
+					Award(K)
+				End
+			End
+		End
+	End
+	
+	Void Overview(int x, int y, int w, int h)
+		static int ah=75
+		static int scroll=0
+		int ay = -scroll
+		for k,v in spairs(Dat)
+			if ay>=0 && ay+ah<h
+				__White
+				Fnt.Text(v.Title,x+5,ay+y)
+				__Ember
+				SysFont.Text(v.Description,x+6,y+ay+ah-3,0,1)
+				if Awarded[K]
+					Static Var Check = Image.LoadNew("GFX/Achievements/Check.png","ACH_CHECK")
+					__White
+					Check.Stretch(x+w-ah,y+ay,ah,ah)
+				ElseIf V.AutoVar!=""
+					__SkyBlue
+					string tr=v.Trace
+					For _Vr in each(Split(v.AutoVar," "))
+						string vr=right(_vr,#_vr-1):upper()
+						switch left(_vr,1)
+						case "<" ">" "="
+							tr = Replace(tr,"_"..(Vr).."_",Lua.tostring(gv.gint[vr]))
+						case "&"
+							tr = Replace(tr,"_"..(Vr).."_",Lua.tostring(gv.gbool[vr]))
+						default
+						End
+					end
+					SysFont.Text(tr,(x+w)-5,y+ay+ah-3,1,1)
+				end
+			end
+			ay+=ah
+		end
+		if scroll>0 and Events.KeyHit(Keys.Up)
+			Scroll-=ah
+		end
+		if ay+ah>w and Events.KeyHit(Keys.Down)
+			Scroll+=ah
+		end
+	End
+	
+	Constructor
+		Medals.Game="TFT"
+		Medals.Storage="zlib"
+		Dat = NeilUse("Script/Data/General/Achievements")
+		Synchronize()
+	End
+	
+
+End
