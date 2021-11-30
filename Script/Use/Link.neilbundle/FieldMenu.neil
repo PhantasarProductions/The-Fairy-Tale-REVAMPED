@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Link.neilbundle/FieldMenu.neil
-// Version: 21.08.09
+// Version: 21.11.29
 // Copyright (C) 2020, 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -52,6 +52,11 @@ Module
 		State.Call("FLOW_FIELDMENU","LoadShop","\""..store.."\"")
 		Go(Lua.Neil.Globals.Map.Leader,"SHOP")
 	end
-		
-
+	
+	void WeaponShop(string store)
+		FML()
+		State.Call("FLOW_FIELDMENU","LoadShop","\""..store.."\"")
+		Go(Lua.Neil.Globals.Map.Leader,"WSHOP")
+	end
+	
 end
