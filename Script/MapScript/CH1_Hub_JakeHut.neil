@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.11.26
+// version: 21.12.05
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -106,12 +106,23 @@ Group MScript
 		MapText("LEO_"..({[false]="A",[true]="B"})[Done["DONE.SPOKEN.JAKEHUT.CAMP.LEO"]])
 	End
 	
-	Void Buiten()
-		Map.Kill("Buiten",true)
+	Void Buiten()		
 		If !__newgameplus
+			Map.Kill("Buiten",true)
+			Map.Kill("NPC_Marinus",true)
+		ElseIf True
+			// The actual expression comes later! You must have master Midas and be in the New Game+ for Marinus to appear.
+			Map.Kill("Buiten")
 			Map.Kill("NPC_Marinus")
 		End
-	End		 
+	End
+	
+	Void NPC_Eric()
+		MapText("ERIC")
+		FieldMenu.WeaponShop("WEAPON_ERIC")
+	End
+	
+	
 	#endregion
 	
 	
