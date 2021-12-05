@@ -1,0 +1,63 @@
+#use "libs/linkedlist"
+#use "Script/Data/Shop/MyData_ClassFile_Shop"
+
+Class ShopItem
+	ReadOnly String Tag
+	Get Var Data
+		Return Item[Tag]
+	End
+	Get Int BuyPrice
+		Return Data.ITM_ShopPrice
+	End
+	Get Int SellPrice
+		if !Data.ITM_Sellable
+			Return 0
+		End
+		Switch __skill
+			case 1
+				Return Data.ITM_ShopPrice
+			case 2
+				Return math.floor(Data.ITM_ShopPrice * 0.75)
+			case 3
+				Return math.floor(Data.ITM_ShopPrice * 0.25)
+			default
+				return 0
+		End
+	End
+	Get Bool Sellable
+		Return Data.ITM_Sellable && SellPrice>0
+	End
+	Get Bool Tradeable
+		Return Sellable && (Data.ITM_Type=="Weapon" || Data.ITM_Type=="Armor")
+	End
+	
+	Constructor(String T)
+		Tag = T
+	End
+End
+
+Module
+	Var Stock
+	Var Tradeables
+	String LoadedShop
+	String ShopTitle
+	
+	Void LoadStore(string shp)
+		LoadedShop = Shp
+		Stock = New LinkedList()
+		Tradeables = New LinkedList()
+		Var Raw = NeilUse("Script/Data/Shop/"..shp)
+		ShopTitle = Raw.Title
+		for i=1,20
+			string it = raw["Slot"..i]
+			if !Prefixed(it,"AAA_")
+				var NI = New ShopItem(it)
+				Stock.AddLast(NI)
+				If NI.Tradeable
+					Tradeables.AddLast(NI)
+				End
+			End
+		End
+	End
+
+End

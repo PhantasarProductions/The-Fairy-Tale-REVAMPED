@@ -1,0 +1,24 @@
+class MyData_MyDataClass_Shop
+	string Title
+	bool AllowTrade
+	string Slot1
+	string Slot2
+	string Slot3
+	string Slot4
+	string Slot5
+	string Slot6
+	string Slot7
+	string Slot8
+	string Slot9
+	string Slot10
+	string Slot11
+	string Slot12
+	string Slot13
+	string Slot14
+	string Slot15
+	string Slot16
+	string Slot17
+	string Slot18
+	string Slot19
+	string Slot20
+end
