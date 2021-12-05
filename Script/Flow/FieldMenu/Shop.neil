@@ -78,6 +78,9 @@ Module
 	String LoadedShop
 	String ShopTitle
 	
+	ReadOnly Var HdF = ImageFont.Obtain("BIGTEXT")
+	ReadOnly Var Fnt = ImageFont.Obtain("FNTSTATSTAT")
+	
 	Void LoadStore(string shp)
 		LoadedShop = Shp
 		Stock = New LinkedList()
@@ -96,4 +99,14 @@ Module
 		End
 	End
 
+	Void Flow(ubox,string Char,String Sit)
+		Int X  = ubox.X + 10
+		Int EX = ubox.X + ubox.W - 20
+		Int Y  = ubox.Y + 50
+		For StI in Stock.Each
+			__White
+			Fnt.Text(StI.Data.Title,X,Y)
+			Y+=35
+		End		
+	End
 End
