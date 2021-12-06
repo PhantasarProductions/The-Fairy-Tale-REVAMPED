@@ -93,15 +93,19 @@ Var __TagIndex(s,string Key)
 			Return _S
 		Default
 			if !ret[Key]	
-				Var __ItemIndex(s,string Key2)				
+				Var __ItemIndex(s, Key2)
+					Lua.assert(Lua.type(Key2)=="string","String expected as key for item "..Key.." but what I got is "..Lua.type(Key2).."("..Lua.tostring(key2)..")")
 					Key2 = Key2:upper()
 					If Key2=="GIVE"
 						Return __ItmGive(Key)
+					elseif Key2=="SELLPRICE"
+						//CSayF("Getting sell price of item %s",Key)
+						return ISGET.INT("SUB_ITEMS",sprintf("GetSellPrice(\"%s\")",Key))
 					End
 					__LoadItemState
 					
 					If Prefixed(Key2,"ALLOW_")
-						Return ISGET.BOOL(SprintF("Allow('%s','%s')",Key,Right(Key2,#Key2-6)))
+						Return ISGET.BOOL("SUB_ITEMS",SprintF("Allow('%s','%s')",Key,Right(Key2,#Key2-6)))
 					End
 					IndexTypes = IndexTypes || NeilUse("Script/Use/Misc/ItemIndexTypes")
 					Lua.assert(IndexTypes[Key2],"There is no field named "..Key2.." in the item database! ("..Key..")")

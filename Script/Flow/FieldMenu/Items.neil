@@ -38,6 +38,6 @@ Module
 	Void Flow(uBox,string CharTag,string situation)
 		String CItemTag
 		Var CItem
-		CItemTag,CItem = Item.Overview(ubox.x,ubox.y,ubox.w,ubox.h,"FIELDMENU",CharTag)
+		CItemTag,CItem = Item.Overview(ubox.x,ubox.y,ubox.w,ubox.h,situation,CharTag)
 	End
 End

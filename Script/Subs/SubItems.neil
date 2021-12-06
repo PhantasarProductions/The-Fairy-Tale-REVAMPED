@@ -268,14 +268,35 @@ Global Void Explain(it)
 	FitText.Dark(FilFnt,it.Desc,MX+10,MY+100)
 End
 
+Global Int GetSellPrice(string iTag)
+	LoadedItems[iTag] = LoadedItems[iTag] || NeilUse("Script/Data/IAA/"..iTag)
+	var s = LoadedItems[iTag]
+	if !s.ITM_Sellable
+		Return 0
+	End
+	Switch gv.gint.Skill
+		case 1
+			Return s.ITM_ShopPrice
+		case 2
+			Return math.floor(s.ITM_ShopPrice * 0.75)
+		case 3
+			Return math.floor(s.ITM_ShopPrice * 0.25)
+		default
+			return 0
+	End
+	// Only to make 100% sure something is returned, but should never be needed!
+	Return 0
+End
+
 Global String OverView(int x, int y, int w, int h, string Filters,string char)
 	// Basis
-	Static Table ListOfFilters = { ["FIELDMENU"] = {"All","Consumables","Combat","Equipment","For <ch>","Key"}, ["COMBAT"] = {"Combat"}, ["STORE"] = {"Sellable"} }
+	Static Table ListOfFilters = { ["FIELDMENU"] = {"All","Consumables","Combat","Equipment","For <ch>","Key"}, ["COMBAT"] = {"Combat"}, ["STORE"] = {"Sellable"}, ["SHOP"]={"All"}, ["WSHOP"]={"All"} }
 	Static Table CurrentFilter = {}
 	Static Table ScrollList = {}
 	Int MX = Events.MouseX()
 	Int MY = Events.MouseY()
 	Bool ML = Events.MouseHitLeft()
+	ListOfFilters.FIELD = ListOfFilters.FIELDMENU
 	Lua.assert(ListOfFilters[Filters],"No filterlist for situation: "..Filters)
 	CurrentFilter[Filters] = CurrentFilter[Filters] || 1
 	String CF = ListOfFilters[Filters][CurrentFilter[Filters]]
@@ -338,6 +359,10 @@ Global String OverView(int x, int y, int w, int h, string Filters,string char)
 			ItmFnt.Text(iData.Title,DX+MDX,DY)
 			Graphics.Color(255,180,  0)
 			ItmFnt.Text(Lua.tostring(iNum),(X+W)-(80+MDX),DY,1)
+			if Filters=="SHOP" || Filters=="WSHOP"
+				Graphics.Color(0,180,255)
+				ItmFnt.Text(Lua.tostring(GetSellPrice(iTag)).." Sh",(X+W)-(200+MDX),DY,1)
+			end
 			iY+=40
 			If Hovering
 				Explain(iData)
@@ -401,6 +426,8 @@ Global String AblCheckLearn(String Char)
 	End
 	Return ""
 End
+
+
 
 Global String AblOverview(String Char,int x, int y, int w, int h,string situation)
 	Static Table ScrollList = {}

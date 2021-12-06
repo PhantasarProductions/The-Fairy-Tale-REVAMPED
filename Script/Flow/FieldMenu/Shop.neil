@@ -46,19 +46,9 @@ Class ShopItem
 		Return Data.ITM_ShopPrice
 	End
 	Get Int SellPrice
-		if !Data.ITM_Sellable
-			Return 0
-		End
-		Switch __skill
-			case 1
-				Return Data.ITM_ShopPrice
-			case 2
-				Return math.floor(Data.ITM_ShopPrice * 0.75)
-			case 3
-				Return math.floor(Data.ITM_ShopPrice * 0.25)
-			default
-				return 0
-		End
+		Var R = Data.SellPrice
+		//CSayF("%s SellPrice = %s",Lua.type(R),Lua.tostring(R))
+		Return R
 	End
 	Get Bool Sellable
 		Return Data.ITM_Sellable && SellPrice>0
@@ -103,9 +93,12 @@ Module
 		Int X  = ubox.X + 10
 		Int EX = ubox.X + ubox.W - 20
 		Int Y  = ubox.Y + 50
+		int H  = 0
 		For StI in Stock.Each
 			__White
-			Fnt.Text(StI.Data.Title,X,Y)
+			Fnt.Text(StI.Data.Title,X+h,Y)
+			__Ember
+			Fnt.Text(sprintf("%d Sh",StI.BuyPrice),EX,Y,1)
 			Y+=35
 		End		
 	End
