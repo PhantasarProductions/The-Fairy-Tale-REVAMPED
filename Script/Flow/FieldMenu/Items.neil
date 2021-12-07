@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FieldMenu/Items.neil
-// Version: 21.08.15
+// Version: 21.12.07
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -39,5 +39,18 @@ Module
 		String CItemTag
 		Var CItem
 		CItemTag,CItem = Item.Overview(ubox.x,ubox.y,ubox.w,ubox.h,situation,CharTag)
+		if CItem
+			Switch Situation
+				Case "SHOP" "WSHOP"
+					If CItem.SellPrice>0
+						Static Var ChaChing = Audio.Obtain("CHACHING")
+						__Cash+=CItem.SellPrice
+						CItem.Has--
+						ChaChing.Play()
+					End
+				Default
+					CSayF("Nothing to do in situation '%s'",situation)
+			End
+		End
 	End
 End

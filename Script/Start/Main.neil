@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.11.04
+// version: 21.12.07
 // End License Information
 
 #macro wh_Image 1
@@ -97,6 +97,7 @@ init
 		LAsset.C(sPrintF("GFX/Menu Icons/%s.png",Ico),sPrintF("ICO_%s",ico:upper()),wh_Image)
 	End
 	LAsset.C("Audio/Shopping/ChaChing.ogg","CHACHING",wh_Audio)
+	LAsset.C("Audio/Alg/Buzz.wav","BUZZ",wh_Audio)
 	LAsset.C("Audio/Combat/CardSlide.ogg","CARDSLIDE",wh_Audio)
 
 
