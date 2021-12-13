@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField/Schedule.neil
-// Version: 21.11.03
+// Version: 21.12.14
 // Copyright (C) 2020, 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -114,7 +114,7 @@ Module
 			ElseIf prefixed(s,"MAPTEXT:")
 				MapText(right(s,#s-8))
 			ElseIf prefixed(s,"LAYER:")
-				FieldFlow.Map.Layer=right(s,#s-6)
+				FieldFlow.Map.Layer=right(s,#s-6):upper()
 			//ElseIf s=="SPAWN.GO"
 			//	Spawn.Go()
 			//ElseIf s=="SPAWN.RESET"

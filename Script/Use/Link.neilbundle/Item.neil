@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Link.neilbundle/Item.neil
-// Version: 21.12.07
+// Version: 21.12.11
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -101,6 +101,12 @@ Var __TagIndex(s,string Key)
 					elseif Key2=="SELLPRICE"
 						//CSayF("Getting sell price of item %s",Key)
 						return ISGET.INT("SUB_ITEMS",sprintf("GetSellPrice(\"%s\")",Key))
+					elseif Key2=="HASFIELD"
+						bool fuck(string K) 
+							IndexTypes = IndexTypes || NeilUse("Script/Use/Misc/ItemIndexTypes")
+							return NeilSomething(IndexTypes[K:upper()])
+						end
+						return fuck
 					End
 					__LoadItemState
 					

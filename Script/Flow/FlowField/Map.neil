@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField/Map.neil
-// Version: 21.11.09
+// Version: 21.12.14
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -113,7 +113,7 @@ Module
 	End
 	
 	Void SetLayer(String L)
-		Layer = L
+		Layer = L:upper()
 	End
 	
 	Void WalkClick(Int mX, Int mY)		
@@ -146,6 +146,7 @@ Module
 		LoadedMap = MapBundle:upper()
 		CSayF("= Loading Kthura Map: %s",MapBundle)
 		KthuraMap = Kthura.Load("Kthura/"..MapBundle)
+		KthuraMap.Remap()
 		Layer = KthuraMap.Layers[1]
 		gv.gStr.MapTitle = KthuraMap.Meta.Title
 	End

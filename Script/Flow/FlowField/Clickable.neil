@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField/Clickable.neil
-// Version: 21.10.23
+// Version: 21.12.14
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -38,7 +38,7 @@
 #use "libs/linkedlist"
 
 Module Class
-	Static Table Register = {}
+	Static Table Register 
 
 	Static Bool All(Int X,Int Y)
 		If !Register[FieldFlow.Map.Layer]
@@ -67,9 +67,12 @@ Module Class
 		For K in Each(Kill)
 			Register[K]=nil
 		End
+		print(Lua.debug.traceback()) 
+		CSay("Clickable list cleared")		
 	End
 	
 	Static Void Create(String _lay,String _tag,Int _wx,int _wy,_ae,String _ap="")
+		Register = Register || {}
 		Register[_Lay] = Register[_Lay] || new LinkedList() 
 		Register[_Lay].AddLast(Self(_tag,_wx,_wy,_ae,_ap))		
 	End
@@ -159,7 +162,7 @@ Module Class
 		WalkX       = _wx
 		WalkY       = _wy
 		ArriveEvent = _ae
-		ArriveParam = _ap
+		ArriveParam = _ap		
 	End
 	
 	

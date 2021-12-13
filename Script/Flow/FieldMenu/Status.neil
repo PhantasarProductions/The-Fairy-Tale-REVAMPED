@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FieldMenu/Status.neil
-// Version: 21.11.17
+// Version: 21.12.10
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -76,10 +76,23 @@ Module
     	StatFnt.DarkText("AP "..AP.Have.." of "..AP.Maximum,x+25,y+95,0,0) //,0,180,255)
     	// Statistics
     	For i,s in ipairs(ShowStats)
+    		Int ipy = y+100+(i*35)
     		__White
-        	StatFnt.DarkText(s,x+25,y+100+(i*35))
+        	StatFnt.DarkText(s,x+25,ipy)
         	__Ember
-        	StatFnt.DarkText(RPGChar[chartag].Stat["END_"..s]..procentteken[procent[s]==true],(x+w)-25,y+100+(i*35),1,0)
+        	StatFnt.DarkText(RPGChar[chartag].Stat["END_"..s]..procentteken[procent[s]==true],(x+w)-25,ipy,1,0)
+        	//CSayF("Sit: %s; TrShop: %s; Buy: %s; Sell: %s",Situation, Lua.tostring(TradeShop),Lua.tostring(TradeShop.TradeBuyItem), Lua.tostring(TradeShop.TradeInItem))
+        	If Situation=="WSHOP" && TradeShop && TradeShop.TradeBuyItem && TradeShop.TradeInItem && s:upper()!="SPEED"
+        		Int BuyS = TradeShop.TradeBuyItem["EQP_STAT_"..s]
+        		Int SellS = TradeShop.TradeInItem["EQP_STAT_"..s]
+        		If BuyS>SellS
+        			Graphics.Color(180,255,0)
+        			StatFnt.DarkText(sPrintF("+%3d",BuyS-SellS),x+(w div 2),ipy,2,0)
+        		ElseIf BuyS<SellS
+        			Graphics.Color(180,255,0)
+        			StatFnt.DarkText(sPrintF("-%3d",SellS-BuyS),x+(w div 2),ipy,2,0)
+        		End
+        	End
         End
         // Experience
         __White

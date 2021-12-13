@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowFieldMenu.Neil
-// Version: 21.12.07
+// Version: 21.12.10
 // Copyright (C) 2020, 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -75,8 +75,8 @@ init
 	Situations.COMBAT_ITEMS = { { ["LEFT"] = { ["ID"]="STATUS" }, ["RIGHT"] = { ["ID"]="ITEMS" } ,        ["ICONFILE"] = "ITEMS" } }
 	//Situations.COMBAT_SWITCH = {{ ["LEFT"] = { ["ID"]="STATUS" }, ["RIGHT"] = { ["ID"]="SWITCH" } ,       ["ICONFILE"] = "SWITCH" }}
 	//Situations.VAULT = {{ ["RIGHT"] = { ["ID"]="VAULT" }, ["LEFT"] = { ["ID"]="ITEMS" } ,        ["ICONFILE"] = "ITEMS" }}
-	Situations.SHOP  = {{ ["RIGHT"] = { ["ID"]="SHOP" }, ["LEFT"] = { ["ID"]="ITEMS" } ,        ["ICONFILE"] = "ITEMS" }}
-	Situations.WSHOP = {{ ["RIGHT"] = { ["ID"]="SHOP" }, ["LEFT"] = { ["ID"]="ITEMS" } ,        ["ICONFILE"] = "ITEMS" },{["ICONFILE"]="TRADE",["LEFT"] = { ["ID"]="STATUS" }, ["RIGHT"] = { ["ID"]="TRADE" }}}
+	Situations.SHOP  = {{ ["RIGHT"] = { ["ID"]="SHOP" }, ["LEFT"] = { ["ID"]="ITEMS" } ,        ["ICONFILE"] = "BUY" }}
+	Situations.WSHOP = {{ ["RIGHT"] = { ["ID"]="SHOP" }, ["LEFT"] = { ["ID"]="ITEMS" } ,        ["ICONFILE"] = "BUY" },{["ICONFILE"]="TRADE",["LEFT"] = { ["ID"]="STATUS" }, ["RIGHT"] = { ["ID"]="TRADE" }}}
 	//Situations.UPGRADE = {}
 	//Situations.UPGRADE += { ["LEFT"] = { ["ID"]="STATUS" }, ["RIGHT"] = { ["ID"]="UPGRADE" } ,        ["ICONFILE"] = "UPGRADEWEAPON" }
 	//Situations.UPGRADE += { ["LEFT"] = { ["ID"]="ABILITIES" }, ["RIGHT"] = { ["ID"]="UPGRADEARM" } ,        ["ICONFILE"] = "UPGRADEARM" }
@@ -127,6 +127,7 @@ global void SetFM(string ch,string sit)
 end
 
 global Var Shop
+global Var TradeShop
 
 global void LoadShop(string shp)
 	Situations.SHOP[1].RIGHT.MOD = Situations.SHOP[1].RIGHT.MOD || NeilUse("Script/Flow/FieldMenu/Shop")

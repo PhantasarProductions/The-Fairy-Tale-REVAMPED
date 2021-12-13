@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Link.neilbundle/Map.Neil
-// Version: 21.11.26
+// Version: 21.12.12
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -295,7 +295,11 @@ Module
 	End
 	
 	Get Bool AllowEncOff
-		return gv.gbool["ALLOWENCOUNTEROFF_"..LoadedMap] || (Chapter>0 && Prefixed(LoadedMap:upper(),"PRO_"))
+		return gv.gbool["ALLOWENCOUNTEROFF_"..LoadedMap] || (__Chapter>0 && Prefixed(LoadedMap:upper(),"PRO_"))
+	End
+	
+	Bool MapAllowEncOff(string m) 
+		return gv.gbool["ALLOWENCOUNTEROFF_"..m] || (__Chapter>0 && Prefixed(m:upper(),"PRO_"))
 	End
 	
 	Void Pop(string spot,string wind="North", instant)

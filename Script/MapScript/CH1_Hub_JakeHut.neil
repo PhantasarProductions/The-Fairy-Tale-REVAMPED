@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.12.05
+// version: 21.12.12
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -122,13 +122,23 @@ Group MScript
 		FieldMenu.WeaponShop("WEAPON_ERIC")
 	End
 	
-	
+	Void NPC_ShopHoer()
+		MapText("SHOPHOER")
+		FieldMenu.Shop("ITEM_WANDA")
+	End
 	#endregion
 	
+	Void Bye()
+		If !Done.SHOWN_TUTORIAL_WORLDMAP
+			MapText("TUTORIAL_WORLDMAP")
+			__Worldmap = "JUSTMET"
+		End
+		WorldMap.Go()
+	End
 	
 	#region Linking it all up
 	Constructor
-		ZA.TabEnter{"ExitHut","Buiten"}
+		ZA.TabEnter{"ExitHut","Buiten","Bye"}
 	End
 	#endregion
 	

@@ -1,5 +1,5 @@
 // License Information:
-// src/Tricky Script/Script/Use/Anyway.neilbundle/Algemeen.neil
+// src/Tricky Script/Script/Use/Link.neilbundle/WorldMap.neil
 // Version: 21.12.12
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
@@ -34,38 +34,22 @@
 // misrepresented as being the original software.
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
-#use "libs/Music"
-#use "libs/keys"
-
-
-#macro __White   Graphics.Color(255,255,255)
-#macro __Ember   Graphics.Color(255,180,  0)
-#macro __Black   Graphics.Color(  0,  0,  0)
-#macro __Red     Graphics.Color(255,  0,  0)
-#macro __Yellow  Graphics.Color(255,255,  0)
-#macro __SkyBlue Graphics.Color(  0,180,255)
-
-#macro __Lang gv.gstring.LANG
-#macro __Skill gv.gint.Skill
-#macro __Chapter gv.gint.Chapter
-#macro __NewGamePlus gv.gbool.newgameplus
-#macro __LevelCap gv.gint.LevelCap
-#macro __Cash gv.gint.Cash
-
-#macro __Worldmap gv.gstring.WorldMapText
-
-Global Int CapUp()
-	Int R = 6-__Skill
-	if __NewGamePlus
-		R += 3-__Skill
+Module
+	Void LoadNew()
+		If !State.Has("FLOW_WORLDMAP")
+			CSay("Worldmap is not yet loaded, so let's load it first!")
+			Loading()
+			State.Load("FLOW_WORLDMAP","Script/Flow/FlowWorldMap.neil")
+			CSay("Done!")
+		End
 	End
-	Return R
-End
+	
+	Void Unlock(string tag)
+		gv.gbool["WM_UNLOCKED_"..tag] = true
+	End
 
-// This function must always remain empty
-Global Void Niks()
+	Void Go(String Area="Delisto")
+		LoadNew()
+		State.Call("FLOW_WORLDMAP","ComeToMe","\""..Area.."\"")
+	End
 End
-
-global bool GotVocals()
-	return JCR6.EntryExists("ID/Vocals")
-end

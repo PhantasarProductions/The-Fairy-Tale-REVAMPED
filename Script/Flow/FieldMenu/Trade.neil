@@ -1,0 +1,129 @@
+// License Information:
+// src/Tricky Script/Script/Flow/FieldMenu/Trade.neil
+// Version: 21.12.11
+// Copyright (C) 2021 Jeroen Petrus Broks
+// 
+// ===========================
+// This file is part of a project related to the Phantasar Chronicles or another
+// series or saga which is property of Jeroen P. Broks.
+// This means that it may contain references to a story-line plus characters
+// which are property of Jeroen Broks. These references may only be distributed
+// along with an unmodified version of the game.
+// 
+// As soon as you remove or replace ALL references to the storyline or character
+// references, or any termology specifically set up for the Phantasar universe,
+// or any other univers a story of Jeroen P. Broks is set up for,
+// the restrictions of this file are removed and will automatically become
+// zLib licensed (see below).
+// 
+// Please note that doing so counts as a modification and must be marked as such
+// in accordance to the zLib license.
+// ===========================
+// zLib license terms:
+// This software is provided 'as-is', without any express or implied
+// warranty.  In no event will the authors be held liable for any damages
+// arising from the use of this software.
+// Permission is granted to anyone to use this software for any purpose,
+// including commercial applications, and to alter it and redistribute it
+// freely, subject to the following restrictions:
+// 1. The origin of this software must not be misrepresented; you must not
+// claim that you wrote the original software. If you use this software
+// in a product, an acknowledgment in the product documentation would be
+// appreciated but is not required.
+// 2. Altered source versions must be plainly marked as such, and must not be
+// misrepresented as being the original software.
+// 3. This notice may not be removed or altered from any source distribution.
+// End License Information
+Module
+
+	Get Var Fnt 
+		Return Shop.Fnt
+	End
+	
+	Var GetToCash(itm,string Char)
+		If Lua.type(itm)=="string"
+			Return GetToCash(Item[itm],Char)
+		End
+		Var TrItm
+		Switch itm.ITM_Type
+			Case "Weapon"
+				TrItm = Item[RPGChar[Char].Data.EQUIP_Weapon]
+			Case "Armor" 
+				TrItm = Item[RPGChar[Char].Data.EQUIP_Armor]
+			Default
+				Return False,0,Nil
+		End
+		if Prefixed(Char,"Jake")
+			Char = "Jake"
+		End
+		If (itm.ITM_EQP_For!=Char) || (!TrItm.ITM_Sellable)
+			Return False,0,Nil
+		End
+		Return True,(__cash - itm.ITM_ShopPrice) + TrItm.SellPrice,TrItm 
+	End
+	
+	Var TradeInItem = Nil
+	Var TradeBuyItem
+
+	Void Flow(ubox,string Char,String Sit)
+		Static Var ChaChing = Audio.Obtain("CHACHING")
+		Static Var Buzz     = Audio.Obtain("BUZZ")
+		Int X  = ubox.X + 10
+		Int EX = ubox.X + ubox.W - 20
+		Int Y  = ubox.Y + 50
+		TradeBuyItem = nil
+		For StI in Shop.Stock.Each
+			bool CanTrade = False
+			int ToCash = 0
+			int H  = 0
+			var _TradeInItem
+			CanTrade,ToCash,_TradeInItem = GetToCash(StI.Data,Char)
+			if Mouse.MX>X && Mouse.MX<EX && Mouse.MY>Y && Mouse.MY<Y+40
+				H = 10
+				If CanTrade
+					TradeBuyItem = StI.Data
+					TradeInItem = _TradeInItem
+				End
+				If Mouse.ML 
+					If CanTrade && ToCash>=0
+						Chaching.Play()
+						__Cash=ToCash
+						RPGChar[Char].Data["EQUIP_"..StI.Data.ITM_Type]=StI.Tag
+						Party.CheckEquip(Char)
+					Else
+						Buzz.Play()
+					End
+				End
+			end
+			__White
+			Fnt.Text(StI.Data.Title,X+h,Y)
+			If CanTrade
+				If ToCash<0
+					__Red
+					Fnt.Txt(sprintF("You are %d Shilders short for this trade",math.abs(ToCash)),EX-h,Y,1)
+				Else
+					__Ember
+					Fnt.Text(sprintf("%d Sh -> %d Sh",__Cash,ToCash),EX-h,Y,1)
+				End
+			Else
+				__Red
+				Fnt.Text("Can't trade",EX-h,Y,1)
+			End
+			Y+=35
+		End	
+		__White
+		If __Cash==1
+			Fnt.Text("1 Shilder",EX,ubox.Y+ubox.H-5,1,1)
+		Else
+			Fnt.Text(sPrintF("%s Shilders",__cash),EX,ubox.Y+ubox.H-5,1,1)
+		End
+	
+	
+	End
+	
+	Constructor
+		TradeShop = Self
+		CSayF("Tradeshop created as %s",Lua.tostring(Self))
+	End
+
+End

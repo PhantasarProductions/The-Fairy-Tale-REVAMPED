@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.11.14
+// version: 21.12.11
 // End License Information
 
 Void LoadPartySub()
@@ -50,11 +50,17 @@ Module
 		End                                          
   		Return RPGChar[ch].Stat.END_Speed.BASE_Evasion
   	End
-  	
+
+  	Void CheckEquip(string Ch="*")
+  		LoadPartySub()
+  		State.Call("PARTY","SubParty.CheckEquip",Sprintf("\"%s\"",Ch))
+  	End
+
   	Void CreateChar(String Tag, Int Level)
   		LoadPartySub()
   		State.Call("PARTY","SubParty.CreateCharacter",Sprintf("\"%s\",%d",Tag,level))
-  	End
+  		CheckEquip(Tag)
+  	End	
   	
   	Void Boxes(string char="")
   		LoadPartySub()

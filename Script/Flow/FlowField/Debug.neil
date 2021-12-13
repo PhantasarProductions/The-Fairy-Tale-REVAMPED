@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.07.31
+// version: 21.12.14
 // End License Information
 
 Table OO = { [True]="On", [False]="Off" }
@@ -54,6 +54,17 @@ End
 
 Global Void CONSOLE_Save(a)
 	FlowField.GoToSave()
+End
+
+Global Void CONSOLE_Clickables()
+	For a,b in spairs(FlowField.Clickable.Register)
+		CSayF("%s => %s",a,Lua.tostring(b))
+		//for c,d in spairs(b)
+		for c in b.Each
+			CSayF("> %s => (%05d,%05d) => %s",c.Tag,c.WalkX,c.WalkY,Lua.tostring(c.ArriveEvent))
+		end
+	End
+	CSayF("Current Layer: %s ",FlowField.Map.Layer)	
 End
 
 Module

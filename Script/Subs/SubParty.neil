@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.11.26
+// version: 21.12.11
 // End License Information
 
 #Use "Script/Use/Anyway"
@@ -218,6 +218,48 @@ Group SubParty
 			End
 		End
 		Return 0
+	End
+	
+	Void CheckEquip(string Ch)
+		// All
+		If Ch=="*"
+			For i=1,4
+				If RPGParty[i] && RPGParty[i]!=""
+					CheckEquip(RPGParty[i])
+				End
+			End
+			Return
+		End
+		Var c = RPGChar[Ch]
+		Var s = c.Stats
+		// Reset to 0
+		For stag In Each(Stats)
+			s["EQUIP_"..stag] = 0
+		End
+		For etag in Each(Elements)
+			s["EQUIP_ZZ_ER_"..etag] = 0
+		End
+		For atag in Each(Ailments)
+			s["EQUIP_ZZ_SR_"..atag] = 0
+		End
+		// Now let's get ready to rumble
+		For EQS in Each{"Weapon","Armor","Jewel"}
+			String EQI = C.Data["EQUIP_"..EQS]
+			If EQI!=""
+				Var I = Item[EQI]
+				For stag In Each(Stats)
+					If I.hasfield("EQP_Stat_"..stag)
+						s["EQUIP_"..stag] += I["EQP_Stat_"..stag]
+					End
+				End
+				For stag In Each(Elements)
+					s["EQUIP_ZZ_ER_"..stag] += I["EQP_Stat_ER_"..stag]
+				End
+				For stag In Each(Ailments)
+					s["EQUIP_ZZ_SR_"..stag] += I["EQP_Stat_SR_"..stag]
+				End
+			End
+		End
 	End
 	
 	Void Portrait(string ch,int X, int Y)
