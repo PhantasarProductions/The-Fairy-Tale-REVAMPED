@@ -466,7 +466,7 @@ Var CheckAbilityLearn(Act)
 	If Prefixed(Taggy,"JAKE")
 		Taggy="JAKE"
 	End
-	BoxText.Serial("LEARNABILITY", Taggy), "FLOW_COMBAT")
+	BoxText.Serial("LEARNABILITY", Taggy, "FLOW_COMBAT")
 	//ISSET("Bool","SUB_ITEMS",sprintf("Abilities.%s.Ability.Unlocked",Act.Executor.Tag),true)
 	Return new Action(Abl,Act.Executor.Tag,ActTar,{["Teaching"]=True})
 End
