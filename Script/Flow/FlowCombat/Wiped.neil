@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Wiped.neil
-// Version: 21.11.26
+// Version: 21.12.14
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -57,7 +57,7 @@ Group WipeDo
 		Music.PopVoid()		
 		Lua.Neil.Globals.Respawn.Wipe()
 		Flow.Current="FIELD"
-		Award.Auto()
+		Ach.Auto()
 	End
 	
 End
