@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.11.11
+// version: 21.12.14
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -59,7 +59,7 @@ Group MScript
 	End
 	
 	Void RemoveStartCrap()
-		For OTag in Each{"PRC_Jake","PRC_Marrilona","Boss_Jake","Boss_Marrilona","BlockJake","BlockMarrilona"}
+		For OTag in Each{"PRC_Jake","PRC_Marrilona","Boss_Jake","Boss_Marrilona","BlockJake","BlockMarrilona","RemoveSure"}
 			CSayF("Killing off object '%s' permanently!",OTag)
 			Map.Kill(OTag,true)
 		End
@@ -84,8 +84,10 @@ Group MScript
 	End
 	
 	Void PostBoss_Marrilona()
+		RemoveStartCrap()
 		Map.GoToMap("CH1_HUB_JAKEHUT","BLACK","Yeah")
 		Schedule.Add("Start_Marrilona")
+		__BossDone = True
 	End
 	
 	Void Leave()
@@ -100,17 +102,31 @@ Group MScript
 			End
 			Return
 		End
-		Lua.error("Leaving not yet implemented")
+		//Lua.error("Leaving not yet implemented")
+		WorldMap.Go()
 	End
+	
+	Void RemoveSure()
+		CSay("Let's see! All cleared?")
+		__BossDone = RPGParty[2]=="Marrilona"
+		If __BossDone 
+			CSay("Oops, stuff is still there?")
+			RemoveStartCrap()
+			CSay("Should be corrected now!")
+		Else
+			CSay("Boss not defeated, yet! Okay!")
+		End
+	End
+
 	
 	Constructor
 		If !__NewGamePlus
 			Map.Kill("NPC_Tai")
 		End
 		If !Done.Chapter1Announced
-			Map.Chapter(1)
+			Map.Chapter(1)		
 		End
-		ZA.TabEnter{"Boss_Jake","Boss_Marrilona"}
+		ZA.TabEnter{"Boss_Jake","Boss_Marrilona","RemoveSure"}
 		ZA.Enter("ExitSouthWest","Leave")
 		ZA.Enter("ExitNorthEast","Leave")
 	End
