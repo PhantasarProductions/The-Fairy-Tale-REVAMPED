@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Class_Hero.neil
-// Version: 21.10.28
+// Version: 21.12.14
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -462,7 +462,11 @@ Var CheckAbilityLearn(Act)
 		Default
 			Lua.error("Ability learn target error: "..ActAbl.Target)			
 	End
-	BoxText.Serial("LEARNABILITY", Act.Executor.Tag:upper(), "FLOW_COMBAT")
+	String Taggy = Act.Executor.Tag:upper()
+	If Prefixed(Taggy,"JAKE")
+		Taggy="JAKE"
+	End
+	BoxText.Serial("LEARNABILITY", Taggy), "FLOW_COMBAT")
 	//ISSET("Bool","SUB_ITEMS",sprintf("Abilities.%s.Ability.Unlocked",Act.Executor.Tag),true)
 	Return new Action(Abl,Act.Executor.Tag,ActTar,{["Teaching"]=True})
 End
