@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField/Clickable.neil
-// Version: 21.12.14
+// Version: 21.12.15
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -122,6 +122,9 @@ Module Class
 						Lay.Kill(T)
 						CSayF("= Removed random item: %s",T)
 					End
+				ElseIf Prefixed(T,"PTE_")
+					Var fuck = Spot(Lay,T)
+					Create(L,T,fuck.X,fuck.Y,FlowField.TravelEmblem,T)
 				ElseIf Prefixed(T,"CHEST_")
 					CSayF("= Chest: %s",T)
 					if Lay.Obj(T).Data["NEWGAME+"]:upper()=="ONLY" && (!__newgameplus)
