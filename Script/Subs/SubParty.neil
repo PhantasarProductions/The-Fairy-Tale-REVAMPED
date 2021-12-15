@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.12.11
+// version: 21.12.14
 // End License Information
 
 #Use "Script/Use/Anyway"
@@ -263,6 +263,7 @@ Group SubParty
 	End
 	
 	Void Portrait(string ch,int X, int Y)
+		Graphics.Scale(1,1)
 		Pictures[ch] = Pictures[ch] || Image.Load("GFX/BoxText/Portret/"..ch.."/General.png")
 		Pictures[ch].Hot(0,Pictures[ch].H)
 		Pictures[ch].Draw(X,Y)
@@ -300,7 +301,7 @@ Group SubParty
 			Boxes[i].Draw()
 			if LvScale[Ch]>0
 				LvScale[Ch] = (LvScale[Ch]+1) % 2500
-				Graphics.SetScale(math.min(LvScale[Ch] / 1000,1))
+				Graphics.SetScale(math.min(LvScale[Ch] / 500,1))
 				ImgLevelUp.Draw(Boxes[i].X+(Boxes[i].W div 2),Boxes[i].Y-5)
 			End
 			If RPGChar[Ch].Stat.Level<__LevelCap && RPGChar[Ch].Stat.Experience<=0
