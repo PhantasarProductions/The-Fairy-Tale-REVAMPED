@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Link.neilbundle/BoxText.Neil
-// Version: 21.07.29
+// Version: 21.12.15
 // Copyright (C) 2020, 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -36,7 +36,7 @@
 // End License Information
 
 #MKL_Lic     "The Fairy Tale REVAMPED for Apollo - BoxText.Neil" "Phantasar zLib License"
-#MKL_Version "The Fairy Tale REVAMPED for Apollo - BoxText.Neil" "21.07.29"
+#MKL_Version "The Fairy Tale REVAMPED for Apollo - BoxText.Neil" "21.12.15"
 
 
 void BTLoad()
@@ -71,4 +71,12 @@ module
 		Events.Flush()
 		State.Call("BOXTEXT","FlowBoxText.Serial",sprintf("\"%s\", \"%s\", \"%s\", %d",AScen,ATag,RF,ANum or 1))
 	end
+	
+	Void Tutor(string Tag,string RF="FLOW_FIELD")
+		Static Bool Loaded=False
+		If !Loaded
+			Load("TUTORIALS","TUTORIALS")
+		End
+		Serial("TUTORIALS",Tag,RF)
+	End
 end
