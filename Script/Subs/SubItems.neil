@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Subs/SubItems.neil
-// Version: 21.12.07
+// Version: 21.12.14
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -412,14 +412,16 @@ Global String AblCheckLearn(String Char)
 		NeilUse("Script/Data/Char/"..char.."/Abilities")
 	End
 	For tag,abl in pairs(Abilities[Char].Ability)
-		Print(type("ABLCHECKLEARN> "),type(abl),tag)
-		Bool ReqOk=!abl.Unlocked		
+		Print("ABLCHECKLEARN> ",type(abl),tag)
+		Bool ReqOk=!abl.Unlocked
+		Bool AllZero = True
 		For si=1,5 			
 			If Abl["Req"..si]>0
 				ReqOk = ReqOk && (!abl.Unlocked) && RPGChar[Char].Points["LVL_Skill"..si].Have>=Abl["Req"..si]
+				AllZero=False
 			End
-		End
-		if ReqOk
+		End		
+		if ReqOk && (!AllZero)
 			abl.Unlocked=true
 			Return tag
 		End
