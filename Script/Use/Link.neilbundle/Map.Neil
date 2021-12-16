@@ -87,6 +87,10 @@ Module
 	Get String Layer
 		Return ISGet.String("FLOW_FIELD","FlowField.Map.Layer")
 	End
+	
+	Set String Layer
+		ISSet("STRING","FLOW_FIELD","FlowField.Map.Layer",Value)
+	End
 
 	Get String LoadedMap
 		Return gv.gstr.LoadedMap
@@ -217,12 +221,48 @@ Module
 		MCall("FlowField.Map.SG")
 	End
 	
-	Void ObjSet(string tag,string vartag,value)
+	Void ObjSet(tag,string vartag,value)
 		MCall("FlowField.Map.ObjSet",tag,vartag,value)
 	End
-	Void SetObj(string tag,string vartag,value)
+	Void SetObj(tag,string vartag,value)
 		MCall("FlowField.Map.ObjSet",tag,vartag,value)
 	End	
+	String ObjGetString(tag,string VarTag)
+		//CSayF("ObjGetString(%s %s,%s)",Lua.type(tag),Lua.tostring(tag),VarTag)
+		switch Lua.type(Tag)
+			case "string"
+				Return ISGet.String("FLOW_FIELD",sprintf("FlowField.Map.CurLayer.Obj(\"%s\").%s",tag,VarTag))
+			case "number"
+				Return ISGet.String("FLOW_FIELD",sprintf("FlowField.Map.CurLayer.Obj(%d).%s",tag,VarTag))
+			default
+				Lua.Error(sprintf("ObjGetString(<%s>,\"%s\"): Illegal function call",Lua.type(tag),VarTag))
+		End
+	End
+	
+	Int ObjGetInt(tag,string VarTag)
+		//CSayF("ObjGetInt(%s %s,%s)",Lua.type(tag),Lua.tostring(tag),VarTag)
+		switch Lua.type(Tag)
+			case "string"
+				Return ISGet.Int("FLOW_FIELD",sprintf("FlowField.Map.CurLayer.Obj(\"%s\").%s",tag,VarTag))
+			case "number"
+				Return ISGet.Int("FLOW_FIELD",sprintf("FlowField.Map.CurLayer.Obj(%d).%s",tag,VarTag))
+			default
+				Lua.Error(sprintf("ObjGetString(<%s>,\"%s\"): Illegal function call",Lua.type(tag),VarTag))
+		End
+	End
+	
+	Get Delegate GetObjInt
+		return ObjGetInt
+	End
+	
+	Get Table ObjEnum
+		Table T = Split(ISGET.STRING("FLOW_FIELD","FlowField.Map.CurLayer.ObjEnumString"),";")
+		Int M = #T
+		for i=1,M
+			T[i]=Lua.tonumber(T[i]) || 0
+		End
+		Return T
+	End
 	
 	Void Kill(String Tag, bool perma)
 		MCall("FlowField.Kill.Kill",Tag,perma==true)
