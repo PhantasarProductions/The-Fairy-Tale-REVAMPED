@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Anyway.neilbundle/Algemeen.neil
-// Version: 21.12.12
+// Version: 21.12.15
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -51,6 +51,7 @@
 #macro __NewGamePlus gv.gbool.newgameplus
 #macro __LevelCap gv.gint.LevelCap
 #macro __Cash gv.gint.Cash
+#macro __OrbBlack gv.gint.Orbs
 
 #macro __Worldmap gv.gstring.WorldMapText
 
