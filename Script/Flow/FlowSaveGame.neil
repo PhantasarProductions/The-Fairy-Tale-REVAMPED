@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowSaveGame.neil
-// Version: 21.10.20
+// Version: 21.12.15
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -222,6 +222,12 @@ Global Void Apollo_Flow()
 	End
 	PageNames[Page] = PageNames[Page] || sPrintf("Page: %06d",Page)
 	sFont.Text(PageNames[Page],Screen.W div 2,Screen.H-5,2,1)
+	Int Ch=Events.GetChar()
+	if Ch>=32 && Ch<=127 && #PageNames[Page]<40
+		PageNames[Page] += Chr(Ch)
+	ElseIf Ch==8 && PageNames[Page]!=""
+		PageNames[Page] = Left(PageNames[Page],#PageNames[Page]-1)
+	End
 	Mouse.Draw()
 End
 
