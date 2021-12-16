@@ -172,7 +172,7 @@ Module
 		NeilDoString(SaveGame.Data["MAP.NEIL"],"SG:Map.Neil")
 	End
 	
-	Void ObjSet(string Tag,string Key,value)
+	Void ObjSet(Tag,string Key,value)
 		CurrentLayer.Obj(Tag)[Key] = value
 	End
 	
