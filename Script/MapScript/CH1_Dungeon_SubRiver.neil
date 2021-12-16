@@ -1,0 +1,131 @@
+// License Information:
+// **********************************************
+// 
+// src/Tricky Script/Script/MapScript/CH1_Dungeon_SubRiver.neil
+// (c) Jeroen Broks, 2021, All Rights Reserved.
+// 
+// This file contains material that is related
+// to a storyline that is which is strictly
+// copyrighted to Jeroen Broks.
+// 
+// This file may only be used in an unmodified
+// form with an unmodified version of the
+// software this file belongs to.
+// 
+// You may use this file for your study to see
+// how I solved certain things in the creation
+// of this project to see if you find valuable
+// leads for the creation of your own.
+// 
+// Mostly this file comes along with a project
+// that is for most part released under an
+// open source license and that means that if
+// you use that code with this file removed
+// from it, you can use it under that license.
+// Please check out the other files to find out
+// which license applies.
+// This file comes 'as-is' and in no possible
+// way the author can be held responsible of
+// any form of damages that may occur due to
+// the usage of this file
+// 
+// 
+// **********************************************
+// 
+// version: 21.12.16
+// End License Information
+
+#use "Script/Use/Anyway"
+
+QuickMeta Brug
+	index
+		If Lua.type(key)=="number"
+			Key = sprintf("#%03d",key)
+		End
+		return gv.gbool["BRUG_SUBRIVER_"..key]
+	end
+	
+	NewIndex
+		If Lua.type(key)=="number"
+			Key = sprintf("#%03d",key)
+		End
+		gv.gbool["BRUG_SUBRIVER_"..key] = Value
+	End
+End
+
+
+Group MScript
+
+	ReadOnly Bool HasDraw   = False
+	ReadOnly Bool HasUpdate = True
+	
+	ReadOnly Table Water = {}
+	ReadOnly Int Layers = 10
+	ReadOnly Int WaterSize = 256
+	ReadOnly String WaterTex = "GFX/TEXTURES/WATER/WATER.PNG"
+	ReadOnly Table Alpha = {}
+	
+	Void InitWater()
+		Progress.Create("WATER",Layers,0,0,255)
+		String Old = Map.Layer
+		For i=1,Layers
+			Progress.WATER = i
+			ConfiguringData()
+			Map.Layer = sprintf("#%03d",i)
+			Water[Map.Layer]={}
+			CSayF("Layer: %i",i)
+			Alpha[Map.Layer]=0
+			if Brug[i]
+				Alpha[Map.Layer]=255
+			elseif Map.HasTag("Brug")
+				Map.ObjSet("Brug","ForcePassible",false)
+				Map.ObjSet("Brug","Alpha",0)
+			end
+			For id in each(Map.ObjEnum)
+				//CSayF("Layer %03d; Object #%d",i,id)
+				if Map.ObjGetString(id,"TEXTURE"):upper()==WaterTex
+					CSay("= Object #%d - Part of water! Adding!",id)
+					Int insx=Map.ObjGetInt(id,"InsertX")
+					while insx<0
+						insx+=256
+					end
+					Map.SetObj(id,"InsertX",insx)
+					CSayF("= Insert correction %d",insx)
+					Water[Map.Layer]+=id
+				End
+			End			
+		End
+		Map.Layer=Old
+		CSay("Operation complete!")
+		Progress.Kill("WATER")
+	End
+	
+	Void NPC_Brug()
+		if Brug[Map.Layer]
+			MapText("STUCK")
+			Return
+		End
+		Map.ObjSet("NPC_Brug","TEXTURE","GFX/Textures/Switch/Right.png")
+		Alpha[Map.Layer]=1
+		Brug[Map.Layer]=true
+	End
+	
+	Void Update()
+		For id in each(Water[Map.Layer])
+			Map.SetObj(id,"InsertX",(Map.GetObjInt(id,"InsertX")+2)%WaterSize)
+		End
+		If Alpha[Map.Layer]>0 && Alpha[Map.Layer]<255 && Brug[Map.Layer]
+			Alpha[Map.Layer]++
+			Map.ObjSet("Brug","ForcePassible",Alpha[Map.Layer]>250)
+			Map.ObjSet("Brug","Alpha",Alpha[Map.Layer])
+		End
+		If !Done.WELCOME_SUBRIVER
+			MapText("WELCOME")
+		End
+	End
+		
+	Constructor
+		InitWater()
+	End
+		
+End
