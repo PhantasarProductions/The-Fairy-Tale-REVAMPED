@@ -123,9 +123,53 @@ Group MScript
 			MapText("WELCOME")
 		End
 	End
+	
+	#region Puzzle floor 5
+	delegate NPC_SW1
+	delegate NPC_SW2
+	delegate NPC_SW3
+	delegate NPC_SW4
+	delegate NPC_SW5
+	delegate NPC_SW6
+	int GoedeSwitch
+	Void Fout()
+		Map.GotoLayer("#001","Start")
+	End
+	Void Goed()
+		Map.ObjSet("NPC_SW"..GoedeSwitch,"TEXTURE","GFX/Textures/Switch/Left.png")
+		Alpha[Map.Layer]=1
+		Brug[Map.Layer]=true
+		For i=1,6
+			self["NPC_SW"..i]=Self.Stuck
+		End
+
+	End
+	Void Stuck()
+		MapText("STUCK")
+	End
+	Void StartPuzzle()
+		If Brug[Map.Layer]
+			For i=1,6
+				self["NPC_SW"..i]=Stuck
+			End
+			Return
+		End
+		GoedeSwitch=math.random(1,6)
+		For i=1,6
+			If i==GoedeSwitch
+				self["NPC_SW"..i]=Goed
+				Map.ObjSet("NPC_SW"..i,"TEXTURE","GFX/Textures/Switch/Right.png")
+			Else
+				self["NPC_SW"..i]=Fout
+				Map.ObjSet("NPC_SW"..i,"TEXTURE","GFX/Textures/Switch/Left.png")
+			End
+		End
+	End
+	#endregion
 		
 	Constructor
 		InitWater()
+		ZA.TabEnter{"StartPuzzle"}
 	End
 		
 End
