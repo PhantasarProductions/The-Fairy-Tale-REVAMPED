@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Class_Hero.neil
-// Version: 21.12.14
+// Version: 21.12.16
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -224,7 +224,7 @@ Class Stage_PlayerSelectTarget Extends Stage
 			Int TY = F.TY - (F.TH div 2)
 			If F.Team=="Foe"
 				ShowBar  = __skill != 3
-				BarKnown = __skill == 1 || Killed[Tag]>0
+				BarKnown = __skill == 1 || gv.gint["KILLED_"..F.File]>0
 				__Yellow
 				Fnt.DarkText(F.Letter..". ",TX,TY-3,1,1)
 			End
