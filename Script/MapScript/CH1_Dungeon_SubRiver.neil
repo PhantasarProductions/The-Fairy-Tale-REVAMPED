@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.12.16
+// version: 21.12.17
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -122,6 +122,11 @@ Group MScript
 		If !Done.WELCOME_SUBRIVER
 			MapText("WELCOME")
 		End
+		if Map.Layer=="#010"
+			Static Int Graden = 0
+			Graden = (Graden+1)%360
+			Map.ObjSet("Obstacle_TerugNaarStart","Rotation",Graden)
+		End
 	End
 	
 	#region Puzzle floor 5
@@ -166,10 +171,40 @@ Group MScript
 		End
 	End
 	#endregion
+	
+	Void Boss_Start()
+		Alpha[Map.Layer]=1
+		Brug[Map.Layer]=true
+		Map.Kill("Boss_Actor",true)
+		Map.Kill("Boss_Srtart",true)
+		Combat.QuickBoss("Enormous Snail","Killer Escargot","KillerEscargot")
+	End
+	
+	Void NPC_Melody()
+		If !Done.Met_Melody_In_SubRiver
+			MapText("MELODY1")
+			MapText("MELODY2")
+			CSayF("Given prize: %s",Lua.tostring(Item.EQP_JEWEL_SMALLTOPAZ.Give))
+			Return
+		End
+		if (RPGParty[3]=="HandoStillor" || RPGParty[4]=="HandoStillor") && (!Done.Met_Melody_In_SubRiver_HandoStillor)
+			MapText("MELODYHANDOSTILLOR")
+			Return
+		End
+		MapText("MELODYIDLE")
+	End
+	
+	Void TerugNaarStart()
+		Map.GotoLayer("#001","Einde")
+	End
+	
+	Void Bye()
+		Map.GoToMap("CH1_DUNGEON_HolyPath","BOS","FromSecret")
+	End
 		
 	Constructor
 		InitWater()
-		ZA.TabEnter{"StartPuzzle"}
+		ZA.TabEnter{ "StartPuzzle","Boss_Start","TerugNaarStart","Bye" }
 	End
 		
 End
