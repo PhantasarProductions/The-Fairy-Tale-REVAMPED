@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Effect.neil
-// Version: 21.11.10
+// Version: 21.12.16
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -266,7 +266,7 @@ Group Effect
     End
     
     Get Bool Heal
-    	If Act.Heal<=0
+    	If Act.Heal<=0 || Target.HP<=0
     		Return False
     	End
     	Int HV
