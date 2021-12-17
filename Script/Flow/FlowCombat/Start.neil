@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Start.neil
-// Version: 21.11.10
+// Version: 21.12.17
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -68,20 +68,29 @@ Module
 		FoeList.AddLast(LastFoe)
 	End
 	
+	Bool Music_DontPush = False
+	
+	Void Music_Push()
+		If !Music_DontPush
+			Music.Push()
+		End
+		Music_DontPush = False
+	End
+	
 	Void StartMusic()
 		Switch FMusic:upper()
 			Case "*RANDOM"
 				Table Bundle = JCR6.GetDir("Music/Combat/RandomEncounter")
-				Music.Push()
+				Music_Push()
 				Music.Play(Bundle[math.random(1,#Bundle)])
 			Case "*BOSS"
 				Table Bundle = JCR6.GetDir("Music/Combat/Boss")
-				Music.Push()
+				Music_Push()
 				Music.Play(Bundle[math.random(1,#Bundle)])
 			Case "*NOCHANGE" "*NOCHANGE*"
 							
 			Default
-				Music.Push()
+				Music_Push()
 				Music.Play("Music/"..FMusic)
 		End
 	End

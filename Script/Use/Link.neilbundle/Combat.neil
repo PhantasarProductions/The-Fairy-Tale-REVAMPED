@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Link.neilbundle/Combat.neil
-// Version: 21.10.25
+// Version: 21.12.17
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -67,9 +67,10 @@ Module
 		Int m = 360-math.random(0,125)
 		If BossHead!=""
 			Time = 250
+			Music.Push()
 			BossAudio = BossAudio || Audio.LoadNew("Audio/Combat/Boss Intro.ogg","BOSS_INTRO")
 			Lua.Neil.Globals.Music.Stop()
-			BossAudio.Play()
+			BossAudio.Play()			
 		End
 		
 		Repeat		
@@ -105,6 +106,7 @@ Module
 		LoopWhile Time>0 || BossPlaying()
 		Lua.Neil.Globals.Loading()
 		State.LoadNew("FLOW_COMBAT","Script/Flow/FlowCombat.neil")
+		ISSet("BOOL","FLOW_COMBAT","FlowCombat.Start.Music_DontPush",BossHead!="")
 		State.Call("FLOW_COMBAT","FlowCombat.Start.StartPreparation","nil")
 	End
 	
