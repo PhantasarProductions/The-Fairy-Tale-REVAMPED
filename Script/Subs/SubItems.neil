@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Subs/SubItems.neil
-// Version: 21.12.14
+// Version: 21.12.19
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -509,4 +509,12 @@ Global String AblOverview(String Char,int x, int y, int w, int h,string situatio
 		End
 	End
 	Return Ret
+End
+
+
+Global Void UnlockJakeShift()
+	LoadAbilityList("Jake_Fairy")
+	LoadAbilityList("Jake_Human")
+	Abilities.Jake_Fairy.Ability.ABL_HERO_JAKE_SHIFT_FAIRY.Unlocked = true
+	Abilities.Jake_Human.Ability.ABL_HERO_JAKE_SHIFT_HUMAN.Unlocked = true
 End
