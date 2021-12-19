@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField/FollowTheLeader.neil
-// Version: 21.11.13
+// Version: 21.12.19
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -65,7 +65,11 @@ Module
 						o.Y = FlowField.Map.CurrentLayer.Obj(spot..RPGParty[i]).Y
 					End
 				Else
-					o.WalkTo(spot..PlayTag[i])
+					String Tg = spot.."_".. RPGParty[i]
+					if Prefixed(RPGParty[i],"Jake_")
+						Tg = spot.."_Jake"
+					end
+					o.WalkTo(Tg)
 				End
 			End
 		End
