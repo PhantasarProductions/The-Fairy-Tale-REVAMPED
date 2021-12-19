@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField/Clickable.neil
-// Version: 21.12.15
+// Version: 21.12.18
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -101,6 +101,9 @@ Module Class
 					Var fuck = Spot(Lay,T)
 					Create(L,T,fuck.X,fuck.Y,MapText,T)
 					CSayF("= NPC_MT: %s",T)
+				Elseif T=="NPC_BlueSeal"
+					Var fuck = Spot(Lay,T)
+					Create(L,T,fuck.X,fuck.Y,FieldFlow.BlueSeal.Open)
 				ElseIf prefixed(T,"NPC_")
 					Var fuck = Spot(Lay,T)
 					Create(L,T,fuck.X,fuck.Y,Map.Script,T) //,sprintf("\"%s\"",T))
