@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowWorldMap.neil
-// Version: 21.12.13
+// Version: 21.12.18
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -48,7 +48,7 @@ Global Void ComeToMe(string R)
 		Case "Delisto"
 			Music.Play("Music/Hub/StartToFantasyInstrumental.ogg")
 		Default
-			Lua.Error("No known music for reagon "..R)
+			Lua.error("No known music for reagon "..R)
 	End
 	Flow.Current="WORLDMAP"
 End
