@@ -32,11 +32,11 @@
 // 
 // **********************************************
 // 
-// version: 21.08.19
+// version: 21.12.19
 // End License Information
 Init
 	ABLRec.NewABL("ABL_HERO_JAKE_SHIFT_FAIRY","Jake_Fairy",0,0,0,0,0,"1. Sword")
-	Abilities.Jake_Fairy.Ability.ABL_HERO_JAKE_SHIFT_FAIRY.Unlocked = true
+	Abilities.Jake_Fairy.Ability.ABL_HERO_JAKE_SHIFT_FAIRY.Unlocked = false
 	//ABL_HERO_JAKE_SHIFT_HUMAN={[2]=99,[3]=99,[4]=99,[5]=99},
     //["2. Hybrid"] = "Jake_Human", -- This will cause Fairy Jake to "share" this list with human Jake, both in this list and in spell list.
     //["9. Skills"] = "Jake_Human"
