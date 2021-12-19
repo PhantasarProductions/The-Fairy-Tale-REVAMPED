@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.11.14
+// version: 21.12.18
 // End License Information
 Module
 
@@ -50,11 +50,19 @@ Module
 	End
 	
 	Void Inc(String Ch, String Master, String Key, Int Value, Force)
+		String Ch2=Ch
 		If Prefixed(Ch,"Jake")
-			Ch = "Jake"
+			Ch2 = "Jake"
 		End
 		If Force || RPGChar[Ch].Data.Master == Master
-			gv.gInt["MASTER_"..Master.."_"..Ch.."_KEY_"..Key] += Value
+			//gv.gInt["MASTER_"..Master.."_"..Ch.."_KEY_"..Key] += Value
+			Switch Master
+				Case "Rubine"
+					CSayF("%s is studying under master Rubine and will get %d extra points",ch,value)
+					RPGChar[ch].Stat.RubinePoints += Value
+				Default
+					Lua.error("Unknown master: "..Master)
+			End
 		End
 	End
 	
