@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Start.neil
-// Version: 21.12.17
+// Version: 21.12.18
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -72,7 +72,10 @@ Module
 	
 	Void Music_Push()
 		If !Music_DontPush
+			CSay("Combat Push Music")
 			Music.Push()
+		Else
+			CSay("DontPush is set so no pushing music now!")
 		End
 		Music_DontPush = False
 	End
