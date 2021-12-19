@@ -48,6 +48,11 @@ Module
 		gv.gbool["WM_UNLOCKED_"..tag] = true
 	End
 
+	Void Lock(string tag)
+		gv.gbool["WM_UNLOCKED_"..tag] = false
+	End
+	
+	
 	Void Go(String Area="Delisto")
 		LoadNew()
 		State.Call("FLOW_WORLDMAP","ComeToMe","\""..Area.."\"")
