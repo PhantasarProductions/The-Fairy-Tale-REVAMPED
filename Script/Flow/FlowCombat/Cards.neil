@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Cards.neil
-// Version: 21.11.11
+// Version: 21.12.20
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -61,7 +61,29 @@ Module Class
 		While Lijst[idx] && (!Lijst[idx].None)
 			idx++
 		End
+		Var Old = Lijst[idx]		
 		Lijst[idx] = Self(FighterTag,Action,Joker)
+		If Old
+			Lijst[idx].X = Old.X
+		Else
+			Lijst[idx].X = -(idx*100)
+		End
+	End
+	
+	Static Void Replace(Int idx,String FighterTag,Action,Joker)
+		Var Old = Lijst[idx]		
+		Lijst[idx] = Self(FighterTag,Action,Joker)
+		if Old
+			Lijst[idx].X = Old.X
+		end
+		Lijst[idx].X = -(idx*100)
+	End
+	
+	Static Void Nullify(Int idx)
+		//Lijst[idx] = nil
+		If Lijst[idx]
+			Lijst[idx].None=true
+		End
 	End
 	
 	Static Void DelShift(Int idx=1)
