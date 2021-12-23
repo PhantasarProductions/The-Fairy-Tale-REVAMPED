@@ -59,6 +59,7 @@ Class Hero Extends Fighter
 
 	Static Void Compile(String _Tag)
 		Var WHero = new Hero()
+		WHero.InitStatusChanges()
 		CSayF("Compiling hero %s",_Tag)
 		WHero.Setup(_Tag,"Hero")		
 		WHero.Num = Party.MemNum(_Tag)

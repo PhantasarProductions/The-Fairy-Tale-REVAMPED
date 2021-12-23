@@ -127,6 +127,7 @@ Class Foe Extends Fighter
 		End
 		CSayF("Compiling Foe: %s on spot %03d",F,_num)
 		Var WFoe = new Foe()
+		WFoe.InitStatusChanges()
 		WFoe.Setup(MakeTag(_num),"Foe")
 		WFoe.File = F
 		WFoe.Num=_num
