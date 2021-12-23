@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Cards.neil
-// Version: 21.12.20
+// Version: 21.12.22
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -66,7 +66,7 @@ Module Class
 		If Old
 			Lijst[idx].X = Old.X
 		Else
-			Lijst[idx].X = -(idx*100)
+			//Lijst[idx].X = -(idx*100)
 		End
 	End
 	
@@ -120,8 +120,10 @@ Module Class
 			Int wx=(MxX-10)-(i*20)
 			If i==1
 				wx=MxX 
-			End			
-			crd.x = Math.Min(wx,crd.x+4)			
+			End
+			If i==1 || crd.x>0 || (Lijst[i-1] && Lijst[i-1].X-crd.x>100)
+				crd.x = Math.Min(wx,crd.x+4)
+			End
 		End
 	End
 	
@@ -248,9 +250,9 @@ Module Class
 		Joker = Jok
 		None = FT:upper()=="NONE"
 		Y = ToY
-		For _,C in pairs(Lijst)
-			X = math.min(X,C.X-60)
-		End
+		//For _,C in pairs(Lijst)
+		//	X = math.min(X,C.X-60)
+		//End
 	End
 	
 #endregion
