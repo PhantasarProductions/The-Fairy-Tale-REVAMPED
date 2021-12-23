@@ -1,0 +1,92 @@
+// License Information:
+// **********************************************
+// 
+// src/Tricky Script/Script/MapScript/CH1_Dungeon_Library.neil
+// (c) Jeroen Broks, 2021, All Rights Reserved.
+// 
+// This file contains material that is related
+// to a storyline that is which is strictly
+// copyrighted to Jeroen Broks.
+// 
+// This file may only be used in an unmodified
+// form with an unmodified version of the
+// software this file belongs to.
+// 
+// You may use this file for your study to see
+// how I solved certain things in the creation
+// of this project to see if you find valuable
+// leads for the creation of your own.
+// 
+// Mostly this file comes along with a project
+// that is for most part released under an
+// open source license and that means that if
+// you use that code with this file removed
+// from it, you can use it under that license.
+// Please check out the other files to find out
+// which license applies.
+// This file comes 'as-is' and in no possible
+// way the author can be held responsible of
+// any form of damages that may occur due to
+// the usage of this file
+// 
+// 
+// **********************************************
+// 
+// version: 21.12.22
+// End License Information
+
+#use "Script/Use/anyway"
+
+Group TrueScript
+
+	ReadOnly Bool HasDraw   = False
+	ReadOnly Bool HasUpdate = False
+	
+	Void GoToRoom(String R)
+		Map.GoToLayer("#"..R,"Start")
+	End
+	
+	Void Exit()
+		String L = Map.Layer
+		Map.GoToLayer("#002","From"..right(L,#L-1))
+	End
+	
+	Void ShowWalda()
+		Map.ShowByLabel("Walda")
+	End
+	
+	Void HideWalda()
+		Map.HideByLabel("Walda")
+	End
+	
+	Void Kast(string n)
+	End
+	
+	
+	Constructor
+		For i=3,5
+			ZA.Enter(sprintf("To%03d",i))
+		End
+		ZA.TabEnter{"Exit","ShowWalda","HideWalda"}
+		ZA.Enter("ShowWalda2","ShowWalda")
+		String O = Map.Layer
+		Map.Layer = "#002"
+		Map.HideByLabel("Walda")
+		Map.Layer = O
+	End
+End
+
+QuickMeta MScript
+	Index
+		If Prefixed(Key,"To") 
+			TrueScript.GoToRoom(Right(Key,#Key-2))
+			Return NIKS
+		Elseif Prefixed(Key,"NPC_Kast")
+			TrueScript.Kast(Key,Right(Key,1))
+		ElseIf Key=="NPC_Walda"
+			return NeilUse("Script/Use/Misc/Walda")
+		Else
+			Return TrueScript[Key]
+		End
+	End
+End
