@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.12.19
+// version: 21.12.21
 // End License Information
 
 #use "script/use/anyway"
@@ -80,6 +80,7 @@ Group MScript
 		MapText("POSTMANA")
 		WorldMap.Unlock("CH1FRENDOR")
 		__WorldMap="FAIRYJAKE"
+		gv.gbool.AllowShift = true
 	End
 		
 	
