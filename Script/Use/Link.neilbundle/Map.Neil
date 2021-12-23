@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Link.neilbundle/Map.Neil
-// Version: 21.12.16
+// Version: 21.12.22
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -272,6 +272,11 @@ Module
 		MCall("FlowField.Kill.KillByPrefix",Tag,perma==true)
 	End
 	
+	// Doesn't kill an object immediately, but when leaving and coming back here, the object will be gone
+	Void DelayKill(String Tag)
+		MCall("FlowField.Kill.SetPerma",Tag)
+	End
+	
 	Void HideObj(string Tag)
 		ObjSet(Tag,"Visible",false)
 	End
@@ -330,12 +335,28 @@ Module
 		MCall("FieldFlow.Chapter.Start",i)
 	End
 	
+	Get Int MapLevel
+		Switch __Game
+			Case "Star Story II"
+				Lua.error("The game is not yet properly configured for Map.MapLevel")
+			Default
+				Return 0
+		End
+	End
+	
 	Set Bool AllowEncOff
 		gv.gbool["ALLOWENCOUNTEROFF_"..LoadedMap] = Value
 	End
 	
 	Get Bool AllowEncOff
-		return gv.gbool["ALLOWENCOUNTEROFF_"..LoadedMap] || (__Chapter>0 && Prefixed(LoadedMap:upper(),"PRO_"))
+		Switch __Game
+			Case "The Fairy Tale"
+				return gv.gbool["ALLOWENCOUNTEROFF_"..LoadedMap] || (__Chapter>0 && Prefixed(LoadedMap:upper(),"PRO_"))
+			Case "Star Story II"
+				return __PartyLevel>MapLevel
+			Default
+				Lua.error("No check of allowing random encounters on or off in this game")
+		End
 	End
 	
 	Bool MapAllowEncOff(string m) 
@@ -364,6 +385,5 @@ Module
 		end
 		Meta = Lua.setmetatable({},{["__index"]=MetaIndex})
 	end
-		
 
 End
