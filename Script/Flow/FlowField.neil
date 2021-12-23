@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField.neil
-// Version: 21.12.15
+// Version: 21.12.21
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -99,6 +99,7 @@ Global Void Apollo_Flow()
 	Party.Boxes()
 	FlowField.Schedule.DoScheduled()
 	FlowField.ZoneAction.CheckAll()
+	Invoke(_real.SHIFT) // The Fairy Tale only.
 	Walk()
 	Mouse.Draw()
 End
