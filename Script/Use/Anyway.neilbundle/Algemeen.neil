@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Anyway.neilbundle/Algemeen.neil
-// Version: 21.12.15
+// Version: 21.12.22
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -37,6 +37,8 @@
 #use "libs/Music"
 #use "libs/keys"
 
+#macro __Game "The Fairy Tale"
+#macro __PartyLevel 0
 
 #macro __White   Graphics.Color(255,255,255)
 #macro __Ember   Graphics.Color(255,180,  0)
