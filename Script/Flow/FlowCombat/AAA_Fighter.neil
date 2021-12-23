@@ -34,6 +34,7 @@
 // misrepresented as being the original software.
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
+
 Class Fighter
 	Static Table ByTag = {}
 	Static Table ByTeam = {}
@@ -54,6 +55,40 @@ Class Fighter
 	Int CardResetSpot = 0
 	
 	Var StatusChanges
+	Var TrueStatusChanges
+	
+	Var EachStatusChange
+		table work = {}
+		for k,_ in spairs(work)
+			work+=k
+		end
+		Int i=0
+		Var Ret
+			i++
+			if i>#work
+				return nil,nil
+			end
+			return work[i],CombatFlow.StatusChanges.Register[work[i]]
+		End
+	End
+	
+	Void InitStatusChanges()
+		Void _set(s,string k,v)
+			k = k:upper()
+			if v
+				TrueStatusChanges[k]=true
+			else
+				TrueStatusChanges[k]=nil
+			end
+		end
+		Var _get(s,string k)
+			k = k:upper()
+			if TrueStatusChanges[k]
+				return CombatFlow.StatusChanges.Register[work[i]]
+			end
+		End
+		StatusChanges = Lua.setmetatable({},{["__index"]=_get,["__newindex"]=_set})
+	End
 	
 	String Stage = "IDLE"
 	

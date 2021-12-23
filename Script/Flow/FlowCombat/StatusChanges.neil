@@ -1,0 +1,49 @@
+Class TStatusChange
+	Delegate PreTurn
+	Delegate Draw
+	
+	Constructor
+		PreTurn = NIKS
+	End
+End
+
+
+Module
+	ReadOnly Var Register = {}
+	
+	
+	Constructor
+		Register.Poison = new TStatusChange()
+		Register.Poison.PreTurn = Void(Char)
+			int Dmg = 0
+			Switch Char.Team
+				Case "Foe"
+					Switch __skill
+						Case 1
+							Dmg = Char.HPMax div 4
+						Case 2
+							Dmg = Char.HPMax div 10
+						Case 3
+							Dmg = Char.HPMax div 100
+						Default
+					End
+				Case "Hero"
+					Switch __skill
+						Case 1
+							Dmg = Char.HPMax div 25
+						Case 2
+							Dmg = Char.HPMax div 10
+						Case 3
+							Dmg = Char.HPMax div 5
+						Default
+					End
+				Default
+			End
+			charmsg(tag,SPrintF("Poison Damage: %d",Dmg),0,180,0)
+			Char.HP-=Dmg
+		End
+		Register.Poison.Draw = Void(Char)
+			Graphics.Color(0,255,0)
+		End
+		
+End
