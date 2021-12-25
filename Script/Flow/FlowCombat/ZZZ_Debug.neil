@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.10.26
+// version: 21.12.25
 // End License Information
 Global Void CONSOLE_Fighters()
 	For F,D in sPairs(Fighter.ByTag)
@@ -127,5 +127,14 @@ Global Void CONSOLE_Points(tags)
 				//CSayF("Lua.types: %s -- Lua.typemini(%s)(value: '%s') -- Lua.typemaxi(%s) -- Lua.typehave(%s)",p,Lua.type(pnt.Minimum),pnt.Minimum,Lua.type(pnt.Maximum),Lua.type(pnt.Have))
 				CSayF("= %s; Min: %06d; Max: %06d; Hav: %06d",p,pnt.Minimum,pnt.Maximum,pnt.Have)
 			End
-	end
+	end		
 end
+
+Global Void CONSOLE_Status()
+	For F,D in sPairs(Fighter.ByTag)
+		CSayF("%s > Status table %s",F,Lua.tostring(D))
+		For S,SD in spairs(D.TrueStatusChanges)
+			CSayF("%s %s > %s (%s)",F,S,Lua.tostring(SD),Lua.tostring(D.StatusChanges[S]))
+		End
+	End
+End

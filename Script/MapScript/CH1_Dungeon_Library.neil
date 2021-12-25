@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.12.22
+// version: 21.12.25
 // End License Information
 
 #use "Script/Use/anyway"
@@ -40,10 +40,58 @@
 Group TrueScript
 
 	ReadOnly Bool HasDraw   = False
-	ReadOnly Bool HasUpdate = False
+	ReadOnly Bool HasUpdate = True
+	
+	ReadOnly Table Puzzle
+	ReadOnly Table Shelves = {["#003"]=6,["#004"]=3,["#005"]=4}
+	
+	Int KastSkipFrame = 0
+	
+	Void Update()
+		 KastSkipFrame = math.ceil(0,KastSkipFrame-1)
+	End
+	
+	Var InitPuzzle(L)
+		Var R = {}
+		CSayF("Generating puzzle for room '%s'",L)
+		For i=1,Shelves[L]
+			Int T = math.random(1,9)
+			R[i] = {["Tag"]=sprintf("%d_%d",math.random(1,4),T),["Num"]=T}
+			CSayF("= Bookshelf %d, number %d",i,T)
+		End
+		Int Goed 
+		Switch L
+			case "#003"
+				Int Goed
+				for k in each(R)
+					Goed += k.Num
+				end
+				R.Goed = Lua.tostring(Goed)
+			case "#004"
+				Int Goed
+				for k in each(R)
+					Goed = Goed * k.Num
+				end
+				R.Goed = Lua.tostring(Goed)
+			case "#005"
+				String Goed
+				for k in each(R)
+					Goed += k.Num
+				end
+				R.Goed = Goed
+			Default
+				Lua.error("No kind of puzzle solution known for room: "..L)
+		End
+		CSayF("Puzzle generated for room '%s'. And the correct answere here will be '%s'",L,R.Goed)
+		//print(Serialize("Ret",R))
+		Return R
+	End
+				
 	
 	Void GoToRoom(String R)
-		Map.GoToLayer("#"..R,"Start")
+		String L = "#"..R
+		Map.GoToLayer(L,"Start")
+		Puzzle[L] = Puzzle[L] || InitPuzzle(L)		
 	End
 	
 	Void Exit()
@@ -60,6 +108,17 @@ Group TrueScript
 	End
 	
 	Void Kast(string n)
+		If KastSkipFrame>0
+			CSayF("Kast request ignored! Wait %d more frame(s)",KastSkipFrame)
+			Return
+		End
+		String L = Map.Layer
+		Puzzle[L] = Puzzle[L] || InitPuzzle(L)
+		Var nn = Lua.tonumber(n)
+		Lua.assert(nn,sprintf("I could not properly turn string '%s' into a number (%s %s)",n,Lua.type(nn),Lua.tostring(nn)))
+		//print(serialize("Puzzle",Puzzle))
+		MapText(Puzzle[Map.Layer][nn].Tag)
+		KastSkipFrame = 6
 	End
 	
 	
@@ -82,10 +141,14 @@ QuickMeta MScript
 			TrueScript.GoToRoom(Right(Key,#Key-2))
 			Return NIKS
 		Elseif Prefixed(Key,"NPC_Kast")
-			TrueScript.Kast(Key,Right(Key,1))
+			CSayF("Shelf tagged '%s' activated",Key)
+			Map.StopWalking()
+			TrueScript.Kast(Right(Key,1))
+			Return NIKS
 		ElseIf Key=="NPC_Walda"
 			return NeilUse("Script/Use/Misc/Walda")
 		Else
+			//CSayF("TrueScript.%s",key)
 			Return TrueScript[Key]
 		End
 	End

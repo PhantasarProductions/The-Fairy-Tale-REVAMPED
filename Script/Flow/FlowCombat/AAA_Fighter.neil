@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/AAA_Fighter.neil
-// Version: 21.10.19
+// Version: 21.12.25
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -55,24 +55,26 @@ Class Fighter
 	Int CardResetSpot = 0
 	
 	Var StatusChanges
-	Var TrueStatusChanges
+	Var TrueStatusChanges = {}
 	
-	Var EachStatusChange
+	Var EachStatusChange()
 		table work = {}
-		for k,_ in spairs(work)
+		for k,_ in spairs(TrueStatusChanges)
 			work+=k
 		end
 		Int i=0
-		Var Ret
+		Var Ret()
 			i++
 			if i>#work
 				return nil,nil
 			end
-			return work[i],CombatFlow.StatusChanges.Register[work[i]]
+			return work[i],CombatFlow.StatusChanges.URegister[work[i]]
 		End
+		Return Ret
 	End
 	
 	Void InitStatusChanges()
+		TrueStatusChanges = {}
 		Void _set(s,string k,v)
 			k = k:upper()
 			if v
@@ -84,7 +86,7 @@ Class Fighter
 		Var _get(s,string k)
 			k = k:upper()
 			if TrueStatusChanges[k]
-				return CombatFlow.StatusChanges.Register[work[i]]
+				return CombatFlow.StatusChanges.URegister[k]
 			end
 		End
 		StatusChanges = Lua.setmetatable({},{["__index"]=_get,["__newindex"]=_set})
@@ -215,6 +217,17 @@ Class Fighter
 	Static Void DrawAll(Bool AllowTarget)
 		For FTag,FDat in Pairs(ByTag)
 			If FDat.DrawThis
+				__White
+				For k,d in FDat.EachStatusChange()
+					If FDat.HP<=0
+						FDat.StatusChanges[k]=nil
+						Break
+					ElseIf d
+						Invoke(d.Draw,FDat)
+					Else
+						Printf("\007WARNING! DrawAll: nil for data received on status: %s\n",k)
+					End
+				End
 				FDat.Draw()
 			End
 		End

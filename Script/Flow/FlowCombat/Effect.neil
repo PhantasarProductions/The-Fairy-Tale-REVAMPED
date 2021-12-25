@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Effect.neil
-// Version: 21.12.16
+// Version: 21.12.25
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -121,7 +121,8 @@ Group Effect
       		charmsg(tag,"NO EFFECT!",255,180,0)
       	else  
       		// Absorb
-      		for k,d in pairs(Fighter.ByTag[tag].StatusChanges ) 
+      		//for k,d in pairs(Fighter.ByTag[tag].StatusChanges )
+      		for k,d in Fighter.ByTag[tag].EachStatusChange()
       			if d.BlockHeal 
       				dmg=0
       			end
@@ -297,6 +298,19 @@ Group Effect
     	Scripts[S] = Scripts[S] || NeilUse("Script/Use/Combat/ActScript/"..Act.EffectScript)
     	Return Scripts[S](Act,Target)
     End
+    
+    Get Bool CauseStatus
+    	Bool Ret = False
+    	For k,d in pairs(FlowCombat.StatusChanges.Register)
+    		If Act["Cause"..k] && (!Target.StatusChanges[k]) && math.random(0,100)>Target.Char.SafeStat["END_ZZ_SR_"..k]
+    			Target.StatusChanges[k] = true
+    			Invoke(d.Inflict,Target)
+    			charmsg(Target.Tag,k,180,0,255)
+    			Ret = True
+    		End
+    	End
+    	Return Ret
+    End
 
 	Bool Run(_Action,_Target)
 		Bool Ret = False		
@@ -325,7 +339,9 @@ Group Effect
 		Ret = Script || Ret
 		// Target gets extra turn cards
 		Ret = XTurnCard || Ret
+		
 		// Cause status changes (must be last)
+		Ret = CauseStatus || Ret
 		
 		// Return result
 		Return Ret

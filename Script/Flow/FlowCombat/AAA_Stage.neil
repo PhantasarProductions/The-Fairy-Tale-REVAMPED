@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/AAA_Stage.neil
-// Version: 21.10.19
+// Version: 21.12.25
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -99,20 +99,37 @@ Class Stage_IDLE extends Stage
 		End
 	End
 		
+	Bool PreTurn(Card)
+		Bool SkipTurn
+		Var Char = Fighter.ByTag[Card.FightTag]
+		For k,d in Char.EachStatusChange()
+			If d
+				CSayF("Character %s in preturn event check due to status %s",Char.Tag,k)
+				Invoke(d.PreTurn,Char,k)
+				SkipTurn = SkipTurn || d.SkipTurn
+			Else
+				printf("\007WARNING! 'nil' value in status change reel (%s)",Lua.tostring(k))
+			End
+		End		
+		If SkipTurn
+			CSayF("Character %s has a skipturn set, meaning the action is cancelled",Card.FightTag)			
+		End
+		Return !SkipTurn
+	End
 
 	Void Update()		
 		Static Table AI = {}
 		CardCheck()
 		If !Cards.Present(1)
 			Cards.DelFirst()
-		ElseIf FirstCard.FightTeam=="Hero" && (!FirstCard.Action)
-			If Fighter.ByTag[FirstCard.FightTag].HP<=0
+		ElseIf FirstCard.FightTeam=="Hero" && (!FirstCard.Action) 
+			If (!PreTurn(FirstCard)) || Fighter.ByTag[FirstCard.FightTag].HP<=0
 				Cards.DelFirst()				
 			Else
 				Lua.Neil.Globals.Stage_PlayerInput_Main.ComeToMe(FirstCard.FightTag)
 			End
-		ElseIf FirstCard.FightTeam=="Foe" && (!FirstCard.Action)
-			If Fighter.ByTag[FirstCard.FightTag].HP<=0
+		ElseIf FirstCard.FightTeam=="Foe" && (!FirstCard.Action) 
+			If (!PreTurn(FirstCard)) || Fighter.ByTag[FirstCard.FightTag].HP<=0
 				Cards.DelFirst()				
 			Else
 				Var Foe = Fighter.ByTag[FirstCard.FightTag]

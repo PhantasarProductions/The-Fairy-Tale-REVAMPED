@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Combat/ActScript/RemoveAllUserCards.neil
-// Version: 21.12.21
+// Version: 21.12.25
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -44,6 +44,7 @@ Bool _Act(Act,Tar)
 			Crd.None = True
 		End
 	End
+	Return True
 End
 
 Return _Act
