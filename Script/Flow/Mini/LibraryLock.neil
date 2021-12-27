@@ -1,0 +1,169 @@
+// License Information:
+// src/Tricky Script/Script/Flow/Mini/LibraryLock.neil
+// Version: 21.12.27
+// Copyright (C) 2021 Jeroen Petrus Broks
+// 
+// ===========================
+// This file is part of a project related to the Phantasar Chronicles or another
+// series or saga which is property of Jeroen P. Broks.
+// This means that it may contain references to a story-line plus characters
+// which are property of Jeroen Broks. These references may only be distributed
+// along with an unmodified version of the game.
+// 
+// As soon as you remove or replace ALL references to the storyline or character
+// references, or any termology specifically set up for the Phantasar universe,
+// or any other univers a story of Jeroen P. Broks is set up for,
+// the restrictions of this file are removed and will automatically become
+// zLib licensed (see below).
+// 
+// Please note that doing so counts as a modification and must be marked as such
+// in accordance to the zLib license.
+// ===========================
+// zLib license terms:
+// This software is provided 'as-is', without any express or implied
+// warranty.  In no event will the authors be held liable for any damages
+// arising from the use of this software.
+// Permission is granted to anyone to use this software for any purpose,
+// including commercial applications, and to alter it and redistribute it
+// freely, subject to the following restrictions:
+// 1. The origin of this software must not be misrepresented; you must not
+// claim that you wrote the original software. If you use this software
+// in a product, an acknowledgment in the product documentation would be
+// appreciated but is not required.
+// 2. Altered source versions must be plainly marked as such, and must not be
+// misrepresented as being the original software.
+// 3. This notice may not be removed or altered from any source distribution.
+// End License Information
+
+#use "Script/Use/Anyway.neilbundle/Algemeen"
+#use "Script/Use/Anyway.neilbundle/Dev"
+#use "Script/Use/Anyway.neilbundle/Mouse"
+
+#define lldebug
+
+#if lldebug
+ReadOnly Var dbgfnt = ImageFont.Obtain("BOXTEXT")
+#fi
+ReadOnly Var BigNum = ImageFont.Obtain("ECN")
+
+Class TLine
+	Int X1
+	Int Y1
+	Int X2
+	Int Y2
+	Int R
+	Int G
+	Int B
+	Constructor
+		X1 = math.random(0,Screen.W)
+		Y1 = math.random(0,Screen.H)
+		X2 = X1
+		Y2 = Y1
+		R = math.random(0,127)
+		G = math.random(0,127)
+		B = math.random(0,127)
+	End
+	
+	Void Draw()
+		X1 = math.min(Screen.W,math.max(0,X1+math.random(-2,2)))
+		X2 = math.min(Screen.W,math.max(0,X2+math.random(-2,2)))
+		Y1 = math.min(Screen.H,math.max(0,Y1+math.random(-2,2)))
+		Y2 = math.min(Screen.H,math.max(0,Y2+math.random(-2,2)))
+		R  = math.min(127,math.max(0,R+math.random(-1,1)))
+		G  = math.min(127,math.max(0,G+math.random(-1,1)))
+		B  = math.min(127,math.max(0,B+math.random(-1,1)))
+		Graphics.Line(X1,Y1,X2,Y2)
+	End
+End
+
+
+Global String CorrectAnswer
+Global Int Digits = 8
+
+Table ANum
+QuickMeta Answer
+	index
+		if Lua.type(key)=="number"
+			ANum = ANum || {}
+			ANum[key] = ANum[key] || 0 
+			return Lua.tostring(Anum[Key])
+		end
+		switch key:upper()
+			Case "WHOLE" "EVERYTHING"
+				String Ret = ""
+				for i=1,Digits
+					Ret += Answer[i]
+				end
+				Return Ret
+			Default
+				Return "?"
+		End
+	End
+End
+
+
+//Global Void PartyClick(int i,string ch)
+//End
+
+Int CountDown = 0
+
+Void CheckCorrect()
+	Static Var AU = Audio.LoadNew("Audio/SFX/Solved.ogg","SOLVED")
+	If Answer.Whole==CorrectAnswer
+		AU.Play()
+		Int E = (Digits * 100) div __skill
+		For ch in Each{"Jake_Human","Marrilona"}
+			RPGChar[ch].Stat.Experience -= E
+			CSayF("Character %s gets %d experience points",ch,E)
+		End
+		CountDown=60
+	End
+End
+
+Global Void Apollo_Flow()
+	Static Var Lines = {}
+	Static Var Cancel = Image.LoadNew("GFX/Algemeen/Cancel.png","BUTTON_CANCEL")
+	Dev.ToConsole()
+	#if lldebug
+		Graphics.Color(255,180,0)
+		dbgfnt.Text(sprintf("%s (%s); %d digits",CorrectAnswer,Answer.Whole,digits),2,2)
+	#fi
+	Int TW = Screen.W div (Digits+1)
+	Int TH = Screen.H div 4
+	For i=1,Digits
+		Lines[i] = Lines[i] || new TLine()
+		Lines[i].Draw()
+		Int G = math.floor((i-1)/(Digits-1)*255)
+		Int R = 255 - G
+		Graphics.Color(R,G,0)
+		BigNum.Text(Answer[i],TW*i,TH,2,2)
+		Static Int AW = BigNum.TextWidth(Answer[i])
+		Static Int AH = BigNum.TextHeight(Answer[i])
+		If Mouse.MX>(TW*i)-(AW div 2) && Mouse.MX<(TW*i)+(AW div 2) && Mouse.MY>TH-(AH div 2) && Mouse.MY<TH+(AH div 2) && (CountDown==0)
+			Graphics.Color(R,G,255)
+			Graphics.Rect((TW*i)-(AW div 2),TH-(AH div 2),AW,AH,true)
+			if Mouse.ML
+				ANum[i] = (ANum[i]+1)%10
+				CheckCorrect()
+			Elseif Mouse.MR
+				ANum[i] = (ANum[i]-1)%10
+				CheckCorrect()
+			End
+		end
+		__White
+		Cancel.Draw(10,Screen.H-Cancel.H-10)
+		If Mouse.ML && Mouse.MX<10+Cancel.W && Mouse.MY>Screen.H-Cancel.H-10 && (CountDown==0)
+			Flow.Current="FIELD"
+		End
+	End	
+	Mouse.Draw()
+	If CountDown>0
+		CountDown--
+		If CountDown==0
+			Flow.Current="FIELD" 
+			//Schedule.Add("PuzzleSolved")
+			State.Call("FLOW_FIELD","FlowField.Schedule.Schedule","\"PuzzleSolved\"")
+			ANum={}
+		End
+	End
+End

@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.12.25
+// version: 21.12.27
 // End License Information
 
 #use "Script/Use/anyway"
@@ -44,6 +44,7 @@ Group TrueScript
 	
 	ReadOnly Table Puzzle
 	ReadOnly Table Shelves = {["#003"]=6,["#004"]=3,["#005"]=4}
+	ReadOnly Table Digits = {["#003"]=2,["#004"]=3,["#005"]=4}
 	
 	Int KastSkipFrame = 0
 	
@@ -66,13 +67,13 @@ Group TrueScript
 				for k in each(R)
 					Goed += k.Num
 				end
-				R.Goed = Lua.tostring(Goed)
+				R.Goed = sprintf("%02d",Goed)
 			case "#004"
-				Int Goed
+				Int Goed = 1
 				for k in each(R)
 					Goed = Goed * k.Num
 				end
-				R.Goed = Lua.tostring(Goed)
+				R.Goed = sprintf("%03d",Goed)
 			case "#005"
 				String Goed
 				for k in each(R)
@@ -121,6 +122,54 @@ Group TrueScript
 		KastSkipFrame = 6
 	End
 	
+	Get Bool Solved
+		return gv.gbool["SOLVED_LIBRARY_"..Map.Layer]
+	End
+	Set Bool Solved
+		gv.gbool["SOLVED_LIBRARY_"..Map.Layer]=value
+	End
+	
+	Void NPC_Peddestal()
+		If KastSkipFrame>0
+			CSayF("Kast request ignored! Wait %d more frame(s)",KastSkipFrame)
+			Return
+		Else
+			KastSkipFrame=20
+		End
+		If Solved
+			MapText("UNRESPONSIVE")
+			Return
+		End
+		Puzzle[Map.Layer] = Puzzle[Map.Layer] || InitPuzzle(Map.Layer)
+		If !State.Has("FLOW_MINI_LIBRARY_LOCK")
+			Loading()
+			State.Load("FLOW_MINI_LIBRARY_LOCK","Script/Flow/Mini/LibraryLock.neil")
+		End
+		ISSET("STRING","FLOW_MINI_LIBRARY_LOCK","CorrectAnswer",lua.tostring(Puzzle[Map.Layer].Goed))
+		ISSET("INT","FLOW_MINI_LIBRARY_LOCK","Digits",Digits[Map.Layer])
+		Flow.Current = "FLOW_MINI_LIBRARY_LOCK"
+	End
+	
+	Void PuzzleSolved()
+		Switch Map.Layer
+			Case "#003"
+				MapText("SLOTYES")
+				Map.Layer = "#002"
+				Map.Kill("Door4",true)
+				Map.Layer = "#003"
+			Case "#004"
+				MapText("SLOTYES")
+				Map.Layer = "#002"
+				Map.Kill("Door5",true)
+				Map.Layer = "#004"
+			case "#005"
+				Map.Kill("Door6")
+			Default
+				Lua.error("No known action for layer: "..Map.Layer)
+		End
+		Solved = True
+	End
+			
 	
 	Constructor
 		For i=3,5
