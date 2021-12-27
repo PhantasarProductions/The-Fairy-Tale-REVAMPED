@@ -36,6 +36,7 @@
 // End License Information
 
 #use "Script/Use/anyway"
+#use "Script/Use/Misc/ManaOrb"
 
 Group TrueScript
 
@@ -169,13 +170,42 @@ Group TrueScript
 		End
 		Solved = True
 	End
+	
+	Void NPC_EndTable()
+		If Done.Library_Boss_Defeated
+			Return
+		End
+		Map.Pop("Boek","North")
+		MapText("BOOK_PRE_BOSS")
+		Combat.QuickBoss("Keeper of the forbidden knowledge","Librarian","Librarian")
+		Schedule.Add("PostBoss")
+	End
+	
+	Void PostBoss()
+		MapText("BOOK_POST_BOSS")
+		WorldMap.UnLock("CH1FRENDOR")
+		ManaOrb()
+		Schedule.Add("Bye")
+		__WorldMap="LIBDONE"
+	End
+	
+	Void Bye()
+		If State.Has("FLOW_MINI_LIBRARY_LOCK")
+			State.Kill("FLOW_MINI_LIBRARY_LOCK")
+			CSay("Library lock flow killed! No longer needed, unless you enter the library again!")
+		Else
+			CSay("Library lock flow was not loaded so no need to kill it!")
+		End
+		WorldMap.Go()
+	End
+		
 			
 	
 	Constructor
 		For i=3,5
 			ZA.Enter(sprintf("To%03d",i))
 		End
-		ZA.TabEnter{"Exit","ShowWalda","HideWalda"}
+		ZA.TabEnter{"Exit","ShowWalda","HideWalda","Bye"}
 		ZA.Enter("ShowWalda2","ShowWalda")
 		String O = Map.Layer
 		Map.Layer = "#002"
