@@ -88,7 +88,8 @@ Module
     Void Appoint(String ch)
       //Console.Write('Creating point for Rubine on '..ch,255,255,255)
       //Master_DefStat(ch,"RubinePoints",0)
-      RPGChar[ch].Stats.RubinePoints=0
+      //RPGChar[ch].Stats.RubinePoints=0
+      FlowMaster.DefStat(Ch,"RubinePoints",0)
      End
      
      

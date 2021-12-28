@@ -259,6 +259,17 @@ Group FlowMaster
     	MapText(id:upper().."_BYE")
     end
     
+    Void DefStat(string Ch,string Stat,int Value)
+    	RPGChar[Ch].Stat[Stat] = Value
+    	Switch Ch
+    		Case "Jake_Human"
+    			RPGChar.Jake_Fairy.Link_Stat("Jake_Human",Stat)
+    		Case "Jake_Fairy"
+    			RPGChar.Jake_Human.Link_Stat("Jake_Fairy",Stat)
+    		Default
+    	End
+    End
+    
    	Constructor
 		Pointer = Image.LoadNew("GFX/Algemeen/CharPointer.png","CharPointer")
 		Pointer.HotBottomCenter()
