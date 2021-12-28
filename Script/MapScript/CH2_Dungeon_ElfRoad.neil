@@ -1,0 +1,88 @@
+// License Information:
+// **********************************************
+// 
+// src/Tricky Script/Script/MapScript/CH2_Dungeon_ElfRoad.neil
+// (c) Jeroen Broks, 2021, All Rights Reserved.
+// 
+// This file contains material that is related
+// to a storyline that is which is strictly
+// copyrighted to Jeroen Broks.
+// 
+// This file may only be used in an unmodified
+// form with an unmodified version of the
+// software this file belongs to.
+// 
+// You may use this file for your study to see
+// how I solved certain things in the creation
+// of this project to see if you find valuable
+// leads for the creation of your own.
+// 
+// Mostly this file comes along with a project
+// that is for most part released under an
+// open source license and that means that if
+// you use that code with this file removed
+// from it, you can use it under that license.
+// Please check out the other files to find out
+// which license applies.
+// This file comes 'as-is' and in no possible
+// way the author can be held responsible of
+// any form of damages that may occur due to
+// the usage of this file
+// 
+// 
+// **********************************************
+// 
+// version: 21.12.28
+// End License Information
+
+#use "Script/Use/Anyway"
+#use "Script/Use/Misc/Yes"
+
+#macro Freya_Recruited gv.gbool.Freya_Recruited_As_A_Master
+
+Group MScript
+
+	ReadOnly Bool HasDraw   = False
+	ReadOnly Bool HasUpdate = False
+	
+	#region Demo Check
+	Void RemoveDemoBarrier()
+		If !__Fullversion
+			Return
+		End
+		if !Done.RemovedDebugBarrier_ElfRoad
+			Map.Kill("Demo_Barrier",true)
+			Map.Kill("NPC_MT_Bouwvakker",true)
+		End
+	End
+	
+	Void DemoCheck()
+		If __Chapter<2
+			Map.Chapter(2)
+		End
+		RemoveDemoBarrier()
+	End
+	#endregion
+
+	Void NPC_Freya()
+		If !Freya_Recruited
+			MapText("FREYA_NOMASTER")
+			Int Tot = Item.ITM_Potion.Has + Item.ITM_Salve.Has 
+			If Tot>0 && Yes("Do you want to give all your salves and potions to Freya?")
+				Item.ITM_Potion.Has = 0 
+				Item.ITM_Salve.Has = 0
+				Freya_Recruited = True
+			Else
+				MapText("FREYA_NOWAY")
+				Return
+			End
+		End
+		Master.Speak("Freya")
+	End
+	
+	Constructor
+		ZA.TabEnter{"DemoCheck","RemoveDemoBarrier"}
+	End
+	
+	
+End
