@@ -98,7 +98,7 @@ Group FlowMaster
     			if teach and TeachSkill(ch,teach)
     				//local i = ItemGet(teach) --Var.C('$MASTERABLCODE'))
     				plua i = Item[teach]
-    				gv.gString.MASTERCHAR=ch //Var.D("$MASTERCHAR",RPG.GetName(ch))
+    				gv.gString.MASTERCHAR=RPGChar[ch].Name //Var.D("$MASTERCHAR",RPG.GetName(ch))
     				gv.gString.MASTERMOVE=i.Title //Var.D("$MASTERMOVE",i.Title)
     				MapText(id:upper().."_LEARN")
     			End
