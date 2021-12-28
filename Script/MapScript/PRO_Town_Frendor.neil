@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.12.19
+// version: 21.12.27
 // End License Information
 
 #use "Script/Use/Misc/Prologue"
@@ -131,6 +131,7 @@ Group MScript
 	
 	Void ComeInEvents()
 		If !Done.Frendor_MarrillonaBrandedATraitorByNostramantu
+			Map.HideObj("NPC_FandaloraOutside")
 			MapText("TREASON")
 			Map.Kill("ELDER_OUTSIDE",true)
 			Map.GoToLayer("HARRY","Spot")
@@ -148,6 +149,18 @@ Group MScript
 			Combat.Start()
 			Schedule.Add("PostHarry")
 			Return
+		End
+		// Library_Boss_Defeated
+		If !Done.Elder_Went_For_Elven_Lands
+			Map.HideObj("NPC_FandaloraOutside")
+			MapText("PLEASEGO")
+			WorldMap.UnLock("CH2ELFROAD")
+			WorldMap.Lock("CH1FRENDOR")
+			WorldMap.Go()
+			__WorldMap = "ELDERGONE"
+			Map.Kill("FANDALORA_ENTRANCE",true)
+			Return
+			//Lua.error("Elder going to the Elfen Lands not yet scripted")
 		End
 		Lua.error("Current entrance allowance not yet scripted")
 	End
