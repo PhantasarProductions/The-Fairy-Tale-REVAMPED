@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/AAA_Stage.neil
-// Version: 21.12.25
+// Version: 21.12.28
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -122,7 +122,12 @@ Class Stage_IDLE extends Stage
 		CardCheck()
 		If !Cards.Present(1)
 			Cards.DelFirst()
-		ElseIf FirstCard.FightTeam=="Hero" && (!FirstCard.Action) 
+		ElseIf FirstCard.FightTeam=="Hero" && (!FirstCard.Action)
+			If Fighter.ByTag[FirstCard.FightTag].Char.Data.Master=="Freya" && __skill<3
+				Int Regen = 300 div __skill
+				Fighter.ByTag[FirstCard.FightTag].HP += Regen
+				FlowCombat.CharMsg(FirstCard.FightTag,Lua.tostring(Regen),0,255,0)
+			End
 			If (!PreTurn(FirstCard)) || Fighter.ByTag[FirstCard.FightTag].HP<=0
 				Cards.DelFirst()				
 			Else
