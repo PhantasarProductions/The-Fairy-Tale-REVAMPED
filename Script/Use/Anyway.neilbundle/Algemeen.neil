@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Anyway.neilbundle/Algemeen.neil
-// Version: 21.12.22
+// Version: 21.12.28
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -36,6 +36,9 @@
 // End License Information
 #use "libs/Music"
 #use "libs/keys"
+
+// Not likely to release a demo anymore, but hey, this way I can make things sure, eh?
+#macro __FullVersion True
 
 #macro __Game "The Fairy Tale"
 #macro __PartyLevel 0
