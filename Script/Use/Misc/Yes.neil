@@ -1,0 +1,90 @@
+// License Information:
+// src/Tricky Script/Script/Use/Misc/Yes.neil
+// Version: 21.12.28
+// Copyright (C) 2021 Jeroen Petrus Broks
+// 
+// ===========================
+// This file is part of a project related to the Phantasar Chronicles or another
+// series or saga which is property of Jeroen P. Broks.
+// This means that it may contain references to a story-line plus characters
+// which are property of Jeroen Broks. These references may only be distributed
+// along with an unmodified version of the game.
+// 
+// As soon as you remove or replace ALL references to the storyline or character
+// references, or any termology specifically set up for the Phantasar universe,
+// or any other univers a story of Jeroen P. Broks is set up for,
+// the restrictions of this file are removed and will automatically become
+// zLib licensed (see below).
+// 
+// Please note that doing so counts as a modification and must be marked as such
+// in accordance to the zLib license.
+// ===========================
+// zLib license terms:
+// This software is provided 'as-is', without any express or implied
+// warranty.  In no event will the authors be held liable for any damages
+// arising from the use of this software.
+// Permission is granted to anyone to use this software for any purpose,
+// including commercial applications, and to alter it and redistribute it
+// freely, subject to the following restrictions:
+// 1. The origin of this software must not be misrepresented; you must not
+// claim that you wrote the original software. If you use this software
+// in a product, an acknowledgment in the product documentation would be
+// appreciated but is not required.
+// 2. Altered source versions must be plainly marked as such, and must not be
+// misrepresented as being the original software.
+// 3. This notice may not be removed or altered from any source distribution.
+// End License Information
+Table V2 = {1,0,-1}
+Table Buttons = {[true]={"Yes","No","Cancel"}, [false]={"Yes","No"}}
+Var Fnt = ImageFont.Obtain("BIGTEXT")
+
+ReadOnly Var Pics = {["Yes"] = Image.LoadNew("GFX/Algemeen/Yes.png","BUTTON_YES"), ["No"] = Image.LoadNew("GFX/Algemeen/No.png","BUTTON_NO"), ["Cancel"]=Image.LoadNew("GFX/Algemeen/Cancel.png","BUTTON_CANCEL") }
+
+Init
+	for _,P in pairs(Pics)
+		P.HotCenter()
+	End
+End
+
+// 2 return values. 
+// 1 = True if Yes was clicked otherwise false
+// 2 = 1 if Yes was clicked, 0 if no was clicked and -1 if Cancel was clicked
+Var _R(String Question,AllowCancel,String _Flow="FLOW_FIELD")
+	Repeat
+		Graphics.Cls()
+		Events.Poll()
+		Bool AC = ValueIsSomething(AllowCancel)
+		Int Hover = 0
+		State.Call(_Flow,"BoxText_Back","nil")
+		Static Int X = 20
+		Static Int Y = 20
+		Static Int W = Screen.W - (X*2)
+		Static Int H = Screen.H - (Y*2)
+		Int BW = W div (#Buttons[AC]+1)
+		__Black
+		Graphics.Alpha(100)
+		Graphics.Rect(X,Y,W,H)
+		Graphics.Alpha(255)
+		__White
+		Fnt.Text(Question,Screen.W div 2,Y+40,2)
+		For i,b in pairs(Buttons[AC])
+			Var Pic = Pics[b]
+			Int PY = math.floor(Y+(H*0.70))
+			Int PX = i*BW
+			Int HW = Pic.W div 2
+			Int HH = Pic.H div 2
+			Pic.Draw(PX,PY)
+			If Mouse.MX>PX-HW && Mouse.MY>PY-HH && Mouse.MX<PX+HW && Mouse.MY<PY+HH
+				Hover = i
+			End
+		End
+		If Mouse.ML && Hover>0
+			Return Hover==1,V2[Hover]
+		End
+		Mouse.Draw()
+		Graphics.Flip()
+		FPS.WaitMinTicks()
+	Forever
+End
+
+Return _R
