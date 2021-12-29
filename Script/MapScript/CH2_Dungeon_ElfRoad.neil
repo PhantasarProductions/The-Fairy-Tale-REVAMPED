@@ -109,6 +109,10 @@ Group MScript
 	End
 	#endregion
 	
+	Get Delegate NPC_Walda
+		Return NeilUse("Script/Use/Misc/Walda")
+	End
+	
 	
 	Constructor
 		ZA.TabEnter{"DemoCheck","RemoveDemoBarrier","North","ExitWest","HandoStillorEvent"}
