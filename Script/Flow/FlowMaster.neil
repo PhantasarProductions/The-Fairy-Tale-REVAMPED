@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowMaster.neil
-// Version: 21.11.17
+// Version: 21.12.28
 // Copyright (C) 2016, 2017, 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -314,8 +314,9 @@ Global Void Apollo_Flow()
         Graphics.Color(col[rij][1],col[rij][2],col[rij][3])
         SFnt.DarkText(value.."%",gx[rij][2],gy[rij],1,0)
         gy[rij]=gy[rij]+20
-    end
-    for i,l in ipairs(FlowMaster.cMaster.Desc or {}) 
+    end    
+    for i,l in ipairs(FlowMaster.cMaster.Desc or {})
+    	Graphics.Color(255,255-math.floor((i/#FlowMaster.cMaster.Desc)*75),255-math.floor((i/#FlowMaster.cMaster.Desc)*255))
         CFnt.DarkText(l,20,gy[1]+20+(i*20))
     end    
     FlowMaster.Eyes(FlowMaster.cMaster.id,Screen.W-40,40)
@@ -393,6 +394,7 @@ Global Void MasterData(string id,int sizes_x,int sizes_y,int sizes_w,int sizes_h
 		gy[rij]=gy[rij]+20
      end
      for i,l in ipairs(mymaster.Desc || {})
+     	Graphics.Color(255,255-math.floor((i/#mymaster.Desc)*75),255-math.floor((i/#mymaster.Desc)*255))
      	CFnt.DarkText(l,100,gy[1]+20+(i*20))
      end
      FlowMaster.Abl(id,gx[2][1],gy[2]+20)
