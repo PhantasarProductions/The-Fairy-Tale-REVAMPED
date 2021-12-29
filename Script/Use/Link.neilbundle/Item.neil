@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Link.neilbundle/Item.neil
-// Version: 21.12.28
+// Version: 21.12.29
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -151,9 +151,11 @@ Var Ret = Lua.setmetatable({},{["__index"]=__TagIndex,["__newindex"]=__TagNewInd
 Global Bool TeachSkill(String Ch,String Skl)
 	State.Call("SUB_ITEMS","LoadAbilityList",sprintf("'%s'",Ch))
 	If ISGet.Bool("SUB_ITEMS",sprintf("Abilities.%s.Skill['%s']~=nil",ch,skl))
+		CSayF("Teaching skill %s to %s rejected! Character already has it!",skl,ch)
 		Return False
 	End
-	State.Call("SUB_ITEMS","AblRec.NewSkill",sprintf("'%s','%s'",Ch,Skl))
+	State.Call("SUB_ITEMS","AblRec.NewSkill",sprintf("'%s','%s'",skl,Ch))
+	CSayF("Teaching skill %s to %s!",skl,ch)
 	Return True
 End
 
