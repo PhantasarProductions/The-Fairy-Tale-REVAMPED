@@ -1,0 +1,152 @@
+// License Information:
+// **********************************************
+// 
+// src/Tricky Script/Script/Data/Masters/Freya.neil
+// (c) Jeroen Broks, 2021, All Rights Reserved.
+// 
+// This file contains material that is related
+// to a storyline that is which is strictly
+// copyrighted to Jeroen Broks.
+// 
+// This file may only be used in an unmodified
+// form with an unmodified version of the
+// software this file belongs to.
+// 
+// You may use this file for your study to see
+// how I solved certain things in the creation
+// of this project to see if you find valuable
+// leads for the creation of your own.
+// 
+// Mostly this file comes along with a project
+// that is for most part released under an
+// open source license and that means that if
+// you use that code with this file removed
+// from it, you can use it under that license.
+// Please check out the other files to find out
+// which license applies.
+// This file comes 'as-is' and in no possible
+// way the author can be held responsible of
+// any form of damages that may occur due to
+// the usage of this file
+// 
+// 
+// **********************************************
+// 
+// version: 21.12.28
+// End License Information
+
+Module
+
+	Const String Name = "Freya"
+	Const String ID   = "Freya"
+
+	Get Bool requirement() 
+		// Please note the event that removes all salves and potions 
+		// (which Freya demands) already took place before this script is 
+		// loaded at all!
+		Return true
+	End
+	
+	Int FreyaL(ch)
+		Int ret = 0
+		If (ch=="Jake_Fairy" || ch=="Jake_Human" || ch=="Marrilona") && RPGChar[ch].Points.SK_LVL_4.Have>=1
+			ret = RPGChar[ch].Points.SK_LVL_4.Have
+		ElseIf ch=="HandoStillor" 
+			ret = RPGChar[ch].Points.SK_LVL_2.Have 
+		End
+		Return ret
+	End
+	
+	Int FreyaM(ch)
+		Int ret = 0
+		If (ch=="Jake_Fairy" || ch=="Jake_Human" || ch=="Marrilona") && RPGChar[ch].Points.SK_LVL_4.Have>=1
+			ret = RPGChar[ch].Points.SK_LVL_4.Maximum
+		ElseIf ch=="HandoStillor" 
+			ret = RPGChar[ch].Points.SK_LVL_2.Maximum 
+		End
+		Return ret
+	End
+
+	Var Abl	
+	Void DefAbl()	
+		abl = {}
+		abl[ 75] = "abl_master_freya_rejuvenate"
+		abl[150] = "abl_master_freya_vigor"
+		abl[200] = "abl_master_freya_ultraheal"
+	End
+	
+	Bool All = False
+	// Should return true if master actually decides to teach something	
+	Var Teach(string Ch)
+		Int lv       = FreyaL(ch)
+		Int LvM      = FreyaM(ch)
+		Int verschil = lv - RPGChar[ch].Stat.FreyaInit
+		//local all      = true
+		Bool maylearn = true
+		Var rabl     = nil
+		If Lv==LvM
+			// Max level reached, then always teach
+			verschil=201
+		End
+		//-- for i,a in pairs(Freya._abl) do all = all and CVV('&MASTER.FREYA.'..abl) end
+		For i,a in pairs(abl)
+			If (i<=lv or i<=verschil*((4-__skill)*3)) and maylearn and (! Done["MASTER.FREYA."..ch.."."..a])
+				maylearn=false
+				rabl=a
+			Else
+				all = all and gv.gbool["MASTER.FREYA."..a]
+			End
+		End
+		Return rabl
+		//,all
+	End
+	
+	Void Appoint(string ch)
+		Int l = FreyaL(ch)
+		CSay("Creating init point "..l.." for Freya on "..ch) //,255,255,255)
+		FlowMaster.DefStat(ch,"FreyaInit",l)
+	End
+	
+	//function Freya.dismiss(ch)
+	//RPG.DelStat(ch,"FreyaInit")
+	ReadOnly Delegate Dismiss = NIKS
+	
+	ReadOnly Table Desc = {"Freya is a Fairy Healer","One of the best of her race","She'll teach you powerful spells if you","practice water magic, or","your powers to healing gods","","Dandor cannot learn new spells here"}
+
+	Var Stats
+	Constructor
+		stats = {}
+		// -- Str -40%, HP +100%, End -75%, Int +50%, Res -75%, Acc -80%, Eva -100%
+		Stats.Power = -40
+		Stats.Endurance = -75
+		Stats.Intelligence = 50
+		Stats.Resistance = -75
+		Stats.Accuracy = -80
+		Stats.Evasion = -100
+		Stats.HP = 100
+		Stats.AP = 25
+		
+		If __skill!=3
+			Desc[#Desc+1]=""
+			Desc[#Desc+1]="When studying under Freya"
+			Desc[#Desc+1]=sprintf("You'll recover %d HP",300 div __skill)
+			Desc[#Desc+1]="At the start of each turn"
+		End
+		DefAbl()
+	End
+	
+	
+	String ShowScore(ch)
+		Switch ch
+			Case "Dandor" 
+				Return "Cannot Learn"
+			Case "HandoStillor"
+				Return "Weniaria"
+			Default
+				Return "Water" 
+		End
+	End
+	
+	ReadOnly Bool HideRates = true
+
+end
