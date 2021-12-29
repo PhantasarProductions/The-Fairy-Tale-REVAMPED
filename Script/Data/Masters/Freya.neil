@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.12.28
+// version: 21.12.29
 // End License Information
 
 Module
@@ -84,10 +84,10 @@ Module
 		//local all      = true
 		Bool maylearn = true
 		Var rabl     = nil
-		If Lv==LvM
+		//If Lv==LvM
 			// Max level reached, then always teach
-			verschil=201
-		End
+		//	verschil=201
+		//End
 		//-- for i,a in pairs(Freya._abl) do all = all and CVV('&MASTER.FREYA.'..abl) end
 		For i,a in pairs(abl)
 			If (i<=lv or i<=verschil*((4-__skill)*3)) and maylearn and (! Done["MASTER.FREYA."..ch.."."..a])
