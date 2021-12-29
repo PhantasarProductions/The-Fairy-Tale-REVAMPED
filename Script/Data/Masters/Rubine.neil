@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.11.14
+// version: 21.12.28
 // End License Information
 
 Module
@@ -62,10 +62,10 @@ Module
 	Bool All = False
 
 	// Should return true if master actually decides to teach something	
-	Bool Teach(string Ch)
+	Var Teach(string Ch)
     	all = true
     	bool maylearn = true
-    	bool rabl = false
+    	var rabl = false
     	for truereq,abl in pairs(abl) 
     		// DEFINITELY NOT ipairs!!!!!
     		int req 
