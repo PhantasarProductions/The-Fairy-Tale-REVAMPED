@@ -190,9 +190,18 @@ Class ABLRec
 End
 
 Global Void SaveInventory()
-	String Data = "Init\n"
+	String Data = "Init\n// Inventory\n"
 	For k,v in sPairs(Inventory)
 		Data += sPrintf("\tInventory[\"%s\"] = %4d\n",k,v)
+	End
+	Data += "\n\n//Skills\n"
+	For ch,abl in spairs(Abilities)
+		// Prevent dupes on Jake
+		If Ch!="Jake_Fairy"
+			For tag,_ in spairs(Abl.Skill)
+				Data += sprintf("\tAblRec.NewSkill(\"%s\",\"%s\")\n",tag,ch)
+			End
+		End
 	End
 	Data += "End\n\n"
 	SaveGame.Data["INVENTORY.NEIL"] = Data
