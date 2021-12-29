@@ -197,10 +197,21 @@ Global Void SaveInventory()
 	Data += "\n\n//Skills\n"
 	For ch,abl in spairs(Abilities)
 		// Prevent dupes on Jake
-		If Ch!="Jake_Fairy"
-			For tag,_ in spairs(Abl.Skill)
-				Data += sprintf("\tAblRec.NewSkill(\"%s\",\"%s\")\n",tag,ch)
-			End
+		//If Ch!="Jake_Fairy"
+		Switch Ch
+			Case "Jake_Fairy" "Nostramantu_Human"
+				// Do Nothing
+			Case "Krandar"
+				Lua.error("Krandar not yet set up")
+			Case "Nostramantu"
+				Lua.error("Nostramantu (Elder from tagged 'Nostramantu') not yet set up")
+			Case "Feenalaria_Human"
+				Lua.error("Feenalaria (Feenalaria_Human) not yet set up")
+			Default
+				Data += sprintf("\tLoadAbilityList(\"%s\")\n",Ch)
+				For tag,_ in spairs(Abl.Skill)
+					Data += sprintf("\tAblRec.NewSkill(\"%s\",\"%s\")\n",tag,ch)
+				End
 		End
 	End
 	Data += "End\n\n"
