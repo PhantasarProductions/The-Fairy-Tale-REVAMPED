@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Link.neilbundle/Map.Neil
-// Version: 21.12.22
+// Version: 21.12.29
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -297,6 +297,12 @@ Module
 	Void ShowByLabel(string Label)
 		MCall("FlowField.Map.CurLayer.ShowByLabel",Label)
 	End
+	Void HideButLabel(string label)
+		Mcall("FlowField.Map.CurLayer.HideButLabel",label)
+	end
+	Void ShowButLabel(string label)
+		Mcall("FlowField.Map.CurLayer.ShowButLabel",label)
+	end
 	
 	Void ReMap()
 		MCall("FlowField.Map.KthuraMap.ReMap","nil")
@@ -365,6 +371,13 @@ Module
 	
 	Void Pop(string spot,string wind="North", instant)
 		MCall("FieldFlow.FollowTheLeader.Pop",Spot,Wind,instant==true)
+	End
+	
+	Void MustHave(string Tag,String BaseTex)
+		If !HasTag(Tag)
+			Spawn(Tag,"PLAYER")
+			ObjSet(Tag,"TEXTURE",BaseTex)
+		End
 	End
 	
 	CONSTRUCTOR

@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.12.28
+// version: 21.12.29
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -80,8 +80,38 @@ Group MScript
 		Master.Speak("Freya")
 	End
 	
+	#region Leave
+	Void ExitWest()
+		WorldMap.Go()
+	End
+	
+	Void North()
+		WorldMap.Unlock("CH2ISKARDERIU")
+		WorldMap.Go()
+	End
+	#endregion
+	
+	#region Hando Stillor
+	Void HandoStillorEvent()
+		If !Done.HandoStillorJoinedTheParty
+			Map.HideButLabel("HS")
+			Map.MustHave("PLAYER2","GFX/Actors/Bundled/Player/Marrilona.East.jpbf")
+			Map.ShowObj("PLAYER")			
+			Map.ShowObj("PLAYER2")			
+			Map.Pop("Stil2")
+			MapText("STILLOR_1")
+			Map.ShowButLabel("Secret")
+			Map.Pop("Stil2")
+			MapText("STILLOR_2")
+			Map.Kill("HandoStillor",true)
+			RPGParty[3]="HandoStillor"
+		End
+	End
+	#endregion
+	
+	
 	Constructor
-		ZA.TabEnter{"DemoCheck","RemoveDemoBarrier"}
+		ZA.TabEnter{"DemoCheck","RemoveDemoBarrier","North","ExitWest","HandoStillorEvent"}
 	End
 	
 	
