@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Subs/SubItems.neil
-// Version: 21.12.19
+// Version: 21.12.29
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -35,6 +35,7 @@
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
 
+#use "Script/Use/Anyway.neilbundle/Dev"
 #use "Script/Data/IAA/MyData_ClassFile_IAA"
 #use "Libs/Fittext"
 
@@ -129,7 +130,7 @@ Class ABLRec
 	
 	Static Void NewAbl(string T,string Ch,int R1, int R2, int R3, int R4, int R5,string Cat)
 		T = T:upper()
-		Abilities[ch] = Abilities[ch] || { ["Ability"]={}, ["Skill"]={} }
+		Abilities[ch] = Abilities[ch] || { ["Ability"]={}, ["Skill"]={} }		
 		Abilities[ch].Ability[T] = new ABLRec(T,Ch,R1,R2,R3,R4,R5,Cat)
 		If ch=="Jake"
 			Abilities.Jake_Human = Abilities.Jake_Human || { ["Ability"]={}, ["Skill"]={}}
@@ -156,10 +157,12 @@ Class ABLRec
 			Abilities[ch] = Abilities[ch] || { ["Ability"]={}, ["Skill"]={} }
 		End
 		// Conflict prevention
-		If Abilities[ch].Skill[T]			
+		If Abilities[ch].Skill[T]
+			CSayF("Conflict on new skill for %s (%s)",ch,T)
 			Return
 		End
-		Abilities[ch].Skill[T] = new ABLRec(T,ch,0,0,0,0,0,"9. Skills")		
+		Abilities[ch].Skill[T] = new ABLRec(T,ch,0,0,0,0,0,"9. Skills")
+		CSayF("Skill %s added to %s as %s (Skill list: %s)",T,ch,Lua.tostring(Abilities[ch].Skill[T]),Lua.tostring(Abilities[ch].Skill))
 	End
 	
 	Static Void CopyHumanJake(string Ch,string LinkSkill,Force)
@@ -245,7 +248,7 @@ Global Var ItemField(string ItTag,ItField)
 	ItTag = ItTag:upper()
 	ItField = ItField:upper()
 	Switch ItField
-		Case "HAS" "NUMBER" "AMOUNT"
+		Case "HAS" "NUMBER" "AMOUNT" "HAVE" 
 			Return Inventory[itTag] || 0
 		Default
 			LoadedItems[itTag] = LoadedItems[itTag] || NeilUse("Script/Data/IAA/"..ItTag)
@@ -397,7 +400,7 @@ Global Void QuickWork(Table AT,String Char)
 	End
 End
 
-Void LoadAbilityList(String Char,Force)
+Global Void LoadAbilityList(String Char,Force)
 	If (!Abilities[char]) || Force
 		NeilUse("Script/Data/Char/"..char.."/Abilities")
 	End
@@ -443,7 +446,7 @@ Global String AblOverview(String Char,int x, int y, int w, int h,string situatio
 	CurrentCat[char] = CurrentCat[char] || 1
 	__ScrollAY = __ScrollAY || 0
 	Int cw = w div (#Abilities[Char].Cat+1)
-	String ctn = Abilities[Char].Cat[CurrentCat[Char]]	
+	String ctn = Abilities[Char].Cat[CurrentCat[Char]]
 	For i,ct in ipairs(Abilities[Char].Cat)
 		Int CX = i*cw 
 		Int CW = FilFnt.TextWidth(ct)
@@ -467,10 +470,13 @@ Global String AblOverview(String Char,int x, int y, int w, int h,string situatio
 	Var ALs = Abilities[Char].Ability
 	If CurrentCat[char]==#Abilities[Char].Cat
 		Als = Abilities[Char].Skill
+		//Lua.error("Skill!") // For debug use ONLY!
 	End	
+	//CSayF("Listing char %s category %s(%s)",Char,CTN,lua.tostring(Als))
 	For Abl,Dat In sPairs(Als)
 		Int DX = 0
 		Bool Hover
+		//CSayF("Check '%s'/'%s' (%s)",Dat.Category,CTN,Lua.tostring(Als)) 
 		If Dat.Category==CTN
 			If MX>X && MY>AY && MX<X+W-80 && MY<AY+40
 				DX = 20
