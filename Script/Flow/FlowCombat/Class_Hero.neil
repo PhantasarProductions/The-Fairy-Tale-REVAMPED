@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Class_Hero.neil
-// Version: 21.12.24
+// Version: 21.12.30
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -145,7 +145,7 @@ Class Stage_PlayerSelectTarget Extends Stage
 		OldMouseX,OldMouseY = Mouse.MX,Mouse.MY
 		Switch WantTarget
 			Case "OS"
-				Targets = Targets || {Act.Act.ExeTag}
+				Targets = Targets || {Act.ExeTag}
 			Case "EV" 
 				If !Targets
 					Targets = {}
