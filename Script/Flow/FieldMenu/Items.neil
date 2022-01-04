@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FieldMenu/Items.neil
-// Version: 21.12.07
+// Version: 21.12.31
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -38,6 +38,7 @@ Module
 	Void Flow(uBox,string CharTag,string situation)
 		String CItemTag
 		Var CItem
+		Static Var Buzz = Audio.Obtain("BUZZ")
 		CItemTag,CItem = Item.Overview(ubox.x,ubox.y,ubox.w,ubox.h,situation,CharTag)
 		if CItem
 			Switch Situation
@@ -47,6 +48,58 @@ Module
 						__Cash+=CItem.SellPrice
 						CItem.Has--
 						ChaChing.Play()
+					End
+				Case "FIELD"
+					String CH = CharTag
+					If Prefixed(CH,"Jake_")
+						CH="Jake"
+					End
+					Switch CItem.ITM_Type
+						Case "Weapon"
+							If CH==CItem.ITM_EQP_For
+								String old = RPGChar[CharTag].Data.EQUIP_Weapon
+								If !Item[Old].Give
+									CSayF("Unequipping item %s failed! Overstocking?",CitemTag)
+									Buzz.Play()
+								Else
+									RPGChar[CharTag].Data.EQUIP_Weapon = CItemTag
+									Item[CItemTag].Has--
+								End
+							Else
+								CSayF("Item %s is meant for %s and not for %s",CitemTag,CItem.ITM_EQP_For,Ch)
+								Buzz.Play()
+							End
+						Case "Armor"
+							If CH==CItem.ITM_EQP_For
+								String old = RPGChar[CharTag].Data.EQUIP_Armor
+								If !Item[Old].Give
+									CSayF("Unequipping item %s failed! Overstocking?",CitemTag)
+									Buzz.Play()
+								Else
+									RPGChar[CharTag].Data.EQUIP_Armor = CItemTag
+									Item[CItemTag].Has--
+								End
+							Else
+								CSayF("Item %s is meant for %s and not for %s",CitemTag,CItem.ITM_EQP_For,Ch)
+								Buzz.Play()
+							End
+						Case "Jewel" "Accesoiry"
+							If Prefixed(CH,"Nostramantu") || Prefixed(CH,"Feenalaria") || Prefixed(CH,"Krandar")
+								CSayF("%s is a guest character and cannot change equipped jewels")
+								Buzz.Play()
+							ElseIf CItem["ITM_ACC_"..Ch]
+								String old = RPGChar[CharTag].Data.EQUIP_Jewel
+								If Old =="" || Item[Old].Give
+									RPGChar[CharTag].Data.EQUIP_Jewel = CItemTag
+									Item[CItemTag].Has--
+								Else 
+									CSayF("Unequipping item %s failed! Overstocking?",CitemTag)
+									Buzz.Play()
+								End
+							End
+						Default
+							CSayF("Item %s is not to be used that way!",CitemTag)
+							Buzz.Play()							
 					End
 				Default
 					CSayF("Nothing to do in situation '%s'",situation)
