@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Effect.neil
-// Version: 21.12.25
+// Version: 21.12.30
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -337,6 +337,7 @@ Group Effect
 		// Buffs & Debuffs
 		// Script
 		Ret = Script || Ret
+		
 		// Target gets extra turn cards
 		Ret = XTurnCard || Ret
 		
