@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Subs/SubItems.neil
-// Version: 21.12.29
+// Version: 21.12.30
 // Copyright (C) 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -199,7 +199,7 @@ Global Void SaveInventory()
 		// Prevent dupes on Jake
 		//If Ch!="Jake_Fairy"
 		Switch Ch
-			Case "Jake_Fairy" "Nostramantu_Human"
+			Case "Jake_Fairy" "Nostramantu_Human" "Jake"
 				// Do Nothing
 			Case "Krandar"
 				Lua.error("Krandar not yet set up")
@@ -421,6 +421,10 @@ Global Void QuickWork(Table AT,String Char)
 End
 
 Global Void LoadAbilityList(String Char,Force)
+	If Char=="Jake"
+		LoadAbilityList("Jake_Human",true)
+		Return
+	End
 	If (!Abilities[char]) || Force
 		NeilUse("Script/Data/Char/"..char.."/Abilities")
 	End
