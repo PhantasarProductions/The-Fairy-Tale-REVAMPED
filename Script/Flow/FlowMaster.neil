@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowMaster.neil
-// Version: 21.12.28
+// Version: 21.12.30
 // Copyright (C) 2016, 2017, 2021 Jeroen Petrus Broks
 // 
 // ===========================
@@ -153,7 +153,7 @@ Group FlowMaster
         		//Eyes(ch,x-100,y+(i*21))
         		//plua = mdata
         		Graphics.Color(0,180,255)
-        		BFnt.DarkText(mdata(Mid).ShowScore(ch),x-110,y+(i*21)+20,2,1)
+        		BFnt.DarkText(mdata(Mid).ShowScore(ch),x-110,y+(i*21)+20,1,1)
         	end
         end
 	end
