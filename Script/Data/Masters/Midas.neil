@@ -1,0 +1,107 @@
+// License Information:
+// **********************************************
+// 
+// src/Tricky Script/Script/Data/Masters/Midas.neil
+// (c) Jeroen Broks, 2017, 2021, All Rights Reserved.
+// 
+// This file contains material that is related
+// to a storyline that is which is strictly
+// copyrighted to Jeroen Broks.
+// 
+// This file may only be used in an unmodified
+// form with an unmodified version of the
+// software this file belongs to.
+// 
+// You may use this file for your study to see
+// how I solved certain things in the creation
+// of this project to see if you find valuable
+// leads for the creation of your own.
+// 
+// Mostly this file comes along with a project
+// that is for most part released under an
+// open source license and that means that if
+// you use that code with this file removed
+// from it, you can use it under that license.
+// Please check out the other files to find out
+// which license applies.
+// This file comes 'as-is' and in no possible
+// way the author can be held responsible of
+// any form of damages that may occur due to
+// the usage of this file
+// 
+// 
+// **********************************************
+// 
+// version: 21.12.30
+// End License Information
+Module
+
+
+	//local skill = Sys.Val(Var.C('%SKILL'))
+
+	//local RPG = RPGStat
+
+
+	Const String Name = "Midas"
+	Const String ID   = "Midas"
+	Const Bool   HideRates = False
+
+	Bool requirement() 
+		Return True 
+	End
+
+	Get Table Abl
+		Static Var _abl
+		If __skill==1 
+			_abl = _abl || {[5000]="abl_master_midas_hardforthemoney",[15000]="abl_master_midas_stealmoney"} 
+		Else
+			_abl = _abl || {[10000]="abl_master_midas_hardforthemoney",[25000]="abl_master_midas_stealmoney"}
+		End
+		Return _abl
+	End
+
+	Bool All
+	Var teach(string ch)
+    	Int score = __Cash-RPGChar[ch].Stat.MidasStart
+    	Int min1=10000
+    	Int min2=25000
+    	All = False
+    	If __skill==1 
+    		min2=15000 
+    		min1= 5000 
+    	End
+    	If score<=min1 
+    		return nil 
+    	end
+    	if !Done["MASTER.MIDAS."..ch..".ONE"]
+    		All=False
+    		return abl[min1]    		
+    	End
+    	If score<=min2 
+    		Return Nil
+    	End
+    	If !Done["MASTER.MIDAS."..ch..".TWO"]
+    		All = True
+    		Return abl[min2]  
+    	End
+    End
+    
+    Void Appoint(string ch)
+    	FlowMaster.DefStat(ch,"MidasStart",__cash)
+    End
+
+    //function Midas.dismiss(ch)
+    	//RPG.DelStat(ch,"MidasStart")
+    //end
+    ReadOnly Delegate Dismiss = NIKS
+    
+    ReadOnly Table Stats = {["Accuracy"] = 100,["Evasion"] = 100, ["AP"] = -25, ["HP"] = -25 }
+    
+    String ShowScore(String ch)
+    	Int score = __Cash-RPGChar[ch].Stat.MidasStart
+    	return score.." shilders"
+    End
+    
+    ReadOnly Table Desc = {"Midas knows all about making money","Money you make while being his apprentice","may give you new skills","However, money you lose or spend WILL","be subtracted from your score","","Will he make you rich or rip you off?","","When you study under Midas","The enemies may drop more money","when they die."}
+
+End
