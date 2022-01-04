@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.12.21
+// version: 21.12.30
 // End License Information
 
 Table OO = { [True]="On", [False]="Off" }
@@ -70,6 +70,10 @@ End
 Global Void CONSOLE_Shift()
 	CSay("Shifting Jake")
 	FlowField.Shift(true)
+End
+
+Global Void CONSOLE_SetCash(c)
+	__cash = math.floor(Lua.tonumber(c[1]) || 0)
 End
 
 Module
