@@ -1,0 +1,131 @@
+// License Information:
+// **********************************************
+// 
+// src/Tricky Script/Script/MapScript/CH2_Town_Iskarderiu.neil
+// (c) Jeroen Broks, 2021, All Rights Reserved.
+// 
+// This file contains material that is related
+// to a storyline that is which is strictly
+// copyrighted to Jeroen Broks.
+// 
+// This file may only be used in an unmodified
+// form with an unmodified version of the
+// software this file belongs to.
+// 
+// You may use this file for your study to see
+// how I solved certain things in the creation
+// of this project to see if you find valuable
+// leads for the creation of your own.
+// 
+// Mostly this file comes along with a project
+// that is for most part released under an
+// open source license and that means that if
+// you use that code with this file removed
+// from it, you can use it under that license.
+// Please check out the other files to find out
+// which license applies.
+// This file comes 'as-is' and in no possible
+// way the author can be held responsible of
+// any form of damages that may occur due to
+// the usage of this file
+// 
+// 
+// **********************************************
+// 
+// version: 21.12.30
+// End License Information
+
+#use "Script/Use/Anyway"
+#use "Script/Use/Misc/Yes"
+#use "Script/Use/Misc/Inn"
+
+#macro Midas_Recruited gv.gbool.Master_Midas_Paid_And_Recruited
+
+Group MScript
+
+	ReadOnly Bool HasDraw   = False
+	ReadOnly Bool HasUpdate = False
+	
+	#Region People outside
+	Void NPC_ThalaDigoh()
+		MapText("THALA")
+		WorldMap.Unlock("CH2DRAGONCASTLE")
+	End
+	
+	Void NPC_Midas()
+		If !Midas_Recruited
+			MapText("MIDAS_FIRST")
+			 
+			If Yes("Do you want to give all your money to Midas?")
+				if __Cash<250
+					MapScript("MIDAS_NOTENOUGH")
+					Return
+				End
+				__Cash = 0
+				Midas_Recruited = True
+			Else
+				MapText("MIDAS_REJECT")
+				Return
+			End
+		End
+		Master.Speak("Midas")
+	End
+	#EndRegion
+	
+	
+	#Region Enter
+	Void Enter_Inn()
+		Map.GoToLayer("INN","Start")
+	End
+	Void Enter_Weapons()
+		Map.GoToLayer("WEAPONS","Start")
+	End
+	Void Enter_Items()
+		Map.GoToLayer("ITEMS","Start")
+	End
+	#EndRegion
+	
+	#Region Services
+	Void NPC_Inn()
+		Inn()
+	End
+	
+	Void NPC_Weapons()
+		MapText("MYRA")
+		FieldMenu.WeaponShop("WEAPON_MYRAREMEMBO")
+		// Myra is the name of a girl who died in a traffic accident
+		// at the age of 26, which is something I still have trouble to give a
+		// place. This weapon merchant was named after her, and "Remembo" was 
+		// a hint that it was in her memory.
+		//
+		// In the greater lore of Phantasar, it's also nice to note that, although
+		// this game never mentions it, that Jake and Marrilona would have
+		// a daughter together I named "Myrah", also in memory of the same girl.
+	End
+	
+	Void NPC_Emor()
+		MapText("EMOR")
+		FieldMenu.Shop("ITEM_ISKARDERIU")
+	End
+	#EndRegion
+	
+	Void Exit()
+		If Map.Layer=="TOWN"
+			WorldMap.Go()
+			Return
+		End
+		Map.GoToLayer("TOWN","from"..(Map.Layer:lower()))
+	End
+	
+	Void Welcome()
+		If !Done.Visited_Iskarderiu_Before
+			MapText("WELCOME")
+		End
+		Ach.Award("SCEN_CH2_ELVES")
+	End
+	
+	Constructor
+		ZA.TabEnter{"Exit","Welcome","Enter_Inn","Enter_Weapons","Enter_Items"}
+	End
+	
+End
