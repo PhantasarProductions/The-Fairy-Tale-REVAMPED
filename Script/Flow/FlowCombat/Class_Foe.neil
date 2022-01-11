@@ -1,7 +1,7 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Class_Foe.neil
-// Version: 21.12.24
-// Copyright (C) 2021 Jeroen Petrus Broks
+// Version: 22.01.11
+// Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
 // This file is part of a project related to the Phantasar Chronicles or another
@@ -133,8 +133,21 @@ Class Foe Extends Fighter
 		WFoe.Num=_num
 		WFoe.Oversoul = _oversoul==true
 		WFoe.Raw = Rw(WFoe.Oversoul)
-		WFoe.NorImage = Image.Load(WFoe.Raw.IMAGE,"NOR"..WFoe.Tag)
-		WFoe.NegImage = Image.Load(Replace(WFoe.Raw.IMAGE:upper(),".PNG",".NEGATIVE.PNG"),"NEG"..WFOE.Tag)
+		If Suffixed(WFoe.Raw.IMAGE,"/")
+			Var d = JCR6.GetDir(WFoe.Raw.IMAGE)
+			String img
+			int countdown=10000
+			Repeat
+				countdown--
+				Lua.assert(countdown>0,"Foe image bundle timeout: "..WFoe.Raw.IMAGE)
+				img = d[math.random(1,#d)]
+			LoopWhile Suffixed(img:upper(),".NEGATIVE.PNG")
+			WFoe.NorImage = Image.Load(img,"NOR"..WFoe.Tag)
+			WFoe.NegImage = Image.Load(Replace(img,".PNG",".NEGATIVE.PNG"),"NEG"..WFOE.Tag)			
+		Else
+			WFoe.NorImage = Image.Load(WFoe.Raw.IMAGE,"NOR"..WFoe.Tag)
+			WFoe.NegImage = Image.Load(Replace(WFoe.Raw.IMAGE:upper(),".PNG",".NEGATIVE.PNG"),"NEG"..WFOE.Tag)
+		End
 		WFoe.NorImage.HotBottomCenter()
 		WFoe.NegImage.HotBottomCenter()
 		RPGChar.Create(WFoe.Tag)
