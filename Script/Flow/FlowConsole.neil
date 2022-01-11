@@ -1,8 +1,8 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowConsole.neil
 // Console
-// version: 21.09.20
-// Copyright (C) 2021 Jeroen P. Broks
+// version: 22.01.08
+// Copyright (C) 2021, 2022 Jeroen P. Broks
 // This software is provided 'as-is', without any express or implied
 // warranty.  In no event will the authors be held liable for any damages
 // arising from the use of this software.
@@ -274,6 +274,15 @@ VOID ShowGV()
 	End
 End
 
+Void God()
+	gv.gbool["CHEAT.GOD"] = !gv.gbool["CHEAT.GOD"]
+	If gv.gbool["CHEAT.GOD"]
+		CLine.Write("God mode is on",180,255,0)
+	Else
+		CLine.Write("God mode is off",255,0,0)
+	End
+End
+
 deftable icommandtable
 	FUCK = FoulLanguage
 	SHIT = FoulLanguage
@@ -286,6 +295,8 @@ deftable icommandtable
 	SCREEN=void()
 		CLine.Write(SPrintF("Screen Size: %dx%d",Screen.W,Screen.H))
 	End
+	GOD = God
+	IDDQD = God
 	BYE = Bye
 	EXIT = Bye
 	QUIT = Bye
