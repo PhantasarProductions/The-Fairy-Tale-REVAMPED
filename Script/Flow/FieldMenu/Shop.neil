@@ -1,7 +1,7 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FieldMenu/Shop.neil
-// Version: 21.12.07
-// Copyright (C) 2021 Jeroen Petrus Broks
+// Version: 22.01.09
+// Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
 // This file is part of a project related to the Phantasar Chronicles or another
@@ -79,7 +79,7 @@ Module
 		ShopTitle = Raw.Title
 		for i=1,20
 			string it = raw["Slot"..i]
-			if !Prefixed(it,"AAA_")
+			if it!="" && (!Prefixed(it,"AAA_"))
 				var NI = New ShopItem(it)
 				Stock.AddLast(NI)
 				If NI.Tradeable
