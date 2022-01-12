@@ -2,7 +2,7 @@
 // **********************************************
 // 
 // src/Tricky Script/Script/MapScript/CH2_Dungeon_DragonCastle.neil
-// (c) Jeroen Broks, 2021, All Rights Reserved.
+// (c) Jeroen Broks, 2021, 2022, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.12.30
+// version: 22.01.08
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -57,8 +57,28 @@ Group MScript
 	End
 	#endregion
 	
+	Void Boss()
+		If !Done.Dragon_Castle_Boss_Fight
+			 Combat.QuickBoss("Souls of the angry undead","Mega Ghost","Mega Ghost")
+		End
+	End
+	
+	Void Seya()
+		Ach.Award("SECRETDUNGEON_DRAGON")
+	End
+	
+	Void NPC_SwitchNext()
+		Map.SetObj("NPC_SwitchNext","TEXTURE","GFX/Textures/Switch/Right.png")
+		Map.Kill("DoorNext",true)
+	End
+	
+	Void Leave()
+		WorldMap.Go()
+	End
+
+	
 	Constructor
-		ZA.TabEnter{"E_Courtyard","W_Courtyard","CYUO","CYUW"}
+		ZA.TabEnter{"E_Courtyard","W_Courtyard","CYUO","CYUW","Boss","Seya","Leave"}
 	End
 	
 End
