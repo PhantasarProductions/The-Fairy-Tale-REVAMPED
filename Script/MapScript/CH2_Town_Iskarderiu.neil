@@ -2,7 +2,7 @@
 // **********************************************
 // 
 // src/Tricky Script/Script/MapScript/CH2_Town_Iskarderiu.neil
-// (c) Jeroen Broks, 2021, All Rights Reserved.
+// (c) Jeroen Broks, 2021, 2022, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.12.30
+// version: 22.01.09
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -83,6 +83,9 @@ Group MScript
 	Void Enter_Items()
 		Map.GoToLayer("ITEMS","Start")
 	End
+	Void Enter_TownHall()
+		Map.GoToLayer("TOWNHALL","Start")
+	End
 	#EndRegion
 	
 	#Region Services
@@ -109,6 +112,23 @@ Group MScript
 	End
 	#EndRegion
 	
+	#Region Emperor
+	Void Emperor()
+		Map.Pop("K","North")
+		MapText("EMPEROR1")
+		Map.Kill("Emperor",true)
+		WorldMap.Unlock("CH2DRESHKA")
+		__WorldMap = "KEIZER"
+		For ch in Each{"Jake_Human","Marrilona","HandoStillor"}
+			RPGChar[ch].Stat.Experience = math.min(RPGChar[ch].Stat.Experience,RPGChar[ch].Stat.Experience div (4-__skill))
+		End
+	End
+	
+	Void NPC_Keizer()
+		MapText("EMPEROR2")
+	End
+	#EndRegion
+	
 	Void Exit()
 		If Map.Layer=="TOWN"
 			WorldMap.Go()
@@ -125,7 +145,7 @@ Group MScript
 	End
 	
 	Constructor
-		ZA.TabEnter{"Exit","Welcome","Enter_Inn","Enter_Weapons","Enter_Items"}
+		ZA.TabEnter{"Exit","Welcome","Enter_Inn","Enter_Weapons","Enter_Items","Enter_TownHall","Emperor"}
 	End
 	
 End
