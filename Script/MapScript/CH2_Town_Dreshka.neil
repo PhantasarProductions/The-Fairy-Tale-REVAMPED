@@ -1,0 +1,144 @@
+// License Information:
+// **********************************************
+// 
+// src/Tricky Script/Script/MapScript/CH2_Town_Dreshka.neil
+// (c) Jeroen Broks, 2022, All Rights Reserved.
+// 
+// This file contains material that is related
+// to a storyline that is which is strictly
+// copyrighted to Jeroen Broks.
+// 
+// This file may only be used in an unmodified
+// form with an unmodified version of the
+// software this file belongs to.
+// 
+// You may use this file for your study to see
+// how I solved certain things in the creation
+// of this project to see if you find valuable
+// leads for the creation of your own.
+// 
+// Mostly this file comes along with a project
+// that is for most part released under an
+// open source license and that means that if
+// you use that code with this file removed
+// from it, you can use it under that license.
+// Please check out the other files to find out
+// which license applies.
+// This file comes 'as-is' and in no possible
+// way the author can be held responsible of
+// any form of damages that may occur due to
+// the usage of this file
+// 
+// 
+// **********************************************
+// 
+// version: 22.01.09
+// End License Information
+
+#use "Script/Use/Anyway"
+
+Void _Leave()
+	WorldMap.Go()
+End
+
+#macro __Leave ReadOnly Delegate Leave = _Leave
+
+Group PreAanval
+	ReadOnly Bool HasDraw   = False
+	ReadOnly Bool HasUpdate = False
+	__Leave
+	 
+	
+	Void EnterTown()
+		Map.GoToLayer("TOWN","Start")
+	End
+	
+	Void Welcome()
+		Music.Play("music/town/happy.ogg")
+	End
+	
+	Void NPC_Rosetta()
+		If !Done.Dreshka_Rosetta
+			MapText("ROSETTA1")
+		Else
+			MapText("ROSETTA2")
+		End
+	End
+	
+	Void NPC_Monique()
+		MapText("MONIQUE")
+		FieldMenu.WeaponShop("WAND_MONIQUE")
+	End
+	
+	Void NPC_Dreshka()
+		If !Done.Dreshka_Spoken_to_Dreshka
+			MapText("DRESHKA")
+			Item.ZZKEY_WATER.Has = 1
+			WorldMap.Unlock("CH2WATERSPIRATA")
+		Else
+			MapText("DRESHKA_AFTER")
+		End
+	End
+End
+
+
+
+
+
+
+Group PostAanval
+	ReadOnly Bool HasDraw   = False
+	ReadOnly Bool HasUpdate = False
+	__Leave
+
+	Void EnterTown()
+		Map.GoToLayer("DESTROYED","Start")
+	End
+	
+	Void Welcome()
+		If __Chapter<4
+			Map.Kill("NPC_StarDome",false)
+		End
+		If !Done.Dreshka_Fought_Harry
+			Map.HideObj("Harry")
+			Map.Pop("A","North")
+			MapText("HARRY1")
+			Map.ShowObj("Harry")
+			Map.Pop("B","South")
+			MapText("HARRY2")
+			Combat.Boss("He's back!","Harry")
+			Combat.Arena    = Lua.Neil.Globals.Map.Arena
+			Combat.Music    = "Combat/SpecialBoss/AnnoyingBoy.ogg"
+			Combat.Lose     = "GameOver"
+			Combat.NewEnemy = "Boss/Harry2"
+			Lua.Neil.Globals.Map.StopWalking()
+			Schedule.Add "PostHarry"
+			Return
+		End
+		Music.Play("Music/Dreshka/Water Prelude.ogg")
+	End
+	
+	Void PostHarry()
+		MapText("HARRY3")
+		Map.Kill("Harry",true)
+		MapText("HARRY4")
+		__WorldMap = "TOVANDAR"
+		WorldMap.Unlock("CH2VANDARROAD")
+		WorldMap.Go()
+	End
+
+End
+
+
+Global Var MScript
+
+Init
+	If gv.Bool.Spirata_Water
+		CSay("Post aanval - Vernietigde stad")
+		MScript = PostAanval
+	Else
+		CSay("Pre aanval - Stad in aanbouw")
+		MScript = PreAanval
+	End
+	ZA.TabEnter{"EnterTown","Welcome","Leave"}
+End
