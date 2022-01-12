@@ -1,7 +1,7 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Effect.neil
-// Version: 21.12.30
-// Copyright (C) 2021 Jeroen Petrus Broks
+// Version: 22.01.08
+// Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
 // This file is part of a project related to the Phantasar Chronicles or another
@@ -147,7 +147,7 @@ Group Effect
       			Default
       		      	EXPRate[Tag]-=1
       		End
-      	End       
+      	End      	
       	hp.Have -= dmg 
       	// Yeah that even works for absorb, as a negative value is then in dmg and two negatives make one positive.
       	CSay(tag.." has "..hp.Have.." HP left")
