@@ -1,0 +1,170 @@
+// License Information:
+// **********************************************
+// 
+// src/Tricky Script/Script/MapScript/CH2_Dungeon_SpirataWater.neil
+// (c) Jeroen Broks, 2022, All Rights Reserved.
+// 
+// This file contains material that is related
+// to a storyline that is which is strictly
+// copyrighted to Jeroen Broks.
+// 
+// This file may only be used in an unmodified
+// form with an unmodified version of the
+// software this file belongs to.
+// 
+// You may use this file for your study to see
+// how I solved certain things in the creation
+// of this project to see if you find valuable
+// leads for the creation of your own.
+// 
+// Mostly this file comes along with a project
+// that is for most part released under an
+// open source license and that means that if
+// you use that code with this file removed
+// from it, you can use it under that license.
+// Please check out the other files to find out
+// which license applies.
+// This file comes 'as-is' and in no possible
+// way the author can be held responsible of
+// any form of damages that may occur due to
+// the usage of this file
+// 
+// 
+// **********************************************
+// 
+// version: 22.01.12
+// End License Information
+
+#use "Script/Use/Anyway"
+#use "Script/Use/Misc/TexMove"
+#use "Script/Use/Misc/ManaOrb"
+
+Group MScript
+
+	ReadOnly Bool HasDraw   = False
+	ReadOnly Bool HasUpdate = True
+	
+	Void Update()
+		If Map.Layer=="#002" || Map.Layer=="#008"
+			Self.UpdateTubes()
+		End
+		TexMove.Update()
+	End
+	
+	
+	#region Tube puzzle
+	Delegate NPC_1
+	Delegate NPC_2
+	Delegate NPC_3
+	Delegate NPC_4
+	Delegate NPC_5
+	Delegate NPC_6
+	Delegate NPC_7
+	Delegate NPC_8
+	
+	Table SubNiveau
+	Int Niveau
+	
+	Get Int Num
+		Switch Map.Layer
+			case "#002"
+				return 4
+			case "#008"
+				return 8
+			default
+				return 0
+		end
+	End	
+		
+	
+	Void InitPuzzle()
+		static var DInit = {}
+		//string tag = "WATER.NIVEAU["..Maps.Layer.."]"
+		if DInit[Map.Layer]
+			Return
+		end
+		DInit[Map.Layer] = true
+		//if CVVN(tag)
+		//	subniveau = {}
+		//	for i=1,num do subniveau[i]=CVV(tag) end
+		//end
+		niveau = math.random(1,4)
+		int total = niveau*num
+		gv.gint["WATER.NIVEAU.TOTAL"] = total
+		//ClearTable(subniveau)
+		subniveau = {}
+		for i=1,num 
+        	subniveau[i] = math.random(1,4)
+        end
+        print(serialize("niveau",niveau).."\n\n"..serialize("subniveau",subniveau))
+	End
+	
+	Void Tube(int idx)
+		subniveau[idx] = (subniveau[idx] % 4) + 1
+		//Map.Message(sprintf("Tube #%d level: %d (must be: %d)",idx,subniveau[idx],niveau))
+		Map.Message(sprintf("Tube #%d level: %d",idx,subniveau[idx]))
+	End
+	
+	Void UpdateTubes()
+		// Original Lua code
+		//local niv = subniveau[num]*250
+		//local o = Maps.Obj.Obj('Vloeistof'..num)
+		//if     o.ScaleY<niv then o.ScaleY = o.ScaleY+1
+		//elseif o.ScaleY>niv then o.ScaleY = o.ScaleY-1 end
+		If !subniveau[1]
+			Return
+		End
+		Bool Goed = True
+		for n=1,num
+			Int niv = subniveau[n]*250
+			String o = "Vloeistof"..n
+			If Map.ObjGetInt(o,"ScaleY")<niv 
+				Map.SetObj(o,"ScaleY",Map.ObjGetInt(o,"ScaleY")+1)
+			Elseif Map.ObjGetInt(o,"ScaleY")>niv
+				Map.SetObj(o,"ScaleY",Map.ObjGetInt(o,"ScaleY")-1)
+			End
+			Goed = Goed && (subniveau[n] == Niveau)
+		End
+		If Goed && (!Done["Solved_Water_"..Map.Layer])
+			Audio.LoadNew("Audio/SFX/Solved.ogg","SOLVED").Play()
+			For ch in each { "Jake_Human","Marrilona", "HandoStillor" }
+				RPGChar[ch].Stat.Experience -= 250
+			End
+			Map.Kill("DoorNext",true)
+		End
+	End
+	
+	Void NPC_Uitkomst()
+		MapText("UITKOMST")
+	End
+	#endregion
+	
+	#region Boss
+	Void StartBoss()
+		Map.Kill("StartBoss",true)
+		Map.Kill("Boss",true)
+		Combat.QuickBoss("Guardian of Water","Aqua","Aqua")
+		Schedule.Add("PostBoss")
+	End
+	
+	Void PostBoss() 
+		ManaOrb()
+	End
+	#endregion
+	
+	Constructor
+		Progress.Create("ZIGZAGVLOER",3,255,0,255)
+		Progress.ZigZagVloer = 1
+		TexMove.MapSetup(0,10,"HSINUS.PNG",-1,0,4)
+		Progress.ZigZagVloer = 2
+		TexMove.MapSetUp(0,10,"VSINUS.PNG", 0,1,4)
+		Progress.ZigZagVloer = 4
+		ConfiguringData()
+		For i=1,8
+			CSayF("Tube %d/8",i)
+			self[sprintf("NPC_%d",i)] = Lua.load(sprintf("Neil.Globals.MScript.Tube(%d)",i))
+		End
+		ZA.TabEnter{"InitPuzzle","StartBoss"}
+		Progress.Kill("ZIGZAGVLOER")
+	End
+End
