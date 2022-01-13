@@ -1,0 +1,111 @@
+// License Information:
+// src/Tricky Script/Script/Use/Combat/SpellAni/Temptation.neil
+// Version: 22.01.11
+// Copyright (C) 2022 Jeroen Petrus Broks
+// 
+// ===========================
+// This file is part of a project related to the Phantasar Chronicles or another
+// series or saga which is property of Jeroen P. Broks.
+// This means that it may contain references to a story-line plus characters
+// which are property of Jeroen Broks. These references may only be distributed
+// along with an unmodified version of the game.
+// 
+// As soon as you remove or replace ALL references to the storyline or character
+// references, or any termology specifically set up for the Phantasar universe,
+// or any other univers a story of Jeroen P. Broks is set up for,
+// the restrictions of this file are removed and will automatically become
+// zLib licensed (see below).
+// 
+// Please note that doing so counts as a modification and must be marked as such
+// in accordance to the zLib license.
+// ===========================
+// zLib license terms:
+// This software is provided 'as-is', without any express or implied
+// warranty.  In no event will the authors be held liable for any damages
+// arising from the use of this software.
+// Permission is granted to anyone to use this software for any purpose,
+// including commercial applications, and to alter it and redistribute it
+// freely, subject to the following restrictions:
+// 1. The origin of this software must not be misrepresented; you must not
+// claim that you wrote the original software. If you use this software
+// in a product, an acknowledgment in the product documentation would be
+// appreciated but is not required.
+// 2. Altered source versions must be plainly marked as such, and must not be
+// misrepresented as being the original software.
+// 3. This notice may not be removed or altered from any source distribution.
+// End License Information
+
+#use "libs/xmath"
+#use "libs/linkedlist"
+
+Class CTemptation
+	Static ReadOnly Var Heart = Image.LoadNew("GFX/Combat/SpellAni/Temptation/Heart.png","TEMPTATION_HEART")
+	ReadOnly Int CenterX
+	ReadOnly Int CenterY
+	ReadOnly Number RadiusSpeed
+	ReadOnly Int DegSpeed
+	Number Radius = 0
+	ReadOnly Deg
+	
+	Get Int X
+		Return CenterX+math.floor(Radius*xmath.sin(Deg))
+	End
+	
+	Get Int Y
+		Return CenterY+math.floor(Radius*xmath.cos(Deg))
+	End
+	
+	Void Draw(dontmove)
+		If !dontmove
+			Deg = (Deg+DegSpeed) % 360
+			Radius += RadiusSpeed
+		End
+		Graphics.Scale(0.05,0.05)
+		Heart.Draw(X,Y)
+		Graphics.Scale(1,1)
+	End
+	
+	Constructor(Int _X, Int _Y)
+		Heart.HotCenter()
+		CenterX = _X
+		CenterY = _Y
+		DegSpeed = math.random(1,10)
+		RadiusSpeed = math.random(1,1000)/3600
+		If math.random(1,2)==2
+			RadiusSpeed = RadiusSpeed * (-1) 
+		End
+	End
+	
+End	
+
+		
+Module
+	Var Exe
+	Const Int MaxFrames = 2000
+	Int Frames
+	Var Lst
+	
+	Void Start(_act)
+		Exe = _act.Executor
+		Int num = math.random(15,30)
+		Lst = new LinkedList()
+		For i=1,num
+			List.AddLast(New CTemptation(Exe.X,Exe.Y-(Exe.H div 2)))
+		End
+		Frames = MaxFrames
+	End
+	
+	Void Draw()
+		--Frames
+		For Hrt,Lnk in Lst.Each
+			Hrt.Draw()
+			If (Hrt.X>Screen.W) || (Hrt.Y>Screen.H && Frames<=0)
+				Lnk.Unlink()
+			End
+		End
+	End
+	
+	Get Bool Ended
+		Return Lst.Count<=0
+	End
+End
