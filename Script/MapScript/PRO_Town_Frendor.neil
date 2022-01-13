@@ -2,7 +2,7 @@
 // **********************************************
 // 
 // src/Tricky Script/Script/MapScript/PRO_Town_Frendor.neil
-// (c) Jeroen Broks, 2021, All Rights Reserved.
+// (c) Jeroen Broks, 2021, 2022, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.12.27
+// version: 22.01.13
 // End License Information
 
 #use "Script/Use/Misc/Prologue"
@@ -128,6 +128,13 @@ Group MScript
 	End		
 	#endregion
 	
+	#region Dandor
+	Void DandorCaught()
+		Map.Pop("Dan_","North",true)
+		MapText("FRENDORDANDOR")
+	End
+	#endregion
+	
 	
 	Void ComeInEvents()
 		If !Done.Frendor_MarrillonaBrandedATraitorByNostramantu
@@ -162,7 +169,7 @@ Group MScript
 			Return
 			//Lua.error("Elder going to the Elfen Lands not yet scripted")
 		End
-		Lua.error("Current entrance allowance not yet scripted")
+		//Lua.error("Current entrance allowance not yet scripted")
 	End
 	
 	Void PostHarry()
