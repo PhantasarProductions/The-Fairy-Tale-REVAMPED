@@ -152,6 +152,38 @@ Group MScript
 	End
 	#endregion
 	
+	Void NPC_Crypt()
+		If Item.ZZ_CRYPTKEY.Has<=0
+			MapText("NOCRYPT")
+		Else
+			Map.GoToMap("CH4_DUNGEON_SPIRATACRYPT","AQUA","Start")
+		End
+	End
+	
+	Void NoSpirata()
+		Map.SetObj("SpirataWall","Texture","GFX/Textures/Marble/Wall - N.png")
+	End
+	
+	Void SpirataRoom()
+		If !Done.Spirata_Water
+			Map.Pop("Spirata","North")
+			Music.Play("Music/Hub/Angevin.ogg")
+			MapText("SPIRATA")
+			RPGChar.Marrilona.Stat.Experience = math.min(0,RPGChar.Marrilona.Stat.Experience)
+			gv.gbool.CharSpirata_Marrilona = true
+			NoSpirata()
+			MapText("SPIRATAPOST")
+			__WorldMap = "BACK2DRESHKA"
+			WorldMap.Go()
+		Else
+			NoSpirata()
+		End
+	End
+	
+	Void Delisto()
+		WorldMap.Go()
+	End
+	
 	Constructor
 		Progress.Create("ZIGZAGVLOER",3,255,0,255)
 		Progress.ZigZagVloer = 1
@@ -164,7 +196,7 @@ Group MScript
 			CSayF("Tube %d/8",i)
 			self[sprintf("NPC_%d",i)] = Lua.load(sprintf("Neil.Globals.MScript.Tube(%d)",i))
 		End
-		ZA.TabEnter{"InitPuzzle","StartBoss"}
+		ZA.TabEnter{"InitPuzzle","StartBoss","SpirataRoom","Delisto"}
 		Progress.Kill("ZIGZAGVLOER")
 	End
 End
