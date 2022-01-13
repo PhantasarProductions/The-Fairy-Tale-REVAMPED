@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.01.13
+// version: 22.01.14
 // End License Information
 
 #use "Script/Use/Misc/Prologue"
@@ -70,6 +70,32 @@ Group MScript
 	#endregion
 	
 	#region Fandalora
+	
+	Void Master_Fandalora()
+		int need = math.floor(4.3 * __skill)
+		int jake = 0
+		int marrilona = 0
+		for i=1,5
+			jake += RPGChar.Jake_Human.Points["LVL_Skill"..i].Have 
+			//if i>1 and RPG.PointsExists("Jake_Human","SK_LVL_"..i)==1 then jake      = jake      + RPG.Points("Jake_Human","SK_LVL_"..i).Have end
+			marrilona += RPGChar.Marrilona.Points["LVL_Skill"..i].Have 
+			//   if  RPG.PointsExists("Marrilona" ,"SK_LVL_"..i)==1 then marrilona = marrilona + RPG.Points("Marrilona","SK_LVL_"..i).Have end
+		end
+		int amarrilona = marrilona div 5
+		int ajake      = jake      div 4
+		CSay("Fandalora requires: "..need)
+		CSay("Marrilona has:      "..amarrilona)
+		CSay("Jake has:           "..ajake)
+		if !gv.gbool["MASTER.FANDALORA"]
+			MapText("FANDALORAMASTERNOMASTERYET")
+			if need>amarrilona && need>ajake 
+				MapText("FANDALORAMASTERNOTREADY") 
+				return 
+			end
+		end
+  		Master.Speak("Fandalora")
+  	End
+  	
 	Void NPC_Fandalora()
 		// Prologue
 		If !Prologue.Done.Marrilona
@@ -78,7 +104,12 @@ Group MScript
 		End
 		// Dandor
 		// Master
-		Lua.error("Master Fandalora not yet scripted")
+		Master_Fandalora() // Lua.error("Master Fandalora not yet scripted")
+	End
+	
+	Void NPC_FandaloraOutside()
+		MapText("FANDALORA_OUTSIDE")
+		Master_Fandalora()
 	End
 	#endregion
 	
@@ -168,6 +199,9 @@ Group MScript
 			Map.Kill("FANDALORA_ENTRANCE",true)
 			Return
 			//Lua.error("Elder going to the Elfen Lands not yet scripted")
+		End
+		If gv.Bool.SpirataFire
+			Map.Kill("NPC_FandaloraOutside")
 		End
 		//Lua.error("Current entrance allowance not yet scripted")
 	End
