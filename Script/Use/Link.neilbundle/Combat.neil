@@ -1,7 +1,7 @@
 // License Information:
 // src/Tricky Script/Script/Use/Link.neilbundle/Combat.neil
-// Version: 21.12.18
-// Copyright (C) 2021 Jeroen Petrus Broks
+// Version: 22.01.12
+// Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
 // This file is part of a project related to the Phantasar Chronicles or another
@@ -151,11 +151,15 @@ Module
 		ISSet("String","FLOW_COMBAT","FLowCombat.Start.StartEvent",value)
 	End
 	
-	Void QuickBoss(string Header,String BossName,String Boss1,string Boss2="",string Boss3="",string Boss4="")
-		
+	Void QuickBoss(string Header,String BossName,String Boss1,string Boss2="",string Boss3="",string Boss4="")		
 		Boss(Header,BossName)
 		Arena = Lua.Neil.Globals.Map.Arena
-		Music = "*BOSS"
+		Switch Boss1:upper()
+			Case "AQUA" "IGNIS" "AER" "TERRA"
+				Music = "Combat/SpecialBoss/Summon the Rawk.ogg"
+			Default
+				Music = "*BOSS"
+		End
 		Lose = "GameOver"
 		For Boss in Each{Boss1,Boss2,Boss3,Boss4}
 			If Boss!=""
