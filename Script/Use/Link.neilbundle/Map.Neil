@@ -1,7 +1,7 @@
 // License Information:
 // src/Tricky Script/Script/Use/Link.neilbundle/Map.Neil
-// Version: 21.12.29
-// Copyright (C) 2021 Jeroen Petrus Broks
+// Version: 22.01.11
+// Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
 // This file is part of a project related to the Phantasar Chronicles or another
@@ -378,6 +378,11 @@ Module
 			Spawn(Tag,"PLAYER")
 			ObjSet(Tag,"TEXTURE",BaseTex)
 		End
+	End
+	
+	Void Message(string msg, int R=255, int G=255, int B=255)
+		print("FlowField.Msg",sprintf("'%s',%d,%d,%d,%d,%d",msg,PLAYER.X,PLAYER.Y,R,G,B))
+		MCall("FlowField.Msg",msg,PLAYER.X,PLAYER.Y,R,G,B)
 	End
 	
 	CONSTRUCTOR
