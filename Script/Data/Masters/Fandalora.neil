@@ -1,0 +1,163 @@
+// License Information:
+// **********************************************
+// 
+// src/Tricky Script/Script/Data/Masters/Fandalora.neil
+// (c) Jeroen Broks, 2022, All Rights Reserved.
+// 
+// This file contains material that is related
+// to a storyline that is which is strictly
+// copyrighted to Jeroen Broks.
+// 
+// This file may only be used in an unmodified
+// form with an unmodified version of the
+// software this file belongs to.
+// 
+// You may use this file for your study to see
+// how I solved certain things in the creation
+// of this project to see if you find valuable
+// leads for the creation of your own.
+// 
+// Mostly this file comes along with a project
+// that is for most part released under an
+// open source license and that means that if
+// you use that code with this file removed
+// from it, you can use it under that license.
+// Please check out the other files to find out
+// which license applies.
+// This file comes 'as-is' and in no possible
+// way the author can be held responsible of
+// any form of damages that may occur due to
+// the usage of this file
+// 
+// 
+// **********************************************
+// 
+// version: 22.01.14
+// End License Information
+
+Module
+
+	Get Bool requirement() 
+		Return true
+	End
+
+	Var Abl
+	Void DefAbl()
+		plua _Abl
+		#pure
+		_Abl = {
+			[10] = "abl_master_fandalora_darkness",
+			[15] = "abl_master_fandalora_removecurse",
+			[20] = "abl_master_fandalora_curse",
+			[25] = "abl_master_fandalora_removecurse",
+			[30] = "abl_master_fandalora_phantom",
+			[11+(skill^skill)] = "abl_master_fandalora_void"
+		}
+		Fandalora.abl[(3^skill)+5] = "abl_master_fandalora_death"                              
+		#endpure
+		Abl = _Abl
+	End
+
+	Bool All = False
+	
+	Var AllPoints(ch)
+		int deler = 0
+		int totaal = 0
+		table chcheck = {["Jake_Human"]={2,3,4,5},["Marrilona"]={1,2,3,4,5},["HandoStillor"]={2}}
+		//chcheck.Jake_Fairy=chcheck.Jake_Human
+		for tch,skills in pairs(chcheck)
+			for _,d in ipairs(skills)
+				Int keer = 1
+				if tch == ch
+					keer = keer + 1
+				end
+				for i=1,keer
+					deler = deler + 1
+					totaal+=RPGChar[tch].Points["LVL_Skill"..d].Have //if RPG.PointsExists(tch,"SK_LVL_"..d)==1 then totaal = totaal + RPG.Points(tch,"SK_LVL_"..d).Have end 
+				end
+			end
+		end
+		deler = math.max(deler,1) //if deler==0 then deler=1 end -- Should prevent errors, although deler being 0 should be impossible.
+		int gemiddelde = math.floor(totaal/deler)
+		int gained = 0
+		if ch and RPGChar[ch].Data.Master=="Fandalora"
+			gained = gemiddelde - RPGChar[ch].SafeStat.StartFandalora
+		end
+		return totaal,gemiddelde
+	end
+
+	// Should return true if master actually decides to teach something	
+	Var Teach(string Ch)
+		all = true
+		bool maylearn = true
+		var rabl = false
+		if ch=="Dandor"
+			return false,false 
+		end
+		local points = Self.ShowScore(ch)
+		for i,a in pairs(Fandalora.abl)
+        	if points>=i and (not rabl)
+        		if not Done["MASTERLEARNING.FANDALORA["..a.."]["..ch.."]"]
+        			rabl=a
+        		else 
+        			all = all and gv.gbool["MASTERLEARNING.FANDALORA["..a.."]["..ch.."]"]
+        		end
+        	else
+        		all=false
+        	end
+        end
+        //return rabl,all
+        return rabl 
+    	//,all
+    end
+    
+    Void Appoint(String ch)
+      //Console.Write('Creating point for Rubine on '..ch,255,255,255)
+      //Master_DefStat(ch,"RubinePoints",0)
+      //RPGChar[ch].Stats.RubinePoints=0
+      FlowMaster.DefStat(Ch,"StartFandalora",0)
+     End
+     
+     
+     Void Dismiss(ch)
+     	//RPG.DelStat(ch,"RubinePoints")
+     	// More trouble than it's worth
+     End
+
+     Var Stats
+     Table Desc = {"Marrilona's father","Expert on dark magic and defense against it","May teach you some darker spells","Because you may need them","","Studying under Fandalora can increase","the AP recovery some actions cause","And will also increase the","skill experience you'll gain","For executing moves"}
+
+     Void DefStats()
+     	plua _stats
+     	// Spd +25%, Atk -10%, End -5%, Int -10%, Res - 5%, Acc +5%, eva +5%     	
+     	#pure
+     	_stats = {
+     		Power = -25,
+     		Endurance = -15,
+     		Intelligence = 15,
+     		Resistance = 15,     	
+     	}
+     	#endpure
+     	Stats = _stats
+     End
+     
+     String ShowScore(ch)
+     	//Return ""..RPGChar[ch].Stat.RubinePoints
+     	  if ch=="Dandor" 
+     	  	return "N/A" 
+     	  end
+     	  plua tot
+     	  plua ret
+     	  tot,ret=Fandalora.AllPoints(ch)
+     	  return sprintf("%s",ret)
+     End
+     
+     ReadOnly String Name = "Fandalora"
+     ReadOnly String ID   = "Fandalora"
+     ReadOnly Bool   HideRates = False
+
+     Constructor
+     	DefStats()
+     	DefAbl()
+     End
+End
