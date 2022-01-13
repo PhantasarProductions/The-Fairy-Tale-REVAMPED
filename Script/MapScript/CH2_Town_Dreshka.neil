@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.01.09
+// version: 22.01.13
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -106,12 +106,13 @@ Group PostAanval
 			Map.ShowObj("Harry")
 			Map.Pop("B","South")
 			MapText("HARRY2")
+			Lua.Neil.Globals.Map.StopWalking()
 			Combat.Boss("He's back!","Harry")
 			Combat.Arena    = Lua.Neil.Globals.Map.Arena
 			Combat.Music    = "Combat/SpecialBoss/AnnoyingBoy.ogg"
 			Combat.Lose     = "GameOver"
 			Combat.NewEnemy = "Boss/Harry2"
-			Lua.Neil.Globals.Map.StopWalking()
+			Combat.Start()
 			Schedule.Add "PostHarry"
 			Return
 		End
