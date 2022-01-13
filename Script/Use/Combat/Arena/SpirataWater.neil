@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Combat/Arena/SpirataWater.neil
-// Version: 22.01.11
+// Version: 22.01.12
 // Copyright (C) 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -34,16 +34,23 @@
 // misrepresented as being the original software.
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
+
+#use "Libs/SinusShade"
+
+
 Module
 
 	Delegate Pst = Niks
+	Var SS
 	Void Pre()
-		Blop.DrawCol(0,0,1)
+		//Blop.DrawCol(0,0,1)
+		SS.Draw()
 	End
 	
 	Constructor
 		CSay("Water Spirata Arena Script Loaded")
-		Blop.Create(80)
+		//Blop.Create(80)
+		SS = new SinusShade(0,0,255)
 	End
 
 End
