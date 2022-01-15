@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.01.14
+// version: 22.01.15
 // End License Information
 
 #use "Script/Use/Misc/Prologue"
@@ -259,6 +259,7 @@ Group MScript
 	#endregion
 		
 	Void ByeBye()
+		WorldMap.Unlock("CH1FRENDOR") // Can only be triggered once you brought Dandor here! 
 		WorldMap.Go()
 	End
 	
