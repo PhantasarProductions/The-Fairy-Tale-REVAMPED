@@ -38,6 +38,7 @@
 #use "Script/Use/Misc/Prologue"
 #use "Script/Use/Misc/ManaOrb"
 #use "Script/Use/Anyway"
+#use "Script/Use/Misc/Inn"
 
 Group MScript
 
@@ -110,6 +111,16 @@ Group MScript
 	Void NPC_FandaloraOutside()
 		MapText("FANDALORA_OUTSIDE")
 		Master_Fandalora()
+	End
+	
+	Void NPC_YanneeOutside()
+		If !gv.Bool.SpirataFire
+			MapText("YANNEE_DANDORCURSED")
+		Elseif !gv.Bool.DandorJoined
+			MapText("YANNEE_DANDORCURED")
+		Else
+			MapText("YANEE_OUTSIDE")
+		End
 	End
 	#endregion
 	
@@ -215,9 +226,46 @@ Group MScript
 		WorldMap.Go()
 		__WorldMap="HELL"
 	End
-			
+	
+	#region Buildings
+	Void EnterBuilding(string L)
+		Map.GoToLayer(L,"Start")
+	End
+	
+	Void B_Exit()
+		Map.GoToLayer("TOWN","exit_"..(Map.Layer:lower()))
+	End
+	#endregion
+	
+	#region Services
+	Void NPC_Inn()
+		Inn()
+	End
+	
+	Void NPC_Alberta()
+		MapText("ALBERTA")
+		FieldMenu.Shop("ITEM_ALBERTA")
+	End
+	
+	Void NPC_Michiel()
+		MapText("MICHIEL")
+		FieldMenu.WeaponShop("WEAPON_MICHIEL")
+	End
+	
+	Void NPC_Wand()
+		MapText("WAND")
+		FieldMenu.WeaponShop("WAND_FRENDOR")
+	End
+	#endregion
 		
+	Void ByeBye()
+		WorldMap.Go()
+	End
+	
 	Constructor
-		ZA.TabEnter{"ExitHouse","Elder_Exit","ComeInEvents"}
+		ZA.TabEnter{"ExitHouse","Elder_Exit","ComeInEvents","B_Exit", "ByeBye","Byebye" }
+		For L in Each {"wands","weapons","items","inn"}
+			ZA.Enter("enter_"..L,"EnterBuilding",l:upper())
+		End
 	End
 End

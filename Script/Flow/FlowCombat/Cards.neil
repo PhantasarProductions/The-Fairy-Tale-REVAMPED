@@ -1,7 +1,7 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Cards.neil
-// Version: 21.12.22
-// Copyright (C) 2021 Jeroen Petrus Broks
+// Version: 22.01.15
+// Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
 // This file is part of a project related to the Phantasar Chronicles or another
@@ -150,7 +150,8 @@ Module Class
 	
 	Static Table Order
 	
-	Static Void CreateOrder()		
+	Static Void CreateOrder()	
+		CSay("Ordering cards")
 		Order = { ["speedtable"] = {}, ["tagorder"] = {}, ["iorder"] = {} }
 		plua sid
 		plua strid
@@ -180,6 +181,7 @@ Module Class
      
      Static Void SetupInitialCards(empty)
      	CreateOrder()
+     	CSay("Setting up initial cards")
      	Lijst = Lijst or {}
      	If empty 
      		Lijst={} 

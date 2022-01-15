@@ -1,7 +1,7 @@
 // License Information:
-// src/Tricky Script/Script/Use/Combat/ActScript/TakeOver.neil
-// Version: 22.01.08
-// Copyright (C) 2022 Jeroen Petrus Broks
+// src/Tricky Script/Script/Use/Combat/SpellAni/Tsunami.neil
+// Version: 22.01.15
+// Copyright (C) 2020, 2022 Jeroen Petrus Broks
 // 
 // ===========================
 // This file is part of a project related to the Phantasar Chronicles or another
@@ -35,17 +35,63 @@
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
 
-Bool _TO(Act,Tar)
-	Var T = {}
-	For i,card in pairs(FlowCombat.Cards.Lijst)
-		If Card.Fight==Tar.Tag && (!Card.Joker)
-			T += i
-		End
-	End
-	For idx in Each(T)
-		Cards.Replace(idx,Tar.Tag)			
-	End
-	return #T>0
-End
 
-Return _TO
+
+class TsunamiLayer
+	int speed
+	int y
+	int alpha
+	
+	CONSTRUCTOR(int s)
+		self.speed = s
+		self.y = Screen.H
+		self.alpha = 127
+	end
+end
+
+module 
+	//SpellAni_Tsunami
+	
+	bool DrawOvertake
+	var Water
+	
+	table layers
+	
+	CONSTRUCTOR
+		self.Water = Image.LoadNew("GFX/COMBAT/SPELLANI/WATER.PNG","SPELLANI_WATER")
+	end
+	
+	void Start()
+		self.layers = {}
+		for i = 1,5
+			self.layers[i] = new TsunamiLayer(i)
+		end
+	end
+	
+	Bool Ended
+	
+	Void Draw()
+		bool ret = true
+		for i,t in ipairs(self.layers)
+			Graphics.Alpha(t.alpha)
+			self.Water.Tile(0,t.y,Screen.W,Screen.H-t.y)
+			t.y -= t.speed
+			if self.layers[4].y<0
+				for j=i,5
+					--t.alpha
+					if t.alpha<0
+						t.alpha=0
+					end
+				end
+			end
+			ret = ret and t.alpha==0
+		end
+		Graphics.Alpha(255)
+		//return ret
+		Ended = ret
+	end
+	
+	ReadOnly Delegate Update = NIKS
+
+	
+end

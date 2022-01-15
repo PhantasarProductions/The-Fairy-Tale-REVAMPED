@@ -1,7 +1,7 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Start.neil
-// Version: 21.12.18
-// Copyright (C) 2021 Jeroen Petrus Broks
+// Version: 22.01.15
+// Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
 // This file is part of a project related to the Phantasar Chronicles or another
@@ -81,6 +81,7 @@ Module
 	End
 	
 	Void StartMusic()
+		CSay("Starting music")
 		Switch FMusic:upper()
 			Case "*RANDOM"
 				Table Bundle = JCR6.GetDir("Music/Combat/RandomEncounter")
@@ -122,5 +123,6 @@ Module
 			CSayF("Running combat start event '%s'",StartEvent) 
 			Map.Script(StartEvent)
 		End
+		CSay("Let combat commence")
 	End
 End

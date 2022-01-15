@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Effect.neil
-// Version: 22.01.08
+// Version: 22.01.15
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -296,7 +296,7 @@ Group Effect
     		Return False
     	End
     	Scripts[S] = Scripts[S] || NeilUse("Script/Use/Combat/ActScript/"..Act.EffectScript)
-    	Return Scripts[S](Act,Target)
+    	Return Scripts[S](Act,Target,Action.Executor)
     End
     
     Get Bool CauseStatus

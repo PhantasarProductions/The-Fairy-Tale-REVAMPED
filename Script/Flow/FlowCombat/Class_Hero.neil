@@ -1,7 +1,7 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Class_Hero.neil
-// Version: 21.12.30
-// Copyright (C) 2021 Jeroen Petrus Broks
+// Version: 22.01.15
+// Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
 // This file is part of a project related to the Phantasar Chronicles or another
@@ -42,6 +42,13 @@ Class Hero Extends Fighter
 
 	Int Num
 	Int AttackFrame = 0
+	Get Int Spirata
+		Return RPGChar[Self.Tag].SafeStat.END_SpirataRate
+	End
+	Set Int Spirata
+		RPGChar[Self.Tag].Stat.END_SpirataRate = Value
+	End
+	
 	Const Int AttackFrames = 100
 	Const Var Images = {}
 	
@@ -65,18 +72,30 @@ Class Hero Extends Fighter
 		WHero.Num = Party.MemNum(_Tag)
 		WHero.Y = (((_ASH - 600) div (Party.Count+1)) * WHero.Num) + 500
 		WHero.X = (_ASW div 2) + ( ((_ASW div 2) div (Party.Count+1)) * WHero.Num)
+		WHero.Spirata = 0
 		//WHero.Char = RPGChar[_Tag]
 	End
 	
 	Void Draw()
 		Static String Format = "GFX/Combat/Fighters/Hero/%s.%s.png"
 		String DTag = Self.Stage
+		//CSay("#1")
 		if Self.HP==0
 			Self.Stage="DEAD"
+			Spirata = 0
+		ElseIf Self.Spirata>0
+			If Self.Stage != "SPIRATA.ACTION"
+				Self.Stage="SPIRATA"
+			End
 		End
+		//CSay("#2")
 		Switch Self.Stage:upper()
 			Case "ATTACK"
-				DTag = SprintF("Attack.%d",math.max(1,math.min(2,AttackFrame div 30)))				
+				DTag = SprintF("Attack.%d",math.max(1,math.min(2,AttackFrame div 30)))
+			Case "SPIRATA" "SPIRATA.ACTION" 
+				If Self.Spirata<=0
+					Self.Stage="IDLE"
+				End
 			Case "DEAD"
 				If Self.HP>0
 					Self.Stage="IDLE"
@@ -94,6 +113,9 @@ Class Hero Extends Fighter
 	Bool Pose(Act)	 	
 	 	AttackFrame = (AttackFrame + 1) % AttackFrames 
 	 	Self.Stage = Act.Act.Stance
+	 	If Self.Spirata>0 && Self.Stage:upper()=="CAST"
+	 		Self.Stage="SPIRATA.ACTION" 
+	 	End
 	 	Return AttackFrame == 0
 	 End
 
@@ -361,8 +383,23 @@ Class Stage_PlayerInput_Main Extends Stage
 		Portraits[Exe] = Image.LoadNew("GFX/BoxText/Portret/"..Exe.."/General.png","PIMI_POR_"..Exe)
 		Banners[Exe]   = Image.LoadNew("GFX/Combat/HeroBanners/"..Exe..".png","PIMI_BAN_"..Exe)
 		Portraits[Exe].HotCenter()
-		Banners[Exe].HotCenter()	
-		Stage.Current = "PLAYERINPUT_MAIN"
+		Banners[Exe].HotCenter()
+		If Fighter.ByTag[Exe].Spirata>0
+			plua tgt = {}
+			for T,F in pairs(Fighter.ByTag)
+				If F.Team=="Foe"
+					tgt += T
+				End
+			End
+			String EX = Exe:upper()
+			If Prefixed(EX,"JAKE_")
+				EX="JAKE"
+			End
+			plua A = new Action("SPIRATA_ATTACK_"..EX,Exe,tgt,{})
+			CombatFlow.Execution.ComeToMe(A,CombatFlow.Cards.Lijst[1])
+		Else
+			Stage.Current = "PLAYERINPUT_MAIN"
+		End
 	End
 End
 // Laziness!
@@ -496,10 +533,14 @@ Void PIMI_Items()
 End
 
 Void PIMI_Spirata()
-	Lua.error("Spirata not implemented yet!")
+	Var Act = new Action("SPIRATATRANSFORM",SPIM.Exe,{SPIM.Exe},{["CheckAfterAction"]=true})
+	CombatFlow.Execution.ComeToMe(Act,CombatFlow.Cards.Lijst[1])
+	//Lua.error("Spirata not implemented yet!")
 End
 
 Void PIMI_Guard()
+	Var Act = new Action("AAA_GUARD",SPIM.Exe,{SPIM.Exe},{["CheckAfterAction"]=true})
+	CombatFlow.Execution.ComeToMe(Act,CombatFlow.Cards.Lijst[1])
 End
 
 Bool NotNostra()
@@ -511,7 +552,7 @@ Bool HasSpirata()
 	If Prefixed(Exe,"Jake")
 		Exe = "Jake"
 	End
-	return gv.gbool["HASSPIRATA."..Exe]
+	return gv.gbool["CharSpirata_"..Exe] && RPGChar[Exe].Points.AP.Have>0
 End
 #endregion
 

@@ -1,0 +1,68 @@
+// License Information:
+// **********************************************
+// 
+// src/Tricky Script/Script/Use/Combat/ActScript/SpirataTransform.neil
+// (c) Jeroen Broks, 2022, All Rights Reserved.
+// 
+// This file contains material that is related
+// to a storyline that is which is strictly
+// copyrighted to Jeroen Broks.
+// 
+// This file may only be used in an unmodified
+// form with an unmodified version of the
+// software this file belongs to.
+// 
+// You may use this file for your study to see
+// how I solved certain things in the creation
+// of this project to see if you find valuable
+// leads for the creation of your own.
+// 
+// Mostly this file comes along with a project
+// that is for most part released under an
+// open source license and that means that if
+// you use that code with this file removed
+// from it, you can use it under that license.
+// Please check out the other files to find out
+// which license applies.
+// This file comes 'as-is' and in no possible
+// way the author can be held responsible of
+// any form of damages that may occur due to
+// the usage of this file
+// 
+// 
+// **********************************************
+// 
+// version: 22.01.15
+// End License Information
+#use "libs/xmath"
+
+Bool _TFRM(Act,Tar,Executor)
+	String E = Executor.Tag
+	If Prefixed(E,"Jake_")
+		E = "Jake"
+	End
+	String V = "Vocals/Spirata/"..E..".ogg"
+	If JCR6.EntryExists(V)
+		Audio.LoadNew(V,"SPIRATA_"..E).Play()
+	End
+	For i=0,255
+		FlowCombat.DrawScreen()
+		Graphics.Alpha(math.min(255,i))
+		for y=0,Screen.H
+			Graphics.Color(math.floor(math.abs( xmath.sin(y+i)*180 ) ),0,math.floor(math.abs( xmath.sin(y+i)*255 )) )
+			Graphics.Line(0,y,Screen.W,y)
+		End
+		Graphics.Flip()
+		FPS.WaitMinTicks()
+		Events.Poll()
+	End
+	Executor.Spirata = math.floor( (Executor.Char.Points.AP.Have / Executor.Char.Points.AP.Maximum)*(400-(__skill*100)))
+	CSayF("%s changed into a Spirata. Spirata rate %d",Executor.Tag,Executor.Spirata)
+	Executor.Char.Points.AP.Have = 0
+	if __skill<3
+		Executor.Char.Points.HP.Have = Executor.Char.Points.HP.Maximum
+	End
+	Return True
+End
+
+Return _TFRM
