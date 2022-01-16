@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Effect.neil
-// Version: 22.01.15
+// Version: 22.01.16
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -258,7 +258,8 @@ Group Effect
         	For ak=1,Act.ADDCARD_Char_Number
         		If moved<maxmove
         			//If AddCard(card2add,ak*(act.ADDCARD_Char_Interval or 2)) then moved=moved+1 end
-        			FlowCombat.Cards.Add(ak*math.max(2,Act.ADDCARD_Char_Interval || 2),Action.Executor.Tag)
+        			//FlowCombat.Cards.Add(ak*math.max(2,Act.ADDCARD_Char_Interval || 2),Action.Executor.Tag)
+        			FlowCombat.Cards.Add(ak*math.max(2,Act.ADDCARD_Char_Interval || 2),Target.Tag)
         		End
         	End
         	Return True
