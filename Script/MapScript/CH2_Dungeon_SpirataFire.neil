@@ -1,0 +1,170 @@
+// License Information:
+// **********************************************
+// 
+// src/Tricky Script/Script/MapScript/CH2_Dungeon_SpirataFire.neil
+// (c) Jeroen Broks, 2022, All Rights Reserved.
+// 
+// This file contains material that is related
+// to a storyline that is which is strictly
+// copyrighted to Jeroen Broks.
+// 
+// This file may only be used in an unmodified
+// form with an unmodified version of the
+// software this file belongs to.
+// 
+// You may use this file for your study to see
+// how I solved certain things in the creation
+// of this project to see if you find valuable
+// leads for the creation of your own.
+// 
+// Mostly this file comes along with a project
+// that is for most part released under an
+// open source license and that means that if
+// you use that code with this file removed
+// from it, you can use it under that license.
+// Please check out the other files to find out
+// which license applies.
+// This file comes 'as-is' and in no possible
+// way the author can be held responsible of
+// any form of damages that may occur due to
+// the usage of this file
+// 
+// 
+// **********************************************
+// 
+// version: 22.01.16
+// End License Information
+
+#use "Script/Use/Anyway"
+#use "Script/Use/Misc/TexMove"
+#use "Script/use/Misc/ManaOrb"
+
+QuickMeta Solved
+	Index
+		return gv.Bool["FIRE_SPIRATA_SOLVED_"..key]
+	end
+	
+	NewIndex
+		gv.Bool["FIRE_SPIRATA_SOLVED_"..key] = Value
+	end
+End
+
+Group MScript
+
+	ReadOnly Bool HasDraw   = False
+	ReadOnly Bool HasUpdate = True
+	
+	#region Candles
+	Table Goed 	
+	Table Burn 
+
+	Delegate NPC_K1
+	Delegate NPC_K2
+	Delegate NPC_K3
+	Delegate NPC_K4
+	Delegate NPC_K5
+	Delegate NPC_K6
+	Delegate NPC_K7
+	Delegate NPC_K8
+	Delegate NPC_K9
+	
+	Void Kaars(int Index)
+		CSayF("Player hit candle: %d",Index)
+		Burn[Index]=!Burn[Index]
+		If Burn[Index]
+			Map.SetObj("NPC_K"..Index,"Texture","GFX/Textures/Objects/Kaars.jpbf")
+			Map.SetObj("NPC_K"..Index,"AnimSpeed",math.random(1,6))
+		Else
+			Map.SetObj("NPC_K"..Index,"Texture","GFX/Textures/Objects/Kaars Uit.png")
+		End
+		Bool AllGood = True
+		For i=1,9			
+			AllGood = AllGood && (Burn[i]==Goed[i])
+		End
+		If AllGood
+			Audio.LoadNew("Audio/SFX/Solved.ogg","SOLVED").Play()
+			For ch in each { "Jake_Human","Marrilona", "HandoStillor" }
+				RPGChar[ch].Stat.Experience -= 300
+			End
+			Map.Kill("DoorPuzzle",true)
+		End
+	End
+	
+	Void GeneratePuzzle()
+		If Solved[Map.Layer]
+			Return
+		End
+		Int CountGoed
+		Int TimeOut = 10000
+		Repeat
+			Lua.assert(TimeOut>0,"Puzzle Generation Time-Out")
+			TimeOut--
+			Goed = {}
+			Burn = {}
+			CountGoed = 0
+			For i=1,9
+				Bool G = math.random(1,2)==1
+				Goed[i] = G
+				Burn[i] = false
+				If G
+					CountGoed++
+				End
+			End
+		Until CountGoed>=3 && CountGoed<=6
+		For i=1,9
+			if Goed[i]
+				Map.SetObj("Voorbeeld"..i,"Texture","GFX/Textures/Objects/Kaars.jpbf")
+				Map.SetObj("Voorbeeld"..i,"AnimSpeed",math.random(1,6))
+				CSayF("Candle #%d must be ON",i)
+			Else
+				Map.SetObj("Voorbeeld"..i,"Texture","GFX/Textures/Objects/Kaars Uit.png")
+				CSayF("Candle #%d must be OFF",i)
+			End
+		End
+	End
+	#endregion
+	
+	#region Boss
+	Void StartBoss()
+		Map.Kill("StartBoss",true)
+		Map.Kill("Boss")
+		Combat.QuickBoss("Guardian Of Fire","Ignis","Ignis")
+		Schedule.Add("PostBoss")
+	End
+	
+	Void PostBoss() 
+		ManaOrb()
+	End
+	#endregion
+	
+	Void NPC_Crypt()
+		If Item.ZZ_CRYPTKEY.Has<=0
+			MapText("NOCRYPT")
+		Else
+			Map.GoToMap("CH4_DUNGEON_SPIRATACRYPT","IGNIS","Start")
+		End
+	End
+
+	
+	
+	Void Update()
+		TexMove.Update()
+	End
+
+	Constructor
+		Progress.Create("ZIGZAGVLOER",3,255,0,255)
+		Progress.ZigZagVloer = 1
+		TexMove.MapSetup(0,10,"HSINUS.PNG",-1,0,4)
+		Progress.ZigZagVloer = 2
+		TexMove.MapSetUp(0,10,"VSINUS.PNG", 0,1,4)
+		Progress.ZigZagVloer = 4
+		ConfiguringData()
+		For i=1,9
+			self[sprintf("NPC_K%d",i)] = Lua.load(sprintf("Neil.Globals.MScript.Kaars(%d)",i))
+		End
+		ZA.Enter("genpuzzle","GeneratePuzzle")
+		ZA.TabEnter{"StartBoss"}
+		Progress.Kill("ZIGZAGVLOER")
+	End
+	
+End
