@@ -2,7 +2,7 @@
 // **********************************************
 // 
 // src/Tricky Script/Script/MapScript/PRO_Town_Vandar.neil
-// (c) Jeroen Broks, 2021, All Rights Reserved.
+// (c) Jeroen Broks, 2021, 2022, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.10.21
+// version: 22.01.15
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -155,6 +155,19 @@ Group MScript
 		Map.GoToLayer("TOWN","Exit_"..Entered)
 	End
 	
+	Void CH2Scenario()
+		WorldMap.Unlock("CH1FRENDOR") // Autofix due to an other bug causing broken safegames
+		WorldMap.Unlock("CH2FIRESPIRATA")
+		WorldMap.Lock("CH2VANDAR") // Not welcome until chapter 4 anymore
+		Map.ShowObj("CH2Chief")
+		Map.ShowObj("CH2Harry")
+		Map.Pop("Kick_","North",true)
+		MapText("ANGRYCHIEF")
+		Item.ZZKEY_FIRE.Has = 1
+		__WorldMap = "ANGRYCHIEF"
+		WorldMap.Go()
+	End
+	
 	Constructor
 		ZA.Enter("UP1",  "GoUp")
 		ZA.Enter("UP2",  "GoUp")
@@ -163,6 +176,9 @@ Group MScript
 		ZA.Enter("Bye")
 		ZA.Enter("Exit")
 		ZA.Enter("Enter_Cave")
+		If __Chapter==2
+			ZA.Enter("CH2Scenario")
+		End
 		For K in Each{"Chief","Inn","Items","Weapons"}
 			ZA.Enter("Enter_"..K,"Enter."..K)
 		End
