@@ -63,7 +63,7 @@ class Tornado
 	end
 	
 	DESTRUCTOR
-		CSayF("Destroyed tornado #%09x",self.id)
+		//CSayF("Destroyed tornado #%09x",self.id)
 	end
 	
 	void Draw()
