@@ -127,7 +127,7 @@ Group MScript
 	#region Boss
 	Void StartBoss()
 		Map.Kill("StartBoss",true)
-		Map.Kill("Boss")
+		Map.Kill("Boss",true)
 		Combat.QuickBoss("Guardian Of Fire","Ignis","Ignis")
 		Schedule.Add("PostBoss")
 	End
