@@ -43,10 +43,12 @@ Class Hero Extends Fighter
 	Int Num
 	Int AttackFrame = 0
 	Get Int Spirata
-		Return RPGChar[Self.Tag].SafeStat.END_SpirataRate
+		Return RPGChar[Self.Tag].SafeStat.Spirata
+		//Return RPGChar[Self.Tag].SafeStat.END_SpirataRate
 	End
 	Set Int Spirata
-		RPGChar[Self.Tag].Stat.END_SpirataRate = Value
+		RPGChar[Self.Tag].Stat.Spirata = Value
+		RPGChar[Self.Tag].Stat.END_SpirataRate = math.ceil((Value/100)* RPGChar[Self.Tag].Stat.END_Intelligence) 
 	End
 	
 	Const Int AttackFrames = 100
