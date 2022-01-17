@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Effect.neil
-// Version: 22.01.16
+// Version: 22.01.17
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -219,7 +219,7 @@ Group Effect
 			#fi
 			if (act.Attack_DefenseStat=="Power" or act.Attack_DefenseStat=="Endurance") and RPGChar.Dandor.Points.LVL_Skill2.Have>0 
 				Party.IncSkill("Dandor",2,damage)
-			elseif (act.Attack_DefenseStat=="Intelligence" or act.Attack_DefenseStat=="Resistance") and RPGChar.Dandor.LVL_Skill3.Have>0 
+			elseif (act.Attack_DefenseStat=="Intelligence" or act.Attack_DefenseStat=="Resistance") and RPGChar.Dandor.Points.LVL_Skill3.Have>0 
 				Party.IncSkill("Dandor",3,damage) 
 			end
 		end
