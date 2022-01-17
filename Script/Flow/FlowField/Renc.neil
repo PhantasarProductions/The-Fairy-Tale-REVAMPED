@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField/Renc.neil
-// Version: 22.01.16
+// Version: 22.01.17
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -103,8 +103,7 @@ module
 		if (Mouse.ML || Mouse.MR) && Map.AllowEncOff && Mouse.MX>GX-8 && Mouse.MX<GX+8 && Mouse.MY<GY && Mouse.MY>GY-120
 			RencOn = !RencOn
 			AWalkClick=False
-		End
-			
+		End		
 	End
 	
 	Void StartEncounter()
