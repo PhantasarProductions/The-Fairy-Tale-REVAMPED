@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.01.15
+// version: 22.01.17
 // End License Information
 
 #use "Script/Use/Misc/Prologue"
@@ -59,7 +59,8 @@ Group MScript
 	End
 	
 	Void ExitHouse()
-		If Done.Prologue_Marrilona_SpokenToYanee
+		//If Done.Prologue_Marrilona_SpokenToYanee
+		if __Chapter>=2
 			Map.GoToLayer("TOWN","exitfrom_marrilona")
 		Else
 			MapText("FANDALORA_PROLOGUE")
@@ -68,6 +69,22 @@ Group MScript
 			Map.GoToMap("PRO_DUNGEON_MAGIC","#001","Start")
 		End
 	End	
+	
+	Void EnterMarrilona()
+		Map.GoToLayer("MARRILONA","Entry")
+		If !Done.DandorJoined
+			Map.Kill("NPC_YanneeInside",true)
+			RPGParty[3]="Dandor"
+			RPGParty[4]="HandoStillor"
+			Map.Pop("Dandor_","North",true)
+			Map.SetObj("PLAYER3","Texture","GFX/Actors/Bundled/Player/Dandor.South.jpbf")
+			RPGChar.Dandor.Points.LVL_Skill2.Have = 1
+			RPGChar.Dandor.Points.LVL_Skill3.Have = 1
+			MapText("FANDALORA_DANDORCURE2")
+			Item.ZZKEY_WIND.Has = 1
+			WorldMap.Unlock("CH2WINDSPIRATA")
+		End
+	End
 	#endregion
 	
 	#region Fandalora
@@ -114,12 +131,12 @@ Group MScript
 	End
 	
 	Void NPC_YanneeOutside()
-		If !gv.Bool.SpirataFire
+		If !gv.Bool.Spirata_Fire
 			MapText("YANNEE_DANDORCURSED")
 		Elseif !gv.Bool.DandorJoined
 			MapText("YANNEE_DANDORCURED")
 		Else
-			MapText("YANEE_OUTSIDE")
+			MapText("YANNEE_OUTSIDE")
 		End
 	End
 	#endregion
@@ -211,8 +228,10 @@ Group MScript
 			Return
 			//Lua.error("Elder going to the Elfen Lands not yet scripted")
 		End
-		If gv.Bool.SpirataFire
+		If gv.Bool.Spirata_Fire
 			Map.Kill("NPC_FandaloraOutside")
+		Else
+			Map.Kill("EnterMarrilona",false)
 		End
 		//Lua.error("Current entrance allowance not yet scripted")
 	End
@@ -264,7 +283,7 @@ Group MScript
 	End
 	
 	Constructor
-		ZA.TabEnter{"ExitHouse","Elder_Exit","ComeInEvents","B_Exit", "ByeBye","Byebye" }
+		ZA.TabEnter{"ExitHouse","Elder_Exit","ComeInEvents","B_Exit", "ByeBye","Byebye","EnterMarrilona" }
 		For L in Each {"wands","weapons","items","inn"}
 			ZA.Enter("enter_"..L,"EnterBuilding",l:upper())
 		End
