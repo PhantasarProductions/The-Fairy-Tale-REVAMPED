@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.01.16
+// version: 22.01.17
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -137,6 +137,31 @@ Group MScript
 	End
 	#endregion
 	
+	
+	#region Spirata
+	Void NoSpirata()
+		Map.SetObj("SpirataWall","Texture","GFX/Textures/Marble/Wall - N.png")
+	End
+	
+	Void SpirataRoom()
+		If !Done.Spirata_Fire
+			Map.Pop("Spirata_","North",true)
+			Music.Play("Music/Hub/Angevin.ogg")
+			MapText("SPIRATA")
+			RPGChar.Jake_Human.Stat.Experience = math.min(0,RPGChar.Marrilona.Stat.Experience)
+			gv.gbool.CharSpirata_Jake_Human = true
+			gv.gbool.CharSpirata_Jake_Fairy = true
+			NoSpirata()
+			MapText("SPIRATAPOST")
+			__WorldMap = "SPIRATAFIRE"
+			WorldMap.Go()
+		Else
+			NoSpirata()
+		End
+	End
+
+	#endregion
+	
 	Void NPC_Crypt()
 		If Item.ZZ_CRYPTKEY.Has<=0
 			MapText("NOCRYPT")
@@ -163,6 +188,7 @@ Group MScript
 			self[sprintf("NPC_K%d",i)] = Lua.load(sprintf("Neil.Globals.MScript.Kaars(%d)",i))
 		End
 		ZA.Enter("genpuzzle","GeneratePuzzle")
+		ZA.Enter("SpirataMusic","SpirataRoom")
 		ZA.TabEnter{"StartBoss"}
 		Progress.Kill("ZIGZAGVLOER")
 	End
