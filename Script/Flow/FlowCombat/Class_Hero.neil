@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Class_Hero.neil
-// Version: 22.01.16
+// Version: 22.01.18
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -452,6 +452,50 @@ Class Stage_PlayerInput_Ability Extends Stage
 	End
 End
 
+Class Stage_PlayerInput_Items Extends Stage
+	ReadOnly Int BX = 100
+	ReadOnly Int BY = 100
+	ReadOnly Int BW = Screen.W - 200
+	ReadOnly Int BH = Screen.H - 400
+	
+	Var ubox 
+	
+	Static String Exe
+	Static Get Var CEx
+		Return Fighter.ByTag[Exe]
+	End
+	
+	Static Get Var Executor
+		//Return RPGChar[Exe]
+		Return Fighter.ByTag[Exe]
+	End
+	
+	String Chosen = ""
+
+	Void Draw()
+		ubox = ubox ||  new Box(BX,BY,BW,BH,False)
+		ubox.Draw()
+		Chosen = Item.Overview(bx,by,bw,bh,"InCombat",Exe)
+		Mouse.Draw()
+	End
+	
+	Void Update()
+		If Chosen!=""
+			Bool Deduct = True
+			// TODO: Marrilona no AP use when HP is too low
+			var Act = new Action(Chosen,Exe,{},{["ConsumeItem"]=true})
+			Stage_PlayerSelectTarget.ComeToMe(Act)
+			Chosen=""
+		End
+	End
+	
+	Static Void ComeToMe(String _Exe)
+		Exe = _Exe
+		Stage.Current = "PLAYERINPUT_ITEMS"
+	End
+End
+
+
 Var CheckAbilityLearn(Act)
 	__LoadItemState
 	string Abl = ISGET.String("SUB_ITEMS",sPrintF("AblCheckLearn('%s')",Act.Executor.Tag))
@@ -532,6 +576,7 @@ Void PIMI_Ability()
 End
 
 Void PIMI_Items()
+	Stage_PlayerInput_Items.ComeToMe(SPIM.exe)
 End
 
 Void PIMI_Spirata()
@@ -563,6 +608,7 @@ Init
 	Stage.Register("PLAYERINPUT_MAIN",new Stage_PlayerInput_Main())
 	Stage.Register("PLAYERINPUT_SELECTTARGET",new Stage_PlayerSelectTarget())
 	Stage.Register("PLAYERINPUT_ABILITY",new Stage_PlayerInput_Ability())
+	Stage.Register("PLAYERINPUT_ITEMS",new Stage_PlayerInput_Items())
 	PIMI.Lst.AddLast(new PIMI("Attack",0,0,PIMI_Attack))
 	PIMI.Lst.AddLast(new PIMI("Ability",0,-50,PIMI_Ability,NotNostra))
 	PIMI.Lst.AddLast(new PIMI("Spirata",0,50,PIMI_Spirata,HasSpirata))
