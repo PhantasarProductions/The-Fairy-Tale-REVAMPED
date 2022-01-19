@@ -1,0 +1,93 @@
+// License Information:
+// **********************************************
+// 
+// src/Tricky Script/Script/MapScript/CH2_Town_Doubline.neil
+// (c) Jeroen Broks, 2022, All Rights Reserved.
+// 
+// This file contains material that is related
+// to a storyline that is which is strictly
+// copyrighted to Jeroen Broks.
+// 
+// This file may only be used in an unmodified
+// form with an unmodified version of the
+// software this file belongs to.
+// 
+// You may use this file for your study to see
+// how I solved certain things in the creation
+// of this project to see if you find valuable
+// leads for the creation of your own.
+// 
+// Mostly this file comes along with a project
+// that is for most part released under an
+// open source license and that means that if
+// you use that code with this file removed
+// from it, you can use it under that license.
+// Please check out the other files to find out
+// which license applies.
+// This file comes 'as-is' and in no possible
+// way the author can be held responsible of
+// any form of damages that may occur due to
+// the usage of this file
+// 
+// 
+// **********************************************
+// 
+// version: 22.01.19
+// End License Information
+
+#use "Script/Use/Anyway"
+#use "Script/Use/Misc/Inn"
+#use "Script/Use/Misc/Yes"
+
+#macro __Ludo gv.gbool.Doubline_Ludo_Chartered
+
+Group MScript
+
+	ReadOnly Bool HasDraw   = False
+	ReadOnly Bool HasUpdate = False
+	
+	Void Bye()
+		WorldMap.Go()
+	End
+	
+	Void NPC_Bellatrix()
+		MapText("BELLATRIX")
+		FieldMenu.Shop("ITEM_BELLATRIX")
+	End
+	
+	Void NPC_Gilduroy()
+		MapText("GILDUROY")
+		FieldMenu.WeaponShop("WEAPON_GILDUROY")
+	End
+	
+	Void NPC_Molly()
+		Inn()
+	End
+	
+	Void Kokonora()
+		Map.GoToMap("CH3_DUNGEON_KOKONORAFOREST","FISHERMAN","ludo")
+	End
+	
+	Void NPC_Ludo()
+		if __Ludo
+			MapText("LUDO_AGAIN")
+			If Yes("Do you want to go to Kokonora?")
+				Kokonora()
+			End
+		Else
+			MapText("LUDO_CHARTER")
+			If Yes("Do you want to pay 5000 shilders for the ride to Kokonora?") && __Cash>=5000				
+				MapText("LUDO_CHARTERED")
+				__Cash-=5000
+				Kokonora()
+				Map.Chapter(3)
+			Else
+				MapText("LUDO_REFUSE")
+			End
+		End
+	End
+	
+	Constructor
+		ZA.TabEnter{"Bye"}
+	End
+End
