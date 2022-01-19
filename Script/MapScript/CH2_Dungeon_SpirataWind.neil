@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.01.17
+// version: 22.01.18
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -40,6 +40,30 @@
 #use "Script/Use/Misc/ManaOrb"
 
 #macro __Finished gv.gbool.SpirataWind
+
+Class TPuzData
+	int goedeantwoord
+	Int meter=-3
+	Int balletje
+	Int ondergrens
+	int gegevenantwoord = 0
+	//string tag
+	
+	Get Int BalY
+		Return Map.GetObjInt("Balletje","Y")
+	End
+	
+	Set Int BalY
+		Map.SetObj("Balletje","Y",value)
+	End
+	
+	Constructor(int _goed, string vt)
+     	balletje = Map.GetObjInt("Balletje","Y")
+     	ondergrens = Map.GetObjInt("A1","Y")+32
+     	goedeantwoord = _goed
+     	//Tag=vt
+     End
+End
 
 Group MScript
 
@@ -50,6 +74,15 @@ Group MScript
 	
 	Void Update()
 		TexMove.Update()
+		Switch Map.Layer
+			Case "#006" "#004"
+				self.CheckBalletje()
+				FallThrough
+			Case "#002"
+				Self.TileRot++
+				Map.SetObj("ExitDisc","Visible",self.Solved)
+			Default
+		End
 	End
 	
 	#region Spirata
@@ -58,9 +91,19 @@ Group MScript
 	End
 	
 	Void Complete()
+		Map.Pop("S_","North",true)		
+		Music.Play("Music/Hub/Angevin.ogg")
+		MapText("SPIRATA")
+		RPGChar.HandoStillor.Stat.Experience = math.min(0,RPGChar.HandoStillor.Stat.Experience)
+		gv.gbool.CharSpirata_HandoStillor = true
+		NoSpirata()
+		MapText("SPIRATAPOST")
 		Map.Kill("WaaiLinks",true)
 		Map.Kill("WindLeft",true)
 		__Finished = true
+		__WorldMap = "WINDSPIRATADONE"
+		WorldMap.Unlock("CH2DOUBLINEBAY")
+		WorldMap.Go()
 	End
 
 
@@ -69,8 +112,217 @@ Group MScript
 			NoSpirata()
 		End
 	End
+	
+	Void ToSpirata()
+		Map.GoToLayer("#001","SpirataStart")
+		if !__Finished
+			Schedule.Add("Complete")
+		End
+	End
 	#endregion
-
+	
+	#region Puzzle
+	var _PuzData
+	Get Var PuzData
+		_PuzData = _PuzData || {}
+		return _PuzData[Map.Layer]
+	End
+	Set Var PuzData
+		_PuzData = _PuzData || {}
+		_PuzData[Map.Layer] = Value
+	End
+	
+	Const String Tag="SOLVED_PUZZLE_SPIRATA_WIND_"
+	Set Bool Solved
+		gv.gbool[Tag..Map.Layer]=value
+	End
+	Get Bool Solved
+		if Map.Layer=="#002"
+			Return gv.gbool[Tag.."#004"] && gv.gbool[Tag.."#006"] && (!__Finished)
+		End
+		Return gv.gbool[Tag..Map.Layer]
+	End
+	Set Int TileRot
+		Map.SetObj("ExitDisc","Rotation",Value % 360)
+	End
+	Get Int TileRot
+		Return Map.GetObjInt("ExitDisc","Rotation")
+	End
+	Void PuzExit()
+		If Solved
+			Map.GoToLayer("#002","BossSpot")
+		End
+	End
+	Void GenPuzzle()
+		CSay("Generate puzzle triggered")
+		if puzdata			
+			CSay("Already data present so no generation required!")
+			return 
+		end
+		//string l=Map.Layer
+		//local vt="&DONE.SPIRATA.WIND.PUZZLE["..l.."]"
+		Static Var c={[true]={180,0,0},[false]={0,180,0}}
+		//if CVV(vt) then return end
+		if Solved
+			CSay("Already solved, so let's leave things the way are")
+			Return
+		End
+		int v=math.random(3,12)
+		for i=1,12
+			for let in each{"A","B"}
+				//local o=Maps.Obj.Obj(let..i)
+				plua goed=i==v
+				CSayF("Setting spot %s%d (%s/%d)",let,i,Lua.tostring(i==v),v)
+				Map.SetObj(let..i,"R",c[goed][1])  //o.R=c[goed][1]
+				Map.SetObj(let..i,"G",c[goed][2])  //o.G=c[goed][2]
+				Map.SetObj(let..i,"B",c[goed][3])  //o.B=c[goed][3]
+			end
+		end
+		//puzdata = {
+			//goedeantwoord=v,
+			//meter=-3,
+			//balletje=Maps.Obj.Obj('Balletje').Y,
+			//ondergrens=Maps.Obj.Obj("A1").Y+32,
+			//tag=vt
+		//}
+		Csay("Class instance creation")
+		puzdata = New TPuzData(v,Map.Layer)
+		CSay("Correct answer is "..v)
+		//CSay(serialize("Generated data ",puzdata))
+		Csay("All done!")
+	End
+	
+	Void NPC_Controls()
+		If (!puzdata) || Solved
+			CSay("Controls ignored due to the puzzle being solved already!")
+			Return
+		End
+		Static Var Slabs
+		Int DW = Screen.W div 13
+		Repeat			
+			Graphics.Cls()
+			Events.Poll()
+			Map.Drawscreen()
+			Graphics.Alpha(127)
+			__Black
+			Graphics.Rect(0,0,Screen.W,Screen.H)
+			__White
+			Graphics.Alpha(255)
+			For i=1,12
+				Int SW
+				Int SX
+				Slabs = Slabs || {}
+				Slabs[i] = Slabs[i] || Image.LoadNew("GFX/SpirataWind/"..i..".png","WINDSPIRATASLAB_"..i)
+				Slabs[i].HotCenter()
+				SW = Slabs[i].W div 2
+				SX = i*DW
+				If Mouse.MX>SX-SW && Mouse.MX<SX+SW && Mouse.MY<200
+					Graphics.Scale(1.50,1.50)
+					If Mouse.ML
+						PuzData.GegevenAntwoord = i
+						Puzdata.Meter = i
+						Return
+					End
+				End
+				Slabs[i].Draw(SX,100)
+				Graphics.Scale(1,1)
+			End
+			Mouse.Draw()
+			Graphics.Flip()
+			FPS.WaitMinTicks()
+			If Events.KeyHit(27)
+				Return
+			End
+		Forever
+	End
+	
+	Void CheckBalletje()
+		//TurnDone()
+		if (not puzdata) || Solved 
+			return 
+		end
+		//if CVV(puzdata.tag) then return end
+		//local balletje = Maps.Obj.Obj("Balletje")
+		Map.SetObj("Balletje","R",math.random(0,255))
+		Map.SetObj("Balletje","G",math.random(0,255))
+		Map.SetObj("Balletje","B",math.random(0,255))
+		plua y = puzdata.ondergrens
+		
+		y = y - ((puzdata.meter-1)*32)
+		y = y + (math.sin(FPS.Ticks/2)*4)
+		if     puzdata.balY<y 
+			puzdata.balY += 2
+		elseif puzdata.balY>y
+			puzdata.BalY -= 2 
+		end
+		//if balletje.Y<-10
+			//for i=1,100
+				//Cls()
+				//Color(rand(1,255),rand(1,255),rand(1,255))
+				//Image.Rect(0,0,SW,SH)
+				//Flip()
+			//end
+		// local lay = Maps.LayerCodeName
+		//GoToLayer("oops","Start")
+		//MapText("OOPS")
+		//balletje.Y = puzdata.ondergrens+128
+		//puzdata=nil
+		//GoToLayer(lay,"Start")
+		//end
+		CSayF("y pointer: %f; Bal Y: %d; Gegeven antwoord: %d; Goede Antwoord: %d",y,puzdata.baly,puzdata.meter,puzdata.goedeantwoord)
+		if puzdata.balY>y-5 and puzdata.balY<y+5 and puzdata.meter==puzdata.goedeantwoord
+			//subscript = [[
+			//DDZ = Maps.Obj.Obj("Done")
+			//DDO = Maps.Obj.Obj("Obstacle_Done")
+			//DDP = Maps.Obj.Obj("Point_Done")
+			//DDZ.X = DDP.X-32
+			//DDZ.Y = DDP.Y-32
+			//DDO.X = DDP.X
+			//DDO.Y = DDP.Y
+			//]]
+			//Maps.PermaWrite(subscript)
+			//subfunction = loadstring(subscript)
+			//subfunction()
+			//for ch in EachParty() do RPG.IncStat(ch,"EXP",-math.ceil((900/(skill^2)))) end
+			for ch in Each{"Jake_Human","Marrilona","Dandor","HandoStillor"}
+				RPGChar[ch].Stat.Experience -= math.ceil((900/(__skill^2)))
+				//SFX('Audio/sfx/General/Solved.ogg')
+				Audio.LoadNew("Audio/SFX/Solved.ogg","SOLVED").Play()
+				//Done(puzdata.tag)
+				Solved = true
+			end
+		end
+	End
+	#endregion
+		
+	#region Boss
+	Void StartBoss()
+		Map.Kill("StartBoss",true)
+		Map.Kill("Boss",true)
+		Map.Kill("Hek",true)
+		Combat.QuickBoss("Guardian of Wind","Aer","Aer")
+		Schedule.Add("PostBoss")
+	End
+	
+	Void PostBoss() 
+		ManaOrb()
+	End
+	#endregion
+	
+	
+	#region Wing 2 linkup
+	Void Next2()
+		Map.GoToLayer("#005","Start")
+	End
+	
+	Void Prev2()
+		Map.GoToLayer("#002","Einde2")
+	End
+	#endregion
+	
+	Void Bye()
+		WorldMap.Go()
+	End
 	
 	Constructor
 		Progress.Create("ZIGZAGVLOER",3,255,0,255)
@@ -82,7 +334,10 @@ Group MScript
 		ConfiguringData()
 		If !__Finished
 			TexMove.MapSetUp(1,1,"/F.PNG",-5,0,0)
+		Else
+			ZA.Enter("SpirataCheck","NoSpirata")
 		End
+		ZA.TabEnter{"PuzExit","GenPuzzle","StartBoss","Next2","Prev2","Bye","ToSpirata"}
 		Progress.Kill("ZIGZAGVLOER")
 	End
 End
