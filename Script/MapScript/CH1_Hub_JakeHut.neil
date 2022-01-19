@@ -2,7 +2,7 @@
 // **********************************************
 // 
 // src/Tricky Script/Script/MapScript/CH1_Hub_JakeHut.neil
-// (c) Jeroen Broks, 2021, All Rights Reserved.
+// (c) Jeroen Broks, 2021, 2022, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.12.12
+// version: 22.01.19
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -117,6 +117,12 @@ Group MScript
 		End
 	End
 	
+	Void NPC_Marinus()
+		If !__newgameplus
+			Map.Kill("NPC_Marinus",true)
+		End
+	End
+	
 	Void NPC_Eric()
 		MapText("ERIC")
 		FieldMenu.WeaponShop("WEAPON_ERIC")
@@ -136,9 +142,17 @@ Group MScript
 		WorldMap.Go()
 	End
 	
+	Void NPC_Monk()
+		MapText("MONK_"..Lua.tostring(Done["Spoken_Anna_Monk"]):upper())
+		WorldMap.UnLock("ANNA")
+	End
+	
 	#region Linking it all up
 	Constructor
 		ZA.TabEnter{"ExitHut","Buiten","Bye"}
+		If __Chapter<2 && (!__newgameplus)
+			Map.LayKill("EXTERIOR","NPC_Monk")
+		End
 	End
 	#endregion
 	
