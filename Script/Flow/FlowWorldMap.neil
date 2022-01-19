@@ -47,6 +47,8 @@ Global Void ComeToMe(string R)
 	Switch R
 		Case "Delisto"
 			Music.Play("Music/Hub/StartToFantasyInstrumental.ogg")
+		Case "Kokonora"
+			Music.Play("Music/Hub/Indore.ogg")
 		Default
 			Lua.error("No known music for reagon "..R)
 	End
