@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Link.neilbundle/Map.Neil
-// Version: 22.01.11
+// Version: 22.01.19
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -275,6 +275,13 @@ Module
 	// Doesn't kill an object immediately, but when leaving and coming back here, the object will be gone
 	Void DelayKill(String Tag)
 		MCall("FlowField.Kill.SetPerma",Tag)
+	End
+	
+	Void LayKill(String Lay,String Tag,perma)
+		String O = Layer
+		Layer = Lay
+		Kill(Tag,perma==true)
+		Layer = O
 	End
 	
 	Void HideObj(string Tag)
