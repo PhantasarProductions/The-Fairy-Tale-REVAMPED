@@ -1,7 +1,7 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FieldMenu/Trade.neil
-// Version: 21.12.11
-// Copyright (C) 2021 Jeroen Petrus Broks
+// Version: 22.01.19
+// Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
 // This file is part of a project related to the Phantasar Chronicles or another
@@ -100,7 +100,7 @@ Module
 			If CanTrade
 				If ToCash<0
 					__Red
-					Fnt.Txt(sprintF("You are %d Shilders short for this trade",math.abs(ToCash)),EX-h,Y,1)
+					Fnt.Text(sprintF("You are %d Shilders short for this trade",math.abs(ToCash)),EX-h,Y,1)
 				Else
 					__Ember
 					Fnt.Text(sprintf("%d Sh -> %d Sh",__Cash,ToCash),EX-h,Y,1)
