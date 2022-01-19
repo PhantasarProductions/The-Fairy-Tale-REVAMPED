@@ -50,7 +50,7 @@ Module
 	Constructor
 		CSay("Water Spirata Arena Script Loaded")
 		//Blop.Create(80)
-		SS = new SinusShade(0,255,255)
+		SS = new SinusShade(0,255,0)
 	End
 
 End
