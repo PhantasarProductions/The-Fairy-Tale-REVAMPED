@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Combat/SpellAni/Rock.neil
-// Version: 22.01.07
+// Version: 22.01.17
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -44,7 +44,7 @@ module
 
 	void Start(A)
 		_Ended = false
-		string img = "GFX/Inventory/Rock.png"
+		string img = "GFX/Combat/SpellAni/Rock.png"
 		Template.Start(img,A,true,true)
 		Template.Speed = 8
 	end
