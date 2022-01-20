@@ -1,7 +1,7 @@
 // License Information:
 // src/Tricky Script/Script/Use/Link.neilbundle/Item.neil
-// Version: 21.12.29
-// Copyright (C) 2021 Jeroen Petrus Broks
+// Version: 22.01.20
+// Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
 // This file is part of a project related to the Phantasar Chronicles or another
@@ -98,6 +98,8 @@ Var __TagIndex(s,string Key)
 					Key2 = Key2:upper()
 					If Key2=="GIVE"
 						Return __ItmGive(Key)
+					elseif Key2=="TAG"
+						Return Key
 					elseif Key2=="SELLPRICE"
 						//CSayF("Getting sell price of item %s",Key)
 						return ISGET.INT("SUB_ITEMS",sprintf("GetSellPrice(\"%s\")",Key))
