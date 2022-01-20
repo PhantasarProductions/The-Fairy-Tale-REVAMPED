@@ -1,0 +1,74 @@
+// License Information:
+// **********************************************
+// 
+// src/Tricky Script/Script/MapScript/CH3_Dungeon_KokonoraForest.neil
+// (c) Jeroen Broks, 2022, All Rights Reserved.
+// 
+// This file contains material that is related
+// to a storyline that is which is strictly
+// copyrighted to Jeroen Broks.
+// 
+// This file may only be used in an unmodified
+// form with an unmodified version of the
+// software this file belongs to.
+// 
+// You may use this file for your study to see
+// how I solved certain things in the creation
+// of this project to see if you find valuable
+// leads for the creation of your own.
+// 
+// Mostly this file comes along with a project
+// that is for most part released under an
+// open source license and that means that if
+// you use that code with this file removed
+// from it, you can use it under that license.
+// Please check out the other files to find out
+// which license applies.
+// This file comes 'as-is' and in no possible
+// way the author can be held responsible of
+// any form of damages that may occur due to
+// the usage of this file
+// 
+// 
+// **********************************************
+// 
+// version: 22.01.20
+// End License Information
+
+#use "Script/Use/Anyway"
+
+Group MScript
+
+	ReadOnly Bool HasDraw   = False
+	ReadOnly Bool HasUpdate = False
+	
+	#region Jake & Marriona
+	Void Kokonora()	
+		If !__FlashBack
+			WorldMap.Go("Kokonora")
+		End
+	End
+	#endregion
+	
+	
+	#Region Nostramantu & Feenalaria
+	Void NosBlock()
+		Map.StopWalking()
+		MapText("BLOCKNOS")
+		Player.WalkTo("Start")
+	End
+	#EndRegion
+	
+	Constructor
+		ZA.TabEnter{"Kokonora","NosBlock"}		
+		if !__Flashback
+			Map.LayKill("FOREST","Boss",false)
+			Map.LayKill("FOREST","StartBoss",false)
+			Map.LayKill("FOREST","NosBlock",false)
+			Map.LayKill("FOREST","PRC_NosOnly",false)
+			ZA.Enter("Kokonora2","Kokonora")
+		Else
+			ZA.Enter("Kokonora2","TheEndNostramantu")
+		End
+	End
+End
