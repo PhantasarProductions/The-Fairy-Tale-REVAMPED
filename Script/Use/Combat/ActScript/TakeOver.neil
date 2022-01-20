@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Combat/ActScript/TakeOver.neil
-// Version: 22.01.15
+// Version: 22.01.20
 // Copyright (C) 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -43,7 +43,7 @@ Bool _TO(Act,Tar)
 		End
 	End
 	For idx in Each(T)
-		Cards.Replace(idx,Tar.Tag)			
+		FlowCombat.Cards.Replace(idx,Tar.Tag)			
 	End
 	return #T>0
 End
