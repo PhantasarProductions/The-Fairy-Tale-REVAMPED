@@ -1,7 +1,7 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/AAA_Stage.neil
-// Version: 21.12.28
-// Copyright (C) 2021 Jeroen Petrus Broks
+// Version: 22.01.20
+// Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
 // This file is part of a project related to the Phantasar Chronicles or another
@@ -122,6 +122,12 @@ Class Stage_IDLE extends Stage
 		CardCheck()
 		If !Cards.Present(1)
 			Cards.DelFirst()
+		ElseIf FirstCard.Action 
+			If Fighter.ByTag[FirstCard.FightTag].HP<=0
+				Cards.DelFirst()
+			Else
+				CombatFlow.Execution.ComeToMe(FirstCard.Action,CombatFlow.Cards.Lijst[1])
+			End
 		ElseIf FirstCard.FightTeam=="Hero" && (!FirstCard.Action)
 			If Fighter.ByTag[FirstCard.FightTag].Char.Data.Master=="Freya" && __skill<3
 				Int Regen = 300 div __skill

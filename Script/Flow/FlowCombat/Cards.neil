@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Cards.neil
-// Version: 22.01.15
+// Version: 22.01.20
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -68,6 +68,10 @@ Module Class
 		Else
 			//Lijst[idx].X = -(idx*100)
 		End
+	End
+	
+	Static Get Delegate AddCard
+		Return Add
 	End
 	
 	Static Void Replace(Int idx,String FighterTag,Action,Joker)

@@ -1,7 +1,7 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Execution.neil
-// Version: 21.11.10
-// Copyright (C) 2021 Jeroen Petrus Broks
+// Version: 22.01.20
+// Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
 // This file is part of a project related to the Phantasar Chronicles or another
@@ -162,6 +162,21 @@ Class Stage_Execution Extends Stage
 	Static Var AfterActions = {}
 	
 	Void Update_AfterAction()
+		// Are there additional cards to be added?
+		If Act.Act.ADDCARD_Action_Number>0			
+			String AddAct = Act.Act.ADDCARD_Action_Act
+			Bool Allowed = true
+			if AddAct=="Self"
+				Allowed = !Card.Action
+				AddAct = Act.Act.Tag
+			End
+			If Allowed
+				For i = 1,Act.Act.ADDCARD_Action_Number
+					CSayF("%0d/%0d:> Adding action card '%s'",i,Act.Act.ADDCARD_Action_Number,AddAct)
+					FlowCombat.Cards.AddCard(i*Act.Act.ADDCARD_Action_Interval,Act.Executor.Tag,new Action(AddAct,Act.Executor.Tag,Act.TarTags))
+				End
+			End
+		End
 		// After Action Script 
 		String AA_Dir = "Script/Use/Combat/AfterAction/"
 		String AA_File = AA_Dir
