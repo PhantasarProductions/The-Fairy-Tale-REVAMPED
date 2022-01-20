@@ -2,7 +2,7 @@
 // **********************************************
 // 
 // src/Tricky Script/Script/Use/Link.neilbundle/Master.neil
-// (c) Jeroen Broks, 2021, All Rights Reserved.
+// (c) Jeroen Broks, 2021, 2022, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.12.18
+// version: 22.01.20
 // End License Information
 Module
 
@@ -57,9 +57,15 @@ Module
 		If Force || RPGChar[Ch].Data.Master == Master
 			//gv.gInt["MASTER_"..Master.."_"..Ch.."_KEY_"..Key] += Value
 			Switch Master
-				Case "Rubine"
-					CSayF("%s is studying under master Rubine and will get %d extra points",ch,value)
+				Case "Rubine" 
+					CSayF("%s is studying under master %s and will get %d extra points",ch,Master,value)
 					RPGChar[ch].Stat.RubinePoints += Value
+				case "Russell"
+					CSayF("%s is studying under master %s and will get %d extra points",ch,Master,value)
+					RPGChar[ch].Stat.StatRussellKills += Value
+				case "Feenalaria"
+					CSayF("%s is studying under master %s and will get %d extra points",ch,Master,value)
+					Lua.error("Feenalaria must be scripted to get the points now! Do it!")
 				Default
 					Lua.error("Unknown master: "..Master)
 			End
