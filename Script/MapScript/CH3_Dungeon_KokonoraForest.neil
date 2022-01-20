@@ -36,6 +36,7 @@
 // End License Information
 
 #use "Script/Use/Anyway"
+#use "Script/Use/Misc/Yes" 
 
 Group MScript
 
@@ -46,6 +47,24 @@ Group MScript
 	Void Kokonora()	
 		If !__FlashBack
 			WorldMap.Go("Kokonora")
+		End
+	End
+	
+	Void ActKrandar()
+		Map.StopWalking()
+		Map.Pop("Krandar","North")
+		MapText("KRANDAR1")
+		For t in each{"ActKrandar","Krandar","BWF1","BWF2","BWF3"}
+			Map.Kill(t,true)
+		End
+		WorldMap.Unlock("CH3MINE")
+		WorldMap.Go("Kokonora")
+		__WorldMap = "KRANDARNOS"
+	End
+	
+	Void NPC_Ludo()
+		If Yes("Do you want to go back to Doubline?")
+			Map.GoToMap("CH2_TOWN_DOUBLINE","CITY","Einde")
 		End
 	End
 	#endregion
@@ -60,7 +79,7 @@ Group MScript
 	#EndRegion
 	
 	Constructor
-		ZA.TabEnter{"Kokonora","NosBlock"}		
+		ZA.TabEnter{"Kokonora","NosBlock","ActKrandar"}		
 		if !__Flashback
 			Map.LayKill("FOREST","Boss",false)
 			Map.LayKill("FOREST","StartBoss",false)
