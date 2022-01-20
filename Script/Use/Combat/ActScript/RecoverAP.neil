@@ -1,0 +1,12 @@
+Bool _PARA(Act,Tar)
+	String MyArg = Act.Act.EffectScript_Arg
+	Int RAP = Lua.tonumber(MyArg) || 1
+	If Tar.Team!="Hero"
+		Return False
+	End
+	Tar.Char.Points.AP.Have += RAP
+	FlowCombat.charmsg(Tar.Tag,sprintf("+%d AP",RAP),0,180,255)
+	Return True
+End
+
+Return _PARA
