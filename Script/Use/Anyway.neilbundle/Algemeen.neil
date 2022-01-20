@@ -1,7 +1,7 @@
 // License Information:
 // src/Tricky Script/Script/Use/Anyway.neilbundle/Algemeen.neil
-// Version: 21.12.28
-// Copyright (C) 2021 Jeroen Petrus Broks
+// Version: 22.01.20
+// Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
 // This file is part of a project related to the Phantasar Chronicles or another
@@ -59,6 +59,10 @@
 #macro __OrbBlack gv.gint.Orbs
 
 #macro __Worldmap gv.gstring.WorldMapText
+
+
+// Reference to Nostramantu & Feenalaria comes later!
+#macro __Flashback False
 
 Global Int CapUp()
 	Int R = 6-__Skill
