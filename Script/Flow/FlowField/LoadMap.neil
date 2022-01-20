@@ -1,7 +1,7 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField/LoadMap.neil
-// Version: 21.11.11
-// Copyright (C) 2021 Jeroen Petrus Broks
+// Version: 22.01.20
+// Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
 // This file is part of a project related to the Phantasar Chronicles or another
@@ -97,6 +97,7 @@ Init
 	LoadActions += LoadMapScript
 	// Music always the very last
 	LoadActions += LoadMapMusic	
+	Kthura.SetAutoVisible()
 End
 
 Void RetLoadMap(string mapbundle)
