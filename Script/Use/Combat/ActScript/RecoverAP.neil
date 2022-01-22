@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Combat/ActScript/RecoverAP.neil
-// Version: 22.01.20
+// Version: 22.01.21
 // Copyright (C) 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -35,7 +35,7 @@
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
 Bool _PARA(Act,Tar)
-	String MyArg = Act.Act.EffectScript_Arg
+	String MyArg = Act.EffectScript_Arg
 	Int RAP = Lua.tonumber(MyArg) || 1
 	If Tar.Team!="Hero"
 		Return False
