@@ -146,7 +146,8 @@ Module
       	//local me = StatusChanges.Curse
       	Var HP = RPGChar[ch.Tag].Points.HP
       	Var AP
-          if prefixed(ch,"FOE") then
+          //if prefixed(ch,"FOE") then
+          if ch.team=="Foe"
              AP = HP
           else
              AP = RPGChar[ch.Tag].Points.AP
