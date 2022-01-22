@@ -1,7 +1,7 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/StatusChanges.neil
-// Version: 21.12.25
-// Copyright (C) 2021 Jeroen Petrus Broks
+// Version: 22.01.22
+// Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
 // This file is part of a project related to the Phantasar Chronicles or another
@@ -122,6 +122,69 @@ Module
 			Graphics.Scale(1,1)
 		End
 		Register.Sleep.Draw = Sleep_Draw
+		
+		// Curse
+		Var Curse_stat = { }
+		Void Curse_CreateMe()
+			//local skill=Sys.Val(Var.C("%SKILL"))
+			Switch __Skill
+				Case 1
+					Curse_stat = {"Poison","Disease","Zombie","Sleep"}
+				Case 2
+					Curse_stat = {"Poison","Disease","Zombie","Sleep","Death","Poison","Paralysis"}
+				Case 3
+					Curse_stat = {"Zombie","Death","Death","Petrification","Poison"}
+				Default
+           End      
+      End
+
+      Void Curse_Draw(Char)
+         Graphics.Color(255,0,0)
+      end   
+      
+      Void Curse_PreTurn(ch)
+      	//local me = StatusChanges.Curse
+      	Var HP = RPGChar[ch.Tag].Points.HP
+      	Var AP
+          if prefixed(ch,"FOE") then
+             AP = HP
+          else
+             AP = RPGChar[ch.Tag].Points.AP
+          end   
+          //local forf = "Hero" -- Friend or foe?
+          //if prefixed(ch,'FOE') then forf='Foe' end
+          String forf = Ch.Team
+          Int r=math.random(1,__skill*10)
+          if r==1 or r==21 or r==29
+             HP.Have=1
+          elseif r==2 and __skill!=3
+             HP.Have = HP.Maximum
+          elseif r==3 || r>24 
+             HP.Have = math.random(1,HP.Maximum)
+          elseif r==11 || r==22
+             AP.Have=0
+          elseif r==12 and __skill!=3
+             AP.Have = AP.Maximum
+          elseif r==13 and __skill==3
+             HP.Have=1
+             AP.Have=0
+          elseif (r>14 and r<20) or (r==23) 
+             plua cstat = Curse_stat[math.random(1,#Curse_Stat)]
+             if (cstat=="Death" || cstat=="Petrification") and forf=="Foe"
+             	return 
+             end
+             //SetStatus(ch,cstat)
+             if Register[cstat]
+             	ch.StatusChanges[cstat] = true
+             else
+             	CSayF("WARNING! Status Change '%s' does not yet exist so it could not yet be applied through curse!",cstat)
+             End
+            end
+		end 
+		Curse_CreateMe()
+		Register.Curse = New TStatusChange()
+		Register.Curse.PreTurn = Curse_PreTurn
+		Register.Curse.Draw    = Curse_Draw
 		
 		// URegister
 		Var _Get(s,string K)
