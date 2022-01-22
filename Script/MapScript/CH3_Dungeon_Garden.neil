@@ -1,0 +1,106 @@
+// License Information:
+// **********************************************
+// 
+// src/Tricky Script/Script/MapScript/CH3_Dungeon_Garden.neil
+// (c) Jeroen Broks, 2022, All Rights Reserved.
+// 
+// This file contains material that is related
+// to a storyline that is which is strictly
+// copyrighted to Jeroen Broks.
+// 
+// This file may only be used in an unmodified
+// form with an unmodified version of the
+// software this file belongs to.
+// 
+// You may use this file for your study to see
+// how I solved certain things in the creation
+// of this project to see if you find valuable
+// leads for the creation of your own.
+// 
+// Mostly this file comes along with a project
+// that is for most part released under an
+// open source license and that means that if
+// you use that code with this file removed
+// from it, you can use it under that license.
+// Please check out the other files to find out
+// which license applies.
+// This file comes 'as-is' and in no possible
+// way the author can be held responsible of
+// any form of damages that may occur due to
+// the usage of this file
+// 
+// 
+// **********************************************
+// 
+// version: 22.01.21
+// End License Information
+
+#use "Script/Use/Anyway"
+#use "Script/Use/Misc/TexMove"
+#use "Script/Use/Misc/ManaOrb"
+
+
+Group MScript
+
+	ReadOnly Bool HasDraw   = True
+	ReadOnly Bool HasUpdate = True
+	
+	//Bool Plasma = True
+	
+	Void Update()
+		//Plasma = True
+		Bool HNext  = True
+		Bool HPrev  = True
+		Switch Map.Layer
+			Case "#000"
+				HPrev=False
+				//Plasma=False
+			Case "#013"
+				HNext=False
+				HPrev=False
+			Case "#014" "#018" "#020"
+				HPrev=False
+			Case "#017"
+				Static Bool DTM = False
+				If !DTM
+					CSay("Set up Tex Move for Floor #017!")
+					TexMove.MapSetup(17,17,"HSINUS.PNG",1,0,4)
+					TexMove.MapSetUp(17,17,"VSINUS.PNG",0,1,4)
+					DTM=true
+				End
+				TexMove.Update()
+			Default
+		End
+		If HNext
+			Map.SetObj("Obstacle_Next","Rotation",(Map.GetObjInt("Obstacle_Next","Rotation")+1)%360)
+		End
+		If HPrev
+			Map.SetObj("Obstacle_Prev","Rotation",(Map.GetObjInt("Obstacle_Prev","Rotation")-1)%360)
+		End
+	End
+	
+	ReadOnly Delegate PostDraw = NIKS
+	
+	Void PreDraw()
+		If Map.Layer!="#000"
+			Blop.Draw()
+		End
+	End							
+	
+	Get Delegate NPC_Walda
+		return NeilUse("Script/Use/Misc/Walda")
+	End
+	
+	Void StartBoss()
+		If !Done["BOSS_MAGICGARDEN_"..Map.Layer]
+			Map.StopWalking()
+			Combat.QuickBoss("Eye-Spy",({["#006"]="Invisible Demon", ["#018"]="Super Hiding Hag"})[Map.Layer],({["#006"]="InvisibleDemon",["#018"]="Boss/SuperHidingHag"})[Map.Layer] )
+			Map.Kill("Boss",true)
+		End
+	End
+	
+	Constructor
+		Blop.Create(80)
+		ZA.TabEnter{"StartBoss"}
+	End
+End
