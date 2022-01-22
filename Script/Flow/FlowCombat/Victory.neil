@@ -1,7 +1,7 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Victory.neil
-// Version: 21.11.26
-// Copyright (C) 2021 Jeroen Petrus Broks
+// Version: 22.01.22
+// Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
 // This file is part of a project related to the Phantasar Chronicles or another
@@ -124,6 +124,7 @@ Class Stage_Victory extends Stage
 	End
 
 	Void Draw()
+		__White
 		Graphics.Scale(BanScale,BanScale)
 		Banner.Draw(Screen.W div 2, Screen.H div 5)
 	End
