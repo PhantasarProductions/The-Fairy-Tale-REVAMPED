@@ -1,7 +1,7 @@
 // License Information:
 // src/Tricky Script/Script/Subs/SubItems.neil
-// Version: 21.12.30
-// Copyright (C) 2021 Jeroen Petrus Broks
+// Version: 22.01.21
+// Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
 // This file is part of a project related to the Phantasar Chronicles or another
@@ -360,12 +360,14 @@ Global String OverView(int x, int y, int w, int h, string Filters,string char)
 	End
 	// Items
 	Int iY = -__ScrollY
-	//String Hover = ""
+	//String Hover = ""	
+	Bool CanGoDown 
 	For iTag,iNum in sPairs(Inventory)
+		CanGoDown = True
 		LoadedItems[iTag] = LoadedItems[iTag] || NeilUse("Script/Data/IAA/"..iTag)
-		Var iData = LoadedItems[iTag]
-		
+		Var iData = LoadedItems[iTag]		
 		If iY>=0 && iY<=H-150 && iNum>0 && Allow(iTag,ListOfFilters[Filters][CurrentFilter[Filters]],Char)
+			CanGoDown = False
 			Int MDX = 0
 			Int DX = X+10
 			Int DY = Y+iY+100
@@ -386,11 +388,18 @@ Global String OverView(int x, int y, int w, int h, string Filters,string char)
 				Graphics.Color(0,180,255)
 				ItmFnt.Text(Lua.tostring(GetSellPrice(iTag)).." Sh",(X+W)-(200+MDX),DY,1)
 			end
-			iY+=40
 			If Hovering
 				Explain(iData)
 			End
 		End
+		If iNum>0 && Allow(iTag,ListOfFilters[Filters][CurrentFilter[Filters]],Char)
+			iY+=40
+		End
+	End
+	//CSayF("N:Wheel: %d; Scroll: %d; CanGoDown: %s;",Events.MouseWheelY(),__ScrollY,Lua.tostring(CanGoDown))
+	If (Events.MouseWheelY()>0 && __ScrollY>0) || (Events.MouseWheelY()<0 && CanGoDown) 
+		__ScrollY -=(Events.MouseWheelY()*8)
+		CSayF("S:Wheel: %d; Scroll: %d; CanGoDown: %s;",Events.MouseWheelY(),__ScrollY,Lua.tostring(CanGoDown))
 	End
 	Return ""
 End
