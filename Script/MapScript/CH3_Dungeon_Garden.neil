@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.01.21
+// version: 22.01.23
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -94,13 +94,26 @@ Group MScript
 	Void StartBoss()
 		If !Done["BOSS_MAGICGARDEN_"..Map.Layer]
 			Map.StopWalking()
-			Combat.QuickBoss("Eye-Spy",({["#006"]="Invisible Demon", ["#018"]="Super Hiding Hag"})[Map.Layer],({["#006"]="InvisibleDemon",["#018"]="Boss/SuperHidingHag"})[Map.Layer] )
+			Combat.QuickBoss("Eye-Spy",({["#006"]="Invisible Demon", ["#018"]="Super Hiding Hag"})[Map.Layer],({["#006"]="InvisibleDemon",["#018"]="SuperHidingHag"})[Map.Layer] )
 			Map.Kill("Boss",true)
 		End
 	End
 	
+	Void NPC_ManaOrb()
+		Map.Kill("NPC_ManaOrb",true)
+		ManaOrb()
+	End
+	
+	Void Back()
+		Map.GoToLayer("#000","Einde")
+	End
+	
+	Void Bye()
+		Map.GoToMap("CH3_Dungeon_Mine","#001","FromSecretDungeon")
+	End
+	
 	Constructor
 		Blop.Create(80)
-		ZA.TabEnter{"StartBoss"}
+		ZA.TabEnter{"StartBoss","Back","Bye"}
 	End
 End
