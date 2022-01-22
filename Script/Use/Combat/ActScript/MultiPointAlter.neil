@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Combat/ActScript/MultiPointAlter.neil
-// Version: 22.01.21
+// Version: 22.01.22
 // Copyright (C) 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -34,8 +34,9 @@
 // misrepresented as being the original software.
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
+
 Bool _PA(Act,Tar)
-	String MyArgs = split(Act.EffectScript_Arg,";")
+	Var MyArgs = split(Act.EffectScript_Arg,";")
 	For MyArg in each(MyArgs)
 		//If MyArg==""
 		//MyArg = "HP 1"
