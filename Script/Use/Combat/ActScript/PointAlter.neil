@@ -1,7 +1,7 @@
 // License Information:
 // src/Tricky Script/Script/Use/Combat/ActScript/PointAlter.neil
-// Version: 21.12.27
-// Copyright (C) 2021 Jeroen Petrus Broks
+// Version: 22.01.21
+// Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
 // This file is part of a project related to the Phantasar Chronicles or another
@@ -35,7 +35,7 @@
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
 Bool _PA(Act,Tar)
-	String MyArg = Act.Act.EffectScript_Arg
+	String MyArg = Act.EffectScript_Arg
 	If MyArg==""
 		MyArg = "HP 1"
 	End
