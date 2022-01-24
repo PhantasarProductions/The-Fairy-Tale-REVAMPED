@@ -1,7 +1,7 @@
 // License Information:
 // src/Tricky Script/Script/Use/Misc/PuzSet.neil
-// Version: 21.10.30
-// Copyright (C) 2021 Jeroen Petrus Broks
+// Version: 22.01.23
+// Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
 // This file is part of a project related to the Phantasar Chronicles or another
@@ -85,7 +85,7 @@ Module
 	ReadOnly Table TexDefault = { "Klein Vierkant.png","Kras.png","Cirkel in een cirkel.png","Kruis Boven.png","Kruis Onder.png","Kruis.png","Ruit.png","Schuin Kruis met Stippen.png","Schuin Kruis.png","Driehoek.png","Elipse Verticaal.png","Elipse Horizontaal.png","Cirkel.png","Rechthoek Verticaal.png","Rechthoek Horizontaal.png","Vierkant.png"}
 	ReadOnly String DirDefault = "GFX/Textures/Shapes/"	
 
-	ReadOnly Table TexMine = { "I.png","II.png","III.png","IV.png","V.png","VI.png","VII.png","VIII.png","IX.PNG","X.png"}
+	ReadOnly Table TexMine = { "I.png","II.png","III.png","IV.png","V.png","VI.png","VII.png","VIII.png","IX.PNG","X.png", "XI.png","XII.png","XIII.png","XIV.png","XV.png","XV.png", "XVI.png", "XVII.png", "XVIII.png", "XIX.png","XX.png", "XXI.png", "XXII.png", "XXIII.png", "XXIV.png", "XXV.png" }
 	ReadOnly String DirMine = "GFX/Textures/Shapes/Mine/"
 	
 	Int Correct1
@@ -113,7 +113,7 @@ Module
 		If TReg==""
 			TReg="Default"
 		End
-		CSayF("= Number of tiles: %d; Texture set: %s",Num,TReg)
+		CSayF("= Number of tiles: %d; Texture set: %s;",Num,TReg)
 		Table Used = {}
 		Repeat
 			Correct1 = math.random(1,Num)
@@ -122,6 +122,7 @@ Module
 		int C2
 		CSayF("Correct tiles: %02d/%02d",Correct1,Correct2)
 		Table Tab = Self["Tex"..TReg]
+		CSayF("Number of Texures: %d",#Tab)
 		For i=1,Num
 			CSayF("Setting tile: %02d/%02d",i,Num)
 			Int TimeOut=10000
@@ -134,6 +135,7 @@ Module
 				RT = math.random(1,#Tab)
 			LoopWhile Used[RT]			
 			Used[RT]=i
+			CSayF("- Tile: %02d/%02d; Tex: %02d/%02d;",i,num,RT,#Tab) 
 			Pressed = {}
 			if i==Correct1
 				C2=RT
@@ -151,7 +153,7 @@ Module
 		End
 	End
 	
-	Void Action(string Tag,string BarPrefix)
+	Void Action(string Tag,string BarPrefix,Int EXP=0)
 		Int TNum = Lua.tonumber(Right(Tag,#Tag-3))
 		Pressed[TNum] = !Pressed[TNum]
 		if Pressed[TNum]
@@ -176,8 +178,12 @@ Module
 				Map.Kill("Sym"..i,True)
 			End
 			Map.KillByPrefix(BarPrefix,True)
+			If EXP>0
+				for ch in Each{"Jake_Human","Marrilona","Dandor","HandoStillor"}
+					RPGChar[ch].Stat.Experience -= EXP
+				End
+			End
 		End
-		
 	End
 
 	
