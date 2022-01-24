@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.01.20
+// version: 22.01.23
 // End License Information
 Module
 
@@ -62,7 +62,7 @@ Module
 					RPGChar[ch].Stat.RubinePoints += Value
 				case "Russell"
 					CSayF("%s is studying under master %s and will get %d extra points",ch,Master,value)
-					RPGChar[ch].Stat.StatRussellKills += Value
+					RPGChar[ch].Stat.RussellKills += Value
 				case "Feenalaria"
 					CSayF("%s is studying under master %s and will get %d extra points",ch,Master,value)
 					Lua.error("Feenalaria must be scripted to get the points now! Do it!")
