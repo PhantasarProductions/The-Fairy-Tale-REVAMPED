@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.01.23
+// version: 22.01.25
 // End License Information
 
 Module
@@ -64,8 +64,9 @@ Module
 	Var AllPoints(ch)
 		int deler = 0
 		int totaal = 0
-		table chcheck = {["Jake_Human"]={2,3,4,5},["Marrilona"]={1,2,3,4,5},["HandoStillor"]={2}}
+		static table chcheck = {["Jake_Human"]={2,3,4,5},["Marrilona"]={1,2,3,4,5},["HandoStillor"]={2}}
 		//chcheck.Jake_Fairy=chcheck.Jake_Human
+		//CSayF("Allpoints(%s)",ch) // Debug ONLY!
 		for tch,skills in pairs(chcheck)
 			for _,d in ipairs(skills)
 				Int keer = 1
@@ -82,22 +83,26 @@ Module
 		deler = math.max(deler,1) //if deler==0 then deler=1 end -- Should prevent errors, although deler being 0 should be impossible.
 		int gemiddelde = math.floor(totaal/deler)
 		int gained = 0
-		if ch and RPGChar[ch].Data.Master=="Fandalora"
-			gained = gemiddelde - RPGChar[ch].SafeStat.StartFandalora
-		end
+		//if ch and RPGChar[ch].Data.Master=="Fandalora"
+		//	gained = gemiddelde - RPGChar[ch].SafeStat.StartFandalora
+		//end
 		return totaal,gemiddelde
 	end
 
 	// Should return true if master actually decides to teach something	
 	Var Teach(string Ch)
+		CSay("Is there something to teach for "..ch.."?")
 		all = true
 		bool maylearn = true
 		var rabl = false
 		if ch=="Dandor"
 			return false,false 
 		end
-		plua points = Self.ShowScore(ch)
+		CSay("= Checking score!")
+		plua points = Lua.tonumber(Self.ShowScore(ch) || 0)
+		CSay("= Checking abilities!")
 		for i,a in pairs(abl)
+			CSayF("%03d>%s (Have %d)",i,a,points)
         	if points>=i and (not rabl)
         		if not Done["MASTERLEARNING.FANDALORA["..a.."]["..ch.."]"]
         			rabl=a
@@ -108,6 +113,7 @@ Module
         		all=false
         	end
         end
+        CSay("Result: "..Lua.tostring(rabl))
         //return rabl,all
         return rabl 
     	//,all
@@ -159,6 +165,7 @@ Module
      ReadOnly Bool   HideRates = False
 
      Constructor
+     	CSay("Loading Master Fandalora")
      	DefStats()
      	DefAbl()
      End
