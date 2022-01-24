@@ -34,11 +34,27 @@
 // 
 // version: 22.01.24
 // End License Information
+
+#use "Script/Use/Anyway"
+#use "Script/Use/Misc/Inn"
+
 Group MScript
 
 	ReadOnly Bool HasDraw   = False
 	ReadOnly Bool HasUpdate = False
 	
+	Void ToQuendor()
+		Map.GoToLayer("QUENDOR","Start")
+	End
+	
+	Void ToTown()
+		Map.GoToLayer("TOWN","Einde")
+	End
+	
 	Constructor
+		If !__newgameplus
+			Map.LayKill("TOWN","NPC_Cherry")
+		End
+		ZA.TabEnter{"ToQuendor","ToTown"}
 	End
 End
