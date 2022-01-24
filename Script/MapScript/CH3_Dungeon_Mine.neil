@@ -32,15 +32,31 @@
 // 
 // **********************************************
 // 
-// version: 22.01.20
+// version: 22.01.23
 // End License Information
 
 #use "Script/Use/Anyway"
+#use "Script/Use/Misc/PuzSet"
+
+#define DoBoss
 
 Group MScript
 
 	ReadOnly Bool HasDraw   = False
 	ReadOnly Bool HasUpdate = False
+	var _PI
+	Get Bool Solved
+		//return gv.gbool["Abandoned_Mines_Solved_"..Map.Layer]
+		return PuzSet.Solved
+	End
+	Get Bool PuzzleInitiated
+		_PI = _PI || {}
+		return _PI[Map.Layer] || Solved
+	End
+	Set Bool PuzzleInitiated
+		_PI = _PI || {}
+		_PI[Map.Layer] = Value
+	End
 	
 	Void ToSecretDungeon()
 		Map.GoToMap("CH3_Dungeon_Garden","#000","Start")
@@ -50,8 +66,56 @@ Group MScript
 		WorldMap.Go()
 	End
 	
+	#region Puzzle
+	Void InitPuzzle()
+		If PuzzleInitiated
+			Return
+		End
+		PuzzleInitiated = true
+		PuzSet.Start( ({["#003"]=16,["#007"]=25})[Map.Layer] ,"Mine")
+	End
+	
+	Void Symbol(string Tag)
+		Int E=0
+		If __skill<3
+			E = math.random(300,669 div __skill)
+		End
+		CSayF("Setting symbol %s for %03d experience points!",Tag,E) 
+		PuzSet.Action(Tag,"PuzBlock",E)
+	End
+	#endregion
+	
+	#region Boss
+	Void StartBoss()
+		#if DoBoss
+		Combat.QuickBoss("Master of Death and Destruction","Beholder","Beholder")
+		#fi
+		Schedule.Add("PostBoss")
+		Map.Kill("StartBoss",true)
+		Map.Kill("Boss",true)
+	End
+	
+	Void PostBoss()
+		Map.Pop("Feena","North")
+		MapText("TOMBA")
+		Map.Kill("TombBlock",true)
+		MapText("TOMBB")
+		//LoadMap("PRO_Dungeon_Tomb")
+		//Maps.GoToLayer("#001")
+		Map.GoToMap("PRO_Dungeon_Tomb","#000","Start")
+		Schedule.Add("PostBeholder")
+	End
+	#endregion
+	
+	Void ToTomb()
+		Map.GoToMap("PRO_Dungeon_Tomb","#000","Start")
+	End
+	
 	Constructor
-		ZA.TabEnter{"ToSecretDungeon","Delisto"}
+		ZA.TabEnter{"ToSecretDungeon","Delisto","InitPuzzle","StartBoss","ToTomb"}
+				For i=1,25
+			ZA.Enter("Sym"..i,"Symbol","Sym"..i)
+		End
 	End
 	
 End
