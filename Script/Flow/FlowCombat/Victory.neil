@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Victory.neil
-// Version: 22.01.22
+// Version: 22.01.24
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -115,7 +115,11 @@ Class Stage_Victory extends Stage
 					hp.Have=1
 					exprate[tag] = 0
 				end
-				if vit.Have>0 && hp.Have<hp.Maximum
+				Int Maxi = hp.Maximum
+				If Tag=="Marrilona" && gv.gBool.MarFeena_Curse
+					Maxi = gv.gInt.MarFeena_HP
+				End
+				if vit.Have>0 && hp.Have<Maxi
 					hp.Have +=  math.ceil(hp.Maximum/(200/__skill))
 					vit.Have = vit.Have - 1
 				end
