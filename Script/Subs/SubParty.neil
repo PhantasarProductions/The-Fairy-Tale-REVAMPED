@@ -2,7 +2,7 @@
 // **********************************************
 // 
 // src/Tricky Script/Script/Subs/SubParty.neil
-// (c) Jeroen Broks, 2021, All Rights Reserved.
+// (c) Jeroen Broks, 2021, 2022, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.12.14
+// version: 22.01.24
 // End License Information
 
 #Use "Script/Use/Anyway"
@@ -299,6 +299,12 @@ Group SubParty
 			Boxes[i].W = W2
 			Boxes[i].H = 100
 			Boxes[i].Draw()
+			If Ch=="Marrilona" && gv.gBool.MarFeena_Curse
+				If RPGChar.Marrilona.Points.HP.Have>gv.gInt.MarFeena_HP
+					RPGChar.Marrilona.Points.HP.Have--
+				End
+				gv.gBool.MarFeena_Curse = RPGChar.Marrilona.Points.HP.Maximum>gv.gInt.MarFeena_HP
+			End
 			if LvScale[Ch]>0
 				LvScale[Ch] = (LvScale[Ch]+1) % 2500
 				Graphics.SetScale(math.min(LvScale[Ch] / 500,1))
