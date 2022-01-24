@@ -1,7 +1,7 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField/DrawScreen.neil
-// Version: 21.12.21
-// Copyright (C) 2021 Jeroen Petrus Broks
+// Version: 22.01.24
+// Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
 // This file is part of a project related to the Phantasar Chronicles or another
@@ -118,7 +118,7 @@ Void FieldStats()
     if gv.gInt.LEVELCAP>0 
     	stuff += {"FSLVC",gv.gINT.LEVELCAP } 
     end
-    if gv.gbool["&ALLOW.ENCOFF['"..FieldFlow.Map.LoadedMap.."']"]
+    if gv.gbool["&ALLOW.ENCOFF['"..FieldFlow.Map.LoadedMap.."']"] || (__Chapter>0 && prefixed(FieldFlow.Map.LoadedMap:upper(),"PRO"))
     	if Events.KeyHit(69)
     		FieldFlow.Renc.rencon = !FieldFlow.Renc.rencon
     	end
