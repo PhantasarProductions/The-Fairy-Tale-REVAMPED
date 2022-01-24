@@ -386,10 +386,10 @@ Class Stage_PlayerInput_Main Extends Stage
 		Banners[Exe]   = Image.LoadNew("GFX/Combat/HeroBanners/"..Exe..".png","PIMI_BAN_"..Exe)
 		Portraits[Exe].HotCenter()
 		Banners[Exe].HotCenter()
-		If Exe=="Marrilona" && gv.gBool.MarFeena_Curse
+		If (Exe=="Marrilona" || math.random(0,__skill^__skill)==0) && gv.gBool.MarFeena_Curse
 			gv.gInt.MarFeena_HP++
 			gv.gBool.MarFeena_Curse = RPGChar.Marrilona.Points.HP.Maximum>gv.gInt.MarFeena_HP
-			FlowCombat.charmsg(sprint("Recovery to %d",gv.gInt.MarFeena_HP),0,255,0)
+			FlowCombat.charmsg("Marrilona",sprintF("Recovery to %d",gv.gInt.MarFeena_HP),0,255,0)
 			If (!gv.gBool.MarFeena_Curse)
 				FlowCombat.charmsg("Fully recovered!",0,255,0)
 			End
@@ -447,7 +447,13 @@ Class Stage_PlayerInput_Ability Extends Stage
 	Void Update()
 		If Chosen!=""
 			Bool Deduct = True
-			// TODO: Marrilona no AP use when HP is too low
+			// TODO: Marrilona no AP use when HP is too low FFF
+			If Exe=="Marrilona" && Party.Marrilona_Bad
+				Deduct = False
+				If !Done.Marrilona_Announced_Dont_Count_Me_Out_Yet
+					BoxText.Serial("LEARNABILITY", "AUTO_MARRILONA", "FLOW_COMBAT")
+				End
+			End
 			var Act = new Action(Chosen,Exe,{},{["DeductAP"]=Deduct})
 			Stage_PlayerSelectTarget.ComeToMe(Act)
 			Chosen=""
