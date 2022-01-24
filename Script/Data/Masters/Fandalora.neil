@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.01.14
+// version: 22.01.23
 // End License Information
 
 Module
@@ -44,6 +44,7 @@ Module
 	Var Abl
 	Void DefAbl()
 		plua _Abl
+		plua skill = __skill
 		#pure
 		_Abl = {
 			[10] = "abl_master_fandalora_darkness",
@@ -53,7 +54,7 @@ Module
 			[30] = "abl_master_fandalora_phantom",
 			[11+(skill^skill)] = "abl_master_fandalora_void"
 		}
-		Fandalora.abl[(3^skill)+5] = "abl_master_fandalora_death"                              
+		_Abl[(3^skill)+5] = "abl_master_fandalora_death"                              
 		#endpure
 		Abl = _Abl
 	End
@@ -73,7 +74,8 @@ Module
 				end
 				for i=1,keer
 					deler = deler + 1
-					totaal+=RPGChar[tch].Points["LVL_Skill"..d].Have //if RPG.PointsExists(tch,"SK_LVL_"..d)==1 then totaal = totaal + RPG.Points(tch,"SK_LVL_"..d).Have end 
+					totaal+=RPGChar[tch].Points["LVL_Skill"..d].Have 
+					//if RPG.PointsExists(tch,"SK_LVL_"..d)==1 then totaal = totaal + RPG.Points(tch,"SK_LVL_"..d).Have end 
 				end
 			end
 		end
@@ -94,8 +96,8 @@ Module
 		if ch=="Dandor"
 			return false,false 
 		end
-		local points = Self.ShowScore(ch)
-		for i,a in pairs(Fandalora.abl)
+		plua points = Self.ShowScore(ch)
+		for i,a in pairs(abl)
         	if points>=i and (not rabl)
         		if not Done["MASTERLEARNING.FANDALORA["..a.."]["..ch.."]"]
         			rabl=a
@@ -148,7 +150,7 @@ Module
      	  end
      	  plua tot
      	  plua ret
-     	  tot,ret=Fandalora.AllPoints(ch)
+     	  tot,ret=AllPoints(ch)
      	  return sprintf("%s",ret)
      End
      
