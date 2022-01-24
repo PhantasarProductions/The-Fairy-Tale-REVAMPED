@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Class_Hero.neil
-// Version: 22.01.18
+// Version: 22.01.24
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -386,6 +386,14 @@ Class Stage_PlayerInput_Main Extends Stage
 		Banners[Exe]   = Image.LoadNew("GFX/Combat/HeroBanners/"..Exe..".png","PIMI_BAN_"..Exe)
 		Portraits[Exe].HotCenter()
 		Banners[Exe].HotCenter()
+		If Exe=="Marrilona" && gv.gBool.MarFeena_Curse
+			gv.gInt.MarFeena_HP++
+			gv.gBool.MarFeena_Curse = RPGChar.Marrilona.Points.HP.Maximum>gv.gInt.MarFeena_HP
+			FlowCombat.charmsg(sprint("Recovery to %d",gv.gInt.MarFeena_HP),0,255,0)
+			If (!gv.gBool.MarFeena_Curse)
+				FlowCombat.charmsg("Fully recovered!",0,255,0)
+			End
+		End
 		If Fighter.ByTag[Exe].Spirata>0
 			plua tgt = {}
 			for T,F in pairs(Fighter.ByTag)
@@ -475,7 +483,7 @@ Class Stage_PlayerInput_Items Extends Stage
 	Void Draw()
 		ubox = ubox ||  new Box(BX,BY,BW,BH,False)
 		ubox.Draw()
-		Chosen = Item.Overview(bx,by,bw,bh,"InCombat",Exe)
+		Chosen = Item.Overview(bx,by,bw,bh,"COMBAT",Exe)
 		Mouse.Draw()
 	End
 	
