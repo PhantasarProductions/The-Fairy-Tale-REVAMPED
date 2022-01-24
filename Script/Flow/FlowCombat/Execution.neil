@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Execution.neil
-// Version: 22.01.20
+// Version: 22.01.24
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -57,6 +57,19 @@ Class Stage_Execution Extends Stage
 		Time         = 250
 		Self.Current = "Execution"
 		DoShowBox    = True
+		If Act.DeductAP && Act.Executor.Team=="Hero"
+			Var AP = Act.Executor.Char.Points.AP
+			Static Var Buzz = Audio.Obtain("BUZZ")
+			If Act.Act.ABL_APCost>AP.Have
+				charmsg(Act.Executor.Tag,"Out of AP",255,0,0)
+				Buzz.Play()
+				FlowCombat.Cards.DelShift()
+				Stage.Current = Nil
+				DoShowBox    = False
+			Else
+				AP.Have -= Act.Act.ABL_APCost
+			End
+		End
 	End
 	
 	Void Update()
@@ -86,7 +99,7 @@ Class Stage_Execution Extends Stage
 	
 	#region Start
 	Const Delegate Draw_Start = NIKS
-	Void Update_Start()
+	Void Update_Start()		
 		Time--
 		If Time==0
 			ExStage="Pose"
