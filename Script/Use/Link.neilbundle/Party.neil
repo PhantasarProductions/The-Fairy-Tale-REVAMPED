@@ -2,7 +2,7 @@
 // **********************************************
 // 
 // src/Tricky Script/Script/Use/Link.neilbundle/Party.neil
-// (c) Jeroen Broks, 2021, All Rights Reserved.
+// (c) Jeroen Broks, 2021, 2022, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.12.11
+// version: 22.01.24
 // End License Information
 
 Void LoadPartySub()
@@ -134,6 +134,13 @@ Module
   				End
   			End
   		End
+  	End
+  	
+  	Get Bool Marrilona_Bad
+  		If !RPGChar.Exists("Marrilona")
+  			Return False
+  		End
+  		Return ( (RPGChar.Marrilona.Points.HP.Have/RPGChar.Marrilona.Points.HP.Maximum)*100) < (20-(__skill*5))
   	End
   	
   	Constructor
