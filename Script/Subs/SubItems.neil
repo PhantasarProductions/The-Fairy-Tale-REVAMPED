@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Subs/SubItems.neil
-// Version: 22.01.21
+// Version: 22.01.24
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -35,7 +35,7 @@
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
 
-#use "Script/Use/Anyway.neilbundle/Dev"
+#use "Script/Use/Anyway"
 #use "Script/Data/IAA/MyData_ClassFile_IAA"
 #use "Libs/Fittext"
 
@@ -521,7 +521,11 @@ Global String AblOverview(String Char,int x, int y, int w, int h,string situatio
 			Graphics.Color(255,255,255)
 			ItmFnt.DarkText(Dat.ShowName,X+DX+5,AY)
 			Graphics.Color(  0,180,255)
-			ItmFnt.DarkText(Dat.ShowAPCost,X+W-(80+DX),AY)
+			If Char=="Marrilona" && Party.Marrilona_Bad && Dat.Unlocked
+				ItmFnt.DarkText("0",X+W-(80+DX),AY)
+			Else
+				ItmFnt.DarkText(Dat.ShowAPCost,X+W-(80+DX),AY)
+			End
 			If Hover
 				If Dat.Unlocked
 					Explain(Abl)
