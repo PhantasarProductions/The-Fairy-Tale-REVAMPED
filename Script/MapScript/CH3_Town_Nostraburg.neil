@@ -1,0 +1,87 @@
+// License Information:
+// **********************************************
+// 
+// src/Tricky Script/Script/MapScript/CH3_Town_Nostraburg.neil
+// (c) Jeroen Broks, 2022, All Rights Reserved.
+// 
+// This file contains material that is related
+// to a storyline that is which is strictly
+// copyrighted to Jeroen Broks.
+// 
+// This file may only be used in an unmodified
+// form with an unmodified version of the
+// software this file belongs to.
+// 
+// You may use this file for your study to see
+// how I solved certain things in the creation
+// of this project to see if you find valuable
+// leads for the creation of your own.
+// 
+// Mostly this file comes along with a project
+// that is for most part released under an
+// open source license and that means that if
+// you use that code with this file removed
+// from it, you can use it under that license.
+// Please check out the other files to find out
+// which license applies.
+// This file comes 'as-is' and in no possible
+// way the author can be held responsible of
+// any form of damages that may occur due to
+// the usage of this file
+// 
+// 
+// **********************************************
+// 
+// version: 22.01.25
+// End License Information
+
+#use "Script/Use/Anyway"
+
+Group MScript
+
+	ReadOnly Bool HasDraw   = False
+	ReadOnly Bool HasUpdate = False
+	
+	Bool DontEnter = False
+	
+	#region Entering and leaving buildings
+	Void Enter(string b)
+		If DontEnter
+			DontEnter=False
+		Else
+			Map.GoToLayer(b:upper(),"Start")
+		End
+	End
+	
+	Void Exit()
+		If Map.Layer!="items"
+			DontEnter=True
+		End
+		Map.GoToLayer("TOWN","entry_"..Map.Layer:lower())
+	End
+	#endregion
+	
+	Void Guard_Ramata()
+		Map.Kill("Guard_Ramata")
+		Map.StopWalking()
+		MapText("RAMATA_GUARD")
+	End
+	
+	Constructor
+		If Prefixed(RPGParty[1],"Feena")
+			For t in Each{"NPC_Calanus","NPC_Krandar","NPC_Feenalaria","NPC_MT_Sylina","NPC_MT_Tero","NPC_MT_Wendy","NPC_MT_Cryogina","NPC_MT_Nova","NPC_MT_Ross","NPC_Sinasina"}
+				Map.LayKill("TOWN",t,false)
+			End
+		Else
+			Map.LayKill("TOWN","Frendor",false)
+			If __Chapter<4
+				Map.LayKill("TOWN","NPC_Feenalaria",false)
+				Map.LayKill("TOWN","NPC_Sinasina",false)
+			End
+			For z in Each{"weapons","inn","items","wands"}
+				ZA.Enter("ZA_ENTER_"..z,"Enter",z)
+			End
+			ZA.TabEnter{"Exit","Guard_Ramata"}
+		End
+	End
+End
