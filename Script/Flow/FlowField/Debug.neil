@@ -2,7 +2,7 @@
 // **********************************************
 // 
 // src/Tricky Script/Script/Flow/FlowField/Debug.neil
-// (c) Jeroen Broks, 2021, All Rights Reserved.
+// (c) Jeroen Broks, 2021, 2022, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.12.30
+// version: 22.01.24
 // End License Information
 
 Table OO = { [True]="On", [False]="Off" }
@@ -74,6 +74,11 @@ End
 
 Global Void CONSOLE_SetCash(c)
 	__cash = math.floor(Lua.tonumber(c[1]) || 0)
+End
+
+Global Void CONSOLE_Rubine(c)
+	int a = Lua.tonumber(c[1]) || 1
+	Master.AllInc("Rubine","???",a)
 End
 
 Module
