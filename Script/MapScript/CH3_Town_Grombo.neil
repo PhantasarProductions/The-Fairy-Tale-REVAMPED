@@ -51,10 +51,32 @@ Group MScript
 		Map.GoToLayer("TOWN","Einde")
 	End
 	
+	Void Delisto()
+		WorldMap.Go()
+	End
+	
+	Void NPC_INNKEEPER()
+		Inn()
+	End
+	
+	Void NPC_Sandra()
+		MapText(({[false]="SANDRA_A",[true]="SANDRA_B"})[Done.Grombo_Spoken_To_Sandra])
+	End
+	
+	Void NPC_Quendor()
+		Bool D = Done.Grombo_Spoken_To_Quendor
+		if !D
+			__WorldMap = "QUENDOR"
+			Item.ZZKEY_GAIA.Has = 1
+			WorldMap.Unlock("CH3NOSTRABURG")
+		End
+		MapText("QUENDOR_"..Lua.tostring(D):upper())		
+	End
+	
 	Constructor
 		If !__newgameplus
 			Map.LayKill("TOWN","NPC_Cherry")
 		End
-		ZA.TabEnter{"ToQuendor","ToTown"}
+		ZA.TabEnter{"ToQuendor","ToTown","Delisto"}
 	End
 End
