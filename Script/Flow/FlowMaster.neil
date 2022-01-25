@@ -1,7 +1,7 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowMaster.neil
-// Version: 21.12.30
-// Copyright (C) 2016, 2017, 2021 Jeroen Petrus Broks
+// Version: 22.01.24
+// Copyright (C) 2016, 2017, 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
 // This file is part of a project related to the Phantasar Chronicles or another
@@ -73,7 +73,12 @@ Group FlowMaster
     Var cMaster
     
     var MData(string id)
-    	return NeilUse("Script/Data/Masters/"..id)
+    	Static Var MTab = {}
+    	If !MTab[id]
+    		CSay("Load Master: "..id)
+    		MTab[id] = NeilUse("Script/Data/Masters/"..id)
+    	End
+    	return MTab[id] 
     End
     
     Void Speak(string id)
@@ -273,6 +278,7 @@ Group FlowMaster
    	Constructor
 		Pointer = Image.LoadNew("GFX/Algemeen/CharPointer.png","CharPointer")
 		Pointer.HotBottomCenter()
+		CSay("Master Group Loaded")
 	End
 
     
