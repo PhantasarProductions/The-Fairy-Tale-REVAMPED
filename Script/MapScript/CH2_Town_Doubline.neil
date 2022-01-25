@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.01.19
+// version: 22.01.24
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -81,6 +81,7 @@ Group MScript
 				__Cash-=5000
 				Kokonora()
 				Map.Chapter(3)
+				__Ludo=true
 			Else
 				MapText("LUDO_REFUSE")
 			End
