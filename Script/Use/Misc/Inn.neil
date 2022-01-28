@@ -1,7 +1,7 @@
 // License Information:
 // src/Tricky Script/Script/Use/Misc/Inn.neil
-// Version: 21.11.17
-// Copyright (C) 2021 Jeroen Petrus Broks
+// Version: 22.01.25
+// Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
 // This file is part of a project related to the Phantasar Chronicles or another
@@ -83,6 +83,9 @@ Void RestRecover()
   End
   For f in each(foe) 
   	RPGChar.Kill(f) 
+  End
+  If gv.gBool.MarFeena_Curse
+  	gv.gInt.MarFeena_HP += (9 - (__skill^2))
   End
   For ch in each(chars) 
       RPGChar[ch].Points.HP.Have  = RPGChar[ch].Points.HP.Maximum
