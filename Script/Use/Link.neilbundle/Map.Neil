@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Link.neilbundle/Map.Neil
-// Version: 22.01.24
+// Version: 22.01.28
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -238,6 +238,9 @@ Module
 				Lua.Error(sprintf("ObjGetString(<%s>,\"%s\"): Illegal function call",Lua.type(tag),VarTag))
 		End
 	End
+	Get Delegate GetObjString
+		Return ObjGetString
+	End
 	
 	Int ObjGetInt(tag,string VarTag)
 		//CSayF("ObjGetInt(%s %s,%s)",Lua.type(tag),Lua.tostring(tag),VarTag)
@@ -247,12 +250,27 @@ Module
 			case "number"
 				Return ISGet.Int("FLOW_FIELD",sprintf("FlowField.Map.CurLayer.Obj(%d).%s",tag,VarTag))
 			default
-				Lua.Error(sprintf("ObjGetString(<%s>,\"%s\"): Illegal function call",Lua.type(tag),VarTag))
+				Lua.Error(sprintf("ObjGetInt(<%s>,\"%s\"): Illegal function call",Lua.type(tag),VarTag))
 		End
 	End
 	
 	Get Delegate GetObjInt
 		return ObjGetInt
+	End
+	
+	Bool ObjGetBool(tag,string VarTag)
+		switch Lua.type(Tag)
+			case "string"
+				Return ISGet.Bool("FLOW_FIELD",sprintf("FlowField.Map.CurLayer.Obj(\"%s\").%s",tag,VarTag))
+			case "number"
+				Return ISGet.Bool("FLOW_FIELD",sprintf("FlowField.Map.CurLayer.Obj(%d).%s",tag,VarTag))
+			default
+				Lua.Error(sprintf("ObjGetBool(<%s>,\"%s\"): Illegal function call",Lua.type(tag),VarTag))
+		End
+	End
+	
+	Get Delegate GetObjBool
+		Return ObjGetBool
 	End
 	
 	Get Table ObjEnum
@@ -391,6 +409,44 @@ Module
 		print("FlowField.Msg",sprintf("'%s',%d,%d,%d,%d,%d",msg,PLAYER.X,PLAYER.Y,R,G,B))
 		MCall("FlowField.Msg",msg,PLAYER.X,PLAYER.Y,R,G,B)
 	End
+	
+	Bool InZone(String Act,String Zone)
+		Return ISGET.Bool("FLOW_FIELD",sprintf("FlowField.Map.CurrentLayer.Obj(\"%s\").IsInZone(\"%s\")",Act,Zone))
+	End
+	
+	Var LabelEach(String Label)
+		String Raw = ISGET.String("FLOW_FIELD",sprintf("FlowField.Map.CurrentLayer.SLabelEnum(\"%s\")",Label))
+		Table Tab = Split(Raw,";")
+		Int I=0
+		Int Ret()
+			I++
+			If I>#Tab
+				Return Nil
+			End
+			Return Lua.tonumber(Tab[I])
+		End
+		Return Ret
+	End
+	
+	#region Camera
+	Get Int CamX
+		Return ISGET.Int("FLOW_FIELD","FlowField.Map.ScrollX")
+	End
+	Get Int CamY
+		Return ISGET.Int("FLOW_FIELD","FlowField.Map.ScrollY")
+	End
+	Set Int CamX
+		ISSET("Int","FLOW_FIELD","FlowField.Map.ScrollX",Value)
+	End
+	Set Int CamY
+		ISSET("Int","FLOW_FIELD","FlowField.Map.ScrollY",Value)
+	End
+	#endregion
+	
+	Bool Block(Int X, Int Y, pure)
+		return ISGET.Bool("FLOW_FIELD",sprintf("FlowField.Map.CurrentLayer.Blocked(%d,%d,%s)",X,Y,Lua.tostring(pure!=nil && pure!=false)))
+	End
+
 	
 	CONSTRUCTOR
 		table m
