@@ -1,7 +1,7 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField/Map.neil
-// Version: 21.12.16
-// Copyright (C) 2021 Jeroen Petrus Broks
+// Version: 22.01.28
+// Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
 // This file is part of a project related to the Phantasar Chronicles or another
@@ -74,6 +74,7 @@ Module
 	Get Var Player
 		Return CurrentLayer.Obj("PLAYER")
 	End
+	
 	
 	Void ScrollTo(Int X,Int Y, Int Speed=1)
 		AllowAutoScroll = False
