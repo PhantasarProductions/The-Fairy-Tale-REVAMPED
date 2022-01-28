@@ -36,6 +36,7 @@
 // End License Information
 
 #use "Script/Use/Anyway"
+#use "Script/Use/Misc/Inn" 
 
 Group MScript
 
@@ -61,10 +62,64 @@ Group MScript
 	End
 	#endregion
 	
+	
+	#region Krandar
+	Void Master_Krandar()
+		if !gv.gbool.Master_Krandar
+			MapText("KRANDAR_PREMASTER")
+			if gv.gint.SealedBossesDefeated<=0
+				MapText("KRANDAR_NOTREADY")
+				Return
+			End
+		end
+		Master.Speak("Krandar")
+	End
+	Void NPC_Krandar()
+		If !Done.Nostraburg_SpokenToKrandarTheFirstTime
+			MapText("KRANDAR_FIRST")
+			WorldMap.Unlock("CH3SPIRATAEARTH")
+			__WorldMap = "TOEARTH" 
+			Return
+		End
+		Master_Krandar()
+	End
+	#endregion
+	
+	#region Services
+	Void NPC_Hotelmus()
+		Inn()
+	End
+	
+	Void NPC_Katinta()
+		MapText("KATINTA")
+		FieldMenu.Shop("ITEM_KATINTA")
+	End
+	
+	Void NPC_Yllabonja()
+		MapText("YLLABONJA")
+		FieldMenu.WeaponShop("WAND_YLLABONJA")
+	End
+	
+	Void NPC_Nathalia()
+		MapText("NATHALIA")
+		FieldMenu.WeaponShop("WEAPON_NATHALIA")
+	End
+	#endregion
+	
+	#region Blue Seal
+	Void NPC_Calanus()
+		MapText("CALANUS_"..Lua.tostring(Map.HasTag("NPC_BlueSeal")):upper())
+	End
+	#endregion
+	
 	Void Guard_Ramata()
-		Map.Kill("Guard_Ramata")
+		Map.Kill("Guard_Ramata",true)
 		Map.StopWalking()
 		MapText("RAMATA_GUARD")
+	End
+	
+	Void Kokonora()
+		WorldMap.Go("Kokonora")
 	End
 	
 	Constructor
@@ -81,7 +136,7 @@ Group MScript
 			For z in Each{"weapons","inn","items","wands"}
 				ZA.Enter("ZA_ENTER_"..z,"Enter",z)
 			End
-			ZA.TabEnter{"Exit","Guard_Ramata"}
+			ZA.TabEnter{"Exit","Guard_Ramata","Kokonora"}
 		End
 	End
 End
