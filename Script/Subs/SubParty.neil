@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.01.24
+// version: 22.01.29
 // End License Information
 
 #Use "Script/Use/Anyway"
@@ -303,6 +303,10 @@ Group SubParty
 				If RPGChar.Marrilona.Points.HP.Have>gv.gInt.MarFeena_HP
 					RPGChar.Marrilona.Points.HP.Have--
 				End
+				if __skill<3 && gv.gInt.MarFeena_HP>2 && !Done[sprintf("Cursed_Marrilona_Been_in_%s:%s",Map.LoadedMap,Map.Layer)]
+					gv.gInt.MarFeena_HP += math.random(0,10 div __skill)
+					CSayF("Marrilona temp HP cap is now %04d",gv.gInt.MarFeena_HP)
+				end
 				gv.gBool.MarFeena_Curse = RPGChar.Marrilona.Points.HP.Maximum>gv.gInt.MarFeena_HP
 			End
 			if LvScale[Ch]>0
