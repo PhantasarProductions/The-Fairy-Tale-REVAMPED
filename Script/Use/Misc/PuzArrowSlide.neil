@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Misc/PuzArrowSlide.neil
-// Version: 22.01.28
+// Version: 22.01.29
 // Copyright (C) 2017, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -46,6 +46,9 @@ Module
 	delegate StartFunction
 
 	Void Enter()
+		if gv.gbool[sprintf("crackpuzzle.%s[%s]",gv.gstr.LoadedMap,Map.Layer)]
+			CSay("Puzzle rejected! Already solved here!")
+		End
 		String wind = arrowdir[Map.Layer] or "North"
 		Map.Pop("Puz_",arrowdir[Map.Layer] or "North",true)
 		arrow_playernum = rand(1,4)
