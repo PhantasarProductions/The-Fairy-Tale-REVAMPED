@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Link.neilbundle/Map.Neil
-// Version: 22.01.28
+// Version: 22.01.29
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -418,7 +418,7 @@ Module
 		String Raw = ISGET.String("FLOW_FIELD",sprintf("FlowField.Map.CurrentLayer.SLabelEnum(\"%s\")",Label))
 		Table Tab = Split(Raw,";")
 		Int I=0
-		Int Ret()
+		Var Ret()
 			I++
 			If I>#Tab
 				Return Nil
@@ -426,6 +426,10 @@ Module
 			Return Lua.tonumber(Tab[I])
 		End
 		Return Ret
+	End
+	
+	Void KillByLabel(string Label,Bool Perm)
+		MCall("FlowField.Kill.ByLabel",Label,Perm)
 	End
 	
 	#region Camera
