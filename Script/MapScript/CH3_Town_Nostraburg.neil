@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.01.25
+// version: 22.02.01
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -81,8 +81,38 @@ Group MScript
 			__WorldMap = "TOEARTH" 
 			Return
 		End
+		If gv.gbool.Spirata_Earth && (!Done.HandoStillorsSummoning)
+			MapText("KRANDAR_SUMMONING_A")
+			Graphics.CLS()
+			Graphics.FLIP()
+			Events.Poll()
+			FPS.SLEEP(2500)
+			MapText("KRANDAR_SUMMONING_B")
+			Schedule.Add("StartSummoning")
+			Return
+		End
 		Master_Krandar()
 	End
+	
+	Void StartSummoning()
+		Events.Flush()
+		Map.GotoMap("CH3_Story_Dragon_Forest","SUMMON","Spot")		
+		Schedule.Add("Summoning")
+	End
+	
+	Void Summoning()
+		Map.HideObj("PLAYER")
+		MapText("SUMMONING")
+		Map.GoToMap("CH3_Town_Nostraburg","TOWN","K_Jake")
+		Schedule.Add("PostSummoning")
+	End
+	
+	Void PostSummoning()
+		Map.Pop("K_","North",true)
+		MapText("KRANDAR_SUMMONING_C")
+		WorldMap.Unlock("CH3PYRUS")
+		__WorldMap = "PREDRAGON"
+	End		
 	#endregion
 	
 	#region Services
@@ -123,6 +153,9 @@ Group MScript
 	End
 	
 	Constructor
+		if Map.LoadedMap:upper()!="CH3_TOWN_NOSTRABURG"
+			Return
+		End
 		If Prefixed(RPGParty[1],"Feena")
 			For t in Each{"NPC_Calanus","NPC_Krandar","NPC_Feenalaria","NPC_MT_Sylina","NPC_MT_Tero","NPC_MT_Wendy","NPC_MT_Cryogina","NPC_MT_Nova","NPC_MT_Ross","NPC_Sinasina"}
 				Map.LayKill("TOWN",t,false)
