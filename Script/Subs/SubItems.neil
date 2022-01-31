@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Subs/SubItems.neil
-// Version: 22.01.24
+// Version: 22.01.30
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -88,7 +88,8 @@ Class ABLRec
 	End
 	
 	Get Int APCost
-		If Char=="Marrilona" && (RPGChar.Marrilona.Points.HP.Have/RPGChar.Marrilona.Points.HP.Maximum)<(0.30/gv.gint.skill)
+		//If Char=="Marrilona" && (RPGChar.Marrilona.Points.HP.Have/RPGChar.Marrilona.Points.HP.Maximum)<(0.30/gv.gint.skill)
+		If Char=="Marrilona" && Party.Marrilona_Bad
 			Return 0
 		End
 		Return Ability.ABL_APCost
@@ -523,6 +524,9 @@ Global String AblOverview(String Char,int x, int y, int w, int h,string situatio
 			Graphics.Color(  0,180,255)
 			If Char=="Marrilona" && Party.Marrilona_Bad && Dat.Unlocked
 				ItmFnt.DarkText("0",X+W-(80+DX),AY)
+				//__Red
+				//ItmFnt.DarkText(sprintf("%s:>%s;%s    ",Char,Lua.tostring(Party.Marrilona_Bad),Lua.tostring(Dat.Unlocked)),X+W-(80+DX),AY,1)
+				//CSayF("%s:>%s;%s    ",Char,Lua.tostring(Party.Marrilona_Bad),Lua.tostring(Dat.Unlocked))
 			Else
 				ItmFnt.DarkText(Dat.ShowAPCost,X+W-(80+DX),AY)
 			End
