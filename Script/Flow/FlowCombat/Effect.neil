@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Effect.neil
-// Version: 22.01.23
+// Version: 22.01.29
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -287,6 +287,9 @@ Group Effect
     	CSayF("Heaing %s with %s extra hitpoints",Target.Tag,Lua.tostring(HV))
     	charmsg(Target.Tag,math.abs(HV),180,255,0)
     	Target.HP += HV
+    	If Target.Tag=="Marrilona" && HV>0 && gv.gBool.MarFeena_Curse
+    		gv.gInt.MarFeena_HP++
+    	End
     	Return True
     End
     
