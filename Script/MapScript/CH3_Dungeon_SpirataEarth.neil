@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.01.27
+// version: 22.01.31
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -52,8 +52,64 @@ Group MScript
 	End
 	
 	Void Update()
-		TexMove.Update()
+		static Bool DN = False
+		TexMove.Update()		
+		if (!DN) && Map.Layer=="#004" && (!Map.HasTag("Boss")) && Map.HasTag("PTE_GAIA")
+			Map.SetObj("PTE_GAIA","X",Map.GetObjInt("EmblemSpot","X")) //e.X=es.X
+			Map.SetObj("PTE_GAIA","Y",Map.GetObjInt("EmblemSpot","Y")) //e.Y=es.Y
+			DN = true
+			CSay("Regenerating clickables!")
+			Map.MCall("FlowField.Clickable.CBLoadMap")
+		End
 	End
+	
+	Void PuzDone()
+		if gv.gbool[sprintf("crackpuzzle.%s[%s]",gv.gstr.LoadedMap,Map.Layer)]
+			Map.HideByLabel("Puzzle")
+			For pi in Map.LabelEach("Puzzle")
+				Map.SetObj(pi,"Impassible", false)
+				CSay("Unblocking #%05d",pi)
+			End
+		End
+	End
+	
+	#region Boss
+	Void StartBoss()
+		Map.Kill("StartBoss",true)
+		Map.Kill("Boss",true)
+		Combat.QuickBoss("Guardian of Earth","Terra","Terra")
+		Schedule.Add("PostBoss")
+		//local e = Maps.Obj.Obj('PTE_GAIA')
+		//local es=Maps.Obj.Obj('EmblemSpot')
+	End
+	
+	Void PostBoss() 
+		ManaOrb()
+	End
+	#endregion
+	
+	#region Spirata
+	Void NoSpirata()
+		Map.SetObj("SpirataMuur","Texture","GFX/Textures/Marble/Wall - N.png")
+	End
+
+	Void Spirata()
+		If !Done.Spirata_Earth
+			Map.Pop("Spir_","North",true)
+			Music.Play("Music/Hub/Angevin.ogg")
+			MapText("SPIRATA_A")
+			RPGChar.Dandor.Stat.Experience = math.min(0,RPGChar.Dandor.Stat.Experience)
+			gv.gbool.CharSpirata_Dandor = true
+			NoSpirata()
+			MapText("SPIRATA_B")
+			__WorldMap = "SPIRATAEARTH"
+			WorldMap.Go("Kokonora")
+		Else
+			NoSpirata()
+		End
+	End
+	#endregion
+	
 
 	Constructor
 		Progress.Create("ZIGZAGVLOER",3,255,0,255)
@@ -61,10 +117,10 @@ Group MScript
 		TexMove.MapSetup(0,10,"HSINUS.PNG",-1,0,4)
 		Progress.ZigZagVloer = 2
 		TexMove.MapSetUp(0,10,"VSINUS.PNG", 0,1,4)
-		Progress.ZigZagVloer = 4
+		Progress.ZigZagVloer = 3
 		ConfiguringData()
 		PuzArrowSlide.Load()
-		ZA.TabEnter{"Kokonora"}
+		ZA.TabEnter{"Kokonora","PuzDone","StartBoss","Spirata"}
 		Progress.Kill("ZIGZAGVLOER")
 	End
 	
