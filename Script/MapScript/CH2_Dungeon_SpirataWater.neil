@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.01.12
+// version: 22.01.31
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -160,6 +160,7 @@ Group MScript
 		End
 	End
 	
+	#region Spirata	
 	Void NoSpirata()
 		Map.SetObj("SpirataWall","Texture","GFX/Textures/Marble/Wall - N.png")
 	End
@@ -179,6 +180,7 @@ Group MScript
 			NoSpirata()
 		End
 	End
+	#endregion
 	
 	Void Delisto()
 		WorldMap.Go()
