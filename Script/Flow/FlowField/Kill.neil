@@ -1,7 +1,7 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField/Kill.neil
-// Version: 21.10.30
-// Copyright (C) 2021 Jeroen Petrus Broks
+// Version: 22.01.29
+// Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
 // This file is part of a project related to the Phantasar Chronicles or another
@@ -63,6 +63,14 @@ Module
 		End
 	End
 	
+	Void ByLabel(string Label,Bool Permanent)
+		If Permanent
+			SetPerma("LABEL:"..Label)
+		End
+		FieldFlow.Map.CurLayer.KillByLabel(Label)
+		CSayF("Killed by label: %s",Label)
+	End
+	
 	Get String Serialize
 		String ret = "Init\n"
 		For M,MT in sPairs(TheKills)
@@ -82,7 +90,9 @@ Module
 	Void CBLoadMap()
 		For LN,KL in sPairs(TheKills[FlowField.Map.LoadedMap] || {})
 			For Victim in Each(KL)
-				If FlowField.Map.KthuraMap.Layer(LN).HasTag(Victim)
+				If Prefixed(Victim,"LABEL:")
+					FlowField.Map.KthuraMap.Layer(LN).Kill(Right(Victim,#Victim-6))
+				ElseIf FlowField.Map.KthuraMap.Layer(LN).HasTag(Victim)
 					FlowField.Map.KthuraMap.Layer(LN).Kill(Victim)
 					CSayF("LOAD> Killed: %s in %s",Victim,LN)
 				Else
