@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/Mini/ArrowSlideF.neil
-// Version: 22.01.28
+// Version: 22.01.29
 // Copyright (C) 2017, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -131,23 +131,40 @@ Void MoveBlocks(px,py)
    //    end
    //end
    //]]
-   if not Field[py] 
+   CSayF("Check Moveblocks(%03d,%03d)",px,py)
+   
+   #if IGNORE
+   for iy,_x in pairs(Field)
+       for ix,iv in pairs(_x)
+           CSayF("(%03d,%03d) >> %s",ix,iy,iv)
+       end
+   end
+   #fi
+   
+   if not Field[py]
+   	  CSayF("= Rejected! Nothing on y!")
       return 
    end
-   if not Field[py][px] 
+   if not Field[py][px]
+   	  CSayF("= Rejected! Nothing on x!")
       return 
    end
+   static var _Moves = { ["U"]= {["y"]=-1}, ["D"]={["y"]=1}, ["L"]={["x"]=-1}, ["R"]={["x"]=1}}
    PLUA f = Field[py][px]
-   PLUA movement = ({ ["U"]= {["y"]=-1}, ["D"]={["y"]=1}, ["L"]={["x"]=-1}, ["R"]={["x"]=1}})[f]
+   PLUA movement = _Moves[f]
    if not movement 
+      CSayF("= Rejected. No movement for %s",Lua.tostring(f))
       return 
    end
+   CSayF("= Accepted! Preparing to move!")
    movement.y=movement.y or 0
    movement.x=movement.x or 0
    for b in each(Blocks)
        PLUA newx=b.px+movement.x
        PLUA newy=b.py+movement.y
-       if not BlockBlock(newx,newy) 
+       CSayF("Block (%03d,%03d)/(%05d,%05d) -> (%03d,%03d)/(%05d,%05d):>%s",b.px,b.py,b.tox,b.toy,newx,newy,b.tox + (movement.x*32),b.toy + (movement.y*32),lua.tostring(Map.Block(b.tox + (movement.x*32),b.toy + (movement.y*32))))
+       if (not BlockBlock(newx,newy)) 
+       // && (!Map.Block(b.tox + (movement.x*32),b.toy + (movement.y*32))) 
           b.moving = true
           b.tox = b.tox + (movement.x*32)
           b.toy = b.toy + (movement.y*32)
@@ -164,13 +181,16 @@ Void PlayGo(x,y,d)
    PLUA ty = (tpy*32)+32 
    PLUA ok = true
    ok = ok and (not PlayBlock(tpx,tpy))
-   ok = ok and APLAY.Moving and APLAY.Walking 
+   ok = ok and (!Map.Block(tpx,tpy))
+   ok = ok and (!APLAY.Moving) and (!APLAY.Walking) 
    for block in each(Blocks) 
        ok = ok and (not block.moving) 
    end
    //ok = ok and (INP.KeyH(ArrowKeys[d])==1 or INP.KeyH(WASDKeys[d])==1 or joyhit(Joy[d]) or Buttons[d].clicked)
-   ok = ok && (Events.KeyHit(ArrowKeys[d]) || Events.KeyHit(WASDKeys[d] || Buttons[d].clicked))
+   ok = ok && (Events.KeyHit(ArrowKeys[d]) || Events.KeyHit(WASDKeys[d]) || Buttons[d].clicked)
+   //CSayF("PlayGo: %6s> Arrow: %03d/%s; WADS: %03d/%s; Clicked: %s",d,ArrowKeys[d],Lua.tostring(Events.KeyHit(ArrowKeys[d])),WASDKeys[d],Lua.tostring(Events.KeyHit(WASDKeys[d])),Lua.tostring(buttons[d].clicked))
    if ok 
+   	  CSayF("%8s>Move player from: (%d,%d) to (%d,%d)! True(%d,%d)->(%d,%d)",d,play.x,play.y,APLAY.X,APLAY.Y,tpx,tpy,tx,ty)
       Play.x=tpx
       Play.y=tpy
       // Actors.MoveTo(PLAYER,tx,ty,1)
@@ -205,22 +225,25 @@ Void BlockMoveExec()
    if remap 
       Map.Remap() 
    end
-end   
-
-Void Up() 
-	PlayGo( 0,-1,"Up") 
-end    
-Void Down()  
-	PlayGo( 0, 1,"Down") 
-end
-Void Right() 
-	PlayGo( 1, 0,"Right") 
-end
-Void Left()  
-	PlayGo(-1, 0,"Left") 
-end
+end 
 
 Init
+	Void Up() 
+		PlayGo( 0,-1,"Up") 
+	end
+	
+	Void Down()  
+		PlayGo( 0, 1,"Down") 
+	end
+	
+	Void Right()
+		PlayGo( 1, 0,"Right")
+	end
+	
+	Void Left()  
+		PlayGo(-1, 0,"Left")
+	End
+	
 	godirs = {Up,Down,Right,Left}
 End
 
@@ -262,6 +285,10 @@ class qobj
 	Get Bool Moving
 		Return Map.GetObjBool(id,"Moving")
 	End
+	
+	Get Bool Walking
+		Return Map.GetObjBool(id,"Walking")
+	End
 End
 
 Global Void InitPuzzle()
@@ -278,14 +305,14 @@ Global Void InitPuzzle()
     CSay("Getting puzzle start point")
     Plua Puz_start = new qObj("Puz_Start")
    	Play.x = (Puz_Start.X div 32)
-   	Play.x = (Puz_Start.Y div 32) - 1    
+   	Play.y = (Puz_Start.Y div 32) - 1    
     pLUA fdbg = {}
     pLUA maxx=0
     pLua maxy=0     
     pLUA dr = {["DN"]={["Y"]=1},["UP"]={["Y"]=-1},["RT"]={["X"]=1},["LF"]={["X"]=-1}}
     CSay("Scanning objects")
     For oi in each(Map.ObjEnum)
-    	CSayF("= Object: %05d",oi)
+    	//CSayF("= Object: %05d",oi)
     	Var o = new qObj(oi)
         pLUA opx = math.floor(o.X/32)
         pLUA opy = math.floor(o.Y/32)  // Not the most reliable feature, but it "does" the job :P        
@@ -297,7 +324,7 @@ Global Void InitPuzzle()
            Field[by] = Field[by] or {}               
            Field[by][bx]="B"
            pLUA block = {["orix"]=o.X, ["oriy"]=o.y, ["tox"] = o.X, ["toy"]=o.Y, ["moving"]=false, ["wasmoving"]=false, ["object"]=o, ["porix"]=bx, ["poriy"]=by, ["px"]=bx, ["py"]=by}
-           Blocks[#Blocks+1]=block           
+           Blocks[#Blocks+1]=block                      
         end
         for k,v in pairs(dr) 
             if suffixed(upper(o.TextureFile),"AR_"..k..".PNG") 
@@ -311,8 +338,10 @@ Global Void InitPuzzle()
                //]]
                pLUA fx = math.floor(o.X/32)
                pLUA fy = math.floor(o.Y/32) - 1
+               //pLUA fy = math.floor(o.Y/32) 
                Field[fy] = Field[fy] or {}               
                Field[fy][fx]=left(k,1)
+               CSayF("Arrow: %s (%03d,%03d): %s",k,fx,fy,Lua.tostring(Field[fy][fx]))
             end   
         end
     end
@@ -320,17 +349,25 @@ Global Void InitPuzzle()
     CSay("PuzSize = "..maxx.."x"..maxy)
     #fi
     // //[[
-    for x=0,maxx  
+    for x=0,maxx    	
      	for y=0,maxy
      		//CSayF("Tile: (%04d,%04d)",x,y)
-            Field[y] = Field[y] or {};
-            Field[y][x] = Field[y][x] or ({[0]=" ",[1]="X"})[Map.Block((x*32)+16,(y*32)+16)]
+            Field[y] = Field[y] or {}
+            Field[y][x] = Field[y][x] or ({[false]=" ",[true]="X"})[Map.Block((x*32)+16,(y*32)+16,true)]
             #if ARROWDEBUG
             fdbg[y] = fdbg[y] or ""
             fdbg[y] = fdbg[y] .. (Field[y][x] or "?")
             #fi
         end 
-    end     
+    end
+    //#if IGNORE
+    for y,fdy in ipairs(field)
+        string dbg = "" 
+        for x,v in pairs(fdy)
+            dbg += v
+        end
+        CSayF("%03d> %s",y,dbg)
+    end
     // ]]   
     #if ARROWDEBUG
     //Print(serialize("field",fdbg))
@@ -346,7 +383,8 @@ end
 
 Bool Forfeit()
     //if getpress.cancel() or mousehit(2) or Maps.ActorInZone(PLAYER,'Forfeit')==1 then
-    if Mouse.MR || Map.InZone(PLAYER,"FORFEIT")
+    if Mouse.MR || Map.InZone(PLAYER,"Forfeit")
+       #if IGNORE
        //local s = Maps.Obj.Obj("Start")
        plua s = new qObj("Start")
        APLAY.X = s.X
@@ -373,13 +411,15 @@ Bool Forfeit()
        Flow.Current="FIELD"
        DestroyPics()
        //MS.Destroy("CRACKPUZ")
+       #fi
+       Flow.Current="FIELD"
+       Map.GoToMap(Map.LoadedMap,Map.Layer,"Start")       
        return true
     end
     Return False
 end
 
 Void Goal()
-   
        // if Maps.ActorInZone(PLAYER,"Goal")==0 then return end
        if !Map.InZone(PLAYER,"Goal")
            Return
@@ -425,13 +465,20 @@ Void Goal()
            RPGChar[Tag].Stat.Experience -= (900 div __skill)
        end
        //Maps.Obj.Kill(PLAYER)
-       Map.Kill(PLAYER)
+       //Map.Kill(PLAYER)
+       Map.HideObj(PLAYER)
+       CSayF("Hiding object #%04d",APLAY.ID)
        //Maps.ObjectList.KillByLabel("Puzzle",1)
-       Map.KillByLabel("Puzzle",1)
-       Map.ReMap()
-       Flow.Current="FIELD" //LAURA.FLOW("FIELD")
+       //Map.KillByLabel("Puzzle",true)
+       //CSay("Remapping")
+       //Map.ReMap()
+       CSay("Cleaning picture memory")
        DestroyPics()
+       CSay("Going back to the field")
+       Flow.Current="FIELD" //LAURA.FLOW("FIELD")       
        //MS.Destroy("CRACKPUZ")   
+       CSay("Goodbye")
+       gv.gbool[sprintf("crackpuzzle.%s[%s]",gv.gstr.LoadedMap,Map.Layer)]=true
        return true                   
 end
 
@@ -453,6 +500,11 @@ end
 
 //function MAIN_FLOW()
 global void APOLLO_Flow()
+	static var f = ImageFont.Obtain("SYSFONT")
+	__White
+	Graphics.Alpha(255)
+	f.DarkText(sprintf("(%03d,%03d)",APLAY.X,APLAY.Y),screen.W-10,10,1)
+	Dev.ToConsole()	
    graphics.Cls()
    DrawScreen() //MS.Run("FIELD","DrawScreen")
    MapScript.Update() //MS.Run("MAP","MAP_FLOW")
@@ -470,15 +522,18 @@ global void APOLLO_Flow()
        // DarkText(serialize(b.p,b),5,dbgy); dbgy=dbgy+25
        b.img.Draw(b.x,b.y) //Image.Show(b.img,b.x,b.y)
        b.clicked = mhit and mx>=b.x and mx<b.x+32 and my>=b.y and my<b.y+32
+       //f.DarkText(Lua.tostring(b.clicked),b.x,b.y) // debug only
    end    
    // DarkText(mx..","..my,20,dbgy)
    //]]
    Mouse.Draw() //ShowMouse()
-   plua yeahyeah = Forfeit() or Goal() 
-   BlockMoveExec()
-   AutoScroll()
-   Graphics.Flip()
-   for go in each(godirs) 
-       go() 
+   plua yeahyeah = Forfeit() or Goal()
+   if !yeahyeah
+   	  BlockMoveExec()
+      AutoScroll()
+      Graphics.Flip()   
+      for go in each(godirs) 
+          go()
+      end
    end
 end
