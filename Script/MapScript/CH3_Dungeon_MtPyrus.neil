@@ -1,0 +1,78 @@
+// License Information:
+// **********************************************
+// 
+// src/Tricky Script/Script/MapScript/CH3_Dungeon_MtPyrus.neil
+// (c) Jeroen Broks, 2022, All Rights Reserved.
+// 
+// This file contains material that is related
+// to a storyline that is which is strictly
+// copyrighted to Jeroen Broks.
+// 
+// This file may only be used in an unmodified
+// form with an unmodified version of the
+// software this file belongs to.
+// 
+// You may use this file for your study to see
+// how I solved certain things in the creation
+// of this project to see if you find valuable
+// leads for the creation of your own.
+// 
+// Mostly this file comes along with a project
+// that is for most part released under an
+// open source license and that means that if
+// you use that code with this file removed
+// from it, you can use it under that license.
+// Please check out the other files to find out
+// which license applies.
+// This file comes 'as-is' and in no possible
+// way the author can be held responsible of
+// any form of damages that may occur due to
+// the usage of this file
+// 
+// 
+// **********************************************
+// 
+// version: 22.02.02
+// End License Information
+
+#use "Script/Use/Anyway"
+#use "Script/Use/Misc/TexMove"
+
+Group MScript
+
+	ReadOnly Bool HasDraw   = False
+	ReadOnly Bool HasUpdate = True
+	
+	Void Update()
+		TexMove.Update()
+	End
+	
+	#region Start room
+	Void InitSchuif()
+		string OL = Map.Layer
+		plua SchuifX = { [true]="Enter", [false]="Next" }
+		Map.Layer="#000" //Maps.GoToLayer("#000")
+		Map.SetObj("Schuif","X",Map.GetObjInt("Schuif"..SchuifX[GV.GBOOL["DONE.PYRUS.ENTER"]],"X") + 32) //Maps.Obj.Obj("Schuif").X=Maps.Obj.Obj("Schuif"..SchuifX[GV.GBOOL("&DONE.PYRUS.ENTER")]).X + 32
+		Map.SetObj("Schuif","Y",Map.GetObjInt("Schuif"..SchuifX[GV.GBOOL["DONE.PYRUS.ENTER"]],"Y")     ) //Maps.Obj.Obj("Schuif").Y=Maps.Obj.Obj("Schuif"..SchuifX[GV.GBOOL("&DONE.PYRUS.ENTER")]).Y
+		Map.Layer = OL
+	End
+	
+	Void ZAStart()
+		if Done["DONE.PYRUS.WELCOME"]
+			return
+		end
+		Map.Pop("S_","North",true)
+		MapText("Start")
+	End
+	
+	Void NPC_Ramata()
+		MapText("Ramata")
+	End 
+	#endregion
+	
+	Constructor
+		InitSchuif()
+		TexMove.MagicBackSetup(0,12,{})
+		ZA.TabEnter{"ZAStart"}
+	End
+End
