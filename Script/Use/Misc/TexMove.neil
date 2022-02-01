@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Misc/TexMove.neil
-// Version: 22.01.10
+// Version: 22.02.01
 // Copyright (C) 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -74,7 +74,7 @@ Class TMTile
 		If Blend>0
 			Map.SetObj(ID,"Blend",Blend)
 		End
-		CSayF("Tile: %d;  Move: (%d,%d); Modulo: (%d,%d)",ID,MvX,MvY,ModX,ModY)
+		//CSayF("Tile: %d;  Move: (%d,%d); Modulo: (%d,%d)",ID,MvX,MvY,ModX,ModY)
 	End
 End
 
@@ -106,9 +106,30 @@ Module
 		End
 		Progress.Kill("TexMove")
 	End
+	
+	Void MagicBackSetup(Int Layers1,Int Layers2,Table Data)
+		string A="{"
+		for k,v in pairs(Data)
+			if A!="{"
+				A+=", "
+			end
+			A+=sprintf("[\"%s\"] = \"%s\"",k,v)
+		end
+		A+="}, "..Layers2
+		Progress.Create("ZZTOP",5,255,255,0)
+		Progress.ZZTOP = 1
+		ConfiguringData()
+		State.Call("FLOW_FIELD","FlowField.Map.GMB.SetUp",A)
+		For i,tex in ipairs{"GFX/TEXTURES/SINUS/DARK SINUS/HSINUS.PNG","GFX/TEXTURES/SINUS/LIGHT SINUS/HSINUS.PNG","GFX/TEXTURES/SINUS/DARK SINUS/VSINUS.PNG","GFX/TEXTURES/SINUS/LIGHT SINUS/HSINUS.PNG"}
+			Progress.ZZTOP = 1 + i
+			ConfiguringData()
+			MapSetUp(Layers1,Layers2,Tex,(i div 2)*(i % 2),(i div 2)*((i+1) % 2),4)
+		End
+	End
 		
 	Void Update()
-		For T in Each(ObjList[Map.Layer])
+		static table empty = {}
+		For T in Each(ObjList[Map.Layer] || empty)
 			T.X += T.MvX
 			T.Y += T.MvY
 		End
