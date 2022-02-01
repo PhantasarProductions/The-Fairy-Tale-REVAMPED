@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField/Map.neil
-// Version: 22.01.28
+// Version: 22.02.01
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -75,6 +75,13 @@ Module
 		Return CurrentLayer.Obj("PLAYER")
 	End
 	
+	
+	Get Var GMB
+		static var _ret
+		_ret = _ret || NeilUse("Script/Use/Misc/GreatMagicBack")
+		return _ret
+	End
+
 	
 	Void ScrollTo(Int X,Int Y, Int Speed=1)
 		AllowAutoScroll = False
