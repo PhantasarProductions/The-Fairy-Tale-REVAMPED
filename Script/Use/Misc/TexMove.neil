@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Misc/TexMove.neil
-// Version: 22.02.01
+// Version: 22.02.02
 // Copyright (C) 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -125,6 +125,7 @@ Module
 			ConfiguringData()
 			MapSetUp(Layers1,Layers2,Tex,(i div 2)*(i % 2),(i div 2)*((i+1) % 2),4)
 		End
+		Progress.Kill("ZZTOP")
 	End
 		
 	Void Update()
