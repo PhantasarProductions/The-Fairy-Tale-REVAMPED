@@ -32,19 +32,58 @@
 // 
 // **********************************************
 // 
-// version: 22.02.02
+// version: 22.02.03
 // End License Information
 
+#region use
 #use "Script/Use/Anyway"
 #use "Script/Use/Misc/TexMove"
+#use "Script/Use/Misc/SlidePuzzle"
+#endregion
 
 Group MScript
 
 	ReadOnly Bool HasDraw   = False
 	ReadOnly Bool HasUpdate = True
 	
+	Var Slide
+	
 	Void Update()
-		TexMove.Update()
+		Static Int Least = 10000
+		Least = math.min(Least,FPS.FN())
+		If Least>20
+			TexMove.Update()
+		End
+		if Slide && !gv.gbool["PyrusDone"..Map.Layer]
+			Switch Map.Layer
+				case "#004" 
+					if Slide.Good
+						Audio.LoadNew("Audio/SFX/Solved.ogg","SOLVED").Play()
+						gv.gbool["PyrusDone"..Map.Layer]=true
+						for i=1,4
+							Map.Kill("Puz_Rem"..i)
+							RPGChar[RPGParty[i]].Stat.Experience -= 900 div __skill
+						end
+						gv.gbool.FollowTheLeaderOff = false
+						Self.PuzzleNoButtons()
+						Map.Kill("Puzzle",true)
+					end
+				case "#010"
+					if Slide.Good
+						Audio.LoadNew("Audio/SFX/Solved.ogg","SOLVED").Play()
+						gv.gbool["PyrusDone"..Map.Layer]=true
+						for i=1,14
+							Map.Kill("Puz_Rem"..i)
+						end
+						for i=1,4
+							RPGChar[RPGParty[i]].Stat.Experience -= 1600 div __skill
+						end
+						gv.gbool.FollowTheLeaderOff = false
+						Self.PuzzleNoButtons()
+					end
+				default
+			end
+		End
 	End
 	
 	#region Start room
@@ -68,11 +107,125 @@ Group MScript
 	Void NPC_Ramata()
 		MapText("Ramata")
 	End 
+	
+	Void EnterCave()
+		If Done.MtPyrus_CaveEntered
+			Return
+		End
+		//local schuif = Maps.Obj.Obj("Schuif")
+		//local doel   = Maps.Obj.Obj("SchuifEnter")
+		//Actors.MoveToSpot("PLAYER","Disappear")
+		//Actors.MoveToSpot("PLAYER1","Disappear")
+		//Actors.MoveToSpot("PLAYER2","Disappear")
+		//Actors.MoveToSpot("PLAYER3","Disappear")
+		//plua players = { Actors.Actor("PLAYER"),Actors.Actor("PLAYER1"),Actors.Actor("PLAYER2"),Actors.Actor("PLAYER3")}
+		plua players = {"PLAYER","PLAYER2","PLAYER3","PLAYER4"}
+		plua Schuif = Map.GetObjInt("Schuif","X")
+		int  DoelX  = Map.GetObjInt("SchuifEnter","X")
+		Map.StopWalking()
+		repeat
+			Graphics.Cls()
+			//schuif.X = schuif.X - 1
+			Schuif--
+			Map.SetObj("Schuif","X",Schuif)
+			Map.DrawScreen()
+			Graphics.Flip()
+			Events.Poll()
+			FPS.WaitMinTicks()
+			for a in each(players) 
+				//if a.Y<32 then a.Visible=0 end
+				Map.SetObj(a,"Y",Map.GetObjInt(a,"Y")-4)
+				Map.SetObj(a,"Visible",Map.GetObjInt(a,"Y")>96)
+			end
+		//until schuif.X==doel.X+32
+		until schuif<=doelX+32
+		FPS.Sleep(1000)
+		Map.Kill("NPC_Ramata",true)
+		Map.GoToLayer("#002","Start")
+		//Done("&DONE.PYRUS.ENTER")
+		//Var.Clear("$SYS.RESPAWN")
+		Respawn.Reset()
+	End
+	#endregion
+	
+	#region Schuifpuzzles		
+	Void Puzzle()
+		If gv.gbool["PyrusDone"..Map.Layer]
+			CSay("Puzzle already done on this floor!")
+			Return
+		End
+		Map.Pop("Fr_","South",true)
+		gv.gbool.FollowTheLeaderOff = true
+		Slide = Slide || new SlidePuzzle(5,"Slide")
+		Slide.Reset()
+		Slide.Start(1+__skill)
+	End
+	
+	Void LeavePuzzle()
+		gv.gbool.FollowTheLeaderOff = false
+	End
+	
+	Void PuzzleNoButtons()
+		For l in each{"U","D","L","R"}
+			for i=1,5
+				Map.Kill(l..i,true)
+			end
+		End
+	End
+	#endregion
+	
+	#region The Four Monks From Hell
+	Void MonksFromHell()
+		Map.Kill("MonksFromHell",true)
+		Combat.Boss("Helena, Eduard, Lucy and Leonnard","The 4 Monks From Hell")
+		Combat.Arena = Lua.Neil.Globals.Map.Arena
+		Combat.Music = "Combat/SpecialBoss/Volatile Reaction.ogg"
+		Combat.Lose = "GameOver"
+		For i=1,4
+			Combat.NewEnemy = "Boss/MONK"..i
+			Map.Kill("MONK"..i,true)
+		End		
+		Lua.Neil.Globals.Map.StopWalking()
+		Combat.Start()
+	End
+	#endregion
+	
+	#region The Black Dragon
+	Void Crater()
+		Music.Play("music/sys/silence.ogg")
+		Lua.Neil.Globals.Map.StopWalking()
+		Combat.Prepare(100,0,180,"Mindless destroyer of anything and everything","The Black Dragon")
+		ISSet("String","FLOW_COMBAT","FLowCombat.Start.Lose","GameOver")
+		Combat.Arena = Lua.Neil.Globals.Map.Arena
+		Combat.Music = "Combat/SpecialBoss/Threat.ogg"
+		Combat.NewEnemy = "Boss/Black Dragon"
+		Combat.StartEvent = "StartDragon"
+		Combat.Start()
+		Combat.Joker(15+(__skill*5),"BlackDragon")
+		Schedule.Add("PostDragon")
+	End
+	
+	Void StartDragon()
+		If __skill<3
+			gv.gInt.MarFeena_HP += 300 - (__skill*100)
+		End
+		RPGChar.FOE001.Points.HP.Minimum = 1
+		MapText("BLACK_DRAGON","FLOW_COMBAT")
+	End
+	
+	Void PostDragon()
+		Map.GoToMap("CH3_Hub_FrendorGrave","GRAF","Start_Frendor")
+		WorldMap.Unlock("CH3FRENDORGRAVE")
+	End
 	#endregion
 	
 	Constructor
 		InitSchuif()
 		TexMove.MagicBackSetup(0,12,{})
-		ZA.TabEnter{"ZAStart"}
+		ZA.TabEnter{"ZAStart","EnterCave","Puzzle","Crater"}
+		ZA.Enter("4MonksFromHell","MonksFromHell")
+		ZA.Enter("Puzzle10","Puzzle")
+		ZA.Leave("Puzzle","LeavePuzzle")
+		ZA.Leave("Puzzle10","LeavePuzzle")
 	End
 End
