@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/AAA_Stage.neil
-// Version: 22.01.20
+// Version: 22.02.03
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -121,6 +121,9 @@ Class Stage_IDLE extends Stage
 		Static Table AI = {}
 		CardCheck()
 		If !Cards.Present(1)
+			Cards.DelFirst()
+		elseif FirstCard.Joker
+			FirstCard:Joker()
 			Cards.DelFirst()
 		ElseIf FirstCard.Action 
 			If Fighter.ByTag[FirstCard.FightTag].HP<=0
