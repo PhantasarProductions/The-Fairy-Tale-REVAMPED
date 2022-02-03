@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Cards.neil
-// Version: 22.01.20
+// Version: 22.02.03
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -253,7 +253,16 @@ Module Class
 	Constructor(String FT,Act,Jok)
 		FightTag = FT
 		Action = Act
-		Joker = Jok
+		switch Lua.type(Jok)
+			case "string"
+				Joker = NeilUse("Script/Use/Combat/Jokers/"..Jok)
+			case "function"
+				Joker = Jok
+			case "nil"
+				Joker = nil
+			default
+				Lua.error("Invalid joker type: "..Lua.type(Jok))
+		end
 		None = FT:upper()=="NONE"
 		Y = ToY
 		//For _,C in pairs(Lijst)
