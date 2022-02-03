@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Class_Hero.neil
-// Version: 22.01.24
+// Version: 22.02.03
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -571,6 +571,7 @@ End
 
 #region PIMI reactions
 Void PIMI_Attack()
+	Events.Flush()
 	String WAbl = "AAA_ATTACK"
 	Var It = Item[ SPIM.Executor.Char.Data.EQUIP_Weapon ]
 	If It.ITM_WeaponAbility
