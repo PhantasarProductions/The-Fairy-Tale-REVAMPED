@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Execution.neil
-// Version: 22.01.24
+// Version: 22.02.03
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -54,7 +54,7 @@ Class Stage_Execution Extends Stage
 		Act          = _Act
 		Card         = _Card
 		ExStage      = "Start"
-		Time         = 250
+		Time         = 150
 		Self.Current = "Execution"
 		DoShowBox    = True
 		If Act.DeductAP && Act.Executor.Team=="Hero"
@@ -102,6 +102,10 @@ Class Stage_Execution Extends Stage
 	Void Update_Start()		
 		Time--
 		If Time==0
+			if Card.Action
+				ExStage="SpellAni"
+				Return
+			End
 			ExStage="Pose"
 			String ch = Act.Executor.Tag
 			If prefixed(ch,"Jake")
