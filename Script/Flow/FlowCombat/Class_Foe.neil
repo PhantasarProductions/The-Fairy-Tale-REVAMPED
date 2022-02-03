@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Class_Foe.neil
-// Version: 22.01.11
+// Version: 22.02.03
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -152,6 +152,12 @@ Class Foe Extends Fighter
 		WFoe.NegImage.HotBottomCenter()
 		RPGChar.Create(WFoe.Tag)
 		WFoe.Char.Name=WFoe.Raw.NAME
+		for k,v in Pairs(WFoe.Raw)
+			If prefixed(k,"SR_")
+				WFoe.Char.Stats["END_SR_" ..Self.FURL(right(k,#k-3))] = v
+				CSayF("Resistance to %9s: %03d%%",Self.FURL(right(k,#k-3)),v)
+			End
+		End
 		For k,v in Pairs(WFoe.Raw.Stats)
 			If k:upper()=="EXP"
 				WFoe.Char.Stats[k:upper()] = v
@@ -160,8 +166,11 @@ Class Foe Extends Fighter
 				If Key:upper()=="HP" 
 					Key="HP"
 				End
-				If Prefixed(Key,"Er_")
+				If Prefixed(Key:upper(),"ER_")
 					Key="ER_"..self.FURL(Right(Key,#Key-3))
+				End
+				If Prefixed(Key:upper(),"SR_")
+					Key="SR_"..self.FURL(Right(Key,#Key-3))
 				End
 				WFoe.Char.Stats["BASE_"..Key]     = v
 				WFoe.Char.Stats["BUFF_"..Key]     = 0
