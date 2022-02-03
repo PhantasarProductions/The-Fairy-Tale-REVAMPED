@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Misc/GreatMagicBack.neil
-// Version: 22.02.01
+// Version: 22.02.02
 // Copyright (C) 2017, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -77,7 +77,7 @@ Module
 		Var Lay = FlowField.Map.KthuraMap.Layer(Layer)
 		For OIS in Each(split(Lay.ObjEnumString,";"))
 			int OI = Lua.tonumber(OIS) || 0
-			CSayF("Checking object #%05d",OI)
+			//CSayF("Checking object #%05d",OI)
 			var Obj = Lay.Obj(OI)
 			if Obj.Kind=="TiledArea"
 				if prefixed(obj.Texture,data.texprefix || "GFX/TEXTURES/CAVES/DOORZICHTIG/")
@@ -112,7 +112,7 @@ Module
 						cobj.InsertX = -cobj.X
 						cobj.InsertY = -cobj.Y
 						cobj.Labels = obj.Labels
-						CSayF("Created: (%d,%d) %dx%d",CObj.X,CObj.Y,CObj.W,CObj.H)
+						//CSayF("Created: (%d,%d) %dx%d",CObj.X,CObj.Y,CObj.W,CObj.H)
 						added = added + 1
 					end
 				end
