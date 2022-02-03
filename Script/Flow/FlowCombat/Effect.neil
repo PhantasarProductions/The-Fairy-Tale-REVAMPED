@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Effect.neil
-// Version: 22.01.29
+// Version: 22.02.03
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -306,7 +306,7 @@ Group Effect
     Get Bool CauseStatus
     	Bool Ret = False
     	For k,d in pairs(FlowCombat.StatusChanges.Register)
-    		If Act["Cause"..k] && (!Target.StatusChanges[k]) && math.random(0,100)>Target.Char.SafeStat["END_ZZ_SR_"..k]
+    		If Act["Cause"..k] && (!Target.StatusChanges[k]) && math.random(0,100)>Target.Char.SafeStat["END_SR_"..k]
     			Target.StatusChanges[k] = true
     			Invoke(d.Inflict,Target)
     			charmsg(Target.Tag,k,180,0,255)
