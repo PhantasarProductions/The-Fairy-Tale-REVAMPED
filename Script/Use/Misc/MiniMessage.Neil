@@ -1,7 +1,7 @@
 // License Information:
 // src/Tricky Script/Script/Use/Misc/MiniMessage.Neil
-// Version: 21.10.17
-// Copyright (C) 2021 Jeroen Petrus Broks
+// Version: 22.02.03
+// Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
 // This file is part of a project related to the Phantasar Chronicles or another
@@ -87,7 +87,8 @@ Class __minimessage_ret
 	Void Draw()
 		DEG++
 		//Graphics.Color(math.floor(R*DegMod),math.floor(G*DegMod),math.floor(B*DegMod))
-		Graphics.Color(DegMod(R),DegMod(G),DegMod(B))
+		//Graphics.Color(DegMod(R),DegMod(G),DegMod(B))
+		Graphics.Color(R,G,B)
 		Fnt.DarkText(Msg,X,Y-Count,2,2)
 	End
 	
