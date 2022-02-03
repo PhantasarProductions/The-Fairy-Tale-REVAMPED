@@ -1,7 +1,7 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField/FollowTheLeader.neil
-// Version: 21.12.19
-// Copyright (C) 2021 Jeroen Petrus Broks
+// Version: 22.02.02
+// Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
 // This file is part of a project related to the Phantasar Chronicles or another
@@ -76,6 +76,9 @@ Module
 	End
 	
 	Void Run()
+		if gv.gbool.FollowTheLeaderOff
+			Return
+		End
 		If (!FlowField.Map.CurrentLayer.HasTag("PLAYER"))
 			Return
 		End		
