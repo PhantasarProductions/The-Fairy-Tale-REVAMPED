@@ -1,0 +1,28 @@
+
+#use "Script/Use/Anyway"
+
+Group MScript
+
+	ReadOnly Bool HasDraw   = False
+	ReadOnly Bool HasUpdate = False
+	
+	Void Delisto()
+		WorldMap.Go()
+	End
+	
+	Void Event()
+		Map.Kill("Event",true)
+		Map.Pop("Ev_","North",true)
+		MapText("EVENT")
+	End
+	
+	Void Harry()
+		Lua.error("Harry not yet scripted")
+	End
+	
+	
+	
+	Constructor
+		ZA.Enter{"Event","Harry","Delisto"}
+	End
+End
