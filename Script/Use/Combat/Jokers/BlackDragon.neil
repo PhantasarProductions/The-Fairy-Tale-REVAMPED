@@ -1,0 +1,55 @@
+// License Information:
+// **********************************************
+// 
+// src/Tricky Script/Script/Use/Combat/Jokers/BlackDragon.neil
+// (c) Jeroen Broks, 2022, All Rights Reserved.
+// 
+// This file contains material that is related
+// to a storyline that is which is strictly
+// copyrighted to Jeroen Broks.
+// 
+// This file may only be used in an unmodified
+// form with an unmodified version of the
+// software this file belongs to.
+// 
+// You may use this file for your study to see
+// how I solved certain things in the creation
+// of this project to see if you find valuable
+// leads for the creation of your own.
+// 
+// Mostly this file comes along with a project
+// that is for most part released under an
+// open source license and that means that if
+// you use that code with this file removed
+// from it, you can use it under that license.
+// Please check out the other files to find out
+// which license applies.
+// This file comes 'as-is' and in no possible
+// way the author can be held responsible of
+// any form of damages that may occur due to
+// the usage of this file
+// 
+// 
+// **********************************************
+// 
+// version: 22.02.03
+// End License Information
+
+Void _DragonAction(card)
+	Const Int Num = 5
+	MapText("BDJ"..math.random(1,num),"FLOW_COMBAT")
+	For k,v in pairs(Fighter.ByTag)
+		If v.Team=="Foe"
+			//                                    2000000000
+			Int Dmg = math.random(3000 div __skill,300000000 div __skill)
+			charmsg(v.Tag,Dmg,200,0,0)
+			v.HP -= Dmg
+		End
+	End
+	FlowCombat.Cards.Add(15+(5*__skill),"",nil,_DragonAction)
+	If __skill<3 && gv.gBool.MarFeena_Curse
+		gv.gInt.MarFeena_HP += math.random(0,4 div __skill)
+	End
+End
+
+Return _DragonAction
