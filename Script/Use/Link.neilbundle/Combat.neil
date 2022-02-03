@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Link.neilbundle/Combat.neil
-// Version: 22.01.12
+// Version: 22.02.03
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -170,5 +170,8 @@ Module
 		Start()
 	End
 
+	Void Joker(int idx,string J)
+		State.Call("FLOW_COMBAT","FlowCombat.Cards.Add",sprintf("%d,'',nil,'%s'",idx,J))
+	End
 
 End
