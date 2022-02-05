@@ -1,0 +1,111 @@
+// License Information:
+// **********************************************
+// 
+// src/Tricky Script/Script/MapScript/CH4_Town_NostraburgNight.neil
+// (c) Jeroen Broks, 2022, All Rights Reserved.
+// 
+// This file contains material that is related
+// to a storyline that is which is strictly
+// copyrighted to Jeroen Broks.
+// 
+// This file may only be used in an unmodified
+// form with an unmodified version of the
+// software this file belongs to.
+// 
+// You may use this file for your study to see
+// how I solved certain things in the creation
+// of this project to see if you find valuable
+// leads for the creation of your own.
+// 
+// Mostly this file comes along with a project
+// that is for most part released under an
+// open source license and that means that if
+// you use that code with this file removed
+// from it, you can use it under that license.
+// Please check out the other files to find out
+// which license applies.
+// This file comes 'as-is' and in no possible
+// way the author can be held responsible of
+// any form of damages that may occur due to
+// the usage of this file
+// 
+// 
+// **********************************************
+// 
+// version: 22.02.04
+// End License Information
+
+#use "Script/Use/Anyway"
+
+Group MScript
+
+	ReadOnly Bool HasDraw   = False
+	ReadOnly Bool HasUpdate = False
+	
+	Void StartEvent()
+		If !Done.NostraburgByNightStart
+			MapText("START")
+			Map.Chapter(4)
+		End
+	End
+	
+	Void ToCreek()
+		Map.GoToLayer("CREEK","Start")
+	End
+	
+	Void ToTown()
+		Map.GoToLayer("TOWN","Start")
+	End
+	
+	Void ZKrandar()
+		Map.StopWalking()
+		MapText("STOP")
+		Player.WalkTo("Go_Back")
+	End
+	
+	Void CreateKrandar()
+		Party.CreateChar("Krandar",99999)
+		For i=1,5
+			Var P = RPGChar.Krandar.Points["LVL_Skill"..i]
+			P.Have = P.Maximum
+		End
+		RPGChar.Krandar.Data.EQUIP_Weapon="ZZZ_KRANDARBLADE"
+		RPGChar.Krandar.Data.EQUIP_Armor ="ZZZ_KRANDARARMOR"
+		RPGChar.Krandar.Link_Data("Marrilona","EQUIP_Jewel") 
+	End
+	
+	Void NPC_Nostramantu()
+		MapText("NOSTRAMANTU1")
+		Map.ShowObj("KRANDAR")
+		Map.ShowObj("JAKE")
+		MapText("NOSTRAMANTU2")
+		CreateKrandar()
+		RPGParty[1] = "Jake_Human"
+		RPGParty[2] = "Krandar"
+		Combat.Boss("Cursed Berserk Fairy","Marrilona")
+		Combat.Arena = "Forest"
+		Combat.Music = "Combat/SpecialBoss/Threat.ogg"
+		Combat.Lose = "GameOver"
+		Combat.NewEnemy = "Boss/Marrilona"
+		Combat.StartEvent = "StartBoss"
+		Lua.Neil.Globals.Map.StopWalking()
+		Combat.Start()
+		Schedule.Add("PostBoss")
+	End
+	
+	Void StartBoss()
+		MapText("MARRILONA_START","FLOW_COMBAT")
+	End
+	
+	Void PostBoss()
+		RPGParty[2] = "HandoStillor"
+		gv.gbool.DepriJake = True
+		gv.gBool.MarFeena_Curse = False
+		Map.GoToMap("CH3_Town_Nostraburg","TOWN","Depri")		
+		Schedule.Add("DepriJake")
+	End
+	
+	Constructor
+		ZA.TabEnter{"StartEvent","ToCreek","ToTown","ZKRANDAR"}
+	End
+End
