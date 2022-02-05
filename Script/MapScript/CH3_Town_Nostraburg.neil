@@ -32,11 +32,13 @@
 // 
 // **********************************************
 // 
-// version: 22.02.01
+// version: 22.02.05
 // End License Information
 
 #use "Script/Use/Anyway"
 #use "Script/Use/Misc/Inn" 
+
+#macro __DepriJake gv.gbool.DepriJake
 
 Group MScript
 
@@ -47,6 +49,11 @@ Group MScript
 	
 	#region Entering and leaving buildings
 	Void Enter(string b)
+		If __DepriJake
+			MapText("GOTOKRANDAR")
+			Return
+		End
+
 		If DontEnter
 			DontEnter=False
 		Else
@@ -149,7 +156,101 @@ Group MScript
 	End
 	
 	Void Kokonora()
-		WorldMap.Go("Kokonora")
+		If __DepriJake
+			MapText("GOTOKRANDAR")
+		Else
+			WorldMap.Go("Kokonora")
+		End
+	End
+		
+	#region Depri Jake
+	Void DepriJake()
+		MapText("DEPRI_JAKE")
+	End
+	
+	Void EnterKrandar()
+		Map.GoToLayer("KRANDAR","Start")
+	End
+	
+	Void JakeIsACoward()
+		If !Done.Jake_Is_A_Coward
+			Map.Pop("M_","North",true)
+			MapText("JAKE_IS_A_COWARD")
+			Respawn.Reset()
+		End
+	End
+	
+	Void AndWeAreOff()
+		MapText("GOTOPYRUS")
+		For i,ch in pairs{"Jake_Human","Krandar","Dandor","HandoStillor"}
+			RPGParty[i] = ch
+		End
+		Map.GoToMap("CH4_Dungeon_PyrusPass","#000","Start")
+	End
+	
+	Void CureMarrilona()
+		// Act One
+		Map.Pop("M_","North",true)
+		MapText("CURE1")
+		// Act Two
+		Graphics.Cls()
+		Graphics.Flip()
+		Music.Play("Music/SYS/Silence.ogg")
+		plua v={"DSB.ogg","Earth.ogg","Fire.ogg","Frost.ogg","Heal.ogg","Hit.ogg","Thunder.ogg","Water.ogg","Wind.ogg","Yell.ogg"}
+		For vf in each(v)
+			Events.Poll()
+			if JCR6.EntryExists("Vocals/Combat/Foe/Marrilona/Action/"..vf)
+				Audio.Load("Vocals/Combat/Foe/Marrilona/Action/"..vf,"BEAST_MARRILONA").Play()
+				FPS.Sleep(1200) 
+			end
+		end
+		Ach.Award("SCEN_SAVEMARRILONA")
+		Map.Kill("Shroud",true)
+		Map.SetObj("Marrilona","Texture","GFX/Actors/Bundled/Player/Marrilona.South.jpbf")
+		Map.Remap()
+		MapText("CURE2")
+		// Act Three
+		Player.WalkTo("Marrilona")
+		MapText("CURE3")
+		For i,p in pairs{"Jake_Human","Marrilona","Dandor","HandoStillor"}
+			RPGParty[i] = p
+			CSayF("%d> %s",i,p)
+		End
+		Music.Play("Music/Town/Funky Fairy.ogg")
+		Map.GoToLayer("TOWN","K_Jake")
+		Schedule.Add("FinalBriefing")
+	End
+	
+	Void FinalBriefing()
+		Respawn.Reset()
+		Map.Pop("K_","North",true)
+		MapText("CH4START")
+	End
+	#endregion
+	
+	Void NPC_Sinasina()
+		// Note! This used to be a New Game+ dungeon only!
+		// I however decided that it would be better to put this in the normal
+		// playthrough now.
+		MapText("SINASINA")
+		WorldMap.Unlock("NGPDANDLETON")
+	End
+	
+	Void NPC_Feenalaria()
+		Static Var OtherMasters = { "Fandalora","Freya","Midas","Rubine","Russell","Krandar" }
+		If !gv.gbool.FeenaRecruitedAsMaster
+			MapText("FEENA_PREMASTER")
+			Bool Good=True
+			For gm in Each(OtherMasters)
+				Good = Good && Master.Unlocked(gm)
+				CSayF("%s ==> %s",gm,Lua.tostring(Good))
+			End
+			If !Good
+				MapText("FEENA_NOTREADY")
+				Return
+			End
+		End
+		Master.Speak("Feenalaria")
 	End
 	
 	Constructor
@@ -162,14 +263,23 @@ Group MScript
 			End
 		Else
 			Map.LayKill("TOWN","Frendor",false)
-			If __Chapter<4
+			If __Chapter<4 || gv.gbool.DepriJake
 				Map.LayKill("TOWN","NPC_Feenalaria",false)
 				Map.LayKill("TOWN","NPC_Sinasina",false)
 			End
+			If gv.gbool.DepriJake
+				Map.LayKill("TOWN","NPC_Krandar",false)
+				ZA.Enter("ZA_ENTER_krandar","EnterKrandar")
+				ZA.Enter("AndWeAreOff")
+				Za.Enter("JakeIsACoward")
+			End
 			For z in Each{"weapons","inn","items","wands"}
-				ZA.Enter("ZA_ENTER_"..z,"Enter",z)
+				ZA.Enter("ZA_ENTER_"..z,"Enter",z)				
 			End
 			ZA.TabEnter{"Exit","Guard_Ramata","Kokonora"}
+		End
+		If __Chapter>=4
+			Worldmap.Unlock("CH2VANDAR")
 		End
 	End
 End
