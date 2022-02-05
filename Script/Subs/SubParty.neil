@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.01.29
+// version: 22.02.04
 // End License Information
 
 #Use "Script/Use/Anyway"
@@ -144,7 +144,15 @@ Group SubParty
 				End
 				Return
 			Case "Krandar"
-				Lua.error("No support for Krandar yet")
+				RPGChar.Create("Krandar")
+				Var Kr = RPGChar.Krandar
+				Kr.Name = "Krandar"
+				Kr.Stat.Level = 1234567
+				Kr.Stat.Experience = 12345678
+				For s,lc in pairs{["AP"]= "Marrilona", ["Accuracy"] = "Jake_Human", ["Critical"] =  "Jake_Human", ["Endurance"] =  "Dandor", ["Evasion"] =  "HandoStillor", ["HP"] =  "Dandor", ["Intelligence"] = "HandoStillor", ["Power"] = "Dandor", ["Resistance"] = "Marrilona", ["Speed"]="HandoStillor"}
+					RPGChar.Krandar.Link_Stat(lc,"BASE_"..s)					
+				End
+				//Lua.error("No support for Krandar yet")
 			Case "Nostramantu"
 				// Human!
 				Lua.error("No support for Nostramantu yet")
