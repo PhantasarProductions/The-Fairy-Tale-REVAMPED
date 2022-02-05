@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.02.03
+// version: 22.02.04
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -53,12 +53,39 @@ Group MScript
 	End
 	
 	Void Harry()
-		Lua.error("Harry not yet scripted")
+		Map.StopWalking()
+		MapText("HARRY")
+		//Lua.error("Harry not yet scripted")
+		Combat.Boss("Doesn't he EVER give up?","Harry")
+		//Combat.Arena    = Lua.Neil.Globals.Map.Arena
+		Combat.Arena    = "Forest"
+		Combat.Music    = "Combat/SpecialBoss/AnnoyingBoy.ogg"
+		Combat.Lose     = "GameOver"
+		Combat.NewEnemy = "Boss/Harry3"
+		Combat.Start()
+		Schedule.Add "PostHarry"
+	End
+	
+	Void PostHarry()
+		Ach.Award("CHAPTER3")
+		Map.Kill("NPC_MT_Chief",true)
+		Map.SetObj("ChiefBack","Visible",true)
+		MapText("HARRY_POST")
+		Map.Kill("Harry",true)
+		For ch in Each{"Cryogina","Remus","John","ShopHoer","Fandalora","Jeanne","GedrioFulla","Rosetta","SashaFunda","Sandra","Krandar"}
+			CSayF("Killing %s",ch)
+			Map.Kill("NPC_MT_"..ch,true)
+		End
+		RPGParty[1]="Marrilona"
+		For i=2,4
+			RPGParty[i]=""
+		End
+		Map.GoToMap("CH4_Town_NostraburgNight","TOWN","exit_krandar")
 	End
 	
 	
-	
 	Constructor
-		ZA.Enter{"Event","Harry","Delisto"}
+		CSay("Frendor's Grave")
+		ZA.TabEnter{"Event","Harry","Delisto"}
 	End
 End
