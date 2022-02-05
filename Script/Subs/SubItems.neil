@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Subs/SubItems.neil
-// Version: 22.01.30
+// Version: 22.02.04
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -138,6 +138,9 @@ Class ABLRec
 			Abilities.Jake_Fairy = Abilities.Jake_Fairy || { ["Ability"]={}, ["Skill"]=Abilities.Jake_Human.Skill }
 			Abilities.Jake_Human.Ability[T] = Abilities[ch].Ability[T]
 			Abilities.Jake_Fairy.Ability[T] = Abilities[ch].Ability[T]
+		ElseIf ch=="Krandar" 
+			Abilities.Krandar.Skill = Abilities.Marrilona.Skill
+			Abilities[ch].Ability[T].Unlocked = True
 		ElseIf Prefixed(ch,"Feenalaria")
 			// Feenalaria copies Jake's skills
 			Static Bool FirstTime = False
@@ -203,7 +206,8 @@ Global Void SaveInventory()
 			Case "Jake_Fairy" "Nostramantu_Human" "Jake"
 				// Do Nothing
 			Case "Krandar"
-				Lua.error("Krandar not yet set up")
+				//Lua.error("Krandar not yet set up")
+				// Do Nothing
 			Case "Nostramantu"
 				Lua.error("Nostramantu (Elder from tagged 'Nostramantu') not yet set up")
 			Case "Feenalaria_Human"
