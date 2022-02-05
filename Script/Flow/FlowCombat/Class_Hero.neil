@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Class_Hero.neil
-// Version: 22.02.03
+// Version: 22.02.04
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -511,6 +511,9 @@ End
 
 
 Var CheckAbilityLearn(Act)
+	if Act.Executor.Tag == "Krandar" || prefixed(Act.Executor.Tag, "Feena") || Prefixed(Act.Executor.Tag,"Nostra")
+		Return Act
+	End
 	__LoadItemState
 	string Abl = ISGET.String("SUB_ITEMS",sPrintF("AblCheckLearn('%s')",Act.Executor.Tag))
 	If Abl==""
