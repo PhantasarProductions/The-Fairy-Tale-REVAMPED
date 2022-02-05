@@ -1,0 +1,116 @@
+// License Information:
+// **********************************************
+// 
+// src/Tricky Script/Script/MapScript/CH4_Dungeon_PyrusPass.neil
+// (c) Jeroen Broks, 2022, All Rights Reserved.
+// 
+// This file contains material that is related
+// to a storyline that is which is strictly
+// copyrighted to Jeroen Broks.
+// 
+// This file may only be used in an unmodified
+// form with an unmodified version of the
+// software this file belongs to.
+// 
+// You may use this file for your study to see
+// how I solved certain things in the creation
+// of this project to see if you find valuable
+// leads for the creation of your own.
+// 
+// Mostly this file comes along with a project
+// that is for most part released under an
+// open source license and that means that if
+// you use that code with this file removed
+// from it, you can use it under that license.
+// Please check out the other files to find out
+// which license applies.
+// This file comes 'as-is' and in no possible
+// way the author can be held responsible of
+// any form of damages that may occur due to
+// the usage of this file
+// 
+// 
+// **********************************************
+// 
+// version: 22.02.05
+// End License Information
+
+#use "Script/Use/Anyway"
+#use "Script/Use/Misc/TexMove"
+
+Group MScript
+
+	ReadOnly Bool HasDraw   = False
+	ReadOnly Bool HasUpdate = True
+	
+	Void Update()
+		TexMove.Update()
+		If Map.Layer=="#001"
+			Map.SetObj("Lava","X",Map.CamX-5)
+			Map.SetObj("Lava","Y",Map.CamY-5)
+			Map.SetObj("Lava","W",Screen.W+10)
+			Map.SetObj("Lava","H",Screen.H+10)
+		End
+	End
+	
+	Void Leave()
+		If !gv.gbool.DefeatedNosMtPyrus
+			MapText("NOLEAVE")
+			Return
+		End
+		Switch RPGParty[2]
+			Case "Marrilona"
+				WorldMap.Go()
+			Case "Krandar"
+				 Map.Kill("PRC_Bye",true)
+				 RPGParty[2]="HandoStillor"
+				 RPGParty[3]=""
+				 RPGParty[4]=""
+				 Map.GoToMap("CH3_TOWN_Nostraburg","KRANDAR","Start")
+				 Schedule.Add("CureMarrilona")
+			Default
+				Lua.error("???")
+		End
+	End
+	
+	#region Boss
+	Void NPC_Kruid()
+		Lua.Neil.Globals.Map.StopWalking()
+		Map.Pop("K_","North",true)
+		MapText("WHEAT1")		
+		For i=1,75
+			Graphics.Color(math.random(0,255),math.random(0,255),math.random(0,255))
+			Graphics.Rect(0,0,Screen.W,Screen.H)
+			Graphics.Flip()
+			Events.Poll()
+			FPS.WaitMinTicks()
+			Map.ShowObj("NOS")
+		End
+		
+		MapText("WHEAT2")
+				
+		Combat.Prepare(255,180,0,"Fairy Elder","Nostramantu")
+		ISSet("String","FLOW_COMBAT","FLowCombat.Start.Lose","GameOver")
+		Combat.Arena = Lua.Neil.Globals.Map.Arena
+		Combat.Music = "Combat/SpecialBoss/PlayTillDeath_(Nostramantu).ogg"
+		Combat.NewEnemy = "Boss/Nostramantu1"		
+		Combat.Start()		
+		Schedule.Add("PostBoss")
+		//Lua.error("Tot hier en (nog) niet verder")
+	End
+	
+	Void PostBoss()
+		gv.gbool.DefeatedNosMtPyrus = true
+		Map.Kill("NOS",true)
+		MapText("WHEAT3")
+		Map.Kill("NPC_KRUID",true)
+	End
+	#endregion
+	
+	Constructor
+		WorldMap.Unlock("CH4PYRUSPASS")
+		TexMove.MapSetup(0,2,"LAVA.PNG",0,1,0)
+		ZA.TabEnter{"Leave"}
+		gv.gbool.DepriJake = False
+	End
+End
