@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Effect.neil
-// Version: 22.02.04
+// Version: 22.02.05
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -328,7 +328,6 @@ Group Effect
     	End
     	Return Ret
     End
-    
     
     Get Bool Revive
     	If Act.Revive && Target.HP==0 && Target.Team=="Hero"
