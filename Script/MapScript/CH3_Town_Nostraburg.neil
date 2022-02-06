@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.02.05
+// version: 22.02.06
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -255,6 +255,7 @@ Group MScript
 				Return
 			End
 		End
+		gv.gbool.FeenaRecruitedAsMaster = true
 		Master.Speak("Feenalaria")
 	End
 	
