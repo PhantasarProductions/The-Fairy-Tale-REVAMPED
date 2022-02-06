@@ -1,0 +1,73 @@
+// License Information:
+// **********************************************
+// 
+// src/Tricky Script/Script/MapScript/CH4_Dungeon_StarDome.neil
+// (c) Jeroen Broks, 2022, All Rights Reserved.
+// 
+// This file contains material that is related
+// to a storyline that is which is strictly
+// copyrighted to Jeroen Broks.
+// 
+// This file may only be used in an unmodified
+// form with an unmodified version of the
+// software this file belongs to.
+// 
+// You may use this file for your study to see
+// how I solved certain things in the creation
+// of this project to see if you find valuable
+// leads for the creation of your own.
+// 
+// Mostly this file comes along with a project
+// that is for most part released under an
+// open source license and that means that if
+// you use that code with this file removed
+// from it, you can use it under that license.
+// Please check out the other files to find out
+// which license applies.
+// This file comes 'as-is' and in no possible
+// way the author can be held responsible of
+// any form of damages that may occur due to
+// the usage of this file
+// 
+// 
+// **********************************************
+// 
+// version: 22.02.06
+// End License Information
+
+#use "Script/Use/Anyway"
+
+Group MScript
+
+	ReadOnly Bool HasDraw   = False
+	ReadOnly Bool HasUpdate = True
+	
+	Void Update()
+		Map.SetObj("Obstacle_Next","Rotation",(Map.GetObjInt("Obstacle_Next","Rotation")+1)%360)
+		If Map.Layer!="#010"
+			Map.SetObj("Obstacle_Prev","Rotation",(Map.GetObjInt("Obstacle_Prev","Rotation")-1)%360)
+		End
+		Map.SetObj("PLASMA","X",Map.CamX-2)
+		Map.SetObj("PLASMA","Y",Map.CamY-2)
+		Map.SetObj("PLASMA","W",Screen.W+4)
+		Map.SetObj("PLASMA","H",Screen.H)
+		Map.SetObj("PLASMA","InsertX",Map.CamX Div 8)
+		Map.SetObj("PLASMA","InsertY",Map.CamY Div 8)
+		
+		Map.SetObj("STARS","X",Map.CamX-2)
+		Map.SetObj("STARS","Y",Map.CamY-2)
+		Map.SetObj("STARS","W",Screen.W+4)
+		Map.SetObj("STARS","H",Screen.H)
+		Map.SetObj("STARS","InsertX",Map.CamX Div 2)
+		Map.SetObj("STARS","InsertY",Map.CamY Div 2)
+	End
+	
+	Void Delisto()
+		WorldMap.Go()
+	End
+	
+	Constructor
+		ZA.TabEnter{"Delisto"}
+	End
+	
+End
