@@ -32,10 +32,11 @@
 // 
 // **********************************************
 // 
-// version: 22.01.15
+// version: 22.02.05
 // End License Information
 
 #use "Script/Use/Anyway"
+#use "Script/Use/Misc/Inn"
 
 #macro DoneChief gv.gBool.SpokenToChiefWerrington_Prologue
 
@@ -107,7 +108,10 @@ Group MScript
 		If __Chapter==0
 			MapText("FRED_NOSELL")
 		Else
-			Lua.error("Fred's shop not yet activated")
+			//Lua.error("Fred's shop not yet activated")
+			MapText("FRED")
+			FieldMenu.Shop("ITEM_FRED")
+
 		End
 	End
 	
@@ -115,7 +119,17 @@ Group MScript
 		If __Chapter==0
 			MapText("GEORGE_NOSELL")
 		Else
-			Lua.error("George's shop not yet activated")
+			//Lua.error("George's shop not yet activated")
+			MapText("GEORGE")
+			FieldMenu.WeaponShop("WEAPON_GEORGE")
+		End
+	End
+	
+	Void NPC_Innkeeper()
+		If __Chapter==0
+			MapText("INN_NOTTODAY")
+		else
+			Inn()
 		End
 	End
 	#endregion
@@ -129,7 +143,8 @@ Group MScript
 	
 	Void Bye()
 		If __Chapter>0
-			Lua.error("Leaving town not yet supported")
+			//Lua.error("Leaving town not yet supported")
+			WorldMap.Go()
 			Return
 		End
 		If DoneChief
