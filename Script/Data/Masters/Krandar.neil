@@ -1,0 +1,126 @@
+// License Information:
+// src/Tricky Script/Script/Data/Masters/Krandar.neil
+// Version: 22.02.06
+// Copyright (C) 2017, 2022 Jeroen Petrus Broks
+// 
+// ===========================
+// This file is part of a project related to the Phantasar Chronicles or another
+// series or saga which is property of Jeroen P. Broks.
+// This means that it may contain references to a story-line plus characters
+// which are property of Jeroen Broks. These references may only be distributed
+// along with an unmodified version of the game.
+// 
+// As soon as you remove or replace ALL references to the storyline or character
+// references, or any termology specifically set up for the Phantasar universe,
+// or any other univers a story of Jeroen P. Broks is set up for,
+// the restrictions of this file are removed and will automatically become
+// zLib licensed (see below).
+// 
+// Please note that doing so counts as a modification and must be marked as such
+// in accordance to the zLib license.
+// ===========================
+// zLib license terms:
+// This software is provided 'as-is', without any express or implied
+// warranty.  In no event will the authors be held liable for any damages
+// arising from the use of this software.
+// Permission is granted to anyone to use this software for any purpose,
+// including commercial applications, and to alter it and redistribute it
+// freely, subject to the following restrictions:
+// 1. The origin of this software must not be misrepresented; you must not
+// claim that you wrote the original software. If you use this software
+// in a product, an acknowledgment in the product documentation would be
+// appreciated but is not required.
+// 2. Altered source versions must be plainly marked as such, and must not be
+// misrepresented as being the original software.
+// 3. This notice may not be removed or altered from any source distribution.
+// End License Information
+
+Module
+
+	Get Bool requirement() 
+		Return true
+	End
+
+	Var Abl
+	Var AblName
+	Void DefAbl()
+		abl = {}
+		abl.Jake         = "abl_master_Krandar_5PS"
+		abl.Marrilona    = "abl_master_krandar_catastrophe"
+		abl.Dandor       = "abl_master_Krandar_charge"
+		abl.HandoStillor = "abl_master_krandar_holyshit"
+		ablname = { ["Jake"]="Penta Power Strike",["Marrilona"]="Catastrophe",["Dandor"]="Charge",["HandoStillor"]="Holy Shit!"}
+	End
+
+	Bool All = False
+	
+
+	
+	// Should return true if master actually decides to teach something	
+	Var Teach(string Ch)
+		plua rabl
+		//local ch=pch
+		plua uch = ch:upper()
+		if prefixed(uch,"JAKE") 
+			uch="JAKE"
+			ch="Jake" 
+		end
+		if GV.GBOOL["&MASTER.KRANDAR.TEACH.JAKE"] and GV.GBOOL["&MASTER.KRANDAR.TEACH.MARRILONA"] and GV.GBOOL["&MASTER.KRANDAR.TEACH.DANDOR"] and GV.GBOOL["&MASTER.KRANDAR.TEACH.HANDOSTILLOR"]
+			all=true
+		//elseif CVV('&DONE.SEAL.'..uch..'1') and CVV('&DONE.SEAL.'..uch..'2') and (not (Done('&DONE.MASTER.KRANDAR.TEACH.'..uch))) then
+		ElseIf gv.gbool["SEALED_KRANDAR_"..uch] && (!GV.GBOOL["&MASTER.KRANDAR.TEACH."..uch])
+			rabl = abl[ch]
+		End
+		Return rabl
+		//,all
+	end
+	
+	Void Appoint(String ch)
+	End
+	
+	Void Dismiss(ch)
+	End
+
+     Var Stats
+     Table Desc = {"Krandar is the leader of the Black Winged Fairies","Proove yourself to him by collecting","the most powerful equipment, a character can find.","He has a different spell or skill for each character."}
+
+     Void DefStats()
+     	plua _stats
+     	// Spd +25%, Atk -10%, End -5%, Int -10%, Res - 5%, Acc +5%, eva +5%     	
+     	#pure
+     	_stats = {
+     		Power = 5,
+     		Endurance = -5,
+     		Intelligence = 5,
+     		Resistance = -5,
+     		HP = 5,
+     		AP = 5     	
+     	}
+     	#endpure
+     	Stats = _stats
+     	Desc[#Desc+1]=""
+     	Desc[#Desc+1]="When studying under Krandar"
+     	Desc[#Desc+1]="You have a 1 to "..math.abs(4*__skill).." chance"
+     	Desc[#Desc+1]="To recover 1 VIT point"
+     	Desc[#Desc+1]="At the start of each turn"
+     End
+     
+
+	String ShowScore(string ch)
+		string chi=ch
+		if prefixed(chi,"Jake")
+			chi="Jake" 
+		end
+		return ablname[chi]     
+	End
+     
+     ReadOnly String Name = "Krandar"
+     ReadOnly String ID   = "Krandar"
+     ReadOnly Bool   HideRates = True
+
+     Constructor
+     	CSay("Loading Master Krandar")
+     	DefStats()
+     	DefAbl()
+     End
+End
