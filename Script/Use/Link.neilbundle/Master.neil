@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.02.05
+// version: 22.02.06
 // End License Information
 Module
 
@@ -65,7 +65,8 @@ Module
 					RPGChar[ch].Stat.RussellKills += Value
 				case "Feenalaria"
 					CSayF("%s is studying under master %s and will get %d extra points",ch,Master,value)
-					Lua.error("Feenalaria must be scripted to get the points now! Do it!")
+					//Lua.error("Feenalaria must be scripted to get the points now! Do it!")
+					RPGChar[ch].Stat.FeenalariaPoints += Value
 				Default
 					Lua.error("Unknown master: "..Master)
 			End
