@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.01.13
+// version: 22.02.06
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -128,6 +128,15 @@ Group PostAanval
 		WorldMap.Go()
 	End
 
+	ReadOnly String SealedBoss_Head    = "Demon Ruler"
+	ReadOnly String SealedBoss_Name    = "Minotaur King"
+	ReadOnly String SealedBoss         = "MinoKing"
+	ReadOnly String SealedBoss_Krandar = "Jake"
+	
+	Void NPC_StarDome()
+		MapText("STARDOME")
+		WorldMap.Unlock("Ch4STARDOME")
+	End
 End
 
 
