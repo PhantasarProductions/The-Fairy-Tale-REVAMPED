@@ -1,7 +1,7 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FieldMenu/Items.neil
-// Version: 21.12.31
-// Copyright (C) 2021 Jeroen Petrus Broks
+// Version: 22.02.06
+// Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
 // This file is part of a project related to the Phantasar Chronicles or another
@@ -62,6 +62,7 @@ Module
 									CSayF("Unequipping item %s failed! Overstocking?",CitemTag)
 									Buzz.Play()
 								Else
+									Party.CheckEquip(CharTag)
 									RPGChar[CharTag].Data.EQUIP_Weapon = CItemTag
 									Item[CItemTag].Has--
 								End
@@ -76,6 +77,7 @@ Module
 									CSayF("Unequipping item %s failed! Overstocking?",CitemTag)
 									Buzz.Play()
 								Else
+									Party.CheckEquip(CharTag)
 									RPGChar[CharTag].Data.EQUIP_Armor = CItemTag
 									Item[CItemTag].Has--
 								End
@@ -92,6 +94,7 @@ Module
 								If Old =="" || Item[Old].Give
 									RPGChar[CharTag].Data.EQUIP_Jewel = CItemTag
 									Item[CItemTag].Has--
+									Party.CheckEquip(CharTag)
 								Else 
 									CSayF("Unequipping item %s failed! Overstocking?",CitemTag)
 									Buzz.Play()
