@@ -1,0 +1,166 @@
+// License Information:
+// **********************************************
+// 
+// src/Tricky Script/Script/Data/Masters/Feenalaria.neil
+// (c) Jeroen Broks, 2017, 2022, All Rights Reserved.
+// 
+// This file contains material that is related
+// to a storyline that is which is strictly
+// copyrighted to Jeroen Broks.
+// 
+// This file may only be used in an unmodified
+// form with an unmodified version of the
+// software this file belongs to.
+// 
+// You may use this file for your study to see
+// how I solved certain things in the creation
+// of this project to see if you find valuable
+// leads for the creation of your own.
+// 
+// Mostly this file comes along with a project
+// that is for most part released under an
+// open source license and that means that if
+// you use that code with this file removed
+// from it, you can use it under that license.
+// Please check out the other files to find out
+// which license applies.
+// This file comes 'as-is' and in no possible
+// way the author can be held responsible of
+// any form of damages that may occur due to
+// the usage of this file
+// 
+// 
+// **********************************************
+// 
+// version: 22.02.06
+// End License Information
+
+Module
+
+	Get Bool requirement() 
+		Return true
+	End
+
+	Var Abl
+	
+	Get Number ReqMod
+		Static Number r = ({0.25,1,3})[__skill]
+		return r
+	end
+	
+	Void DefAbl()
+		plua _Abl
+		plua skill = __skill
+		#pure
+		_Abl = {
+			[ 25]="abl_master_feena_magmablast",
+			[ 40]="abl_master_feena_cocytus",
+			[ 50]="abl_master_feena_drown",
+			[ 60]="abl_master_feena_megaquake",
+			[ 70]="abl_master_feena_katrina",
+			[ 80]="abl_master_feena_scylla",
+			[200]="abl_master_feena_fullpower"
+		}		                              
+		#endpure
+		//Abl = _Abl
+		Abl = {}
+		For r,at in pairs(_Abl)
+			Abl[r*ReqMod]=At
+		End
+	End
+
+	Bool All = False
+	
+	
+	
+	// Should return true if master actually decides to teach something	
+	Var Teach(string Ch)
+		CSay("Is there something to teach for "..ch.."?")
+		all = true
+		if ch=="Dandor"
+			return Nil
+		end
+		All = true
+		plua maylearn = true
+		plua rabl = false
+		for req,abl in pairs(abl)
+			//do -- DEFINITELY NOT ipairs!!!!!
+			//plua req = truereq*ReqMod
+			
+			if maylearn and RPGChar[Ch].Stat.FeenalariaPoints>=req and (not Done["MASTER.FEENALARIA."..ch.."."..abl])
+				//Console.Write(RPG.Stat(ch,"FeenalariaPoints")..">="..req.." so let's teach!",180,255,0)
+				maylearn=false
+				rabl=abl
+			else
+				all = all and GV.GBool["MASTER.FEENALARIA."..ch.."."..abl]
+			end
+		end
+		//return rabl,all
+		return rabl
+		//,all
+	end
+    
+    Void Appoint(String ch)
+      //Console.Write('Creating point for Rubine on '..ch,255,255,255)
+      //Master_DefStat(ch,"RubinePoints",0)
+      //RPGChar[ch].Stats.RubinePoints=0
+      FlowMaster.DefStat(Ch,"FeenalariaPoints",0)
+     End
+     
+     
+     Void Dismiss(ch)
+     	//RPG.DelStat(ch,"RubinePoints")
+     	// More trouble than it's worth
+     End
+
+     Var Stats
+     Table Desc =  {"Nostramantu's wife","Despite her merriage, she's on your side","and she knows very powerful spells.","She'll teach you new spells","based on your victories while","apprenticing under her","","Dandor cannot learn spells from her"}
+
+
+     Void DefStats()
+     	if __Skill<3
+     		Desc[#Desc+1]=""
+     		Desc[#Desc+1]="When studying under Feenalaria"
+     		Desc[#Desc+1]="You'll recover "..math.abs(25*(3-__skill)).." AP"
+     		Desc[#Desc+1]="At the start of each turn"
+     	End
+     	plua _stats
+     	// Spd +25%, Atk -10%, End -5%, Int -10%, Res - 5%, Acc +5%, eva +5%     	
+     	#pure
+     	_stats = {
+     		HP=-50,
+     		AP=200,
+     		Power=-50,
+     		Intelligence=200,
+     		Resistance=200,
+     		Speed=-10,
+     		Evasion=-200,
+     		Endurance=-75     	
+     	}
+     	#endpure
+     	Stats = _stats
+     End
+     
+     String ShowScore(ch)
+     	//Return ""..RPGChar[ch].Stat.RubinePoints
+     	if ch=="Dandor" 
+     	  	return "N/A"
+     	end
+     	Int v = RPGChar[ch].Stat.FeenalariaPoints
+     	If v==1
+     		Return "1 victory"
+     	Else
+     		Return sprintf("%d victories",v)
+     	End
+     End
+     
+     ReadOnly String Name = "Feenalaria"
+     ReadOnly String ID   = "Feenalaria"
+     ReadOnly Bool   HideRates = False
+
+     Constructor
+     	CSay("Loading Master Fandalora")
+     	DefStats()
+     	DefAbl()
+     End
+End
