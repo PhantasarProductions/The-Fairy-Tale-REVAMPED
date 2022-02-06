@@ -2,7 +2,7 @@
 // **********************************************
 // 
 // src/Tricky Script/Script/Flow/FlowField/BlueSeal.neil
-// (c) Jeroen Broks, 2021, All Rights Reserved.
+// (c) Jeroen Broks, 2021, 2022, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.12.18
+// version: 22.02.05
 // End License Information
 Module
 
@@ -65,7 +65,7 @@ Module
 							
 		Combat.Prepare(0,0,255,Head,Name)
 		Combat.Arena = Lua.Neil.Globals.Map.Arena
-		Combat.Music = "Music/Combat/SpecialBoss/SealedBoss.ogg"
+		Combat.Music = "Combat/SpecialBoss/SealedBoss.ogg"
 		Combat.Lose = "GameOver"
 		if Boss=="*SCRIPT*"
 			MapScript.Start_SealedBoss()
@@ -75,8 +75,12 @@ Module
 		Lua.Neil.Globals.Map.StopWalking()
 		Combat.Start()
 		gv.gint.SealsOpened++
+		if Map.LoadedMap:upper()!="ANNA"
+			gv.gint.NonAnna_SealsOpened++
+		End
 		gv.gbool["SEALED_"..Map.LoadedMap] = true
-		gv.gbool["SEALED_KRANDAR_"..Krandar] = true		
+		gv.gbool["SEALED_KRANDAR_"..Krandar] = true	
+		Map.Kill("NPC_BlueSeal",true)
 	End
 
 	
