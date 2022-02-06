@@ -1,7 +1,7 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField/Treasure.neil
-// Version: 21.11.10
-// Copyright (C) 2021 Jeroen Petrus Broks
+// Version: 22.02.06
+// Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
 // This file is part of a project related to the Phantasar Chronicles or another
@@ -109,6 +109,24 @@ Module
 			Return
 		End
 		String ITag = O.Data["ITEM"]:upper()
+		String RTag = O.Data["REQUIREDITEM"]:upper()
+		If RTag!=""
+			If Item[RTag].Has==0
+				Bool Allow = False
+				Static Var SPar = {"Jake_Human","Marrilona","Dandor","HandoStillor"}
+				for Ch in Each(SPar)
+					string Weapon = RPGChar[ch].Data.EQUIP_Weapon
+					String Armor  = RPGChar[ch].Data.EQUIP_Armor
+					CSayF("Checking equipment of char %s: Weapon=%s; Armor=%s",Ch,Weapon,Armor)
+					Allow = Allow || (Weapon:upper()==RTag)
+					Allow = Allow || ( Armor:upper()==RTag)
+				End
+				If !Allow
+					FlowField.Msg("Treasure chest is locked!",O.X,O.Y,255,0,0)
+					Return
+				End
+			End
+		End
 		If Prefixed(ITag,"CASH:")
 			Int N = Lua.tonumber(Right(ITag,#ITag-5)) || 1
 			String Msg
