@@ -2,7 +2,7 @@
 // **********************************************
 // 
 // src/Tricky Script/Script/MapScript/PRO_Dungeon_DragonCave.neil
-// (c) Jeroen Broks, 2021, All Rights Reserved.
+// (c) Jeroen Broks, 2021, 2022, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.11.03
+// version: 22.02.05
 // End License Information
 
 #use "script/use/anyway"
@@ -197,6 +197,12 @@ Group MScript
 	End
 	#endregion		
 		
+	Void NPC_BlueStaff()
+		MapText("BLUE")
+		Map.Kill("NPC_BlueStaff",true)
+		gv.bool.Have_Blue_Staff  = True
+		Item.ZZKEY_BLUESTAFF.Has = 1
+	End
 	
 	Constructor
 		CSay("Welcome to the Dragon Cave")
@@ -209,6 +215,11 @@ Group MScript
 		//	CSayF("Hiding secrets on layer %s",SLay)
 		//	Map.LayHideByLabel(SLay,"Secret")
 		//End
+		If __Chapter>=4
+			Map.LayKill("#001","PRC_GETRIDOFME")
+			Map.LayKill("#007","NPC_Jenny")
+			
+		End
 	End
 		
 End
