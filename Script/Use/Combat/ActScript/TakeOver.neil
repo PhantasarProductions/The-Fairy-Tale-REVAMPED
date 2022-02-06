@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Combat/ActScript/TakeOver.neil
-// Version: 22.02.05
+// Version: 22.02.06
 // Copyright (C) 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -35,7 +35,7 @@
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
 
-Bool _TO(Act,Tar)
+Bool _TO(Act,Tar,Exe)
 	Var T = {}
 	For i,card in pairs(FlowCombat.Cards.Lijst)
 		If Card.FightTag==Tar.Tag && (!Card.Joker)
@@ -43,7 +43,7 @@ Bool _TO(Act,Tar)
 		End
 	End
 	For idx in Each(T)
-		FlowCombat.Cards.Replace(idx,Act.Executor.Tag)			
+		FlowCombat.Cards.Replace(idx,Exe.Tag)			
 	End
 	return #T>0
 End
