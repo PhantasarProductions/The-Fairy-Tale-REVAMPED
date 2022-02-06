@@ -83,7 +83,7 @@ End
 
 Global Void CONSOLE_Fandalora()
 	gv.gbool.CheatFandalora = !gv.gbool.CheatFandalora
-	CSayF("Fandalora cheat now set to: %s",Lua.string(gv.gbool.CheatFandalora))
+	CSayF("Fandalora cheat now set to: %s",Lua.tostring(gv.gbool.CheatFandalora))
 End
 
 Module
