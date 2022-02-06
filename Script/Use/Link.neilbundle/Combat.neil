@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Link.neilbundle/Combat.neil
-// Version: 22.02.03
+// Version: 22.02.06
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -160,6 +160,20 @@ Module
 			Default
 				Music = "*BOSS"
 		End
+		Lose = "GameOver"
+		For Boss in Each{Boss1,Boss2,Boss3,Boss4}
+			If Boss!=""
+				NewEnemy = "Boss/"..Boss
+			End
+		End
+		Lua.Neil.Globals.Map.StopWalking()
+		Start()
+	End
+	
+	Void QuicNoskBoss(string Header,String BossName,String Boss1,string Boss2="",string Boss3="",string Boss4="")		
+		Boss(255,102,0,Header,BossName)
+		Arena = Lua.Neil.Globals.Map.Arena
+		Music = "Music/Combat/NewGame+/Boss.ogg"
 		Lose = "GameOver"
 		For Boss in Each{Boss1,Boss2,Boss3,Boss4}
 			If Boss!=""
