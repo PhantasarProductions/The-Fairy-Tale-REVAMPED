@@ -62,6 +62,9 @@ Module
 	Bool All = False
 	
 	Var AllPoints(ch)
+		if gv.gbool.CheatFandalora
+			return 9000,1200
+		End
 		int deler = 0
 		int totaal = 0
 		static table chcheck = {["Jake_Human"]={2,3,4,5},["Marrilona"]={1,2,3,4,5},["HandoStillor"]={2}}
