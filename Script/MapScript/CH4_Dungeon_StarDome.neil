@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.02.06
+// version: 22.02.07
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -44,30 +44,129 @@ Group MScript
 	
 	Void Update()
 		Map.SetObj("Obstacle_Next","Rotation",(Map.GetObjInt("Obstacle_Next","Rotation")+1)%360)
-		If Map.Layer!="#010"
+		If Map.Layer!="#010" && Map.Layer!="#008"
 			Map.SetObj("Obstacle_Prev","Rotation",(Map.GetObjInt("Obstacle_Prev","Rotation")-1)%360)
 		End
 		Map.SetObj("PLASMA","X",Map.CamX-2)
 		Map.SetObj("PLASMA","Y",Map.CamY-2)
 		Map.SetObj("PLASMA","W",Screen.W+4)
 		Map.SetObj("PLASMA","H",Screen.H)
-		Map.SetObj("PLASMA","InsertX",Map.CamX Div 8)
-		Map.SetObj("PLASMA","InsertY",Map.CamY Div 8)
+		Map.SetObj("PLASMA","InsertX",-(Map.CamX Div 8))
+		Map.SetObj("PLASMA","InsertY",-(Map.CamY Div 8))
 		
 		Map.SetObj("STARS","X",Map.CamX-2)
 		Map.SetObj("STARS","Y",Map.CamY-2)
 		Map.SetObj("STARS","W",Screen.W+4)
 		Map.SetObj("STARS","H",Screen.H)
-		Map.SetObj("STARS","InsertX",Map.CamX Div 2)
-		Map.SetObj("STARS","InsertY",Map.CamY Div 2)
+		Map.SetObj("STARS","InsertX",-(Map.CamX Div 2))
+		Map.SetObj("STARS","InsertY",-(Map.CamY Div 2))
+		
+		If Map.Layer=="#010"
+			Map.setObj("STARS","Blend",4)
+			Map.setObj("PLASMA","Blend",4)
+		End
 	End
 	
 	Void Delisto()
 		WorldMap.Go()
 	End
 	
+	#region Puzzle
+	Var Puzzle
+	Void InitPuz()
+		if puzzle 
+			return 
+		end
+		plua starchars = {"Wendicka","Crystal","Yirl","Foxy","Xenobi","Rolf"}
+		plua chosen = math.random(1,#starchars)
+		puzzle = { ["gat"] = math.random(1,6) }
+		puzzle.gatpic = starchars[chosen]
+		puzzle.chosen = chosen
+		puzzle.chosenpic = starchars[chosen]
+		plua getset = { [puzzle.gat]=puzzle.chosenpic }
+		puzzle.getset=getset
+		//CSay(serialize("PRIOR.Puzzle",puzzle))
+		for i=1,6
+			//do -- Chars
+			plua r
+			int timeout = i*200
+			If i!=puzzle.chosen
+				Repeat
+					r=math.random(1,6) // hole
+					timeout = timeout - 1
+					Lua.assert(timeout>0,"Puzzle generation time-out ("..i..") "..serialize("puzzle",puzzle))
+					CSay(i..".  ".."r = "..r.."  timeout: "..timeout)
+				LoopWhile getset[r]
+				//-- and (r~=chosen)
+				getset[r]=starchars[i]
+			end
+		end
+		Print(serialize("puzzle",puzzle))
+		for i=1,6
+			CSay("Setting up cylinder: "..i)
+			//local c = Maps.Obj.Obj("Cyl"..i)
+			//c.TextureFile = "GFX/Actors/Single/Cameos/CYL_"..puzzle.getset[i]..".png"
+			Map.SetObj("Cyl"..i,"Texture","GFX/Actors/Single/Cameos/CYL_"..puzzle.getset[i]..".png")
+		end
+		//Maps.Obj.Obj("KeyPerson").TextureFile = "GFX/Actors/Single/Cameos/SS_"..puzzle.chosenpic..".png"
+		Map.SetObj("KeyPerson","Texture","GFX/Actors/Single/Cameos/SS_"..puzzle.chosenpic..".png")
+	End
+	
+	Void WorkGat(n)
+		Lua.assert(puzzle,"No puzzle set up")
+		int gat 
+		gat = Lua.tonumber(n)
+		if gat==puzzle.gat
+			CSay("Correct passage!")
+			Return
+		end
+		CSay("WRONG! Byebye!")
+		//local p = Actors.Actor('PLAYER')
+		Map.SetObj("PLAYER","Dominance",2)
+		Int d = 0
+		for i=1000,0,-1
+			Map.SetObj("PLAYER","ScaleX",i)
+			Map.SetObj("PLAYER","ScaleY",i)
+			Map.SetObj("PLAYER","Rotation",d)
+			d++
+			//p.Y = p.Y - 1
+			Map.SetObj("PLAYER","Y",PLAYER.Y-1)
+			Graphics.Cls()
+			//MAP_FLOW()
+			Map.DrawScreen()
+			Graphics.Flip()
+			Events.Poll()
+			FPS.WaitMinTicks()
+			Update()
+		end
+		puzzle=nil
+		Map.GoToLayer("#007","Start")
+		Map.ReMap()
+	End
+	#endregion
+	
+	Void StartBoss()
+		Combat.Prepare(255,0,0,"Alien Lord","Rjafhkfhafjklhgjd")
+		Combat.NewEnemy="Boss/SuperAlien"
+		//Var.D("$COMBAT.POSFOE_1","CENTER")
+		Combat.Music = "Combat/SpecialBoss/Freak Boutique.ogg"
+		Combat.Arena = "StarDome.png"
+		Combat.Start()
+		Map.Kill("StartBoss",true)
+		Map.Kill("Boss")
+	End
+	
+	Void NPC_Key()
+		Item.ZZ_CRYPTKEY.Has = 1
+		//FlowField.Msg(Item[ITag].Title.." overloaded!",PLAYER.X,PLAYER.Y,255,180,0)
+		Map.Kill("NPC_Key",true)
+	End
+	
 	Constructor
-		ZA.TabEnter{"Delisto"}
+		ZA.TabEnter{"Delisto","InitPuz","StartBoss"}
+		For g=1,6
+			ZA.Enter("Gat"..g,"WorkGat",g)
+		End
 	End
 	
 End
