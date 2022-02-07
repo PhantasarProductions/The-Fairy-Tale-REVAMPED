@@ -35,16 +35,19 @@
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
 Void RND(Tar,String pnt)
+	if Tar.Char.Points[pnt].Maximum<=0
+		Return
+	End
 	Tar.Char.Points[pnt].Have = math.random(1,Tar.Char.Points[pnt].Maximum)
 	CSayF("Randomized %s: %s to %d",Tar.Tag,pnt,Tar.Char.Points[pnt].Have)
 End
 
 Bool _PA(Act,Tar)
-	RND("HP")
-	RND("AP")
-	RND("VIT")
+	RND(Tar,"HP")
+	RND(Tar,"AP")
+	RND(Tar,"VIT")
 	For i=1,5
-		RND("EXP_Skill"..i)
+		RND(Tar,"EXP_Skill"..i)
 	End
 	Return True
 End
