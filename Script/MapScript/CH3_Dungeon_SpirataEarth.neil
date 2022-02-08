@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.01.31
+// version: 22.02.07
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -49,6 +49,14 @@ Group MScript
 	
 	Void Kokonora()
 		WorldMap.Go("Kokonora")
+	End
+	
+	Void NPC_Crypt()
+		If Item.ZZ_CRYPTKEY.Has<=0
+			MapText("NOCRYPT")
+		Else
+			Map.GoToMap("CH4_DUNGEON_SPIRATACRYPT","TERRA","Start")
+		End
 	End
 	
 	Void Update()
