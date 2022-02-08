@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Cards.neil
-// Version: 22.02.03
+// Version: 22.02.08
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -57,7 +57,7 @@ Module Class
 		Return Lijst[Highest]
 	End
 	
-	Static Void Add(Int idx,String FighterTag,Action,Joker)
+	Static Var Add(Int idx,String FighterTag,Action,Joker)
 		While Lijst[idx] && (!Lijst[idx].None)
 			idx++
 		End
@@ -68,6 +68,7 @@ Module Class
 		Else
 			//Lijst[idx].X = -(idx*100)
 		End
+		Return Lijst[idx]
 	End
 	
 	Static Get Delegate AddCard
@@ -116,6 +117,7 @@ Module Class
 	
 	Static Void DrawCards()
 		Graphics.SetScale(1,1)
+		Graphics.Alpha(255)
 		__White
 		For i=25,1,-1
 			DrawCard(i)
@@ -212,6 +214,7 @@ Module Class
 
 #region Actual Class
 
+	Int Gendrabroe = 0
 	Int X = -200
 	Int Y 
 	Var Action

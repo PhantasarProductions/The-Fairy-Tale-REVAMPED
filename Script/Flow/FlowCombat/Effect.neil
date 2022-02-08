@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Effect.neil
-// Version: 22.02.05
+// Version: 22.02.08
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -70,6 +70,16 @@ Group Effect
 		pLua modifier = -(eleprot/100)
 		pLua dmg = damage
 		
+		if fighter.bytag[tag].Team=="Foe" && fighter.bytag[tag].Hydra
+			CSay("Hydra checkup: "..tag)
+			if fighter.bytag[tag].HP==1 && element=="Flame"
+				CSay("Hydra fatally wounded by fire. Goodbye!")
+				fighter.bytag[tag].Char.Points.HP.Minimum = 0
+				fighter.bytag[tag].Char.Points.HP.Have    = 0
+				charmsg(tag,"DEATH!",255,0,0)
+				return 1
+			end
+		end
 		
 		if tag=="Dandor"
 			pLua r = rand(1,4^__skill)
@@ -162,6 +172,12 @@ Group Effect
       	if (not prefixed(tag,"FOE")) and ((not VicQ) or upper(VicQ)=="PERFECT") 
       		VicQ="General" 
       	end
+      	if fighter.bytag[tag].Team=="Foe" && suffixed(fighter.bytag[tag].File:upper(),"GENDRABROE")
+      		Var A = Lua.Neil.Globals.Action("SPECIAL_GENDRABROE_COUNTER",tag,{Executor.Tag})
+      		Var C = FlowCombat.Cards.Add(1,tag,A,nil)
+      		C.Gendrabroe = dmg
+      	End
+      	
       	return dmg
     end
 	     
