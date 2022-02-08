@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.02.03
+// version: 22.02.07
 // End License Information
 
 #region use
@@ -90,9 +90,11 @@ Group MScript
 	Void InitSchuif()
 		string OL = Map.Layer
 		plua SchuifX = { [true]="Enter", [false]="Next" }
+		//plua Dne = GV.GBOOL["DONE.PYRUS.ENTER"]
+		plua Dne = __chapter>=4
 		Map.Layer="#000" //Maps.GoToLayer("#000")
-		Map.SetObj("Schuif","X",Map.GetObjInt("Schuif"..SchuifX[GV.GBOOL["DONE.PYRUS.ENTER"]],"X") + 32) //Maps.Obj.Obj("Schuif").X=Maps.Obj.Obj("Schuif"..SchuifX[GV.GBOOL("&DONE.PYRUS.ENTER")]).X + 32
-		Map.SetObj("Schuif","Y",Map.GetObjInt("Schuif"..SchuifX[GV.GBOOL["DONE.PYRUS.ENTER"]],"Y")     ) //Maps.Obj.Obj("Schuif").Y=Maps.Obj.Obj("Schuif"..SchuifX[GV.GBOOL("&DONE.PYRUS.ENTER")]).Y
+		Map.SetObj("Schuif","X",Map.GetObjInt("Schuif"..SchuifX[Dne],"X") + 32) //Maps.Obj.Obj("Schuif").X=Maps.Obj.Obj("Schuif"..SchuifX[GV.GBOOL("&DONE.PYRUS.ENTER")]).X + 32
+		Map.SetObj("Schuif","Y",Map.GetObjInt("Schuif"..SchuifX[Dne],"Y")     ) //Maps.Obj.Obj("Schuif").Y=Maps.Obj.Obj("Schuif"..SchuifX[GV.GBOOL("&DONE.PYRUS.ENTER")]).Y
 		Map.Layer = OL
 	End
 	
@@ -219,13 +221,43 @@ Group MScript
 	End
 	#endregion
 	
+	#Region Walda
+	Void HideWalda()
+		Map.HideByLabel("Walda")
+	End
+	Void ShowWalda()
+		Map.ShowByLabel("Walda")
+	End
+	Delegate NPC_Walda
+	#EndRegion
+	
+	#region Sealed Boss
+	Void Start_SealedBoss()
+		Combat.NewEnemy = "Sealed/MountainEmperor"
+		Combat.Music    = "Combat/Special Boss/Hall Of The Mountain King.ogg"
+	End
+	Const String SealedBoss_Krandar = "Dandor"
+	Const String SealedBoss_Head    = "Ultimate crusher"
+	Const String SealedBoss_Name    = "Mountain Emperor"
+	Const String SealedBoss         = "*SCRIPT*"
+	#endregion
+	
+	Void Delisto()
+		WorldMap.Go()
+	End
+	
 	Constructor
 		InitSchuif()
 		TexMove.MagicBackSetup(0,12,{})
-		ZA.TabEnter{"ZAStart","EnterCave","Puzzle","Crater"}
+		ZA.TabEnter{"ZAStart","EnterCave","Puzzle","Crater","HideWalda","ShowWalda","Delisto"}
 		ZA.Enter("4MonksFromHell","MonksFromHell")
 		ZA.Enter("Puzzle10","Puzzle")
 		ZA.Leave("Puzzle","LeavePuzzle")
 		ZA.Leave("Puzzle10","LeavePuzzle")
+		Plua ol = Map.Layer
+		Map.Layer = "#001"
+		Map.HideByLabel("Walda")
+		Map.Layer = ol
+		NPC_Walda = NeilUse("Script/Use/Misc/Walda")
 	End
 End
