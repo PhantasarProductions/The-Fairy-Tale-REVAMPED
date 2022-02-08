@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.02.04
+// version: 22.02.08
 // End License Information
 
 #Use "Script/Use/Anyway"
@@ -252,7 +252,8 @@ Group SubParty
 		End
 		// Now let's get ready to rumble
 		For EQS in Each{"Weapon","Armor","Jewel"}
-			String EQI = C.Data["EQUIP_"..EQS]
+			String EQI = Trim(C.Data["EQUIP_"..EQS]:upper())
+			CSayF("%s>%s -> '%s'",Ch,EQS,EQI)
 			If EQI!=""
 				Var I = Item[EQI]
 				For stag In Each(Stats)
