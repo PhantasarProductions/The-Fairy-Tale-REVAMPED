@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Class_Hero.neil
-// Version: 22.02.04
+// Version: 22.02.08
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -63,6 +63,13 @@ Class Hero Extends Fighter
 	End
 	Get Int W
 		Return 64
+	End
+	
+	Get Bool TarByFoe
+		Return Self.HP>0
+	End
+	Get Bool TarByHero
+		Return True
 	End
 
 
@@ -173,8 +180,10 @@ Class Stage_PlayerSelectTarget Extends Stage
 			Case "EV" 
 				If !Targets
 					Targets = {}
-					For K,_ in sPairs(Fighter.ByTag)
-						Targets += K
+					For K,F in sPairs(Fighter.ByTag)
+						if F.TarByHero
+							Targets += K
+						end
 					End
 				End
 			Case "AA"
@@ -190,7 +199,7 @@ Class Stage_PlayerSelectTarget Extends Stage
 				If !Targets
 					Targets = {}
 					For K,F in sPairs(Fighter.ByTag)
-						If F.Team=="Foe"
+						If F.Team=="Foe" && F.TarByHero
 							Targets += K
 						End
 					End
@@ -204,7 +213,9 @@ Class Stage_PlayerSelectTarget Extends Stage
 					Int TW
 					Int TH
 					TX,TY,TW,TH = F.TrueCoords()
-					If F.Team=="Foe" && Mouse.MX>TX-(TW div 2) && Mouse.MX<TX+(TW div 2) && Mouse.MY<TY && Mouse.MY>TY-TH
+					If F.Team=="Foe" && F.Hydra && F.TarByHero && Mouse.MX>TX && Mouse.MX<TX+TW && Mouse.MY<TY && Mouse.MY>TY-TH
+						Targets[1]=K
+					ElseIf F.Team=="Foe" && F.TarByHero && Mouse.MX>TX-(TW div 2) && Mouse.MX<TX+(TW div 2) && Mouse.MY<TY && Mouse.MY>TY-TH
 						Targets[1]=K
 					End
 				End

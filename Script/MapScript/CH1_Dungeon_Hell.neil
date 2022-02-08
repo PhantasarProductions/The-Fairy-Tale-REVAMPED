@@ -2,7 +2,7 @@
 // **********************************************
 // 
 // src/Tricky Script/Script/MapScript/CH1_Dungeon_Hell.neil
-// (c) Jeroen Broks, 2021, All Rights Reserved.
+// (c) Jeroen Broks, 2021, 2022, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.12.21
+// version: 22.02.08
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -62,7 +62,7 @@ Group MScript
 			For id in each(Map.ObjEnum)
 				//CSayF("Layer %03d; Object #%d",i,id)
 				if Map.ObjGetString(id,"TEXTURE"):upper()==LavaTex
-					CSay("= Object #%d - Part of Lava! Adding!",id)
+					CSayF("= Object #%03d - Part of Lava! Adding!",id)
 					Int insy=Map.ObjGetInt(id,"InsertY")
 					while insy<0
 						insy+=size
@@ -96,6 +96,33 @@ Group MScript
 		WorldMap.Go()
 	End
 	#EndRegion
+	
+	#region Sealed Boss
+	Void Start_SealedBoss()
+		Combat.NewEnemy  = "Sealed/Hydra"
+		Combat.StartEvent = "Init_SealedBoss"
+		Schedule.Add("Post_SealedBoss")
+	End
+	Void Init_SealedBoss()
+		Combat.Joker(24 div __skill,"Hydra")
+		RPGChar.FOE001.Points.HP.Minimum = 1
+	End
+	
+	Void Post_SealedBoss()
+		MapText("HYDRADROP")
+		Item.EQP_HANDOSTILLOR_SEALEDARMOR.Has = 1
+		for ch in each{"Jake_Human","Marrilona","Dandor","HandoStillor"}
+			//RPG.IncStat(ch,"EXP",-100000) end
+			RPGChar[ch].Stat.Experience-=100000
+		end
+		//Done("&DONE.SEAL.HANDOSTILLOR2")
+	end
+	
+	Const String SealedBoss_Krandar = "HandoStillor"
+	Const String SealedBoss_Head    = "Mythical Snake"
+	Const String SealedBoss_Name    = "Hydra"
+	Const String SealedBoss         = "*SCRIPT*"
+	#endregion
 	
 	
 	

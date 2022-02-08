@@ -1,0 +1,76 @@
+// License Information:
+// **********************************************
+// 
+// src/Tricky Script/Script/Use/Combat/Jokers/Hydra.neil
+// (c) Jeroen Broks, 2022, All Rights Reserved.
+// 
+// This file contains material that is related
+// to a storyline that is which is strictly
+// copyrighted to Jeroen Broks.
+// 
+// This file may only be used in an unmodified
+// form with an unmodified version of the
+// software this file belongs to.
+// 
+// You may use this file for your study to see
+// how I solved certain things in the creation
+// of this project to see if you find valuable
+// leads for the creation of your own.
+// 
+// Mostly this file comes along with a project
+// that is for most part released under an
+// open source license and that means that if
+// you use that code with this file removed
+// from it, you can use it under that license.
+// Please check out the other files to find out
+// which license applies.
+// This file comes 'as-is' and in no possible
+// way the author can be held responsible of
+// any form of damages that may occur due to
+// the usage of this file
+// 
+// 
+// **********************************************
+// 
+// version: 22.02.08
+// End License Information
+
+Void FoesHydra()
+	For _,f in pairs(Fighter.ByTag)
+		if f.Team=="Foe" && f.Char.Points.HP.Have >= 1			
+			f.Char.Points.HP.Minimum=1			
+			If f.Y<0 || (!f.Hydra)
+				f.X = 0
+				f.Y = math.random(Screen.H div 2, Screen.H - 128)
+				f.NorImage.Hot(0,f.NorImage.H)
+				f.NegImage.Hot(0,f.NegImage.H)
+			End
+			f.Hydra=true
+			CSayF("Character %s now set to Hydra config",f.Tag)
+		End
+	End
+End
+
+Void _HydraAction(card)
+	Int NewHydra = 0
+	For _,f in pairs(Fighter.ByTag)
+		If f.Team=="Foe" and f.HP==1
+			NewHydra++			
+			f.HP = f.HPMax
+		End
+	End
+	For i=1,NewHydra
+		Foe.Compile("Sealed/Hydra",NeilUse("Script/Data/Foe/Sealed/Hydra")).Y=-1
+	End
+	If NewHydra>0
+		CSayF("New Hydra heads added: %d",NewHydra)
+		FlowCombat.Cards.CreateOrder()
+		FoesHydra()
+	End
+	FlowCombat.Cards.Add(30 div __skill,"",nil,_HydraAction)
+End
+
+Init
+	FoesHydra()
+End
+Return _HydraAction

@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Class_Foe.neil
-// Version: 22.02.05
+// Version: 22.02.08
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -64,10 +64,10 @@ Class Foe Extends Fighter
 	Bool _CheckKilled = False
 	
 	Get Bool TarByFoe
-		Return Self.HP>9
+		Return Self.HP>0
 	End
 	Get Bool TarByHero
-		Return Self.HP>9
+		Return Self.HP>0
 	End
 	
 	Get Int W
@@ -309,9 +309,19 @@ end
 		End
 	End
 	
+	Bool Hydra = False
 	Void Draw()
 		If self.HP==0
 			Self.Stage="KO"
+		End
+		if Hydra
+			If self.HP==1
+				Graphics.Color(0,0,0)
+				Graphics.Alpha(100)
+			Else
+				Graphics.Color(255,255,255)
+				Graphics.Alpha(255)
+			End
 		End
 		Switch Self.Stage
 			Case "IDLE"
@@ -338,6 +348,7 @@ end
 					NorImage.ASDraw("COMBAT",Self.X,Self.Y)
 				End
 		End
+		Graphics.Alpha(255)
 	End
 	
 	
