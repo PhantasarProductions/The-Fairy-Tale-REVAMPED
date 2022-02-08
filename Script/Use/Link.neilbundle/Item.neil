@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Link.neilbundle/Item.neil
-// Version: 22.01.20
+// Version: 22.02.07
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -100,6 +100,8 @@ Var __TagIndex(s,string Key)
 						Return __ItmGive(Key)
 					elseif Key2=="TAG"
 						Return Key
+					elseif (prefixed(Key2,"CURE") || prefixed(Key2,"CAUSE")) && (!IndexTypes[Key2])
+						Return False
 					elseif Key2=="SELLPRICE"
 						//CSayF("Getting sell price of item %s",Key)
 						return ISGET.INT("SUB_ITEMS",sprintf("GetSellPrice(\"%s\")",Key))
