@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/StatusChanges.neil
-// Version: 22.01.22
+// Version: 22.02.07
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -202,5 +202,17 @@ Module
 			Return R[K]
 		end
 		URegister = Lua.setmetatable({},{["__index"]=_Get})
+	
+		// Death
+	
+		Void Death_Inflict(ch)
+			if ch.StatusChanges.Undead
+				ch.StatusChanges.Death = False
+				Return
+			End
+			ch.HP = 0
+		End
+		Register.Death = new TStatusChange()
+		Register.Death.Inflict = Death_Inflict
 	End
 End
