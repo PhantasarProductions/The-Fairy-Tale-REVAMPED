@@ -1,0 +1,73 @@
+// License Information:
+// **********************************************
+// 
+// src/Tricky Script/Script/MapScript/CH4_Dungeon_ManaCave.neil
+// (c) Jeroen Broks, 2022, All Rights Reserved.
+// 
+// This file contains material that is related
+// to a storyline that is which is strictly
+// copyrighted to Jeroen Broks.
+// 
+// This file may only be used in an unmodified
+// form with an unmodified version of the
+// software this file belongs to.
+// 
+// You may use this file for your study to see
+// how I solved certain things in the creation
+// of this project to see if you find valuable
+// leads for the creation of your own.
+// 
+// Mostly this file comes along with a project
+// that is for most part released under an
+// open source license and that means that if
+// you use that code with this file removed
+// from it, you can use it under that license.
+// Please check out the other files to find out
+// which license applies.
+// This file comes 'as-is' and in no possible
+// way the author can be held responsible of
+// any form of damages that may occur due to
+// the usage of this file
+// 
+// 
+// **********************************************
+// 
+// version: 22.02.08
+// End License Information
+
+#use "Script/Use/Anyway"
+
+Group MScript
+
+	ReadOnly Bool HasDraw   = False
+	ReadOnly Bool HasUpdate = True
+	
+	Void Update()
+		Static Int MFrame = 4
+		if MFrame>0
+			MFrame--
+			if MFrame==0
+				int D = 1
+				if gv.gbool.MC_Boss1Defeated
+					D = 2
+				End
+				Music.Play("Music/Mystery/Draft"..d..".ogg")
+			end
+		end
+	end
+	
+	Void Kokonora()
+		WorldMap.Go("Kokonora")
+	End
+
+	#region Sealed Boss
+	ReadOnly String SealedBoss_Head="Fair sharing monster"
+	ReadOnly String SealedBoss_Name="Gendrabroe"
+	ReadOnly String SealedBoss = "Gendrabroe"
+	ReadOnly String SealedBoss_Krandar="Marrilona"
+	#endregion
+	
+	Constructor
+		ZA.TabEnter{"Kokonora"}
+	End
+End
