@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Combat/ActScript/Disintegrate.neil
-// Version: 22.01.23
+// Version: 22.02.08
 // Copyright (C) 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -37,7 +37,7 @@
 
 Bool _DIS(Act,Tar)
 	Tar.Char.Points.HP.Have = 0
-	FlowCombat.charmsg("Disintegrated",255,0,0)
+	FlowCombat.charmsg(Tar.Tag,"Disintegrated",255,0,0)
 	Return True
 End
 
