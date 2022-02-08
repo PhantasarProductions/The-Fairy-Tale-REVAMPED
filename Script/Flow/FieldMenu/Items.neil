@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FieldMenu/Items.neil
-// Version: 22.02.06
+// Version: 22.02.08
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -61,10 +61,10 @@ Module
 								If !Item[Old].Give
 									CSayF("Unequipping item %s failed! Overstocking?",CitemTag)
 									Buzz.Play()
-								Else
-									Party.CheckEquip(CharTag)
+								Else								
 									RPGChar[CharTag].Data.EQUIP_Weapon = CItemTag
 									Item[CItemTag].Has--
+									Party.CheckEquip(CharTag)
 								End
 							Else
 								CSayF("Item %s is meant for %s and not for %s",CitemTag,CItem.ITM_EQP_For,Ch)
@@ -73,13 +73,13 @@ Module
 						Case "Armor"
 							If CH==CItem.ITM_EQP_For
 								String old = RPGChar[CharTag].Data.EQUIP_Armor
-								If !Item[Old].Give
+								If Old!="" && (!Item[Old].Give)
 									CSayF("Unequipping item %s failed! Overstocking?",CitemTag)
 									Buzz.Play()
-								Else
-									Party.CheckEquip(CharTag)
+								Else									
 									RPGChar[CharTag].Data.EQUIP_Armor = CItemTag
-									Item[CItemTag].Has--
+									Item[CItemTag].Has--									
+									Party.CheckEquip(CharTag)
 								End
 							Else
 								CSayF("Item %s is meant for %s and not for %s",CitemTag,CItem.ITM_EQP_For,Ch)
@@ -93,7 +93,7 @@ Module
 								String old = RPGChar[CharTag].Data.EQUIP_Jewel
 								If Old =="" || Item[Old].Give
 									RPGChar[CharTag].Data.EQUIP_Jewel = CItemTag
-									Item[CItemTag].Has--
+									Item[CItemTag].Has--									
 									Party.CheckEquip(CharTag)
 								Else 
 									CSayF("Unequipping item %s failed! Overstocking?",CitemTag)
