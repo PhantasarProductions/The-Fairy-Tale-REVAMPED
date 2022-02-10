@@ -1,7 +1,7 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Class_Action.neil
-// Version: 21.10.25
-// Copyright (C) 2021 Jeroen Petrus Broks
+// Version: 22.02.10
+// Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
 // This file is part of a project related to the Phantasar Chronicles or another
@@ -64,6 +64,24 @@ Class Action
 	ReadOnly Bool AwardSkillExperience = False
 	ReadOnly Bool Teaching = False
 	ReadOnly String AfterMsg = ""
+
+	Void TarFilter()
+		Table NTargets
+		NTargets = {}
+		Int CTars = #TarTags
+		for i=1,CTars
+			if Fighter.ByTag[TarTags[i]].Team!="Foe" || Fighter.ByTag[TarTags[i]].HP!=0 || (!Fighter.ByTag[TarTags[i]].Gone)
+				NTargets[i]=TarTags[i]
+			End
+		End
+		If #NTargets==#Targets
+			Return
+		End
+		For i=1,CTars
+			TarTags[i]=NTargets[i]
+		End
+	End
+
 	
 	Constructor(String _Act,String _Exe,Table _Targets,_XVars)
 		CSayF("Creating action %s for %s",_Act,_Exe)
@@ -77,10 +95,12 @@ Class Action
 		Var TarEach()
 			Int i=0
 			Return Var()
-				i++
-				If i>#TarTags
-					Return nil,nil,nil
-				End
+				Repeat
+					i++
+					If i>#TarTags
+						Return nil,nil,nil
+					End
+				LoopWhile (Fighter.ByTag[TarTags[i]].Team=="Foe" && (Fighter.ByTag[TarTags[i]].HP==0 || Fighter.ByTag[TarTags[i]].Gone))
 				Return Fighter.ByTag[TarTags[i]],TarTags[i],i
 			End
 		End
