@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.02.06
+// version: 22.02.10
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -259,13 +259,28 @@ Group MScript
 		Master.Speak("Feenalaria")
 	End
 	
+	#region Nostramantu and Feenalaria
+	Void Welcome_Nos()
+		Map.Pop("Nos_","North",true)
+		Map.HideByLabel("Huis")
+		MapText("BYE_NOS")
+		For i,ch in pairs{"Jake_Human","Marrilona","Dandor","HandoStillor"}
+			RPGParty[i]=ch
+		End
+		Map.GoToMap("NGP_DUNGEON_DANDLETON","#007","Start")
+		Schedule.Add("End007")
+	End
+	
 	Constructor
 		if Map.LoadedMap:upper()!="CH3_TOWN_NOSTRABURG"
 			Return
 		End
-		If Prefixed(RPGParty[1],"Feena")
+		If Prefixed(RPGParty[1],"Feena") || Prefixed(RPGParty[1],"Nostra")
 			For t in Each{"NPC_Calanus","NPC_Krandar","NPC_Feenalaria","NPC_MT_Sylina","NPC_MT_Tero","NPC_MT_Wendy","NPC_MT_Cryogina","NPC_MT_Nova","NPC_MT_Ross","NPC_Sinasina"}
 				Map.LayKill("TOWN",t,false)
+			End
+			If Prefixed(RPGParty[1],"Nostra")
+				Map.LayKill("TOWN","Frendor",false)				
 			End
 		Else
 			Map.LayKill("TOWN","Frendor",false)
