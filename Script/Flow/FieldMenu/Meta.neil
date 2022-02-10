@@ -2,7 +2,7 @@
 // **********************************************
 // 
 // src/Tricky Script/Script/Flow/FieldMenu/Meta.neil
-// (c) Jeroen Broks, 2021, All Rights Reserved.
+// (c) Jeroen Broks, 2021, 2022, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.10.30
+// version: 22.02.09
 // End License Information
 Const String BCD = "GFX/Big_Char/"
 
@@ -85,9 +85,9 @@ Module
 				Name = "Hando Stillor"
 			Case "Krandar"
 				Name = "Krandar, son of Gandophar"
-			Case "Nostramantu" "Nostramantu_Elder"
+			Case "Nostramantu_Human" "Nostramantu_Elder"
 				Name = "Nostramantu, son of Sulamon"
-			Case "Feenalaria" "Feenalaria_Dress" "Feenalaria_Fairy"
+			Case "Feenalaria" "Feenalaria_Human" "Feenalaria_Fairy" "Feenalaria_Human2"
 				Name = "Feenalaria, daughter of Vandar"
 			Default
 				Name = Chartag
