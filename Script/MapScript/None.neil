@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/MapScript/None.neil
-// Version: 22.02.06
+// Version: 22.02.09
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -34,10 +34,17 @@
 // misrepresented as being the original software.
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
+
+#use "Script/Use/Anyway"
+
 Group MScript
 
 	ReadOnly Bool HasDraw   = False
 	ReadOnly Bool HasUpdate = False
 	
 	
+	
+	
+	Constructor
+	End
 End
