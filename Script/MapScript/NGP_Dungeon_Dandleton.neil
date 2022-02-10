@@ -52,7 +52,8 @@ Group MScript
 	
 	
 	#region Memory
-	Void Memory(tag,pop,popwind)	
+	Void Memory(tag,pop,popwind)
+		Map.StopWalking()
     	if pop 
     		Map.Pop(pop,popwind || "North") 
     	end
@@ -66,7 +67,7 @@ Group MScript
 	end
 	
 	Void ZA__Memory() 
-		if not(Done("DONE.SIDEQUEST.DANDLETON.MEMORY.N["..Map.LayerCodeName.."].SCENARIO")) 
+		if not(Done["DONE.SIDEQUEST.DANDLETON.MEMORY.N["..Map.Layer.."].SCENARIO"]) 
 			Memory(nil,nil) 
 		end 
 	end
@@ -115,6 +116,7 @@ Group MScript
     		//MS.Run('MAP',fb.dcall)
     		MapScript[fb.dcall]()
     	end
+    	Respawn.Reset()
     End    
     #endregion
     
@@ -123,8 +125,47 @@ Group MScript
     	MapText("BACK1")
     	RPGChar.Marrilona.Stat.Experience-=150000
     	Ach.Award("ZZNGP_BACKFUTURE")
+    	Respawn.Reset()
+    End
+    
+    Void End007()
+    	MapText("ENDFL007")
+    	RPGChar.Marrilona.Stat.Experience-=250000
+    	Respawn.Reset()
     End
     #endregion
+    
+    #region Boss Fights
+    Void StartBoss()
+    	if Done["DONE.SIDEQUEST.DANDLETON.BOSS["..Map.Layer.."].DEFEATED"]
+    		return 
+    	end
+    	Map.StopWalking()
+    	Map.Kill("Boss",true)
+    	plua b
+    	plua bs=bosses[Map.Layer]
+    	Lua.assert(bs,"No boss set for layer "..Map.Layer)
+    	if bs.priomt 
+    		MapText(bs.priomt) 
+    	end
+    	Combat.Prepare(180,0,255,bs.intro1,bs.intro2)
+    	For i=1,({1,3,6})[__skill] 
+    		b=i+1
+    		//Var.D('$COMBAT.FOE_'..i,'Reg/DandletonCitizen')
+    		Combat.NewEnemy="Reg/DandletonCitizen"
+    	End
+    	Combat.NewEnemy="Boss/"..bs.boss //Var.D("$COMBAT.FOE_"..b,"Boss/"..bs.boss)
+    	//Var.D("$COMBAT.POSFOE_"..b,"CENTER")
+    	Combat.Music=(bs.music or "Combat/Altboss/Day Of Chaos")..".ogg"
+    	Combat.Arena="Dandleton"
+    	Combat.Lose = "GameOver"
+    	Combat.Start() //NGP_StartBoss(bs.intro1,bs.intro2)    
+    	If bs.schedule
+    		//then Schedule('MAP',bs.schedule)
+    		Schedule.Add(bs.Schedule)
+    	End
+    End
+	#endregion
     
     Void NPC_Necrodia()
     	// Important note!
@@ -175,5 +216,6 @@ Group MScript
 		ZA.Enter("PrevMap","PrevMap")
 		ZA.Enter("FightNostramantu","FightNostramantu")
 		ZA.Enter("Kokonora")
+		ZA.Enter("StartBoss")
 	End
 End
