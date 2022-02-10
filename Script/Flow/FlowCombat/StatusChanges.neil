@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/StatusChanges.neil
-// Version: 22.02.07
+// Version: 22.02.10
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -93,6 +93,9 @@ Module
 		End
 		Void Poison_Draw(Char)
 			Graphics.Color(0,255,0)
+			If Char.Damned
+				Char.StatusChanges.Poison=False
+			End
 		End
 		Register.Poison.PreTurn = Poison_Preturn
 		Register.Poison.Draw    = Poison_Draw
@@ -102,6 +105,9 @@ Module
 		Register.Disease.BlockHeal = true
 		Void Disease_Draw(Char)
 			Graphics.Color(255,180,0)
+			If Char.Damned
+				Char.StatusChanges.Disease=False
+			End
 		End
 		Register.Disease.Draw = Disease_Draw
 		
