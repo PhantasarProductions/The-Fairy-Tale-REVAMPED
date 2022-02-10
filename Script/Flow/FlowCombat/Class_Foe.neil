@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Class_Foe.neil
-// Version: 22.02.08
+// Version: 22.02.10
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -44,6 +44,8 @@ Class Foe Extends Fighter
 		Return __Skill
 	End
 	
+	Bool Gone = False
+	
 	Var Raw
 	Var NorImage
 	Var NegImage
@@ -60,7 +62,7 @@ Class Foe Extends Fighter
 		Return AIBase[AITag]
 	End
 
-	Bool Damned
+	Get Bool Damned
 		return Self.StatusChanges.Undead!=nil && Self.StatusChanges.Undead!=false
 	End
 	
@@ -289,6 +291,7 @@ end
 			If Boss
 				VicQ = "Boss"
 			End
+			Lua.Neil.Globals.Hero.ScanDandletonCitizen()
 		End
 		_CheckKilled = True
 	End
