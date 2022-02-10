@@ -72,6 +72,17 @@ Class Hero Extends Fighter
 		Return True
 	End
 
+	Static Bool _Damned
+	Bool Damned
+		return _Damned || Self.StatusChanges.Undead!=nil && Self.StatusChanges.Undead!=false
+	End
+	
+	Static Void ScanDandleCitizen()
+		_Damned = false
+		for _,f in pairs(fighter.bytag)
+			_Damned = _Damned || (f.team="Foe" && suffixed(f.file:upper(),"DANDLETONCITIZEN"))
+		End
+	End
 
 	Static Void Compile(String _Tag)
 		Var WHero = new Hero()
@@ -96,6 +107,9 @@ Class Hero Extends Fighter
 			If Self.Stage != "SPIRATA.ACTION"
 				Self.Stage="SPIRATA"
 			End
+		End
+		If Damned
+			Graphics.Color(180,0,255)
 		End
 		//CSay("#2")
 		Switch Self.Stage:upper()

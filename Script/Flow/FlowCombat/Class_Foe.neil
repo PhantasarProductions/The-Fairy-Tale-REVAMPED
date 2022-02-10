@@ -60,6 +60,9 @@ Class Foe Extends Fighter
 		Return AIBase[AITag]
 	End
 
+	Bool Damned
+		return Self.StatusChanges.Undead!=nil && Self.StatusChanges.Undead!=false
+	End
 	
 	Bool _CheckKilled = False
 	

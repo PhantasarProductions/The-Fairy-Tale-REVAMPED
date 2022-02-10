@@ -299,7 +299,11 @@ Group Effect
     			Lua.error("Unknown HealType: "..Act.Heal_Type)
     	End
     	// TODO: Heal => Damage if Undead status
-    	
+    	If Damned
+    		charmsg(Target.Tag,math.abs(HV),180,0,255)
+    		Target.HP -= HV
+    		Return
+    	End
     	CSayF("Heaing %s with %s extra hitpoints",Target.Tag,Lua.tostring(HV))
     	charmsg(Target.Tag,math.abs(HV),180,255,0)
     	Target.HP += HV
