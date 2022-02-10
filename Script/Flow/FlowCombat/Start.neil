@@ -124,5 +124,6 @@ Module
 			Map.Script(StartEvent)
 		End
 		CSay("Let combat commence")
+		Hero.ScanDandletonCitizen()
 	End
 End
