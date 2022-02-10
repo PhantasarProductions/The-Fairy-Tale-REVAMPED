@@ -1,0 +1,97 @@
+// License Information:
+// **********************************************
+// 
+// src/Tricky Script/Script/MapScript/NGP_Dungeon_Kokobushes.neil
+// (c) Jeroen Broks, 2022, All Rights Reserved.
+// 
+// This file contains material that is related
+// to a storyline that is which is strictly
+// copyrighted to Jeroen Broks.
+// 
+// This file may only be used in an unmodified
+// form with an unmodified version of the
+// software this file belongs to.
+// 
+// You may use this file for your study to see
+// how I solved certain things in the creation
+// of this project to see if you find valuable
+// leads for the creation of your own.
+// 
+// Mostly this file comes along with a project
+// that is for most part released under an
+// open source license and that means that if
+// you use that code with this file removed
+// from it, you can use it under that license.
+// Please check out the other files to find out
+// which license applies.
+// This file comes 'as-is' and in no possible
+// way the author can be held responsible of
+// any form of damages that may occur due to
+// the usage of this file
+// 
+// 
+// **********************************************
+// 
+// version: 22.02.10
+// End License Information
+
+#use "Script/Use/Anyway"
+
+Group MScript
+
+	ReadOnly Bool HasDraw   = False
+	ReadOnly Bool HasUpdate = False
+	
+	Get Var Feena
+		Return RPGChar.Feenalaria_Human
+	End
+	
+	Get Var Nostra
+		Return RPGChar.Nostramantu_Human
+	End
+	
+	
+	Void Welcome()
+		If !Done.SIDEQUEST_KOKOBUSHES_WELCOME
+			Map.Pop("pp_","North",true)
+			MapText("WELCOME")
+			Nostra.Data.EQUIP_Weapon = "FLASHBACK_NOSWEAPON"
+			Nostra.Data.EQUIP_Armor  = "FLASHBACK_NOSARMOR"
+			Nostra.Link_Data("Jake_Human","EQUIP_Jewel")
+			Feena.Data.EQUIP_Weapon = "FLASHBACK_FEENAWEAPON"
+			Feena.Data.EQUIP_Armor  = "FLASHBACK_FEENAARMOR"
+			Feena.Link_Data("Marrilona","EQUIP_Jewel")
+		End
+	End
+	
+	Void Kokonora()
+		If Prefixed(RPGChar[1],"Jake")
+			WorldMap.Go("Kokonora")
+		Else 
+			Map.StopWalking()
+			MapText("NONO")
+			Player.Walkto("Begin")
+		End
+	End
+	
+	Void TheEnd()
+		If Prefixed(RPGChar[1],"Jake")
+			WorldMap.Go("Kokonora")
+		Else 
+			Map.StopWalking()
+			print("Done: ",Done["DONE.SIDEQUEST.DANDLETON.FLASHBACK[#005].EXPERIENCED"])
+			MapText("TIMETOGOBACK")
+			For i,ch in pairs{"Jake_Human","Marrilona","Dandor","HandoStillor"}
+				RPGParty[i]=ch
+			End
+			Map.GoToMap("NGP_Dungeon_Dandleton","#005","Start")
+			Schedule.Add("EndKokoBush")
+		End
+	End
+	
+	
+	Constructor
+		WorldMap.Unlock("NGPKOKO")
+		ZA.TabEnter{"Welcome","TheEnd" }
+	End
+End
