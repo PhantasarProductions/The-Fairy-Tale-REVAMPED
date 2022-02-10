@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Execution.neil
-// Version: 22.02.03
+// Version: 22.02.10
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -70,6 +70,7 @@ Class Stage_Execution Extends Stage
 				AP.Have -= Act.Act.ABL_APCost
 			End
 		End
+		Act.TarFilter()
 	End
 	
 	Void Update()
