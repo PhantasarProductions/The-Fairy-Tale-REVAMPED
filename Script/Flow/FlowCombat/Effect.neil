@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Effect.neil
-// Version: 22.02.08
+// Version: 22.02.10
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -299,13 +299,13 @@ Group Effect
     			Lua.error("Unknown HealType: "..Act.Heal_Type)
     	End
     	// TODO: Heal => Damage if Undead status
-    	If Damned
+    	If Target.Damned
     		charmsg(Target.Tag,math.abs(HV),180,0,255)
     		Target.HP -= HV
-    		Return
+    		Return True
     	ElseIf Target.StatusChanges.Disease
     		charmsg(Target.Tag,"No effect!",255,180,0)
-    		Return
+    		Return True
     	End
     	CSayF("Heaing %s with %s extra hitpoints",Target.Tag,Lua.tostring(HV))
     	charmsg(Target.Tag,math.abs(HV),180,255,0)
