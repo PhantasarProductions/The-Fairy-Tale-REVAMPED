@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField/Treasure.neil
-// Version: 22.02.06
+// Version: 22.02.09
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -110,7 +110,26 @@ Module
 		End
 		String ITag = O.Data["ITEM"]:upper()
 		String RTag = O.Data["REQUIREDITEM"]:upper()
-		If RTag!=""
+		If ITag==":MIMIC:"
+			FlowField.Map.StopWalking()
+			FlowField.Msg("Mimic",O.X,O.Y,0,180,255)
+			OChest(Tag)
+			Combat.Prepare(255,0,0)
+			Combat.Arena=FieldFlow.Map.KthuraMap.Meta.Arena
+			pLua aet = FieldFlow.Map.KthuraMap.Meta.AltEncounterTune
+			If aet and aet!=""
+				if ! suffixed(aet:lower(),".ogg")
+					aet += ".ogg"
+				end
+				CSayF("= Alt combat tune: %s (%s)",aet,Lua.type(aet))
+				Combat.Music = aet
+			Else
+				Combat.Music = "*RANDOM"
+			End
+			Combat.NewEnemy="REG/MIMIC"			
+			Combat.Start()
+			Return
+		ElseIf RTag!=""			
 			If Item[RTag].Has==0
 				Bool Allow = False
 				Static Var SPar = {"Jake_Human","Marrilona","Dandor","HandoStillor"}
