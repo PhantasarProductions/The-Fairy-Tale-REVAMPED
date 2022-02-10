@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.01.20
+// version: 22.02.10
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -43,9 +43,13 @@ Group MScript
 	ReadOnly Bool HasDraw   = False
 	ReadOnly Bool HasUpdate = False
 	
+	Get Bool Flashback
+		Return Prefixed(RPGParty[1],"Nostramantu")
+	End
+	
 	#region Jake & Marriona
 	Void Kokonora()	
-		If !__FlashBack
+		If !FlashBack
 			WorldMap.Go("Kokonora")
 		End
 	End
@@ -76,11 +80,29 @@ Group MScript
 		MapText("BLOCKNOS")
 		Player.WalkTo("Start")
 	End
+	
+	Void WelcomeNos()
+		MapText("WELCOME_NOS")
+	End
+	
+	Void StartBoss()
+		Combat.QuicNoskBoss("Bird of Prey","Giant Eagle","GiantEagle")
+		Map.Kill("StartBoss",true)
+		Map.Kill("Boss",true)
+	End
+	
+	Void TheEndNostramantu()		  
+		//LoadMap('CH3_TOWN_NOSTRABURG')
+		//GoToLayer('town','NosStart')
+		Map.GoToMap("CH3_TOWN_NOSTRABURG","Town","NosStart")
+		Schedule.Add("Welcome_Nos")
+	End
+		 
 	#EndRegion
 	
 	Constructor
 		ZA.TabEnter{"Kokonora","NosBlock","ActKrandar"}		
-		if !__Flashback
+		if !Flashback
 			Map.LayKill("FOREST","Boss",false)
 			Map.LayKill("FOREST","StartBoss",false)
 			Map.LayKill("FOREST","NosBlock",false)
@@ -88,6 +110,7 @@ Group MScript
 			ZA.Enter("Kokonora2","Kokonora")
 		Else
 			ZA.Enter("Kokonora2","TheEndNostramantu")
+			ZA.TabEnter{"StartBoss"}
 		End
 	End
 End
