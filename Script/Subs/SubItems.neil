@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Subs/SubItems.neil
-// Version: 22.02.04
+// Version: 22.02.10
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -69,6 +69,9 @@ Class ABLRec
 	//Bool _Unlocked
 	Get Bool Unlocked
 		if Abilities[Char].Skill[iTag]
+			Return True
+		End
+		If prefixed(Char,"Feenalaria")
 			Return True
 		End
 		Return gv.gBool[UnlTag]		
@@ -141,14 +144,14 @@ Class ABLRec
 		ElseIf ch=="Krandar" 
 			Abilities.Krandar.Skill = Abilities.Marrilona.Skill
 			Abilities[ch].Ability[T].Unlocked = True
-		ElseIf Prefixed(ch,"Feenalaria")
+		//ElseIf Prefixed(ch,"Feenalaria")
 			// Feenalaria copies Jake's skills
-			Static Bool FirstTime = False
-			If FirstTime
-				Abilities.Jake_Human = Abilities.Jake_Human || { ["Ability"]={}, ["Skill"]={} }
-				Abilities[ch].Skill = Abilities.Jake_Human.Skill
-				FirstTime = False
-			End
+		//	Static Bool FirstTime = False
+		//	If FirstTime
+		//		Abilities.Jake_Human = Abilities.Jake_Human || { ["Ability"]={}, ["Skill"]={} }
+		//		Abilities[ch].Skill = Abilities.Jake_Human.Skill
+		//		FirstTime = False
+		//	End
 		End
 	End
 	
@@ -210,8 +213,8 @@ Global Void SaveInventory()
 				// Do Nothing
 			Case "Nostramantu"
 				Lua.error("Nostramantu (Elder from tagged 'Nostramantu') not yet set up")
-			Case "Feenalaria_Human"
-				Lua.error("Feenalaria (Feenalaria_Human) not yet set up")
+			Case "Feenalaria_Human" "Nostramantu_Human" "Feenalaria_Human2"
+				//Lua.error("Feenalaria (Feenalaria_Human) not yet set up")
 			Default
 				Data += sprintf("\tLoadAbilityList(\"%s\")\n",Ch)
 				For tag,_ in spairs(Abl.Skill)
@@ -473,6 +476,9 @@ End
 
 
 Global String AblOverview(String Char,int x, int y, int w, int h,string situation)
+	if Char=="Nostramantu_Human"
+		Return ""
+	End
 	Static Table ScrollList = {}
 	Static Table CurrentCat = {}
 	String Ret = "" 
