@@ -303,6 +303,9 @@ Group Effect
     		charmsg(Target.Tag,math.abs(HV),180,0,255)
     		Target.HP -= HV
     		Return
+    	ElseIf Target.StatusChanges.Disease
+    		charmsg(Target.Tag,"No effect!",255,180,0)
+    		Return
     	End
     	CSayF("Heaing %s with %s extra hitpoints",Target.Tag,Lua.tostring(HV))
     	charmsg(Target.Tag,math.abs(HV),180,255,0)
