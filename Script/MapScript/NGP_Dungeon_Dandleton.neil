@@ -1,0 +1,179 @@
+// License Information:
+// **********************************************
+// 
+// src/Tricky Script/Script/MapScript/NGP_Dungeon_Dandleton.neil
+// (c) Jeroen Broks, 2017, 2022, All Rights Reserved.
+// 
+// This file contains material that is related
+// to a storyline that is which is strictly
+// copyrighted to Jeroen Broks.
+// 
+// This file may only be used in an unmodified
+// form with an unmodified version of the
+// software this file belongs to.
+// 
+// You may use this file for your study to see
+// how I solved certain things in the creation
+// of this project to see if you find valuable
+// leads for the creation of your own.
+// 
+// Mostly this file comes along with a project
+// that is for most part released under an
+// open source license and that means that if
+// you use that code with this file removed
+// from it, you can use it under that license.
+// Please check out the other files to find out
+// which license applies.
+// This file comes 'as-is' and in no possible
+// way the author can be held responsible of
+// any form of damages that may occur due to
+// the usage of this file
+// 
+// 
+// **********************************************
+// 
+// version: 22.02.10
+// End License Information
+
+#use "Script/Use/Anyway"
+
+plua flashbacks
+plua bosses
+plua NextMapFirst
+
+Group MScript
+
+	#Region Basis
+	ReadOnly Bool HasDraw   = False
+	ReadOnly Bool HasUpdate = False
+	Void Kokonora()
+		WorldMap.Go("Kokonora")
+	End
+	
+	
+	#region Memory
+	Void Memory(tag,pop,popwind)	
+    	if pop 
+    		Map.Pop(pop,popwind || "North") 
+    	end
+    	MapText("MEMORY"..(tag or right(Map.Layer,3)))
+    end
+	
+	Void ZA_pMemory()
+		if not(Done["DONE.SIDEQUEST.DANDLETON.MEMORY.P["..Map.Layer.."].SCENARIO"]) 
+			Memory(nil,"p") 
+		end 
+	end
+	
+	Void ZA__Memory() 
+		if not(Done("DONE.SIDEQUEST.DANDLETON.MEMORY.N["..Map.LayerCodeName.."].SCENARIO")) 
+			Memory(nil,nil) 
+		end 
+	end
+	#endregion
+	
+	#region Flashback
+	Void SetParty(string a)
+		table s = split(a,";")
+		for i=1,4
+			RPGParty[i] = s[i] || ""
+		end
+	end
+	
+	Void CreateNosAndFeena()
+		Party.CreateChar("Nostramantu_Human",99999)
+		Party.CreateChar("Feenalaria_Human" ,99999)
+		Party.CreateChar("Feenalaria_Human2",99999)
+	End
+	
+	Void Flashback()
+    	if Done["DONE.SIDEQUEST.DANDLETON.FLASHBACK["..Map.Layer.."].EXPERIENCED"]
+    		return 
+    	end
+    	If !Done["DONE.SIDEQUEST.DANDLETON.CREATEDNOSANDFEENA"]
+    		CreateNosAndFeena()
+    	End
+    	plua fb = flashbacks[Map.Layer]
+    	Invoke(fb.priofunc)
+    	if fb.priomt 
+    		MapText(fb.priomt) 
+    	end
+    	Graphics.Cls()
+    	Loading()
+    	SetParty(fb.party or "Nostramantu_Human;Feenalaria_Human")
+    	
+    	//State.LoadNew("SUB_ITEMS","Script/Subs/SubItems.Neil")
+    	//State.Call("ITEMS","FeenaHumanSync","nil")
+    	//LoadMap(fb.map)
+    	//GoToLayer(fb.layer,fb.start)
+    	Map.GoToMap(fb.map,fb.layer,fb.start)
+    	if fb.schedule 
+    		//then Schedule(fb.scheduleinstance or 'MAP',fb.schedule) Loading() end
+    		Schedule.Add(fb.schedule)
+    	end
+    	if fb.dcall 
+    		//MS.Run('MAP',fb.dcall)
+    		MapScript[fb.dcall]()
+    	end
+    End    
+    #endregion
+    
+    #region Returning from flashbacks
+    Void EndKokoBush()
+    	MapText("BACK1")
+    	RPGChar.Marrilona.Stat.Experience-=150000
+    	Ach.Award("ZZNGP_BACKFUTURE")
+    End
+    #endregion
+    
+    Void NPC_Necrodia()
+    	// Important note!
+    	// Although the same name and both undead and both in Dandleton
+    	// The Necrodia here and in my novel "De Vleugels des Oorlogs" are
+    	// two different persons. I just forgot that I placed a Necrodia here
+    	// when I began setting up all aspects of the story for that novel.
+    	Static Int oldnecroremark = -1
+    	Int remark
+    	repeat
+    		Remark = math.random(1,6)
+    	loopwhile remark==oldnecroremark 
+    	oldnecroremark=remark
+    	MapText("SH"..remark)
+    	FieldMenu.Shop("ITEM_NECRODIA")
+    End
+	
+	Constructor
+	#pure
+		flashbacks = {
+			['#005'] = { priomt = nil, map='NGP_Dungeon_KokoBushes', layer='BUSH', start='Start'},
+			['#007'] = { priomt = "FL007", map = 'CH3_Dungeon_KokonoraForest', layer='FOREST', start='Start', schedule="WelcomeNos"},
+			['#010'] = { priomt = "FL010", map = 'CH4_Dungeon_ManaRoad', layer='BOS', start='Start', schedule="NosWelcome", party='Nostramantu_Human;Feenalaria_Human2'},
+			['#015'] = { priomt = "FL015", map = 'CH3_Town_Nostraburg', layer='TOWN', start='FeenaVsFrendor',dcall='LovingAsshole',party='Feenalaria',
+				priofunc=function()
+					RPG.ReTag('Feenalaria_Human2','Feenalaria')
+					assert(RPG.CharExists('Feenalaria')==1,"Retagging failed")
+					local ch='Feenalaria'
+					RPGStat.SetData(ch,'Face',ch)
+				end}
+			}
+			
+		bosses = {
+			['#007']={priomt='BOSS007',boss='Cyndrinana',intro1="Ghost of Nostramantu's mother",intro2='Cyndrinana'},
+			['#009']={boss='Terinka',intro1="Ghost of Feenalaria's mother",intro2='Terinka'},
+			['#017']={boss='Salumon',intro1="Ghost of Nostramanu's father", intro2='Salumon'},
+			['#019']={boss='Vandar', intro1='Ghost chief of Dandleton', intro2='Vandar', schedule='PostVandar', music='Special Boss/Darkcover'}
+		}
+
+		NextMapFirst = {}
+	#endpure
+		
+		ZA.Enter("pMemory","ZA_pMemory")
+		ZA.Enter("Memory" ,"ZA__Memory")
+		ZA.Enter("Flashback","Flashback")
+		NextMapFirst["#010"] = Flashback
+		ZA.Enter("NextMap","NextMap")
+		ZA.Enter("PrevMap","PrevMap")
+		ZA.Enter("FightNostramantu","FightNostramantu")
+		ZA.Enter("Kokonora")
+	End
+End
