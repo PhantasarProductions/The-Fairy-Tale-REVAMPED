@@ -1,0 +1,73 @@
+// License Information:
+// **********************************************
+// 
+// src/Tricky Script/Script/Use/Combat/ActScript/ZombieShopHoer.neil
+// (c) Jeroen Broks, 2017-2018, 2022, All Rights Reserved.
+// 
+// This file contains material that is related
+// to a storyline that is which is strictly
+// copyrighted to Jeroen Broks.
+// 
+// This file may only be used in an unmodified
+// form with an unmodified version of the
+// software this file belongs to.
+// 
+// You may use this file for your study to see
+// how I solved certain things in the creation
+// of this project to see if you find valuable
+// leads for the creation of your own.
+// 
+// Mostly this file comes along with a project
+// that is for most part released under an
+// open source license and that means that if
+// you use that code with this file removed
+// from it, you can use it under that license.
+// Please check out the other files to find out
+// which license applies.
+// This file comes 'as-is' and in no possible
+// way the author can be held responsible of
+// any form of damages that may occur due to
+// the usage of this file
+// 
+// 
+// **********************************************
+// 
+// version: 22.02.09
+// End License Information
+
+Bool _ZSH(Act,Tar,Exe)
+	Static Var stock = NeilUse("Script/Data/General/ZombieShopHoerStock")
+	Int ri = math.random(1,#stock)
+	Var it = stock[ri]
+	//local svictim = victim; if prefixed(victim,"Jake_") then svictim = "Jake" end
+	string victim = Tar.Tag
+	string svictim=victim
+	if prefixed(victim,"Jake_") 
+		svictim = "Jake" 
+	end
+	gv.gstring["ZSH.VICTIM"]=svictim
+	gv.gint["ZSH.PRICE"]=it.Price
+	gv.gstring["ZSH.ITEM"]=it.Title
+	MapText("BAT_ZSH_OFFER","FLOW_COMBAT")
+	if __Cash<it.Price
+		MapText("BAT_ZSH_POOR","FLOW_COMBAT")
+		FlowCombat.Effect.Hurt(victim,math.random(123456789,200000000))
+		return true
+	end
+	//if ItemHas(it.itemtag)>=itemmax then
+	if Item[it.itemtag]>=Item.Max		
+		MapText("BAT_ZSH_OVERSTOCKED","FLOW_COMBAT")
+		Hurt(victim,math.random(123456789,200000000))
+		return true
+	end
+	//ItemGive(it.itemtag)
+	print(Item[it.itemtag].Give," << Give " ..it.itemtag)
+	//dec("%CASH",it.Price)
+	__Cash -= it.Price
+	Audio.LoadNew("Audio/Shopping/ChaChing.ogg","CHACHING").Play()
+	FlowCombat.charmsg(Tar.Tag,sprintf("Bought %s for %d shilders",Item[it.itemtag].Title,it.Price,255,0,0)
+	FlowCombat.charmsg(Exe.Tag,sprintf("Sold %s for %d shilders",Item[it.itemtag].Title,it.Price,0,255,0)
+	Return True
+End
+
+Return _ZSH
