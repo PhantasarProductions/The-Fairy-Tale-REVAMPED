@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.02.08
+// version: 22.02.09
 // End License Information
 
 #Use "Script/Use/Anyway"
@@ -153,19 +153,39 @@ Group SubParty
 					RPGChar.Krandar.Link_Stat(lc,"BASE_"..s)					
 				End
 				//Lua.error("No support for Krandar yet")
-			Case "Nostramantu"
+			Case "Nostramantu_Human"
 				// Human!
-				Lua.error("No support for Nostramantu yet")
+				//Lua.error("No support for Nostramantu yet")
+				RPGChar.Create("Nostramantu_Human")
+				Var Nos = RPGChar.Nostramantu_Human
+				Nos.Name = "Nostramantu"
+				Nos.Stat.Level = 1234567
+				Nos.Stat.Experience = 12345678
+				For s,lc in pairs{["AP"]= "Dandor", ["Accuracy"] = "Dandor", ["Critical"] =  "Marrilona", ["Endurance"] =  "Marrilona", ["Evasion"] =  "Dandor", ["HP"] =  "Marrilona", ["Intelligence"] = "HandoStillor", ["Power"] = "Marrilona", ["Resistance"] = "Marrilona", ["Speed"]="Dandor"}
+					RPGChar.Nostramantu_Human.Link_Stat(lc,"BASE_"..s)					
+				End
+
 			Case "Nostramantu_Elder"
 				Lua.error("No support for Elder Nostramantu yet")
-			Case "Feenalaria"
+			Case "Feenalaria_Human"
 				// Human!
-				Lua.error("No support for Feenalaria yet")
-			Case "Feenalaria_Dress"
-				RPGChar.Feenalaria_Dress = "Feenalaria"
-				RPGChar.Feenalaria_Dress.Link_Stat("Feenalaria","*")
-				RPGChar.Feenalaria_Dress.Link_List("Feenalaria","*")
-				RPGChar.Feenalaria_Dress.Link_Data("Feenalaria","*")
+				RPGChar.Create("Feenalaria_Human")
+				Var Kr = RPGChar.Feenalaria_Human
+				Kr.Name = "Feenalaria"
+				Kr.Stat.Level = 1234567
+				Kr.Stat.Experience = 12345678
+				For s,lc in pairs{["AP"]= "Marrilona", ["Accuracy"] = "Jake_Human", ["Critical"] =  "Jake_Human", ["Endurance"] =  "Jake_Human", ["Evasion"] =  "HandoStillor", ["HP"] =  "Dandor", ["Intelligence"] = "HandoStillor", ["Power"] = "Dandor", ["Resistance"] = "Marrilona", ["Speed"]="HandoStillor"}
+					RPGChar.Feenalaria_Human.Link_Stat(lc,"BASE_"..s)					
+				End
+				//Lua.error("No support for Feenalaria yet")
+			Case "Feenalaria_Human2"
+				RPGChar.Create("Feenalaria_Human2")
+				Var Kr = RPGChar.Feenalaria_Human2
+				Kr.Name = "Feenalaria"
+				//RPGChar.Feenalaria_Human2 = "Feenalaria_Human"
+				RPGChar.Feenalaria_Human2.Link_Stat("Feenalaria_Human","*")
+				RPGChar.Feenalaria_Human2.Link_List("Feenalaria_Human","*")
+				RPGChar.Feenalaria_Human2.Link_Data("Feenalaria_Human","*")
 				Return
 			Case "Feenalaria_Fairy"
 				RPGChar.Feenalaria_Fairy = "Feenalaria"
@@ -273,7 +293,16 @@ Group SubParty
 	
 	Void Portrait(string ch,int X, int Y)
 		Graphics.Scale(1,1)
-		Pictures[ch] = Pictures[ch] || Image.Load("GFX/BoxText/Portret/"..ch.."/General.png")
+		Switch ch
+			Case "Feenalaria_Human"
+				Pictures[ch] = Pictures[ch] || Image.Load("GFX/BoxText/Portret/Feenalaria/Human.png")
+			Case "Feenalaria_Human2"
+				Pictures[ch] = Pictures[ch] || Image.Load("GFX/BoxText/Portret/Feenalaria/Human2.png")
+			Case "Nostramantu_Human"
+				Pictures[ch] = Pictures[ch] || Image.Load("GFX/BoxText/Portret/Nostramantu/Human.png")
+			Default
+				Pictures[ch] = Pictures[ch] || Image.Load("GFX/BoxText/Portret/"..ch.."/General.png")
+		End
 		Pictures[ch].Hot(0,Pictures[ch].H)
 		Pictures[ch].Draw(X,Y)
 	End

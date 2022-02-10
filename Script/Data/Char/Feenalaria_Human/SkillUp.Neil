@@ -1,8 +1,8 @@
 // License Information:
 // **********************************************
 // 
-// src/Tricky Script/Script/Data/Char/Nostramantu/Meta.neil
-// (c) Jeroen Broks, 2021, All Rights Reserved.
+// src/Tricky Script/Script/Data/Char/Feenalaria_Human/SkillUp.Neil
+// (c) Jeroen Broks, 2017, 2022, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -32,14 +32,12 @@
 // 
 // **********************************************
 // 
-// version: 21.07.23
+// version: 22.02.10
 // End License Information
-Init
-	Var J = RPGChar.Nostramantu.Data
-	J.Skill1 = "DaggerSkill",
-	J.Race = "Human"
-	J.Sex = "Male"
-	J.pvnw = "He"
-	J.bvnw = "His"
-	J.avnw = "Him"	
+Module
+	Var askillup1 = {"Power",10}
+	Var askillup2 = {}
+	Var askillup3 = {}
+	Var askillup4 = {}
+	Var askillup5 = {}
 End

@@ -1,8 +1,8 @@
 // License Information:
 // **********************************************
 // 
-// src/Tricky Script/Script/Data/Char/Feenalaria/Meta.neil
-// (c) Jeroen Broks, 2021, All Rights Reserved.
+// src/Tricky Script/Script/Data/Char/Feenalaria_Human/Abilities.neil
+// (c) Jeroen Broks, 2022, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -32,14 +32,31 @@
 // 
 // **********************************************
 // 
-// version: 21.07.23
+// version: 22.02.10
 // End License Information
 Init
-	Var J = RPGChar.Feenalaria.Data
-	J.Skill1 = "Frying Pan Whacking",
-	J.Race = "Human"
-	J.Sex = "Female"
-	J.pvnw = "She"
-	J.bvnw = "Her"
-	J.avnw = "Her"	
+	plua skill = gv.gint.Skill
+	plua r
+	plua a
+	plua b
+#pure
+	r = {
+                
+                 	 			  abl_hero_jake_2ps = {5},
+                                  abl_hero_jake_3ps={20},
+                                  abl_hero_jake_4ps={40},
+                                  abl_hero_jake_cleave={9*skill,3,3,3,3}                              
+	}
+#endpure
+	b = {}
+	a = {["1. Sword"]=b}
+
+	For c,al in pairs(r)
+		If gv.gBool["Jake."..c] || c=="abl_hero_jake_2ps"
+			b[c]={1}
+		End
+	End
+    print(serialize("Abilities.Feena",a))
+	QuickWork(a,"Feenalaria_Human")
+	QuickWork(a,"Feenalaria_Human2")
 End
