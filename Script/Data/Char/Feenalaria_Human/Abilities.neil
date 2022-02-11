@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.02.10
+// version: 22.02.11
 // End License Information
 Init
 	plua skill = gv.gint.Skill
@@ -41,11 +41,13 @@ Init
 	plua b
 #pure
 	r = {
-                
+              
                  	 			  abl_hero_jake_2ps = {5},
                                   abl_hero_jake_3ps={20},
                                   abl_hero_jake_4ps={40},
-                                  abl_hero_jake_cleave={9*skill,3,3,3,3}                              
+                                  abl_hero_jake_cleave={9*skill,3,3,3,3}
+
+                                 
 	}
 #endpure
 	b = {}
