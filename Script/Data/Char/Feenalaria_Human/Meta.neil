@@ -32,10 +32,10 @@
 // 
 // **********************************************
 // 
-// version: 22.02.09
+// version: 22.02.11
 // End License Information
 Init
-	Var J = RPGChar.Feenalaria.Data
+	Var J = RPGChar.Feenalaria_Human.Data
 	J.Skill1 = "Frying Pan Whacking"
 	J.Race = "Human"
 	J.Sex = "Female"

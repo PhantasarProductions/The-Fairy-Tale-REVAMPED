@@ -32,10 +32,10 @@
 // 
 // **********************************************
 // 
-// version: 22.02.09
+// version: 22.02.11
 // End License Information
 Init
-	Var J = RPGChar.Nostramantu.Data
+	Var J = RPGChar.Nostramantu_Human.Data
 	J.Skill1 = "DaggerSkill"
 	J.Race = "Human"
 	J.Sex = "Male"
