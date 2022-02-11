@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Combat/ActScript/Drain.neil
-// Version: 22.02.10
+// Version: 22.02.11
 // Copyright (C) 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -37,9 +37,9 @@
 Bool _PA(Act,Tar,Exe)
 	String MyArg = Act.EffectScript_Arg
 	Int DrainPrc = Lua.tonumber(MyArg) || 10
-	Int HPDrain  = math.ceil(Tar.Points.HP.Maximum * (DrainPrc / 100))
-	HPDrain = math.min(Tar.Points.HP.Have,HPDrain)
-	HPDrain = math.min(Exe.Points.HP.Maximum-Exe.Points.HP.Have,HPDrain)
+	Int HPDrain  = math.ceil(Tar.Char.Points.HP.Maximum * (DrainPrc / 100))
+	HPDrain = math.min(Tar.Char.Points.HP.Have,HPDrain)
+	HPDrain = math.min(Exe.Char.Points.HP.Maximum-Exe.Points.HP.Have,HPDrain)
 	Tar.Char.Points.HP.Have -= HPDrain
 	Exe.Char.Points.HP.Have += HPDrain
 	FlowCombat.charmsg(Tar.Tag,sprintf("%d drained",HPDrain),255,0,0)
