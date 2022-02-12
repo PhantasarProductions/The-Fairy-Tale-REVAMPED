@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.02.09
+// version: 22.02.11
 // End License Information
 
 #Use "Script/Use/Anyway"
@@ -186,10 +186,19 @@ Group SubParty
 				RPGChar.Feenalaria_Human2.Link_Stat("Feenalaria_Human","*")
 				RPGChar.Feenalaria_Human2.Link_List("Feenalaria_Human","*")
 				RPGChar.Feenalaria_Human2.Link_Data("Feenalaria_Human","*")
+				RPGChar.Feenalaria_Human2.Link_Points("Feenalaria_Human","*")
 				Return
-			Case "Feenalaria_Fairy"
-				RPGChar.Feenalaria_Fairy = "Feenalaria"
-				Lua.error("No support for Feenalaria as Fairy yet")
+			Case "Feenalaria"
+				RPGChar.Create("Feenalaria")
+				RPGChar.Feenalaria.Name = "Feenalaria"
+				Var Kr = RPGChar.Feenalaria
+				Kr.Name = "Feenalaria"
+				//RPGChar.Feenalaria_Human2 = "Feenalaria_Human"
+				RPGChar.Feenalaria.Link_Stat("Feenalaria_Human","*")
+				RPGChar.Feenalaria.Link_List("Feenalaria_Human","*")
+				RPGChar.Feenalaria.Link_Data("Feenalaria_Human","*")
+				RPGChar.Feenalaria.Link_Points("Feenalaria_Human","*")
+				Return
 			Default
 				RPGChar.Create(char)
 				RPGChar[char].Name=char
