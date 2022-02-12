@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.02.10
+// version: 22.02.11
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -271,12 +271,47 @@ Group MScript
 		Schedule.Add("End007")
 	End
 	
+	Void LovingAsshole()
+    	MapText("FRENDOR_PREBOSS")
+    	Combat.Prepare(255,102,0,"Loving and caring assho... I mean brother","Frendor")
+    	Combat.NewEnemy="Boss/Frendor"
+    	Combat.Music="Combat/Special Boss/Rush.ogg"
+    	Combat.Arena="Forest"
+    	Combat.Start()
+    	//if     skill==1 then RPG.Points('Feenalaria','AP').Have=123456789
+    	//elseif skill==2 then RPG.Points('Feenalaria','AP').Have=RPG.Points('Marrilona','AP').Have
+    	//elseif skill==3 then RPG.Points('Feenalaria','AP').Have=0 end
+    	Switch __skill
+    		case 1
+    			RPGChar.Feenalaria.Points.AP.Have=123456789
+    		case 2
+    			RPGChar.Feenalaria.Points.AP.Have=RPGChar.Marrilona.Points.AP.Have
+    		case 3
+    			RPGChar.Feenalaria.Points.AP.Have=0
+    		default
+    	End
+    	RPGChar.Feenalaria.Points.VIT.Have=1000
+    	RPGChar.Feenalaria.Points.HP.Have=RPGChar.Feenalaria.Points.HP.Maximum
+    	Schedule.Add("AssholeDown")
+    End
+    
+    Void AssholeDown()
+	    //Party('Jake_Human;Marrilona;Dandor;HandoStillor')
+	    For i,ch in pairs{"Jake_Human", "Marrilona", "Dandor", "HandoStillor"}
+    		RPGParty[i] = ch
+    	End
+    	Map.GoToMap("NGP_Dungeon_Dandleton_Part2","#015","Einde")
+    	Schedule.Add("ByeAsshole")
+	End
+	#endregion
+	
 	Constructor
+		CSay("Welcome to Nostraburg")
 		if Map.LoadedMap:upper()!="CH3_TOWN_NOSTRABURG"
 			Return
 		End
 		If Prefixed(RPGParty[1],"Feena") || Prefixed(RPGParty[1],"Nostra")
-			For t in Each{"NPC_Calanus","NPC_Krandar","NPC_Feenalaria","NPC_MT_Sylina","NPC_MT_Tero","NPC_MT_Wendy","NPC_MT_Cryogina","NPC_MT_Nova","NPC_MT_Ross","NPC_Sinasina"}
+			For t in Each{"NPC_Calanus","NPC_Krandar","NPC_Feenalaria","NPC_MT_Sylina","NPC_MT_Tero","NPC_MT_Wendy","NPC_MT_Cryogina","NPC_MT_Nova","NPC_MT_Ross","NPC_Sinasina","NPC_MT_Ramata"}
 				Map.LayKill("TOWN",t,false)
 			End
 			If Prefixed(RPGParty[1],"Nostra")
