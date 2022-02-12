@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Combat/ActScript/SafeShot.neil
-// Version: 22.02.06
+// Version: 22.02.11
 // Copyright (C) 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -36,8 +36,8 @@
 // End License Information
 Bool _PA(Act,Tar,Exe)
 	Int Dmg = Exe.Char.Stat.Power Div 2
-	Tar.Char.Points.HP.Have _= Dmg
-	FlowCombat.charmsg(Tar.Tag,sprintf("%d",D,g),255,255,255)
+	Tar.Char.Points.HP.Have -= Dmg
+	FlowCombat.charmsg(Tar.Tag,sprintf("%d",Dmg),255,255,255)
 	Return True
 End
 
