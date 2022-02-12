@@ -32,32 +32,115 @@
 // 
 // **********************************************
 // 
-// version: 22.02.08
+// version: 22.02.12
 // End License Information
 
 #use "Script/Use/Anyway"
+#use "Script/Use/Misc/TexMove"
 
 Group MScript
 
 	ReadOnly Bool HasDraw   = False
 	ReadOnly Bool HasUpdate = True
 	
+	Get Bool AllowQuick
+		Return gv.gbool.ManaCave_AllowQuick
+	End
+	Set Bool AllowQuick
+		gv.gbool.ManaCave_AllowQuick = Value
+	End
+	
+	Void ToBegin()
+		AllowQuick=True
+		Map.GoToLayer("#000","Start")
+	End
+	Void Quick()
+		If AllowQuick
+			Map.GoToLayer("#020","Start")
+		End
+	End
+	
+	Void ShowMansion()
+		Map.StopWalking()
+		If !Done.ManaCave_SeenMansion
+			MapText("MANSION")
+		End
+		Map.GoToMap("CH4_Dungeon_Z_NostramantuMansion","LOBBY","Start")
+	End
+	
 	Void Update()
+		// Music		
 		Static Int MFrame = 4
 		if MFrame>0
 			MFrame--
 			if MFrame==0
 				int D = 1
-				if gv.gbool.MC_Boss1Defeated
+				//if gv.gbool.MC_Boss1Defeated
+				If gv.gbool["MANACAVE_BOSS_#005"]
 					D = 2
 				End
 				Music.Play("Music/Mystery/Draft"..d..".ogg")
 			end
 		end
+		// Plasma
+		Static String L
+		Static Int Frame = 0
+		Static Int Least = 10000
+		//Frame++
+		if L!=Map.Layer 
+			//|| Frame>100000
+			Least = 20000
+			Frame = 0
+			L = Map.Layer
+		End
+		Least = math.min(Least,FPS.FN())
+		If Least>24
+			TexMove.Update()
+		End
+		// Transporters
+		Static Int Rotation = math.random(1,360)
+		Rotation = (Rotation+1)%360
+		If Map.HasTag("Obstacle_Next")
+			//e = Maps.Obj.Obj('Obstacle_Next')
+			//e.Rotation = e.Rotation + 1
+			//if e.Rotation>=360 then e.Rotation = e.Rotation - 360 end
+			Map.SetObj("Obstacle_Next","Rotation",Rotation)
+		End
+		if Map.HasTag("Obstacle_Quick")
+			//e = Maps.Obj.Obj('Obstacle_Quick')
+			//e.Rotation = e.Rotation + 10
+			//if e.Rotation>=360 then e.Rotation = e.Rotation - 360 end
+			Map.SetObj("Obstacle_Quick","Rotation",Rotation*10)
+			Map.SetObj("Obstacle_Quick","Visible",AllowQuick)
+		end       
 	end
 	
 	Void Kokonora()
 		WorldMap.Go("Kokonora")
+	End
+	
+	Void PostBoss()
+		Music.Play("Music/Mystery/Draft2.ogg")
+		gv.gbool.MC_Boss1Defeated = True
+	End
+	
+	Void StartBoss()
+		If Done["MANACAVE_BOSS_"..Map.Layer] 
+			Return
+		End
+		Music.Play("Music/Sys/Silence.ogg")
+		Map.Kill("Boss",true)
+		Map.Kill("StartBoss",true)
+		Map.StopWalking()
+		Switch Map.Layer
+			Case "#005"
+				Combat.QuickBoss("Guardian of the Mana Cave","Grwol","Grwol")				
+			Case "#019"
+				Combat.QuickBoss("Guardian of the Mana Cave","|uUbergoblin","ubergob")
+			Default
+				Lua.error("No boss data for layer: "..Map.Layer)
+		End
+		Schedule.Add("PostBoss")
 	End
 
 	#region Sealed Boss
@@ -67,7 +150,47 @@ Group MScript
 	ReadOnly String SealedBoss_Krandar="Marrilona"
 	#endregion
 	
+	#Region Nostramantu & Feenalaria
+	Void NostramantuFeenalaria()
+		Map.Pop("N_","North",true)
+		Ach.Award("ZZNGP_MANACAVE") 
+        MapText("WELCOME_NOS")
+        for i,ch in pairs {"Jake_Human", "Marrilona", "Dandor", "HandoStillor"}
+        	RPGParty[i] = ch
+        End
+        Map.GoToMap("NGP_DUNGEON_DANDLETON_PART2", "#011", "Start")
+        Schedule.Add("BackFromMana")
+        //MapText('MANACAVE')
+        //RPG.DefStat('Marrilona','EXP',-2000000000)
+	End
+	#EndRegion
+	
+	Void WelcomeJake()
+		if not(Done["DONE.MANACAVE.ENTERED.FIRSTTIME.JAKE.MARRILONA.DANDOR.HANDOSTILLOR"])
+        	MapText("WELCOME")
+        	//Maps.Obj.Kill("Welcome")
+        	//WorldMap_UnLock("CH4MANACAVE")
+        End
+     end   
+	
+	Void Welcome2()
+		Switch Left(RPGParty[1],4)
+			Case "Jake"
+				WelcomeJake()
+			Case "Nost"
+				NostramantuFeenalaria()
+			Default
+				Lua.error("HUH?")
+		End
+	End
+	
 	Constructor
-		ZA.TabEnter{"Kokonora"}
+		Int m=20
+		If Prefixed(RPGParty[1],"Nostra")
+			m=1
+		End
+		//TexMove.MagicBackSetup(0,m,{["colors"] = { {125,  0, 0},{0, 125, 0},{0, 0, 125},{50, 60, 70} } } )
+		TexMove.MagicBackSetup(0,m,{} )
+		ZA.TabEnter{"Kokonora","Welcome2","StartBoss","ToBegin","Quick","ShowMansion"}
 	End
 End
