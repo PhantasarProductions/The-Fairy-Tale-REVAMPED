@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.02.06
+// version: 22.02.11
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -63,7 +63,9 @@ Group MScript
 			WorldMap.Unlock("CH4MANACAVE")
 			Kokonora()
 		ElseIf Nostramantu
-			Lua.error("Nostramantu's script not yet set up")
+			//Lua.error("Nostramantu's script not yet set up")
+			Map.GoToMap("CH4_DUNGEON_MANACAVE","#000","Start")
+			//Schedule.Add("NostramantuFeenalaria")
 		End
 	End
 	
@@ -86,9 +88,27 @@ Group MScript
 			Combat.Arena = "Forest" //Var.D("$COMBAT.ARENA","Forest.png")
 			//StartBoss("King of the Imps","Petit Roi")
 			Combat.Start()
-		ElseIf Nostramantu && ( !Done.Boss_Jake_ManaRoad )
+		ElseIf Nostramantu && ( !Done.Boss_Nostramantu_ManaRoad )
 			Combat.QuickNosBoss("Guardian of the Mana Cave","Mana Griffin","Griffin")
 		End
+	End
+	
+	#Region Nostramantu & Feenlaria
+	Void NosWelcome()
+		RPGChar.Feenalaria_Human2.Data.EQUIP_Weapon = RPGChar.Jake_Human.Data.EQUIP_Weapon
+		RPGChar.Feenalaria_Human2.Data.EQUIP_Armor  = RPGChar.Marrilona.Data.EQUIP_Armor
+		Map.Pop("n_","South",true)
+		MapText("NOSWELCOME")
+		// All Max
+		RPGChar.Feenalaria_Human2.Points.HP.Have =123456789
+		RPGChar.Feenalaria_Human2.Points.AP.Have =123456789
+		RPGChar.Feenalaria_Human2.Points.VIT.Have=123456789
+		RPGChar.Nostramantu_Human.Points.HP.Have =123456789
+		RPGChar.Nostramantu_Human.Points.AP.Have =123456789
+		RPGChar.Nostramantu_Human.Points.VIT.Have=123456789
+		// Take advantage of equipment (very important now. Especially for Feenalaria)
+		Party.CheckEquip("Feenalaria_Human2")
+		Party.CheckEquip("Nostramantu")
 	End
 	
 	Constructor
