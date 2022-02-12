@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.02.09
+// version: 22.02.11
 // End License Information
 
 Bool _ZSH(Act,Tar,Exe)
@@ -57,7 +57,7 @@ Bool _ZSH(Act,Tar,Exe)
 	//if ItemHas(it.itemtag)>=itemmax then
 	if Item[it.itemtag]>=Item.Max		
 		MapText("BAT_ZSH_OVERSTOCKED","FLOW_COMBAT")
-		Hurt(victim,math.random(123456789,200000000))
+		FlowCombat.Effect.Hurt(victim,math.random(123456789,200000000))
 		return true
 	end
 	//ItemGive(it.itemtag)
