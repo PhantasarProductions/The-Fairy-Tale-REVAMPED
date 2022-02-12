@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Link.neilbundle/Combat.neil
-// Version: 22.02.10
+// Version: 22.02.11
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -170,7 +170,7 @@ Module
 		Start()
 	End
 	
-	Void QuicNoskBoss(string Header,String BossName,String Boss1,string Boss2="",string Boss3="",string Boss4="")		
+	Void QuickNosBoss(string Header,String BossName,String Boss1,string Boss2="",string Boss3="",string Boss4="")		
 		Prepare(255,102,0,Header,BossName)
 		Arena = Lua.Neil.Globals.Map.Arena
 		Music = "Combat/NewGame+/Boss.ogg"
