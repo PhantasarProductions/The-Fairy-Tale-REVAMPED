@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.02.10
+// version: 22.02.12
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -40,6 +40,11 @@
 plua flashbacks
 plua bosses
 plua NextMapFirst
+
+
+Int SysVal(s)
+	Return Lua.tonumber(s) || 0
+End
 
 Group MScript
 
@@ -133,6 +138,21 @@ Group MScript
     	RPGChar.Marrilona.Stat.Experience-=250000
     	Respawn.Reset()
     End
+    
+	Void BackFromMana()
+		Var MarS = RPGChar.Marrilona.Stat
+		MapText("MANACAVE")
+		//RPG.DefStat('Marrilona','EXP',-2000000000)
+		if  MarS.Experience > -1000000000
+			Mars.Experience -= 2000000000
+		End
+	End    
+	
+	Void ByeAsshole()
+		MapText("FRENDOR_POSTBOSS")
+		//RPG.DefStat('Marrilona','EXP',RPG.Stat('Marrilona','EXP')*-2)
+		Ach.Award("ZZNGP_ASSHOLE")
+	End
     #endregion
     
     #region Boss Fights
@@ -162,10 +182,40 @@ Group MScript
     	Combat.Start() //NGP_StartBoss(bs.intro1,bs.intro2)    
     	If bs.schedule
     		//then Schedule('MAP',bs.schedule)
-    		Schedule.Add(bs.Schedule)
+    		Schedule.Add(bs.schedule)
     	End
     End
 	#endregion
+	
+	#Region MapChain
+	Void GoMap(l,e)
+		plua mp = math.ceil(l/10)
+		Plua mf = "NGP_Dungeon_Dandleton_Part"..mp
+		if mp==1 
+			mf="NGP_Dungeon_Dandleton" 
+		end
+		Graphics.Cls()
+		Loading()
+		//LoadMap(mf)
+		//GoToLayer('#'..right('00'..l,3),e or 'Start')
+		Map.GoToMap(mf,sprintf("#%03d",l),e || "Start")
+	End
+	
+	Void NextMap()
+		if not(Done["DONE.SIDEQUEST.DANDLETON.NEXTMAP.FIRSTTIME["..Map.Layer.."].DONE"])
+			//if NextMapFirst[Maps.LayerCodeName] then return NextMapFirst[Maps.LayerCodeName]() end
+			Invoke(NextMapFirst[Map.Layer])
+			Return
+		end
+		Int n = SysVal(right(Map.Layer,3))+1
+		GoMap(n,"Start")
+	end
+	
+	Void PrevMap()
+		Int n = SysVal(right(Map.Layer,3))-1
+		GoMap(n,"Einde")
+	end
+	#EndRegion
     
     Void NPC_Necrodia()
     	// Important note!
@@ -182,19 +232,114 @@ Group MScript
     	MapText("SH"..remark)
     	FieldMenu.Shop("ITEM_NECRODIA")
     End
+    
+	#Region Feena, I kill you
+	Void FightNostramantu()
+		if !Map.HasTag("Nostramantu")
+			return 
+		end
+		Map.Pop("Feena","West")
+		MapText("FNOS1")
+		//local p = {Actors.Actor('PLAYER'),Actors.Actor('PLAYER1'),Actors.Actor('PLAYER2'),Actors.Actor('PLAYER3')}
+		plua p = {"PLAYER","PLAYER2","PLAYER3","PLAYER4"}
+		//for a=0,1000,2 do
+		For a=0,255
+			//Maps.Obj.Obj('Feenalaria').SetAlpha(a)
+			Map.SetObj("Feenalaria","Alpha",a)
+			//for o in each(p) do o.SetAlpha(1000-a) end
+			For o in each(p)
+				Map.setObj(o,"Alpha",255-a)
+			End
+			Graphics.Cls()
+			Map.DrawScreen()
+			Graphics.Flip()
+			Events.Poll()
+			FPS.WaitMinTicks()
+		End
+		MapText("FNOS2")
+		//Party('Feenalaria')
+		RPGParty[1]="Feenalaria"
+		For i=2,4
+			RPGParty[i]=""
+		End
+		//Schedule('MAP','PostNostramantu')
+		//ClearCombatData()
+		Combat.Prepare(255,180,0,"Feenalaria's husband","Nostramantu")
+		Combat.NewEnemy="Boss/NostramantuDandleton"
+		//Var.D("$COMBAT.POSFOE_1","CENTER")
+		Combat.Music="Combat/SpecialBoss/PlayTillDeath_(Nostramantu).ogg"
+		Combat.Arena="Dandleton"
+		Combat.Lose="NostramantuKillsFeenalaria"
+		Combat.StartEvent = "InitNostramantu"
+		//NGP_StartBoss("Feenalaria's husband","Nostramantu",0,25,100)
+		Combat.Start()
+		Schedule.Add("PostNostramantu")
+	End
+	
+	Void InitNostramantu()
+		//RPG.Points('FOE_1','HP').Minimum=RPG.Points('FOE_1','HP').Maximum
+		RPGChar.FOE001.Points.HP.Minimum=RPGChar.FOE001.Points.HP.Maximum
+	End	
+	
+	Void PostNostramantu()
+		Map.Kill("Nostramantu",true) //Maps.Obj.Kill('Nostramantu',1)
+		Map.Kill("Feenalaria",true) //Maps.Obj.Kill('Feenalaria',1)
+		SetParty("Jake_Human;Marrilona;Dandor;HandoStillor")
+		Map.GoToMap("NGP_Dungeon_Dandleton_part2","#018","Start")
+		Schedule.Add("ImpossibleVoid")
+	End
+		
+	Void ImpossibleVoid()
+		Map.Pop("Feena_","West",true)
+		Map.SetObj("PLAYER" ,"Alpha",255)
+		Map.SetObj("PLAYER2","Alpha",0)
+		Map.SetObj("PLAYER3","Alpha",255)
+		Map.SetObj("PLAYER4","Alpha",255)
+		Map.SetObj("DeadMarrilona","Alpha",255)
+		MapText("FNOS3")
+		//Actors.Actor('PLAYER1').SetAlpha(1000)
+		Map.SetObj("PLAYER2","Alpha",255)
+		Map.Kill("DeadMarrilona",true)
+		RPGChar.Marrilona.Points.HP.Have=1
+		RPGChar.Marrilona.Points.VIT.Have=1
+		RPGChar.Marrilona.Stat.Experience=math.min(0,RPGChar.Marrilona.Stat.Experience)
+		Ach.Award("ZZNGP_DEATH")
+		//Music.Play("Dungeon/Dandleton")
+	End
+	#endregion
+	
+	Void PostVandar()
+		Map.Pop("V_","North",true)
+		MapText("Vandar")
+		Ach.Award("ZZNGP_NOTNAMED")
+	End
+	
+	Delegate NPC_Colportarus = NIKS
+	
+	Void END_Dungeon()
+		Ach.Award("ZZNGP_DANDLETON")
+	End
 	
 	Constructor
 	#pure
 		flashbacks = {
 			['#005'] = { priomt = nil, map='NGP_Dungeon_KokoBushes', layer='BUSH', start='Start'},
 			['#007'] = { priomt = "FL007", map = 'CH3_Dungeon_KokonoraForest', layer='FOREST', start='Start', schedule="WelcomeNos"},
-			['#010'] = { priomt = "FL010", map = 'CH4_Dungeon_ManaRoad', layer='BOS', start='Start', schedule="NosWelcome", party='Nostramantu_Human;Feenalaria_Human2'},
-			['#015'] = { priomt = "FL015", map = 'CH3_Town_Nostraburg', layer='TOWN', start='FeenaVsFrendor',dcall='LovingAsshole',party='Feenalaria',
+			['#010'] = { priomt = "FL010", map = 'CH4_Dungeon_ManaRoad', layer='BOS', start='Start', schedule="NosWelcome", party='Nostramantu_Human;Feenalaria_Human2',
 				priofunc=function()
-					RPG.ReTag('Feenalaria_Human2','Feenalaria')
-					assert(RPG.CharExists('Feenalaria')==1,"Retagging failed")
-					local ch='Feenalaria'
-					RPGStat.SetData(ch,'Face',ch)
+					Neil.Globals.CSayF("Making sure Feena's points are properly linked")
+					Neil.Globals.RPGChar.Feenalaria_Human2.Link_Points("Feenalaria_Human","*")
+				end
+			},
+			['#015'] = { priomt = "FL015", map = 'CH3_Town_Nostraburg', layer='TOWN', start='FeenaVsFrendor',schedule='LovingAsshole',party='Feenalaria',
+				priofunc=function()
+					--// Prepare Feenalaria Fairy
+					--//RPG.ReTag('Feenalaria_Human2','Feenalaria')
+					--//assert(RPG.CharExists('Feenalaria')==1,"Retagging failed")
+				--	//local ch='Feenalaria'
+					--//RPGStat.SetData(ch,'Face',ch)
+					Neil.Globals.Party.CreateChar("Feenalaria",99999)
+					Neil.Globals.Player.StopWalking()
 				end}
 			}
 			
@@ -202,7 +347,7 @@ Group MScript
 			['#007']={priomt='BOSS007',boss='Cyndrinana',intro1="Ghost of Nostramantu's mother",intro2='Cyndrinana'},
 			['#009']={boss='Terinka',intro1="Ghost of Feenalaria's mother",intro2='Terinka'},
 			['#017']={boss='Salumon',intro1="Ghost of Nostramanu's father", intro2='Salumon'},
-			['#019']={boss='Vandar', intro1='Ghost chief of Dandleton', intro2='Vandar', schedule='PostVandar', music='Special Boss/Darkcover'}
+			['#019']={boss='Vandar', intro1='Ghost chief of Dandleton', intro2='Vandar', schedule='PostVandar', music='Combat/Special Boss/Darkcover'}
 		}
 
 		NextMapFirst = {}
@@ -217,5 +362,6 @@ Group MScript
 		ZA.Enter("FightNostramantu","FightNostramantu")
 		ZA.Enter("Kokonora")
 		ZA.Enter("StartBoss")
+		ZA.Enter("END_Dungeon")
 	End
 End
