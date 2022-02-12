@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Class_Foe.neil
-// Version: 22.02.10
+// Version: 22.02.12
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -45,6 +45,7 @@ Class Foe Extends Fighter
 	End
 	
 	Bool Gone = False
+	Bool Vandar = False
 	
 	Var Raw
 	Var NorImage
@@ -132,6 +133,7 @@ Class Foe Extends Fighter
 		End
 		CSayF("Compiling Foe: %s on spot %03d",F,_num)
 		Var WFoe = new Foe()
+		WFoe.Vandar = suffixed(F:upper(),"/VANDAR")
 		WFoe.InitStatusChanges()
 		WFoe.Setup(MakeTag(_num),"Foe")
 		WFoe.File = F
@@ -328,6 +330,32 @@ end
 				Graphics.Color(255,255,255)
 				Graphics.Alpha(255)
 			End
+		End
+		If Vandar
+			Static Int R
+			Static Int G
+			Static Int B
+			Static Int SR = math.random(1,4)
+			Static Int SG = math.random(1,4)
+			Static Int SB = math.random(1,4)
+			R = math.max(math.min(255,R+SR),0)
+			G = math.max(math.min(255,G+SG),0)
+			B = math.max(math.min(255,B+SB),0)
+			//CSayF("Current %d,%d,%d >> Change: %d,%d,%d",R,G,B,SR,SG,SB)
+			If R>=255
+				SR = 0-math.random(1,4)
+			ElseIf R<=0
+				SR = math.random(1,4)
+			ElseIf G>=255
+				SG = 0-math.random(1,4)
+			ElseIf G<=0
+				SG = math.random(1,4)
+			ElseIf B>=255
+				SB = 0-math.random(1,4)
+			ElseIf B<=0
+				SB = math.random(1,4)
+			End
+			Graphics.Color(R,G,B)
 		End
 		Switch Self.Stage
 			Case "IDLE"
