@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Misc/GreatMagicBack.neil
-// Version: 22.02.02
+// Version: 22.02.11
 // Copyright (C) 2017, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -45,6 +45,7 @@
 //]]
 
 plua gm_default
+plua gm_manacave
 
 Init
 #pure
@@ -63,6 +64,16 @@ Init
 	}
 	gm_default.speed = { {1,0},{2,0},{0,1},{0,2}}
 	gm_default.hide = "/F.PNG"
+	gm_manacave = {}
+	for k,v in pairs(gm_default) do
+		gm_manacave[k] = v
+	end
+	gm_manacave.colors = { 
+		{125,  0,   0},
+		{0,  125,   0},
+		{0,    0, 125},
+		{0,   90,   0}
+	}	
 #endpure
 End
 
@@ -126,8 +137,13 @@ Module
 	Void SetUp(pdata,process)
 		Var data = pdata or {}
 		Var ret = {}
-		for k,v in pairs(gm_default) 
-			data[k] = data[k] or v 
+		if suffixed(Map.LoadedMap:upper(),"MANACAVE")
+			for k,v in pairs(gm_manacave)
+				data[k] = data[k] or v
+			end
+			for k,v in pairs(gm_default)
+				data[k] = data[k] or v
+			end
 		end
 		//local layers = mysplit(Maps.Layers(),";")
 		Var pr = 1
