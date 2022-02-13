@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Combat/ActScript/FoolGold.neil
-// Version: 22.02.10
+// Version: 22.02.13
 // Copyright (C) 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -43,6 +43,7 @@ Bool _PA(Act,Tar,Exe)
 	__Cash -= Weg
 	gv.Gint.FoolGold = Weg
 	BoxText.Serial("LEARNABILITY", "FOOL", "FLOW_COMBAT")
+	Return True
 End
 
 Return _PA
