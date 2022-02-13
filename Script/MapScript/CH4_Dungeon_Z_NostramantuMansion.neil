@@ -1,0 +1,249 @@
+// License Information:
+// **********************************************
+// 
+// src/Tricky Script/Script/MapScript/CH4_Dungeon_Z_NostramantuMansion.neil
+// (c) Jeroen Broks, 2017, 2022, All Rights Reserved.
+// 
+// This file contains material that is related
+// to a storyline that is which is strictly
+// copyrighted to Jeroen Broks.
+// 
+// This file may only be used in an unmodified
+// form with an unmodified version of the
+// software this file belongs to.
+// 
+// You may use this file for your study to see
+// how I solved certain things in the creation
+// of this project to see if you find valuable
+// leads for the creation of your own.
+// 
+// Mostly this file comes along with a project
+// that is for most part released under an
+// open source license and that means that if
+// you use that code with this file removed
+// from it, you can use it under that license.
+// Please check out the other files to find out
+// which license applies.
+// This file comes 'as-is' and in no possible
+// way the author can be held responsible of
+// any form of damages that may occur due to
+// the usage of this file
+// 
+// 
+// **********************************************
+// 
+// version: 22.02.13
+// End License Information
+
+#use "Script/Use/Anyway"
+
+#define DEUR_NUMMERS
+
+Group MScript
+
+	ReadOnly Bool HasDraw   = False
+	ReadOnly Bool HasUpdate = True
+	
+	//[[
+	//Notes
+	//EndDoor -- Door to open to go to Nostramantu (barrier)
+	//Confrontation -- Zone leading to Nostramantu (point of no-return
+	//]]
+
+	readonly delegate Rand = math.random
+	readonly delegate Assert = Lua.assert
+	 
+	Var Entries
+	Var Exits
+	Var Doors
+	
+	Int SysVal(a)
+		Return Lua.tonumber(a) || 0
+	End
+	Int SVal(a)
+		Return Lua.tonumber(a) || 0
+	End
+
+	Void InitRandomDoors()
+		Int r
+		entries = {}
+		exits   = {}
+		doors = {["entries"]=entries,["exits"]=exits}
+		for i = 1, 9
+			Int timeout=10000
+			Repeat
+				r=rand(1,9)
+				timeout=timeout-1
+				assert(timeout>0,"Timeout on mansion room entry #"..i)
+			LoopWhile entries[r] 
+			entries[r]=i
+			timeout=10000
+			Repeat
+				r=rand(1,9)
+				timeout=timeout-1
+				assert(timeout>0,"Timeout on mansion room exit #"..i)
+			LoopWhile exits[r]
+			exits[r]=i
+		End
+		CSay("doors initialized")
+		Print(serialize("doors",doors))
+	End
+
+	Void GT(d) 
+		Map.GoToLayer("CORRIDOR","Start"..d) 
+	End
+	Void LV(d) 
+		Map.GoToLayer("LOBBY","Ex"..d) 
+	End
+
+	Void Update()
+		Static Var F = ImageFont.Obtain("SYSFONT")
+		//-- @IF DEUR_NUMMERS
+		#if DEUR_NUMMERS
+		//function MAP_FLOW()
+		IF Map.Layer!="CORRIDOR" 
+			return 
+		END
+		For i=1,9
+        	//local o = Maps.Obj.Obj('NPC_Deur'..i)
+        	//local x = o.x - Maps.CamX
+        	//local y = o.y - Maps.CamY
+        	//local c = i*27
+        	int ox = Map.GetObjInt("NPC_Deur"..i,"X")
+        	int oy = Map.GetObjInt("NPC_Deur"..i,"Y")
+        	Int x = ox - Map.CamX
+        	Int y = oy - Map.CamY
+        	__Ember
+        	F.DarkText(i,x,y,2,1) //,255-c,180,c)
+        	F.DarkText(entries[i],x,y,2,0) //,c,0,255-c)
+        end
+        //-- @FI
+        #fi
+	End
+
+	Void KEnter(Int r)
+		pLua n = entries[r]
+		Map.GoToLayer("K"..n,"Start")
+		if !Done["DONE.NOSMANSION.ENTERED.k"..n]
+			for ch in each({"Jake_Human","Marrilona","Dandor","HandoStillor"}) 
+				//RPG.IncStat(ch,'EXP',-6000/skill) end
+				RPGChar[ch].Stat.Experience-=6000 div __skill
+			End
+		End
+	End           
+
+	Void NPC_Deur1() 
+		KEnter(1) 
+	End
+	Void NPC_Deur2() 
+		KEnter(2) 
+	End
+	Void NPC_Deur3() 
+		KEnter(3) 
+	End
+	Void NPC_Deur4() 
+		KEnter(4) 
+	End
+	Void NPC_Deur5() 
+		KEnter(5) 
+	End
+	Void NPC_Deur6() 
+		KEnter(6) 
+	End
+	Void NPC_Deur7() 
+		KEnter(7) 
+	End
+	Void NPC_Deur8() 
+		KEnter(8) 
+	End
+	Void NPC_Deur9() 
+		KEnter(9) 
+	End
+	
+	Void KExit()
+		plua i = SysVal(right(Map.Layer,1))
+		plua n = exits[i]
+		Map.GoToLayer("corridor","x"..n)
+	End
+	
+	Void NPC_EndDoor()
+		pLua go=true
+		for i=1,8
+			//local IH = ItemHave("ZZKEY_NOSTRACOIN"..i)
+			plua IH = Item["ZZKEY_NOSTRACOIN"..i].Has
+			go=go && IH>0
+			CSay("Coin #"..i.."; Have="..IH.." go = "..sval(go))
+		end
+		if !go
+			MapText("NOEND")
+		Else
+			MapText("TOEND")
+			Map.Kill("EndDoor")
+		End
+	End
+	
+	Void GoNos() 
+		Map.GoToLayer("NOS","Start") 
+	End
+	
+	Void StartNos()
+    	//RPG.Points('FOE_2','HP').Minimum=1
+    	RPGChar.FOE002.Points.HP.Minimum=1
+    End
+
+	Void NPC_Nostramantu()
+		Map.Pop("Nos_","North",true)
+		MapText("CONFRONTATION")
+		// Init Fight
+		//ClearCombatData()
+		Combat.Prepare(255,180,0,"The Final Confrontation With","Nostramantu")
+		Combat.NewEnemy="Reg/Nemesis"
+		Combat.NewEnemy="Boss/Nostramantu2"
+		//Var.D('$COMBAT.POSFOE_2',"CENTER")
+		Combat.NewEnemy="Reg/Nemesis"
+		Combat.Music="Combat/SpecialBoss/PlayTillDeath_(Nostramantu).ogg"
+		Combat.Arena="nostramantu"
+		//Var.D("$COMBAT.STARTEVENT","MAP,StartNos")
+		Combat.StartEvent="StartNos"
+		//StartBoss("The Final Confrontation With","Nostramantu",255,180,0)
+		Combat.Start()
+		//Schedule('MAP','PostFinalBoss')
+		Schedule.Add("PostFinalBoss")
+	end
+	
+	Void PostFinalBoss()
+    	Ach.Award("SKILL"..__skill)
+    	Ach.Award("CHAPTER4")
+    	if __newgameplus 
+    		Ach.Award('CHAPTER4_NGP') 
+    	end
+    	Map.GoToMap("CH4_DUNGEON_MANAROAD","BOS","Einde")
+    	Schedule.Add("GameComplete")
+    
+	end    
+
+	Void ManaCave()
+		Map.GoToMap("CH4_DUNGEON_MANACAVE","#020","Einde")
+	End
+	
+	Void StopMusic()
+		Music.Play("MUSIC/SYS/SILENCE.OGG")
+	End
+	
+	Constructor
+		InitRandomDoors()
+		//ZA.Enter('ManaCave',function() LoadMap('CH4_DUNGEON_MANACAVE') GoToLayer('#020','Einde') end)
+		ZA.Enter("Rechts","GT","Rechts")
+		ZA.Enter("Links","GT","Links")
+		ZA.Enter("ToLinks","LV","Links")
+		ZA.Enter("ToLobbyRechts","LV","Rechts")
+		ZA.Enter("KExit","KExit")
+		ZA.Enter("StopMusic","StopMusic")
+		ZA.Enter("Confrontation","GoNos")
+		//MapHide('Secret')
+	End  
+	
+	
+	Constructor
+	End
+End
