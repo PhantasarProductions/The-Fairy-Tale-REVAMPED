@@ -1,0 +1,112 @@
+// License Information:
+// **********************************************
+// 
+// src/Tricky Script/Script/Use/Combat/ActScript/NostraMorph.neil
+// (c) Jeroen Broks, 2017, 2022, All Rights Reserved.
+// 
+// This file contains material that is related
+// to a storyline that is which is strictly
+// copyrighted to Jeroen Broks.
+// 
+// This file may only be used in an unmodified
+// form with an unmodified version of the
+// software this file belongs to.
+// 
+// You may use this file for your study to see
+// how I solved certain things in the creation
+// of this project to see if you find valuable
+// leads for the creation of your own.
+// 
+// Mostly this file comes along with a project
+// that is for most part released under an
+// open source license and that means that if
+// you use that code with this file removed
+// from it, you can use it under that license.
+// Please check out the other files to find out
+// which license applies.
+// This file comes 'as-is' and in no possible
+// way the author can be held responsible of
+// any form of damages that may occur due to
+// the usage of this file
+// 
+// 
+// **********************************************
+// 
+// version: 22.02.13
+// End License Information
+Bool _N()
+	// function SpellScript.NostraMorph(tar,user)
+	// SZ
+	plua sx = 0
+	plua sy = 0
+	plua sw = Screen.W
+	plua sh = Screen.H
+	//sx,sy,sw,sh=GetViewport()
+	// Fade Out
+	for a=0,255
+		Graphics.Cls()
+		__White
+		FlowCombat.DrawScreen()
+		Graphics.Color(0,0,a)
+		Graphics.Alpha(a)
+		Graphics.Rect(sx,sy,sw,sh)
+		Graphics.Alpha(255)
+		Graphics.Flip()
+		Events.Poll()
+		FPS.WaitMinTicks()
+	End
+	
+	// Clean
+	Fighter.ClearGroup("Foe") // Fighters.Foe = {}
+	// Load enemy data (if the two Nemesis girls are still standing they will disappear).
+	// 000000057 |        CompileFoe('FOE_1',JINC('Script/JINC/Foes/OverNos/Antenna_Nice.lua'),'Script/JINC/Foes/OverNos/Antenna_Nice.lua')
+	//000000058 |        CompileFoe('FOE_2',JINC('Script/JINC/Foes/OverNos/Nostramantu.lua' ),'Script/JINC/Foes/OverNos/Nostramantu.lua')
+	// 000000059 |        CompileFoe('FOE_3',JINC('Script/JINC/Foes/OverNos/Antenna_Mock.lua'),'Script/JINC/Foes/OverNos/Antenna_Mock.lua')
+	Var MF
+	MF = Foe.Compile("OverNos/Antenna_Nice",NeilUse("Script/Data/Foe/OverNos/Antenna_Nice"))
+	MF.Char.Points.HP.Minimum = MF.Char.Points.HP.Maximum
+	MF.X = _ASW div 9
+	MF.Y = _ASH div 3
+	MF = Foe.Compile("OverNos/Nostramantu",NeilUse("Script/Data/Foe/OverNos/Nostramantu"))
+	MF.X = _ASW div 4
+	MF.Y = _ASH div 2
+	MF = Foe.Compile("OverNos/Antenna_Nice",NeilUse("Script/Data/Foe/OverNos/Antenna_Mock"))
+	MF.Char.Points.HP.Minimum = MF.Char.Points.HP.Maximum
+	MF.X=_ASW div 9 
+	MF.Y=( _ASH div 3 ) * 2
+	// Antennae indestructable
+	// 000000061 |        RPG.Points('FOE_1','HP').Minimum =  RPG.Points('FOE_1','HP').Maximum
+	// 000000062 |        RPG.Points('FOE_3','HP').Minimum =  RPG.Points('FOE_3','HP').Maximum
+	// Nostramantu's stat copier
+	for s in each{"Power","Endurance","Intelligence","Resistance","HP"}
+		plua v=0
+		for ch in each{"Jake_Human","Marrilona","Dandor","HandoStillor"}
+			// v = v + RPG.Stat(ch,"END_"..s)
+			v+=RPGChar[ch].Stat["END_"..s]
+		end
+		if s=="HP" 
+			v=v*(__skill*12) 
+		end
+		plua avg = math.ceil(v/(6-__skill))
+		RPGChar.FOE002.Stat["BASE_"..s] = avg
+	End
+	RPGChar.FOE002.Points.HP.Have = RPGChar.FOE002.Points.HP.Maximum
+	gv.gbool["ULTIMATENOSTRAMANTU.MORPH.COMPLETE"] = true
+	// Music Change
+	Music.Play("Music/Combat/SpecialBoss/Final Boss.ogg")
+	// Fade In
+	for a=255,0,-1
+		Graphics.Cls()
+		FlowCombat.DrawScreen()
+		Graphics.Alpha(a)
+		Graphics.Color(0,0,a)
+		Graphics.Rect(sx,sy,sw,sh)
+		Graphics.Alpha(255)
+		Graphics.Flip()
+		Events.Poll()
+		FPS.WaitMinTicks()
+	End
+	Return True
+End
+
+Return _N

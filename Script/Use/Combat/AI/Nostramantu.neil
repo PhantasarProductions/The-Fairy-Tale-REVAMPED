@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.02.05
+// version: 22.02.13
 // End License Information
 Module
 	ReadOnly Var DAI
@@ -47,11 +47,14 @@ Module
 		End
 		Return Ret
 	End
+	
+	
 			
 	
 	Var Decide(Foe)
 		If gv.gbool.FinalFight && Foe.HP==1
-			Lua.error("Oversoul not yet set")
+			//Lua.error("Oversoul not yet set")
+			Return new Action("SPECIAL_NostraMorph",Foe.Tag,{Foe.Tag})
 		End
 		Var ISpir = InSpirata
 		If #ISpir>0
