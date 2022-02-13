@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField/Treasure.neil
-// Version: 22.02.09
+// Version: 22.02.13
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -110,7 +110,11 @@ Module
 		End
 		String ITag = O.Data["ITEM"]:upper()
 		String RTag = O.Data["REQUIREDITEM"]:upper()
-		If ITag==":MIMIC:"
+		If ITag==":MIMIC:" || ITag==":MIMIC"
+			If Suffixed(Map.LoadedMap,"NOSTRAMANTUMANSION")
+				Static Var Laugh = Audio.LoadNew("Audio/SFX/Nostramantu/Laugh.ogg","MIMIC_NOSTRAMANTU_EVIL_LAUGH")
+				Laugh.Play()
+			End
 			FlowField.Map.StopWalking()
 			FlowField.Msg("Mimic",O.X,O.Y,0,180,255)
 			OChest(Tag)
