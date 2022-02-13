@@ -193,7 +193,7 @@ Group MScript
 
 	Void NPC_Nostramantu()
 		Map.Pop("Nos_","North",true)
-		MapText("CONFRONTATION")
+		// MapText("CONFRONTATION")
 		// Init Fight
 		//ClearCombatData()
 		Combat.Prepare(255,180,0,"The Final Confrontation With","Nostramantu")
