@@ -196,6 +196,7 @@ Group MScript
 		// MapText("CONFRONTATION")
 		// Init Fight
 		//ClearCombatData()
+		gv.gbool.FinalFight = True
 		Combat.Prepare(255,180,0,"The Final Confrontation With","Nostramantu")
 		Combat.NewEnemy="Reg/Nemesis"
 		Combat.NewEnemy="Boss/Nostramantu2"
@@ -212,6 +213,7 @@ Group MScript
 	end
 	
 	Void PostFinalBoss()
+		gv.gbool.FinalFight = False
     	Ach.Award("SKILL"..__skill)
     	Ach.Award("CHAPTER4")
     	if __newgameplus 
