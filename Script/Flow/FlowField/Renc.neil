@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField/Renc.neil
-// Version: 22.01.17
+// Version: 22.02.12
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -184,7 +184,7 @@ module
 			NEnc[L] = MaxEnc
 			CSayF("Encountering layer: %s",L)
 		End
-		For L in each(Split(FlowField.Map.KthuraMap.Meta.NoEncZones,","))
+		For L in each(Split(FlowField.Map.KthuraMap.Meta.NoEncZones:upper(),","))
 			NEnc[L] = False
 			CSayF("Encountering layer: %s - Undone",L)
 		End
