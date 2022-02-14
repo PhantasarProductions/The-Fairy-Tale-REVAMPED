@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.02.11
+// version: 22.02.14
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -109,6 +109,46 @@ Group MScript
 		// Take advantage of equipment (very important now. Especially for Feenalaria)
 		Party.CheckEquip("Feenalaria_Human2")
 		Party.CheckEquip("Nostramantu")
+	End
+	#EndRegion
+	
+	Void GameComplete()
+		// Ontvangst Mana Road
+		//LoadMap('CH4_DUNGEON_MANAROAD')
+    	//GoToLayer('bos','Einde')
+    	Map.Pop("Eind_","North",true)
+    	Map.SetObj("Krandar","Alpha",255) //    	Maps.Obj.Obj('Krandar').SetAlpha(1000)
+    	Map.SetObj("Feenalaria","Alpha",255) //  	Maps.Obj.Obj('Feenalaria').SetAlpha(1000)
+    	MapText("ENDCHAT")
+    	//local marrilona = Actors.Actor('PLAYER1')
+    	int s = Map.GetObjInt("PLAYER2","Y")
+    	for y=s,-1000,-2
+        	//marrilona.y = y -- marrilona.y - 1
+        	//Map.SetObj("PLAYER2","Y",Map.GetObjInt("PLAYER2","Y")-1)
+        	Map.SetObj("PLAYER2","Y",y)
+        	Graphics.Cls()
+        	Map.DrawScreen()
+        	Graphics.Flip()
+        	FPS.WaitMinTicks()
+        	Events.Poll()
+        end
+        MapText("ENDCHAT2")
+        
+        
+        // Jake & Marrilona gaan trouwen
+        Map.GoToLayer("TROUWEN","Start")
+        Map.Pop("T_","South",true) // Crash prevention! Nothing more!
+        Map.HideObj("PLAYER" ) // Actors.Actor('PLAYER').Visible=0
+        Map.HideObj("PLAYER2") // Actors.Actor('PLAYER1').Visible=0
+        Map.HideObj("PLAYER3") // Actors.Actor('PLAYER2').Visible=0
+        Map.HideObj("PLAYER4") // Actors.Actor('PLAYER3').Visible=0
+        MapText("WEDDING")
+        //Maps.Obj.Obj('Harry').TextureFile='Gfx/Actors/Single/Humans/Harry.png'
+        Map.SetObj("Harry","Texture","Gfx/Actors/Single/Humans/Harry.png")
+        MapText("WEDDING2")
+        //assert(false,"Sorry, no more yet")
+        State.Load("CREDITS","Script/Flow/Credits.neil")
+        Flow.Current="CREDITS"
 	End
 	
 	Constructor
