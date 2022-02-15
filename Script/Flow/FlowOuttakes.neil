@@ -1,0 +1,274 @@
+// License Information:
+// **********************************************
+// 
+// src/Tricky Script/Script/Flow/FlowOuttakes.neil
+// (c) Jeroen Broks, 2022, All Rights Reserved.
+// 
+// This file contains material that is related
+// to a storyline that is which is strictly
+// copyrighted to Jeroen Broks.
+// 
+// This file may only be used in an unmodified
+// form with an unmodified version of the
+// software this file belongs to.
+// 
+// You may use this file for your study to see
+// how I solved certain things in the creation
+// of this project to see if you find valuable
+// leads for the creation of your own.
+// 
+// Mostly this file comes along with a project
+// that is for most part released under an
+// open source license and that means that if
+// you use that code with this file removed
+// from it, you can use it under that license.
+// Please check out the other files to find out
+// which license applies.
+// This file comes 'as-is' and in no possible
+// way the author can be held responsible of
+// any form of damages that may occur due to
+// the usage of this file
+// 
+// 
+// **********************************************
+// 
+// version: 22.02.15
+// End License Information
+
+#use "Libs/Music"
+
+Var Big = ImageFont.Obtain("BIGTEXT")
+Var Fnt = ImageFont.Obtain("BOXTEXT")
+
+Var Thank = Image.Load("GFX/Algemeen/Thank You For Playing.png","ThankYouForPlaying")
+
+Bool HasVocals()
+	Return JCR6.EntryExists("ID/Vocals")
+End
+
+Class Outtake
+	ReadOnly String ImageFile
+	ReadOnly String Character
+	ReadOnly String Actor	
+	ReadOnly Var Img
+	ReadOnly String AudioFile
+	
+	Void Play()
+		Audio.Load(AudioFile,"OUTTAKE").Play()
+	End
+	
+	Static Var Lijst 
+	Static String Pic
+	Static String Chr
+	Static String Act
+	Static Int Channel
+	
+	Static Get Bool Playing
+		Return Audio.ChannelPlaying(Channel)
+	End
+	
+	Constructor(string Au)
+		AudioFile = Au
+		ImageFile = Pic
+		Character = Chr
+		Actor     = Act
+		Img       = Image.LoadNew(ImageFile,"OUTTAKE_"..chr)
+	End
+	
+	Static Void Add(String Au)
+		Lijst = Lijst || {}
+		Lijst += Self(Au)
+	End
+	
+	Static Int Current = 0
+	Static Get Var CD
+		Return Lijst[Current]
+	End
+End
+
+Init
+	Outtake.Chr="Jake Daniel Werrington"
+	Outtake.Pic="GFX/Big_Char/Jake.png"
+	Outtake.Act="W.K. Chan"
+	Outtake.Add("Vocals/Outtakes/001 Jake/001 What is an Elven High Priest.ogg")
+	//Outtake.Add("Vocals/Outtakes/001 Jake/002 Blooper 2
+	Outtake.Add("Vocals/Outtakes/001 Jake/002 Blooper 2.ogg")
+	Outtake.Add("Vocals/Outtakes/001 Jake/003 Verkeerde tekst.ogg")
+	Outtake.Add("Vocals/Outtakes/001 Jake/004 - How do you know that this is my father.ogg")
+	Outtake.Add("Vocals/Outtakes/001 Jake/005 - Daar gaat ie weer.ogg")
+	Outtake.Add("Vocals/Outtakes/001 Jake/006 - So officially....ogg")
+	Outtake.Add("Vocals/Outtakes/001 Jake/007 - HAHAHAHA SORRY.ogg")
+	Outtake.Add("Vocals/Outtakes/001 Jake/008 - She is still.ogg")
+	Outtake.Add("Vocals/Outtakes/001 Jake/009 - EEJ KUKKELEKE.ogg")
+	Outtake.Add("Vocals/Outtakes/001 Jake/010 - De microfoon staat aan hoor.ogg")
+	Outtake.Add("Vocals/Outtakes/001 Jake/011 - Somebody gotta pinch me.ogg")
+	Outtake.Add("Vocals/Outtakes/001 Jake/012 - Your game is over Nostramantu.ogg")
+
+	Outtake.Chr="Marrilona, daughter of Fandalora"
+	Outtake.Pic="GFX/Big_Char/Marrilona_Mike.png"
+	Outtake.Act="Evelyn Klein-Hulse"
+	Outtake.Add("Vocals/Outtakes/002 Marrilona/001 Stotter stotter.ogg")                                    
+	Outtake.Add("Vocals/Outtakes/002 Marrilona/002 Zet hem stop alsjeblieft.ogg")
+	Outtake.Add("Vocals/Outtakes/002 Marrilona/003 Goed of niet.ogg")
+	Outtake.Add("Vocals/Outtakes/002 Marrilona/004 Effe Terug.ogg")
+	Outtake.Add("Vocals/Outtakes/002 Marrilona/005 Wouldnt people be.ogg")
+	Outtake.Add("Vocals/Outtakes/002 Marrilona/006 Hou eens op.ogg")
+	Outtake.Add("Vocals/Outtakes/002 Marrilona/007 LACHUUHHHH.ogg")
+	Outtake.Add("Vocals/Outtakes/002 Marrilona/008 I can fix.ogg")
+	Outtake.Add("Vocals/Outtakes/002 Marrilona/009 I cannot make you welcome.ogg")
+	Outtake.Add("Vocals/Outtakes/002 Marrilona/010 I need a cigarette.ogg")
+	Outtake.Add("Vocals/Outtakes/002 Marrilona/011 DIE MOTHERFUCKER DIE.ogg")
+	Outtake.Add("Vocals/Outtakes/002 Marrilona/012 This must be.ogg")
+	
+	Outtake.Chr="Hando Stillor"
+	Outtake.Pic="GFX/Big_Char/Hando Stillor.png"
+	Outtake.Act="Jeroen P. Broks"
+	Outtake.Add("Vocals/Outtakes/004 Hando Stillor/001 shit.ogg")
+	Outtake.Add("Vocals/Outtakes/004 Hando Stillor/002 I am a priest.ogg")
+	Outtake.Add("Vocals/Outtakes/004 Hando Stillor/003 Doen we even overnieuw.ogg")
+	Outtake.Add("Vocals/Outtakes/004 Hando Stillor/004 No that's not it.ogg")
+	Outtake.Add("Vocals/Outtakes/004 Hando Stillor/006 Veel gevloek.ogg")
+	Outtake.Add("Vocals/Outtakes/004 Hando Stillor/007 Not this time Jake.ogg")
+	Outtake.Add("Vocals/Outtakes/004 Hando Stillor/008 Ik kan beter even stoppen.ogg")
+	Outtake.Add("Vocals/Outtakes/004 Hando Stillor/009 Marriloni.ogg")
+	Outtake.Add("Vocals/Outtakes/004 Hando Stillor/999 Greet you all.ogg")
+	
+	
+	Outtake.Chr="Sandra"
+	Outtake.Pic="GFX/Outtakes/Sandra.png"
+	Outtake.Act="Angela Nagtzaam"
+	Outtake.Add("Vocals/Outtakes/007 Sandra/001 Je moet en je zal een blooper hebben.ogg")
+	Outtake.Add("Vocals/Outtakes/007 Sandra/002 Anders zoekt Dandor het maar uit.ogg")
+
+	Outtake.Chr="Emperor Gedrio Fulla"
+	Outtake.Pic="GFX/Outtakes/Gedrio Fulla.png"
+	Outtake.Act="Jeroen P. Broks"
+	Outtake.Add("Vocals/Outtakes/011 Gedrio Fulla/001 Kut.ogg")
+
+	Outtake.Chr="Harry McDummy"
+	Outtake.Pic="GFX/Outtakes/Harry.png"
+	Outtake.Act="Jeroen P. Broks"
+	Outtake.Add("Vocals/Outtakes/016 Harry/001 All I know.ogg")
+	Outtake.Add("Vocals/Outtakes/016 Harry/999 Am I annoying or what.ogg")
+	
+	Outtake.Chr="Sasha Funda"
+	Outtake.Pic="GFX/Outtakes/Sasha Funda.png"
+	Outtake.Act="Marieke"
+	Outtake.Add("Vocals/Outtakes/017 Sasha Funda/001 My name is Sasha Funda.ogg")
+	Outtake.Add("Vocals/Outtakes/017 Sasha Funda/002.ogg")
+	Outtake.Add("Vocals/Outtakes/017 Sasha Funda/003 Your father... I meant name.ogg")
+	Outtake.Add("Vocals/Outtakes/017 Sasha Funda/004 Dingetje.ogg")
+	Outtake.Add("Vocals/Outtakes/017 Sasha Funda/005 Dingetje 2.ogg")
+	Outtake.Add("Vocals/Outtakes/017 Sasha Funda/007 but.ogg")
+	
+	Outtake.Chr="Chief Werrington"
+	Outtake.Pic="GFX/Outtakes/Chief Werrington.png"
+	Outtake.Act="Marieke"
+	Outtake.Add("Vocals/Outtakes/018 Chief Werrington/001 What is there to negotiate about.ogg")
+	Outtake.Add("Vocals/Outtakes/018 Chief Werrington/002 Why should I trust.ogg")                          
+  
+	Outtake.Chr="Yannee, daughter of Fandalora"
+	Outtake.Pic="GFX/Outtakes/Yannee.png"
+	Outtake.Act="Evelyn Klein-Hulse"	
+	Outtake.Add("Vocals/Outtakes/019 Yannee/001.ogg")
+	
+	Outtake.Chr="Krandar, son of Gandophar"
+	Outtake.Pic="GFX/Outtakes/Krandar.png"
+	Outtake.Act="Jeroen P. Broks"
+	Outtake.Add("Vocals/Outtakes/021 Krandar/001 My name is .ogg")
+	Outtake.Add("Vocals/Outtakes/021 Krandar/002 Scheet.ogg")
+	Outtake.Add("Vocals/Outtakes/021 Krandar/003 Feenalaria.ogg")
+	Outtake.Add("Vocals/Outtakes/021 Krandar/004 Nostramantu realized.ogg")
+	Outtake.Add("Vocals/Outtakes/021 Krandar/005 Ja Family is gewoon een moeilijk woord, weet je.ogg")
+	Outtake.Add("Vocals/Outtakes/021 Krandar/006 Schrik niet.ogg")
+	
+	Outtake.Chr="Feenalaria, daughter of Vandar"
+	Outtake.Pic="GFX/Outtakes/Feenalaria.png"
+	Outtake.Act="Marieke"
+	Outtake.Add("Vocals/Outtakes/998 Feenalaria/001 Not even started.ogg")
+	Outtake.Add("Vocals/Outtakes/998 Feenalaria/002 Dat is twee.ogg")
+	Outtake.Add("Vocals/Outtakes/998 Feenalaria/003 Forbidden spell.ogg")
+	Outtake.Add("Vocals/Outtakes/998 Feenalaria/004 You are right Krandar.ogg")
+	Outtake.Add("Vocals/Outtakes/998 Feenalaria/005 He didn't expect.ogg")
+	Outtake.Add("Vocals/Outtakes/998 Feenalaria/006 Die dingen, jeweetwel.ogg")
+	Outtake.Add("Vocals/Outtakes/998 Feenalaria/007 Prirect you - Protect you.ogg")
+	Outtake.Add("Vocals/Outtakes/998 Feenalaria/008 Zelfs 1 woord.ogg")
+	Outtake.Add("Vocals/Outtakes/998 Feenalaria/009 Teeheehee.ogg")
+	Outtake.Add("Vocals/Outtakes/998 Feenalaria/010.ogg")
+	Outtake.Add("Vocals/Outtakes/998 Feenalaria/011 Your sources were correct.ogg")
+	Outtake.Add("Vocals/Outtakes/998 Feenalaria/012 It was my husband.ogg")
+	Outtake.Add("Vocals/Outtakes/998 Feenalaria/014 I know Dandor.ogg")
+	Outtake.Add("Vocals/Outtakes/998 Feenalaria/015 Beweeg niet.ogg")
+	Outtake.Add("Vocals/Outtakes/998 Feenalaria/016 I am.ogg")
+	Outtake.Add("Vocals/Outtakes/998 Feenalaria/017 Intonatie.ogg")
+	Outtake.Add("Vocals/Outtakes/998 Feenalaria/018 Cluck-cluck-Clunk.ogg")
+	
+	Outtake.Chr="Nostramantu, son of Sulamon"
+	Outtake.Pic="GFX/Outtakes/Nostramantu.png"
+	Outtake.Act="Jeroen P. Broks"
+	Outtake.Add("Vocals/Outtakes/999 Nostramantu/001 I knew it would go wrong one day.ogg")                                                                               
+End
+
+Void NextSound()
+	Music.Play("Music/Sys/Silence.ogg")
+	Outtake.Current++
+	if !HasVocals()
+		Outtake.Current=#Outtake.Lijst+1
+	End
+	If OutTake.CD
+		OutTake.CD.Play()
+	End
+End
+
+Void ThanksForPlaying()
+	Static Var TFP = Image.Load("GFX/Algemeen/Thank You For Playing.png")
+	Static Int Time
+	Time = (Time-1) % Screen.W
+	Graphics.Color(255,255,255)
+	TFP.Stretch(0,0,Screen.W,Screen.H-10)
+	Graphics.Color(255,180,0)
+	Graphics.Rect(0,Screen.H-10,Time,10)
+	If Time==0
+		Print("All came to an end. Quitting the game!")
+		Flow.Quit()
+	End
+End
+
+Global Void Apollo_Flow()
+	Static Var Back = Image.Load("gfx/Worldmap/back.png") 
+	Graphics.Color(0,127,0)
+	Back.Tile(0,0,Screen.W,Screen.H)
+	If Outtake.Current<=0
+		NextSound()
+	End
+	If !OutTake.CD
+		ThanksForPlaying()
+		Return 
+	End
+	If !Outtake.Playing
+		NextSound()
+	End
+	If !OutTake.CD
+		ThanksForPlaying()
+		Return 
+	End
+	Number Part = Screen.Height / Outtake.CD.Img.Height
+	Int H = math.floor(Part*Outtake.CD.Img.Height)
+	Int W = math.floor(Part*Outtake.CD.Img.Height)
+	
+	Graphics.Color(255,255,255)
+	Outtake.CD.Img.Stretch(Screen.W-W,0,W,H)
+	Graphics.Color(255,180,0)
+	Big.DarkText(Outtake.CD.Character,10,10)
+	Graphics.Color(255,255,255)
+	Fnt.DarkText(sprintf("Voiced by: %s",OutTake.CD.Actor),10,100)
+	Number P = Outtake.Current/#Outtake.Lijst
+	Int R = math.ceil(P*Screen.W)
+	Graphics.Color(255,180,0)
+	Graphics.Rect(0,Screen.H-30,R,30)
+	Graphics.Color(255,255,255)
+	Fnt.DarkText(sprintf("Outtakes: %02d/%02d",Outtake.Current,#Outtake.Lijst),Screen.W div 2,Screen.H - 10,2,1)
+	If Events.KeyHit(27)
+		Outtake.Current += 10000
+	End
+End
