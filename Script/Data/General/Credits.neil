@@ -1,0 +1,265 @@
+// License Information:
+// **********************************************
+// 
+// src/Tricky Script/Script/Data/General/Credits.neil
+// (c) Jeroen Broks, 2022, All Rights Reserved.
+// 
+// This file contains material that is related
+// to a storyline that is which is strictly
+// copyrighted to Jeroen Broks.
+// 
+// This file may only be used in an unmodified
+// form with an unmodified version of the
+// software this file belongs to.
+// 
+// You may use this file for your study to see
+// how I solved certain things in the creation
+// of this project to see if you find valuable
+// leads for the creation of your own.
+// 
+// Mostly this file comes along with a project
+// that is for most part released under an
+// open source license and that means that if
+// you use that code with this file removed
+// from it, you can use it under that license.
+// Please check out the other files to find out
+// which license applies.
+// This file comes 'as-is' and in no possible
+// way the author can be held responsible of
+// any form of damages that may occur due to
+// the usage of this file
+// 
+// 
+// **********************************************
+// 
+// version: 22.02.15
+// End License Information
+
+Class CreditLine
+	ReadOnly String Text
+	ReadOnly Int R
+	ReadOnly Int G
+	ReadOnly Int B
+	ReadOnly Var Img
+	Int Y
+	ReadOnly Int White
+	ReadOnly Int BaseY
+	Static Int AllBaseY = 0
+
+	Static Var Reg = new TLinkedList()
+
+	Constructor(String _Text,Int _R, Int _G, Int _B,Int _White=0)
+		R = _R
+		G = _G
+		B = _B
+		Text = _Text
+		If Prefixed(Text,"IMG:")
+			Img = Image.Load(Right(Text,#Text-4))
+			Img.HotBottomCenter()
+			AllBaseY += Img.Height
+			BaseY = AllBaseY
+		Else
+			BaseY = AllBaseY
+			AllBaseY += 30
+		End
+		White = _White
+		AllBaseY += _White
+	End
+End
+
+Void ACL(String L,Int _R, Int _G, Int _B,Int White=0)
+  CreditLine.Reg.AddLast(New CreditLine(L,_R,_G,_B,White))
+End
+
+Init
+	ACL("IMG:GFX/Logo/Title.png",255,255,255)
+	ACL("A game by Jeroen P. Broks",255,180,0,200)
+	ACL("",0,0,0)
+	ACL("Jeroen P. Broks",255,180,0)
+	ACL("Apollo Game Engine",255,255,255,0)
+	ACL("Base Configuration",255,255,255,0)
+	ACL("Character Database",255,255,255,0)
+	ACL("Design",255,255,255,0)
+	ACL("Docs",255,255,255,0)
+	ACL("Dutch Translations",255,255,255,0)
+	ACL("Equipment Icons",255,255,255,0)
+	ACL("Field Icons",255,255,255,0)
+	ACL("Fonts",255,255,255,0)
+	ACL("Graphics",255,255,255,0)
+	ACL("Graphics Data",255,255,255,0)
+	ACL("Jeroen's Collected Resource version 6 (JCR6)",255,255,255,0)
+	ACL("Kthura Map System",255,255,255,0)
+	ACL("Maps",255,255,255,0)
+	ACL("Menu Icons",255,255,255,0)
+	ACL("Music",255,255,255,0)
+	ACL("Neil Scripting Language",255,255,255,0)
+	ACL("Scenario",255,255,255,0)
+	ACL("Scripting",255,255,255,0)
+	ACL("Sound Effects",255,255,255,0)
+	ACL("",0,0,0,100)
+	ACL("Cast",255,180,0)
+	ACL("Hando Stillor: Jeroen P. Broks",255,255,255)
+	ACL("Master John: Wouter Werschkull",255,255,255)
+	ACL("Jake Daniel Werrington: W.K. Chan",255,255,255)
+	ACL("Chief Werrington: Wouter Werschkull",255,255,255)
+	ACL("Harry McDummy: Jeroen P. Broks",255,255,255)
+	ACL("Fandalora, son of Randarph: Wouter Werschkull",255,255,255)
+	ACL("Marrilona, daughter of Fandalora: Evelyn Klein-Hulse",255,255,255)
+	ACL("Nostramantu, son of Salumon: Jeroen P. Broks",255,255,255)
+	ACL("Sandra: Angela Nagtzaam",255,255,255)
+	ACL("Dandor: Jeroen P. Broks",255,255,255)
+	ACL("Feenalaria, daughter of Vandar: Marieke",255,255,255)
+	ACL("Sasha Funda: Marieke",255,255,255)
+	ACL("Krandar, son of Gandophar: Jeroen P. Broks",255,255,255)
+	ACL("Emperor Gedrio Fulla: Jeroen P. Broks",255,255,255)
+	ACL("Yannee, daughter of Fandalora: Evelyn Klein-Hulse",255,255,255)
+	ACL("", 0, 0, 0, 100)
+	ACL("Extra assistance from", 0, 180, 255, 20)
+	ACL("",0,0,0)
+	ACL("Man Of Steel",255,180,0)
+	ACL("Graphics",255,255,255,0)
+	ACL("",0,0,0)
+	ACL("Aeris",255,180,0)
+	ACL("Graphics",255,255,255,0)
+	ACL("",0,0,0)
+	ACL("Linvala",255,180,0)
+	ACL("Graphics",255,255,255,0)
+	ACL("",0,0,0)
+	ACL("JWH Broeders",255,180,0)
+	ACL("Graphics",255,255,255,0)
+	ACL("",0,0,0)
+	ACL("Wicky77",255,180,0)
+	ACL("Music",255,255,255,0)
+	ACL("",0,0,0)
+	ACL("Wicky77 & Wout",255,180,0)
+	ACL("Music",255,255,255,0)
+	ACL("",0,0,0)
+	ACL("Hung Kee Chan",255,180,0)
+	ACL("Music",255,255,255,0)
+	ACL("", 0, 0, 0, 200)
+	ACL("And then I wish to thank the following", 0, 180, 255, 0)
+	ACL("contributors to the free community.", 0, 180, 255, 0)
+	ACL("Without their selfless efforts", 0, 180, 255, 0)
+	ACL("this game would not have been posisble", 0, 180, 255, 0)
+	ACL("",0,0,0)
+	ACL("anares",255,180,0)
+	ACL("Graphics",255,255,255,0)
+	ACL("",0,0,0)
+	ACL("Benboncan",255,180,0)
+	ACL("Sound Effects",255,255,255,0)
+	ACL("",0,0,0)
+	ACL("Benjamin Koehler",255,180,0)
+	ACL("Fonts",255,255,255,0)
+	ACL("",0,0,0)
+	ACL("bnsonger47",255,180,0)
+	ACL("Graphics",255,255,255,0)
+	ACL("",0,0,0)
+	ACL("Dieter Steffman",255,180,0)
+	ACL("Fonts",255,255,255,0)
+	ACL("",0,0,0)
+	ACL("Ed Kasap",255,180,0)
+	ACL("Graphics",255,255,255,0)
+	ACL("",0,0,0)
+	ACL("Eric Matyas",255,180,0)
+	ACL("Music",255,255,255,0)
+	ACL("",0,0,0)
+	ACL("Firkin",255,180,0)
+	ACL("Graphics",255,255,255,0)
+	ACL("",0,0,0)
+	ACL("freeSFX.co.uk",255,180,0)
+	ACL("Sound Effects",255,255,255,0)
+	ACL("",0,0,0)
+	ACL("GDJ",255,180,0)
+	ACL("Graphics",255,255,255,0)
+	ACL("",0,0,0)
+	ACL("glitch",255,180,0)
+	ACL("Graphics",255,255,255,0)
+	ACL("",0,0,0)
+	ACL("GR-Sites",255,180,0)
+	ACL("Graphics",255,255,255,0)
+	ACL("Sound Effects",255,255,255,0)
+	ACL("",0,0,0)
+	ACL("Helm42",255,180,0)
+	ACL("Graphics",255,255,255,0)
+	ACL("",0,0,0)
+	ACL("J4p4n",255,180,0)
+	ACL("Graphics",255,255,255,0)
+	ACL("",0,0,0)
+	ACL("Jean-loup Gailly and Mark Adler",255,180,0)
+	ACL("zlib compression library",255,255,255,0)
+	ACL("",0,0,0)
+	ACL("Kelly",255,180,0)
+	ACL("Graphics",255,255,255,0)
+	ACL("",0,0,0)
+	ACL("Kevin McLeod",255,180,0)
+	ACL("Music",255,255,255,0)
+	ACL("",0,0,0)
+	ACL("Kuba",255,180,0)
+	ACL("Graphics",255,255,255,0)
+	ACL("",0,0,0)
+	ACL("Matt McFarland",255,180,0)
+	ACL("Music",255,255,255,0)
+	ACL("",0,0,0)
+	ACL("Merlin2525",255,180,0)
+	ACL("Graphics",255,255,255,0)
+	ACL("",0,0,0)
+	ACL("Michael Frank",255,180,0)
+	ACL("Graphics",255,255,255,0)
+	ACL("",0,0,0)
+	ACL("Nihilore",255,180,0)
+	ACL("Music",255,255,255,0)
+	ACL("",0,0,0)
+	ACL("OCAL (Unknown artist)",255,180,0)
+	ACL("Fonts",255,255,255,0)
+	ACL("Graphics",255,255,255,0)
+	ACL("",0,0,0)
+	ACL("OpenSourceBear",255,180,0)
+	ACL("Graphics",255,255,255,0)
+	ACL("",0,0,0)
+	ACL("Papapishu",255,180,0)
+	ACL("Graphics",255,255,255,0)
+	ACL("",0,0,0)
+	ACL("Pruno",255,180,0)
+	ACL("Music",255,255,255,0)
+	ACL("",0,0,0)
+	ACL("PUC RIO",255,180,0)
+	ACL("Lua scripting engine",255,255,255,0)
+	ACL("",0,0,0)
+	ACL("Rambo Tribble",255,180,0)
+	ACL("Graphics",255,255,255,0)
+	ACL("Graphics Data",255,255,255,0)
+	ACL("",0,0,0)
+	ACL("Ray Larabie",255,180,0)
+	ACL("Fonts",255,255,255,0)
+	ACL("",0,0,0)
+	ACL("Roana",255,180,0)
+	ACL("Graphics",255,255,255,0)
+	ACL("",0,0,0)
+	ACL("Sam Lantinga & the SDL Team",255,180,0)
+	ACL("Simple Direct Media Layer (SDL)",255,255,255,0)
+	ACL("",0,0,0)
+	ACL("snoopingasusual",255,180,0)
+	ACL("Graphics",255,255,255,0)
+	ACL("",0,0,0)
+	ACL("SpiedKiks",255,180,0)
+	ACL("Music",255,255,255,0)
+	ACL("",0,0,0)
+	ACL("Unknown",255,180,0)
+	ACL("Fonts",255,255,255,0)
+	ACL("Graphics",255,255,255,0)
+	ACL("",0,0,0)
+	ACL("Unknown Artist",255,180,0)
+	ACL("Graphics",255,255,255,0)
+	ACL("",0,0,0)
+	ACL("Varazuvi(TM)",255,180,0)
+	ACL("Sound Effects",255,255,255,0)
+	ACL("",0,0,0)
+	ACL("Widzy",255,180,0)
+	ACL("Sound Effects",255,255,255,0)
+	ACL("", 0, 0, 0, 200)
+	ACL("The entire story is fictional.", 255, 255, 255, 0)
+	ACL("Any resemblance to real people, either famous or unknown,", 255, 255, 255, 0)
+	ACL("either dead or alive, is merely coincidental", 255, 255, 255, 0)
+	ACL("", 0, 0, 0, 200)
+	ACL("(c) 2004, 2017, 2022 Jeroen P. Broks", 255, 255, 255, 0)
+End
