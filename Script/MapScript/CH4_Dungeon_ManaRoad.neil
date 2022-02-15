@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.02.14
+// version: 22.02.15
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -147,7 +147,10 @@ Group MScript
         Map.SetObj("Harry","Texture","Gfx/Actors/Single/Humans/Harry.png")
         MapText("WEDDING2")
         //assert(false,"Sorry, no more yet")
-        State.Load("CREDITS","Script/Flow/Credits.neil")
+        Loading()
+        State.Load("FLOW_CREDITS","Script/Flow/FlowCredits.neil")
+        State.Load("FLOW_OUTTAKES","Script/Flow/FlowOuttakes.neil")
+        State.Call("FLOW_CREDITS","Reset","\"OUTTAKES\"")
         Flow.Current="CREDITS"
 	End
 	
