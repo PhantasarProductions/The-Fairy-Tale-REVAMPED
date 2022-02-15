@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.02.13
+// version: 22.02.15
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -193,7 +193,7 @@ Group MScript
 
 	Void NPC_Nostramantu()
 		Map.Pop("Nos_","North",true)
-		// MapText("CONFRONTATION")
+		MapText("CONFRONTATION")
 		// Init Fight
 		//ClearCombatData()
 		gv.gbool.FinalFight = True
