@@ -210,7 +210,7 @@ Group MScript
 		Combat.Start()
 		//Schedule('MAP','PostFinalBoss')
 		Schedule.Add("PostFinalBoss")
-	end
+	End
 	
 	Void PostFinalBoss()
 		gv.gbool.FinalFight = False
@@ -221,8 +221,7 @@ Group MScript
     	end
     	Map.GoToMap("CH4_DUNGEON_MANAROAD","BOS","Einde")
     	Schedule.Add("GameComplete")
-    
-	end    
+	End    
 
 	Void ManaCave()
 		Map.GoToMap("CH4_DUNGEON_MANACAVE","#020","Einde")
