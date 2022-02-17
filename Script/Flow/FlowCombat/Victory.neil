@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Victory.neil
-// Version: 22.02.06
+// Version: 22.02.16
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -92,6 +92,7 @@ Class Stage_Victory extends Stage
 			BanScale=0
 			Shout()
 			Master.AllInc("Feenalaria","FeenalariaPoints")
+			gv.gint.Combat_Victories++
 		End
 	End
 
