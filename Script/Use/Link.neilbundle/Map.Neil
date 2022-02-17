@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Link.neilbundle/Map.Neil
-// Version: 22.02.01
+// Version: 22.02.16
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -449,6 +449,18 @@ Module
 	
 	Bool Block(Int X, Int Y, pure)
 		return ISGET.Bool("FLOW_FIELD",sprintf("FlowField.Map.CurrentLayer.Blocked(%d,%d,%s)",X,Y,Lua.tostring(pure!=nil && pure!=false)))
+	End
+	
+	Get Table Layers
+		return Split(ISGet.String("FLOW_FIELD","FlowField.Map.KthuraMap.StringLayers"),";")
+	End
+	
+	Get Table Tags
+		return Split(ISGet.String("FLOW_FIELD","FlowField.Map.CurLayer.TagList"),",")
+	End
+	
+	Table LayTags(string Layer)
+		return Split(ISGet.String("FLOW_FIELD",sprintf("FlowField.Map.KthuraMap.Layer(\"%s\").TagList",Layer)),",")
 	End
 
 	
