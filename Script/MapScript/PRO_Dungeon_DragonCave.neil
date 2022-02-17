@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.02.05
+// version: 22.02.15
 // End License Information
 
 #use "script/use/anyway"
@@ -47,6 +47,7 @@ Group MScript
 	End
 	
 	Void NPC_Guard()
+		Map.AllowAutoScroll=False
 		MapText("GUARD1")
 		Map.ScrollTo(Map.ScrollX,-Screen.H,3)
 		Map.HideObj("PLAYER")
