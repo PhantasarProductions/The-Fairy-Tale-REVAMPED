@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField/Map.neil
-// Version: 22.02.01
+// Version: 22.02.17
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -49,7 +49,6 @@ Module
 	Bool AllowAutoScroll = True
 	Var ArriveFunc = Nil
 	String ArriveParam 
-	Table RoomNames = {}
 
 	Get String LoadedMap
 		Return gv.gstr.LoadedMap
@@ -95,7 +94,7 @@ Module
 			SX = math.max(1,Speed)
 			NX = X
 		elseif X>ScrollX
-			SX = -math.max(1,Speed)
+			SX = 0-math.max(1,Speed)
 			XX = X
 		End
 		If Y<ScrollY
@@ -103,21 +102,30 @@ Module
 			SY = math.max(1,Speed)
 		elseif Y>ScrollY
 			XY = Y
-			SY = -math.max(1,Speed)
+			SY = 0-math.max(1,Speed)
 		End
+		CSayF("Scrolling to (%d,%d) from (%d,%d) Speed: (%d,%d)",ScrollX,ScrollY,X,Y,SX,SY)
+		Int TimeOut=1000
 		Repeat
 			ScrollX += SX
 			ScrollY += SY
-			ScrollX = math.min(NX,ScrollX)
-			ScrollX = math.max(XX,ScrollX)
-			ScrollY = math.min(NY,ScrollY)
-			ScrollY = math.max(XY,ScrollY)
+			ScrollX = math.min(XX,ScrollX)
+			ScrollX = math.max(NX,ScrollX)
+			ScrollY = math.min(XY,ScrollY)
+			ScrollY = math.max(NY,ScrollY)
 			Graphics.Cls()
 			FlowField.DrawScreen()
 			Graphics.Flip()
 			Events.Poll()
 			FPS.WaitMinTicks()
-		Until ScrollX==X && ScrollY==Y
+			TimeOut--
+			if TimeOut<9000
+				CSayF("- Scrolling to (%d,%d) Current (%d,%d) Speed: (%d,%d); TimeOut: %04d",ScrollX,ScrollY,X,Y,SX,SY,TimeOut)
+			End
+		Until (ScrollX==X && ScrollY==Y) || TimeOut<=0
+		if (TimeOut<=0)
+			Print("\7WARNING! Scroll failed! Timed out!")
+		End
 	End
 	
 	Void SetLayer(String L)
@@ -148,7 +156,7 @@ Module
 		ArriveParam = ""
 	End
 
-	
+	Table LayerName
 	Void CBLoadMap(string mapbundle)
 		AllowAutoScroll = true
 		LoadedMap = MapBundle:upper()
@@ -157,7 +165,17 @@ Module
 		KthuraMap.Remap()
 		Layer = KthuraMap.Layers[1]
 		gv.gStr.MapTitle = KthuraMap.Meta.Title
+		LayerName = {}
+		If Trim(KthuraMap.Meta.NamedZones)!=""
+			For PL in each(Split(KthuraMap.Meta.NamedZones,";"))
+				Var Cut = Split(PL,"=")
+				String Lay = Cut[1]:upper()
+				LayerName[Lay]=Cut[2]
+			End
+		End
 	End
+	
+	
 		
 	Void SG()
 		SaveGame.Data["PermaKills.NEIL"] = FieldFlow.Kill.Serialize
