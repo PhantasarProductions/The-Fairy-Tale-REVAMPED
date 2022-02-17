@@ -110,6 +110,15 @@ Group MScript
 	End
 	#endregion
 	
+	Void NPC_Tai()
+		If Done.DONE_NGP_SPOKEN_TAI
+			MapText("TAI2")
+		Else
+			MapText("TAI1")
+			WorldMap.Unlock("NGPQUAYARO")
+		End
+	End
+	
 	
 	Void Leave()
 		If !__BossDone
