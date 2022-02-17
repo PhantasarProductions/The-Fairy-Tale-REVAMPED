@@ -314,8 +314,11 @@ class MenuItem
 	end
 	
 	static bool AllowNewGamePlus()
-		// TODO: Scan for unlocking New Game+
-		return false
+		Bool R
+		Medals.Game="TFT"
+		R = Medals.Awarded("CHAPTER4")
+		print("DEBUG! Allow New Game Plus:",R)
+		return R
 	end
 	
 	static void Continue()
@@ -334,8 +337,7 @@ class MenuItem
 		Flow.Current="SAVEGAME"
 	end
 	
-	static Bool CanLoad()
-		// TODO: Scan for savegames
+	static Bool CanLoad()		
 		return true
 	end
 	
