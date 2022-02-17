@@ -65,6 +65,7 @@ Group MScript
 		End
 	End
 		
+	#region Boss Marrilona
 	Void Boss_Marrilona()
 		MapText("BOSS_MARRILONA")
 		Combat.Boss("Another","Dwarf")
@@ -89,6 +90,26 @@ Group MScript
 		Schedule.Add("Start_Marrilona")
 		__BossDone = True
 	End
+	#endregion
+	
+	#region Boss Jake
+	Void Boss_Jake()
+		MapText("BOSS_JAKE")
+		Combat.QuickBoss("Berserk Fellow","Dwarf","Dwarf_J")
+		Schedule.Add("PostBoss_Jake")
+	End
+	
+	Void PostBoss_Jake()
+		RemoveStartCrap()
+		Map.GoToLayer("FRENDORBUSHES","PostBossJake")
+		Map.ShowObj("DeadMarrilona")
+		MapText("POSTBOSS_JAKE")
+        Map.GoToMap("CH1_HUB_JAKEHUT","INTERIOR","Start")
+		Schedule.Add("Start_Jake")
+		__BossDone = True
+	End
+	#endregion
+	
 	
 	Void Leave()
 		If !__BossDone
