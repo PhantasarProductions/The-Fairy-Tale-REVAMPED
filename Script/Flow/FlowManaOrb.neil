@@ -2,7 +2,7 @@
 // **********************************************
 // 
 // src/Tricky Script/Script/Flow/FlowManaOrb.neil
-// (c) Jeroen Broks, 2021, All Rights Reserved.
+// (c) Jeroen Broks, 2021, 2022, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.10.25
+// version: 22.02.15
 // End License Information
 #use "Script/Use/Anyway"
 
@@ -89,6 +89,7 @@ Global Void Apollo_Flow()
 				Party.SetSkill(DChar,i,1)
 				gv.gint.ManaOrb_LastChosen = i0
 				Flow.Current="FIELD"
+				gv.gint.ManaOrb_Collected++
 			End
 		End
 		Font.DarkText(e,Screen.W div 2,Y,2)
