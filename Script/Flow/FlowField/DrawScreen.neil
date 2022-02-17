@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField/DrawScreen.neil
-// Version: 22.01.24
+// Version: 22.02.17
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -106,9 +106,9 @@ Void FieldStats()
 	if Left(FlowField.Map.Layer,1)=="#" 
 		stuff[2]={"FSROM",FlowField.Map.Layer} 
 	end
-    if FlowField.Map.RoomNames[FlowField.Map.Layer]
-    	stuff += {"FSRMN",FlowField.Map.RoomNames[FlowField.Map.Layer],"FieldInfo"} 
-    end
+    if FlowField.Map.LayerName[FlowField.Map.Layer]
+    	stuff += {"FSRMN",FlowField.Map.LayerName[FlowField.Map.Layer],"FieldInfo"} 
+    end    
     if gv.gInt.CASH>0
     	stuff += {"FSCSH",gv.gINT.CASH}     
     end
