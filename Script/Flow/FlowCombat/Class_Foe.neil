@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Class_Foe.neil
-// Version: 22.02.12
+// Version: 22.02.15
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -215,7 +215,7 @@ Class Foe Extends Fighter
         	pLua xget = (Self.Raw.Stats.EXP || 1)*(rate)
         	xget = math.ceil(xget)
         	If __NewGamePlus
-           		xget = xget * (4-skill) 
+           		xget = xget * (4-__skill) 
            	end
            	RPGChar[ch].Stat.Experience -= xget
            	CSayF("=> %d:%09d EXP",i,xget)
