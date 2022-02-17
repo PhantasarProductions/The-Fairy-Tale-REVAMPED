@@ -1,0 +1,127 @@
+// License Information:
+// **********************************************
+// 
+// src/Tricky Script/Script/MapScript/NGP_Dungeon_Quayaro.neil
+// (c) Jeroen Broks, 2022, All Rights Reserved.
+// 
+// This file contains material that is related
+// to a storyline that is which is strictly
+// copyrighted to Jeroen Broks.
+// 
+// This file may only be used in an unmodified
+// form with an unmodified version of the
+// software this file belongs to.
+// 
+// You may use this file for your study to see
+// how I solved certain things in the creation
+// of this project to see if you find valuable
+// leads for the creation of your own.
+// 
+// Mostly this file comes along with a project
+// that is for most part released under an
+// open source license and that means that if
+// you use that code with this file removed
+// from it, you can use it under that license.
+// Please check out the other files to find out
+// which license applies.
+// This file comes 'as-is' and in no possible
+// way the author can be held responsible of
+// any form of damages that may occur due to
+// the usage of this file
+// 
+// 
+// **********************************************
+// 
+// version: 22.02.17
+// End License Information
+
+#use "Script/Use/Anyway"
+
+QuickMeta Switched
+	Index
+		return gv.gbool["QUAYARO_SWITCH_"..key]
+	end
+	
+	NewIndex
+		gv.gbool["QUAYARO_SWITCH_"..key] = value
+	End
+End
+
+Group MScript
+
+	ReadOnly Bool HasDraw   = False
+	ReadOnly Bool HasUpdate = False
+	
+	Void GaNaar(string spot)
+		Table Cut = Split(spot,"_")
+		CSayF("Going to Layer: %s; spot %s",Cut[2]:upper(),Cut[3])
+		Map.GoToLayer(Cut[2]:upper(),Cut[3])
+	End
+	
+	Get Bool ThisSwitchDone
+		Return Switched[Map.Layer]
+	End
+	Set Bool ThisSwitchDone
+		Switched[Map.Layer] = Value
+	End
+	Get Int SwitchCount
+		Int Ret = 0
+		For k in Each{"KITCHEN","DUNGEON","CHAPEL","BARN"}
+			if Switched[k]
+				Ret++
+			End
+		End
+		Return Ret
+	End
+	
+	Void NPC_Switch()
+		If ThisSwitchDone
+			Ach.Award("ZZNGP_QUAYARO_LEVERSTUCK")
+			MapText("STUCK")
+			Return
+		End
+		ThisSwitchDone = True
+		Map.SetObj("NPC_Switch","Texture","GFX/Textures/Switch/Right.png")
+		If SwitchCount>=4
+			MapText("OPEN")
+			Map.LayKill("COURTYARD","MainDoor",true)
+		End
+	End
+	
+	Void StartBoss()
+		Combat.QuickNGPBoss("Undead criminal","Shadow Rogue","ShadowRogue")
+		Map.Kill("StartBoss",true)
+		Map.Kill("Boss",true)
+	End
+	
+	Void NPC_Zyviola()
+		gv.gbool.Heroes_Zyviola = true
+		Bool All = True
+		For h in Each{"Zyviola","SymphoNica","Wanindra","Colportarus"}
+			All = All && gv.gbool["Heroes_"..h]
+		End
+		If All
+			Ach.Award("ZZNGP_ALL")
+		End
+		Ach.Award("ZZNGP_QUAYARO")
+		WorldMap.Unlock("NGPHEROES")
+		MapText("HEROES_ZYVIOLA")
+		WorldMap.Go()
+	End
+	
+	
+	Constructor
+		For Lay in Each(Map.Layers)
+			CSayF("Scanning Layer: %s",Lay)
+			For Tag in Each(Map.LayTags(Lay))
+				If Prefixed(Tag,"to_")
+					CSayF("= Chain: %s",Tag)
+					ZA.Enter(Tag,"GaNaar",Tag)
+				Else
+					CSayF("= Ignore: %s",Tag)
+				End
+			End
+		End
+		ZA.TabEnter{"StartBoss"}
+	End
+End
