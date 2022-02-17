@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Execution.neil
-// Version: 22.02.10
+// Version: 22.02.15
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -198,24 +198,24 @@ Class Stage_Execution Extends Stage
 		// After Action Script 
 		String AA_Dir = "Script/Use/Combat/AfterAction/"
 		String AA_File = AA_Dir
-		Switch Act.Executor.Team
-			Case "Hero"
-				String T = Act.Executor.Tag
-				Switch Act.Executor.Tag
-					Case "Jake_Human" "Jake_Fairy"
-						T = "Jake"
-					Default
-				End
-				AA_File += "Hero/"..T
-			Case "Foe"
-				AA_File += "Foe/"..Act.Executor.File
-			Default
-				Lua.error("Invalid team")
-		End
-		If JCR6.EntryExists(AA_File..".neil")
-			AfterActions[AA_File] = AfterActions[AA_File] || NeilUse(AA_File)
-			AfterActions[AA_File](Act)
-		End
+		//Switch Act.Executor.Team
+		//	Case "Hero"
+		//		String T = Act.Executor.Tag
+		//		Switch Act.Executor.Tag
+		//			Case "Jake_Human" "Jake_Fairy"
+		//				T = "Jake"
+		//			Default
+		//		End
+		//		AA_File += "Hero/"..T
+		//	Case "Foe"
+		//		AA_File += "Foe/"..Act.Executor.File
+		//	Default
+		//		Lua.error("Invalid team")
+		//End
+		//If JCR6.EntryExists(AA_File..".neil")
+		//	AfterActions[AA_File] = AfterActions[AA_File] || NeilUse(AA_File)
+		//	AfterActions[AA_File](Act)
+		//End
 			
 		If Act.Executor.Team=="Hero"
 			// To make sure only the last one to act speaks and moves (in boss they all move, but only the last actor speaks)
@@ -228,10 +228,19 @@ Class Stage_Execution Extends Stage
 			ExpRate[Act.Executor.Tag]+= 0.003 - (__skill/1000)
 			// Skill up
 			For ski=1,5
-				Party.IncSkill(Act.Executor.Tag,ski,Act.Act["rew_GainSkill"..ski],Act.Act["rew_CreateSkill"..ski])
+				Int tme = 1
+				if __NewGamePlus
+					tme += 3-__skill
+				End
+				For skj=1,tme
+					Party.IncSkill(Act.Executor.Tag,ski,Act.Act["rew_GainSkill"..ski],Act.Act["rew_CreateSkill"..ski])
+				End
 			End
 			If Act.Teaching
 				CharMsg(act.executor.tag,"Learned: "..Act.Act.Title,180,0,255)
+			ElseIf Act.CheckAfterAction && Prefixed(act.executor.tag,"Jake") && math.random(1,4*__skill)==1
+				BoxText.Serial("LEARNABILITY", "AUTO_JAKE", "FLOW_COMBAT")
+				FlowCombat.Cards.AddCard(2,Act.Executor.Tag,new Action(Act.Act.Tag,Act.Executor.Tag,Act.TarTags,{["CheckAfterAction"]=True}))
 			End
 		End
 		// Is there a message? (Should only be used for learning new spells).
