@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Effect.neil
-// Version: 22.02.10
+// Version: 22.02.15
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -178,6 +178,20 @@ Group Effect
       		C.Gendrabroe = dmg
       	End
       	
+      	// Hando Stillor Emergency action
+      	If fighter.bytag[tag].Team=="Hero"
+      		Bool AnyBad = False
+      		For t,hero in pairs(fighter.bytag)
+      			if hero.Team=="Hero"
+      				number p = Hero.HP / Hero.HPMax
+      				AnyBad = AnyBad || (p<(0.12 / __skill))
+      			end
+      		end
+      		If AnyBad && fighter.bytag.HandoStillor && RPGChar.HandoStillor.Points.HP.Have>0
+      			BoxText.Serial("LEARNABILITY", "AUTO_HANDOSTILLOR", "FLOW_COMBAT")
+      			FlowCombat.Cards.Add(1,"HandoStillor")
+      		End
+      	End      	
       	return dmg
     end
 	     
