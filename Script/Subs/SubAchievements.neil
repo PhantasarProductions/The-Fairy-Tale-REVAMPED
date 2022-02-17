@@ -1,7 +1,7 @@
 // License Information:
 // src/Tricky Script/Script/Subs/SubAchievements.neil
-// Version: 21.11.29
-// Copyright (C) 2021 Jeroen Petrus Broks
+// Version: 22.02.16
+// Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
 // This file is part of a project related to the Phantasar Chronicles or another
@@ -86,6 +86,8 @@ End
 Group SubAch
 
 	ReadOnly Var Dat
+	ReadOnly Int Total
+	ReadOnly Int TotalExRate
 	
 	
 	Void Synchronize()
@@ -109,12 +111,30 @@ Group SubAch
 	End
 	
 	Void Award(string Tag)
+		Tag = Tag:upper()
 		If Awarded[Tag]
 			Return
 		End
 		Awarded[Tag] = True
 		Medals.Award(Tag)
 		ABox.Boxes.AddLast(new ABox(Dat[Tag].Title))
+		If !Prefixed(Tag,"RATE")
+			Int ACNT=0
+			for K,_ in pairs(Dat)
+				Var A = Awarded[K]
+				//Print("A-Check:",A,prefixed(K,"RATE"),ACNT,TotalExRate)
+				if A && (!prefixed(K,"RATE"))
+					ACNT++
+				End
+			End
+			number rate=(ACNT/TotalExRate)*100
+			CSayF("Achievement rating is now %03.2f%% (%03d/%03d)",rate,ACNT,TotalExRate)
+			For ir=25,100,25
+				If rate>=ir
+					Award(sprintf("RATE%03d",ir))
+				End
+			End
+		End
 	End
 	
 	Void AutoAward()
@@ -193,6 +213,14 @@ Group SubAch
 		Medals.Game="TFT"
 		Medals.Storage="zlib"
 		Dat = NeilUse("Script/Data/General/Achievements")
+		Total=0
+		TotalExRate=0
+		For k,_ in pairs(Dat)
+			If !prefixed(k,"RATE")
+				TotalExRate++
+			End
+			Total++
+		End
 		Synchronize()
 	End
 	
