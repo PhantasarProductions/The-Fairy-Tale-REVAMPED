@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.01.19
+// version: 22.02.16
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -69,6 +69,7 @@ Group MScript
 		MapText("LOVE_JOIN_"..WhoJoins)
 		MapMusic()
 		Respawn.Reset()
+		Ach.Award("SCEN_LOVE")
 	End
 	
 	Void Start_Marrilona()
@@ -79,6 +80,13 @@ Group MScript
 		WhoJoins="Jake"
 		Love()
 	End
+	
+	Void Start_Jake()
+		RPGParty[1] = "Jake_Human"
+		RPGParty[2] = "Marrilona"
+		WhoJoins="Marrilona"
+		Love()
+	End	
 	#endregion
 	
 	#region Enter and leave the hut
