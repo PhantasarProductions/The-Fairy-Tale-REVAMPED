@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowMaster.neil
-// Version: 22.01.24
+// Version: 22.02.16
 // Copyright (C) 2016, 2017, 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -437,7 +437,7 @@ global Void MasterOverview(int sizes_x,int sizes_y,int sizes_w,int sizes_h)
     end
     If i==0
     	__Red
-    	CFnt.DarkText("No masters have yet been unlocked",Screen.W div 2, Screen.H div 2)
+    	CFnt.DarkText("No masters have yet been unlocked",Screen.W div 2, Screen.H div 2,2,2)
     End
     //if (INP.KeyH(KEY_DOWN)==1 or joyhit(joy_down)) and MasterPos<count then MasterPos = MasterPos + 1 end
     //if (INP.KeyH(KEY_UP  )==1 or joyhit(joy_up  )) and MasterPos>    1 then MasterPos = MasterPos - 1 end
