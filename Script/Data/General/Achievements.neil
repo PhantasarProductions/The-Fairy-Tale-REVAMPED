@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Data/General/Achievements.neil
-// Version: 22.02.17
+// Version: 22.02.18
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -376,9 +376,9 @@ do
 		ret.skill3 = true
 		ret.NormalGame = true
 		ret.NewGamePlus = true
-		ret.AutoVar = ""
-		ret.AutoVal = ""
-		ret.Trace = ""
+		ret.AutoVar = ">ManaOrb_Collected"
+		ret.AutoVal = "7"
+		ret.Trace = "Mana Orbs _MANAORB_COLLECTED_ of 8"
 
 	retbase["MANA8"] = ret
 end
@@ -816,9 +816,9 @@ do
 		ret.skill3 = true
 		ret.NormalGame = true
 		ret.NewGamePlus = true
-		ret.AutoVar = ""
-		ret.AutoVal = ""
-		ret.Trace = ""
+		ret.AutoVar = ">Combat_Victories"
+		ret.AutoVal = "9"
+		ret.Trace = "_COMBAT_VICTORIES_ of 10"
 
 	retbase["VIC0010"] = ret
 end
@@ -836,9 +836,9 @@ do
 		ret.skill3 = true
 		ret.NormalGame = true
 		ret.NewGamePlus = true
-		ret.AutoVar = ""
-		ret.AutoVal = ""
-		ret.Trace = ""
+		ret.AutoVar = ">Combat_Victories"
+		ret.AutoVal = "49"
+		ret.Trace = "_COMBAT_VICTORIES_ of 50"
 
 	retbase["VIC0050"] = ret
 end
@@ -856,9 +856,9 @@ do
 		ret.skill3 = true
 		ret.NormalGame = true
 		ret.NewGamePlus = true
-		ret.AutoVar = ""
-		ret.AutoVal = ""
-		ret.Trace = ""
+		ret.AutoVar = ">Combat_Victories"
+		ret.AutoVal = "99"
+		ret.Trace = "_COMBAT_VICTORIES_ of 100"
 
 	retbase["VIC0100"] = ret
 end
@@ -876,9 +876,9 @@ do
 		ret.skill3 = true
 		ret.NormalGame = true
 		ret.NewGamePlus = true
-		ret.AutoVar = ""
-		ret.AutoVal = ""
-		ret.Trace = ""
+		ret.AutoVar = ">Combat_Victories"
+		ret.AutoVal = "499"
+		ret.Trace = "_COMBAT_VICTORIES_ of 500"
 
 	retbase["VIC0500"] = ret
 end
@@ -1161,6 +1161,26 @@ do
 		ret.Trace = ""
 
 	retbase["ZZNGP_QUAYARO"] = ret
+end
+
+// Record: ZZNGP_QUAYARO_LEVERSTUCK
+do
+	var ret = new MyData_MyDataClass_883c0d10bee4306846edcce22b449a23_d3a2f2f0fcbcf7167e1164cb5cf6a4c2()
+		ret.Title = "WRONG LEVER!!!!!"
+		ret.Description = "Try to switch a lever in Quayaro's castle that is already set"
+		ret.Icon = "*DEFAULT*"
+		ret.Type = "Bronze"
+		ret.Show = "Always"
+		ret.skill1 = true
+		ret.skill2 = true
+		ret.skill3 = true
+		ret.NormalGame = false
+		ret.NewGamePlus = true
+		ret.AutoVar = ""
+		ret.AutoVal = ""
+		ret.Trace = ""
+
+	retbase["ZZNGP_QUAYARO_LEVERSTUCK"] = ret
 end
 
 
