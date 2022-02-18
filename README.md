@@ -24,5 +24,6 @@ Starring:
 - Jeroen P. Broks as Dandor & Hando Stillor
 
 The game scripts are entirely written in [Neil](https://github.com/NeilProject/Neil).
+For some data files and extra tools that are not part of the game itself but which I used to create the game, take a look [here](https://github.com/UnderDaHood/TFT)
 
 ![Marrilona](http://i.imgur.com/VH751h5.png)
