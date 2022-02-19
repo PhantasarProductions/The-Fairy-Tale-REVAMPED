@@ -74,7 +74,7 @@ Global Void Apollo_Flow()
 		End
 		Graphics.Color(255,255,255)
 		CImage.Draw(Screen.W-10,10)
-		Big.DarkText(Foe.Name,InfoX,10)
+		Big.DarkText(Current.Name,InfoX,10)
 	End
 	Int Y = 0-Scroll
 	For Foe in Monster.Lijst.Each
