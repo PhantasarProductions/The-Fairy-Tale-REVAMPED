@@ -52,29 +52,63 @@ Int MaxScroll = 0
 Var Current = Nil
 String CImageF = "*"
 Var CImage = Nil
+Table Desc
+
+Void D(string m,reset)
+	Static Int DY = 60
+	Static Var MF = ImageFont.Obtain("FNTEQP")
+	If reset==true
+		DY = 50
+	End
+	if m=="" 
+		// Otherwise nothing will happen
+		DY+=25
+		Return
+	End
+	Graphics.Color(255,255,255)
+	MF.DarkText(m,InfoX,DY)
+	If Lua.type(reset)=="string"
+		Graphics.Color(255,180,0)
+		MF.DarkText(reset,InfoX+(InfoX div 2),DY)
+	End
+	DY+=MF.TextHeight(m)
+End
 
 Global Void Apollo_Flow()
-	If Events.KeyHit(27)
+	Static Var GoBack = Image.LoadNew("GFX/Algemeen/Go Back.png","BUTTON_GO_BACK")
+	If Events.KeyHit(27) || (Mouse.MX>Screen.W-GoBack.W && Screen.H-Goback.H && Mouse.ML)
 		Flow.Current = "FIELD"
 		Return
 	End
-	If Events.KeyHit(Keys.Up)
+	If Events.KeyHit(Keys.Up) || Events.MouseWheelY()>0 
 		Scroll = math.max(0,Scroll-YMargin)
 	End
-	If Events.KeyHit(Keys.Down)
+	If Events.KeyHit(Keys.Down) || Events.MouseWheelY()<0 
 		Scroll = math.min(Scroll+YMargin,MaxScroll)
 	End
-
 	Back.Tile(0,0,Screen.W,Screen.H)
+	GoBack.Draw(Screen.W-GoBack.W,Screen.H-Goback.H)
 	If Current
 		If CImageF!=Current.Data.IMAGE
 			CImage = Image.Load(Current.Data.IMAGE,"BESTIARY_SHOW")
 			CImageF=Current.Data.IMAGE
-			CImage.Hot(CImage.W,0)
-		End
+			CImage.Hot(CImage.W,0)			
+		End		
 		Graphics.Color(255,255,255)
 		CImage.Draw(Screen.W-10,10)
 		Big.DarkText(Current.Name,InfoX,10)
+		For i,l in ipairs(Desc)
+			D(l,i==1)
+		End
+		D("")
+		Static Table ShowStats = {"HP","Power","Endurance","Intelligence","Resistance","Speed","Accuracy","Evasion"}
+		For St in Each(ShowStats)
+			If Current.Data.Boss
+				D(St,"???")
+			Else
+				D(St,Lua.tostring(Current.Data.Stats[St:upper()]))
+			End
+		End
 	End
 	Int Y = 0-Scroll
 	For Foe in Monster.Lijst.Each
@@ -89,6 +123,7 @@ Global Void Apollo_Flow()
 					X = 30
 					If Mouse.ML
 						Current = Foe
+						Desc = Split(Foe.Data.DESC,"\n")
 					End
 				End
 				Fnt.DarkText(Foe.Name,X,Y)
