@@ -42,7 +42,12 @@ Group MScript
 	ReadOnly Bool HasDraw   = False
 	ReadOnly Bool HasUpdate = False
 	
-	
+	Void NPC_Zyviola()
+		MapText("ZYVIOLA")
+		Loading()
+		State.LoadNew("FLOW_BESTIARY","Script/Flow/FlowBestiary.neil")
+		Flow.Current="FLOW_BESTIARY"
+	End
 	
 	
 	Constructor
