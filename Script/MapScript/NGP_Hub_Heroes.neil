@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.02.18
+// version: 22.02.19
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -49,6 +49,9 @@ Group MScript
 		Flow.Current="FLOW_BESTIARY"
 	End
 	
+	Void Delisto()
+		WorldMap.Go()
+	End
 	
 	Constructor
 		For h in Each{"Zyviola","SymphoNica","Wanindra","Colportarus"}
@@ -56,5 +59,6 @@ Group MScript
 				Map.Kill("NPC_"..h)
 			End
 		End
+		ZA.Enter("Delisto")
 	End
 End
