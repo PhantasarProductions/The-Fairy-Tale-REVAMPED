@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Class_Foe.neil
-// Version: 22.02.15
+// Version: 22.02.19
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -43,6 +43,8 @@ Class Foe Extends Fighter
 	Get Int Skill
 		Return __Skill
 	End
+	
+	Bool StolenFrom = False
 	
 	Bool Gone = False
 	Bool Vandar = False
@@ -219,7 +221,7 @@ Class Foe Extends Fighter
            	end
            	RPGChar[ch].Stat.Experience -= xget
            	CSayF("=> %d:%09d EXP",i,xget)
-           	CSayF("=> %d:Rate 3.5f",i,rate)
+           	CSayF("=> %d:Rate %3.5f",i,rate)
            	charmsg(ch,"EXP "..xget,rand(0,255),rand(0,255),rand(0,255))
            	//if RPG.Stat(ch,"EXP")<=0 then charmsg(ch,"LEVEL UP!",rand(0,255),rand(0,255),rand(0,255)) end
            	RPGChar[ch].Points.AP.Have+=30-(skill*10)
