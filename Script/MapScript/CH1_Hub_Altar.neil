@@ -2,7 +2,7 @@
 // **********************************************
 // 
 // src/Tricky Script/Script/MapScript/CH1_Hub_Altar.neil
-// (c) Jeroen Broks, 2021, All Rights Reserved.
+// (c) Jeroen Broks, 2021, 2022, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.12.21
+// version: 22.02.20
 // End License Information
 
 #use "script/use/anyway"
@@ -60,6 +60,17 @@ Group MScript
 		Map.Pop("Altar","South")
 		MapText("ALTAR1")
 		RPGParty[1]="Jake_Fairy"
+		If __NewGamePlus
+			Int NosX = Map.GetObjInt("Nostramantu","X")
+			Int NosY = Map.GetObjInt("Nostramantu","Y")
+			Map.AllowAutoScroll=False
+			Map.CamX = NosX - (Screen.W Div 2)
+			Map.CamY = NosY - (Screen.H Div 2)
+			Map.ShowObj("Nostramantu")
+			MapText("ALTAR_NGP" )
+			Map.HideObj("Nostramantu")
+			Map.AllowAutoScroll=True
+		End
 		MapText("ALTAR2")
 		//Lua.error("Boss fight not yet implemented")
 		Combat.QuickBoss("Restless Spirit","Ghost Priest","GhostPriest")
