@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/AAA_Stage.neil
-// Version: 22.02.06
+// Version: 22.02.20
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -150,13 +150,23 @@ Class Stage_IDLE extends Stage
 			End
 		ElseIf FirstCard.FightTeam=="Foe" && (!FirstCard.Action) 
 			If (!PreTurn(FirstCard)) || Fighter.ByTag[FirstCard.FightTag].HP<=0
-				Cards.DelFirst()				
+				Cards.DelFirst()			
 			Else
-				Var Foe = Fighter.ByTag[FirstCard.FightTag]
-				Var Act = Foe.AI.Decide(Foe)
+				Static Int SO = ({0,10,5})[__skill]
+				Var vFoe = Fighter.ByTag[FirstCard.FightTag]
+				If gv.gint["OVERSOUL_"..vFoe.File]>SO
+					gv.gint["OVERSOUL_"..vFoe.File]=0
+					If __Skill>1 && RPGParty[2] && RPGParty[2]!="" && vFoe.Raw.AllowOversoul
+						FlowCombat.charmsg(vFoe.Tag,"Oversoul",180,0,255)
+						Lua.Neil.Globals.Foe.Compile(vFoe.File,NeilUse(sprintf("Script/Data/Foe/%s",vFoe.File),vFoe.Num,true))
+						Cards.DelFirst()
+						Return
+					End
+				End
+				Var Act = vFoe.AI.Decide(vFoe)
 				If !Act
-					CSayF("Foe %s failed to get a proper move!",Foe.Tag)
-					FlowCombat.charmsg(Foe.Tag,"Can't decide",255,180,0)
+					CSayF("Foe %s failed to get a proper move!",vFoe.Tag)
+					FlowCombat.charmsg(vFoe.Tag,"Can't decide",255,180,0)
 				Else
 					FlowCombat.Execution.ComeToMe(Act,FirstCard)
 				End

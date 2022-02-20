@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Class_Foe.neil
-// Version: 22.02.19
+// Version: 22.02.20
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -358,6 +358,9 @@ end
 				SB = math.random(1,4)
 			End
 			Graphics.Color(R,G,B)
+		End
+		If Oversoul
+			Graphics.Color(180,127,255)
 		End
 		Switch Self.Stage
 			Case "IDLE"
