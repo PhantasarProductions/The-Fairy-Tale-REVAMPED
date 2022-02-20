@@ -1,4 +1,4 @@
-// Generated 2/19/2022 12:40:36 AM
+// Generated 2/20/2022 12:01:17 PM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -38,6 +38,9 @@ Table _R(Bool Oversoul)
 	Ret.SR_SLEEP = 1000
 	Ret.SR_UNDEAD = 1000
 	Ret.VOCALTAG = "Nostramantu"
+
+
+	Ret.AllowOversoul = False
 
 
 	Ret.Stats = {}

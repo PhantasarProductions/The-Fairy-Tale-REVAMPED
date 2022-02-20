@@ -1,4 +1,4 @@
-// Generated 2/19/2022 12:40:15 AM
+// Generated 2/20/2022 12:00:57 PM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -39,6 +39,9 @@ Table _R(Bool Oversoul)
 	Ret.SR_SLEEP = 20
 	Ret.SR_UNDEAD = 50
 	Ret.VOCALTAG = "Frendor"
+
+
+	Ret.AllowOversoul = False
 
 
 	Ret.Stats = {}

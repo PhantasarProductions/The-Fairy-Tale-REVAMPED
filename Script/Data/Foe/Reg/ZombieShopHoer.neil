@@ -1,4 +1,4 @@
-// Generated 2/19/2022 12:41:10 AM
+// Generated 2/20/2022 12:01:51 PM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -34,6 +34,9 @@ Table _R(Bool Oversoul)
 	Ret.SR_SLEEP = 100
 	Ret.SR_UNDEAD = 0
 	Ret.VOCALTAG = "ZombieShopHoer"
+
+
+	Ret.AllowOversoul = True
 
 
 	Ret.Stats = {}

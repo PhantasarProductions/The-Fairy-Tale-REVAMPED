@@ -1,4 +1,4 @@
-// Generated 2/19/2022 12:40:47 AM
+// Generated 2/20/2022 12:01:28 PM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -29,6 +29,9 @@ Table _R(Bool Oversoul)
 	Ret.CASH = 10
 	Ret.SR_DEATH = 60
 	Ret.VOCALTAG = "Hawk"
+
+
+	Ret.AllowOversoul = True
 
 
 	Ret.Stats = {}
