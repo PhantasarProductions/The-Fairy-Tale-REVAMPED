@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField/Map.neil
-// Version: 22.02.17
+// Version: 22.02.20
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -46,7 +46,7 @@ Module
 	Int ScrollY
 	Int GoToX
 	Int GoToY
-	Bool AllowAutoScroll = True
+	Bool AllowAutoScroll 
 	Var ArriveFunc = Nil
 	String ArriveParam 
 
@@ -81,6 +81,9 @@ Module
 		return _ret
 	End
 
+	Void SetAutoScroll(Bool V)
+		AllowAutoScroll = V
+	End
 	
 	Void ScrollTo(Int X,Int Y, Int Speed=1)
 		AllowAutoScroll = False

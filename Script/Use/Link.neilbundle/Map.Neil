@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Link.neilbundle/Map.Neil
-// Version: 22.02.16
+// Version: 22.02.20
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -102,7 +102,9 @@ Module
 	End
 	
 	Set Bool AllowAutoScroll
-		ISSET("Bool","FLOW_FIELD","FlowField.Map.AllowAutoScroll",value)
+		CSay("Setting AutoScroll To: "..lua.tostring(value))
+		//ISSET("BOOL","FLOW_FIELD","FlowField.Map.AllowAutoScroll",value)
+		State.Call("FLOW_FIELD","FlowField.Map.SetAutoScroll",lua.tostring(value))
 	End
 	
 	Get Int ScrollX
