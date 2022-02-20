@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowBestiary.neil
-// Version: 22.02.19
+// Version: 22.02.20
 // Copyright (C) 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -34,6 +34,8 @@
 // misrepresented as being the original software.
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
+
+#macro __SKILL gv.gint.skill
 
 #use "Libs/Keys"
 #use "Script/Data/General/Bestiary"
