@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/StatusChanges.neil
-// Version: 22.02.10
+// Version: 22.02.21
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -128,6 +128,19 @@ Module
 			Graphics.Scale(1,1)
 		End
 		Register.Sleep.Draw = Sleep_Draw
+		
+		// Paralysis
+		Register.Paralysis = new TStatusChange()
+		Register.Paralysis.PreTurn=PreTurnCure
+		Register.Paralysis.SkipTurn=True
+		Void Paralysis_Draw(Char)
+			Static Var b = Image.LoadNew("GFX/Combat/StatusChanges/Paralysis/Bliksem.png","COMBAT_PARA_BLIKSEM")
+			for i=1,10
+				b.Draw(math.random(Char.TX-(Char.TW div 2),Char.TX+(Char.TW div 2)),math.random(Char.TY-Char.TH-10,Char.TY))
+			End
+		End
+		Register.Paralysis.Draw = Paralysis_Draw
+		
 		
 		// Curse
 		Var Curse_stat = { }
