@@ -91,6 +91,10 @@ Class Stage_IDLE extends Stage
 					Found = Found || ( (!C.Joker) && (!C.Action) && C.FightTag==FTag )  
 				End
 				If !Found
+					if !Cards.Order.tagorder[FTag]
+						CSay("No order for '"..FTAG.."'. Regenerating order!")
+						Cards.CreateOrder()
+					End
 					Int spot = ( 25 + (Cards.Order.tagorder[FTag] * 2)+ (math.floor(math.random(1,Cards.Order.tagorder[FTag])/2)) )
 					Cards.Add(Spot,FTag)
 					CSayF("No cards for %s so automatically added one on spot #%d",FTag,Spot)
@@ -158,7 +162,13 @@ Class Stage_IDLE extends Stage
 					gv.gint["OVERSOUL_"..vFoe.File]=0
 					If __Skill>1 && RPGParty[2] && RPGParty[2]!="" && vFoe.Raw.AllowOversoul
 						FlowCombat.charmsg(vFoe.Tag,"Oversoul",180,0,255)
-						Lua.Neil.Globals.Foe.Compile(vFoe.File,NeilUse(sprintf("Script/Data/Foe/%s",vFoe.File),vFoe.Num,true))
+						CSayF("Foe #%03d (%s) goes oversoul",vFoe.Num,vFoe.Tag)
+						int OX = vFoe.X
+						int OY = vFoe.Y						
+						Lua.Neil.Globals.Foe.Compile(vFoe.File,NeilUse(sprintf("Script/Data/Foe/%s",vFoe.File)),vFoe.Num,true)
+						vAR oFoe = Fighter.ByTag[vFoe.Tag]
+						oFoe.X,oFoe.Y = OX,OY
+						Cards.CreateOrder()
 						Cards.DelFirst()
 						Return
 					End
