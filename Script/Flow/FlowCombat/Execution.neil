@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Execution.neil
-// Version: 22.02.15
+// Version: 22.02.20
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -111,6 +111,9 @@ Class Stage_Execution Extends Stage
 			String ch = Act.Executor.Tag
 			If prefixed(ch,"Jake")
 				Ch = "Jake"
+			End
+			if Act.Executor.Team=="Foe"
+				Ch = Act.Executor.Raw.VOCALTAG
 			End
 			String Voc = sPrintF("Vocals/Combat/%s/%s/Action/%s.ogg",Act.Executor.Team,Ch,Act.Act.Voice)
 			If JCR6.HasEntry(Voc)
