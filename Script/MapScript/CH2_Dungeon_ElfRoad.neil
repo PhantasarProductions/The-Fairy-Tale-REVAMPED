@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.02.08
+// version: 22.02.21
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -94,6 +94,7 @@ Group MScript
 	
 	Void North()
 		WorldMap.Unlock("CH2ISKARDERIU")
+		WorldMap.Unlock("CH2WENIARIA")
 		WorldMap.Go()
 	End
 	#endregion
