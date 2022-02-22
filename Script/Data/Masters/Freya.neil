@@ -2,7 +2,7 @@
 // **********************************************
 // 
 // src/Tricky Script/Script/Data/Masters/Freya.neil
-// (c) Jeroen Broks, 2021, All Rights Reserved.
+// (c) Jeroen Broks, 2021, 2022, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.12.29
+// version: 22.02.22
 // End License Information
 
 Module
@@ -50,9 +50,9 @@ Module
 	Int FreyaL(ch)
 		Int ret = 0
 		If (ch=="Jake_Fairy" || ch=="Jake_Human" || ch=="Marrilona") && RPGChar[ch].Points.SK_LVL_4.Have>=1
-			ret = RPGChar[ch].Points.SK_LVL_4.Have
+			ret = RPGChar[ch].Points.LVL_Skill4.Have
 		ElseIf ch=="HandoStillor" 
-			ret = RPGChar[ch].Points.SK_LVL_2.Have 
+			ret = RPGChar[ch].Points.LVL_Skill2.Have 
 		End
 		Return ret
 	End
@@ -60,9 +60,9 @@ Module
 	Int FreyaM(ch)
 		Int ret = 0
 		If (ch=="Jake_Fairy" || ch=="Jake_Human" || ch=="Marrilona") && RPGChar[ch].Points.SK_LVL_4.Have>=1
-			ret = RPGChar[ch].Points.SK_LVL_4.Maximum
+			ret = RPGChar[ch].Points.LVL_Skill4.Maximum
 		ElseIf ch=="HandoStillor" 
-			ret = RPGChar[ch].Points.SK_LVL_2.Maximum 
+			ret = RPGChar[ch].Points.LVL_Skill2.Maximum 
 		End
 		Return ret
 	End
@@ -82,15 +82,21 @@ Module
 		Int LvM      = FreyaM(ch)
 		Int verschil = lv - RPGChar[ch].Stat.FreyaInit
 		//local all      = true
-		Bool maylearn = true
+		Bool maylearn = ch!="Dandor"
 		Var rabl     = nil
-		//If Lv==LvM
+		If Lv==LvM
 			// Max level reached, then always teach
-		//	verschil=201
-		//End
+			verschil=201
+		End
 		//-- for i,a in pairs(Freya._abl) do all = all and CVV('&MASTER.FREYA.'..abl) end
+		int mul=3
+		if __NewGamePlus && __skill<3
+			mul+=math.random(0,3)
+		End
 		For i,a in pairs(abl)
-			If (i<=lv or i<=verschil*((4-__skill)*3)) and maylearn and (! Done["MASTER.FREYA."..ch.."."..a])
+			Int Versch=verschil*((4-__skill)*mul)
+			CSayF("Char %s; Check ability '%s'; Req-Set: %03d; May-Learn %s; FreyaInit: %03d; Level: %03d; Max: %03d; Rating: %03d; mul: %d",Ch,a,i,Lua.tostring(maylearn),RPGChar[ch].Stat.FreyaInit,lv,LvM,Versch,mul)
+			If (i<=lv or i<=versch) and maylearn and (! Done["MASTER.FREYA."..ch.."."..a])
 				maylearn=false
 				rabl=a
 			Else
