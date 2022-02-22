@@ -2,7 +2,7 @@
 // **********************************************
 // 
 // src/Tricky Script/Script/MapScript/PRO_Hub_Weniaria.neil
-// (c) Jeroen Broks, 2021, All Rights Reserved.
+// (c) Jeroen Broks, 2021, 2022, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.10.30
+// version: 22.02.22
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -49,5 +49,12 @@ Group MScript
 		Map.GoToMap("PRO_DUNGEON_CRYPT","#000","Start")
 	End
 	
+	Void Bye()
+		WorldMap.Go()
+	End
+	
+	Constructor
+		ZA.TabEnter{"Bye"}
+	End
 	
 End
