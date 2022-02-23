@@ -1,0 +1,653 @@
+// License Information:
+// **********************************************
+// 
+// src/Tricky Script/Script/Data/General/Jukebox.neil
+// (c) Jeroen Broks, 2022, All Rights Reserved.
+// 
+// This file contains material that is related
+// to a storyline that is which is strictly
+// copyrighted to Jeroen Broks.
+// 
+// This file may only be used in an unmodified
+// form with an unmodified version of the
+// software this file belongs to.
+// 
+// You may use this file for your study to see
+// how I solved certain things in the creation
+// of this project to see if you find valuable
+// leads for the creation of your own.
+// 
+// Mostly this file comes along with a project
+// that is for most part released under an
+// open source license and that means that if
+// you use that code with this file removed
+// from it, you can use it under that license.
+// Please check out the other files to find out
+// which license applies.
+// This file comes 'as-is' and in no possible
+// way the author can be held responsible of
+// any form of damages that may occur due to
+// the usage of this file
+// 
+// 
+// **********************************************
+// 
+// version: 22.02.23
+// End License Information
+
+#use "Libs/LinkedList"
+
+Class TMusic
+	String Entry
+	String Title
+	String Artist
+	String WebSite
+	String License
+	Static Var Lst = New LinkedList()
+End
+
+Init
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Dungeon/TheDread.ogg"
+		N.License = "Creative Commons - By Attribute License => Incompetech.com"
+		N.Title   = "The Dread"
+		N.Artist  = "Kevin McLeod"
+		N.WebSite = "https://incompetech.com/"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Hub/Angevin.ogg"
+		N.License = "Creative Commons - By Attribute License => Incompetech.com"
+		N.Title   = "Angevin"
+		N.Artist  = "Kevin McLeod"
+		N.WebSite = "https://incompetech.com/"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Hub/Indore.ogg"
+		N.License = "Creative Commons - By Attribute License => Incompetech.com"
+		N.Title   = "Indore"
+		N.Artist  = "Kevin McLeod"
+		N.WebSite = "https://incompetech.com/"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Hub/There is Romance.ogg"
+		N.License = "Creative Commons - By Attribute License => Incompetech.com"
+		N.Title   = "There is Romance"
+		N.Artist  = "Kevin McLeod"
+		N.WebSite = "https://incompetech.com/"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Combat/Special Boss/Darkcover.ogg"
+		N.License = "Created for Jeroen P. Broks. Copyrights belong to Hung Kee Chan, and any terms of usage should be discussed with him."
+		N.Title   = "Darkcover"
+		N.Artist  = "Hung Kee Chan"
+		N.WebSite = "NONE"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Original4Alias/Ghost Story.ogg"
+		N.License = "Creative Commons - By Attribute License => Incompetech.com"
+		N.Title   = "Ghost Story"
+		N.Artist  = "Kevin McLeod"
+		N.WebSite = "https://incompetech.com/"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Original4Alias/Heroic Age.ogg"
+		N.License = "Creative Commons - By Attribute License => Incompetech.com"
+		N.Title   = "Heroic Age"
+		N.Artist  = "Kevin McLeod"
+		N.WebSite = "https://incompetech.com/"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Original4Alias/Tenebrous Brothers Carnival - Mermaid.ogg"
+		N.License = "Creative Commons - By Attribute License => Incompetech.com"
+		N.Title   = "Tenebrous Brothers Carnival - Mermaid"
+		N.Artist  = "Kevin McLeod"
+		N.WebSite = "https://incompetech.com/"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/RandomEncounter/Killers.ogg"
+		N.License = "Creative Commons - By Attribute License => Incompetech.com"
+		N.Title   = "Killers"
+		N.Artist  = "Kevin McLeod"
+		N.WebSite = "https://incompetech.com/"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Scenario/We Got Trouble.ogg"
+		N.License = "Creative Commons - By Attribute License => Incompetech.com"
+		N.Title   = "We Got Trouble"
+		N.Artist  = "Kevin McLeod"
+		N.WebSite = "https://incompetech.com/"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Town/Enchanted Valley.ogg"
+		N.License = "Creative Commons - By Attribute License => Incompetech.com"
+		N.Title   = "Enchanted Valley"
+		N.Artist  = "Kevin McLeod"
+		N.WebSite = "https://incompetech.com/"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Combat/Special Boss/Juggernaut.ogg"
+		N.License = "Created for Jeroen P. Broks. Copyrights belong to Hung Kee Chan, and any terms of usage should be discussed with him."
+		N.Title   = "Juggernaut"
+		N.Artist  = "Hung Kee Chan"
+		N.WebSite = "NONE"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Town/Night on the Docks - Sax.ogg"
+		N.License = "Creative Commons - By Attribute License => Incompetech.com"
+		N.Title   = "Night on the Docks - Sax"
+		N.Artist  = "Kevin McLeod"
+		N.WebSite = "https://incompetech.com/"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Town/Rite of Passage.ogg"
+		N.License = "Creative Commons - By Attribute License => Incompetech.com"
+		N.Title   = "Rite of Passage"
+		N.Artist  = "Kevin McLeod"
+		N.WebSite = "https://incompetech.com/"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/4Alias/machine-one.ogg"
+		N.License = "Creative Commons - By Attribute"
+		N.Title   = "Machine One"
+		N.Artist  = "Matt McFarland"
+		N.WebSite = "NONE"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Dungeon/Ooze.ogg"
+		N.License = "Creative Commons - By Attribute"
+		N.Title   = "Ooze"
+		N.Artist  = "Matt McFarland"
+		N.WebSite = "NONE"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Combat/Special Boss/Rush.ogg"
+		N.License = "Created for Jeroen P. Broks. Copyrights belong to Hung Kee Chan, and any terms of usage should be discussed with him."
+		N.Title   = "Rush"
+		N.Artist  = "Hung Kee Chan"
+		N.WebSite = "NONE"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Dungeon/Strangled.ogg"
+		N.License = "Creative Commons - By Attribute"
+		N.Title   = "Strangled"
+		N.Artist  = "Matt McFarland"
+		N.WebSite = "NONE"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Dungeon/trade-off.ogg"
+		N.License = "Creative Commons - By Attribute"
+		N.Title   = "Trade off"
+		N.Artist  = "Matt McFarland"
+		N.WebSite = "NONE"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/4Alias/A+Tremendous+Thing.ogg"
+		N.License = "Creative Commons Attribution license -- http://www.nihilore.com/license/ -- Music downloaded from http://www.nihilore.com"
+		N.Title   = "A tremendous thing"
+		N.Artist  = "Nihilore"
+		N.WebSite = "http://www.nihilore.com"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/4Alias/CreativeDestruction.ogg"
+		N.License = "Creative Commons Attribution license -- http://www.nihilore.com/license/ -- Music downloaded from http://www.nihilore.com"
+		N.Title   = "Creative Destruction"
+		N.Artist  = "Nihilore"
+		N.WebSite = "http://www.nihilore.com"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Town/Morning Breeze.ogg"
+		N.License = "Music was written for my projects. If you want to use this yourself, you gotta contact the original author!"
+		N.Title   = "Morning Breeze"
+		N.Artist  = "Pruno"
+		N.WebSite = "NONE"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Combat/SpecialBoss/AnnoyingBoy.ogg"
+		N.License = "Creative Commons - By Attribute - Non-Commercial - Share-Alike"
+		N.Title   = "Annoying Boy"
+		N.Artist  = "Jeroen P. Broks"
+		N.WebSite = "NONE"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Combat/SpecialBoss/Threat.ogg"
+		N.License = "Creative Commons - By Attribute - Non-Commercial - Share-Alike"
+		N.Title   = "Threat"
+		N.Artist  = "Jeroen P. Broks"
+		N.WebSite = "NONE"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Dungeon/Alien.ogg"
+		N.License = "Creative Commons - By Attribute - Non-Commercial - Share-Alike"
+		N.Title   = "Alien"
+		N.Artist  = "Jeroen P. Broks"
+		N.WebSite = "NONE"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Dungeon/JustASong.ogg"
+		N.License = "Creative Commons - By Attribute - Non-Commercial - Share-Alike"
+		N.Title   = "Just a song"
+		N.Artist  = "Jeroen P. Broks"
+		N.WebSite = "NONE"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Dungeon/Scary Song.ogg"
+		N.License = "Creative Commons - By Attribute - Non-Commercial - Share-Alike"
+		N.Title   = "Scary Song"
+		N.Artist  = "Jeroen P. Broks"
+		N.WebSite = "NONE"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/4Alias/spook.ogg"
+		N.License = "Music was written for my projects. If you want to use this yourself, you gotta contact the original author!"
+		N.Title   = "Spook"
+		N.Artist  = "W.K. Chan"
+		N.WebSite = "NONE"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Combat/RandomEncounter/Wicky's combat tune.ogg"
+		N.License = "Music was written for my projects. If you want to use this yourself, you gotta contact the original author!"
+		N.Title   = "Wicky's combat tune"
+		N.Artist  = "W.K. Chan"
+		N.WebSite = "NONE"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Combat/Victory.ogg"
+		N.License = "Music was written for my projects. If you want to use this yourself, you gotta contact the original author!"
+		N.Title   = "Victory"
+		N.Artist  = "W.K. Chan"
+		N.WebSite = "NONE"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Dungeon/Beethoven.ogg"
+		N.License = "Music was written for my projects. If you want to use this yourself, you gotta contact the original author!"
+		N.Title   = "Beethoven meets Tchaikovsky"
+		N.Artist  = "W.K. Chan"
+		N.WebSite = "NONE"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Dungeon/Chanson d'eglise.ogg"
+		N.License = "Music was written for my projects. If you want to use this yourself, you gotta contact the original author!"
+		N.Title   = "Chanson d'eglise"
+		N.Artist  = "W.K. Chan"
+		N.WebSite = "NONE"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Dungeon/D'Amour.ogg"
+		N.License = "Music was written for my projects. If you want to use this yourself, you gotta contact the original author!"
+		N.Title   = "D'Amour"
+		N.Artist  = "W.K. Chan"
+		N.WebSite = "NONE"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Dungeon/TearDrops.ogg"
+		N.License = "Music was written for my projects. If you want to use this yourself, you gotta contact the original author!"
+		N.Title   = "Teardrops"
+		N.Artist  = "W.K. Chan"
+		N.WebSite = "NONE"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Dungeon/WinterBreeze.ogg"
+		N.License = "Music was written for my projects. If you want to use this yourself, you gotta contact the original author!"
+		N.Title   = "Winter Breeze"
+		N.Artist  = "W.K. Chan"
+		N.WebSite = "NONE"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Gen/Sleep.ogg"
+		N.License = "Music was written for my projects. If you want to use this yourself, you gotta contact the original author!"
+		N.Title   = "Sleep"
+		N.Artist  = "W.K. Chan"
+		N.WebSite = "NONE"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Hub/The Sad Fate.ogg"
+		N.License = "Music was written for my projects. If you want to use this yourself, you gotta contact the original author!"
+		N.Title   = "The Sad Fate"
+		N.Artist  = "W.K. Chan"
+		N.WebSite = "NONE"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Town/Happy.ogg"
+		N.License = "Music was written for my projects. If you want to use this yourself, you gotta contact the original author!"
+		N.Title   = "I'm too happy"
+		N.Artist  = "W.K. Chan"
+		N.WebSite = "NONE"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Town/IrishFishermen.ogg"
+		N.License = "Music was written for my projects. If you want to use this yourself, you gotta contact the original author!"
+		N.Title   = "Irish Fishermen"
+		N.Artist  = "W.K. Chan"
+		N.WebSite = "NONE"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Combat/Boss/BrutalSong.ogg"
+		N.License = "Music was written for my projects. If you want to use this yourself, you gotta contact the original authors"
+		N.Title   = "Brutal Song"
+		N.Artist  = "W.K. Chan & Wouter Wershskull"
+		N.WebSite = "NONE"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Combat/SpecialBoss/PlayTillDeath_(Nostramantu).ogg"
+		N.License = "Music was written for my projects. If you want to use this yourself, you gotta contact the original authors"
+		N.Title   = "Play till death"
+		N.Artist  = "W.K. Chan & Wouter Wershskull"
+		N.WebSite = "NONE"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Hub/StartToFantasyInstrumental.ogg"
+		N.License = "Music was written for my projects. If you want to use this yourself, you gotta contact the original authors"
+		N.Title   = "The Start To Fantasy"
+		N.Artist  = "W.K. Chan & Wouter Wershskull"
+		N.WebSite = "NONE"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Mystery/Draft1.ogg"
+		N.License = "Music was written for my projects. If you want to use this yourself, you gotta contact the original authors"
+		N.Title   = "Mystery - Draft 1"
+		N.Artist  = "W.K. Chan & Wouter Wershskull"
+		N.WebSite = "NONE"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Mystery/Draft2.ogg"
+		N.License = "Music was written for my projects. If you want to use this yourself, you gotta contact the original authors"
+		N.Title   = "Mystery - Draft 2"
+		N.Artist  = "W.K. Chan & Wouter Wershskull"
+		N.WebSite = "NONE"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Town/Funky Fairy.ogg"
+		N.License = "Music was written for my projects. If you want to use this yourself, you gotta contact the original authors"
+		N.Title   = "Funky Fairy"
+		N.Artist  = "W.K. Chan & Wouter Wershskull"
+		N.WebSite = "NONE"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Combat/SpecialBoss/Freak Boutique.ogg"
+		N.License = "Creative Commons - By Attribution - Non-Commercial"
+		N.Title   = "Freak Boutique"
+		N.Artist  = "SpiedKiks"
+		N.WebSite = "NONE"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Combat/RandomEncounter/Defending The Princess.ogg"
+		N.License = "https://soundimage.org/attribution-info/"
+		N.Title   = "Defending The Princess"
+		N.Artist  = "Eric Matyas"
+		N.WebSite = "https://soundimage.org"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Combat/RandomEncounter/Fantasy Forest Battle.ogg"
+		N.License = "https://soundimage.org/attribution-info/"
+		N.Title   = "Fantasy Forest Battle"
+		N.Artist  = "Eric Matyas"
+		N.WebSite = "https://soundimage.org"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Combat/RandomEncounter/RPG-Battle-Climax_v001.ogg"
+		N.License = "https://soundimage.org/attribution-info/"
+		N.Title   = "RPG-Battle-Climax_v001"
+		N.Artist  = "Eric Matyas"
+		N.WebSite = "https://soundimage.org"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Dungeon/Dafty Places (Looping).ogg"
+		N.License = "https://soundimage.org/attribution-info/"
+		N.Title   = "Dafty Places"
+		N.Artist  = "Eric Matyas"
+		N.WebSite = "https://soundimage.org"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Dungeon/Invasion-of-the-Giant-Disco-Ants_Looping.ogg"
+		N.License = "https://soundimage.org/attribution-info/"
+		N.Title   = "Invasion of the giant disco ants"
+		N.Artist  = "Eric Matyas"
+		N.WebSite = "https://soundimage.org"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Dungeon/Magic-Clock-Shop_Looping.ogg"
+		N.License = "https://soundimage.org/attribution-info/"
+		N.Title   = "Magic clock shop"
+		N.Artist  = "Eric Matyas"
+		N.WebSite = "https://soundimage.org"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Dungeon/Moonlit-Secrets_Looping.ogg"
+		N.License = "https://soundimage.org/attribution-info/"
+		N.Title   = "Moonlit secrets"
+		N.Artist  = "Eric Matyas"
+		N.WebSite = "https://soundimage.org"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Dungeon/Sewer-Monsters-Town-Hall-Meeting_Looping.ogg"
+		N.License = "https://soundimage.org/attribution-info/"
+		N.Title   = "Sewer Monsters Town Hall Meeting"
+		N.Artist  = "Eric Matyas"
+		N.WebSite = "https://soundimage.org"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Game Over/Going-Different-Ways.ogg"
+		N.License = "https://soundimage.org/attribution-info/"
+		N.Title   = "Going Different Ways"
+		N.Artist  = "Eric Matyas"
+		N.WebSite = "https://soundimage.org"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Original4Alias/Tower Defense.ogg"
+		N.License = "https://soundimage.org/attribution-info/"
+		N.Title   = "Tower Defense"
+		N.Artist  = "Eric Matyas"
+		N.WebSite = "https://soundimage.org"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Town/Chamber-of-Jewels.ogg"
+		N.License = "https://soundimage.org/attribution-info/"
+		N.Title   = "Chamber of Jewels"
+		N.Artist  = "Eric Matyas"
+		N.WebSite = "https://soundimage.org"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/AltEncounter/Tempting Secrets.ogg"
+		N.License = "Creative Commons - By Attribute License => Incompetech.com"
+		N.Title   = "Tempting Secrets"
+		N.Artist  = "Kevin McLeod"
+		N.WebSite = "https://incompetech.com/"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Combat/AltBoss/Day of Chaos.ogg"
+		N.License = "Creative Commons - By Attribute License => Incompetech.com"
+		N.Title   = "Day of Chaos"
+		N.Artist  = "Kevin McLeod"
+		N.WebSite = "https://incompetech.com/"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Combat/Special Boss/Hall Of The Mountain King.ogg"
+		N.License = "Creative Commons - By Attribute License => Incompetech.com"
+		N.Title   = "Hall Of The Mountain King"
+		N.Artist  = "Kevin McLeod"
+		N.WebSite = "https://incompetech.com/"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Combat/SpecialBoss/Living Voyage.ogg"
+		N.License = "Creative Commons - By Attribute License => Incompetech.com"
+		N.Title   = "Living Voyage"
+		N.Artist  = "Kevin McLeod"
+		N.WebSite = "https://incompetech.com/"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Combat/SpecialBoss/Summon the Rawk.ogg"
+		N.License = "Creative Commons - By Attribute License => Incompetech.com"
+		N.Title   = "Summon the Rawk"
+		N.Artist  = "Kevin McLeod"
+		N.WebSite = "https://incompetech.com/"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Combat/SpecialBoss/Volatile Reaction.ogg"
+		N.License = "Creative Commons - By Attribute License => Incompetech.com"
+		N.Title   = "Volatile Reaction"
+		N.Artist  = "Kevin McLeod"
+		N.WebSite = "https://incompetech.com/"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Dreshka/Hero Down.ogg"
+		N.License = "Creative Commons - By Attribute License => Incompetech.com"
+		N.Title   = "Hero Down"
+		N.Artist  = "Kevin McLeod"
+		N.WebSite = "https://incompetech.com/"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Dreshka/Water Prelude.ogg"
+		N.License = "Creative Commons - By Attribute License => Incompetech.com"
+		N.Title   = "Water Prelude"
+		N.Artist  = "Kevin McLeod"
+		N.WebSite = "https://incompetech.com/"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Dungeon/Chillin Hard.ogg"
+		N.License = "Creative Commons - By Attribute License => Incompetech.com"
+		N.Title   = "Chillin Hard"
+		N.Artist  = "Kevin McLeod"
+		N.WebSite = "https://incompetech.com/"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Dungeon/Pippin the Hunchback.ogg"
+		N.License = "Creative Commons - By Attribute License => Incompetech.com"
+		N.Title   = "Pippin the Hunchback"
+		N.Artist  = "Kevin McLeod"
+		N.WebSite = "https://incompetech.com/"
+		TMusic.Lst.AddLast(N)
+	End
+End
