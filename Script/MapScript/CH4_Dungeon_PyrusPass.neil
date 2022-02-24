@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.02.05
+// version: 22.02.24
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -104,6 +104,30 @@ Group MScript
 		Map.Kill("NOS",true)
 		MapText("WHEAT3")
 		Map.Kill("NPC_KRUID",true)
+	End
+	#endregion
+	
+	#region NewGamePlus CutScene
+	Void NostraCutScene()
+		MapText("NGP1")
+		Combat.Prepare(0,255,0,"Guardians of fire","Hell Imps")
+		for i=1,__skill*3
+			Combat.NewEnemy="Boss/HellImp"
+		end
+		Combat.Music="Combat/NewGame+/Boss.ogg"
+		Combat.Arena="pyruspass"
+		Combat.Start()
+		Schedule.Add("PostNostraNGP")
+	End
+	
+	Void PostNostraNGP()
+		MapText("NGP2")
+		For i,ch in pairs{"Jake_Human","Marrilona","HandoStillor",""}
+			RPGParty[i]=ch
+		End
+		//Music.Play("Music/Town/Happy.ogg")
+		Map.GoToMap("CH2_Town_Dreshka","town","NewGame+")
+		Schedule.Add("Welcome")
 	End
 	#endregion
 	

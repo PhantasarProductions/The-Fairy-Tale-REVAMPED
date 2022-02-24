@@ -634,7 +634,7 @@ Void PIMI_Guard()
 End
 
 Bool NotNostra()
-	Return SPIM.Exe!="Nostramantu"
+	Return SPIM.Exe!="Nostramantu_Human"
 End
 
 Bool HasSpirata()

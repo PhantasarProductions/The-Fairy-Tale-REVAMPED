@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.02.11
+// version: 22.02.24
 // End License Information
 
 #Use "Script/Use/Anyway"
@@ -153,20 +153,21 @@ Group SubParty
 					RPGChar.Krandar.Link_Stat(lc,"BASE_"..s)					
 				End
 				//Lua.error("No support for Krandar yet")
-			Case "Nostramantu_Human"
+			Case "Nostramantu_Human" "Nostramantu"
 				// Human!
 				//Lua.error("No support for Nostramantu yet")
-				RPGChar.Create("Nostramantu_Human")
-				Var Nos = RPGChar.Nostramantu_Human
+				//RPGChar.Create("Nostramantu_Human")
+				//Var Nos = RPGChar.Nostramantu_Human
+				RPGChar.Create(Char)
+				Var Nos = RPGChar[Char]
 				Nos.Name = "Nostramantu"
 				Nos.Stat.Level = 1234567
 				Nos.Stat.Experience = 12345678
 				For s,lc in pairs{["AP"]= "Dandor", ["Accuracy"] = "Dandor", ["Critical"] =  "Marrilona", ["Endurance"] =  "Marrilona", ["Evasion"] =  "Dandor", ["HP"] =  "Marrilona", ["Intelligence"] = "HandoStillor", ["Power"] = "Marrilona", ["Resistance"] = "Marrilona", ["Speed"]="Dandor"}
-					RPGChar.Nostramantu_Human.Link_Stat(lc,"BASE_"..s)					
-				End
-
-			Case "Nostramantu_Elder"
-				Lua.error("No support for Elder Nostramantu yet")
+					RPGChar[char].Link_Stat(lc,"BASE_"..s)					
+				End	
+			//Case "Nostramantu_Elder"
+			//	Lua.error("No support for Elder Nostramantu yet")
 			Case "Feenalaria_Human"
 				// Human!
 				RPGChar.Create("Feenalaria_Human")
@@ -210,6 +211,19 @@ Group SubParty
 			For Sb in Each(SubStat)
 				If Sb!="BASE"
 					RPGChar[char].Stat[sb.."_"..s] = 0
+				End
+				// Extra Bonus for Nostramantu on intelligence
+				If Sb=="PERMABUFF" && Char=="Nostramantu" 
+					Switch s
+						case "Intelligence"
+							RPGChar.Nostramantu.Stat.PERMABUFF_Intelligence = (RPGChar.Nostramantu.Stat.BASE_Intelligence*100) div __skill
+						case "HP"
+							RPGChar.Nostramantu.Stat.PERMABUFF_HP = RPGChar.Nostramantu.Stat.BASE_HP*100
+						Case "AP" 
+							RPGChar.Nostramantu.Stat.PERMABUFF_AP = RPGChar.Nostramantu.Stat.BASE_AP*(900 div __skill)
+						default
+							RPGChar.Nostramantu.Stat["PERMABUFF_"..s] = math.random(0,RPGChar.Nostramantu.Stat["BASE_"..s]*40)
+					End		
 				End
 			End
 			String Str="SUM:"..char

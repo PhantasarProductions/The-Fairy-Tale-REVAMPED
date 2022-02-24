@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Subs/SubItems.neil
-// Version: 22.02.10
+// Version: 22.02.24
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -71,7 +71,7 @@ Class ABLRec
 		if Abilities[Char].Skill[iTag]
 			Return True
 		End
-		If prefixed(Char,"Feenalaria")
+		If prefixed(Char,"Feenalaria") || Char=="Nostramantu"
 			Return True
 		End
 		Return gv.gBool[UnlTag]		
@@ -212,7 +212,7 @@ Global Void SaveInventory()
 				//Lua.error("Krandar not yet set up")
 				// Do Nothing
 			Case "Nostramantu"
-				Lua.error("Nostramantu (Elder from tagged 'Nostramantu') not yet set up")
+				//Lua.error("Nostramantu (Elder from tagged 'Nostramantu') not yet set up")
 			Case "Feenalaria_Human" "Nostramantu_Human" "Feenalaria_Human2"
 				//Lua.error("Feenalaria (Feenalaria_Human) not yet set up")
 			Default

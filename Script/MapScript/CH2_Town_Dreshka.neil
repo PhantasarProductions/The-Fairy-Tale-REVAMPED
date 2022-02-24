@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.02.06
+// version: 22.02.24
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -70,11 +70,27 @@ Group PreAanval
 		FieldMenu.WeaponShop("WAND_MONIQUE")
 	End
 	
+	Void NostraCutScene()
+		CSay("Nostramantu's cutscene due to being in the New Game+")
+		Loading()
+		Party.CreateChar("Nostramantu",99999)
+		RPGChar.Nostramantu.Data.EQUIP_Weapon="WAND_II_SAINT"
+		RPGParty[1]="Nostramantu"
+		For i=2,3
+			RPGParty[i]=""
+		End
+		Map.GoToMap("CH4_Dungeon_PyrusPass","#002","NewGame+")
+		Schedule.Add("NostraCutScene")
+	End
+	
 	Void NPC_Dreshka()
 		If !Done.Dreshka_Spoken_to_Dreshka
 			MapText("DRESHKA")
 			Item.ZZKEY_WATER.Has = 1
 			WorldMap.Unlock("CH2WATERSPIRATA")
+			If __NewGamePlus
+				NostraCutScene()
+			End
 		Else
 			MapText("DRESHKA_AFTER")
 		End
