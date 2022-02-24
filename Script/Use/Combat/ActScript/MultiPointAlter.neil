@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Combat/ActScript/MultiPointAlter.neil
-// Version: 22.01.22
+// Version: 22.02.22
 // Copyright (C) 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -43,7 +43,11 @@ Bool _PA(Act,Tar)
 		//End
 		Var k = Split(MyArg," ")
 		Lua.assert(#k==2,"Invalid Point Alter Argument: "..MyArg)
-		Tar.Char.Points[k[1]].Have = Lua.tonumber(k[2]) || 1
+		if k[2]:upper()=="MAX"
+			Tar.Char.Points[k[1]].Have = Tar.Char.Points[k[1]].Maximum
+		Else
+			Tar.Char.Points[k[1]].Have = Lua.tonumber(k[2]) || 1
+		End
 		FlowCombat.charmsg(Tar.Tag,k[1].." to "..k[2],255,0,0)
 	End
 	Return True
