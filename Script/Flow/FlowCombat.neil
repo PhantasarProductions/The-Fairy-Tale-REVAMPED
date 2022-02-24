@@ -63,6 +63,8 @@ QuickMeta FlowCombat
 End
 Global Const Var CombatFlow = FlowCombat 
 
+
+
 Init
 	Screen.NewAlt(_ASW,_ASH,"COMBAT")
 	Table Bundle = JCR6.GetDir("Script/Flow/FlowCombat")
@@ -89,6 +91,9 @@ End
 Global Void BoxText_Back()
 	FlowCombat.DrawScreen.Run()
 End	
+
+Global Void PartyClick()
+End
 
 Global Void Apollo_Flow()
 	__White
