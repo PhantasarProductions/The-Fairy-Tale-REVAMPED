@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.01.24
+// version: 22.02.22
 // End License Information
 
 Void LoadPartySub()
@@ -128,7 +128,11 @@ Module
   				SkillLvlUpMsg(Tag,RPGChar[Tag].Data[TagTitle].." level up",SLUC[Skill][1],SLUC[Skill][2],SLUC[Skill][3])
   				SkillUpBonus(Tag,RPGChar[Tag].Points[TagLevel].Have)
   				Var SLUV = NeilUse("Script/Data/Char/"..Tag.."/SkillUp")
-  				For k,v in sPairs(SLUV)
+  				//For k,v in sPairs(SLUV)
+  				Var SLUVS = SLUV["askillup"..skill]
+  				if SLUVS && SLUVS[1] && SLUVS[2]
+  					plua k = SLUVS[1]
+  					plua v = SLUVS[2]
   					Lua.Neil.Globals.CSayF("Due to skill %d going up on %s stat '%s' goes up by %02d",Skill,Tag,k,v)
   					RPGChar[Tag].Stat["PERMABUFF_"..k] += v
   				End
