@@ -1,8 +1,8 @@
 // License Information:
 // **********************************************
 // 
-// src/Tricky Script/Script/Data/Char/Nostramantu_Elder/Meta.neil
-// (c) Jeroen Broks, 2021, All Rights Reserved.
+// src/Tricky Script/Script/Data/Char/Nostramantu/Meta.neil
+// (c) Jeroen Broks, 2021, 2022, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.07.23
+// version: 22.02.24
 // End License Information
 Init
 	Var J = RPGChar.Nostramantu_Elder.Data
