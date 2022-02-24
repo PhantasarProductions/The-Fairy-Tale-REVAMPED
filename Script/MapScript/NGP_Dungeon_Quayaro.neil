@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.02.17
+// version: 22.02.22
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -106,7 +106,8 @@ Group MScript
 		Ach.Award("ZZNGP_QUAYARO")
 		WorldMap.Unlock("NGPHEROES")
 		MapText("HEROES_ZYVIOLA")
-		WorldMap.Go()
+		Map.Kill("NPC_Zyviola",true)
+		WorldMap.Go()		
 	End
 	
 	
