@@ -132,7 +132,9 @@ Group MScript
 	#endregion
 	
 	Constructor
-		WorldMap.Unlock("CH4PYRUSPASS")
+		If RPGParty[1]!="Nostramantu"
+			WorldMap.Unlock("CH4PYRUSPASS")
+		End
 		TexMove.MapSetup(0,2,"LAVA.PNG",0,1,0)
 		ZA.TabEnter{"Leave"}
 		gv.gbool.DepriJake = False
