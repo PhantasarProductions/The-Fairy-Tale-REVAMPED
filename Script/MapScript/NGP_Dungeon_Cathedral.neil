@@ -1,0 +1,122 @@
+// License Information:
+// **********************************************
+// 
+// src/Tricky Script/Script/MapScript/NGP_Dungeon_Cathedral.neil
+// (c) Jeroen Broks, 2022, All Rights Reserved.
+// 
+// This file contains material that is related
+// to a storyline that is which is strictly
+// copyrighted to Jeroen Broks.
+// 
+// This file may only be used in an unmodified
+// form with an unmodified version of the
+// software this file belongs to.
+// 
+// You may use this file for your study to see
+// how I solved certain things in the creation
+// of this project to see if you find valuable
+// leads for the creation of your own.
+// 
+// Mostly this file comes along with a project
+// that is for most part released under an
+// open source license and that means that if
+// you use that code with this file removed
+// from it, you can use it under that license.
+// Please check out the other files to find out
+// which license applies.
+// This file comes 'as-is' and in no possible
+// way the author can be held responsible of
+// any form of damages that may occur due to
+// the usage of this file
+// 
+// 
+// **********************************************
+// 
+// version: 22.02.22
+// End License Information
+
+#use "Script/Use/Anyway"
+
+Group MScript
+
+	ReadOnly Bool HasDraw   = False
+	ReadOnly Bool HasUpdate = False
+	
+	Void Delisto()
+		WorldMap.Go()
+	End
+	
+	Void DSwitch(Int n)
+		Static Var Check
+		// Please note, leaving the Cathedral or using savegames resets the switches
+		// However if you managed to open the door to the boss, it will remain open!
+		Check = Check || {} 
+		Check[n] = true
+		Switch n
+			Case 1
+				Map.SetObj("NPC_SWITCH1","Texture","GFX/Textures/Switch/Left.png")
+			Case 2
+				Map.SetObj("NPC_SWITCH1","Texture","GFX/Textures/Switch/Right.png")
+			Default
+		End
+		If Check[1] && Check[1]
+			Map.Kill("Barrier",true)
+		End		
+	End
+	
+	Void NPC_Switch1()
+		DSwitch(1)
+	End
+	
+	Void NPC_Switch2()
+		DSWitch(2)
+	End
+	
+	Void StartBoss()
+		Map.Kill("StartBoss",true)
+		Map.Kill("Boss",true)
+		Combat.Prepare(0,255,0,"Screaming undead","Ghost Woman")
+		Switch __skill
+			Case 1
+				Combat.NewEnemy="Boss/Ghost Woman"
+			Case 2
+				for i=1,3  
+					Combat.NewEnemy="REG/GHOSTGIRL"
+					if i==1
+						Combat.NewEnemy="Boss/Ghost Woman"
+					end
+				end
+			Case 3
+				for i=1,9 
+					Combat.NewEnemy="REG/GHOSTGIRL"
+					if i==1
+						Combat.NewEnemy="Boss/Ghost Woman"
+					end
+				end
+			Default
+		End
+		Combat.Music="Combat/AltBoss/Day of Chaos.ogg"
+		Combat.Arena="Cathedral.png"
+		Combat.Start()
+	End
+	
+	Void NPC_SymphoNica()	
+		gv.gbool.Heroes_SymphoNica = true
+		Bool All = True
+		For h in Each{"Zyviola","SymphoNica","Wanindra","Colportarus"}
+			All = All && gv.gbool["Heroes_"..h]
+		End
+		If All
+			Ach.Award("ZZNGP_ALL")
+		End
+		Ach.Award("ZZNGP_CATHEDRAL")
+		WorldMap.Unlock("NGPHEROES")
+		MapText("HEROES_SYMPHONICA")
+		Map.Kill("NPC_SymphNica",true)
+		WorldMap.Go()
+	End
+	
+	Constructor
+		ZA.TabEnter{"Delisto","StartBoss"}
+	End
+End
