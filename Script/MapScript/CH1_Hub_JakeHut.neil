@@ -32,11 +32,14 @@
 // 
 // **********************************************
 // 
-// version: 22.02.16
+// version: 22.02.22
 // End License Information
 
 #use "Script/Use/Anyway"
 #use "Script/Use/Misc/Inn"
+
+
+#macro Midas_Recruited gv.gbool.Master_Midas_Paid_And_Recruited
 
 Group MScript
 
@@ -118,7 +121,7 @@ Group MScript
 		If !__newgameplus
 			Map.Kill("Buiten",true)
 			Map.Kill("NPC_Marinus",true)
-		ElseIf True
+		ElseIf !Midas_Recruited
 			// The actual expression comes later! You must have master Midas and be in the New Game+ for Marinus to appear.
 			Map.Kill("Buiten")
 			Map.Kill("NPC_Marinus")
@@ -128,6 +131,13 @@ Group MScript
 	Void NPC_Marinus()
 		If !__newgameplus
 			Map.Kill("NPC_Marinus",true)
+			Return
+		End
+		If !Done.SpokenToMarinusUnlockingTheCathedralInTheProcess
+			MapText("MARINUS1")
+			Worldmap.Unlock("NGPCATHEDRAL")
+		Else
+			MapText("MARINUS2")
 		End
 	End
 	
