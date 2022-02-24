@@ -53,8 +53,54 @@ Group MScript
 		WorldMap.Go()
 	End
 	
+	Void NPC_Mural()
+		if !Done.WENIARIA_LOOKED_MURAL
+			MapText("Mural")
+			If __skill>=3
+				Return
+			End
+			Int Skill
+			Int Times
+			For ch in Each{"Jake_Human","Marrilona","HandoStillor"}
+				Switch ch
+					case "Jake_Human"
+						Skill=4
+						Times=6 div __skill
+					case "Marrilona"
+						Skill=4
+						Times=8-__skill
+					case "HandoStillor"
+						Skill=2
+						Times=16 div __skill
+					default
+						Return
+				End
+				If __NewGamePlus
+					Times=Times*(4-__skill)
+				End
+				CSayF("Char %s will get %02d times an upgrade on skill #%d (if possible)",Ch,Times,Skill)
+				For i=1,Times
+					CSayF("x%02d/%02d",i,Times)
+					Party.IncSkill(Ch, Skill, 1000000000)
+				End
+				RPGChar[ch].Points.HP.Have = RPGChar[ch].Points.HP.Maximum 
+			End
+		End
+	End
+	
+	Void ToHall()
+		Map.GoToLayer("HALL","Start")
+	End
+	
+	Void Leave()
+		Map.GoToLayer("LOBBY","ComeOut")
+	End
+	
 	Constructor
-		ZA.TabEnter{"Bye"}
+		ZA.TabEnter{"Bye","ToHall","Leave"}
+		If Done.SpokenSashaFunda
+			Map.LayKill("HALL","SashaFunda")
+		End
 	End
 	
 End
