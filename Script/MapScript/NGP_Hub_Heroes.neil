@@ -32,10 +32,11 @@
 // 
 // **********************************************
 // 
-// version: 22.02.19
+// version: 22.02.23
 // End License Information
 
 #use "Script/Use/Anyway"
+
 
 Group MScript
 
@@ -47,6 +48,12 @@ Group MScript
 		Loading()
 		State.LoadNew("FLOW_BESTIARY","Script/Flow/FlowBestiary.neil")
 		Flow.Current="FLOW_BESTIARY"
+	End
+	
+	Void NPC_SymphoNica()
+		MapText("SYMPHONICA")
+		State.LoadNew("FLOW_JUKEBOX","Script/Flow/FlowJukebox.neil")
+		State.Call("FLOW_JUKEBOX","ComeToMe","\"FIELD\"")
 	End
 	
 	Void Delisto()

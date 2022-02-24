@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.02.15
+// version: 22.02.23
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -342,6 +342,8 @@ class MenuItem
 	end
 	
 	static void Jukebox()
+		State.LoadNew("FLOW_JUKEBOX","Script/Flow/FlowJukebox.neil")
+		State.Call("FLOW_JUKEBOX","ComeToMe","\"MAINMENU\"")
 	end
 	
 	static void Bugs()
