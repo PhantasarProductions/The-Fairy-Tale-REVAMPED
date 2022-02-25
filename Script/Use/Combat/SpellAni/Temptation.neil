@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Combat/SpellAni/Temptation.neil
-// Version: 22.01.11
+// Version: 22.02.24
 // Copyright (C) 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -45,7 +45,7 @@ Class CTemptation
 	ReadOnly Number RadiusSpeed
 	ReadOnly Int DegSpeed
 	Number Radius = 0
-	ReadOnly Deg
+	Int Deg
 	
 	Get Int X
 		Return CenterX+math.floor(Radius*xmath.sin(Deg))
@@ -90,7 +90,7 @@ Module
 		Int num = math.random(15,30)
 		Lst = new LinkedList()
 		For i=1,num
-			List.AddLast(New CTemptation(Exe.X,Exe.Y-(Exe.H div 2)))
+			Lst.AddLast(New CTemptation(Exe.X,Exe.Y-(Exe.H div 2)))
 		End
 		Frames = MaxFrames
 	End
