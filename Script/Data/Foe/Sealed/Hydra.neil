@@ -1,4 +1,4 @@
-// Generated 2/25/2022 7:13:30 PM
+// Generated 2/25/2022 7:20:17 PM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -67,7 +67,9 @@ Table _R(Bool Oversoul)
 		Ret.Stats.SPEED = 600
 	End
 
-	Ret.IsHumanoid = False	Ret.Actions = {}
+	Ret.IsHumanoid = False
+
+	Ret.Actions = {}
 	If True
 		Ret.Actions += "AAA_ATTACK"
 		Ret.Actions += "AAA_ATTACK"
