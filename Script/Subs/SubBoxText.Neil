@@ -1,7 +1,7 @@
 // License Information:
 // src/Tricky Script/Script/Subs/SubBoxText.Neil
-// Version: 21.08.20
-// Copyright (C) 2020, 2021 Jeroen Petrus Broks
+// Version: 22.02.25
+// Copyright (C) 2020, 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
 // This file is part of a project related to the Phantasar Chronicles or another
@@ -211,7 +211,6 @@ class TextBox
 			end
 		end
 	end
-	
 	
 	static void Generate(string file, string tag,int idx,string boxback)
 		//var this
