@@ -166,9 +166,9 @@ class TextBox
 	
 	void Show()
 	
-		var LFont
+		//var LFont
 		
-		LFont = ImageFont.Obtain("BOXTEXT")
+		static var LFont = ImageFont.Obtain("BOXTEXT")
 		
 		self.txtbox.Draw()
 		
