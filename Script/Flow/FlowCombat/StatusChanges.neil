@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/StatusChanges.neil
-// Version: 22.02.21
+// Version: 22.02.24
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -42,6 +42,7 @@ Class TStatusChange
 	Delegate Draw
 	Delegate Inflict
 	Delegate Cure
+	Delegate AltAI
 	String Defense
 	Bool SkipTurn = False
 	Bool BlockHeal = False
@@ -49,6 +50,7 @@ Class TStatusChange
 	
 	Constructor
 		PreTurn = NIKS
+		AltAI = NIKS
 	End
 End
 
@@ -135,11 +137,77 @@ Module
 		Register.Paralysis.SkipTurn=True
 		Void Paralysis_Draw(Char)
 			Static Var b = Image.LoadNew("GFX/Combat/StatusChanges/Paralysis/Bliksem.png","COMBAT_PARA_BLIKSEM")
+			Graphics.Scale(1,1)
 			for i=1,10
 				b.Draw(math.random(Char.TX-(Char.TW div 2),Char.TX+(Char.TW div 2)),math.random(Char.TY-Char.TH-10,Char.TY))
 			End
 		End
 		Register.Paralysis.Draw = Paralysis_Draw
+		
+		// Charm
+		Register.Charm = new TStatusChange()
+		Bool Charm_AI(Char)
+			PreTurnCure(Char,"Charm")
+			Switch Char.Tag
+				Case "Jake_Human" "Jake_Fairy"
+					Var WAbl = RPGChar.Jake_Human.Data.EQUIP_Weapon
+					Var Act = new Action(WAbl,Char.Tag,{"Dandor"},{["CheckAfterAction"]=true})
+					Stage_PlayerSelectTarget.ComeToMe(Act)
+					Return True
+				Case "Dandor"
+					Var Act = new Action("AAA_GUARD","Dandor",{"Dandor"},{})
+					Stage_PlayerSelectTarget.ComeToMe(Act)
+					Return True
+				Case "Dandor"
+					Int TimeOut=1000
+					Int R
+					Repeat
+						TimeOut--
+						If TimeOut<=0
+							Var Act = new Action("AAA_GUARD","Dandor",{"Dandor"},{})
+							Stage_PlayerSelectTarget.ComeToMe(Act)
+							Return True
+						End
+						R = math.random(1,4)
+					LoopWhile RPGChar[R]=="" || RPGChar[R]=="Dandor"
+					Var Act = new Action("AAA_ATTACK","Dandor",{RPGParty[R]},{})
+					Stage_PlayerSelectTarget.ComeToMe(Act)
+					Return True
+				Case "HandoStillor"
+					Var Foes
+					Foes = {}
+					For T,D in pairs(Fighter.ByTag)
+						If D.Team=="Foe"
+							Foes+=T
+						End
+					End
+					Int TimeOut=1000
+					Int R
+					Repeat
+						If TimeOut<=0
+							Var Act = new Action("AAA_GUARD","HandoStillor",{"HandoStillor"},{})
+							Stage_PlayerSelectTarget.ComeToMe(Act)
+							Return True
+						End
+						R = math.random(1,#Foes)
+					LoopWhile Fighter.ByTag[Foes[R]].HP>0
+					Var Act = new Action("ABL_HERO_HANDOSTILLOR_FIRSTAID","HandoStillor",{Foes[R]},{["DeductAP"]=True})
+					Stage_PlayerSelectTarget.ComeToMe(Act)
+					Return True
+				Default
+					Return False
+			End
+		End
+		Void Charm_Draw(Char)
+			Static Var b = Image.LoadNew("GFX/Combat/SpellAni/Temptation/Heart.png","COMBAT_CHARM_HARTJE")
+			Graphics.Scale(1,1)
+			__White
+			for i=1,10
+				b.Draw(math.random(Char.TX-(Char.TW div 2),Char.TX+(Char.TW div 2)),math.random(Char.TY-Char.TH-10,Char.TY))
+			End
+		End
+		Register.Charm.AltAI=Charm_AI
+		Register.Charm.Draw=Charm_Draw
 		
 		
 		// Curse
