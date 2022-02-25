@@ -122,7 +122,7 @@ Class Stage_IDLE extends Stage
 	End
 	
 	Bool AltAI(Card)
-		Bool Ret = False
+		Var Ret = False
 		Var Char = Fighter.ByTag[Card.FightTag]
 		For k,d in Char.EachStatusChange()
 			If d				
@@ -131,7 +131,7 @@ Class Stage_IDLE extends Stage
 				printf("\007WARNING! 'nil' value in status change reel (%s)",Lua.tostring(k))
 			End
 		End		
-		Return Ret
+		Return Ret!=False && Ret!=Nil
 	End
 
 	Void Update()		
