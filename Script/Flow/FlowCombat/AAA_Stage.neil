@@ -120,6 +120,19 @@ Class Stage_IDLE extends Stage
 		End
 		Return !SkipTurn
 	End
+	
+	Bool AltAI(Card)
+		Bool Ret = False
+		Var Char = Fighter.ByTag[Card.FightTag]
+		For k,d in Char.EachStatusChange()
+			If d				
+				Ret = Ret || d.AltAI(Char,k)
+			Else
+				printf("\007WARNING! 'nil' value in status change reel (%s)",Lua.tostring(k))
+			End
+		End		
+		Return Ret
+	End
 
 	Void Update()		
 		Static Table AI = {}
