@@ -35,7 +35,7 @@
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
 
-#define TarFilterDebug
+#undef TarFilterDebug
 
 Void __ReadOnly()
 	Lua.error("Targets array is read-only!")
