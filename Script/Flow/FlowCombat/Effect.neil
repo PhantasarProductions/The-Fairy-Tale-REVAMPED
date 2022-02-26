@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Effect.neil
-// Version: 22.02.15
+// Version: 22.02.26
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -321,7 +321,7 @@ Group Effect
     		charmsg(Target.Tag,"No effect!",255,180,0)
     		Return True
     	End
-    	CSayF("Heaing %s with %s extra hitpoints",Target.Tag,Lua.tostring(HV))
+    	CSayF("Healing %s with %s extra hitpoints",Target.Tag,Lua.tostring(HV))
     	charmsg(Target.Tag,math.abs(HV),180,255,0)
     	Target.HP += HV
     	If Target.Tag=="Marrilona" && HV>0 && gv.gBool.MarFeena_Curse
