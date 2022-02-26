@@ -51,6 +51,7 @@ Class Stage_Execution Extends Stage
 	Static Int Time
 	Static Bool DoShowBox
 	Static Void ComeToMe(_Act,_Card)
+		Static Var Buzz = Audio.Obtain("BUZZ")
 		Act          = _Act
 		Card         = _Card
 		ExStage      = "Start"
@@ -58,8 +59,7 @@ Class Stage_Execution Extends Stage
 		Self.Current = "Execution"
 		DoShowBox    = True
 		If Act.DeductAP && Act.Executor.Team=="Hero"
-			Var AP = Act.Executor.Char.Points.AP
-			Static Var Buzz = Audio.Obtain("BUZZ")
+			Var AP = Act.Executor.Char.Points.AP			
 			If Act.Act.ABL_APCost>AP.Have
 				charmsg(Act.Executor.Tag,"Out of AP",255,0,0)
 				Buzz.Play()
@@ -69,8 +69,14 @@ Class Stage_Execution Extends Stage
 			Else
 				AP.Have -= Act.Act.ABL_APCost
 			End
+		End		
+		If Act.TarFilter()==0
+			charmsg(Act.Executor.Tag,"No valid targets",255,0,0)
+			Buzz.Play()
+			FlowCombat.Cards.DelShift()
+			Stage.Current = Nil
+			DoShowBox    = False
 		End
-		Act.TarFilter()
 	End
 	
 	Void Update()
