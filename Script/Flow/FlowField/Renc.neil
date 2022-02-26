@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField/Renc.neil
-// Version: 22.02.12
+// Version: 22.02.26
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -206,12 +206,12 @@ module
 				RRate[4] = 100000
 			Case 2
 				RRate[1] = 0
-				RRate[2] = 1000000000
-				RRate[3] = 10000000
-				RRate[4] = 100000
+				RRate[2] = 100000000
+				RRate[3] = 1000000
+				RRate[4] = 10000
 			Case 3
-				RRate[1] = 1000000000
-				RRate[2] = 10000000
+				RRate[1] = 100000000
+				RRate[2] = 1000000
 				RRate[3] = 100000
 				RRate[4] = 1000
 			Default
