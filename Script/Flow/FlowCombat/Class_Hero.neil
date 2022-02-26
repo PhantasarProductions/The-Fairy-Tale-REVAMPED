@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Class_Hero.neil
-// Version: 22.02.24
+// Version: 22.02.26
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -56,6 +56,13 @@ Class Hero Extends Fighter
 	
 	Get Bool DrawThis
 		return RPGParty[num] == self.Tag
+	End
+	
+	Get Bool Gone
+		Return False
+	End
+	Set Bool Gone
+		CSay("Trying to set a hero to 'Gone'? Hahaha! Not gonna happen")
 	End
 	
 	Get Int H
