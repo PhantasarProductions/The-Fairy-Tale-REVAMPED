@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/StatusChanges.neil
-// Version: 22.02.24
+// Version: 22.02.26
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -301,5 +301,9 @@ Module
 		End
 		Register.Death = new TStatusChange()
 		Register.Death.Inflict = Death_Inflict
+		
+		// Undead
+		Register.Undead = new TStatusChange()
+		Register.Undead.Draw = NIKS		
 	End
 End
