@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Class_Action.neil
-// Version: 22.02.10
+// Version: 22.02.26
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -34,6 +34,9 @@
 // misrepresented as being the original software.
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
+
+#define TarFilterDebug
+
 Void __ReadOnly()
 	Lua.error("Targets array is read-only!")
 End
@@ -65,21 +68,31 @@ Class Action
 	ReadOnly Bool Teaching = False
 	ReadOnly String AfterMsg = ""
 
-	Void TarFilter()
+	Int TarFilter()
 		Table NTargets
 		NTargets = {}
 		Int CTars = #TarTags
 		for i=1,CTars
-			if Fighter.ByTag[TarTags[i]].Team!="Foe" || Fighter.ByTag[TarTags[i]].HP!=0 || (!Fighter.ByTag[TarTags[i]].Gone)
-				NTargets[i]=TarTags[i]
+			Var Tgt=Fighter.ByTag[TarTags[i]]
+			if Tgt.Team!="Foe" || (Tgt.HP>0 && (!Tgt.Gone))
+				NTargets+=TarTags[i]
+			#if TarFilterDebug
+				CSayF("Target #%d Accepted! Team: %s; Tag: %s! HP: %06d; Gone: %s! Accepted: %d",i,Tgt.Team,TarTags[i],Tgt.HP,Lua.tostring(tgt.Gone),#NTargets)
+			Else
+				CSayF("Target #%d rejected! Team: %s; Tag: %s! HP: %06d; Gone: %s",i,Tgt.Team,TarTags[i],Tgt.HP,Lua.tostring(tgt.Gone))
+			#fi
 			End
 		End
 		If #NTargets==#Targets
-			Return
+			Return #Targets
 		End
 		For i=1,CTars
 			TarTags[i]=NTargets[i]
+			#if TarFilterDebug
+			CSayF("Target %d: %s",i,Lua.tostring(NTargets[i]))
+			#fi
 		End
+		Return #TarTags
 	End
 
 	
@@ -95,13 +108,15 @@ Class Action
 		Var TarEach()
 			Int i=0
 			Return Var()
-				Repeat
+				Var Tgt
+				Repeat				
 					i++
 					If i>#TarTags
 						Return nil,nil,nil
 					End
-				LoopWhile (Fighter.ByTag[TarTags[i]].Team=="Foe" && (Fighter.ByTag[TarTags[i]].HP==0 || Fighter.ByTag[TarTags[i]].Gone))
-				Return Fighter.ByTag[TarTags[i]],TarTags[i],i
+					Tgt=TarTags[i]
+				LoopWhile (Tgt.Team=="Foe" && (Tgt.HP==0 || Tgt.Gone))
+				Return Tgt,TarTags[i],i
 			End
 		End
 		Var TarIndex(s,idx)
