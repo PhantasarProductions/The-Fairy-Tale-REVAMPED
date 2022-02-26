@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.02.07
+// version: 22.02.26
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -114,8 +114,11 @@ Group MScript
 	End
 	
 	Void ToSpirata()
-		Map.GoToLayer("#001","SpirataStart")
+		if !Self.Solved
+			Return
+		End
 		if !__Finished
+			Map.GoToLayer("#001","SpirataStart")
 			Schedule.Add("Complete")
 		End
 	End
