@@ -168,6 +168,11 @@ module
 		Enemies = {}
 		For i=1,__skill
 			Var F = Split(FlowField.Map.KthuraMap.Meta["Foes"..i],";")
+			If __NewGamePlus
+				For EF in Each ( Split(FlowField.Map.KthuraMap.Meta["Foes_NG+"],";") )
+					F+=EF
+				End
+			End
 			For Foe in Each(F)
 				pLua SF = Split(Foe,",")
 				For j=1,Lua.tonumber(SF[2] || "1") || 1
