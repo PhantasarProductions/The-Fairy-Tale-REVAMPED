@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Combat/SpellAni/DarkVision.neil
-// Version: 22.01.22
+// Version: 22.02.26
 // Copyright (C) 2014, 2017, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -43,6 +43,8 @@ Module
 	Void Start()
 		Ended = false
 	End
+	
+	ReadOnly Delegate Update = NIKS
 	
 	Void Draw()
 		//local screen = Image.GrabScreen()
