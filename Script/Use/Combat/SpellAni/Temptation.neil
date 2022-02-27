@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Combat/SpellAni/Temptation.neil
-// Version: 22.02.24
+// Version: 22.02.27
 // Copyright (C) 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -70,7 +70,7 @@ Class CTemptation
 		CenterX = _X
 		CenterY = _Y
 		DegSpeed = math.random(1,10)
-		RadiusSpeed = math.random(1,1000)/3600
+		RadiusSpeed = math.random(5,1000)/3600
 		If math.random(1,2)==2
 			RadiusSpeed = RadiusSpeed * (-1) 
 		End
@@ -81,9 +81,10 @@ End
 		
 Module
 	Var Exe
-	Const Int MaxFrames = 2000
+	Const Int MaxFrames = 250
 	Int Frames
 	Var Lst
+	ReadOnly Delegate Update = NIKS
 	
 	Void Start(_act)
 		Exe = _act.Executor
@@ -99,7 +100,7 @@ Module
 		--Frames
 		For Hrt,Lnk in Lst.Each
 			Hrt.Draw()
-			If (Hrt.X>Screen.W) || (Hrt.Y>Screen.H && Frames<=0)
+			If (Hrt.X>Screen.W) || (Hrt.Y>Screen.H && Frames<=0) || (Hrt.X<0-200) || (Hrt.Y<0) || (Frames<-1000)
 				Lnk.Unlink()
 			End
 		End
