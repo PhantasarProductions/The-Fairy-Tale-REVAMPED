@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.01.24
+// version: 22.02.27
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -71,6 +71,15 @@ Group MScript
 			WorldMap.Unlock("CH3NOSTRABURG")
 		End
 		MapText("QUENDOR_"..Lua.tostring(D):upper())		
+	End
+	
+	Void NPC_Cherry()
+		If Done.SpokenToCherryInGromboToUnlockAquaAntrum
+			MapText("CHERRY2")
+		Else
+			MapText("CHERRY1")
+			WorldMap.Unlock("NGPAQUAANTRUM")
+		End
 	End
 	
 	Constructor
