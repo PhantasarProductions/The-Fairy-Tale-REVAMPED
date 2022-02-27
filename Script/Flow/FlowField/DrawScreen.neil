@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField/DrawScreen.neil
-// Version: 22.02.20
+// Version: 22.02.27
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -165,6 +165,9 @@ Void _DS()
 	Static Var ASDF = ImageFont.Obtain("SYSFONT")
 	ASDF.DarkText(sprintf("AutoScroll: %s; Cam(%04d,%04d)",lua.tostring(FlowField.Map.AllowAutoScroll),FlowField.Map.ScrollX,FlowField.Map.ScrollY),5,5)
 	#fi
+	__White
+	Graphics.SetAlpha(255)
+	//Graphics.Blend(0)
 	FlowField.Compass.DrawAll()
 	MiniMessage.DrawAll()
 	FieldFlow.Renc.DrawGauge()
