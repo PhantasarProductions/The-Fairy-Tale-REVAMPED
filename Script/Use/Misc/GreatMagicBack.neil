@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Misc/GreatMagicBack.neil
-// Version: 22.02.11
+// Version: 22.02.27
 // Copyright (C) 2017, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -46,6 +46,7 @@
 
 plua gm_default
 plua gm_manacave
+plua gm_aqua
 
 Init
 #pure
@@ -65,15 +66,23 @@ Init
 	gm_default.speed = { {1,0},{2,0},{0,1},{0,2}}
 	gm_default.hide = "/F.PNG"
 	gm_manacave = {}
+	gm_aqua = {}
 	for k,v in pairs(gm_default) do
 		gm_manacave[k] = v
+		gm_aqua[k] = v
 	end
 	gm_manacave.colors = { 
 		{125,  0,   0},
 		{0,  125,   0},
 		{0,    0, 125},
 		{0,   90,   0}
-	}	
+	}
+	gm_aqua.colors = { 
+		{  0, 0,125},
+		{ 60, 0,120},
+		{ 20, 0,120},
+		{ 15, 0,115}
+	}
 #endpure
 End
 
@@ -141,6 +150,11 @@ Module
 			for k,v in pairs(gm_manacave)
 				data[k] = data[k] or v
 			end
+		Elseif suffixed(Map.LoadedMap:upper(),"AQUAANTRUM")
+			For k,v in pairs(gm_aqua)
+				data[k] = data[k] or v
+			End
+		Else
 			for k,v in pairs(gm_default)
 				data[k] = data[k] or v
 			end
