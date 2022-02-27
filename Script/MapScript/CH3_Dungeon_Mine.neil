@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.02.08
+// version: 22.02.27
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -122,7 +122,7 @@ Group MScript
 	
 	Constructor
 		ZA.TabEnter{"ToSecretDungeon","Delisto","InitPuzzle","StartBoss","ToTomb"}
-				For i=1,25
+		For i=1,25
 			ZA.Enter("Sym"..i,"Symbol","Sym"..i)
 		End
 	End
