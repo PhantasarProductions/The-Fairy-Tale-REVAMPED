@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Execution.neil
-// Version: 22.02.26
+// Version: 22.02.27
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -53,7 +53,7 @@ Class Stage_Execution Extends Stage
 	Static Void ComeToMe(_Act,_Card)
 		Static Var Buzz = Audio.Obtain("BUZZ")
 		Act          = _Act
-		Card         = _Card
+		Card         = _Card || FlowCombat.Cards[1]
 		ExStage      = "Start"
 		Time         = 150
 		Self.Current = "Execution"
