@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.02.23
+// version: 22.02.28
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -54,6 +54,11 @@ Group MScript
 		MapText("SYMPHONICA")
 		State.LoadNew("FLOW_JUKEBOX","Script/Flow/FlowJukebox.neil")
 		State.Call("FLOW_JUKEBOX","ComeToMe","\"FIELD\"")
+	End
+	
+	Void NPC_Wanindra()
+		MapText("WANINDRA")
+		FieldMenu.Shop("NGP_WANINDRA")
 	End
 	
 	Void Delisto()
