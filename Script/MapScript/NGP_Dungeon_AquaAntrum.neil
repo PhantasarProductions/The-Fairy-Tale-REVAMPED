@@ -1,0 +1,195 @@
+// License Information:
+// **********************************************
+// 
+// src/Tricky Script/Script/MapScript/NGP_Dungeon_AquaAntrum.neil
+// (c) Jeroen Broks, 2022, All Rights Reserved.
+// 
+// This file contains material that is related
+// to a storyline that is which is strictly
+// copyrighted to Jeroen Broks.
+// 
+// This file may only be used in an unmodified
+// form with an unmodified version of the
+// software this file belongs to.
+// 
+// You may use this file for your study to see
+// how I solved certain things in the creation
+// of this project to see if you find valuable
+// leads for the creation of your own.
+// 
+// Mostly this file comes along with a project
+// that is for most part released under an
+// open source license and that means that if
+// you use that code with this file removed
+// from it, you can use it under that license.
+// Please check out the other files to find out
+// which license applies.
+// This file comes 'as-is' and in no possible
+// way the author can be held responsible of
+// any form of damages that may occur due to
+// the usage of this file
+// 
+// 
+// **********************************************
+// 
+// version: 22.02.27
+// End License Information
+
+#region use
+#use "Script/Use/Anyway"
+#use "Script/Use/Misc/TexMove"
+#use "Script/Use/Misc/PuzSet"
+#endregion
+
+Group MScript
+
+	ReadOnly Bool HasDraw   = False
+	ReadOnly Bool HasUpdate = True
+	ReadOnly String WaterTex = "gfx/textures/water/water.png"
+	Var water 
+	Var waterreg
+
+	
+	Var Slide
+	
+	Void Update()
+		Static Int Least = 10000
+		Least = math.min(Least,FPS.FN())
+		If Least>20
+			TexMove.Update()
+		End
+		waterreg = waterreg || {}
+		If !waterreg[Map.Layer]
+			CSay("Starting water layer: %s",Map.Layer)
+			waterreg[Map.Layer] = true
+			for k,d in pairs(water)
+				Map.SetObj(d.tag,"Texture",d.tex)
+				Map.SetObj(d.tag,"Dominance",d.dom)
+				Map.SetObj(d.tag,"Alpha",d.alpha)
+				Map.SetObj(d.tag,"W",Screen.W+10)
+				Map.SetObj(d.tag,"H",Screen.H+10)
+				Map.SetObj(d.tag,"Impassible",false)
+			end
+		End
+		For k,d in pairs(water)
+			Map.SetObj(d.tag,"X",Map.CamX-5)
+			Map.SetObj(d.tag,"Y",Map.CamY-5)
+			Map.SetObj(d.tag,"InsertX",math.floor(Map.CamX*d.mul))
+			Map.SetObj(d.tag,"InsertY",math.floor(Map.CamY*d.mul))
+		End
+	End	
+	
+	Void Delisto()
+		WorldMap.Go()
+	End
+	
+	#region Puzzle
+	var _PI
+	Get Bool Solved
+		//return gv.gbool["Abandoned_Mines_Solved_"..Map.Layer]
+		return PuzSet.Solved
+	End
+	Get Bool PuzzleInitiated
+		_PI = _PI || {}
+		return _PI[Map.Layer] || Solved
+	End
+	Set Bool PuzzleInitiated
+		_PI = _PI || {}
+		_PI[Map.Layer] = Value
+	End
+
+	Void InitPuzzle()
+		If PuzzleInitiated
+			Return
+		End
+		int m
+		PuzzleInitiated = true
+		//PuzSet.Start( ({["#003"]=16,["#007"]=25})[Map.Layer] ,"Mine")
+		switch map.layer
+			case "#002"
+				PuzSet.Start(16)
+				m = 16
+			case "#007"
+				PuzSet.Start(25,"Mine")
+				m = 25
+			default
+				Lua.error("Puzzle on unknown layer")
+		end
+		For i=1,m
+			Map.SetObj("Sym"..i,"R",255)
+			Map.SetObj("Sym"..i,"G",255)
+			Map.SetObj("Sym"..i,"B",255)
+		End
+	End
+	
+	Void Symbol(string Tag)
+		Int E=0
+		If __skill<3
+			E = math.random(300,669 div __skill)
+		End
+		CSayF("Setting symbol %s for %03d experience points!",Tag,E) 
+		PuzSet.Action(Tag,"PuzBlock",E)
+		Int TNum = Lua.tonumber(Right(Tag,#Tag-3))
+		If !PuzSet.Pressed[TNum]
+			Map.SetObj("Sym"..TNum,"R",255)
+			Map.SetObj("Sym"..TNum,"G",255)
+			Map.SetObj("Sym"..TNum,"B",255)		
+		End
+	End
+	#endregion
+	
+	Void StartBoss()
+		//Lua.error("Boss not yet scripted")
+		Map.Kill("StartBoss",true)
+		Map.Kill("Boss",true)
+		Combat.Prepare(0,255,0,"Ultimate queen of temptation","Ocean Maid")
+		Switch __skill
+			Case 1
+				Combat.NewEnemy="Boss/OceanMaid"
+			Case 2
+				For i=1,3 
+					Combat.NewEnemy="REG/Siren"
+				End
+				Combat.NewEnemy="Boss/OceanMaid"
+			Case 3				
+				For i=1,9 
+					Combat.NewEnemy="REG/Siren"
+				End
+				Combat.NewEnemy="Boss/OceanMaid"
+			Default
+				Lua.error("Unknown skill!")
+		End  
+		Combat.Music="Combat/NewGame+/Boss.ogg"
+		Combat.Arena="Aqua.png"
+		Combat.Start()    
+	End
+	
+	Void NPC_Wanindra()
+		gv.gbool.Heroes_Wanindra = true
+		Bool All = True
+		For h in Each{"Zyviola","SymphoNica","Wanindra","Colportarus"}
+			All = All && gv.gbool["Heroes_"..h]
+		End
+		If All
+			Ach.Award("ZZNGP_ALL")
+		End
+		Ach.Award("ZZNGP_AQUA")
+		WorldMap.Unlock("NGPHEROES")
+		MapText("HEROES_WANINDRA")
+		Map.Kill("NPC_Wanindra",true)
+		WorldMap.Go()		
+	End
+	
+	
+	Constructor		
+		TexMove.MagicBackSetup(0,7,{})
+		ZA.TabEnter{"Delisto","StartBoss"}	
+		water = {}
+		water.top   = { ["tag"]="water_top",    ["alpha"]=0060, ["tex"]=watertex,  ["mul"]=0-3.25, ["dom"]=9999, ["debugy"]= 0 }
+		water.lower = { ["tag"]="water_bottom", ["alpha"]=0045, ["tex"]=watertex , ["mul"]=  1.05, ["dom"]=9000, ["debugy"]=20 }
+		For i=1,16
+			ZA.Enter("Sym"..i,"Symbol","Sym"..i)
+		End
+		ZA.Enter("SymStart","InitPuzzle")
+	End
+End
