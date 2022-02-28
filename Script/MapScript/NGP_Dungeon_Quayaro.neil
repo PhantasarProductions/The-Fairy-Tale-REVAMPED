@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.02.22
+// version: 22.02.28
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -110,6 +110,9 @@ Group MScript
 		WorldMap.Go()		
 	End
 	
+	Void Delisto()
+		WorldMap.Go()
+	End
 	
 	Constructor
 		For Lay in Each(Map.Layers)
@@ -123,6 +126,6 @@ Group MScript
 				End
 			End
 		End
-		ZA.TabEnter{"StartBoss"}
+		ZA.TabEnter{"StartBoss","Delisto"}
 	End
 End
