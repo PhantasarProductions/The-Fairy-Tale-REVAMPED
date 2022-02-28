@@ -1,7 +1,7 @@
 // License Information:
 // src/Tricky Script/Script/Use/Combat/ActScript/RemoveAllUserCards.neil
-// Version: 21.12.25
-// Copyright (C) 2021 Jeroen Petrus Broks
+// Version: 22.02.28
+// Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
 // This file is part of a project related to the Phantasar Chronicles or another
@@ -37,12 +37,19 @@
 // Script/Use/Combat/ActScript/RemoveAllUserCards
 
 Bool _Act(Act,Tar)
+	Table Nullify
+	Nullify = {}
 	CSayF("Card Removal: %s",Tar.Tag)
-	For id,crd in pairs(FlowCombat.Cards)
+	For id,crd in pairs(FlowCombat.Cards.Lijst)
 		If crd.FightTag==Tar.Tag
 			CSayF("= Card %d has the requested fight tag and will therefore be nullified",id)
-			Crd.None = True
+			//Crd.None = True
+			Nullify += id
 		End
+	End
+	For id in each(Nullify)
+		CSayF("Nullifying card #%d",id)
+		FlowCombat.Cards.Lijst[id] = nil
 	End
 	Return True
 End
