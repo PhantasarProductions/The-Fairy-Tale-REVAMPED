@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.02.04
+// version: 22.03.01
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -94,6 +94,13 @@ Group MScript
 	End
 	
 	Void StartBoss()
+		For s in Each{"Power","Endurance","Intelligence","Resistance","Speed","Accuracy","Evasion"}
+			RPGChar.FOE001.Link_Stat("Marrilona","BASE_"..s)
+		End
+		For ch in Each{"Jake_Human","Jake_Fairy","Marrilona","Dandor","HandoStillor","Krandar"}
+			RPGChar.FOE001.Stat.BASE_HP += RPGChar[ch].Stat.END_HP
+		End
+		RPGChar.FOE001.Points.HP.Have = RPGChar.FOE001.Points.HP.Maximum
 		MapText("MARRILONA_START","FLOW_COMBAT")
 	End
 	
