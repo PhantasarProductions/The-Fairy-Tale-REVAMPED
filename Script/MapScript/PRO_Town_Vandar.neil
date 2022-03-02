@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.02.05
+// version: 22.03.02
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -183,6 +183,15 @@ Group MScript
 		WorldMap.Go()
 	End
 	
+	Void NPC_Narya()
+		If Done.SpokenToNarya
+			MapText("NARYA2")
+		Else
+			MapText("NARYA1")
+			WorldMap.Unlock("NGPExcalibur")
+		End
+	End
+	
 	Constructor
 		ZA.Enter("UP1",  "GoUp")
 		ZA.Enter("UP2",  "GoUp")
@@ -203,5 +212,8 @@ Group MScript
 			Return Niks
 		End		
 		Enter = Lua.setmetatable({},{["__index"]=EnterIndex})
+		if (!__newgameplus) || (__chapter<4)
+			Map.LayKill("TOWN","NPC_Narya")
+		End
 	End
 End
