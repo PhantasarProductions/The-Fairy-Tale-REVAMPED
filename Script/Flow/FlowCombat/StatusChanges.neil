@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/StatusChanges.neil
-// Version: 22.02.27
+// Version: 22.03.01
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -150,12 +150,17 @@ Module
 			PreTurnCure(Char,"Charm")
 			Switch Char.Tag
 				Case "Jake_Human" "Jake_Fairy"
-					Var WAbl = RPGChar.Jake_Human.Data.EQUIP_Weapon
+					If RPGParty[2]!="Marrilona"
+						Var Act = new Action("AAA_GUARD",Char,{Char},{})
+						Stage_Execution.ComeToMe(Act)
+						Return True
+					End
+					Var WAbl = RPGChar.Jake_Human.Data.EQUIP_Weapon					
 					Var Act = new Action(WAbl,Char.Tag,{"Marrilona"},{["CheckAfterAction"]=true})
 					Stage_Execution.ComeToMe(Act)
 					Return True
-				Case "Dandor"
-					Var Act = new Action("AAA_GUARD","Dandor",{"Dandor"},{})
+				Case "Krandar" "Marrilona" "Nostramantu_Human" "Nostramantu"
+					Var Act = new Action("AAA_GUARD",Char,{Char},{})
 					Stage_Execution.ComeToMe(Act)
 					Return True
 				Case "Dandor"
