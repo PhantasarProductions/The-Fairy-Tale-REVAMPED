@@ -47,7 +47,11 @@ Group MScript
 	End
 	
 	Void PortaalExcalibur()
-		Lua.error("Excalibur dungeon not yet present")
+		//Lua.error("Excalibur dungeon not yet present")
+		Map.GoToMap("NGP_Dungeon_Excalibur","#000","BeginDungeon")
+		If !Done.Excalibur_First_Entrance
+			Schedule.Add("BeginDungeon")
+		End
 	End
 	
 	Void Event()
