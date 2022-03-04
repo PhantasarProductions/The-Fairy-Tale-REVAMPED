@@ -32,15 +32,66 @@
 // 
 // **********************************************
 // 
-// version: 22.03.03
+// version: 22.03.04
 // End License Information
 
 #use "Script/Use/Anyway"
 
+QuickMeta KeyCard
+	Index
+		Static Var Colors = {"Red","Gold","Green","Blue"}
+		Static Var SetCol = {["RED"]={255,0,0},["GOLD"]={255,180,0},["GREEN"]={0,255,0},["BLUE"]={0,0,255}}
+		Switch key:upper()
+			Case "COLORS" 
+				Return Colors
+			Case "SETRED" "SETGREEN" "SETGOLD" "SETBLUE"
+				Var C=SetCol[Right(Key,#Key-3):upper()]
+				Graphics.Color(C[1],C[2],C[3])
+				Return NIKS
+			Case "RED" "GOLD" "GREEN" "BLUE"
+				Return gv.gbool[sprintf("Excalibur_%s_%s",Map.Layer,Key)]
+			Default
+				Lua.error("R:Unknown key for KeyCard: "..key)
+		End
+	End
+	NewIndex
+		Switch key:upper()
+			Case "COLORS" "SETRED" "SETGREEN" "SETGOLD" "SETBLUE"
+				Lua.error(sprintf("KeyCard.%s is read-only!",key))
+			Case "RED" "GOLD" "GREEN" "BLUE"
+				gv.gbool[sprintf("Excalibur_%s_%s",Map.Layer,Key)] = (value!=nil && value!=false)
+			Default
+				Lua.error("W:Unknown key for KeyCard: "..key)
+		End
+	End
+End
+
 Group MScript
 
-	ReadOnly Bool HasDraw   = False
+	ReadOnly Bool HasDraw   = True
 	ReadOnly Bool HasUpdate = True
+	
+	ReadOnly Var Yeah = Audio.LoadNew("Audio/Alg/Yeah.ogg","EXCALIBUR_YEAH")
+	ReadOnly Delegate PreDraw = NIKS
+	
+	Void PostDraw()
+		Static Var Card = Image.LoadNew("GFX/Textures/Excalibur/EXCALIBUR/KEYCARD.PNG","EXCALIBUR_CARD")
+		Static Int CW = (Card.W + 5)*#KeyCard.Colors
+		Static Int CS = (Screen.W div 2) - (CW div 2)
+		For i,k in pairs(KeyCard.Colors)
+			int x = CS+(i*(Card.W + 5))
+			int y = 5
+			//CsayF("Card %d: %s  (%04d,%04d)",i,k,x,y)
+			Graphics.Color(100,100,100)
+			Graphics.Alpha(255)
+			Graphics.Scale(1,1)
+			if KeyCard[k]
+				KeyCard["Set"..k]()
+			End
+			Card.Draw(x,y)
+		End
+		__white
+	End
 	
 	Void Update()
 	End
@@ -49,9 +100,66 @@ Group MScript
 		MapText("WELCOME")
 	End
 	
+	// Neutralize Crystal's ammunition reloading points.
+	ReadOnly Delegate NPC_AMMO = NIKS
 	
+	Void ToDungeon()
+		Map.GoToLayer("#001","BeginMetNummer1")
+	End
 	
+	Void TerugNaarHangar()
+		Map.GoToLayer("#000","From001")
+	End
+	
+	#region Keys
+	Delegate NPC_Red
+	Delegate NPC_Gold
+	Delegate NPC_Green
+	Delegate NPC_Blue
+	Void Key(string k)
+		static var yeah = Audio.LoadNew("audio/alg/yeah.ogg","EXCALIBUR_YEAH")
+		yeah.Play()
+		If __skill<3
+			For i=1,4
+				RPGChar[RPGParty[i]].Stat.Experience -= math.random(30 div 2,1500 div 2)
+			End
+		End
+		KeyCard[k]=true
+		Map.Kill("NPC_"..(k:upper()),true)
+	End	
+	#endregion
+	
+	#region The Transporter
+	Get Bool AllowTrans
+		return !gv.gbool.ExcaliburTransporterBlocked
+	End
+	Set Bool AllowTrans
+		gv.gbool.ExcaliburTransporterBlocked = !Value
+	End
+	
+	Void LeaveTransporter()
+		AllowTrans = True
+	End
+	
+	Void Transporter()
+		If AllowTrans
+			Static Bool First
+			If !First
+				Loading()
+				State.Load("FLOW_TRANSPORTER","Script/Flow/Mini/ExTrans.neil")
+				First=True
+			End
+			Flow.Current="TRANSPORTER"
+			AllowTrans=False
+		End
+	End		
+	#endregion
 	
 	Constructor
+		ZA.TabEnter{"ToDungeon","TerugNaarHangar","Transporter"}
+		ZA.Leave("Transporter","LeaveTransporter")
+		For k in Each{"Red","Gold","Green","Blue"}
+			Self["NPC_"..k]=Lua.load("Neil.Globals.MScript.Key('"..k.."')")
+		End
 	End
 End
