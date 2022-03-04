@@ -1,0 +1,77 @@
+// Generated 3/4/2022 4:30:35 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	If Oversoul
+		Lua.error("Enemy 'Reg/Cyborg Gunner' does not support oversoul!")
+	End
+
+	Ret.DESC = "Prepare for a shoot-out!"
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/Reg/Cyborg Gunner.png"
+	Ret.DropRate_1 = 100
+	Ret.DropItem_1 = "ITM_X_AURINA"
+	Ret.DropRate_2 = 25
+	Ret.DropItem_2 = "ITM_X_BANDAGE"
+	Ret.StealRate_1 = 25
+	Ret.StealItem_1 = "ITM_X_AURINA"
+	Ret.StealRate_2 = 0
+	Ret.StealItem_2 = "ITM_X_BANDAGE"
+	Ret.StealRate_3 = 0
+	Ret.StealItem_3 = "ITM_X_STEROIDS"
+	Ret.NAME = "Cyborg Gunner"
+	Ret.CASH = 0
+	Ret.SR_CURSE = 100
+	Ret.SR_DEATH = 90
+	Ret.SR_DISEASE = 75
+	Ret.SR_PARALYSIS = 100
+	Ret.SR_PETRIFICATION = 100
+	Ret.SR_POISON = 100
+	Ret.SR_SILENCE = 100
+	Ret.SR_UNDEAD = 100
+
+
+	Ret.AllowOversoul = False
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 250
+		Ret.Stats.ER_DARKNESS = 75
+		Ret.Stats.ER_EARTH = 75
+		Ret.Stats.ER_FLAME = 75
+		Ret.Stats.ER_FROST = 75
+		Ret.Stats.ER_LIGHT = 75
+		Ret.Stats.ER_LIGHTNING = 600
+		Ret.Stats.ER_WATER = -75
+		Ret.Stats.ER_WIND = 75
+		Ret.Stats.EVASION = 5
+		Ret.Stats.EXP = 2000
+		Ret.Stats.HP = 2500
+		Ret.Stats.INTELLIGENCE = 100
+		Ret.Stats.POWER = 550
+		Ret.Stats.RESISTANCE = 550
+		Ret.Stats.SPEED = 250
+	End
+
+	Ret.IsHumanoid = True
+
+	Ret.Actions = {}
+	If True
+		Ret.Actions += "ABL_FOE_X_SHOOT"
+		Ret.Actions += "ABL_FOE_X_SHOOT"
+		Ret.Actions += "ABL_FOE_X_SHOOT"
+	End
+	Return Ret
+End
+Return _R
+

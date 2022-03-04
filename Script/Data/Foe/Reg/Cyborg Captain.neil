@@ -1,4 +1,4 @@
-// Generated 3/4/2022 4:30:11 PM
+// Generated 3/4/2022 4:30:34 PM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -9,36 +9,32 @@ Table _R(Bool Oversoul)
 	Ret.Steal = {}
 
 	Ret.AI = "default"
-	Ret.Boss = true
 	If Oversoul
-		Lua.error("Enemy 'Boss/Frendor' does not support oversoul!")
+		Lua.error("Enemy 'Reg/Cyborg Captain' does not support oversoul!")
 	End
 
-	Ret.DESC = "Feenalaria's loving and caring assho...\nI mean brother."
-	Ret.IMAGE = "GFX/Combat/Fighters/Foe/Boss/Frendor.png"
+	Ret.DESC = "Used to be a captain for some space organisation. This is what is left of her"
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/Reg/Cyborg Captain.png"
 	Ret.DropRate_1 = 100
-	Ret.DropItem_1 = "ITM_APPLE"
-	Ret.DropRate_2 = 100
-	Ret.DropItem_2 = "ITM_APPLES"
-	Ret.StealRate_1 = 1
-	Ret.StealItem_1 = "ITM_AMBROSIA"
+	Ret.DropItem_1 = "ITM_X_AURINA"
+	Ret.DropRate_2 = 25
+	Ret.DropItem_2 = "ITM_X_BANDAGE"
+	Ret.StealRate_1 = 25
+	Ret.StealItem_1 = "ITM_X_AURINA"
 	Ret.StealRate_2 = 0
-	Ret.StealItem_2 = "ITM_AMBROSIA"
+	Ret.StealItem_2 = "ITM_X_BANDAGE"
 	Ret.StealRate_3 = 0
-	Ret.StealItem_3 = "ITM_AMBROSIA"
-	Ret.NAME = "Frendor"
-	Ret.CASH = 10
-	Ret.SR_CONFUSION = 100
-	Ret.SR_CURSE = 80
-	Ret.SR_DEATH = 95
-	Ret.SR_DISEASE = 60
-	Ret.SR_PARALYSIS = 70
+	Ret.StealItem_3 = "ITM_X_STEROIDS"
+	Ret.NAME = "Cyborg Captain"
+	Ret.CASH = 6
+	Ret.SR_CURSE = 100
+	Ret.SR_DEATH = 90
+	Ret.SR_DISEASE = 75
+	Ret.SR_PARALYSIS = 100
 	Ret.SR_PETRIFICATION = 100
-	Ret.SR_POISON = 65
+	Ret.SR_POISON = 100
 	Ret.SR_SILENCE = 100
-	Ret.SR_SLEEP = 20
-	Ret.SR_UNDEAD = 50
-	Ret.VOCALTAG = "Frendor"
+	Ret.SR_UNDEAD = 100
 
 
 	Ret.AllowOversoul = False
@@ -49,21 +45,22 @@ Table _R(Bool Oversoul)
 
 	If !Oversoul
 		Ret.Stats.ACCURACY = 100
-		Ret.Stats.ENDURANCE = 50
-		Ret.Stats.ER_DARKNESS = -200
-		Ret.Stats.ER_EARTH = -200
-		Ret.Stats.ER_FLAME = -200
-		Ret.Stats.ER_FROST = -200
-		Ret.Stats.ER_LIGHT = -200
-		Ret.Stats.ER_LIGHTNING = -200
-		Ret.Stats.ER_WATER = -200
-		Ret.Stats.ER_WIND = -200
-		Ret.Stats.EVASION = 15
-		Ret.Stats.HP = 20000
-		Ret.Stats.INTELLIGENCE = 70
-		Ret.Stats.POWER = 1234
-		Ret.Stats.RESISTANCE = 1
-		Ret.Stats.SPEED = 123
+		Ret.Stats.ENDURANCE = 450
+		Ret.Stats.ER_DARKNESS = 75
+		Ret.Stats.ER_EARTH = 75
+		Ret.Stats.ER_FLAME = 75
+		Ret.Stats.ER_FROST = 75
+		Ret.Stats.ER_LIGHT = 75
+		Ret.Stats.ER_LIGHTNING = 600
+		Ret.Stats.ER_WATER = -75
+		Ret.Stats.ER_WIND = 75
+		Ret.Stats.EVASION = 5
+		Ret.Stats.EXP = 2000
+		Ret.Stats.HP = 3000
+		Ret.Stats.INTELLIGENCE = 100
+		Ret.Stats.POWER = 550
+		Ret.Stats.RESISTANCE = 550
+		Ret.Stats.SPEED = 250
 	End
 
 	Ret.IsHumanoid = True
@@ -171,7 +168,32 @@ Table _R(Bool Oversoul)
 		Ret.Actions += "AAA_ATTACK"
 		Ret.Actions += "AAA_ATTACK"
 	End
-	If True && (__skill!=3)
+	If True && (!__NewGamePlus) && (__skill!=3)
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
 		Ret.Actions += "AAA_GUARD"
 		Ret.Actions += "AAA_GUARD"
 		Ret.Actions += "AAA_GUARD"
@@ -198,64 +220,9 @@ Table _R(Bool Oversoul)
 		Ret.Actions += "AAA_GUARD"
 		Ret.Actions += "AAA_GUARD"
 	End
-	If True && (__skill!=1)
-		Ret.Actions += "ABL_FOE_TAKEOVER"
-	End
-	If True
-		Ret.Actions += "ABL_FOE_VENOMSTAB"
-		Ret.Actions += "ABL_FOE_VENOMSTAB"
-		Ret.Actions += "ABL_FOE_VENOMSTAB"
-	End
-	If True
-		Ret.Actions += "ITM_APPLE"
-		Ret.Actions += "ITM_APPLE"
-		Ret.Actions += "ITM_APPLE"
-		Ret.Actions += "ITM_APPLE"
-		Ret.Actions += "ITM_APPLE"
-		Ret.Actions += "ITM_APPLE"
-		Ret.Actions += "ITM_APPLE"
-		Ret.Actions += "ITM_APPLE"
-		Ret.Actions += "ITM_APPLE"
-		Ret.Actions += "ITM_APPLE"
-		Ret.Actions += "ITM_APPLE"
-		Ret.Actions += "ITM_APPLE"
-		Ret.Actions += "ITM_APPLE"
-		Ret.Actions += "ITM_APPLE"
-		Ret.Actions += "ITM_APPLE"
-		Ret.Actions += "ITM_APPLE"
-		Ret.Actions += "ITM_APPLE"
-		Ret.Actions += "ITM_APPLE"
-		Ret.Actions += "ITM_APPLE"
-		Ret.Actions += "ITM_APPLE"
-		Ret.Actions += "ITM_APPLE"
-		Ret.Actions += "ITM_APPLE"
-		Ret.Actions += "ITM_APPLE"
-		Ret.Actions += "ITM_APPLE"
-		Ret.Actions += "ITM_APPLE"
-	End
-	If True
-		Ret.Actions += "ITM_HEALINGHERB"
-		Ret.Actions += "ITM_HEALINGHERB"
-		Ret.Actions += "ITM_HEALINGHERB"
-		Ret.Actions += "ITM_HEALINGHERB"
-	End
-	If True
-		Ret.Actions += "ITM_HEALSHOWER"
-		Ret.Actions += "ITM_HEALSHOWER"
-		Ret.Actions += "ITM_HEALSHOWER"
-	End
-	If True
-		Ret.Actions += "ITM_PANACEA"
-		Ret.Actions += "ITM_PANACEA"
-		Ret.Actions += "ITM_PANACEA"
-		Ret.Actions += "ITM_PANACEA"
-		Ret.Actions += "ITM_PANACEA"
-	End
-	If True
-		Ret.Actions += "ITM_POTION"
-		Ret.Actions += "ITM_POTION"
-	End
-	If True
+	If True && (__skill!=1) && (__skill!=2)
+		Ret.Actions += "ABL_HERO_JAKE_2PS"
+		Ret.Actions += "ABL_HERO_JAKE_2PS"
 	End
 	Return Ret
 End
