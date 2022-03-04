@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.02.25
+// version: 22.03.04
 // End License Information
 
 #use "Libs/LinkedList"
@@ -123,6 +123,9 @@ Init
 	Monster.Lijst.AddLast(New Monster("Reg/Boar","Wild Boar"))
 	Monster.Lijst.AddLast(New Monster("Reg/Boekenworm","Book worm"))
 	Monster.Lijst.AddLast(New Monster("Reg/BSpook","BSpook"))
+	Monster.Lijst.AddLast(New Monster("Reg/Cyborg Captain","Cyborg Captain"))
+	Monster.Lijst.AddLast(New Monster("Reg/Cyborg Gunner","Cyborg Gunner"))
+	Monster.Lijst.AddLast(New Monster("Reg/Cyborg Medic","Cyborg Medic"))
 	Monster.Lijst.AddLast(New Monster("Reg/DandletonCitizen","Dandleton Citizen"))
 	Monster.Lijst.AddLast(New Monster("Reg/DandletonKid","Dandleton Kid"))
 	Monster.Lijst.AddLast(New Monster("Reg/Devil Monk From Hell","Devil Monk From Hell"))
@@ -200,4 +203,4 @@ Init
 	Monster.Lijst.AddLast(New Monster("UberBoss/Juggernaut","Juggernaut"))
 End
 
-// This script was last generated 2/25/2022 7:20:18 PM //
+// This script was last generated 3/4/2022 4:31:06 PM //
