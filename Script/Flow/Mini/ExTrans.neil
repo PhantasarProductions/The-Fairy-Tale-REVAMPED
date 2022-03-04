@@ -1,0 +1,140 @@
+// License Information:
+// **********************************************
+// 
+// src/Tricky Script/Script/Flow/Mini/ExTrans.neil
+// (c) Jeroen Broks, 2022, All Rights Reserved.
+// 
+// This file contains material that is related
+// to a storyline that is which is strictly
+// copyrighted to Jeroen Broks.
+// 
+// This file may only be used in an unmodified
+// form with an unmodified version of the
+// software this file belongs to.
+// 
+// You may use this file for your study to see
+// how I solved certain things in the creation
+// of this project to see if you find valuable
+// leads for the creation of your own.
+// 
+// Mostly this file comes along with a project
+// that is for most part released under an
+// open source license and that means that if
+// you use that code with this file removed
+// from it, you can use it under that license.
+// Please check out the other files to find out
+// which license applies.
+// This file comes 'as-is' and in no possible
+// way the author can be held responsible of
+// any form of damages that may occur due to
+// the usage of this file
+// 
+// 
+// **********************************************
+// 
+// version: 22.03.05
+// End License Information
+
+#use "Script/Use/Anyway"
+
+Var Names
+Init
+		Names = {}
+		Names["#000"] = "Secret Hangar"
+		Names["#001"] = "Hidden layer"
+		Names["#002"] = "Security department"
+		Names["#003"] = "Lady of the Lake - Artificial Park"
+		Names["#004"] = "Coder Section - Apollo" // Used to be 'LAURA'
+		Names["#005"] = "Residential Area - Galahad"
+		Names["#006"] = "Junk collection area - Anthony"
+		Names["#007"] = "Camelot - Town Square"
+		Names["#008"] = "Coder Section - C++" // Used to be 'Blitz'
+		Names["#009"] = "Maintenance Deck"
+		Names["#010"] = "Residential Area - Guinevere"
+		Names["#011"] = "Crystal's bar"
+		Names["#012"] = "Junk collection area - Hugo"
+		Names["#013"] = "Casino"
+		Names["#014"] = "Weapon Storage"
+		Names["#015"] = "Medical department"
+		Names["#016"] = "Coder Section - Neil" // Used to be 'Lua'
+		Names["#017"] = "Playground"
+		Names["#018"] = "Junk collection area - Klaus"
+		Names["#019"] = "Staff department"
+		Names["#020"] = "High Security Department"
+		Names.SECRET1 = "Secret Science Lab"
+		Names.SECRET2 = "Secret labyrinth of \"the Mole\""        
+End
+
+Class Buttons
+	Static Table Tab
+	ReadOnly Var Img
+	ReadOnly Delegate Fun
+	
+	Constructor(string I,delegate F)
+		Img = Image.LoadNew("GFX/Excalibur/"..i..".png","EXCALIBUR_TRANS_BUTTON_"..i)
+		Img.HotBottomCenter()
+		Fun = F
+	End
+End
+
+Init
+	Buttons.Tab={}
+	Void _Back()
+		Flow.Current="FIELD"
+	End
+	Void _Save()
+		State.Call("FLOW_FIELD","FieldFlow.GoToSave","nil")
+	End
+	Void _Exit()
+		Map.GoToMap("NGP_LinkExcalibur","BOS","Einde")
+	End
+	
+	Buttons.Tab += New Buttons("Back",_Back)
+	Buttons.Tab += New Buttons("Save",_Save)
+	If gv.gbool.Excalibur_Killed_Goddess
+		Buttons.Tab += New Buttons("Exit",_Exit)
+	End
+End
+
+
+Global Void Apollo_Flow()
+	Static Var Fnt = ImageFont.Load("Fonts/Robotica.35.jfbf","ROBOFONT")
+	If Events.KeyHit(27)
+		Flow.Current="FIELD"
+	End
+	Int CX = Screen.W div 2
+	For i=1,20
+		string Tag = sprintf("#%03d",i)
+		int X = ((i-1) div 10)*CX
+		int Y = ((i-1) % 10)*40
+		bool Unlocked = i==1 || gv.gbool[sprintf("Excalibur_#%03d_Red",i-1)]
+		If Unlocked
+			Graphics.Color(0,180,255)
+			If Tag==Map.Layer
+				Graphics.Color(255,180,0)
+			ElseIf Mouse.MX>X && Mouse.MX<X+CX && Mouse.MY>Y && MOuse.MY<Y+40
+				Graphics.Color(0,255,255)
+				If Mouse.ML
+					String kaart=sprintf("NGP_Dungeon_Excalibur%d",((i-1) Div 10)+1)
+					If Kaart:upper()==Map.LoadedMap:upper()
+						Map.GoToLayer(Tag,"Trans.Spot.F"..Right(Tag,3))
+					Else
+						Map.GoToMap(kaart,Tag,"Trans.Spot.F"..Right(Tag,3))
+					End
+					Flow.Current="FIELD"
+					Return
+				End
+			End
+			Fnt.Text(Names[Tag],X,Y)
+		Else
+			Graphics.Color(100,100,100)
+			Fnt.Text("?????",X,Y)
+		End
+		Static Int BW = Screen.W div (#Buttons.Tab + 1)
+		For i,button in ipairs(Buttons.Tab)
+			__White			
+			Button.Img.Draw(BW*i,Screen.H-10)
+		End
+		Mouse.Draw()	
+	End
+End
