@@ -79,20 +79,20 @@ Group MScript
 		G = math.max(  0,G)
 		B = math.max(  0,B)
 		Map.SetObj("PortalExcalibur","R",R)
-		Map.SetObj("PortalExcalibur","R",G)
-		Map.SetObj("PortalExcalibur","R",B)
+		Map.SetObj("PortalExcalibur","G",G)
+		Map.SetObj("PortalExcalibur","B",B)
 		If R>=255
-			MR = 0-math.random(1,1000) / 1000
+			MR = 0-math.random(1,2000) / 1000
 		ElseIf G>=255
-			MG = 0-math.random(1,1000) / 1000
+			MG = 0-math.random(1,2002) / 1000
 		ElseIf B>=255
-			MB = 0-math.random(1,1000) / 1000
+			MB = 0-math.random(1,2004) / 1000
 		ElseIf R<=0
-			MR =   math.random(1,1000) / 1000
+			MR =   math.random(1,1003) / 1000
 		ElseIf G<=0
-			MG =   math.random(1,1000) / 1000
+			MG =   math.random(1,1002) / 1000
 		ElseIf B<=0
-			MB =   math.random(1,1000) / 1000
+			MB =   math.random(1,2000) / 1000
 		End
 	End
 	
