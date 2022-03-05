@@ -132,7 +132,13 @@ Global Void Apollo_Flow()
 		End
 		Static Int BW = Screen.W div (#Buttons.Tab + 1)
 		For i,button in ipairs(Buttons.Tab)
-			__White			
+			__White
+			If Mouse.MX>(BW*i)-125 && Mouse.MX<(BW*i)+125 && Mouse.MY>Screen.H-115
+				Graphics.Color(0,180,255)
+				If Mouse.ML
+					Button.Fun()
+				End
+			End
 			Button.Img.Draw(BW*i,Screen.H-10)
 		End
 		Mouse.Draw()	
