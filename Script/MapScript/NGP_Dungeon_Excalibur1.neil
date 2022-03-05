@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.03.04
+// version: 22.03.05
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -66,6 +66,93 @@ QuickMeta KeyCard
 	End
 End
 
+Class TDoors
+	Static Var DTabel
+	Static Var GetByLayer()
+		DTabel = DTabel || {}
+		DTabel[Map.Layer] = DTabel[Map.Layer] || {}
+		For k in Each(KeyCard.Colors)
+			CSayF("Is there a %s door?",k)
+			If Map.HasTag((k:upper()).."_LINKS")
+				CSay("=> Yes!")
+				DTabel[Map.Layer] = DTabel[Map.Layer] || {}
+				DTabel[Map.Layer][k:upper()] = Self(k)
+			Else 
+				CSay("=> Nope! Skipping!")
+			End
+		End
+		Return DTabel[Map.Layer]		
+	End
+	
+	Static Void UpdateAll()
+		For _,d in Pairs(DTabel[Map.Layer])
+			d.Update()
+		End
+	End
+	
+	Static Void Open(string c)
+		If DTabel[Map.Layer]
+			If DTabel[Map.Layer][c:upper()]
+				DTabel[Map.Layer][c:upper()].Opened=True
+			Else
+				CSayF("WARNING! Request to open the %s door, but no data about that door exists!",c) 
+			End
+		Else
+			CSayF("No door data for layer %s",Map.Layer)
+		End
+	End
+		
+	
+	ReadOnly Int SLX
+	ReadOnly Int SLY
+	ReadOnly Int SRX
+	ReadOnly Int SRY
+	ReadOnly String Col
+	Get String UC
+		Return Col:upper()
+	End
+	
+	Int Slide = 0
+	Get Int LX
+		Return SLX-Slide
+	End
+	Get Int LY
+		Return SLY
+	End
+	Get Int RX
+		Return SRX+Slide
+	End
+	Get Int RY
+		Return SRY
+	End
+	Bool Opened=False
+	
+	Void Update()
+		If Opened && Slide<30
+			Slide++
+			If Slide>25
+				Map.SetObj(uc.."_LINKS","Impassible",False)
+				Map.ShowByLabel("K_"..uc)
+				Map.Remap()
+			End
+			Map.SetObj(uc.."_LINKS", "X",LX)
+			Map.SetObj(uc.."_LINKS", "Y",LY)
+			Map.SetObj(uc.."_RECHTS","X",RX)
+			Map.SetObj(uc.."_RECHTS","Y",RY)
+		End		
+	End
+	
+	Constructor (string c)
+		Col = C
+		SLX = Map.GetObjInt(uc.."_LINKS", "X")
+		SLY = Map.GetObjInt(uc.."_LINKS", "Y")
+		SRX = Map.GetObjInt(uc.."_RECHTS","X")
+		SRY = Map.GetObjInt(uc.."_RECHTS","Y")	
+		Map.HideByLabel("K_"..uc)
+		CSayF("%s door initiated",c)
+	End
+End
+
 Group MScript
 
 	ReadOnly Bool HasDraw   = True
@@ -94,6 +181,10 @@ Group MScript
 	End
 	
 	Void Update()
+		Static Var Doors
+		Doors = Doors || {}
+		Doors[Map.Layer] = Doors[Map.Layer] || TDoors.GetByLayer()
+		TDoors.UpdateAll()
 	End
 	
 	Void BeginDungeon()
@@ -126,7 +217,13 @@ Group MScript
 		End
 		KeyCard[k]=true
 		Map.Kill("NPC_"..(k:upper()),true)
-	End	
+	End
+	
+	Void Open(string k)
+		CSayF("MapScript.Open('%s')",k)
+		TDoors.Open(k)
+		Map.Kill("OPEN_"..(k:upper()),false)
+	End
 	#endregion
 	
 	#region The Transporter
@@ -159,7 +256,9 @@ Group MScript
 		ZA.TabEnter{"ToDungeon","TerugNaarHangar","Transporter"}
 		ZA.Leave("Transporter","LeaveTransporter")
 		For k in Each{"Red","Gold","Green","Blue"}
+			string uk=k:upper()
 			Self["NPC_"..k]=Lua.load("Neil.Globals.MScript.Key('"..k.."')")
+			ZA.Enter("OPEN_"..uk,"Open",k)
 		End
 	End
 End
