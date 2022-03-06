@@ -66,6 +66,7 @@ module
 		for i = 1,5
 			self.layers[i] = new TsunamiLayer(i)
 		end
+		Ended = False
 	end
 	
 	Bool Ended
