@@ -1,4 +1,4 @@
-// Generated 3/6/2022 6:29:45 PM
+// Generated 3/6/2022 6:29:28 PM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -9,32 +9,33 @@ Table _R(Bool Oversoul)
 	Ret.Steal = {}
 
 	Ret.AI = "default"
+	Ret.Boss = true
 	If Oversoul
-		Lua.error("Enemy 'Reg/Gob' does not support oversoul!")
+		Lua.error("Enemy 'Boss/Super Cyborg' does not support oversoul!")
 	End
 
-	Ret.DESC = "\"Me King, you dead\"\nThat's basically their way of thinking.\nSmart, eh?"
-	Ret.IMAGE = "GFX/Combat/Fighters/Foe/reg/Gob.png"
+	Ret.DESC = "Appears to have read too many comic stories"
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/Boss/SuperCyborg.png"
 	Ret.DropRate_1 = 100
-	Ret.DropItem_1 = "ITM_APPLE"
-	Ret.DropRate_2 = 0
-	Ret.DropItem_2 = "ITM_ANTIDOTE"
-	Ret.StealRate_1 = 100
-	Ret.StealItem_1 = "ITM_APPLE"
+	Ret.DropItem_1 = "ITM_X_AURINA"
+	Ret.DropRate_2 = 25
+	Ret.DropItem_2 = "ITM_X_BANDAGE"
+	Ret.StealRate_1 = 25
+	Ret.StealItem_1 = "ITM_X_AURINA"
 	Ret.StealRate_2 = 0
-	Ret.StealItem_2 = "ITM_ANTIDOTE"
+	Ret.StealItem_2 = "ITM_X_BANDAGE"
 	Ret.StealRate_3 = 0
-	Ret.StealItem_3 = "ITM_ANTIDOTE"
-	Ret.NAME = "Goblin"
-	Ret.CASH = 2
-	Ret.SR_CURSE = 20
-	Ret.SR_DEATH = 1
-	Ret.SR_DISEASE = 0
-	Ret.SR_PARALYSIS = 95
-	Ret.SR_PETRIFICATION = 25
-	Ret.SR_POISON = 0
-	Ret.SR_SILENCE = 90
-	Ret.SR_UNDEAD = 80
+	Ret.StealItem_3 = "ITM_X_STEROIDS"
+	Ret.NAME = "Super Cyborg"
+	Ret.CASH = 0
+	Ret.SR_CURSE = 100
+	Ret.SR_DEATH = 90
+	Ret.SR_DISEASE = 75
+	Ret.SR_PARALYSIS = 100
+	Ret.SR_PETRIFICATION = 100
+	Ret.SR_POISON = 100
+	Ret.SR_SILENCE = 100
+	Ret.SR_UNDEAD = 100
 
 
 	Ret.AllowOversoul = False
@@ -44,26 +45,26 @@ Table _R(Bool Oversoul)
 
 
 	If !Oversoul
-		Ret.Stats.ACCURACY = 85
-		Ret.Stats.ENDURANCE = 15
-		Ret.Stats.ER_DARKNESS = 0
-		Ret.Stats.ER_EARTH = 0
-		Ret.Stats.ER_FLAME = 0
-		Ret.Stats.ER_FROST = 0
-		Ret.Stats.ER_LIGHT = 0
-		Ret.Stats.ER_LIGHTNING = 0
-		Ret.Stats.ER_WATER = 0
-		Ret.Stats.ER_WIND = 0
-		Ret.Stats.EVASION = 0
-		Ret.Stats.EXP = 3
-		Ret.Stats.HP = 10
-		Ret.Stats.INTELLIGENCE = 1
-		Ret.Stats.POWER = 16
-		Ret.Stats.RESISTANCE = 10
-		Ret.Stats.SPEED = 6
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 455
+		Ret.Stats.ER_DARKNESS = 75
+		Ret.Stats.ER_EARTH = 75
+		Ret.Stats.ER_FLAME = 75
+		Ret.Stats.ER_FROST = 75
+		Ret.Stats.ER_LIGHT = 75
+		Ret.Stats.ER_LIGHTNING = 600
+		Ret.Stats.ER_WATER = -75
+		Ret.Stats.ER_WIND = 75
+		Ret.Stats.EVASION = 5
+		Ret.Stats.EXP = 15000
+		Ret.Stats.HP = 35000
+		Ret.Stats.INTELLIGENCE = 100
+		Ret.Stats.POWER = 650
+		Ret.Stats.RESISTANCE = 550
+		Ret.Stats.SPEED = 250
 	End
 
-	Ret.IsHumanoid = False
+	Ret.IsHumanoid = True
 
 	Ret.Actions = {}
 	If True
@@ -168,7 +169,7 @@ Table _R(Bool Oversoul)
 		Ret.Actions += "AAA_ATTACK"
 		Ret.Actions += "AAA_ATTACK"
 	End
-	If True && (__skill!=3)
+	If True && (!__NewGamePlus) && (__skill!=3)
 		Ret.Actions += "AAA_GUARD"
 		Ret.Actions += "AAA_GUARD"
 		Ret.Actions += "AAA_GUARD"
@@ -219,6 +220,22 @@ Table _R(Bool Oversoul)
 		Ret.Actions += "AAA_GUARD"
 		Ret.Actions += "AAA_GUARD"
 		Ret.Actions += "AAA_GUARD"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_TAKEOVER_STRIKE"
+		Ret.Actions += "ABL_FOE_TAKEOVER_STRIKE"
+		Ret.Actions += "ABL_FOE_TAKEOVER_STRIKE"
+		Ret.Actions += "ABL_FOE_TAKEOVER_STRIKE"
+		Ret.Actions += "ABL_FOE_TAKEOVER_STRIKE"
+		Ret.Actions += "ABL_FOE_TAKEOVER_STRIKE"
+		Ret.Actions += "ABL_FOE_TAKEOVER_STRIKE"
+		Ret.Actions += "ABL_FOE_TAKEOVER_STRIKE"
+		Ret.Actions += "ABL_FOE_TAKEOVER_STRIKE"
+		Ret.Actions += "ABL_FOE_TAKEOVER_STRIKE"
+	End
+	If True && (__skill!=1) && (__skill!=2)
+		Ret.Actions += "ABL_HERO_JAKE_2PS"
+		Ret.Actions += "ABL_HERO_JAKE_2PS"
 	End
 	Return Ret
 End

@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.02.23
+// version: 22.03.06
 // End License Information
 
 #use "Libs/LinkedList"
@@ -458,6 +458,15 @@ Init
 		N.License = "Creative Commons - By Attribution - Non-Commercial"
 		N.Title   = "Freak Boutique"
 		N.Artist  = "SpiedKiks"
+		N.WebSite = "NONE"
+		TMusic.Lst.AddLast(N)
+	End
+	Do
+		Var N = New TMusic()
+		N.Entry   = "Music/Dungeon/Excalibur.ogg"
+		N.License = "Free to use. No usage restrictions. Commercial game use is encouraged. http://aaronkrogh.tumblr.com"
+		N.Title   = "Megaboss"
+		N.Artist  = "Arron Krogh"
 		N.WebSite = "NONE"
 		TMusic.Lst.AddLast(N)
 	End

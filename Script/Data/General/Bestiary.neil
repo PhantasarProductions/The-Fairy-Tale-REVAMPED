@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.03.04
+// version: 22.03.06
 // End License Information
 
 #use "Libs/LinkedList"
@@ -103,6 +103,7 @@ Init
 	Monster.Lijst.AddLast(New Monster("Boss/Salumon","Salumon"))
 	Monster.Lijst.AddLast(New Monster("Boss/ShadowRogue","Shadow Rogue"))
 	Monster.Lijst.AddLast(New Monster("Boss/ShadowSweeper","Shadow Sweeper"))
+	Monster.Lijst.AddLast(New Monster("Boss/Super Cyborg","Super Cyborg"))
 	Monster.Lijst.AddLast(New Monster("Boss/SuperAlien","Rjafhkfhafjklhgjd"))
 	Monster.Lijst.AddLast(New Monster("Boss/SuperGhostPriest","Super Ghost Priest"))
 	Monster.Lijst.AddLast(New Monster("Boss/SuperHidingHag","Super Hiding Hag"))
@@ -203,4 +204,4 @@ Init
 	Monster.Lijst.AddLast(New Monster("UberBoss/Juggernaut","Juggernaut"))
 End
 
-// This script was last generated 3/4/2022 4:31:06 PM //
+// This script was last generated 3/6/2022 6:30:13 PM //
