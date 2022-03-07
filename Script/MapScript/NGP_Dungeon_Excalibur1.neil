@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.03.06
+// version: 22.03.07
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -131,7 +131,8 @@ Class TDoors
 		If Opened && Slide<30
 			Slide++
 			If Slide>25
-				Map.SetObj(uc.."_LINKS","Impassible",False)
+				Map.SetObj(uc.."_LINKS", "Impassible",False)
+				Map.SetObj(uc.."_RECHTS","Impassible",False)
 				Map.ShowByLabel("K_"..uc)
 				Map.Remap()
 			End
@@ -139,7 +140,7 @@ Class TDoors
 			Map.SetObj(uc.."_LINKS", "Y",LY)
 			Map.SetObj(uc.."_RECHTS","X",RX)
 			Map.SetObj(uc.."_RECHTS","Y",RY)
-		End		
+		End	
 	End
 	
 	Constructor (string c)
@@ -205,10 +206,30 @@ Group MScript
 	End
 	
 	Void Update()
+		//Print("Fuck")
 		Static Var Doors
 		Doors = Doors || {}
 		Doors[Map.Layer] = Doors[Map.Layer] || TDoors.GetByLayer()
 		TDoors.UpdateAll()
+		//CSayF("We are on layer '%s'",Map.Layer)
+		Switch Map.Layer
+			Case "#006"
+				Static Int C = 0
+				C = (C+1)%300
+				Map.SetObj("Conveyor","InsertY",C)
+				// CSayF("Convery insert %03d",C) // Always on mute when not debugging!
+			Case "#007"
+				Static Bool BeenHere = False
+				If !BeenHere
+					BeenHere=true
+					Map.HideByLabel("SECRET")
+				End
+			Case "#012"
+				Static Int Jerry = 0
+				Jerry = (Jerry+1) % 40
+				Map.SetObj("JerrycanTrack","InsertX",40-Jerry)				
+			Default
+		End
 	End
 	
 	Void BeginDungeon()
@@ -303,8 +324,31 @@ Group MScript
 		Combat.Start()
 	End
 	
+	Void ShowSecret()
+		Map.ShowByLabel("SECRET")
+	End
+	
+	Void ToSecret1()
+		// To the first secret level!
+		CSay("To Secret Level #1")
+		Map.GoToLayer("SECRET1","Start")
+		AllowTrans=False
+	End
+	
+	Void Voldy()
+		Map.Kill("Voldy",true)
+		Combat.Prepare(0,255,0,"Dark Lord","He must not be named")
+		Combat.Music="Combat/Special Boss/Darkcover.ogg"
+		Combat.NewEnemy="Boss/HWSNBN"
+		Combat.Arena="Excalibur"
+		Combat.Lose ="GameOver"
+		Combat.Start()
+	End
+		
+	
 	Constructor
-		ZA.TabEnter{"ToDungeon","TerugNaarHangar","Transporter"}
+		CSay("Welcome to Excalibur!")
+		ZA.TabEnter{"ToDungeon","TerugNaarHangar","Transporter","ToSecret1","ShowSecret","Voldy"}
 		ZA.Leave("Transporter","LeaveTransporter")
 		For k in Each{"Red","Gold","Green","Blue"}
 			string uk=k:upper()
