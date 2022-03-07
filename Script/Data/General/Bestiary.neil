@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.03.06
+// version: 22.03.07
 // End License Information
 
 #use "Libs/LinkedList"
@@ -83,6 +83,7 @@ Init
 	Monster.Lijst.AddLast(New Monster("Boss/Harry2","Harry"))
 	Monster.Lijst.AddLast(New Monster("Boss/Harry3","Harry"))
 	Monster.Lijst.AddLast(New Monster("Boss/HellImp","Hell Imp"))
+	Monster.Lijst.AddLast(New Monster("Boss/HWSNBN","He must not be named"))
 	Monster.Lijst.AddLast(New Monster("Boss/Ignis","Ignis"))
 	Monster.Lijst.AddLast(New Monster("Boss/InvisibleDemon","Invisible Demon"))
 	Monster.Lijst.AddLast(New Monster("Boss/KillerEscargot","Killer Escargot"))
@@ -136,6 +137,7 @@ Init
 	Monster.Lijst.AddLast(New Monster("Reg/Firefox","Fire Fox"))
 	Monster.Lijst.AddLast(New Monster("Reg/FireGhoul","Fire Ghoul"))
 	Monster.Lijst.AddLast(New Monster("Reg/FireHound","Fire Hound"))
+	Monster.Lijst.AddLast(New Monster("Reg/Flirmouse","Flirmouse"))
 	Monster.Lijst.AddLast(New Monster("Reg/ghostgirl","Ghost Girl"))
 	Monster.Lijst.AddLast(New Monster("Reg/Ghoul","Ghoul"))
 	Monster.Lijst.AddLast(New Monster("Reg/Gob","Goblin"))
@@ -204,4 +206,4 @@ Init
 	Monster.Lijst.AddLast(New Monster("UberBoss/Juggernaut","Juggernaut"))
 End
 
-// This script was last generated 3/6/2022 6:30:13 PM //
+// This script was last generated 3/7/2022 10:36:49 PM //
