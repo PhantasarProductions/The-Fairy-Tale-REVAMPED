@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.03.05
+// version: 22.03.11
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -82,11 +82,15 @@ Init
 	Void _Back()
 		Flow.Current="FIELD"
 	End
+	
 	Void _Save()
 		State.Call("FLOW_FIELD","FieldFlow.GoToSave","nil")
 	End
+	
 	Void _Exit()
-		Map.GoToMap("NGP_LinkExcalibur","BOS","Einde")
+		//Map.GoToMap("NGP_LinkExcalibur","BOS","Einde")
+		WorldMap.Go()
+		gv.gbool.ExcaliburTransporterBlocked = False
 	End
 	
 	Buttons.Tab += New Buttons("Back",_Back)
@@ -141,6 +145,6 @@ Global Void Apollo_Flow()
 			End
 			Button.Img.Draw(BW*i,Screen.H-10)
 		End
-		Mouse.Draw()	
+		Mouse.Draw()
 	End
 End
