@@ -1,7 +1,7 @@
 // License Information:
-// src/Tricky Script/Script/Use/Combat/SpellAni/DarkVision.neil
+// src/Tricky Script/Script/Use/Combat/SpellAni/Death.neil
 // Version: 22.03.11
-// Copyright (C) 2014, 2017, 2022 Jeroen Petrus Broks
+// Copyright (C) 2022 Jeroen Petrus Broks
 // 
 // ===========================
 // This file is part of a project related to the Phantasar Chronicles or another
@@ -35,51 +35,25 @@
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
 Module
-
-	Bool Ended
-	Bool ShowDeath
-	Var Death
+	Var DV
+	
+	Constructor
+		DV = NeilUse("Script/Use/Combat/SpellAni/DarkVision")
+	End
 	
 	Void Start()
-		Ended = false
+		DV.ShowDeath = True
+		Dv.Start
+	End
+	
+	Get Delegate Draw
+		Return DV.Draw
+	End
+	
+	Get Bool Ended
+		Return DV.Ended
 	End
 	
 	ReadOnly Delegate Update = NIKS
-	
-	Void Draw()
-		//local screen = Image.GrabScreen()
-		plua rad=0
-		plua mul=1
-		plua c
-		Audio.LoadNew("Audio/SpellAni/DarkVision.ogg","DARKVISION").Play()
-		For mul=255,0,-0.75
-			Graphics.Cls()
-			c = math.abs(math.cos(rad) * mul)
-			rad = rad + 0.05
-			
-			
-			//Image.Color(c,c,c)
-			//Image.Draw(screen,0,0)
-			__White
-			FlowCombat.DrawScreen()
-			Graphics.SetAlpha(255-c)
-			Graphics.Rect(0,0,Screen.W,Screen.H)
-			Graphics.SetAlpha(255)
-			if ShowDeath
-				Graphics.Color(255,255,255)
-				Death.Draw(Screen.W div 2,Screen.H div 2)
-			end
-			Graphics.Flip()
-			FPS.WaitMinTicks()
-			Events.Poll()
-		end
-		//Image.Free(screen)
-		Ended = true
-		ShowDeath = False
-	End
-	
-	Constructor
-		Death = Image.LoadNew("GfX/SpellAni/Death/Death.png","SPELLANI_DEATH")
-		Death.HotCenter()
-	End
+
 End
