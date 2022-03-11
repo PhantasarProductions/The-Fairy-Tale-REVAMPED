@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.02.28
+// version: 22.03.11
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -59,6 +59,11 @@ Group MScript
 	Void NPC_Wanindra()
 		MapText("WANINDRA")
 		FieldMenu.Shop("NGP_WANINDRA")
+	End
+	
+	Void NPC_Colportarus()
+		MapText("COLPORTARUS")
+		FieldMenu.Shop("NGP_COLPORTARUS")
 	End
 	
 	Void Delisto()
