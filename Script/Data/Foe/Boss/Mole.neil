@@ -1,0 +1,129 @@
+// Generated 3/11/2022 12:11:21 AM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	Ret.Boss = true
+	Ret.DESC = "Used to be an engineer.\nWhy is he so hostile?"
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/Boss/Mole.png"
+	Ret.DropRate_1 = 100
+	Ret.DropItem_1 = "ITM_X_AURINA"
+	Ret.DropRate_2 = 25
+	Ret.DropItem_2 = "ITM_X_BANDAGE"
+	Ret.StealRate_1 = 25
+	Ret.StealItem_1 = "ITM_X_AURINA"
+	Ret.StealRate_2 = 0
+	Ret.StealItem_2 = "ITM_X_BANDAGE"
+	Ret.StealRate_3 = 0
+	Ret.StealItem_3 = "ITM_X_ENERGYDRINK"
+	Ret.NAME = "The Mole"
+	Ret.SR_CURSE = 100
+	Ret.SR_DEATH = 100
+	Ret.SR_DISEASE = 100
+	Ret.SR_PARALYSIS = 100
+	Ret.SR_PETRIFICATION = 100
+	Ret.SR_POISON = 100
+	Ret.SR_SILENCE = 100
+	Ret.SR_UNDEAD = 100
+
+
+	Ret.AllowOversoul = False
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 250
+		Ret.Stats.EVASION = 7
+		Ret.Stats.EXP = 20000
+		Ret.Stats.HP = 65535
+		Ret.Stats.INTELLIGENCE = 100
+		Ret.Stats.POWER = 750
+		Ret.Stats.RESISTANCE = 550
+		Ret.Stats.SPEED = 450
+	End
+
+	Ret.IsHumanoid = True
+
+	Ret.Actions = {}
+	If True
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+	End
+	If True
+		Ret.Actions += "AAA_GUARD"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_X_M_DART"
+		Ret.Actions += "ABL_FOE_X_M_DART"
+		Ret.Actions += "ABL_FOE_X_M_DART"
+		Ret.Actions += "ABL_FOE_X_M_DART"
+		Ret.Actions += "ABL_FOE_X_M_DART"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_X_M_FLAMETHROWER"
+		Ret.Actions += "ABL_FOE_X_M_FLAMETHROWER"
+		Ret.Actions += "ABL_FOE_X_M_FLAMETHROWER"
+		Ret.Actions += "ABL_FOE_X_M_FLAMETHROWER"
+		Ret.Actions += "ABL_FOE_X_M_FLAMETHROWER"
+		Ret.Actions += "ABL_FOE_X_M_FLAMETHROWER"
+		Ret.Actions += "ABL_FOE_X_M_FLAMETHROWER"
+		Ret.Actions += "ABL_FOE_X_M_FLAMETHROWER"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_X_M_HEALSPRAY"
+		Ret.Actions += "ABL_FOE_X_M_HEALSPRAY"
+		Ret.Actions += "ABL_FOE_X_M_HEALSPRAY"
+		Ret.Actions += "ABL_FOE_X_M_HEALSPRAY"
+		Ret.Actions += "ABL_FOE_X_M_HEALSPRAY"
+		Ret.Actions += "ABL_FOE_X_M_HEALSPRAY"
+		Ret.Actions += "ABL_FOE_X_M_HEALSPRAY"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_X_M_ICEBULLET"
+		Ret.Actions += "ABL_FOE_X_M_ICEBULLET"
+		Ret.Actions += "ABL_FOE_X_M_ICEBULLET"
+		Ret.Actions += "ABL_FOE_X_M_ICEBULLET"
+		Ret.Actions += "ABL_FOE_X_M_ICEBULLET"
+		Ret.Actions += "ABL_FOE_X_M_ICEBULLET"
+		Ret.Actions += "ABL_FOE_X_M_ICEBULLET"
+		Ret.Actions += "ABL_FOE_X_M_ICEBULLET"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_X_M_NAPALM"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_X_M_RISINGNOVA"
+		Ret.Actions += "ABL_FOE_X_M_RISINGNOVA"
+		Ret.Actions += "ABL_FOE_X_M_RISINGNOVA"
+		Ret.Actions += "ABL_FOE_X_M_RISINGNOVA"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_X_STUNGUN"
+		Ret.Actions += "ABL_FOE_X_STUNGUN"
+		Ret.Actions += "ABL_FOE_X_STUNGUN"
+	End
+	If True
+		Ret.Actions += "ITM_HEALSHOWER"
+		Ret.Actions += "ITM_HEALSHOWER"
+	End
+	Return Ret
+End
+Return _R
+

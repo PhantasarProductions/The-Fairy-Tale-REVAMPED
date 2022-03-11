@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.03.07
+// version: 22.03.09
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -174,9 +174,19 @@ End
 
 Init
 	TBoss.Lay[ 5] = New TBoss("Super Cyborg","Super Cyborg","Is it a bird? An airplane?","SuperCyborg","Combat/SpecialBoss/Exit The Premises.ogg")
-	TBoss.Lay[10] = New TBoss("Gold Killer Droid","GkDroid","Robot programmed for homicide","Boss10Obj","Combat/SpecialBoss/Freak Boutique.ogg")
+	TBoss.Lay[10] = New TBoss("GkDroid","Gold Killer Droid","Robot programmed for homicide","Boss10Obj","Combat/SpecialBoss/Freak Boutique.ogg")
 	TBoss.Lay[15] = New TBoss("Mole","The Mole","Engineer wanted for high treason","McLeen","Combat/SpecialBoss/Lilith's Rage.ogg")
 End
+
+QuickMeta CONV_BAG
+	index
+		return Map.GetObjInt("CONV_BAG",Key)
+	end
+	newindex
+		Map.SetObj("CONV_BAG",key,value)
+	end
+end
+
 
 Group MScript
 
@@ -227,7 +237,18 @@ Group MScript
 			Case "#012"
 				Static Int Jerry = 0
 				Jerry = (Jerry+1) % 40
-				Map.SetObj("JerrycanTrack","InsertX",40-Jerry)				
+				Map.SetObj("JerrycanTrack","InsertX",40-Jerry)
+			Case "#018"
+				var o = CONV_BAG
+				if o.Y<0 
+                	//miny 
+                	//o.X = minx + maxy + hx
+                	//o.Y = miny + maxy + hy
+                	O.X = 400 - 16
+                	O.Y = 288
+                end
+                O.X--
+                O.Y--			
 			Default
 		End
 	End
@@ -334,6 +355,14 @@ Group MScript
 		Map.GoToLayer("SECRET1","Start")
 		AllowTrans=False
 	End
+
+	Void ToSecret2()
+		// To the second secret level!
+		CSay("To Secret Level #2")
+		Map.GoToLayer("SECRET2","Start")
+		AllowTrans=True
+	End
+
 	
 	Void Voldy()
 		Map.Kill("Voldy",true)
@@ -344,11 +373,40 @@ Group MScript
 		Combat.Lose ="GameOver"
 		Combat.Start()
 	End
-		
+	
+	#Region Fake 3D effect floor 10
+	Void ToU()
+		Map.GoToLayer("#010","PlayU")
+		Map.Kill("PLAYER2")
+		Map.Kill("PLAYER3")
+		Map.Kill("PLAYER4")
+		Map.SetObj("UBU","Impassible",true)
+		Map.SetObj("UBD","Impassible",true)
+		Map.SetObj("UB","ForcePassible",true)
+	End
+	Void ToD()
+		Map.GoToLayer("#010","PlayD")
+		Map.Kill("PLAYER2")
+		Map.Kill("PLAYER3")
+		Map.Kill("PLAYER4")
+		Map.SetObj("UBU","Impassible",false)
+		Map.SetObj("UBD","Impassible",false)
+		Map.SetObj("UB","ForcePassible",false)
+	End
+	#endregion
+	
+	Void HideDead015()
+		Map.HideByLabel("DEAD")
+	End
+	
+	Void Goddess()
+		Map.DelayKill("OPEN_RED")
+		Map.GoToMap("NGP_Dungeon_Excalibur3","#021","Start")
+	End
 	
 	Constructor
 		CSay("Welcome to Excalibur!")
-		ZA.TabEnter{"ToDungeon","TerugNaarHangar","Transporter","ToSecret1","ShowSecret","Voldy"}
+		ZA.TabEnter{"ToDungeon","TerugNaarHangar","Transporter","ToSecret1","ToSecret2","ShowSecret","Voldy","ToU","ToD","HideDead015","Goddess"}
 		ZA.Leave("Transporter","LeaveTransporter")
 		For k in Each{"Red","Gold","Green","Blue"}
 			string uk=k:upper()

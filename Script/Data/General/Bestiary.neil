@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.03.07
+// version: 22.03.11
 // End License Information
 
 #use "Libs/LinkedList"
@@ -76,6 +76,7 @@ Init
 	Monster.Lijst.AddLast(New Monster("Boss/Ghost Woman","Ghost Woman"))
 	Monster.Lijst.AddLast(New Monster("Boss/GhostPriest","Ghost Priest"))
 	Monster.Lijst.AddLast(New Monster("Boss/GiantEagle","Gaint Eagle"))
+	Monster.Lijst.AddLast(New Monster("Boss/gkDroid","Gold Killer Droid"))
 	Monster.Lijst.AddLast(New Monster("Boss/GobKing","Goblin King"))
 	Monster.Lijst.AddLast(New Monster("Boss/Griffin","Mana Griffin"))
 	Monster.Lijst.AddLast(New Monster("Boss/Grwol","Grwol"))
@@ -90,6 +91,7 @@ Init
 	Monster.Lijst.AddLast(New Monster("Boss/Librarian","Librarian"))
 	Monster.Lijst.AddLast(New Monster("Boss/Marrilona","Marrilona"))
 	Monster.Lijst.AddLast(New Monster("Boss/Mega Ghost","Mega Ghost"))
+	Monster.Lijst.AddLast(New Monster("Boss/Mole","The Mole"))
 	Monster.Lijst.AddLast(New Monster("Boss/MONK1","Helena - Devil Monk From Hell"))
 	Monster.Lijst.AddLast(New Monster("Boss/MONK2","Eduard - Devil Monk From Hell"))
 	Monster.Lijst.AddLast(New Monster("Boss/MONK3","Lucy - Devil Monk From Hell"))
@@ -114,11 +116,27 @@ Init
 	Monster.Lijst.AddLast(New Monster("Boss/UberGob","UeberGoblin"))
 	Monster.Lijst.AddLast(New Monster("Boss/UltraMonk","Evelyn - Ultra Monk From Hell"))
 	Monster.Lijst.AddLast(New Monster("Boss/Vandar","Vandar"))
+	Monster.Lijst.AddLast(New Monster("Goddess/BlockGun","Blocking Gun"))
+	Monster.Lijst.AddLast(New Monster("Goddess/ConfuseGun",""))
+	Monster.Lijst.AddLast(New Monster("Goddess/DarkGun","Dark Gun"))
+	Monster.Lijst.AddLast(New Monster("Goddess/FlameThrower","Flame Thrower"))
+	Monster.Lijst.AddLast(New Monster("Goddess/Goddess","The Goddess"))
+	Monster.Lijst.AddLast(New Monster("Goddess/Gunner","Gunner"))
+	Monster.Lijst.AddLast(New Monster("Goddess/IceCannon","Ice Cannon"))
+	Monster.Lijst.AddLast(New Monster("Goddess/LightGun","Light Gun"))
+	Monster.Lijst.AddLast(New Monster("Goddess/RockThrower","Rock Thrower"))
+	Monster.Lijst.AddLast(New Monster("Goddess/TRQ","Tranqualizer Gun"))
+	Monster.Lijst.AddLast(New Monster("Goddess/VenomGun","Venom Gun"))
+	Monster.Lijst.AddLast(New Monster("Goddess/VirusGun","Virus Gun"))
+	Monster.Lijst.AddLast(New Monster("Goddess/WaterGun","Water Gun"))
+	Monster.Lijst.AddLast(New Monster("Goddess/WindGun","Wind Gun"))
 	Monster.Lijst.AddLast(New Monster("OverNos/Antenna_Mock","Mock Antenna"))
 	Monster.Lijst.AddLast(New Monster("OverNos/Antenna_Nice","Nice Antenna"))
 	Monster.Lijst.AddLast(New Monster("OverNos/Nostramantu","Nostramantu"))
 	Monster.Lijst.AddLast(New Monster("Reg/ArcaneSlime","Arcane Slime"))
 	Monster.Lijst.AddLast(New Monster("Reg/Archmage","Archmage"))
+	Monster.Lijst.AddLast(New Monster("Reg/AsGuard","Astrilopup Guard"))
+	Monster.Lijst.AddLast(New Monster("Reg/AsGunner","Astrilopup Gunner"))
 	Monster.Lijst.AddLast(New Monster("Reg/Bandit","Bandit"))
 	Monster.Lijst.AddLast(New Monster("Reg/Banshee","Banshee"))
 	Monster.Lijst.AddLast(New Monster("Reg/Bat","Bat"))
@@ -206,4 +224,4 @@ Init
 	Monster.Lijst.AddLast(New Monster("UberBoss/Juggernaut","Juggernaut"))
 End
 
-// This script was last generated 3/7/2022 10:36:49 PM //
+// This script was last generated 3/11/2022 12:12:13 AM //

@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Class_Foe.neil
-// Version: 22.02.20
+// Version: 22.03.11
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -219,6 +219,10 @@ Class Foe Extends Fighter
         	If __NewGamePlus
            		xget = xget * (4-__skill) 
            	end
+        	if xget<0 || xget>2000000000
+        		// Overflow into minus protection!
+        		xget=2000000000
+        	end
            	RPGChar[ch].Stat.Experience -= xget
            	CSayF("=> %d:%09d EXP",i,xget)
            	CSayF("=> %d:Rate %3.5f",i,rate)

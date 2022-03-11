@@ -46,7 +46,7 @@ Group MScript
 		WorldMap.Go()
 	End
 	
-	Void PortaalExcalibur()
+	Void PortalExcalibur()
 		//Lua.error("Excalibur dungeon not yet present")
 		Map.GoToMap("NGP_Dungeon_Excalibur1","#000","BeginDungeon")
 		If !Done.Excalibur_First_Entrance
@@ -59,7 +59,7 @@ Group MScript
 		Map.StopWalking()
 		Player.WalkTo("Einde")
 		MapText("EVENT")
-		PortaalExcalibur()
+		PortalExcalibur()
 	End
 	
 	Void Update()

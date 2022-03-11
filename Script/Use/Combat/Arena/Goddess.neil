@@ -1,0 +1,125 @@
+// License Information:
+// **********************************************
+// 
+// src/Tricky Script/Script/Use/Combat/Arena/Goddess.neil
+// (c) Jeroen Broks, 2022, All Rights Reserved.
+// 
+// This file contains material that is related
+// to a storyline that is which is strictly
+// copyrighted to Jeroen Broks.
+// 
+// This file may only be used in an unmodified
+// form with an unmodified version of the
+// software this file belongs to.
+// 
+// You may use this file for your study to see
+// how I solved certain things in the creation
+// of this project to see if you find valuable
+// leads for the creation of your own.
+// 
+// Mostly this file comes along with a project
+// that is for most part released under an
+// open source license and that means that if
+// you use that code with this file removed
+// from it, you can use it under that license.
+// Please check out the other files to find out
+// which license applies.
+// This file comes 'as-is' and in no possible
+// way the author can be held responsible of
+// any form of damages that may occur due to
+// the usage of this file
+// 
+// 
+// **********************************************
+// 
+// version: 22.03.11
+// End License Information
+#use "libs/linkedlist"
+#use "libs/xmath"
+
+Class GDrone
+	static var M
+	//static int W = Screen.W div 4
+	//static int H = Screen.W div 2
+	static int W = 300
+	static int H = 200
+	static var Lijst = new TLinkedList()
+
+	readonly string tag
+	readonly int clock
+	int deg
+	
+	Get Int X
+		Return math.floor(M.Goddess.X + (xmath.sin(deg) * W) )
+	end
+	Get Int Y
+		Return math.floor(M.Goddess.Y + (xmath.cos(deg) * H) - (M.Goddess.H div 2))
+	end
+	Get Var Foe
+		Return Fighter.ByTag[Tag]
+	End
+	
+	Void Update()
+		deg = (deg+clock) % 360
+		Foe.X = X
+		Foe.Y = Y
+		//Foe.X = X
+		//Foe.Y = Y
+		//CSayF("Drone %s: (%04d,%04d)  %03d degs (Clock %d)  Goddess(%04d,%04d)  sin=%3.3f; cos=%3.3f",Tag,X,Y,Deg,Clock,M.Goddess.X,M.Goddess.Y,xmath.sin(deg),xmath.cos(deg)) // DEBUG ONLY!
+		If M.Goddess.HP<=0
+			Foe.Char.Points.HP.Minimum = 0
+			Foe.Char.Points.HP.Have    = 0
+		End
+	End
+	
+	
+	constructor(string _tag)
+		Static Bool KlokMee
+		KlokMee = !KlokMee
+		deg = math.random(0,360)
+		//If math.random(1,2)==1
+		If KlokMee
+			clock=1
+		Else
+			clock=-1
+		End	
+		tag = _tag
+		Foe.Char.Points.HP.Minimum = Foe.Char.Points.HP.Maximum 
+		Lijst.AddLast(Self)
+		CSayF("Record for %s created",tag)
+	End
+End
+
+Module
+
+	Constructor
+		GDrone.M = Self
+	End
+
+	Get Var Goddess
+		Return Fighter.ByTag.FOE001
+	End
+
+	Void Positions()
+		Static Bool PositionsSet = False
+		If PositionsSet
+			Return
+		End
+		CSayF("Position set up")
+		PositionsSet = True
+		Goddess.TX = Screen.W div 4
+		Goddess.TY = Screen.H div 2
+		For i=1,__skill+2
+			new GDrone(sprintf("FOE%03d",i+1))
+		End
+	End
+
+	Delegate Pst = Niks
+	Void Pre()
+		Positions()
+		For D in GDrone.Lijst.Each
+			D.Update()
+		End
+	End
+
+End

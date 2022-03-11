@@ -1,0 +1,186 @@
+// License Information:
+// **********************************************
+// 
+// src/Tricky Script/Script/MapScript/NGP_Dungeon_Excalibur3.neil
+// (c) Jeroen Broks, 2022, All Rights Reserved.
+// 
+// This file contains material that is related
+// to a storyline that is which is strictly
+// copyrighted to Jeroen Broks.
+// 
+// This file may only be used in an unmodified
+// form with an unmodified version of the
+// software this file belongs to.
+// 
+// You may use this file for your study to see
+// how I solved certain things in the creation
+// of this project to see if you find valuable
+// leads for the creation of your own.
+// 
+// Mostly this file comes along with a project
+// that is for most part released under an
+// open source license and that means that if
+// you use that code with this file removed
+// from it, you can use it under that license.
+// Please check out the other files to find out
+// which license applies.
+// This file comes 'as-is' and in no possible
+// way the author can be held responsible of
+// any form of damages that may occur due to
+// the usage of this file
+// 
+// 
+// **********************************************
+// 
+// version: 22.03.11
+// End License Information
+
+#macro __Goddess gv.gbool.Excalibur_Killed_Goddess
+
+#use "Script/Use/Anyway"
+
+Class TDoor
+	ReadOnly Int OXL
+	ReadOnly Int OXR
+	ReadOnly String Tag
+	Int Slide = 0
+	Bool Open = False
+	Bool InstantOpen = False
+	Get Int XL
+		Return OXL-Slide
+	End
+	Get Int XR
+		Return OXR+Slide
+	End
+	
+	Void Update()
+		If Open
+			If InstantOpen
+				Slide=31
+				InstantOpen=False
+			ElseIf Slide<31
+				Slide++
+			End
+		ElseIf Slide>0
+			Slide--
+		End
+		Map.SetObj(Tag.."Links" ,"X",XL)
+		Map.SetObj(Tag.."Rechts","X",XR)
+	End
+	
+	Static Var Reg
+	Constructor(string L,string D)
+		Reg = Reg || {}
+		Reg[L] = Reg[L] || {}
+		Reg[L][D] = Self
+		string OL=Map.Layer
+		Map.Layer=L
+		OXL = Map.GetObjInt(D.."Links" ,"X")
+		OXR = Map.GetObjInt(D.."Rechts","X")
+		If D=="Prev"
+			InstantOpen=True
+			Open=True
+		End
+		Map.Layer=OL
+		Tag = D
+	End	
+	
+End
+
+
+Group MScript
+
+	ReadOnly Bool HasDraw   = False
+	ReadOnly Bool HasUpdate = True
+	
+	Void Update()
+		If Map.Layer!="#023"
+			For _,DD in pairs(TDoor.Reg[Map.Layer])
+				DD.Update()
+			End
+		End
+	End
+	
+	Void Goddess_Room()
+		If !__Goddess
+			Map.HideObj("NPC_Colportarus")
+		End
+	End
+	
+	Void SchuifNext()
+		CSay("Open door to next area")
+		TDoor.Reg[Map.Layer].Next.Open = true
+	End
+	Void SchuifNextSluit()
+		If Map.Layer!="#023"
+			CSay("Close door to next area")
+			TDoor.Reg[Map.Layer].Next.Open = False
+		End
+	End
+	Void SchuifPrev()
+		CSay("Open door to previous area")
+		TDoor.Reg[Map.Layer].Prev.Open = true
+	End
+	Void SchuifPrevSluit()
+		If Map.Layer=="#022"
+			CSay("Close door to previous area")
+			TDoor.Reg[Map.Layer].Prev.Open = False
+		End
+	End
+	
+	Void NPC_Goddess()
+		// Settings other than combat
+		Map.Kill("NPC_Goddess",true)
+		__Goddess=true
+		Map.ShowObj("NPC_Colportarus")
+		// Combat
+		Var Adds = {"DarkGun","FlameThrower","Gunner","IceCannon","LightGun","RockThrower","TRQ","VenomGun","VirusGun","WaterGun","WindGun"}
+		If (__skill!=1 && math.random(1,2)==1) || __skill==3
+			Adds+="BlockGun"
+		End
+		Combat.Prepare(0,255,0,"Star Story's Final Boss","The Goddess")
+		Combat.Arena = "Goddess"
+		Combat.Music = "Combat/SpecialBoss/Spellbound.ogg"
+		Combat.Lose  = "GameOver"
+		Combat.NewEnemy = "Goddess/Goddess" 
+		Var Have={}
+		For i=1,2+__skill
+			String A
+			Int TimeOut=100000
+			Repeat
+				TimeOut--
+				Lua.assert(TimeOut>=0,"Goddess add timeout")
+				A = Adds[math.random(1,#Adds)]				
+			LoopWhile Have[A]
+			Have[A]=True
+			Combat.NewEnemy="Goddess/"..A
+		End
+		Combat.Start()
+		//Lua.error("Ja doei! De Godin is nog niet aanwezig!")
+	End
+	
+	Void NPC_Colportarus()
+		gv.gbool.Heroes_Colportarus = true
+		Bool All = True
+		For h in Each{"Zyviola","SymphoNica","Wanindra","Colportarus"}
+			All = All && gv.gbool["Heroes_"..h]
+		End
+		If All
+			Ach.Award("ZZNGP_ALL")
+		End
+		Ach.Award("ZZNGP_EXCALIBUR")
+		WorldMap.Unlock("NGPHEROES")
+		MapText("HEROES_COLPORTARUS")
+		Map.Kill("NPC_Colportarus",true)
+		WorldMap.Go()		
+	End
+	
+	Constructor
+		ZA.TabEnter{"Goddess_Room","SchuifNext","SchuifPrev"}
+		ZA.Leave("SchuifNext","SchuifNextSluit")
+		ZA.Leave("SchuifPrev","SchuifPrevSluit")
+		new TDoor("#021","Next")
+		new TDoor("#022","Next")
+		new TDoor("#022","Prev")
+	End
+End

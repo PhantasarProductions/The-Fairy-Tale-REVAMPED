@@ -1,0 +1,108 @@
+// License Information:
+// **********************************************
+// 
+// src/Tricky Script/Script/Data/Foe/Goddess/WaterGun.neil
+// (c) Jeroen Broks, 2022, All Rights Reserved.
+// 
+// This file contains material that is related
+// to a storyline that is which is strictly
+// copyrighted to Jeroen Broks.
+// 
+// This file may only be used in an unmodified
+// form with an unmodified version of the
+// software this file belongs to.
+// 
+// You may use this file for your study to see
+// how I solved certain things in the creation
+// of this project to see if you find valuable
+// leads for the creation of your own.
+// 
+// Mostly this file comes along with a project
+// that is for most part released under an
+// open source license and that means that if
+// you use that code with this file removed
+// from it, you can use it under that license.
+// Please check out the other files to find out
+// which license applies.
+// This file comes 'as-is' and in no possible
+// way the author can be held responsible of
+// any form of damages that may occur due to
+// the usage of this file
+// 
+// 
+// **********************************************
+// 
+// version: 22.03.11
+// End License Information
+// Generated 3/11/2022 12:11:33 AM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	Ret.Boss = true
+	Ret.DESC = "Automated gun assisting the Goddess"
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/Goddess/Add_WaterGun.png"
+	Ret.DropRate_1 = 100
+	Ret.DropItem_1 = "ITM_X_AURINA"
+	Ret.DropRate_2 = 25
+	Ret.DropItem_2 = "ITM_X_BANDAGE"
+	Ret.StealRate_1 = 25
+	Ret.StealItem_1 = "ITM_X_AURINA"
+	Ret.StealRate_2 = 0
+	Ret.StealItem_2 = "ITM_X_BANDAGE"
+	Ret.StealRate_3 = 0
+	Ret.StealItem_3 = "ITM_X_ENERGYDRINK"
+	Ret.NAME = "Water Gun"
+	Ret.CASH = 0
+	Ret.SR_CURSE = 100
+	Ret.SR_DEATH = 100
+	Ret.SR_DISEASE = 100
+	Ret.SR_PARALYSIS = 100
+	Ret.SR_PETRIFICATION = 100
+	Ret.SR_POISON = 100
+	Ret.SR_SILENCE = 100
+	Ret.SR_UNDEAD = 100
+
+
+	Ret.AllowOversoul = False
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 455
+		Ret.Stats.ER_DARKNESS = 0
+		Ret.Stats.ER_EARTH = 0
+		Ret.Stats.ER_FLAME = 0
+		Ret.Stats.ER_FROST = 0
+		Ret.Stats.ER_LIGHT = 0
+		Ret.Stats.ER_LIGHTNING = 10000
+		Ret.Stats.ER_WATER = 0
+		Ret.Stats.ER_WIND = 0
+		Ret.Stats.EVASION = 5
+		Ret.Stats.EXP = 0
+		Ret.Stats.HP = 65000
+		Ret.Stats.INTELLIGENCE = 100
+		Ret.Stats.POWER = 650
+		Ret.Stats.RESISTANCE = 50
+		Ret.Stats.SPEED = 350
+	End
+
+	Ret.IsHumanoid = False
+
+	Ret.Actions = {}
+	If True
+		Ret.Actions += "ABL_FOE_X_G_WATERGUN"
+		Ret.Actions += "ABL_FOE_X_G_WATERGUN"
+	End
+	Return Ret
+End
+Return _R

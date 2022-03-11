@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/AAA_Fighter.neil
-// Version: 22.02.26
+// Version: 22.03.10
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -151,6 +151,7 @@ Class Fighter
 		Return Screen.AltRectData("COMBAT",X,Y,W,H)
 	End
 	
+	
 	Get Int TX
 		Int RX
 		Int RY
@@ -187,7 +188,18 @@ Class Fighter
 		Return RH
 	End
 
-	
+	Set Int TX
+		Int RX
+		Int RY
+		RX,RY = Screen.TrueCoords("COMBAT",Value,0)
+		X = RX
+	End
+	Set Int TY
+		Int RX
+		Int RY
+		RX,RY = Screen.TrueCoords("COMBAT",0,Value)
+		Y = RY
+	End
 	
 	
 	Abstract Void Draw()

@@ -1,0 +1,108 @@
+// Generated 3/11/2022 12:11:16 AM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	Ret.Boss = true
+	Ret.DESC = "A robot programmed only to kill"
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/Boss/GOLD KILLER DROID.PNG"
+	Ret.DropRate_1 = 100
+	Ret.DropItem_1 = "ITM_X_AURINA"
+	Ret.DropRate_2 = 25
+	Ret.DropItem_2 = "ITM_X_BANDAGE"
+	Ret.StealRate_1 = 25
+	Ret.StealItem_1 = "ITM_X_AURINA"
+	Ret.StealRate_2 = 0
+	Ret.StealItem_2 = "ITM_X_BANDAGE"
+	Ret.StealRate_3 = 0
+	Ret.StealItem_3 = "ITM_X_ENERGYDRINK"
+	Ret.NAME = "Gold Killer Droid"
+	Ret.CASH = 0
+	Ret.SR_CURSE = 100
+	Ret.SR_DEATH = 90
+	Ret.SR_DISEASE = 75
+	Ret.SR_PARALYSIS = 100
+	Ret.SR_PETRIFICATION = 100
+	Ret.SR_POISON = 100
+	Ret.SR_SILENCE = 100
+	Ret.SR_UNDEAD = 100
+
+
+	Ret.AllowOversoul = False
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 455
+		Ret.Stats.ER_DARKNESS = 100
+		Ret.Stats.ER_EARTH = 100
+		Ret.Stats.ER_FLAME = 100
+		Ret.Stats.ER_FROST = 100
+		Ret.Stats.ER_LIGHT = 100
+		Ret.Stats.ER_LIGHTNING = -100
+		Ret.Stats.ER_WATER = 100
+		Ret.Stats.ER_WIND = 100
+		Ret.Stats.EVASION = 5
+		Ret.Stats.EXP = 25000
+		Ret.Stats.HP = 65000
+		Ret.Stats.INTELLIGENCE = 100
+		Ret.Stats.POWER = 650
+		Ret.Stats.RESISTANCE = 50
+		Ret.Stats.SPEED = 350
+	End
+
+	Ret.IsHumanoid = False
+
+	Ret.Actions = {}
+	If True
+		Ret.Actions += "ABL_FOE_X_STUNGUN"
+		Ret.Actions += "ABL_FOE_X_STUNGUN"
+		Ret.Actions += "ABL_FOE_X_STUNGUN"
+		Ret.Actions += "ABL_FOE_X_STUNGUN"
+		Ret.Actions += "ABL_FOE_X_STUNGUN"
+		Ret.Actions += "ABL_FOE_X_STUNGUN"
+		Ret.Actions += "ABL_FOE_X_STUNGUN"
+		Ret.Actions += "ABL_FOE_X_STUNGUN"
+		Ret.Actions += "ABL_FOE_X_STUNGUN"
+		Ret.Actions += "ABL_FOE_X_STUNGUN"
+		Ret.Actions += "ABL_FOE_X_STUNGUN"
+		Ret.Actions += "ABL_FOE_X_STUNGUN"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_ELECTROCUTION"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_ZAP"
+		Ret.Actions += "ABL_HERO_MARRILONA_ZAP"
+		Ret.Actions += "ABL_HERO_MARRILONA_ZAP"
+		Ret.Actions += "ABL_HERO_MARRILONA_ZAP"
+		Ret.Actions += "ABL_HERO_MARRILONA_ZAP"
+		Ret.Actions += "ABL_HERO_MARRILONA_ZAP"
+		Ret.Actions += "ABL_HERO_MARRILONA_ZAP"
+		Ret.Actions += "ABL_HERO_MARRILONA_ZAP"
+		Ret.Actions += "ABL_HERO_MARRILONA_ZAP"
+		Ret.Actions += "ABL_HERO_MARRILONA_ZAP"
+		Ret.Actions += "ABL_HERO_MARRILONA_ZAP"
+		Ret.Actions += "ABL_HERO_MARRILONA_ZAP"
+		Ret.Actions += "ABL_HERO_MARRILONA_ZAP"
+		Ret.Actions += "ABL_HERO_MARRILONA_ZAP"
+		Ret.Actions += "ABL_HERO_MARRILONA_ZAP"
+		Ret.Actions += "ABL_HERO_MARRILONA_ZAP"
+		Ret.Actions += "ABL_HERO_MARRILONA_ZAP"
+		Ret.Actions += "ABL_HERO_MARRILONA_ZAP"
+		Ret.Actions += "ABL_HERO_MARRILONA_ZAP"
+		Ret.Actions += "ABL_HERO_MARRILONA_ZAP"
+	End
+	Return Ret
+End
+Return _R
+

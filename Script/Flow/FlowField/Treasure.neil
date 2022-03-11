@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowField/Treasure.neil
-// Version: 22.02.13
+// Version: 22.03.09
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -72,7 +72,7 @@ Module
 						N=1
 						Msg="1 shilder obtained"
 						Item.Cash++
-						Done=true
+						IsDone=true
 						ChaChing.Play()
 					Else
 						IsDone=Item[N].Give						
