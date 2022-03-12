@@ -62,7 +62,7 @@ Module
 			//Image.Draw(screen,0,0)
 			__White
 			FlowCombat.DrawScreen()
-			Graphics.SetAlpha(255-c)
+			Graphics.SetAlpha(255-math.floor(c))
 			Graphics.Rect(0,0,Screen.W,Screen.H)
 			Graphics.SetAlpha(255)
 			if ShowDeath
