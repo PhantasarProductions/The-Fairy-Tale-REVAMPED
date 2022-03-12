@@ -35,19 +35,17 @@
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
 Module
+
 	Var DV
-	
-	Constructor
-		DV = NeilUse("Script/Use/Combat/SpellAni/DarkVision")
-	End
-	
+		
 	Void Start()
+		DV = DV || NeilUse("Script/Use/Combat/SpellAni/DarkVision")
 		DV.ShowDeath = True
-		Dv.Start
+		Dv.Start()
 	End
 	
-	Get Delegate Draw
-		Return DV.Draw
+	Void Draw()
+		DV.Draw()
 	End
 	
 	Get Bool Ended
