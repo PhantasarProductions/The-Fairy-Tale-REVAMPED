@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Class_Foe.neil
-// Version: 22.03.11
+// Version: 22.03.12
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -146,6 +146,7 @@ Class Foe Extends Fighter
 			Var d = JCR6.GetDir(WFoe.Raw.IMAGE)
 			String img
 			int countdown=10000
+			Lua.assert(#d>0,"No foe images to pick in folder: "..WFoe.Raw.IMAGE)
 			Repeat
 				countdown--
 				Lua.assert(countdown>0,"Foe image bundle timeout: "..WFoe.Raw.IMAGE)
