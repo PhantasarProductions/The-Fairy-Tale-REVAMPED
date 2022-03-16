@@ -74,7 +74,7 @@
 		ret.Attack = 300
 		ret.Attack_AttackStat = "Intelligence"
 		ret.Attack_DefenseStat = "Resistance"
-		ret.Attack_Element = "None"
+		ret.Attack_Element = "Frost"
 		ret.Attack_AllowAccuracy = false
 		ret.Attack_AllowDodge = false
 		ret.Attack_AccuracyRate = 100

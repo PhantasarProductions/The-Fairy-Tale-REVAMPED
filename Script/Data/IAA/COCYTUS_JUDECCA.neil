@@ -74,7 +74,7 @@
 		ret.Attack = 400
 		ret.Attack_AttackStat = "Intelligence"
 		ret.Attack_DefenseStat = "Resistance"
-		ret.Attack_Element = "None"
+		ret.Attack_Element = "Frost"
 		ret.Attack_AllowAccuracy = false
 		ret.Attack_AllowDodge = false
 		ret.Attack_AccuracyRate = 100
@@ -113,7 +113,7 @@
 		ret.rew_CreateSkill4 = false
 		ret.rew_GainSkill5 = 0
 		ret.rew_CreateSkill5 = false
-		ret.SpellAni = "IceblastFrost"
+		ret.SpellAni = "Frost"
 		ret.SpellAni_Arg = ""
 		ret.SpellAni_External = false
 		ret.EffectScript = ""
