@@ -1,0 +1,61 @@
+// License Information:
+// **********************************************
+// 
+// src/Tricky Script/Script/Use/Combat/ActScript/FullPower.neil
+// (c) Jeroen Broks, 2022, All Rights Reserved.
+// 
+// This file contains material that is related
+// to a storyline that is which is strictly
+// copyrighted to Jeroen Broks.
+// 
+// This file may only be used in an unmodified
+// form with an unmodified version of the
+// software this file belongs to.
+// 
+// You may use this file for your study to see
+// how I solved certain things in the creation
+// of this project to see if you find valuable
+// leads for the creation of your own.
+// 
+// Mostly this file comes along with a project
+// that is for most part released under an
+// open source license and that means that if
+// you use that code with this file removed
+// from it, you can use it under that license.
+// Please check out the other files to find out
+// which license applies.
+// This file comes 'as-is' and in no possible
+// way the author can be held responsible of
+// any form of damages that may occur due to
+// the usage of this file
+// 
+// 
+// **********************************************
+// 
+// version: 22.03.15
+// End License Information
+
+#macro _FPStamp gv.gint["FullPowerTime_"..Exe.Tag]
+#macro _FPPass os.time()-gv.gint["FullPowerTime_"..Exe.Tag]
+Bool _PA(Act,Tar,Exe)
+	const int _minmarge = 5
+	const int _maxmarge = 60*60*3
+	If _FPStamp==0 || _FPPass<_minmarge || _FPPass>_maxmarge
+		_FPStamp = os.time()
+		For P in Each{"AP","EXP_Skill1","EXP_Skill2","EXP_Skill3","EXP_Skill4","EXP_Skill5","HP","VIT"}
+			RPGChar[Tar.Tag].Points[p].Have = RPGChar[Tar.Tag].Points[p].Maximum
+		End
+	Else
+		Int FPLeft = _maxmarge - (_FPPass)
+		If FPLeft<120
+			FlowCombat.charmsg(Tar.Tag,sprintf("Cooldown %d more seconds",FPLeft))
+		ElseIf FPLeft<60*60
+			FlowCombat.charmsg(Tar.Tag,sprintf("Cooldown %d more minutes",FPLeft div 2))
+		Else
+			FlowCombat.charmsg(Tar.Tag,"Cooldown >1 hour")
+		End
+	End
+	Return True
+End
+
+Return _PA
