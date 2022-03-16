@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.02.06
+// version: 22.03.15
 // End License Information
 
 Table OO = { [True]="On", [False]="Off" }
@@ -80,6 +80,17 @@ Global Void CONSOLE_Rubine(c)
 	int a = Lua.tonumber(c[1]) || 1
 	Master.AllInc("Rubine","???",a)
 End
+
+Global Void CONSOLE_Feena(c)
+	int a = Lua.tonumber(c[1]) || 1
+	Master.AllInc("Feenalaria","???",a)
+End
+
+Global Void CONSOLE_Russell(c)
+	int a = Lua.tonumber(c[1]) || 1
+	Master.AllInc("Russell","???",a)
+End
+
 
 Global Void CONSOLE_Fandalora()
 	gv.gbool.CheatFandalora = !gv.gbool.CheatFandalora
