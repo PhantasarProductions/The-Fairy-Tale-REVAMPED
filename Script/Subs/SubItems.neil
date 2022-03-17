@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Subs/SubItems.neil
-// Version: 22.02.24
+// Version: 22.03.17
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -474,23 +474,26 @@ Global String AblCheckLearn(String Char)
 End
 
 
-
+//#macro __AScrollY LScrollY[Char][CurrentCat[Char]]
+#macro __AScrollY LScrollY[Char][ctn]
 Global String AblOverview(String Char,int x, int y, int w, int h,string situation)
 	if Char=="Nostramantu_Human"
 		Return ""
 	End
 	Static Table ScrollList = {}
 	Static Table CurrentCat = {}
+	Static Table LScrollY = {}
 	String Ret = "" 
 	Int MX = Events.MouseX()
 	Int MY = Events.MouseY()
-	Bool ML = Events.MouseHitLeft()
-	
+	Bool ML = Events.MouseHitLeft()		
 	LoadAbilityList(Char)
-	CurrentCat[char] = CurrentCat[char] || 1
-	__ScrollAY = __ScrollAY || 0
-	Int cw = w div (#Abilities[Char].Cat+1)
 	String ctn = Abilities[Char].Cat[CurrentCat[Char]]
+	CurrentCat[char] = CurrentCat[char] || 1	
+	LScrollY[char] = LScrollY[char] || {}
+	__ScrollAY = __ScrollAY || 0
+	__AScrollY = __AScrollY || 0
+	Int cw = w div (#Abilities[Char].Cat+1)	
 	For i,ct in ipairs(Abilities[Char].Cat)
 		Int CX = i*cw 
 		Int CW = FilFnt.TextWidth(ct)
@@ -510,7 +513,9 @@ Global String AblOverview(String Char,int x, int y, int w, int h,string situatio
 		End
 		FilFnt.DarkText(ct,x+CX,y+25,2,2)
 	End
-	Int AY = y+75	
+	Bool AllowUp = __AScrollY>0
+	Bool AllowDown = False
+	Int AY = (y+75)-__AScrollY
 	Var ALs = Abilities[Char].Ability
 	If CurrentCat[char]==#Abilities[Char].Cat
 		Als = Abilities[Char].Skill
@@ -521,50 +526,60 @@ Global String AblOverview(String Char,int x, int y, int w, int h,string situatio
 		Int DX = 0
 		Bool Hover
 		//CSayF("Check '%s'/'%s' (%s)",Dat.Category,CTN,Lua.tostring(Als)) 
-		If Dat.Category==CTN
-			If MX>X && MY>AY && MX<X+W-80 && MY<AY+40
-				DX = 20
-				Hover=true
-				If ML && Dat.Unlocked
-					Ret = Abl
-				End				
-			End
-			Graphics.Color(255,255,255)
-			ItmFnt.DarkText(Dat.ShowName,X+DX+5,AY)
-			Graphics.Color(  0,180,255)
-			If Char=="Marrilona" && Party.Marrilona_Bad && Dat.Unlocked
-				ItmFnt.DarkText("0",X+W-(80+DX),AY)
-				//__Red
-				//ItmFnt.DarkText(sprintf("%s:>%s;%s    ",Char,Lua.tostring(Party.Marrilona_Bad),Lua.tostring(Dat.Unlocked)),X+W-(80+DX),AY,1)
-				//CSayF("%s:>%s;%s    ",Char,Lua.tostring(Party.Marrilona_Bad),Lua.tostring(Dat.Unlocked))
-			Else
-				ItmFnt.DarkText(Dat.ShowAPCost,X+W-(80+DX),AY)
-			End
-			If Hover
-				If Dat.Unlocked
-					Explain(Abl)
+		If Dat.Category==CTN			
+			If AY>(y+75) && AY<(y+h)-40 
+				//AY<(y+h+75)-40
+				If MX>X && MY>AY && MX<X+W-80 && MY<AY+40
+					DX = 20
+					Hover=true
+					If ML && Dat.Unlocked
+						Ret = Abl
+					End				
+				End
+				Graphics.Color(255,255,255)
+				ItmFnt.DarkText(Dat.ShowName,X+DX+5,AY)
+				Graphics.Color(  0,180,255)
+				If Char=="Marrilona" && Party.Marrilona_Bad && Dat.Unlocked
+					ItmFnt.DarkText("0",X+W-(80+DX),AY)
+					//__Red
+					//ItmFnt.DarkText(sprintf("%s:>%s;%s    ",Char,Lua.tostring(Party.Marrilona_Bad),Lua.tostring(Dat.Unlocked)),X+W-(80+DX),AY,1)
+					//CSayF("%s:>%s;%s    ",Char,Lua.tostring(Party.Marrilona_Bad),Lua.tostring(Dat.Unlocked))
 				Else
-					Int EY = MY+100
-					If Dat.ReqByStory 
-						FitText.Dark(FilFnt,"Unlocked when you reach a certain point in the scenario",MX+10,EY)
+					ItmFnt.DarkText(Dat.ShowAPCost,X+W-(80+DX),AY)
+				End
+				If Hover
+					If Dat.Unlocked
+						Explain(Abl)
 					Else
-						FitText.Dark(FilFnt,"To unlock you need:",MX+10,EY)
-						For si=1,5 
-							If Dat["Req"..si]>0
-								EY+=20
-								If RPGChar[char].Points[sprintf("LVL_Skill%d",si)].Have==0
-									FitText.Dark(FilFnt,"???",MX+10,EY)
-								Else
-									FitText.Dark(FilFnt,sPrintF("%s to be level %d or higher",RPGChar[char].Data[sprintf("Skill%d",si)],Dat[sprintf("Req%d",si)]),MX+10,EY)
+						Int EY = MY+100
+						If Dat.ReqByStory 
+							FitText.Dark(FilFnt,"Unlocked when you reach a certain point in the scenario",MX+10,EY)
+						Else
+							FitText.Dark(FilFnt,"To unlock you need:",MX+10,EY)
+							For si=1,5 
+								If Dat["Req"..si]>0
+									EY+=20
+									If RPGChar[char].Points[sprintf("LVL_Skill%d",si)].Have==0
+										FitText.Dark(FilFnt,"???",MX+10,EY)
+									Else
+										FitText.Dark(FilFnt,sPrintF("%s to be level %d or higher",RPGChar[char].Data[sprintf("Skill%d",si)],Dat[sprintf("Req%d",si)]),MX+10,EY)
+									End
 								End
 							End
 						End
 					End
 				End
 			End
+			AllowDown = AllowDown || AY>=(y+h)-40
+			//(y+h+75)-40
 			AY+=40
+			If     Events.MouseWheelY()<0 && AllowDown
+				__AScrollY+=1
+			Elseif Events.MouseWheelY()>0 && AllowUp
+				__AScrollY-=1
+			End
 		End
-	End
+	End	
 	Return Ret
 End
 
