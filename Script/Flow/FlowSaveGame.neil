@@ -1,7 +1,7 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowSaveGame.neil
-// Version: 21.12.15
-// Copyright (C) 2021 Jeroen Petrus Broks
+// Version: 22.03.17
+// Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
 // This file is part of a project related to the Phantasar Chronicles or another
@@ -66,16 +66,18 @@ Global Table PageNames = {}
 
 Void GetMarrilona()
 	Switch OS.date("%m/%d")
-		Case "01/01"
+		Case "01/11"
 			Marrilona = Image.Load("GFX/Big_Char/Marrilona_NewYear.png")
 		Case "02/14"
 			Marrilona = Image.Load("GFX/Big_Char/Marrilona_Valentine.png")
-		Case "02/15" "02/16" "02/17" "02/18" "02/19" "02/20" "02/21" "02/22" "02/23" "02/24" "02/25" "02/26" "02/27" "02/28" "02/29" "03/01" "03/02" "03/03" "03/04" "03/05" "03/06" "03/07" "03/08" "03/09" "03/10" "03/11" "03/12" "03/13" "03/14"
+		Case "02/15" "02/16" "02/17" "02/18" "02/19" "02/20" "02/21" "02/22" "02/23" "02/24" "02/25" "02/26" "02/27" "02/28" "02/29" "03/11" "03/12" "03/13" "03/14" "03/15" "03/16" "03/17" "03/18" "03/19" "03/10" "03/11" "03/12" "03/13" "03/14"
 			Marrilona = Image.Load("GFX/Big_Char/Marrilona_Clown.png")
 		Case "04/27"
 			Marrilona = Image.Load("GFX/Big_Char/Marrilona_King.png")
 		case "06/19"
 			Marrilona = Image.Load("GFX/Big_Char/Marrilona_Jarig.png")
+		Case "04/11" "04/12" "04/13" "04/14" "04/15" "04/16" "04/17" "04/18" "04/19" "04/10" "04/11" "04/12" "04/13" "04/14" "04/15" "04/16" "04/17" "04/18" "04/19" "04/20"
+			Marrilona = Image.Load("GFX/Big_Char/Marrilona_Easter.png")
 		Default
 			Switch OS.date("%m")
 				Case "03"
