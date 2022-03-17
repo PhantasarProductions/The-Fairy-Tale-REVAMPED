@@ -230,7 +230,17 @@ Global Void Apollo_Flow()
 	ElseIf Ch==8 && PageNames[Page]!=""
 		PageNames[Page] = Left(PageNames[Page],#PageNames[Page]-1)
 	End
-	Mouse.Draw()
+	If Events.KeyHit(27) || Mouse.MR
+		Switch situation:upper()
+			Case "LOAD"
+				Flow.Current="MAINMENU"
+			Case "SAVE"
+				Flow.Current="FIELD"
+			Default
+				Lua.error("Unknown cancel situation: "..situation)
+		End			
+	End
+	Mouse.Draw()	
 End
 
 Global Void WantLoad()
