@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FieldMenu/Items.neil
-// Version: 22.02.08
+// Version: 22.03.17
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -99,6 +99,31 @@ Module
 									CSayF("Unequipping item %s failed! Overstocking?",CitemTag)
 									Buzz.Play()
 								End
+							End
+						Case "Consumable"
+							Var CI = Item[CItemTag]
+							Bool Hit = False
+							Var HP = RPGChar[CharTag].Points.HP
+							If CI.Heal>0 && HP.Have<HP.Maximum && CI.Target=="1A"
+								Int HV
+								Switch CI.Heal_Type
+									Case "Absolute"
+										HV = CI.Heal
+									Case "Percent"
+										HV = math.ceil( (HP.Maximum/100)*CI.Heal)
+									Case "StatPercent"
+										HV = math.ceil( (RPGChar[CharTag].Stat["END_"..CI.Heal_StatPercent])*(CI.Heal/100) )
+									Default
+										Lua.error("Unknown HealType: "..CI.Heal_Type)
+								End
+								HP.Have += HV
+								Hit = True
+							End
+							If Hit
+								CI.Has--
+							Else
+								CSayF("There's no need to use item: %s!",CitemTag)
+								Buzz.Play()
 							End
 						Default
 							CSayF("Item %s is not to be used that way!",CitemTag)

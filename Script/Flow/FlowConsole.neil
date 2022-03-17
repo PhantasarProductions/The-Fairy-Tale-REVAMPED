@@ -1,7 +1,7 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowConsole.neil
 // Console
-// version: 22.03.13
+// version: 22.03.17
 // Copyright (C) 2021, 2022 Jeroen P. Broks
 // This software is provided 'as-is', without any express or implied
 // warranty.  In no event will the authors be held liable for any damages
@@ -329,6 +329,12 @@ deftable icommandtable
 		gv.gbool.Cheat_Merlin = !gv.gbool.Cheat_Merlin
 	End
 	
+	HP1 = void()
+		for i=1,4
+			Var P = RPGChar[RPGParty[i]].Points.HP
+			P.Have=1
+		end
+	end
 	
 		
 end

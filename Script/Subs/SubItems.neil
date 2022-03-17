@@ -321,7 +321,8 @@ End
 
 Global String OverView(int x, int y, int w, int h, string Filters,string char)
 	// Basis
-	Static Table ListOfFilters = { ["FIELDMENU"] = {"All","Consumables","Combat","Equipment","For <ch>","Key"}, ["COMBAT"] = {"Combat"}, ["STORE"] = {"Sellable"}, ["SHOP"]={"All"}, ["WSHOP"]={"All"} }
+	//Static Table ListOfFilters = { ["FIELDMENU"] = {"All","Consumables","Combat","Equipment","For <ch>","Key"}, ["COMBAT"] = {"Combat"}, ["STORE"] = {"Sellable"}, ["SHOP"]={"All"}, ["WSHOP"]={"All"} }
+	Static Table ListOfFilters = { ["FIELDMENU"] = {"All","Consumables","Combat","Equipment","Key"}, ["COMBAT"] = {"Combat"}, ["STORE"] = {"Sellable"}, ["SHOP"]={"All"}, ["WSHOP"]={"All"} }
 	Static Table CurrentFilter = {}
 	Static Table ScrollList = {}
 	Int MX = Events.MouseX()
