@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.03.15
+// version: 22.03.17
 // End License Information
 
 #macro _FPStamp gv.gint["FullPowerTime_"..Exe.Tag]
