@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Execution.neil
-// Version: 22.02.27
+// Version: 22.03.18
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -70,6 +70,18 @@ Class Stage_Execution Extends Stage
 				AP.Have -= Act.Act.ABL_APCost
 			End
 		End		
+		if Act.ConsumeItem && Act.Executor.Team=="Hero"			
+			If Act.Act.Has<1
+				charmsg(Act.Executor.Tag,"Out of Items",255,0,0)
+				Buzz.Play()
+				FlowCombat.Cards.DelShift()
+				Stage.Current = Nil
+				DoShowBox    = False
+				// It should not be possible this happens, but this is to be 100% sure!
+			Else
+				Act.Act.Has--
+			End
+		End
 		If Act.TarFilter()==0
 			charmsg(Act.Executor.Tag,"No valid targets",255,0,0)
 			Buzz.Play()
