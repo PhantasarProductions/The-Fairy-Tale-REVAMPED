@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Link.neilbundle/Combat.neil
-// Version: 22.02.17
+// Version: 22.03.19
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -110,6 +110,7 @@ Module
 			ISSet("BOOL","FLOW_COMBAT","FlowCombat.Start.Music_DontPush",true)
 		End
 		State.Call("FLOW_COMBAT","FlowCombat.Start.StartPreparation","nil")
+		Self.StartEvent=""
 	End
 	
 	Void Boss(String BossHead, String BossName,Int R=255,Int G=0, Int B=0)
