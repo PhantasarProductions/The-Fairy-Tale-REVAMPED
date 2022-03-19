@@ -32,12 +32,69 @@
 // 
 // **********************************************
 // 
-// version: 22.01.19
+// version: 22.03.19
 // End License Information
 
 #use "Script/Use/Anyway"
 
+#undef dbgpercent
+
+#if dbgpercent
+	const int medalspercent = 90	
+#else
+	readonly int medalspercent = Medals.Percent
+#fi
+
+
 Group MScript
+
+	#region Sealed Boss
+	Void Start_SealedBoss()
+		//Combat.Prepare(0,0,255,"Mirror, mirror on the wall","Who will win and who will fall?")
+		For Ch in Each{"Jake","Marrilona","Dandor","HandoStillor"}
+			Combat.NewEnemy  = "Anna/"..ch
+		End
+		Combat.StartEvent = "Init_SealedBoss"
+		Combat.Lose       = "GameOver"
+		Combat.Arena      = "Nostramantu"
+		Combat.Music      = "Combat/SpecialBoss/Lilith's Rage.ogg"
+		Combat.StartEvent = "Init_SealedBoss"
+		Schedule.Add("Post_SealedBoss")
+	End
+	Void Init_SealedBoss()
+		plua stats = {"Power","Endurance","Intelligence","Resistance","Speed","Accuracy","Evasion","HP"}
+		plua statplus = { ["Speed"]=25 }
+		plua statmul = { ["HP"] = 5 }
+		plua mirror = {"Jake","Marrilona","Dandor","HandoStillor"}
+		for i,c in ipairs(mirror) 
+        	plua oc = c
+        	if c=="Jake"
+        		oc="Jake_Human"
+        	end
+        	for stat in each(stats)
+        		CSay("Copying stat "..stat.." from "..c.." to foe #"..i)
+            	//RPG.DefStat("FOE_"..i,"BASE_"..stat,(RPG.Stat(oc,"END_"..stat)+(statplus[stat] or 0)*((statmul[stat] or 1)*skill)))
+            	RPGChar[sprintf("FOE%03d",i)].Stat["BASE_"..stat]=RPGChar[oc].Stat["END_"..stat]+(statplus[stat] or 0)*((statmul[stat] or 1)*__skill)
+            End             
+            plua punt = RPGChar[sprintf("FOE%03d",i)].Points.HP
+            punt.Have = punt.Maximum
+            ISSet("INT","FLOW_Combat",sprintf("Fighter.ByTag.FOE%03d.X",i),(500 div 4)*(5-i))
+            ISSet("INT","FLOW_Combat",sprintf("Fighter.ByTag.FOE%03d.Y",i),490 + (i*75))
+		end
+		//MS.Run("COMBAT","ResetCards")
+		State.Call("FLOW_COMBAT","FlowCombat.Cards.SetupInitialCards","true")
+	End
+	
+	Void Post_SealedBoss()
+		 Item.EQP_ACC_PRISMDIAMOND.Has++
+		 Ach.Award("ANNA_BOSS") 
+	end
+	
+	Const String SealedBoss_Krandar = "HandoStillor"
+	Const String SealedBoss_Head    = "Mirror Mirror on the wall"
+	Const String SealedBoss_Name    = "Who will win and who will fall?"
+	Const String SealedBoss         = "*SCRIPT*"
+	#endregion
 
 	ReadOnly Bool HasDraw   = False
 	ReadOnly Bool HasUpdate = False
@@ -59,8 +116,8 @@ Group MScript
 		For i = 1 , 10
 			Int ReqRate = StartVal - (OpenRate*(11-i))
 			String AZ = sprintf("AZ%d",i)
-			CSayF("Checking room %02d; Required: %03d%%; We got: %03d%%; AZ-Tag: %s",i,ReqRate,Medals.Percent,AZ)
-			If Medals.Percent>=ReqRate
+			CSayF("Checking room %02d; Required: %03d%%; We got: %03d%%; AZ-Tag: %s",i,ReqRate,MedalsPercent,AZ)
+			If MedalsPercent>=ReqRate
 				CSayF("= Requirement met. Opening Zone!")
 				Map.Kill(AZ)
 			Else
