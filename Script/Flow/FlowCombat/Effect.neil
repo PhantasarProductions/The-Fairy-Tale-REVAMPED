@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Effect.neil
-// Version: 22.02.26
+// Version: 22.03.21
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -282,6 +282,9 @@ Group Effect
     end	
     
     Get Bool XTurnCard
+    	If !Action.Executor
+    		Return False
+    	End
     	If Act.ADDCARD_Char_Number && Act.ADDCARD_Char_Number>=0
     		Int maxmove = ({ ["Foe"] = {100,1000,5000}, ["Hero"]={5000,1000,95} })[Action.Executor.Team][__skill]
         	Int moved = 0

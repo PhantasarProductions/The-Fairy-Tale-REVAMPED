@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Class_Action.neil
-// Version: 22.02.26
+// Version: 22.03.21
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -74,6 +74,17 @@ Class Action
 		Int CTars = #TarTags
 		for i=1,CTars
 			Var Tgt=Fighter.ByTag[TarTags[i]]
+			if Tgt==nil
+				if TarTags[i]=="Jake_Fairy"
+					Tgt=Fighter.ByTag.Jake_Human
+					TarTags[i]="Jake_Human"
+					CSay("Jake no longer Fairy! Correcting to Human")
+				elseif TarTags[i]=="Jake_Human"
+					Tgt=Fighter.ByTag.Jake_Fairy
+					TarTags[i]="Jake_Fairy"
+					CSay("Jake no longer Human! Correcting to Fairy")
+				end
+			end				
 			if Tgt.Team!="Foe" || (Tgt.HP>0 && (!Tgt.Gone))
 				NTargets+=TarTags[i]
 			#if TarFilterDebug
