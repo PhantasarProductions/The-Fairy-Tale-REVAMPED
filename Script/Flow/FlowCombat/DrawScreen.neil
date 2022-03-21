@@ -1,7 +1,7 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/DrawScreen.neil
-// Version: 21.10.22
-// Copyright (C) 2021 Jeroen Petrus Broks
+// Version: 22.03.20
+// Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
 // This file is part of a project related to the Phantasar Chronicles or another
@@ -50,6 +50,7 @@ Module
 			CSayF("Loading arena image: %s",ArI)
 			ArenaImg = Image.Load(ArI)
 		Else
+			ArenaImg = nil
 			CSayF("Skipped loading arena image: %s (does not exist)",ArI)
 		End
 		If JCR6.EntryExists("Script/Use/Combat/Arena/"..ArN..".neil")
