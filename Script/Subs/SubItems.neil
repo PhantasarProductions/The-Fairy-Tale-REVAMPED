@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Subs/SubItems.neil
-// Version: 22.03.17
+// Version: 22.03.20
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -528,7 +528,7 @@ Global String AblOverview(String Char,int x, int y, int w, int h,string situatio
 		Bool Hover
 		//CSayF("Check '%s'/'%s' (%s)",Dat.Category,CTN,Lua.tostring(Als)) 
 		If Dat.Category==CTN			
-			If AY>(y+75) && AY<(y+h)-40 
+			If AY>=(y+75) && AY<(y+h)-40 
 				//AY<(y+h+75)-40
 				If MX>X && MY>AY && MX<X+W-80 && MY<AY+40
 					DX = 20
