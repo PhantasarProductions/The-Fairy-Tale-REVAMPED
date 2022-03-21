@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.03.15
+// version: 22.03.20
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -217,7 +217,7 @@ Group MScript
     	Ach.Award("SKILL"..__skill)
     	Ach.Award("CHAPTER4")
     	if __newgameplus 
-    		Ach.Award('CHAPTER4_NGP') 
+    		Ach.Award("CHAPTER4_NGP") 
     	end
     	Map.GoToMap("CH4_DUNGEON_MANAROAD","BOS","Einde")
     	Schedule.Add("GameComplete")
