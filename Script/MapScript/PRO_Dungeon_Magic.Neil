@@ -2,7 +2,7 @@
 // **********************************************
 // 
 // src/Tricky Script/Script/MapScript/PRO_Dungeon_Magic.Neil
-// (c) Jeroen Broks, 2021, All Rights Reserved.
+// (c) Jeroen Broks, 2021, 2022, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 21.10.25
+// version: 22.03.23
 // End License Information
 
 #use "Libs/XMath"
@@ -131,12 +131,19 @@ Group MScript
 	End
 	#endregion
 	
+	Void ResetRespawn()
+		print("Resetting respawn at the start of the path of magic")
+		Respawn.Reset()
+		Map.Kill("ResetRespawn")
+	End
+	
 	
 	Constructor
 		Blop.Create(80)
 		For i=1,5
 			ZA.Enter("Z"..i)
 		End
+		ZA.Enter("ResetRespawn")
 	End
 	
 End
