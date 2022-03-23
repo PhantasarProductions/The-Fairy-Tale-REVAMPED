@@ -49,11 +49,11 @@ Group MScript
 		Static Bool JennyChecked = False
 		Static Bool HarryChecked = False
 		If __Chapter<1 && !JennyChecked
-			Map.Kill("NPC_MT_Jenny",False)
+			Map.LayKill("TOWN","NPC_MT_Jenny",False)
 			JennyChecked = True
 		End
 		If DoneChief && !HarryChecked
-			Map.Kill("NPC_MT_HarryOutside",False)
+			Map.LayKill("TOWN","NPC_MT_HarryOutside",False)
 			HarryChecked=true
 		End
 	End
@@ -200,6 +200,7 @@ Group MScript
 		ZA.Enter("Bye")
 		ZA.Enter("Exit")
 		ZA.Enter("Enter_Cave")
+		JennyCheck()
 		If __Chapter==2
 			ZA.Enter("CH2Scenario")
 		End
