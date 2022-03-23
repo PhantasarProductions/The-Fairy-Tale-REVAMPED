@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Subs/SubBoxText.Neil
-// Version: 22.02.25
+// Version: 22.03.23
 // Copyright (C) 2020, 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -305,7 +305,9 @@ class TextBox
 			end
 			CSayF("Fading music from %d to 40",Music.MusicVolume)
 			Music.FadeTo(40)
-			audiowave = Audio.Load(sb_data.Voice)
+			static bool Toggle
+			Toggle=!Toggle
+			audiowave = Audio.Load(sb_data.Voice,"BOXTEXT_AUDIO_"..Lua.tostring(Toggle))
 			audiochannel = audiowave.play()
 			audioplaying = true
 		else
