@@ -34,7 +34,7 @@
 // misrepresented as being the original software.
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
-#define Development
+#undef Development
 
 global void CSay(string message)
 	#if Development
