@@ -1,7 +1,7 @@
 // License Information:
 // src/Tricky Script/Script/MapScript/PRO_Dungeon_Crypt.neil
-// Version: 21.11.05
-// Copyright (C) 2021 Jeroen Petrus Broks
+// Version: 22.03.24
+// Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
 // This file is part of a project related to the Phantasar Chronicles or another
@@ -136,6 +136,7 @@ Group TrueScript
 		for i=1,lightzones
 			ZA.Enter("ABZ"..i)
 		end
+		Ach.Award("SCEN_PROLOGUE_CRYPT")
 	End
 	
 End
