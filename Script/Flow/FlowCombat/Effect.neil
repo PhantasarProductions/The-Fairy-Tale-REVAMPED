@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Effect.neil
-// Version: 22.03.21
+// Version: 22.03.25
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -392,9 +392,21 @@ Group Effect
 		Action = _Action
 		
 		// Check hit / critical / desperation
-		Ret = CureStatus || Ret
+		If Act.Attack_AllowAccuracy
+			int Roll=math.random(1,100)
+			If Roll>Action.Executor.Char.Stat.END_Accuracy
+				Return False
+			end
+		End
+		If Act.Attack_AllowAccuracy
+			Int Roll=math.random(1,100)
+			If Roll<=Target.Char.Stat.END_Evasion
+				Return False
+			End
+		End
 		
 		// Cure status changes (must be first)
+		Ret = CureStatus || Ret
 		Ret = Revive || Ret
 		// Healing
 		Ret = Heal || Ret
