@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat.neil
-// Version: 22.02.24
+// Version: 22.03.25
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -44,6 +44,7 @@
 
 
 Table _real = {}
+global Const Int EXPBaseRate = ({3.5,1,0.75})[__skill]
 Global Table EXPRate = {}
 
 Global String VicQ = "PERFECT"
