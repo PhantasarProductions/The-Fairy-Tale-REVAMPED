@@ -32,11 +32,12 @@
 // 
 // **********************************************
 // 
-// version: 22.02.23
+// version: 22.03.25
 // End License Information
 
 #use "Script/Use/Anyway"
 #use "libs/linkedlist"
+#use "Script/Use/Misc/PSaveGame"
 
 table Nieuw()
 	return {}
@@ -322,11 +323,12 @@ class MenuItem
 	end
 	
 	static void Continue()
+		PerformLoadGame("QUIT")
+		Flow.Current="FIELD"
 	end
 	
-	static Bool IsThereAContinue()
-		// TODO: Scan for Quit-Save
-		return false
+	static Bool IsThereAContinue()		
+		return SaveGame.Recognized("QUIT")
 	end
 	
 	static void LoadGame()
