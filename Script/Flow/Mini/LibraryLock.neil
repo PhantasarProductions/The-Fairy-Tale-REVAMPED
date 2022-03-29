@@ -1,7 +1,7 @@
 // License Information:
 // src/Tricky Script/Script/Flow/Mini/LibraryLock.neil
-// Version: 21.12.27
-// Copyright (C) 2021 Jeroen Petrus Broks
+// Version: 22.03.27
+// Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
 // This file is part of a project related to the Phantasar Chronicles or another
@@ -39,7 +39,7 @@
 #use "Script/Use/Anyway.neilbundle/Dev"
 #use "Script/Use/Anyway.neilbundle/Mouse"
 
-#define lldebug
+#undef lldebug
 
 #if lldebug
 ReadOnly Var dbgfnt = ImageFont.Obtain("BOXTEXT")
