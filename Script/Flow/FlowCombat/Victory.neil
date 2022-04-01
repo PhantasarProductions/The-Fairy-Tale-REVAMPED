@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Victory.neil
-// Version: 22.02.16
+// Version: 22.04.01
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -95,10 +95,27 @@ Class Stage_Victory extends Stage
 			gv.gint.Combat_Victories++
 		End
 	End
+	
+	Void ResetBuffs()
+		Static Table ST = {"Power","Endurance","Intelligence","Resistance","Speed","Accuracy","Evasion"}
+		For i=1,4
+			if RPGParty[i] && RPGParty[i]!=""
+				For S in Each(ST)
+					Var Ch = RPGChar[RPGParty[i]]
+					if Ch.Stat["BUFF_"..s]>0 && __skill>1
+						Ch.Stat["BUFF_"..s]=0
+					elseif Ch.Stat["BUFF_"..s]<0 && __skill<3
+						Ch.Stat["BUFF_"..s]=0
+					end
+				end
+			end
+		end
+	End
 
 	Void Update()
 		BanScale = math.min(1,BanScale+ScaleInc)
 		If BanScale>=1
+			ResetBuffs()
 			Flow.Current="FIELD"
 			Ach.Auto()
 			If !Prefixed(FlowCombat.Start.FMusic:upper(),"*NOCHANGE")

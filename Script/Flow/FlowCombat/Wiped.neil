@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Wiped.neil
-// Version: 22.02.11
+// Version: 22.04.01
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -119,6 +119,7 @@ Class Stage_Wiped extends Stage
 		BanScale = math.min(1,(BanScale || 0)+ScaleInc)
 		If BanScale>=1
 			CsayF("Wipe animation done. Staring up handler '%s' now",WhatToDo)
+			FlowCombat.Victory.ResetBuffs()
 			WipeDo[WhatToDo]()			
 			Return
 		End

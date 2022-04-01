@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Cards.neil
-// Version: 22.02.08
+// Version: 22.04.01
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -102,6 +102,26 @@ Module Class
 	End
 	
 	Static Void DelFirst()
+		For _,f in pairs(Fighter.ByTag)
+			Static Table ST = {"Power","Endurance","Intelligence","Resistance","Speed","Accuracy","Evasion"}
+			For S in Each(ST)
+				Switch f.Team
+					Case "Hero"
+						If math.random(1,4-__skill) && f.char.stat["BUFF_"..S]>0
+							f.char.stat["BUFF_"..S]--
+						Elseif math.random(1,__skill) && f.char.stat["BUFF_"..S]<0
+							f.char.stat["BUFF_"..S]++
+						End
+					Case "Foe"
+						If math.random(1,__skill) && f.char.stat["BUFF_"..S]>0
+							f.char.stat["BUFF_"..S]--
+						Elseif math.random(1,4-__skill) && f.char.stat["BUFF_"..S]<0
+							f.char.stat["BUFF_"..S]++
+						End
+					Default
+				End
+			End
+		End
 		Slide.Play()
 		DelShift(1)
 	End

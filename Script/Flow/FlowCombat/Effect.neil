@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Effect.neil
-// Version: 22.03.25
+// Version: 22.04.01
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -377,6 +377,29 @@ Group Effect
     	End
     	Return False
     End
+    
+    Get Bool Buffs
+    	Static Table ST = {"Power","Endurance","Intelligence","Resistance","Speed","Accuracy","Evasion"}
+    	Bool Ret = False
+    	For S in Each(ST)
+    		Int Base = Target.Char.Stat["BASE_"..S]
+    		Int Prc  = Act["BUFF_"..S]
+    		Int CBuf = Target.Char.Stat["BUFF_"..S]
+    		If Prc!=0
+    			Int Buff = math.ceil(Base * (Prc/100))
+    			If Buff>0 && CBuf<Buff
+    				charmsg(Target.Tag,sprintf("%s up to %3d%%",S,Prc),0,255,0)
+    				Ret = True
+    				Target.Char.Stat["BUFF_"..S] = Buff
+    			ElseIf Buff<0 && CBuf>Buff
+    				charmsg(Target.Tag,sprintf("%s down to %3d%%",S,math.abs(Prc)),255,0,0)
+    				Ret = True
+    				Target.Char.Stat["BUFF_"..S] = Buff
+    			End
+    		End
+    	End
+    	Return Ret
+    End
 
 	Bool Run(_Action,_Target)
 		Bool Ret = False		
@@ -415,6 +438,8 @@ Group Effect
 		Ret = Attack || Ret
 		
 		// Buffs & Debuffs
+		Ret = Buffs || Ret
+		
 		// Script
 		Ret = Script || Ret
 		
