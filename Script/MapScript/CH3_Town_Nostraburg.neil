@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.02.11
+// version: 22.04.08
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -170,6 +170,7 @@ Group MScript
 		
 	#region Depri Jake
 	Void DepriJake()
+		Map.Pop("Depri_","South",true)
 		MapText("DEPRI_JAKE")
 	End
 	
