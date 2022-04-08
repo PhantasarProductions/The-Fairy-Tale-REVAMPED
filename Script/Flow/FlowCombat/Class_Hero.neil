@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Class_Hero.neil
-// Version: 22.03.18
+// Version: 22.04.08
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -425,7 +425,7 @@ Class Stage_PlayerInput_Main Extends Stage
 		Banners[Exe]   = Image.LoadNew("GFX/Combat/HeroBanners/"..Exe..".png","PIMI_BAN_"..Exe)
 		Portraits[Exe].HotCenter()
 		Banners[Exe].HotCenter()
-		If (Exe=="Marrilona" || math.random(0,__skill^__skill)==0) && gv.gBool.MarFeena_Curse
+		If (Exe=="Marrilona" || math.random(0,__skill^__skill)==0) && gv.gBool.MarFeena_Curse && RPGParty[2]=="Marrilona"
 			gv.gInt.MarFeena_HP++
 			gv.gBool.MarFeena_Curse = RPGChar.Marrilona.Points.HP.Maximum>gv.gInt.MarFeena_HP
 			FlowCombat.charmsg("Marrilona",sprintF("Recovery to %d",gv.gInt.MarFeena_HP),0,255,0)
