@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Victory.neil
-// Version: 22.04.01
+// Version: 22.04.05
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -96,7 +96,7 @@ Class Stage_Victory extends Stage
 		End
 	End
 	
-	Void ResetBuffs()
+	Static Void ResetBuffs()
 		Static Table ST = {"Power","Endurance","Intelligence","Resistance","Speed","Accuracy","Evasion"}
 		For i=1,4
 			if RPGParty[i] && RPGParty[i]!=""
