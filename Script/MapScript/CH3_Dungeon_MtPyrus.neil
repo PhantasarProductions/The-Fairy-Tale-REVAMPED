@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.03.11
+// version: 22.04.05
 // End License Information
 
 #region use
@@ -54,7 +54,7 @@ Group MScript
 		If Least>20
 			TexMove.Update()
 		End
-		if Slide && !gv.gbool["PyrusDone"..Map.Layer]
+		if Slide && (!gv.gbool["PyrusDone"..Map.Layer]) && gv.gbool["PyrusInitiated"..Map.Layer]
 			Switch Map.Layer
 				case "#004" 
 					if Slide.Good
@@ -161,6 +161,7 @@ Group MScript
 		Slide = Slide || new SlidePuzzle(5,"Slide")
 		Slide.Reset()
 		Slide.Start(1+__skill)
+		gv.gbool["PyrusInitiated"..Map.Layer] = true
 	End
 	
 	Void LeavePuzzle()
