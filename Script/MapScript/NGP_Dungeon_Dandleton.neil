@@ -329,6 +329,7 @@ Group MScript
 				priofunc=function()
 					Neil.Globals.CSayF("Making sure Feena's points are properly linked")
 					Neil.Globals.RPGChar.Feenalaria_Human2.Link_Points("Feenalaria_Human","*")
+					Neil.Globals.RPGChar.Feenalaria_Human2.Data.Skill1 = "Sword Mastery"
 				end
 			},
 			['#015'] = { priomt = "FL015", map = 'CH3_Town_Nostraburg', layer='TOWN', start='FeenaVsFrendor',schedule='LovingAsshole',party='Feenalaria',
