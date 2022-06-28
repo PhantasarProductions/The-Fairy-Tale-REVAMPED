@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.02.15
+// version: 22.06.28
 // End License Information
 
 #use "script/use/anyway"
@@ -58,6 +58,7 @@ Group MScript
 		Map.Kill("Guard_Block",true)
 		Map.GoToLayer("#001","Start")
 		MapText("GUARD4")
+		Respawn.Reset()
 		//Lua.error("Rest not yet scripted")
 	End
 	
