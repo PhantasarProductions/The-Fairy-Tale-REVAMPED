@@ -1,0 +1,488 @@
+// License Information:
+// **********************************************
+// 
+// src/Tricky Script/Script/Data/General/BlackOrbsDebug.neil
+// (c) Jeroen Broks, 2022, All Rights Reserved.
+// 
+// This file contains material that is related
+// to a storyline that is which is strictly
+// copyrighted to Jeroen Broks.
+// 
+// This file may only be used in an unmodified
+// form with an unmodified version of the
+// software this file belongs to.
+// 
+// You may use this file for your study to see
+// how I solved certain things in the creation
+// of this project to see if you find valuable
+// leads for the creation of your own.
+// 
+// Mostly this file comes along with a project
+// that is for most part released under an
+// open source license and that means that if
+// you use that code with this file removed
+// from it, you can use it under that license.
+// Please check out the other files to find out
+// which license applies.
+// This file comes 'as-is' and in no possible
+// way the author can be held responsible of
+// any form of damages that may occur due to
+// the usage of this file
+// 
+// 
+// **********************************************
+// 
+// version: 22.06.28
+// End License Information
+// BlackOrbs
+
+Var Ret = { ["IGNORE"] = {} }
+
+Init
+	Ret["Anna"] = {}
+	Ret["Anna"]["#001"] = 0
+
+	Ret["CH1_Dungeon_FrendorBushes"] = {}
+	Ret["CH1_Dungeon_FrendorBushes"]["FRENDORBUSHES"] = 0
+
+	Ret["CH1_Dungeon_Hell"] = {}
+	Ret["CH1_Dungeon_Hell"]["#001"] = 4
+	Ret["CH1_Dungeon_Hell"]["#002"] = 5
+	Ret["CH1_Dungeon_Hell"]["#003"] = 7
+
+	Ret["CH1_Dungeon_HolyPath"] = {}
+	Ret["CH1_Dungeon_HolyPath"]["BOS"] = 4
+
+	Ret["CH1_Dungeon_Library"] = {}
+	Ret["CH1_Dungeon_Library"]["#001"] = 0
+	Ret["CH1_Dungeon_Library"]["#002"] = 0
+	Ret["CH1_Dungeon_Library"]["#003"] = 4
+	Ret["CH1_Dungeon_Library"]["#004"] = 10
+	Ret["CH1_Dungeon_Library"]["#005"] = 0
+	Ret["CH1_Dungeon_Library"]["#006"] = 0
+
+	Ret["CH1_Dungeon_SubRiver"] = {}
+	Ret["CH1_Dungeon_SubRiver"]["#001"] = 0
+	Ret["CH1_Dungeon_SubRiver"]["#002"] = 0
+	Ret["CH1_Dungeon_SubRiver"]["#003"] = 3
+	Ret["CH1_Dungeon_SubRiver"]["#004"] = 1
+	Ret["CH1_Dungeon_SubRiver"]["#005"] = 0
+	Ret["CH1_Dungeon_SubRiver"]["#006"] = 0
+	Ret["CH1_Dungeon_SubRiver"]["#007"] = 0
+	Ret["CH1_Dungeon_SubRiver"]["#008"] = 0
+	Ret["CH1_Dungeon_SubRiver"]["#009"] = 0
+	Ret["CH1_Dungeon_SubRiver"]["#010"] = 0
+
+	Ret["CH1_HUB_ALTAR"] = {}
+	Ret["CH1_HUB_ALTAR"]["ALTAR"] = 0
+
+	Ret["CH1_HUB_JakeHut"] = {}
+	Ret["CH1_HUB_JakeHut"]["BLACK"] = 0
+	Ret["CH1_HUB_JakeHut"]["EXTERIOR"] = 0
+	Ret["CH1_HUB_JakeHut"]["INTERIOR"] = 0
+
+	Ret["CH2_Dungeon_DoublineBayForest"] = {}
+	Ret["CH2_Dungeon_DoublineBayForest"]["FOREST"] = 0
+
+	Ret["CH2_Dungeon_DragonCastle"] = {}
+	Ret["CH2_Dungeon_DragonCastle"]["#000"] = 0
+	Ret["CH2_Dungeon_DragonCastle"]["#001"] = 0
+	Ret["CH2_Dungeon_DragonCastle"]["#002"] = 0
+	Ret["CH2_Dungeon_DragonCastle"]["#003"] = 0
+	Ret["CH2_Dungeon_DragonCastle"]["COURTYARD"] = 0
+
+	Ret["CH2_DUNGEON_ElfRoad"] = {}
+	Ret["CH2_DUNGEON_ElfRoad"]["#001"] = 11
+	Ret["CH2_DUNGEON_ElfRoad"]["#002"] = 26
+	Ret["CH2_DUNGEON_ElfRoad"]["#003"] = 28
+
+	Ret["CH2_Dungeon_SpirataFire"] = {}
+	Ret["CH2_Dungeon_SpirataFire"]["#000"] = 0
+	Ret["CH2_Dungeon_SpirataFire"]["#001"] = 0
+	Ret["CH2_Dungeon_SpirataFire"]["#002"] = 0
+	Ret["CH2_Dungeon_SpirataFire"]["#003"] = 0
+	Ret["CH2_Dungeon_SpirataFire"]["#004"] = 0
+	Ret["CH2_Dungeon_SpirataFire"]["#005"] = 2
+	Ret["CH2_Dungeon_SpirataFire"]["#006"] = 0
+	Ret["CH2_Dungeon_SpirataFire"]["#007"] = 0
+	Ret["CH2_Dungeon_SpirataFire"]["#008"] = 0
+	Ret["CH2_Dungeon_SpirataFire"]["#009"] = 0
+	Ret["CH2_Dungeon_SpirataFire"]["#010"] = 0
+
+	Ret["CH2_Dungeon_SpirataWater"] = {}
+	Ret["CH2_Dungeon_SpirataWater"]["#000"] = 0
+	Ret["CH2_Dungeon_SpirataWater"]["#001"] = 7
+	Ret["CH2_Dungeon_SpirataWater"]["#002"] = 0
+	Ret["CH2_Dungeon_SpirataWater"]["#003"] = 11
+	Ret["CH2_Dungeon_SpirataWater"]["#004"] = 0
+	Ret["CH2_Dungeon_SpirataWater"]["#005"] = 2
+	Ret["CH2_Dungeon_SpirataWater"]["#006"] = 0
+	Ret["CH2_Dungeon_SpirataWater"]["#007"] = 4
+	Ret["CH2_Dungeon_SpirataWater"]["#008"] = 0
+	Ret["CH2_Dungeon_SpirataWater"]["#009"] = 0
+	Ret["CH2_Dungeon_SpirataWater"]["#010"] = 0
+
+	Ret["CH2_Dungeon_SpirataWind"] = {}
+	Ret["CH2_Dungeon_SpirataWind"]["#000"] = 0
+	Ret["CH2_Dungeon_SpirataWind"]["#001"] = 0
+	Ret["CH2_Dungeon_SpirataWind"]["#002"] = 0
+	Ret["CH2_Dungeon_SpirataWind"]["#003"] = 4
+	Ret["CH2_Dungeon_SpirataWind"]["#004"] = 0
+	Ret["CH2_Dungeon_SpirataWind"]["#005"] = 0
+	Ret["CH2_Dungeon_SpirataWind"]["#006"] = 0
+	Ret["CH2_Dungeon_SpirataWind"]["OOPS"] = 0
+
+	Ret["CH2_Dungeon_VandarRoad"] = {}
+	Ret["CH2_Dungeon_VandarRoad"]["ROAD"] = 3
+
+	Ret["CH2_Town_Doubline"] = {}
+	Ret["CH2_Town_Doubline"]["CITY"] = 0
+
+	Ret["CH2_Town_Dreshka"] = {}
+	Ret["CH2_Town_Dreshka"]["DESTROYED"] = 0
+	Ret["CH2_Town_Dreshka"]["ENTRY"] = 0
+	Ret["CH2_Town_Dreshka"]["TOWN"] = 0
+
+	Ret["CH2_Town_Iskarderiu"] = {}
+	Ret["CH2_Town_Iskarderiu"]["INN"] = 0
+	Ret["CH2_Town_Iskarderiu"]["ITEMS"] = 0
+	Ret["CH2_Town_Iskarderiu"]["TOWN"] = 0
+	Ret["CH2_Town_Iskarderiu"]["TOWNHALL"] = 0
+	Ret["CH2_Town_Iskarderiu"]["WEAPONS"] = 0
+
+	Ret["CH3_Dungeon_Garden"] = {}
+	Ret["CH3_Dungeon_Garden"]["#000"] = 0
+	Ret["CH3_Dungeon_Garden"]["#001"] = 0
+	Ret["CH3_Dungeon_Garden"]["#002"] = 0
+	Ret["CH3_Dungeon_Garden"]["#003"] = 0
+	Ret["CH3_Dungeon_Garden"]["#004"] = 1
+	Ret["CH3_Dungeon_Garden"]["#005"] = 0
+	Ret["CH3_Dungeon_Garden"]["#006"] = 0
+	Ret["CH3_Dungeon_Garden"]["#007"] = 0
+	Ret["CH3_Dungeon_Garden"]["#008"] = 0
+	Ret["CH3_Dungeon_Garden"]["#009"] = 1
+	Ret["CH3_Dungeon_Garden"]["#010"] = 0
+	Ret["CH3_Dungeon_Garden"]["#011"] = 0
+	Ret["CH3_Dungeon_Garden"]["#012"] = 0
+	Ret["CH3_Dungeon_Garden"]["#013"] = 0
+	Ret["CH3_Dungeon_Garden"]["#014"] = 0
+	Ret["CH3_Dungeon_Garden"]["#015"] = 0
+	Ret["CH3_Dungeon_Garden"]["#016"] = 0
+	Ret["CH3_Dungeon_Garden"]["#017"] = 0
+	Ret["CH3_Dungeon_Garden"]["#018"] = 0
+	Ret["CH3_Dungeon_Garden"]["#019"] = 1
+	Ret["CH3_Dungeon_Garden"]["#020"] = 0
+
+	Ret["CH3_Dungeon_KokonoraForest"] = {}
+	Ret["CH3_Dungeon_KokonoraForest"]["FISHERMAN"] = 0
+	Ret["CH3_Dungeon_KokonoraForest"]["FOREST"] = 7
+
+	Ret["CH3_Dungeon_Mine"] = {}
+	Ret["CH3_Dungeon_Mine"]["#001"] = 0
+	Ret["CH3_Dungeon_Mine"]["#002"] = 0
+	Ret["CH3_Dungeon_Mine"]["#003"] = 0
+	Ret["CH3_Dungeon_Mine"]["#004"] = 0
+	Ret["CH3_Dungeon_Mine"]["#005"] = 0
+	Ret["CH3_Dungeon_Mine"]["#006"] = 0
+	Ret["CH3_Dungeon_Mine"]["#007"] = 0
+	Ret["CH3_Dungeon_Mine"]["#008"] = 4
+	Ret["CH3_Dungeon_Mine"]["#009"] = 4
+	Ret["CH3_Dungeon_Mine"]["#010"] = 8
+
+	Ret["CH3_Dungeon_MTPYRUS"] = {}
+	Ret["CH3_Dungeon_MTPYRUS"]["#000"] = 0
+	Ret["CH3_Dungeon_MTPYRUS"]["#001"] = 0
+	Ret["CH3_Dungeon_MTPYRUS"]["#002"] = 0
+	Ret["CH3_Dungeon_MTPYRUS"]["#003"] = 0
+	Ret["CH3_Dungeon_MTPYRUS"]["#004"] = 0
+	Ret["CH3_Dungeon_MTPYRUS"]["#005"] = 0
+	Ret["CH3_Dungeon_MTPYRUS"]["#006"] = 0
+	Ret["CH3_Dungeon_MTPYRUS"]["#007"] = 0
+	Ret["CH3_Dungeon_MTPYRUS"]["#008"] = 0
+	Ret["CH3_Dungeon_MTPYRUS"]["#009"] = 0
+	Ret["CH3_Dungeon_MTPYRUS"]["#010"] = 0
+	Ret["CH3_Dungeon_MTPYRUS"]["#011"] = 0
+	Ret["CH3_Dungeon_MTPYRUS"]["#012"] = 0
+	Ret["CH3_Dungeon_MTPYRUS"]["DUMMY"] = 0
+
+	Ret["CH3_Dungeon_SpirataEarth"] = {}
+	Ret["CH3_Dungeon_SpirataEarth"]["#000"] = 0
+	Ret["CH3_Dungeon_SpirataEarth"]["#001"] = 0
+	Ret["CH3_Dungeon_SpirataEarth"]["#002"] = 0
+	Ret["CH3_Dungeon_SpirataEarth"]["#003"] = 7
+	Ret["CH3_Dungeon_SpirataEarth"]["#004"] = 0
+	Ret["CH3_Dungeon_SpirataEarth"]["#005"] = 0
+	Ret["CH3_Dungeon_SpirataEarth"]["#006"] = 0
+	Ret["CH3_Dungeon_SpirataEarth"]["#007"] = 4
+	Ret["CH3_Dungeon_SpirataEarth"]["#008"] = 2
+	Ret["CH3_Dungeon_SpirataEarth"]["#009"] = 2
+	Ret["CH3_Dungeon_SpirataEarth"]["#010"] = 0
+
+	Ret["CH3_Hub_FrendorGrave"] = {}
+	Ret["CH3_Hub_FrendorGrave"]["GRAF"] = 6
+
+	Ret["CH3_Story_Dragon_Forest"] = {}
+	Ret["CH3_Story_Dragon_Forest"]["SUMMON"] = 0
+
+	Ret["CH3_Town_Grombo"] = {}
+	Ret["CH3_Town_Grombo"]["QUENDOR"] = 0
+	Ret["CH3_Town_Grombo"]["TOWN"] = 0
+
+	Ret["CH3_Town_Nostraburg"] = {}
+	Ret["CH3_Town_Nostraburg"]["AAA"] = 0
+	Ret["CH3_Town_Nostraburg"]["INN"] = 0
+	Ret["CH3_Town_Nostraburg"]["ITEMS"] = 0
+	Ret["CH3_Town_Nostraburg"]["KRANDAR"] = 0
+	Ret["CH3_Town_Nostraburg"]["TOWN"] = 0
+	Ret["CH3_Town_Nostraburg"]["WANDS"] = 0
+	Ret["CH3_Town_Nostraburg"]["WEAPONS"] = 0
+
+	Ret["CH4_Dungeon_ManaCave"] = {}
+	Ret["CH4_Dungeon_ManaCave"]["#000"] = 6
+	Ret["CH4_Dungeon_ManaCave"]["#001"] = 0
+	Ret["CH4_Dungeon_ManaCave"]["#002"] = 0
+	Ret["CH4_Dungeon_ManaCave"]["#003"] = 0
+	Ret["CH4_Dungeon_ManaCave"]["#004"] = 0
+	Ret["CH4_Dungeon_ManaCave"]["#005"] = 0
+	Ret["CH4_Dungeon_ManaCave"]["#006"] = 0
+	Ret["CH4_Dungeon_ManaCave"]["#007"] = 0
+	Ret["CH4_Dungeon_ManaCave"]["#008"] = 0
+	Ret["CH4_Dungeon_ManaCave"]["#009"] = 0
+	Ret["CH4_Dungeon_ManaCave"]["#010"] = 0
+	Ret["CH4_Dungeon_ManaCave"]["#011"] = 0
+	Ret["CH4_Dungeon_ManaCave"]["#012"] = 0
+	Ret["CH4_Dungeon_ManaCave"]["#013"] = 0
+	Ret["CH4_Dungeon_ManaCave"]["#014"] = 0
+	Ret["CH4_Dungeon_ManaCave"]["#015"] = 0
+	Ret["CH4_Dungeon_ManaCave"]["#016"] = 0
+	Ret["CH4_Dungeon_ManaCave"]["#017"] = 0
+	Ret["CH4_Dungeon_ManaCave"]["#018"] = 0
+	Ret["CH4_Dungeon_ManaCave"]["#019"] = 0
+	Ret["CH4_Dungeon_ManaCave"]["#020"] = 0
+
+	Ret["CH4_Dungeon_ManaRoad"] = {}
+	Ret["CH4_Dungeon_ManaRoad"]["BOS"] = 10
+	Ret["CH4_Dungeon_ManaRoad"]["TROUWEN"] = 0
+
+	Ret["CH4_Dungeon_PyrusPass"] = {}
+	Ret["CH4_Dungeon_PyrusPass"]["#000"] = 0
+	Ret["CH4_Dungeon_PyrusPass"]["#001"] = 2
+	Ret["CH4_Dungeon_PyrusPass"]["#002"] = 0
+
+	Ret["CH4_Dungeon_SpirataCrypt"] = {}
+	Ret["CH4_Dungeon_SpirataCrypt"]["AER"] = 0
+	Ret["CH4_Dungeon_SpirataCrypt"]["AQUA"] = 0
+	Ret["CH4_Dungeon_SpirataCrypt"]["IGNIS"] = 0
+	Ret["CH4_Dungeon_SpirataCrypt"]["TERRA"] = 0
+	Ret["CH4_Dungeon_SpirataCrypt"]["TOGETHER"] = 0
+
+	Ret["CH4_Dungeon_StarDome"] = {}
+	Ret["CH4_Dungeon_StarDome"]["#001"] = 2
+	Ret["CH4_Dungeon_StarDome"]["#002"] = 0
+	Ret["CH4_Dungeon_StarDome"]["#003"] = 0
+	Ret["CH4_Dungeon_StarDome"]["#004"] = 0
+	Ret["CH4_Dungeon_StarDome"]["#005"] = 9
+	Ret["CH4_Dungeon_StarDome"]["#006"] = 8
+	Ret["CH4_Dungeon_StarDome"]["#007"] = 4
+	Ret["CH4_Dungeon_StarDome"]["#008"] = 26
+	Ret["CH4_Dungeon_StarDome"]["#009"] = 0
+	Ret["CH4_Dungeon_StarDome"]["#010"] = 0
+
+	Ret["CH4_Dungeon_Z_NostramantuMansion"] = {}
+	Ret["CH4_Dungeon_Z_NostramantuMansion"]["CORRIDOR"] = 0
+	Ret["CH4_Dungeon_Z_NostramantuMansion"]["K1"] = 0
+	Ret["CH4_Dungeon_Z_NostramantuMansion"]["K2"] = 0
+	Ret["CH4_Dungeon_Z_NostramantuMansion"]["K3"] = 0
+	Ret["CH4_Dungeon_Z_NostramantuMansion"]["K4"] = 0
+	Ret["CH4_Dungeon_Z_NostramantuMansion"]["K5"] = 0
+	Ret["CH4_Dungeon_Z_NostramantuMansion"]["K6"] = 0
+	Ret["CH4_Dungeon_Z_NostramantuMansion"]["K7"] = 0
+	Ret["CH4_Dungeon_Z_NostramantuMansion"]["K8"] = 0
+	Ret["CH4_Dungeon_Z_NostramantuMansion"]["K9"] = 0
+	Ret["CH4_Dungeon_Z_NostramantuMansion"]["LOBBY"] = 0
+	Ret["CH4_Dungeon_Z_NostramantuMansion"]["NOS"] = 0
+
+	Ret["CH4_Town_NostraburgNight"] = {}
+	Ret["CH4_Town_NostraburgNight"]["ABC"] = 0
+	Ret["CH4_Town_NostraburgNight"]["CREEK"] = 0
+	Ret["CH4_Town_NostraburgNight"]["TOWN"] = 0
+
+	Ret["Egg_Walda"] = {}
+	Ret["Egg_Walda"]["LAYERLESS"] = 0
+
+	Ret["NGP_Dungeon_AquaAntrum"] = {}
+	Ret["NGP_Dungeon_AquaAntrum"]["#000"] = 0
+	Ret["NGP_Dungeon_AquaAntrum"]["#001"] = 0
+	Ret["NGP_Dungeon_AquaAntrum"]["#002"] = 0
+	Ret["NGP_Dungeon_AquaAntrum"]["#003"] = 0
+	Ret["NGP_Dungeon_AquaAntrum"]["#004"] = 0
+	Ret["NGP_Dungeon_AquaAntrum"]["#005"] = 0
+	Ret["NGP_Dungeon_AquaAntrum"]["#006"] = 0
+	Ret["NGP_Dungeon_AquaAntrum"]["#007"] = 0
+
+	Ret["NGP_Dungeon_Cathedral"] = {}
+	Ret["NGP_Dungeon_Cathedral"]["#000"] = 0
+	Ret["NGP_Dungeon_Cathedral"]["#001"] = 0
+	Ret["NGP_Dungeon_Cathedral"]["#002"] = 0
+	Ret["NGP_Dungeon_Cathedral"]["#003"] = 0
+	Ret["NGP_Dungeon_Cathedral"]["#004"] = 0
+
+	Ret["NGP_Dungeon_Dandleton"] = {}
+	Ret["NGP_Dungeon_Dandleton"]["#001"] = 0
+	Ret["NGP_Dungeon_Dandleton"]["#002"] = 0
+	Ret["NGP_Dungeon_Dandleton"]["#003"] = 0
+	Ret["NGP_Dungeon_Dandleton"]["#004"] = 0
+	Ret["NGP_Dungeon_Dandleton"]["#005"] = 0
+	Ret["NGP_Dungeon_Dandleton"]["#006"] = 0
+	Ret["NGP_Dungeon_Dandleton"]["#007"] = 0
+	Ret["NGP_Dungeon_Dandleton"]["#008"] = 0
+	Ret["NGP_Dungeon_Dandleton"]["#009"] = 0
+	Ret["NGP_Dungeon_Dandleton"]["#010"] = 0
+
+	Ret["NGP_Dungeon_Dandleton_part2"] = {}
+	Ret["NGP_Dungeon_Dandleton_part2"]["#011"] = 0
+	Ret["NGP_Dungeon_Dandleton_part2"]["#012"] = 0
+	Ret["NGP_Dungeon_Dandleton_part2"]["#013"] = 0
+	Ret["NGP_Dungeon_Dandleton_part2"]["#014"] = 0
+	Ret["NGP_Dungeon_Dandleton_part2"]["#015"] = 0
+	Ret["NGP_Dungeon_Dandleton_part2"]["#016"] = 0
+	Ret["NGP_Dungeon_Dandleton_part2"]["#017"] = 0
+	Ret["NGP_Dungeon_Dandleton_part2"]["#018"] = 0
+	Ret["NGP_Dungeon_Dandleton_part2"]["#019"] = 0
+	Ret["NGP_Dungeon_Dandleton_part2"]["#020"] = 0
+
+	Ret["NGP_Dungeon_Excalibur1"] = {}
+	Ret["NGP_Dungeon_Excalibur1"]["#000"] = 0
+	Ret["NGP_Dungeon_Excalibur1"]["#001"] = 0
+	Ret["NGP_Dungeon_Excalibur1"]["#002"] = 0
+	Ret["NGP_Dungeon_Excalibur1"]["#003"] = 0
+	Ret["NGP_Dungeon_Excalibur1"]["#004"] = 0
+	Ret["NGP_Dungeon_Excalibur1"]["#005"] = 0
+	Ret["NGP_Dungeon_Excalibur1"]["#006"] = 0
+	Ret["NGP_Dungeon_Excalibur1"]["#007"] = 0
+	Ret["NGP_Dungeon_Excalibur1"]["#008"] = 0
+	Ret["NGP_Dungeon_Excalibur1"]["#009"] = 0
+	Ret["NGP_Dungeon_Excalibur1"]["#010"] = 0
+	Ret["NGP_Dungeon_Excalibur1"]["ARENA"] = 0
+	Ret["NGP_Dungeon_Excalibur1"]["SECRET1"] = 0
+
+	Ret["NGP_Dungeon_Excalibur2"] = {}
+	Ret["NGP_Dungeon_Excalibur2"]["_BASE"] = 0
+	Ret["NGP_Dungeon_Excalibur2"]["#011"] = 0
+	Ret["NGP_Dungeon_Excalibur2"]["#012"] = 0
+	Ret["NGP_Dungeon_Excalibur2"]["#013"] = 0
+	Ret["NGP_Dungeon_Excalibur2"]["#014"] = 0
+	Ret["NGP_Dungeon_Excalibur2"]["#015"] = 0
+	Ret["NGP_Dungeon_Excalibur2"]["#016"] = 0
+	Ret["NGP_Dungeon_Excalibur2"]["#017"] = 0
+	Ret["NGP_Dungeon_Excalibur2"]["#018"] = 0
+	Ret["NGP_Dungeon_Excalibur2"]["#019"] = 0
+	Ret["NGP_Dungeon_Excalibur2"]["#020"] = 0
+	Ret["NGP_Dungeon_Excalibur2"]["SECRET2"] = 0
+
+	Ret["NGP_Dungeon_Excalibur3"] = {}
+	Ret["NGP_Dungeon_Excalibur3"]["_BASE"] = 0
+	Ret["NGP_Dungeon_Excalibur3"]["#021"] = 0
+	Ret["NGP_Dungeon_Excalibur3"]["#022"] = 0
+	Ret["NGP_Dungeon_Excalibur3"]["#023"] = 0
+
+	Ret["NGP_Dungeon_KokoBushes"] = {}
+	Ret["NGP_Dungeon_KokoBushes"]["BUSH"] = 0
+
+	Ret["NGP_Dungeon_Quayaro"] = {}
+	Ret["NGP_Dungeon_Quayaro"]["BARN"] = 0
+	Ret["NGP_Dungeon_Quayaro"]["CHAPEL"] = 0
+	Ret["NGP_Dungeon_Quayaro"]["COURTYARD"] = 0
+	Ret["NGP_Dungeon_Quayaro"]["DUNGEON"] = 0
+	Ret["NGP_Dungeon_Quayaro"]["HALL"] = 0
+	Ret["NGP_Dungeon_Quayaro"]["KINGS"] = 0
+	Ret["NGP_Dungeon_Quayaro"]["KITCHEN"] = 0
+
+	Ret["NGP_HUB_HEROES"] = {}
+	Ret["NGP_HUB_HEROES"]["HEROES"] = 0
+
+	Ret["NGP_LinkExcalibur"] = {}
+	Ret["NGP_LinkExcalibur"]["BOS"] = 0
+
+	Ret["PRO_Dungeon_Crypt"] = {}
+	Ret["PRO_Dungeon_Crypt"]["#000"] = 0
+	Ret["PRO_Dungeon_Crypt"]["#001"] = 0
+	Ret["PRO_Dungeon_Crypt"]["#002"] = 0
+	Ret["PRO_Dungeon_Crypt"]["#003"] = 0
+	Ret["PRO_Dungeon_Crypt"]["#004"] = 0
+	Ret["PRO_Dungeon_Crypt"]["#005"] = 0
+	Ret["PRO_Dungeon_Crypt"]["#006"] = 0
+	Ret["PRO_Dungeon_Crypt"]["#007"] = 0
+	Ret["PRO_Dungeon_Crypt"]["#008"] = 0
+
+	Ret["PRO_Dungeon_DragonCave"] = {}
+	Ret["PRO_Dungeon_DragonCave"]["#000"] = 0
+	Ret["PRO_Dungeon_DragonCave"]["#001"] = 0
+	Ret["PRO_Dungeon_DragonCave"]["#002"] = 0
+	Ret["PRO_Dungeon_DragonCave"]["#003"] = 0
+	Ret["PRO_Dungeon_DragonCave"]["#004"] = 0
+	Ret["PRO_Dungeon_DragonCave"]["#005"] = 0
+	Ret["PRO_Dungeon_DragonCave"]["#006"] = 0
+	Ret["PRO_Dungeon_DragonCave"]["#007"] = 0
+	Ret["PRO_Dungeon_DragonCave"]["#008"] = 0
+
+	Ret["PRO_Dungeon_Magic"] = {}
+	Ret["PRO_Dungeon_Magic"]["#001"] = 0
+	Ret["PRO_Dungeon_Magic"]["#002"] = 0
+	Ret["PRO_Dungeon_Magic"]["#003"] = 0
+	Ret["PRO_Dungeon_Magic"]["#004"] = 0
+	Ret["PRO_Dungeon_Magic"]["#005"] = 0
+	Ret["PRO_Dungeon_Magic"]["#006"] = 0
+	Ret["PRO_Dungeon_Magic"]["#007"] = 0
+	Ret["PRO_Dungeon_Magic"]["#008"] = 0
+
+	Ret["PRO_Dungeon_Tomb"] = {}
+	Ret["PRO_Dungeon_Tomb"]["#000"] = 0
+	Ret["PRO_Dungeon_Tomb"]["#001"] = 0
+	Ret["PRO_Dungeon_Tomb"]["#002"] = 0
+	Ret["PRO_Dungeon_Tomb"]["#003"] = 0
+	Ret["PRO_Dungeon_Tomb"]["#004"] = 0
+	Ret["PRO_Dungeon_Tomb"]["#005"] = 0
+	Ret["PRO_Dungeon_Tomb"]["#006"] = 0
+	Ret["PRO_Dungeon_Tomb"]["#007"] = 0
+	Ret["PRO_Dungeon_Tomb"]["GRAVE"] = 0
+
+	Ret["PRO_Empty"] = {}
+	Ret["PRO_Empty"]["EMPTY"] = 0
+
+	Ret["PRO_HUB_Weniaria"] = {}
+	Ret["PRO_HUB_Weniaria"]["HALL"] = 0
+	Ret["PRO_HUB_Weniaria"]["LOBBY"] = 0
+	Ret["PRO_HUB_Weniaria"]["TESTLAYER"] = 0
+
+	Ret["PRO_TheEnd"] = {}
+	Ret["PRO_TheEnd"]["DANDOR"] = 0
+	Ret["PRO_TheEnd"]["HANDO STILLOR"] = 0
+	Ret["PRO_TheEnd"]["JAKE"] = 0
+	Ret["PRO_TheEnd"]["MARRILONA"] = 0
+	Ret["PRO_TheEnd"]["NOTHING"] = 0
+	Ret["PRO_TheEnd"]["THEEND"] = 0
+
+	Ret["PRO_Town_Frendor"] = {}
+	Ret["PRO_Town_Frendor"]["BLACK"] = 0
+	Ret["PRO_Town_Frendor"]["ELDER"] = 0
+	Ret["PRO_Town_Frendor"]["HARRY"] = 0
+	Ret["PRO_Town_Frendor"]["INN"] = 0
+	Ret["PRO_Town_Frendor"]["ITEMS"] = 0
+	Ret["PRO_Town_Frendor"]["MARRILONA"] = 0
+	Ret["PRO_Town_Frendor"]["TOWN"] = 0
+	Ret["PRO_Town_Frendor"]["WANDS"] = 0
+	Ret["PRO_Town_Frendor"]["WEAPONS"] = 0
+
+	Ret["PRO_Town_Vandar"] = {}
+	Ret["PRO_Town_Vandar"]["CHIEF"] = 0
+	Ret["PRO_Town_Vandar"]["INN"] = 0
+	Ret["PRO_Town_Vandar"]["ITEMS"] = 0
+	Ret["PRO_Town_Vandar"]["TOWN"] = 0
+	Ret["PRO_Town_Vandar"]["WEAPONS"] = 0
+
+	Ret["ZZZ_Test"] = {}
+	Ret["ZZZ_Test"]["LAYERLESS"] = 0
+End
+
+Return Ret
