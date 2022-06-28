@@ -1,7 +1,7 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowConsole.neil
 // Console
-// version: 22.03.17
+// version: 22.06.28
 // Copyright (C) 2021, 2022 Jeroen P. Broks
 // This software is provided 'as-is', without any express or implied
 // warranty.  In no event will the authors be held liable for any damages
@@ -335,6 +335,10 @@ deftable icommandtable
 			P.Have=1
 		end
 	end
+	
+	MEDAL = void()
+		CSayF("Medal rate: %03d%%",Medals.Percent)
+	End
 	
 		
 end
