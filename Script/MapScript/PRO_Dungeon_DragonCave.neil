@@ -49,7 +49,15 @@ Group MScript
 	Void NPC_Guard()
 		Map.AllowAutoScroll=False
 		MapText("GUARD1")
-		Map.ScrollTo(Map.ScrollX,-Screen.H,3)
+		//Map.ScrollTo(Map.ScrollX,-Screen.H,3)
+		For i=Map.CamY,-Screen.H,-1
+			Graphics.Cls()
+			Map.CamY=i
+			Map.DrawScreen()
+			Graphics.Flip()
+			FPS.WaitMinTicks()
+			Events.Poll()
+		End
 		Map.HideObj("PLAYER")
 		MapText("GUARD2")
 		Map.AllowAutoScroll=true
