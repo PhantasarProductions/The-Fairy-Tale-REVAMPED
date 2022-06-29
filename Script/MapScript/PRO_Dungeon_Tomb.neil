@@ -57,6 +57,7 @@ Group TrueMScript
 	Void StartPrologue()
 		MapText("SANDRA_A")
 		MapText("SANDRA_B")
+		Respawn.Reset()
 	End
 	
 	Void To001()
