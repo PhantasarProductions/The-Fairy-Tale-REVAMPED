@@ -1,4 +1,4 @@
-// Generated 3/11/2022 12:12:05 AM
+// Generated 7/1/2022 12:14:18 AM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -9,6 +9,7 @@ Table _R(Bool Oversoul)
 	Ret.Steal = {}
 
 	Ret.AI = "default"
+	Ret.Undead = True
 	Ret.DESC = "Her scream is lethal to all who hear it.\nThe problem is: All she can do is scream"
 	Ret.IMAGE = "GFX/Combat/Fighters/Foe/Reg/SpiritGirl.png"
 	Ret.DropRate_1 = 100

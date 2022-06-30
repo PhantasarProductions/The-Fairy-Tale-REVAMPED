@@ -1,4 +1,4 @@
-// Generated 3/11/2022 12:11:31 AM
+// Generated 7/1/2022 12:13:44 AM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -14,6 +14,7 @@ Table _R(Bool Oversoul)
 		Lua.error("Enemy 'Boss/Terinka' does not support oversoul!")
 	End
 
+	Ret.Undead = True
 	Ret.DESC = "The soul of Feenalaria's mother.\nBecause she died an unclean death \nher soul was never able to ascend to the\nheavens to appear for Shalaga's court.\nShe will haunt Dandleton forever\ntaking the blame for her son's sins,\nhardly sane... hardly aware."
 	Ret.IMAGE = "GFX/Combat/Fighters/Foe/Boss/Cyndrinana.png"
 	Ret.DropRate_1 = 100

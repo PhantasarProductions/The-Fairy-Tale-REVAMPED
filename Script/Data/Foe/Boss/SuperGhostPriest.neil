@@ -1,4 +1,4 @@
-// Generated 3/11/2022 12:11:30 AM
+// Generated 7/1/2022 12:13:43 AM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -14,6 +14,7 @@ Table _R(Bool Oversoul)
 		Lua.error("Enemy 'Boss/SuperGhostPriest' does not support oversoul!")
 	End
 
+	Ret.Undead = True
 	Ret.DESC = "Turns his enemies into undead and heals them afterward.\nA very dangerous combination."
 	Ret.IMAGE = "GFX/Combat/Fighters/Foe/boss/GhostPriest.png"
 	Ret.DropRate_1 = 5

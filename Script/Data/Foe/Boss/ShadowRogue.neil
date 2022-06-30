@@ -1,4 +1,4 @@
-// Generated 3/11/2022 12:11:28 AM
+// Generated 7/1/2022 12:13:41 AM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -14,6 +14,7 @@ Table _R(Bool Oversoul)
 		Lua.error("Enemy 'Boss/ShadowRogue' does not support oversoul!")
 	End
 
+	Ret.Undead = True
 	Ret.DESC = "Restless corpse of a dead rogue.\nHaunts old ruins and still tries\nto rob people... eternally."
 	Ret.IMAGE = "GFX/Combat/Fighters/Foe/boss/ShadowRogue.png"
 	Ret.DropRate_1 = 3

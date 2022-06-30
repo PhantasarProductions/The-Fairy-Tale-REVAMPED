@@ -1,4 +1,4 @@
-// Generated 3/11/2022 12:12:10 AM
+// Generated 7/1/2022 12:14:23 AM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -9,6 +9,7 @@ Table _R(Bool Oversoul)
 	Ret.Steal = {}
 
 	Ret.AI = "default"
+	Ret.Undead = True
 	Ret.DESC = "She will force you into buying her stuff.\nShe lost the sense of letting her customers have a free choice.\nBuy or die!"
 	Ret.IMAGE = "GFX/Combat/Fighters/Foe/Reg/ZombieShopHoer/"
 	Ret.DropRate_1 = 4

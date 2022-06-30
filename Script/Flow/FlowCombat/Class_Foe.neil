@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Class_Foe.neil
-// Version: 22.03.12
+// Version: 22.07.01
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -65,8 +65,12 @@ Class Foe Extends Fighter
 		Return AIBase[AITag]
 	End
 
+	Get Bool IsUndead
+		Return Raw.Undead
+	End
+	
 	Get Bool Damned
-		return Self.StatusChanges.Undead!=nil && Self.StatusChanges.Undead!=false
+		return IsUndead || (Self.StatusChanges.Undead!=nil && Self.StatusChanges.Undead!=false)
 	End
 	
 	Bool _CheckKilled = False

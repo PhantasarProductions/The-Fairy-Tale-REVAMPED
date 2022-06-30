@@ -1,4 +1,4 @@
-// Generated 3/11/2022 12:11:42 AM
+// Generated 7/1/2022 12:13:55 AM
 // (c) Jeroen P. Broks
 // May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
 
@@ -9,6 +9,7 @@ Table _R(Bool Oversoul)
 	Ret.Steal = {}
 
 	Ret.AI = "default"
+	Ret.Undead = True
 	Ret.DESC = "This poor little child is lonely and seeks friends to play with.\nAlthough she does not realize her desire is lethal to the living."
 	Ret.IMAGE = "GFX/Combat/Fighters/Foe/Reg/DandletonKid/"
 	Ret.DropRate_1 = 0
