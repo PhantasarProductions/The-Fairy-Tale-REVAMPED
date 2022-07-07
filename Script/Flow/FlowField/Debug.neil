@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.03.15
+// version: 22.07.03
 // End License Information
 
 Table OO = { [True]="On", [False]="Off" }
@@ -95,6 +95,28 @@ End
 Global Void CONSOLE_Fandalora()
 	gv.gbool.CheatFandalora = !gv.gbool.CheatFandalora
 	CSayF("Fandalora cheat now set to: %s",Lua.tostring(gv.gbool.CheatFandalora))
+End
+
+Global Void CONSOLE_BlackOrbs()
+	Var O
+	Var D
+	O = {}
+	D = {}
+	For L in each(FlowField.Map.KthuraMap.Layers)
+		Var Lay = FlowField.Map.KthuraMap.Layer(L)
+		O += L
+		D[L] = 0
+		For T in each(LAY.TagListArray)
+			If Prefixed(T,"BLACKORB_")
+				D[L]++
+			End
+		End
+	End
+	For i,l in ipairs(O)
+		int g = math.floor((i/#o)*255)
+		int r = 255-g
+		Dev.CWrite(sprintf("Layer '%9s' has %2d black orbs",l,D[l]),r,g,0)
+	End
 End
 
 Module
