@@ -1,9 +1,5 @@
 # The Fairy Tale REVAMPED for the Apollo Game Engine
 
-... | ...
----|---
-![Marrilona](https://user-images.githubusercontent.com/11202073/128606190-60602cf9-4bde-46f6-8300-5d1bf7a37040.png) | Work in progress. Please wait until the game is finished.
-
 
 "The Fairy Tale" is an RPG game that tells the epic story of two young lovers who were supposed to be enemies. As Jake
 and Marrilona fall in love with each other, an all destroying Black Dragon would be released or at least so the legends
