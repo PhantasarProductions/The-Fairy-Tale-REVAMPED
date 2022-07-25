@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.02.27
+// version: 22.07.23
 // End License Information
 
 #region use
@@ -187,7 +187,7 @@ Group MScript
 		water = {}
 		water.top   = { ["tag"]="water_top",    ["alpha"]=0060, ["tex"]=watertex,  ["mul"]=0-3.25, ["dom"]=9999, ["debugy"]= 0 }
 		water.lower = { ["tag"]="water_bottom", ["alpha"]=0045, ["tex"]=watertex , ["mul"]=  1.05, ["dom"]=9000, ["debugy"]=20 }
-		For i=1,16
+		For i=1,25
 			ZA.Enter("Sym"..i,"Symbol","Sym"..i)
 		End
 		ZA.Enter("SymStart","InitPuzzle")
