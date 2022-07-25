@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.03.19
+// version: 22.07.23
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -42,7 +42,7 @@
 #if dbgpercent
 	const int medalspercent = 90	
 #else
-	readonly int medalspercent = Medals.Percent
+	readonly int medalspercent = Medals.AltPercent
 #fi
 
 
