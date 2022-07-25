@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.02.24
+// version: 22.07.25
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -68,6 +68,8 @@ Group MScript
 				 RPGParty[4]=""
 				 Map.GoToMap("CH3_TOWN_Nostraburg","KRANDAR","Start")
 				 Schedule.Add("CureMarrilona")
+				 // Change the worldmap scenario one last time!
+				 __WorldMap = "MANACAVE"
 			Default
 				Lua.error("???")
 		End
