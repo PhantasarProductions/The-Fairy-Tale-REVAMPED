@@ -1,7 +1,7 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowConsole.neil
 // Console
-// version: 22.06.28
+// version: 22.07.23
 // Copyright (C) 2021, 2022 Jeroen P. Broks
 // This software is provided 'as-is', without any express or implied
 // warranty.  In no event will the authors be held liable for any damages
@@ -337,7 +337,10 @@ deftable icommandtable
 	end
 	
 	MEDAL = void()
-		CSayF("Medal rate: %03d%%",Medals.Percent)
+		CSayF("Medal Score: %05d / %05d",Medals.FullScore,Medals.MaxScore)
+		CSayF("Medal Rate: %03d%%",Medals.Percent)
+		CSayF("Medal Alt Score: %05d / %05d",Medals.FullScore,Medals.AltMax)
+		CSayF("Medal Alt rate: %03.2f%%",Medals.AltPercent)
 	End
 	
 		
