@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.02.06
+// version: 22.07.25
 // End License Information
 
 Module
@@ -65,7 +65,7 @@ Module
 		//Abl = _Abl
 		Abl = {}
 		For r,at in pairs(_Abl)
-			Abl[r*ReqMod]=At
+			Abl[math.ceil(r*ReqMod)]=At
 		End
 	End
 
