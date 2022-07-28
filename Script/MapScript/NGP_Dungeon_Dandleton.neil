@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.04.26
+// version: 22.07.26
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -161,13 +161,13 @@ Group MScript
     		return 
     	end
     	Map.StopWalking()
-    	Map.Kill("Boss",true)
     	plua b
     	plua bs=bosses[Map.Layer]
     	Lua.assert(bs,"No boss set for layer "..Map.Layer)
     	if bs.priomt 
     		MapText(bs.priomt) 
     	end
+    	Map.Kill("Boss",true)
     	Combat.Prepare(180,0,255,bs.intro1,bs.intro2)
     	For i=1,({1,3,6})[__skill] 
     		b=i+1
