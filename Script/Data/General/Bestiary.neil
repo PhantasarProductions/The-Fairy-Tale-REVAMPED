@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.07.11
+// version: 22.07.30
 // End License Information
 
 #use "Libs/LinkedList"
@@ -224,4 +224,4 @@ Init
 	Monster.Lijst.AddLast(New Monster("UberBoss/Juggernaut","Juggernaut"))
 End
 
-// This script was last generated 7/11/2022 10:19:01 AM //
+// This script was last generated 7/30/2022 3:47:43 PM //

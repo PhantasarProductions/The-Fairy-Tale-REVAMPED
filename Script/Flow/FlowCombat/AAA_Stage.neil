@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/AAA_Stage.neil
-// Version: 22.02.25
+// Version: 22.07.30
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -118,6 +118,28 @@ Class Stage_IDLE extends Stage
 		If SkipTurn
 			CSayF("Character %s has a skipturn set, meaning the action is cancelled",Card.FightTag)			
 		End
+		If Char.Team=="Hero" && Char.Char.Data.EQUIP_Jewel:upper()=="EQP_ACC_AAA_NOSTRAMANTUS_AMULET"
+			Lua.Neil.Globals.charmsg(Card.FightTag,sprintf("%d",gv.gint.nosamu_hp),0,255,0)
+			Lua.Neil.Globals.charmsg(Card.FightTag,sprintf("%d",gv.gint.nosamu_ap),0,180,255)
+			Lua.Neil.Globals.charmsg(Card.FightTag,sprintf("%d",gv.gint.nosamu_vit),255,180,0)
+			Char.Char.Points.HP.Have  += gv.gint.nosamu_hp
+			Char.Char.Points.AP.Have  += gv.gint.nosamu_ap
+			Char.Char.Points.VIT.Have += gv.gint.nosamu_vit
+			if     math.random(0,__skill^2)==1 && gv.gint.nosamu_hp<100000
+				gv.gint.nosamu_hp++
+			elseif math.random(0,__skill^3)==1 && gv.gint.nosamu_ap<100000
+				gv.gint.nosamu_ap++
+			elseif math.random(0,__skill^4)==1 && gv.gint.nosamu_vit<100000
+				gv.gint.nosamu_vit++
+			end
+			For k,d in pairs(FlowCombat.StatusChanges.Register)
+				if math.random(0,__skill)==1 && Char.StatusChanges[k]
+	    			Char.StatusChanges[k] = False
+	    			Invoke(d.Cure,Char)
+	    			Lua.Neil.Globals.charmsg(Char.Tag,"Cure: "..k,180,255,0)
+	    		end
+	    	end
+		end
 		Return !SkipTurn
 	End
 	

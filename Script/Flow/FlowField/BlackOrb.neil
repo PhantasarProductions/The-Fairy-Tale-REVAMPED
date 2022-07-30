@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.02.10
+// version: 22.07.29
 // End License Information
 Void _BO(string Tag)
 	If Prefixed(RPGParty[1],"Nostramantu")
@@ -44,8 +44,23 @@ Void _BO(string Tag)
 		Case 1
 			MapText("TUTORIAL_BLACKORB")
 			Map.Kill("ORB_BARRIER",true)
-		Case 255
-			Lua.error("Juggernaut not yet scripted")
+		Case 250
+			
+			FlowField.Msg("Black Orb Obtained",Player.X,Player.Y,255,0,255)
+			FlowField.Msg("You now have ALL black orbs",Player.X,Player.Y,255,0,255)
+			BoxText.Load("JUGGERNAUT","GENERAL/JUGGERNAUT")
+			BoxText.Serial("JUGGERNAUT","JUGGERNAUT")
+			
+			Combat.Prepare(100,0,150,"Devourer of all reality","Juggernaut")
+			Combat.Arena = "NIKS"
+			Combat.Music = "Combat/Special Boss/Juggernaut.ogg"
+			Combat.Lose = "GameOver"
+			Combat.NewEnemy = "UberBoss/Juggernaut"		
+		
+			Lua.Neil.Globals.Map.StopWalking()
+			Combat.Start()
+			
+			//Lua.error("Juggernaut not yet scripted")
 		Default
 			FlowField.Msg("Black Orb Obtained",Player.X,Player.Y,255,0,255)
 			FlowField.Msg(sPrintF("You now have %d black orbs",__OrbBlack),Player.X,Player.Y,255,0,255)

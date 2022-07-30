@@ -1,0 +1,72 @@
+// License Information:
+// **********************************************
+// 
+// src/Tricky Script/Script/Use/Combat/SpellAni/Schwab.neil
+// (c) Jeroen Broks, 2022, All Rights Reserved.
+// 
+// This file contains material that is related
+// to a storyline that is which is strictly
+// copyrighted to Jeroen Broks.
+// 
+// This file may only be used in an unmodified
+// form with an unmodified version of the
+// software this file belongs to.
+// 
+// You may use this file for your study to see
+// how I solved certain things in the creation
+// of this project to see if you find valuable
+// leads for the creation of your own.
+// 
+// Mostly this file comes along with a project
+// that is for most part released under an
+// open source license and that means that if
+// you use that code with this file removed
+// from it, you can use it under that license.
+// Please check out the other files to find out
+// which license applies.
+// This file comes 'as-is' and in no possible
+// way the author can be held responsible of
+// any form of damages that may occur due to
+// the usage of this file
+// 
+// 
+// **********************************************
+// 
+// version: 22.07.30
+// End License Information
+#use "Libs/XMath"
+#use "Libs/LinkedList"
+
+module
+	ReadOnly Var Img = Image.LoadNew("GFX/Combat/SpellAni/YouWillOwnNothingAndBeHappy.png","YOU_WILL_OWN_NOTHING_AND_BE_HAPPY")
+	int col
+	int dcol
+
+	Void Start()
+		col = 1
+		dcol = 1
+	End
+	
+	Void Draw()
+		Graphics.Color(col,col,col)
+		Img.Stretch(0,0,Screen.W,Screen.H-128)
+	End
+	
+	Void Update()
+		col += dcol
+		if col>=255
+			dcol=-1
+		end	
+	End
+	
+	Get Bool Ended
+		var ret
+		ret = col<=0
+		if ret
+			col=1
+			dcol=1
+		end
+		return ret
+	End
+	
+End

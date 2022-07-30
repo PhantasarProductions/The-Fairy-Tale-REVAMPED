@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Subs/SubItems.neil
-// Version: 22.03.20
+// Version: 22.07.30
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -591,3 +591,12 @@ Global Void UnlockJakeShift()
 	Abilities.Jake_Fairy.Ability.ABL_HERO_JAKE_SHIFT_FAIRY.Unlocked = true
 	Abilities.Jake_Human.Ability.ABL_HERO_JAKE_SHIFT_HUMAN.Unlocked = true
 End
+
+Global Void EmptyInventory()
+	for k,v in pairs(Inventory)
+		if Prefixed(k,"ITM_")
+			Inventory[k]=math.min((3-__skill),v)
+			CSayF("Item %s set to %d (was %d)",k,Inventory[k],v)
+		end
+	end
+end
