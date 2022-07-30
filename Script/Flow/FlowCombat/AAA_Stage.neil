@@ -133,10 +133,10 @@ Class Stage_IDLE extends Stage
 				gv.gint.nosamu_vit++
 			end
 			For k,d in pairs(FlowCombat.StatusChanges.Register)
-				if math.random(0,__skill)==1 && Target.StatusChanges[k]
-	    			Target.StatusChanges[k] = False
-	    			Invoke(d.Cure,Target)
-	    			charmsg(Target.Tag,"Cure: "..k,180,255,0)
+				if math.random(0,__skill)==1 && Char.StatusChanges[k]
+	    			Char.StatusChanges[k] = False
+	    			Invoke(d.Cure,Char)
+	    			Lua.Neil.Globals.charmsg(Char.Tag,"Cure: "..k,180,255,0)
 	    		end
 	    	end
 		end
