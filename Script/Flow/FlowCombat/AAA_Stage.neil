@@ -122,9 +122,9 @@ Class Stage_IDLE extends Stage
 			Lua.Neil.Globals.charmsg(Card.FightTag,sprintf("%d",gv.gint.nosamu_hp),0,255,0)
 			Lua.Neil.Globals.charmsg(Card.FightTag,sprintf("%d",gv.gint.nosamu_ap),0,180,255)
 			Lua.Neil.Globals.charmsg(Card.FightTag,sprintf("%d",gv.gint.nosamu_vit),255,180,0)
-			Char.Points.HP.Have  += gv.gint.nosamu_hp
-			Char.Points.AP.Have  += gv.gint.nosamu_ap
-			Char.Points.VIT.Have += gv.gint.nosamu_vit
+			Char.Char.Points.HP.Have  += gv.gint.nosamu_hp
+			Char.Char.Points.AP.Have  += gv.gint.nosamu_ap
+			Char.Char.Points.VIT.Have += gv.gint.nosamu_vit
 			if     math.random(0,__skill^2)==1 && gv.gint.nosamu_hp<100000
 				gv.gint.nosamu_hp++
 			elseif math.random(0,__skill^3)==1 && gv.gint.nosamu_ap<100000
