@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Use/Link.neilbundle/Item.neil
-// Version: 22.02.07
+// Version: 22.07.30
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -91,6 +91,12 @@ Var __TagIndex(s,string Key)
 				State.Call("SUB_ITEMS","SaveInventory","nil")
 			End
 			Return _S
+		Case "EMPTY"
+			Void _E()
+				__LoadItemState
+				State.Call("SUB_ITEMS","EmptyInventory","nil")
+			End
+			Return _E
 		Default
 			if !ret[Key]	
 				Var __ItemIndex(s, Key2)
