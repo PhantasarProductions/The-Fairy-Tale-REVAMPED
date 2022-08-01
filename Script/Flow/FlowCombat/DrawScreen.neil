@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/DrawScreen.neil
-// Version: 22.03.20
+// Version: 22.07.31
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -57,6 +57,9 @@ Module
 			Var AScr = NeilUse("Script/Use/Combat/Arena/"..ArN)
 			ArenaPre = AScr.Pre
 			ArenaPst = AScr.Pst
+		Else
+			ArenaPre = NIKS
+			ArenaPst = NIKS
 		End
 	End
 
