@@ -1,6 +1,6 @@
 // License Information:
 // src/Tricky Script/Script/Flow/FlowCombat/Execution.neil
-// Version: 22.03.25
+// Version: 22.12.03
 // Copyright (C) 2021, 2022 Jeroen Petrus Broks
 // 
 // ===========================
@@ -167,6 +167,7 @@ Class Stage_Execution Extends Stage
 			SpellAni.Start(Act,Act.Act.SpellAni_Arg)
 			Initiated = True
 		End
+		__White
 		SpellAni.Update()
 		If SpellAni.Ended
 			Initiated = False
@@ -178,6 +179,7 @@ Class Stage_Execution Extends Stage
 	
 	Void Draw_SpellAni()
 		If SpellAni
+			__White
 			SpellAni.Draw()
 		End
 	End
