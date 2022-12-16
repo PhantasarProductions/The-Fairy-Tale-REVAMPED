@@ -32,7 +32,7 @@
 // 
 // **********************************************
 // 
-// version: 22.07.25
+// version: 22.12.04
 // End License Information
 
 #use "Script/Use/Anyway"
@@ -44,6 +44,14 @@ Group MScript
 	ReadOnly Bool HasUpdate = True
 	
 	Void Update()
+		static int telaf=25
+		if telaf>0
+			telaf--
+			if telaf==0 and (!Done.RespawnOnPyruspass)
+				Respawn.Reset()
+				CSay("Respawn reset")
+			end
+		end
 		TexMove.Update()
 		If Map.Layer=="#001"
 			Map.SetObj("Lava","X",Map.CamX-5)
