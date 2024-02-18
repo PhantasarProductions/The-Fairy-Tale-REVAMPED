@@ -122,11 +122,11 @@ Table _R(Bool Oversoul)
 		Ret.Actions += "ABL_MASTER_RUBINE_POISONSTAB"
 	End
 	If True && (!__NewGamePlus)
-		Ret.Actions += "ABL_MASTER_RUSSEL_DECAPITATE"
-		Ret.Actions += "ABL_MASTER_RUSSEL_DECAPITATE"
-		Ret.Actions += "ABL_MASTER_RUSSEL_DECAPITATE"
-		Ret.Actions += "ABL_MASTER_RUSSEL_DECAPITATE"
-		Ret.Actions += "ABL_MASTER_RUSSEL_DECAPITATE"
+		Ret.Actions += "ABL_MASTER_RUSSELL_DECAPITATE"
+		Ret.Actions += "ABL_MASTER_RUSSELL_DECAPITATE"
+		Ret.Actions += "ABL_MASTER_RUSSELL_DECAPITATE"
+		Ret.Actions += "ABL_MASTER_RUSSELL_DECAPITATE"
+		Ret.Actions += "ABL_MASTER_RUSSELL_DECAPITATE"
 	End
 	If True && (__skill!=1) && (__skill!=2)
 		Ret.Actions += "ABL_MASTER_RUSSELL_GENOCIDE"
