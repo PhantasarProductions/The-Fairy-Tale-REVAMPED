@@ -49,7 +49,7 @@ Table _R(Bool Oversoul)
 
 	If !Oversoul
 		Ret.Stats.ACCURACY = 100
-		Ret.Stats.ENDURANCE = 800
+		Ret.Stats.ENDURANCE = 750
 		Ret.Stats.ER_DARKNESS = 100
 		Ret.Stats.ER_EARTH = 100
 		Ret.Stats.ER_FLAME = 100
@@ -59,7 +59,7 @@ Table _R(Bool Oversoul)
 		Ret.Stats.ER_WATER = 100
 		Ret.Stats.ER_WIND = 100
 		Ret.Stats.EVASION = 25
-		Ret.Stats.HP = 123456
+		Ret.Stats.HP = 12345
 		Ret.Stats.INTELLIGENCE = 700
 		Ret.Stats.POWER = 1200
 		Ret.Stats.RESISTANCE = 600
@@ -97,36 +97,9 @@ Table _R(Bool Oversoul)
 		Ret.Actions += "AAA_ATTACK"
 	End
 	If True && (__skill!=3)
-		Ret.Actions += "AAA_GUARD"
-		Ret.Actions += "AAA_GUARD"
-		Ret.Actions += "AAA_GUARD"
-		Ret.Actions += "AAA_GUARD"
-		Ret.Actions += "AAA_GUARD"
-		Ret.Actions += "AAA_GUARD"
-		Ret.Actions += "AAA_GUARD"
-		Ret.Actions += "AAA_GUARD"
-		Ret.Actions += "AAA_GUARD"
-		Ret.Actions += "AAA_GUARD"
-		Ret.Actions += "AAA_GUARD"
-		Ret.Actions += "AAA_GUARD"
-		Ret.Actions += "AAA_GUARD"
-		Ret.Actions += "AAA_GUARD"
-		Ret.Actions += "AAA_GUARD"
-		Ret.Actions += "AAA_GUARD"
-		Ret.Actions += "AAA_GUARD"
-		Ret.Actions += "AAA_GUARD"
-		Ret.Actions += "AAA_GUARD"
-		Ret.Actions += "AAA_GUARD"
-		Ret.Actions += "AAA_GUARD"
-		Ret.Actions += "AAA_GUARD"
-		Ret.Actions += "AAA_GUARD"
-		Ret.Actions += "AAA_GUARD"
-		Ret.Actions += "AAA_GUARD"
-		Ret.Actions += "AAA_GUARD"
-		Ret.Actions += "AAA_GUARD"
-		Ret.Actions += "AAA_GUARD"
-		Ret.Actions += "AAA_GUARD"
-		Ret.Actions += "AAA_GUARD"
+		For i = 1,100-(__skill*.25)
+			Ret.Actions += "AAA_GUARD"
+		End
 	End
 	If True
 		Ret.Actions += "ABL_FOE_DEMON_SOUL_BREAKER"
@@ -163,8 +136,6 @@ Table _R(Bool Oversoul)
 	If True
 		Ret.Actions += "ABL_FOE_TAKEOVER"
 		Ret.Actions += "ABL_FOE_TAKEOVER"
-		Ret.Actions += "ABL_FOE_TAKEOVER"
-		Ret.Actions += "ABL_FOE_TAKEOVER"
 	End
 	If True
 		Ret.Actions += "ABL_FOE_TAKEOVER_STRIKE"
@@ -174,7 +145,6 @@ Table _R(Bool Oversoul)
 		Ret.Actions += "ABL_FOE_TAKEOVER_STRIKE"
 	End
 	If True && (__skill!=1)
-		Ret.Actions += "ABL_FOE_TAKEOVER2"
 		Ret.Actions += "ABL_FOE_TAKEOVER2"
 	End
 	If True
