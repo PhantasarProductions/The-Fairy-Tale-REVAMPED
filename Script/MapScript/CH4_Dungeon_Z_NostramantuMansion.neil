@@ -2,7 +2,7 @@
 // **********************************************
 // 
 // src/Tricky Script/Script/MapScript/CH4_Dungeon_Z_NostramantuMansion.neil
-// (c) Jeroen Broks, 2017, 2022, All Rights Reserved.
+// (c) Jeroen Broks, 2017, 2022, 2024, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -32,12 +32,12 @@
 // 
 // **********************************************
 // 
-// version: 22.03.20
+// version: 24.02.21
 // End License Information
 
 #use "Script/Use/Anyway"
 
-#define DEUR_NUMMERS
+#undef DEUR_NUMMERS
 
 Group MScript
 
