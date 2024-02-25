@@ -83,15 +83,19 @@ Class Action
 					Tgt=Fighter.ByTag.Jake_Fairy
 					TarTags[i]="Jake_Fairy"
 					CSay("Jake no longer Human! Correcting to Fairy")
+				Else
+					CSayF("For some mysterious rreasons target %d (%s) is nil!)",i,TarTags[i])  
 				end
-			end				
-			if Tgt.Team!="Foe" || (Tgt.HP>0 && (!Tgt.Gone))
-				NTargets+=TarTags[i]
-			#if TarFilterDebug
-				CSayF("Target #%d Accepted! Team: %s; Tag: %s! HP: %06d; Gone: %s! Accepted: %d",i,Tgt.Team,TarTags[i],Tgt.HP,Lua.tostring(tgt.Gone),#NTargets)
-			Else
-				CSayF("Target #%d rejected! Team: %s; Tag: %s! HP: %06d; Gone: %s",i,Tgt.Team,TarTags[i],Tgt.HP,Lua.tostring(tgt.Gone))
-			#fi
+			end		
+			if Tgt
+				if Tgt.Team!="Foe" || (Tgt.HP>0 && (!Tgt.Gone))
+					NTargets+=TarTags[i]
+				#if TarFilterDebug
+					CSayF("Target #%d Accepted! Team: %s; Tag: %s! HP: %06d; Gone: %s! Accepted: %d",i,Tgt.Team,TarTags[i],Tgt.HP,Lua.tostring(tgt.Gone),#NTargets)
+				Else
+					CSayF("Target #%d rejected! Team: %s; Tag: %s! HP: %06d; Gone: %s",i,Tgt.Team,TarTags[i],Tgt.HP,Lua.tostring(tgt.Gone))
+				#fi
+				End
 			End
 		End
 		If #NTargets==#Targets
