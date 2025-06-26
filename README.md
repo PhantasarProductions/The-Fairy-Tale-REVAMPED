@@ -1,3 +1,7 @@
+# Note!
+This game is scheduled to be adapted for Scyndi's Creative Interpreter.
+This repository may therefore soon change drastically!
+
 # The Fairy Tale REVAMPED for the Apollo Game Engine
 
 
