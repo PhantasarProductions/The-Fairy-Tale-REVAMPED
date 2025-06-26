@@ -1,8 +1,8 @@
-# Note!
-This game is scheduled to be adapted for Scyndi's Creative Interpreter.
-This repository may therefore soon change drastically!
+# NOTE!
+This is a conversion of an Apollo game to Scyndi's Creative Interpreter.
+Workstill in progress!
 
-# The Fairy Tale REVAMPED for the Apollo Game Engine
+# The Fairy Tale REVAMPED for Scyndi's Createive Interpreter
 
 
 "The Fairy Tale" is an RPG game that tells the epic story of two young lovers who were supposed to be enemies. As Jake
@@ -23,7 +23,6 @@ Starring:
 - E. Klein-Hulse as Marrilona
 - Jeroen P. Broks as Dandor & Hando Stillor
 
-The game scripts are entirely written in [Neil](https://github.com/NeilProject/Neil).
-For some data files and extra tools that are not part of the game itself but which I used to create the game, take a look [here](https://github.com/UnderDaHood/TFT)
+The game scripts are entirely written in Scyndi
 
 ![Marrilona](http://i.imgur.com/VH751h5.png)
