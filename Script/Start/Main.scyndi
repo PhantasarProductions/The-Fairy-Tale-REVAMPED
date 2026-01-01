@@ -35,6 +35,8 @@
 // version: 22.07.23
 // End License Information
 
+Script
+
 #macro wh_Image 1
 #macro wh_Font 2
 #macro wh_Audio 3
