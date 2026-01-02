@@ -34,16 +34,26 @@
 // **********************************************
 // 
 // 
-// version: 26.01.01 I
+// version: 26.01.01 XI
 // 
 // End License
 
 
 Script
 
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/Audio" 
+#use "Libs/SCI/Events"
+//#use "Libs/SCI/Medals"
+#use "Libs/SCI/Graphics"
+
 #macro wh_Image 1
 #macro wh_Font 2
 #macro wh_Audio 3
+
+#macro _MinTicks 25
+
+Get var Screen; return Graphics; End
 
 
 var Loading
@@ -75,14 +85,14 @@ end
 
 // Testing if the file is actually compiled correctly at all and running
 init
-	Medals.AltMax=25000
+	//Medals.AltMax=25000
 	int IWL
 	int IHL
-	FPS.MinTicks=25;
+	//Sys.MinTicks=25;
 	Print("Marrilona, daughter of Fandalora says 'Hello'")
-	Print("Apollo is running in "..Core.Platform)
+	Print("Apollo is running in "..Sys.Platform)
 	
-	Events.HideMouse();
+	//Events.HideMouse();
 
 	// Configure loading assets
 	LAsset.C("GFX/MainMenu/Pascal Quote.png","PASCAL_QUOTE",wh_Image) // Must always be first
@@ -110,7 +120,7 @@ init
 
 
 	// Loading assets
-	int m=#LAsset.Lijst
+	int m=len(LAsset.Lijst)
 	for i,LA in ipairs(LAsset.Lijst)
 		Events.Poll()
 		Graphics.Cls()
@@ -119,30 +129,30 @@ init
 			//Loading.Draw((Screen.W/2)-(Loading.Width/2),(Screen.H/2)-(Loading.Height/2))
 			if IWL==0
 				number r
-				IWL = math.min(Screen.W,Loading.Width)
+				IWL = math.min(Screen.Width,Loading.Width)
 				r = IWL/Screen.W
 				IHL = math.floor(Loading.Height*r)
 				printF("Pascal quote size corrected to %dx%d",IWL,IHL)
 			end		
-			Loading.Stretch((Screen.W/2)-(IWL/2),(Screen.H/2)-(IHL/2),IWL,IHL)
+			Loading.Stretch((Screen.Width div 2)-(IWL div 2),(Screen.Height div 2)-(IHL/2),IWL,IHL)
 		end
 		Graphics.Color(65,65,65)
-		Graphics.Rect(0,Screen.H-50,Screen.W,50)
+		Graphics.Rect(0,Screen.Height-50,Screen.Width,50)
 		Graphics.Color(0,180,255)
-		Graphics.Rect(0,Screen.H-50,math.floor( (i/m) * Screen.W ),50)
+		Graphics.Rect(0,Screen.Height-50,math.floor( (i/m) * Screen.Width ),50)
 		Graphics.Color(255,255,255)
 		Graphics.Flip()
 		Events.Poll()
-		FPS.WaitMinTicks()
+		Sys.WaitMinTicks(_MinTicks)
 		printf("%5d/%5d: Loading ",i,m)
 		switch LA.what
 			case wh_Image
 				cout("image ",LA.File," to ",LA.Tag)
-				var I =  Image.Load(LA.File,LA.Tag)
-				Loading = Loading or I
+				var I = LoadImage(LA.File,LA.Tag)
+				Loading = Loading || I
 			case wh_Font
 				cout("font ",LA.File," to ",LA.Tag)
-				ImageFont.Load(LA.File,LA.Tag).Fixed = LA.data==true
+				LinkFont(LA.File,LA.Tag).Fixed = LA.data==true
 			case wh_Audio
 				cout("audio ",LA.File," to ",LA.Tag)
 				Audio.Load(LA.File,LA.Tag)
@@ -155,11 +165,11 @@ init
 	
 	// A few last minute confiruation things
 	For Ico in Each{"Items","Abilities","Master","Quit","Achievements","Status","Config","Buy","Trade"}
-		Image.Obtain(sPrintF("ICO_%s",ico:upper())).HotCenter()
+		ObtainImage(sPrintF("ICO_%s",upper(ico))).HotCenter()
 	End
-	Image.Obtain("RENCGAUGE").HotBottomCenter()
+	ObtainImage("RENCGAUGE").HotBottomCenter()
 
 	// Chaining to main menu
-	Flow.Load("MAINMENU","Script/Flow/FlowMainMenu.neil")
-	Flow.Current="MAINMENU"		
+	Sys.LoadFlow("MAINMENU","Script/Flow/FlowMainMenu.neil")
+	Sys.CurrentFlow="MAINMENU"		
 end
