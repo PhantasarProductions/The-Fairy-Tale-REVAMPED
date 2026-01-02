@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.01.01 XI
+// version: 26.01.02
 // 
 // End License
 
@@ -170,6 +170,6 @@ init
 	ObtainImage("RENCGAUGE").HotBottomCenter()
 
 	// Chaining to main menu
-	Sys.LoadFlow("MAINMENU","Script/Flow/FlowMainMenu.neil")
+	Sys.LoadFlow("MAINMENU","Script/Flow/FlowMainMenu.lbc")
 	Sys.CurrentFlow="MAINMENU"		
 end
