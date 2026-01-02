@@ -34,49 +34,19 @@
 // **********************************************
 // 
 // 
-// version: 26.01.02
+// version: 26.01.02 I
 // 
 // End License
-// License Information:
-// **********************************************
-// 
-// src/Tricky Script/Script/Flow/FlowMainMenu.neil
-// (c) Jeroen Broks, 2001, 2018, 2021, 2022, All Rights Reserved.
-// 
-// This file contains material that is related
-// to a storyline that is which is strictly
-// copyrighted to Jeroen Broks.
-// 
-// This file may only be used in an unmodified
-// form with an unmodified version of the
-// software this file belongs to.
-// 
-// You may use this file for your study to see
-// how I solved certain things in the creation
-// of this project to see if you find valuable
-// leads for the creation of your own.
-// 
-// Mostly this file comes along with a project
-// that is for most part released under an
-// open source license and that means that if
-// you use that code with this file removed
-// from it, you can use it under that license.
-// Please check out the other files to find out
-// which license applies.
-// This file comes 'as-is' and in no possible
-// way the author can be held responsible of
-// any form of damages that may occur due to
-// the usage of this file
-// 
-// 
-// **********************************************
-// 
-// version: 22.03.25
-// End License Information
+
+Script
+
+#use "Libs/SCI/Graphics"
 
 #use "Script/Use/Anyway"
 #use "libs/linkedlist"
 #use "Script/Use/Misc/PSaveGame"
+
+extern ll "#"
 
 table Nieuw()
 	return {}
@@ -85,23 +55,23 @@ end
 class Stage
 	static table Lijst = Nieuw()
 	static int Pos = 1
-	static var Back = Image.Load("GFX/MainMenu/Ierland.png")
+	static var Back = LoadImage("GFX/MainMenu/Ierland.png","Ierland")
 	
 	static void Go(int GPos)
 		Pos = GPos
-		printf("Go: Going to %3d/%3d\n",pos,#Lijst)
+		printf("Go: Going to %3d/%3d\n",pos,ll Lijst)
 		Lijst[Pos].Arrive()
 	end
 	
 	static void Next()	
-		Pos = (Pos % #Lijst) + 1
-		printf("Next: Going to %3d/%3d",pos,#Lijst)
+		Pos = (Pos % ll Lijst) + 1
+		printf("Next: Going to %3d/%3d",pos,ll Lijst)
 		Lijst[Pos].Arrive()
 	end
 	
 	static void DrawBack()
 		math.random(1,10) // Make sure the seed is entirely messed up. Nobody can press a button twice at exactly the same time
-		Back.Stretch(0,0,Screen.W,Screen.H)
+		Back.Stretch(0,0,Graphics.Width,Graphics.Height)
 	end
 	
 	void Arrive()
@@ -124,7 +94,7 @@ class Stage_Logo extends Stage
 			Stage.Next()
 		end
 		Stage.DrawBack()
-		logo.Draw( (Screen.W div 2) - (logo.Width div 2),  (Screen.H div 2) - (logo.Height div 2) )
+		logo.Draw( (Graphics.Width div 2) - (logo.Width div 2),  (Graphics.Height div 2) - (logo.Height div 2) )
 	end
 end
 
@@ -136,11 +106,11 @@ class Stage_QuickCredits extends Stage
 	
 	
 	get int MPos
-		return math.min(#names,(Timer div MaxPerName)+1)
+		return math.min(len(names),(Timer div MaxPerName))
 	end
 	
 	get int TotalMax
-		return MaxPerName * #names
+		return MaxPerName * len(names)
 	end
 	
 	CONSTRUCTOR
@@ -159,8 +129,8 @@ class Stage_QuickCredits extends Stage
 	void Cycle()
 		__white
 		Stage.DrawBack()
-		fnt.DarkText(names[mpos][1],Screen.W div 2,(screen.H div 2)-10,2,1)
-		fnt.DarkText(names[mpos][2],Screen.W div 2,(screen.H div 2)+10,2,0)
+		fnt.DarkText(names[mpos][1],Graphics.Width div 2,(Graphics.Height div 2)-10,2,1)
+		fnt.DarkText(names[mpos][2],Graphics.Width div 2,(Graphics.Height div 2)+10,2,0)
 		Timer = (Timer + 1) % TotalMax
 		if Timer==0
 			Stage.Next()
@@ -182,7 +152,7 @@ class Stage_Title extends Stage
 			Stage.Next()
 		end
 		Stage.DrawBack()
-		logo.Draw( (Screen.W div 2) - (logo.Width div 2),  (Screen.H div 2) - (logo.Height div 2) )
+		logo.Draw( (Graphics.Width div 2) - (logo.Width div 2),  (Graphics.Height div 2) - (logo.Height div 2) )
 	end
 end
 
@@ -226,11 +196,11 @@ class Stage_HandoStillor1 extends Stage
 	
 	void DStars()
 		__white
-		Stars.Tile(0,0,Screen.W,Screen.H)
+		Stars.Tile(0,0,Graphics.Width,Graphics.Height)
 		Graphics.Scale(TrueEarthScale,TrueEarthScale)
-		Earth.Draw(Screen.W/2,Screen.H/2)
+		Earth.Draw(Graphics.Width/2,Graphics.Height/2)
 		Graphics.Scale(1,1)
-		YFnt.Text(sYear,Screen.W-100,100,1,0)
+		YFnt.Text(sYear,Graphics.Width-100,100,1,0)
 		if VPos>4
 			EarthScale = math.max(0,EarthScale-1)
 		end
@@ -263,7 +233,7 @@ class Stage_HandoStillor1 extends Stage
 	
 	void DBushes()
 		Graphics.SetAlpha(alpha)
-		Bushes.Stretch(0,0,Screen.W,Screen.H)
+		Bushes.Stretch(0,0,Graphics.Width,Graphics.Height)
 		Graphics.SetAlpha(255)
 	end
 	
@@ -305,7 +275,7 @@ class MenuItem
 		return 1/(Count+1)
 	end
 	get int iw
-		return math.floor(Screen.W*Scale)
+		return math.floor(Graphics.Width*Scale)
 	end
 	get int x
 		return iw*self.ID
@@ -317,7 +287,7 @@ class MenuItem
 		return Events.MouseY()
 	end
 	get bool hover
-		return ComeIn && Y<Screen.H && my>Screen.H-200 && mx>x-(iw div 2) && mx<x+(iw div 2)
+		return ComeIn && Y<Graphics.Height && my>Graphics.Height-200 && mx>x-(iw div 2) && mx<x+(iw div 2)
 	end
 	
 	readonly int ID
@@ -410,7 +380,7 @@ class MenuItem
 		v = new MenuItem("Jukebox",Jukebox)
 		v = new MenuItem("Bugs",Bugs)
 		v = new MenuItem("Exit",ExitGame)
-		y = Screen.H + (1000*Scale)
+		y = Graphics.Height + (1000*Scale)
 	end
 	
 	void Show()
@@ -436,7 +406,7 @@ class MenuItem
 		if !ComeIn
 			return
 		end
-		if y>Screen.H-20
+		if y>Graphics.Height-20
 			y--
 			//CSayF("Bringing in the menu. y=%04d",y)
 		end		
