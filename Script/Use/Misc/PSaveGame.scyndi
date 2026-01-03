@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Misc/PSaveGame.scyndi
 // 
-// 	  Version: 26.01.03 II
+// 	  Version: 26.01.03 IV
 // 	
 // 	  Copyright (C) // End License, 2026 Jeroen Petrus Broks
 // 	
@@ -49,10 +49,10 @@ Module
 #use "Libs/SCI/InterVar"
 
 void MakeHeader()
-	string r = "Map:"..gv.gStr.MapTitle.."\n"
-	r += "Difficulty:"..({"Easy","Casual","Hard"})[gv.vInt.skill].."\n"
-	r += "Saved:"..gv.vInt.Saved.."\n"
-	r += "LevelCap:"..gv.vInt.LevelCap.."\n"
+	string r := "Map:"..gStr.MapTitle.."\n"
+	r += "Difficulty:"..({"Easy","Casual","Hard"})[vInt.skill].."\n"
+	r += "Saved:"..gInt.Saved.."\n"
+	r += "LevelCap:"..gInt.LevelCap.."\n"
 	r += "Chapter:"..__Chapter.."\n"
 	For i=1,4
 		String Ch
@@ -66,13 +66,13 @@ void MakeHeader()
 end
 
 global void PerformSaveGame(string f)
-	GV.vInt.Saved++
+	vInt.Saved++
 	CSayF("Saving: %s",f)
 	Lua.error("PerformSaveGame not yet possible")
 	//SaveGame.Clear()
 	//SaveGame.Assign(f)
 	//SaveGame.Data["*PARTY"] = "YES"
-	//SaveGame.Data["GAMEVARS.NEIL"] = GV.Enroll
+	//SaveGame.Data["GAMEVARS.NEIL"] = Enroll
 	//Item.Save()
 	//Map.SG()
 	////Ach.Save()
@@ -84,19 +84,19 @@ global void PerformSaveGame(string f)
 	//SaveGame.Save()	
 end
 
-#if __IGNORE__
-void Process(int p)
-	static int max = 10
-	Graphics.Cls()
-	Loading()
-	Graphics.Color(100,100,100)
-	Graphics.Rect(0,Graphics.Height-10,Graphics.Width,10)
-	Graphics.Color(255,math.ceil( (p/max)*180 ), 0)
-	Graphics.Rect(0,Graphics.Height-10,math.ceil( (p/max)*Graphics.Width),10)
-	Graphics.Flip()
-	Events.Poll()
-end
-#fi
+//#if __IGNORE__
+//void Process(int p)
+	//static int max = 10
+	//Graphics.Cls()
+	//Loading()
+	//Graphics.Color(100,100,100)
+	//Graphics.Rect(0,Graphics.Height-10,Graphics.Width,10)
+	//Graphics.Color(255,math.ceil( (p/max)*180 ), 0)
+	//Graphics.Rect(0,Graphics.Height-10,math.ceil( (p/max)*Graphics.Width),10)
+	//Graphics.Flip()
+	//Events.Poll()
+//end
+//#fi
 
 global bool PerformLoadGame(string f)
 	Lua.error("Perform savegame not yet  possible")
