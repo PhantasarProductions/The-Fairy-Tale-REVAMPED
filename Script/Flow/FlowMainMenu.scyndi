@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.01.02 I
+// version: 26.01.02 IV
 // 
 // End License
 
@@ -86,7 +86,7 @@ class Stage_Logo extends Stage
 	int Timer = 0
 	readonly int MaxTimer = 300
 	
-	readonly var logo = Image.Load("GFX/Logo/Phantasar Productions.png")
+	readonly var logo = LoadImage"GFX/Logo/Phantasar Productions.png")
 	
 	void Cycle()
 		Timer = (Timer + 1) % MaxTimer
@@ -144,7 +144,7 @@ class Stage_Title extends Stage
 	int Timer = 0
 	readonly int MaxTimer = 400
 	
-	readonly var logo = Image.Load("GFX/Logo/Title.png")
+	readonly var logo = LoadImage"GFX/Logo/Title.png")
 	
 	void Cycle()
 		Timer = (Timer + 1) % MaxTimer
@@ -161,7 +161,7 @@ class Stage_HandoStillor1 extends Stage
 	readonly var Stars
 	readonly var Earth
 	readonly table Voice
-	readonly var YFnt = ImageFont.Load("Font/Calendar.jfbf")
+	readonly var YFnt = ImageFont.Load("Font/Calendar.jfbf","Font_Calendar")
 	readonly var Bushes
 	int VPos = 0
 	var VChan = nil
@@ -219,10 +219,10 @@ class Stage_HandoStillor1 extends Stage
 	void CheckVoice()
 		if !Audio.ChannelPlaying(VChan)
 			VPos++
-			CSayF("Advancing to sample #%2d (of %2d)",VPos,#Voice) 
-			if VPos==#voice
+			CSayF("Advancing to sample #%2d (of %2d)",VPos,ll Voice) 
+			if VPos==ll Voice
 				Lua.Neil.Globals.MenuItem.ComeIn=true
-			elseif VPos>#Voice
+			elseif VPos>ll Voice
 				Music.Play("Music/Hub/StartToFantasyInstrumental.ogg")
 				Stage.Next()
 				return
@@ -252,14 +252,14 @@ class Stage_HandoStillor1 extends Stage
 	
 	
 	Constructor
-		Earth  = Image.Load("GFX/Algemeen/Earth.png")
-		Stars  = Image.Load("GFX/MainMenu/Starfield.png")
-		Bushes = Image.Load("GFX/Algemeen/Bushes.png")
+		Earth  = LoadImage("GFX/Algemeen/Earth.png","IEarth")
+		Stars  = LoadImage("GFX/MainMenu/Starfield.png","IStars")
+		Bushes = LoadImage("GFX/Algemeen/Bushes.png","IBushes")
 		HS1    = self
 		Voice  = {}
 		Earth.HotCenter()
 		for i=1,25
-			Voice[i] = Audio.Load(sprintf("Vocals/General/Introduction/STILLOR_%d.ogg",i))
+			Voice[i] = Audio.Load(sprintf("Vocals/General/Introduction/STILLOR_%d.ogg",i),sprintf("ISN_%d",i))
 		end
 	End
 End
@@ -299,7 +299,7 @@ class MenuItem
 	Constructor(string nImg,delegate pFunc)
 		ItemList.AddLast(self)
 		ID = Count
-		Img = Image.Load("GFX/MainMenu/"..nImg..".png")
+		Img = LoadImage"GFX/MainMenu/"..nImg..".png")
 		Func = pFunc
 		Name = nImg
 		Img.HotBottomCenter()
