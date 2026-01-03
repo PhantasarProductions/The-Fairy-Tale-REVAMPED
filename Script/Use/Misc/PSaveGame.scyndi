@@ -35,6 +35,11 @@
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
 
+Module
+
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/InterVar"
+
 void MakeHeader()
 	string r = "Map:"..gv.gStr.MapTitle.."\n"
 	r += "Difficulty:"..({"Easy","Casual","Hard"})[gv.vInt.skill].."\n"
@@ -47,26 +52,28 @@ void MakeHeader()
 		If Ch!=""
 			r += sPrintF("P%d:%s=%d\n",i,Ch,RPGChar[Ch].Stat.Level)
 		End
-	End			
-	SaveGame.Data.Head = r
+	End
+	Lua.Error("Make Header not yet possible")
+	//SaveGame.Data.Head = r
 end
 
 global void PerformSaveGame(string f)
 	GV.vInt.Saved++
 	CSayF("Saving: %s",f)
-	SaveGame.Clear()
-	SaveGame.Assign(f)
-	SaveGame.Data["*PARTY"] = "YES"
-	SaveGame.Data["GAMEVARS.NEIL"] = GV.Enroll
-	Item.Save()
-	Map.SG()
-	//Ach.Save()
-	//WorldMap.Save()
-	if f=="QUIT"
-		SaveGame.Data["KILL ME"]="KILL ME"
-	end
-	MakeHeader()
-	SaveGame.Save()	
+	Lua.error("PerformSaveGame not yet possible")
+	//SaveGame.Clear()
+	//SaveGame.Assign(f)
+	//SaveGame.Data["*PARTY"] = "YES"
+	//SaveGame.Data["GAMEVARS.NEIL"] = GV.Enroll
+	//Item.Save()
+	//Map.SG()
+	////Ach.Save()
+	////WorldMap.Save()
+	//if f=="QUIT"
+	//	SaveGame.Data["KILL ME"]="KILL ME"
+	//end
+	//MakeHeader()
+	//SaveGame.Save()	
 end
 
 #if __IGNORE__
@@ -75,15 +82,17 @@ void Process(int p)
 	Graphics.Cls()
 	Loading()
 	Graphics.Color(100,100,100)
-	Graphics.Rect(0,Screen.H-10,Screen.W,10)
+	Graphics.Rect(0,Graphics.Height-10,Graphics.Width,10)
 	Graphics.Color(255,math.ceil( (p/max)*180 ), 0)
-	Graphics.Rect(0,Screen.H-10,math.ceil( (p/max)*Screen.W),10)
+	Graphics.Rect(0,Graphics.Height-10,math.ceil( (p/max)*Graphics.Width),10)
 	Graphics.Flip()
 	Events.Poll()
 end
 #fi
 
 global bool PerformLoadGame(string f)
+	Lua.error("Perform savegame not yet  possible")
+#if __IGNORE
 	static var tfnt
 	Int MProcess=12
 	Progress.Create("AAA_LOADSAVEGAME",MProcess,180,255,0)
@@ -141,6 +150,10 @@ global bool PerformLoadGame(string f)
 	end
 	Progress.Kill("AAA_LOADSAVEGAME")
 	return true
+#else
+	return false
+#fi
+
 end
 
 
@@ -149,16 +162,16 @@ global string GetSGFileName(int page,int slot)
 end
 
 global table GetHeader(int page,int i)
-	table ret
-	string h = SaveGame.GetHeader(GetSGFileName(page,i))
+	table ret:={}
+	string h := SaveGame.GetHeader(GetSGFileName(page,i))
 	// cout("<SaveGame Header ",i,">\n",h,"\n</SaveGame Header>\n")
-	table lines = Split(h,"\n")
+	table lines = XSplit(h,"\n")
 	for _,line in ipairs(lines)
 		// cout("Parse> ",line,"\n")
-		table chopped = Split(line,":")
+		table chopped = XSplit(line,":")
 		print(Serialize("chopped",chopped),#chopped)
-		if #chopped==2
-			ret[chopped[1]] = chopped[2]
+		if len(chopped)==2
+			ret[chopped[0]] = chopped[1]
 		end
 	end
 	//print(Serialize("SG"..page.."."..i,ret))
