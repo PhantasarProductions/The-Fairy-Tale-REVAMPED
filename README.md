@@ -2,7 +2,7 @@
 This is a conversion of an Apollo game to Scyndi's Creative Interpreter.
 Workstill in progress!
 
-# The Fairy Tale REVAMPED for Scyndi's Createive Interpreter
+# The Fairy Tale REVAMPED for Scyndi's Creative Interpreter
 
 
 "The Fairy Tale" is an RPG game that tells the epic story of two young lovers who were supposed to be enemies. As Jake
