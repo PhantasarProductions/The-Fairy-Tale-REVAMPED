@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Misc/PSaveGame.scyndi
 // 
-// 	  Version: 26.01.03 IV
+// 	  Version: 26.01.03 V
 // 	
 // 	  Copyright (C) // End License, 2026 Jeroen Petrus Broks
 // 	
@@ -46,11 +46,14 @@
 Module
 
 #use "Libs/SCI/Sys"
+#use "Libs/SCI/SString"
 #use "Libs/SCI/InterVar"
+
+#use "Script/Use/Anyway"
 
 void MakeHeader()
 	string r := "Map:"..gStr.MapTitle.."\n"
-	r += "Difficulty:"..({"Easy","Casual","Hard"})[vInt.skill].."\n"
+	r += "Difficulty:"..({"Easy","Casual","Hard"})[gInt.skill].."\n"
 	r += "Saved:"..gInt.Saved.."\n"
 	r += "LevelCap:"..gInt.LevelCap.."\n"
 	r += "Chapter:"..__Chapter.."\n"
@@ -173,7 +176,7 @@ global table GetHeader(int page,int i)
 	table ret:={}
 	string h := SaveGame.GetHeader(GetSGFileName(page,i))
 	// cout("<SaveGame Header ",i,">\n",h,"\n</SaveGame Header>\n")
-	table lines = XSplit(h,"\n")
+	table lines := XSplit(h,"\n")
 	for _,line in ipairs(lines)
 		// cout("Parse> ",line,"\n")
 		table chopped = XSplit(line,":")
