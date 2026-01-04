@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.01.02 IV
+// version: 26.01.04
 // 
 // End License
 
@@ -100,7 +100,7 @@ end
 
 class Stage_QuickCredits extends Stage
 	readonly int MaxPerName = 200
-	readonly var Fnt = ImageFont.Obtain("SYSFONT")
+	readonly var Fnt = ObtainFont("SYSFONT")
 	int Timer = 0
 	table names
 	
@@ -144,7 +144,7 @@ class Stage_Title extends Stage
 	int Timer = 0
 	readonly int MaxTimer = 400
 	
-	readonly var logo = LoadImage"GFX/Logo/Title.png")
+	readonly var logo = LoadImage("GFX/Logo/Title.png","TFT_TITLE")
 	
 	void Cycle()
 		Timer = (Timer + 1) % MaxTimer
@@ -161,7 +161,7 @@ class Stage_HandoStillor1 extends Stage
 	readonly var Stars
 	readonly var Earth
 	readonly table Voice
-	readonly var YFnt = ImageFont.Load("Font/Calendar.jfbf","Font_Calendar")
+	readonly var YFnt = LinkFont("Font/Calendar.jfbf","Font_Calendar")
 	readonly var Bushes
 	int VPos = 0
 	var VChan = nil
@@ -402,7 +402,7 @@ class MenuItem
 	end
 	
 	Static Void ShowAll()
-		static var Muis = Image.Obtain("MOUSE")
+		static var Muis = ObtainImage("MOUSE")
 		if !ComeIn
 			return
 		end
