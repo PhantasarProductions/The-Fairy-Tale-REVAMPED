@@ -34,16 +34,22 @@
 // **********************************************
 // 
 // 
-// version: 26.01.04
+// version: 26.01.05
 // 
 // End License
 
 Script
 
+#Use "Libs/SCI/Sys"
+#use "Libs/SCI/Audio"
+#use "Libs/SCI/Events"
 #use "Libs/SCI/Graphics"
 
-#use "Script/Use/Anyway"
+#use "Libs/Music"
 #use "libs/linkedlist"
+
+
+#use "Script/Use/Anyway"
 #use "Script/Use/Misc/PSaveGame"
 
 extern ll "#"
@@ -239,15 +245,15 @@ class Stage_HandoStillor1 extends Stage
 	
 	void Cycle()
 		if alpha<255
-			DStars()
+			Self.DStars()
 			if vPos>11
 				alpha++
 			end
 		end
 		if alpha>0
-			DBushes()
+			Self.DBushes()
 		end
-		CheckVoice()
+		Self.CheckVoice()
 	end
 	
 	
