@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Misc/PSaveGame.scyndi
 // 
-// 	  Version: 26.01.03 V
+// 	  Version: 26.01.03 VIII
 // 	
 // 	  Copyright (C) // End License, 2026 Jeroen Petrus Broks
 // 	
@@ -50,6 +50,7 @@ Module
 #use "Libs/SCI/InterVar"
 
 #use "Script/Use/Anyway"
+#use "Script/Use/Convert"
 
 void MakeHeader()
 	string r := "Map:"..gStr.MapTitle.."\n"
@@ -173,18 +174,21 @@ global string GetSGFileName(int page,int slot)
 end
 
 global table GetHeader(int page,int i)
-	table ret:={}
-	string h := SaveGame.GetHeader(GetSGFileName(page,i))
-	// cout("<SaveGame Header ",i,">\n",h,"\n</SaveGame Header>\n")
-	table lines := XSplit(h,"\n")
-	for _,line in ipairs(lines)
-		// cout("Parse> ",line,"\n")
-		table chopped = XSplit(line,":")
-		print(Serialize("chopped",chopped),Len(chopped))
-		if len(chopped)==2
-			ret[chopped[0]] = chopped[1]
-		end
-	end
-	//print(Serialize("SG"..page.."."..i,ret))
-	return ret
+Lua.error("Get Header not yet implemented")
+
+//	table ret:={}
+//	string h := SaveGame.GetHeader(GetSGFileName(page,i))
+	//// cout("<SaveGame Header ",i,">\n",h,"\n</SaveGame Header>\n")
+	//table lines := XSplit(h,"\n")
+	//for _,line in ipairs(lines)
+		//// cout("Parse> ",line,"\n")
+		//table chopped = XSplit(line,":")
+		//print(Serialize("chopped",chopped),Len(chopped))
+		//if len(chopped)==2
+		//	ret[chopped[0]] = chopped[1]
+		//end
+	//end
+	////print(Serialize("SG"..page.."."..i,ret))
+	//return ret
+	
 end
