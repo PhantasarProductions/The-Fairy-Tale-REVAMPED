@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.01.05
+// version: 26.01.05 I
 // 
 // End License
 
@@ -50,6 +50,7 @@ Script
 
 
 #use "Script/Use/Anyway"
+#use "Script/Use/Convert"
 #use "Script/Use/Misc/PSaveGame"
 
 extern ll "#"
