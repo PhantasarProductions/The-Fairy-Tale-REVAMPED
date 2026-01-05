@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.01.05 I
+// version: 26.01.05 XII
 // 
 // End License
 
@@ -42,13 +42,14 @@ Script
 
 #Use "Libs/SCI/Sys"
 #use "Libs/SCI/Audio"
+#Use "Libs/SCI/Medals"
 #use "Libs/SCI/Events"
 #use "Libs/SCI/Graphics"
 
 #use "Libs/Music"
 #use "libs/linkedlist"
 
-
+#use "Script/Use/Link"
 #use "Script/Use/Anyway"
 #use "Script/Use/Convert"
 #use "Script/Use/Misc/PSaveGame"
@@ -60,7 +61,7 @@ table Nieuw()
 end
 
 class Stage
-	static table Lijst = Nieuw()
+	static table Lijst = nil; //Nieuw()
 	static int Pos = 1
 	static var Back = LoadImage("GFX/MainMenu/Ierland.png","Ierland")
 	
@@ -93,7 +94,7 @@ class Stage_Logo extends Stage
 	int Timer = 0
 	readonly int MaxTimer = 300
 	
-	readonly var logo = LoadImage"GFX/Logo/Phantasar Productions.png")
+	readonly var logo = LoadImage("GFX/Logo/Phantasar Productions.png","LOGO_PHANPRODUCTIONS")
 	
 	void Cycle()
 		Timer = (Timer + 1) % MaxTimer
@@ -306,7 +307,7 @@ class MenuItem
 	Constructor(string nImg,delegate pFunc)
 		ItemList.AddLast(self)
 		ID = Count
-		Img = LoadImage"GFX/MainMenu/"..nImg..".png")
+		Img = LoadImage("GFX/MainMenu/"..nImg..".png")
 		Func = pFunc
 		Name = nImg
 		Img.HotBottomCenter()
@@ -344,7 +345,8 @@ class MenuItem
 	end
 	
 	static Bool IsThereAContinue()		
-		return SaveGame.Recognized("QUIT")
+		//return SaveGame.Recognized("QUIT")
+		return False
 	end
 	
 	static void LoadGame()
@@ -366,7 +368,7 @@ class MenuItem
 	
 	static void Bugs()
 		CSay("Opening your favorite browser to go to the github issue tracker!")
-		OpenURL("https://github.com/PhantasarProductions/The-Fairy-Tale-REVAMPED-for-Apollo/issues")
+		Sys.OpenURL("https://github.com/PhantasarProductions/The-Fairy-Tale-REVAMPED-for-Apollo/issues")
 	end
 	
 	static void ExitGame()
@@ -376,17 +378,18 @@ class MenuItem
 	end
 	
 	static void Create()
+		LocExtern s "Scyndi.Class.MenuItem"
 		var v
-		v = new MenuItem("New Game",NewGame)
-		v = new MenuItem("New Game+",NewGamePlus)
-		v.Enabled = AllowNewGamePlus()
-		v = new MenuItem("Continue",Continue)
-		v.Enabled = IsThereAContinue()
-		v = new MenuItem("Load Game",LoadGame)
-		v.Enabled = CanLoad()
-		v = new MenuItem("Jukebox",Jukebox)
-		v = new MenuItem("Bugs",Bugs)
-		v = new MenuItem("Exit",ExitGame)
+		v = new MenuItem("New Game",s.NewGame)
+		v = new MenuItem("New Game+",s.NewGamePlus)
+		v.Enabled = s.AllowNewGamePlus()
+		v = new MenuItem("Continue",s.Continue)
+		v.Enabled = s.IsThereAContinue()
+		v = new MenuItem("Load Game",s.LoadGame)
+		v.Enabled = s.CanLoad()
+		v = new MenuItem("Jukebox",s.Jukebox)
+		v = new MenuItem("Bugs",s.Bugs)
+		v = new MenuItem("Exit",s.ExitGame)
 		y = Graphics.Height + (1000*Scale)
 	end
 	
@@ -430,11 +433,11 @@ end
 
 global void Apollo_Flow()	
 	static bool StartDestroyed
-	if not StartDestroyed
+	if !StartDestroyed
 		Flow.Kill("APOLLO_MAIN")
 		StartDestroyed = true
 	end
-	Dev.ToConsole()
+	//Dev.ToConsole()
 	Stage.Lijst[Stage.Pos].Cycle()
 	math.random(1,10) // Make sure the seed is entirely messed up. Nobody can press a button twice at exactly the same time
 	MenuItem.ComeIn = MenuItem.ComeIn || Events.MouseHitLeft() || Events.KeyHit(13) || Events.KeyHit(32) || Events.KeyHit(27)
@@ -457,6 +460,7 @@ End
 
 init
 	Music.Play("Music/Hub/StartToFantasyInstrumental.ogg")
+	State.Lijst  = {}
 	Stage.Lijst += new Stage_Logo()
 	Stage.Lijst += new Stage_QuicKCredits()
 	Stage.Lijst += new Stage_Title()
