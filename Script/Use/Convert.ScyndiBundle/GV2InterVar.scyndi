@@ -1,7 +1,7 @@
 // License:
 // 	src/Code/Script/Use/Convert.ScyndiBundle/GV2InterVar.scyndi
 // 	GV -> InterVar
-// 	version: 26.01.03
+// 	version: 26.01.05 III
 // 
 // 	Copyright (C) 2026 Jeroen P. Broks
 // 
@@ -26,3 +26,24 @@ Module
 #use "Libs/SCI/InterVar"
 
 extern vInt "Scyndi.Globals.gInt"
+
+QuickMeta cnv_gv2iv
+	Index
+		switch Upper(key)
+			case "GSTRING" "GSTR" "VSTR" "VSTRING"; return "gStr";
+			case "GINT" "VINT"; return "vInt";
+			case "GBOOL" "VBOOL"; return "gBool";
+			default Lua.error("Invalid gv: "..key)
+		End
+	End
+	NewIndex;Lua.crash("ALARM!"); End
+End	
+
+QuickMeta gv
+	index
+		return Lua.Scyndi.Globals[cnv_gv2iv[key]]
+	end
+	newindex
+		Lua.Scyndi.Globals[cnv_gv2iv[key]] = value
+	end
+End
