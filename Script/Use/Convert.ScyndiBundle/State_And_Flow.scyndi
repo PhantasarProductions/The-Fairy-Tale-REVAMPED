@@ -1,7 +1,7 @@
 // License:
 // 	src/Code/Script/Use/Convert.ScyndiBundle/State_And_Flow.scyndi
 // 	State & Flow Void
-// 	version: 26.01.05
+// 	version: 26.01.05 II
 // 
 // 	Copyright (C) 2026 Jeroen P. Broks
 // 
@@ -28,3 +28,16 @@ Module
 Group State
 	Get Var LoadState;Return Sys.LoadState;End
 End
+
+
+Group Flow
+	Void GoToFlow(string F); Sys.CurrentFlow=F; End
+End
+
+
+QuickMeta ISGet
+	Index
+		print(Lua.debug.traceback())
+		Lua.error("ISGet won't work anymore!")
+	end
+End	

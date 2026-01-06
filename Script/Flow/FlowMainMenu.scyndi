@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.01.05 XII
+// version: 26.01.06 I
 // 
 // End License
 
@@ -275,7 +275,7 @@ End
 class MenuItem
 	static bool ComeIn = false
 	static int y
-	static var ItemList = new LinkedList()
+	static var ItemList = new TLinkedList()
 	static get int Count
 		return ItemList.Count
 	end
@@ -460,7 +460,7 @@ End
 
 init
 	Music.Play("Music/Hub/StartToFantasyInstrumental.ogg")
-	State.Lijst  = {}
+	Stage.Lijst  = {}
 	Stage.Lijst += new Stage_Logo()
 	Stage.Lijst += new Stage_QuicKCredits()
 	Stage.Lijst += new Stage_Title()
