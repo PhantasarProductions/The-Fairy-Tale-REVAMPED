@@ -1,7 +1,7 @@
 // License:
 // 	src/Code/Script/Use/Convert.ScyndiBundle/State_And_Flow.scyndi
 // 	State & Flow Void
-// 	version: 26.01.05 II
+// 	version: 26.01.06 I
 // 
 // 	Copyright (C) 2026 Jeroen P. Broks
 // 
@@ -27,11 +27,13 @@ Module
 
 Group State
 	Get Var LoadState;Return Sys.LoadState;End
+	Link Kill = Sys.KillState
 End
 
 
 Group Flow
 	Void GoToFlow(string F); Sys.CurrentFlow=F; End
+	Void Kill(string F); Sys.KillState("FLOW_"..F); End
 End
 
 
