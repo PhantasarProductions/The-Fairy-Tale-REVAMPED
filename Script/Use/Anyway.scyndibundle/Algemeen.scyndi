@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Anyway.scyndibundle/Algemeen.scyndi
 // 
-// 	  Version: 26.01.03 I
+// 	  Version: 26.01.06
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -91,5 +91,5 @@ Global Void Niks()
 End
 
 global bool GotVocals()
-	return JCR6.EntryExists("ID/Vocals")
+	return JCR6.EntryExists("Vocals/Present")
 end
