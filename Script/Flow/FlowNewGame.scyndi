@@ -1,8 +1,8 @@
-// License Information:
+// License:
 // **********************************************
 // 
-// src/Tricky Script/Script/Flow/FlowNewGame.neil
-// (c) Jeroen Broks, 2021, All Rights Reserved.
+// src/Code/Script/Flow/FlowNewGame.scyndi
+// (c) Jeroen Broks, 2021, 2026, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -24,6 +24,7 @@
 // from it, you can use it under that license.
 // Please check out the other files to find out
 // which license applies.
+// 
 // This file comes 'as-is' and in no possible
 // way the author can be held responsible of
 // any form of damages that may occur due to
@@ -32,14 +33,18 @@
 // 
 // **********************************************
 // 
-// version: 21.07.28
-// End License Information
+// 
+// version: 26.01.09
+// 
+// End License
 
+
+Script
 
 #use "Script/Use/Anyway"
 #use "Script/Use/Misc/Prologue"
 #use "Script/Use/Misc/SPS"
-#use "Script/Use/Misc/Box"
+#use "Script/Use/Misc/Box_Class"
 
 
 class NW_Base
@@ -106,7 +111,7 @@ class NW_Skill extends NW_Base
 	var HTAY = Image.Load("GFX/NewGame/SkillSelect.png")
 	table skill = {} 
 	void Start()
-		if #skill!=0
+		if len(skill)!=0
 			return
 		end
 		skill += new SKILL_ITEMS("GFX/BoxText/Portret/Marrilona/Cry.png","Easy","What? Are you a little crybaby?\nYou need your mommy to hold your hand?\nYou even get killed in DOOM, easiest mode with the IDDQD cheat on?\n\nWell fear not, little newbie. This mode is made for you!\n\nThe game will be simplefied on many accounts, so you can still have your fun in the game\n\nAre you happy now?")
@@ -116,7 +121,7 @@ class NW_Skill extends NW_Base
 	end
 	
 	void Draw()
-		int w = Screen.W Div (#skill+1)		
+		int w = Screen.W Div (len(skill)+1)		
 		HTAY.Draw(SCREEN.W DIV 2,100)
 		for idx,item in pairs(skill)
 			Graphics.Color(255,255,255)
@@ -250,16 +255,16 @@ Class NW_Start Extends NW_Base
 end
 	
 
-global void Apollo_Flow()
-	Dev.ToConsole()
-	Box.DrawAll()
+global void MainFlow()
+	//Dev.ToConsole()
+	CBox.DrawAll()
 	SPS.Draw()
 	NW_Base.Stage.Draw()
 	Mouse.Draw()
 end
 
 Init
-	Box.Add(0,0,Screen.W,Screen.H)
+	CBox.Add(0,0,Screen.W,Screen.H)
 	NW_BASE.ADD(new NW_Skill())	
 	NW_BASE.ADD(new NW_Language())
 	NW_BASE.ADD(new NW_Start())
