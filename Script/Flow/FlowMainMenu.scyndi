@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.01.06 X
+// version: 26.01.08 IX
 // 
 // End License
 
@@ -73,7 +73,7 @@ class Stage
 	
 	static void Next()	
 		Pos = (Pos+1) % Len(Lijst) 
-		printf("Next: Going to %3d/%3d\n",pos,ll Lijst)
+		CSayF("Next: Going to %3d/%3d",pos,ll Lijst)
 		Lijst[Pos].Arrive()
 	end
 	
@@ -230,7 +230,7 @@ class Stage_HandoStillor1 extends Stage
 			VPos++
 			CSayF("Advancing to sample #%2d (of %2d)",VPos,ll Voice) 
 			if VPos==ll Voice
-				Lua.Neil.Globals.MenuItem.ComeIn=true
+				Lua.Scyndi.Class.MenuItem.ComeIn=true
 			elseif VPos>ll Voice
 				Music.Play("Music/Hub/StartToFantasyInstrumental.ogg")
 				Stage.Next()
@@ -287,13 +287,14 @@ class MenuItem
 		return math.floor(Graphics.Width*Scale)
 	end
 	get int x
-		return iw*self.ID
+		locextern _self "self"
+		return iw*_self.ID
 	end
 	static get int mx
-		return Events.MouseX()
+		return Events.MouseX
 	end
 	static get int my
-		return Events.MouseY()
+		return Events.MouseY
 	end
 	get bool hover
 		return ComeIn && Y<Graphics.Height && my>Graphics.Height-200 && mx>x-(iw div 2) && mx<x+(iw div 2)
@@ -305,10 +306,10 @@ class MenuItem
 	bool Enabled = true
 	readonly string Name
 	
-	Constructor(string nImg,delegate pFunc)
+	Constructor(string nImg, pFunc)
 		ItemList.AddLast(self)
 		ID = Count
-		Img = LoadImage("GFX/MainMenu/"..nImg..".png")
+		Img = LoadImage("GFX/MainMenu/"..nImg..".png",sprintf("Menu Taggy Taggy %d",ID))
 		Func = pFunc
 		Name = nImg
 		Img.HotBottomCenter()
@@ -321,14 +322,14 @@ class MenuItem
 	
 	static void NewGame()
 		gv.Clear()
-		State.LoadFlow("NEWGAME","Script/Flow/FlowNewGame.neil")
+		State.LoadFlow("NEWGAME","Script/Flow/FlowNewGame.lbc")
 		Flow.GotoFlow("NEWGAME")
 	end
 	
 	static void NewGamePlus()
 		gv.Clear()
 		gv.gbool.NewGamePlus = true
-		State.LoadFlow("NEWGAME","Script/Flow/FlowNewGame.neil")
+		State.LoadFlow("NEWGAME","Script/Flow/FlowNewGame.lbc")
 		Flow.GotoFlow("NEWGAME")
 	end
 	
@@ -397,17 +398,17 @@ class MenuItem
 	void Show()
 		__white
 		if !Enabled
-			Graphics.SetScale(Scale*2,Scale*2)
+			Graphics.Scale(Scale*2,Scale*2)
 			Graphics.Color(120,120,120)
 			Img.Draw(x,y)
 		elseif hover
-			Graphics.SetScale(Scale*3,Scale*3)
+			Graphics.Scale(Scale*3,Scale*3)
 			Img.Draw(x,y-50)
-			if Events.MouseHitLeft()
+			if Events.MouseHitLeft
 				Func()
 			end
 		else
-			Graphics.SetScale(Scale*2,Scale*2)
+			Graphics.Scale(Scale*2,Scale*2)
 			Img.Draw(x,y)
 		end
 	end
@@ -424,7 +425,7 @@ class MenuItem
 		for It in ItemList.Each
 			It.Show()
 		end
-		Graphics.SetScale(1,1)
+		Graphics.Scale(1,1)
 		__white
 		Muis.Draw(mx,my)
 	End
