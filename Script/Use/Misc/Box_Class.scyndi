@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Misc/Box_Class.scyndi
 // 
-// 	  Version: 26.01.09
+// 	  Version: 26.01.10
 // 	
 // 	  Copyright (C) 2020, 2021, 2026 Jeroen Petrus Broks
 // 	
@@ -47,8 +47,8 @@ Module
 #use "Libs/SCI/Sys"
 #use "Libs/SCI/Graphics"
 
-// #use "script/use/anyway"
-#use "libs/Vector"
+#use "script/use/anyway.scyndibundle/Algemeen"
+#use "libs/ModVector"
 
 Class CBox
 
@@ -95,7 +95,8 @@ Class CBox
 		End
 	End
 	
-	CONSTRUCTOR (Int ax, Int ay, Int aw, Int ah, bool addtolist=true)
+	CONSTRUCTOR (Int ax, Int ay, Int aw, Int ah, addtolist)
+		addtolist = addtolist!=false 
 		x=ax
 		y=ay
 		w=aw
@@ -110,9 +111,9 @@ Class CBox
 		End
 	End
 	
-	Static Void Add(Int X,Int Y, Int W, Int H)
+	Static Void Add(Int _X,Int _Y, Int _W, Int _H)
 		// Dirty code straight from Hell
-		plua N = Lua.Neil.Globals.Box(X,Y,W,H,false)
+		plua N := new CBox(_X,_Y,_W,_H,false)
 		//print("Adding",N,"to list",list,"(add)")
 		List.push_back(N)
 	ENd
