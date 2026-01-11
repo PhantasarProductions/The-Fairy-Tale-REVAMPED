@@ -34,16 +34,19 @@
 // **********************************************
 // 
 // 
-// version: 26.01.11
+// version: 26.01.11 I
 // 
 // End License
 
 
 Script
 
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/Graphics"
+
 #use "Script/Use/Anyway"
 #use "Script/Use/Misc/Prologue"
-#use "Script/Use/Misc/Box"
+#use "Script/Use/Misc/Box_Class"
 #use "libs/Vector"
 
 
@@ -56,7 +59,7 @@ Class PersonCard
 	Constructor(string N,int L=1)
 		Name = N
 		Lvl  = L
-		Card = Image.Load("GFX/PrologueChar/"..N..".png")
+		Card = LoadImage("GFX/PrologueChar/"..N..".png","Prologue::"..N)
 		Card.HotCenter()
 	End
 	
@@ -80,7 +83,7 @@ Init
 	RPGPARTY.MAX = 4
 	BX = new Box(0,0,Screen.W,Screen.H,false)
 	//new Box(0,0,Screen.W,Screen.H)
-	For Ch in each { "Jake", "Marrilona", "Dandor", "HandoStillor" }
+	For Ch in each { [0]="Jake", "Marrilona", "Dandor", "HandoStillor" }
 		If !Prologue.Done[Ch]
 			Int L 
 			Switch Ch
