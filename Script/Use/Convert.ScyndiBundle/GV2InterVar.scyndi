@@ -1,7 +1,7 @@
 // License:
 // 	src/Code/Script/Use/Convert.ScyndiBundle/GV2InterVar.scyndi
 // 	GV -> InterVar
-// 	version: 26.01.08 I
+// 	version: 26.01.10
 // 
 // 	Copyright (C) 2026 Jeroen P. Broks
 // 
@@ -31,7 +31,7 @@ QuickMeta cnv_gv2iv
 	Index
 		switch Upper(key)
 			case "GSTRING" "GSTR" "VSTR" "VSTRING"; return "gStr";
-			case "GINT" "VINT"; return "vInt";
+			case "GINT" "VINT"; return "gInt";
 			case "GBOOL" "VBOOL"; return "gBool";
 			case "CLEAR";  return "gClear";
 			default Lua.error("Invalid gv: "..key)
