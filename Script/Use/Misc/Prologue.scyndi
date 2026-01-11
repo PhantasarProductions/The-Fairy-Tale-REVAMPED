@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.01.08 II
+// version: 26.01.09
 // 
 // End License
 
@@ -63,7 +63,8 @@ End
 
 // Module
 	
-	ReadOnly Var Done = PrologueDone
+	//ReadOnly Var Done = PrologueDone
+	Get Var Done; Return PrologueDone; End
 	
 	Bool HasDone(string ch)
 		bool ret := Done[ch]
