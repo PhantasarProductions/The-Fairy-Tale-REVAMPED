@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.01.11 I
+// version: 26.01.11 VI
 // 
 // End License
 
@@ -45,9 +45,10 @@ Script
 #use "Libs/SCI/Graphics"
 
 #use "Script/Use/Anyway"
+#use "Script/Use/Convert"
 #use "Script/Use/Misc/Prologue"
 #use "Script/Use/Misc/Box_Class"
-#use "libs/Vector"
+#use "libs/ModVector"
 
 
 Class PersonCard
@@ -105,13 +106,15 @@ End
 
 
 
-Global Void Apollo_Flow()
-	Static Int Sel = 0
-	Static number D = ((Screen.H*0.75)/500)
+Global Void MainFlow()
+	//Static Int Sel = 0
+	//Static number D = ((Screen.H*0.75)/500)
+	locextern sel "sv_sel_275b89376d862aa05c1057853a74a599"; sel = sel || 0
+	locextern D   "sv_d_09292472d55495e26a9706a5cb435822";   D  = D    || ((Screen.H*0.75)/500) 
 	int PY=Screen.H div 2
 	//Box.DrawAll()
 	BX.Draw()
-	Dev.ToConsole()
+	//Dev.ToConsole()
 	For Idx,Crd in PersonCard.Lst.IPairs
 		// CSayF("ForIDXCRD: %d/%d",idx,sel)
 		If idx!=Sel
@@ -130,7 +133,7 @@ Global Void Apollo_Flow()
 		PersonCard.Lst[Sel].Card.Draw((Screen.W div 2),PY)
 		Graphics.Flip()
 		Mouse.Flush()
-		FPS.Sleep(400)
+		Sys.Sleep(400)
 		Party.CreateChar(PersonCard.Lst[Sel].Name, PersonCard.Lst[Sel].Lvl)
 		Switch PersonCard.Lst[Sel].Name
 			Case "Jake" 
