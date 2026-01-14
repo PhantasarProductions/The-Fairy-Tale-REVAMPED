@@ -10,7 +10,7 @@ and Marrilona fall in love with each other, an all destroying Black Dragon would
 say. While they journey trying to find out more about the dragon they discover there is more wrong than they could 
 possibly have imagined and they will uncover the secrets their world, Phantasar, had been hiding for 10,000 years.
 
-"The Fairy Tale" is a game written in the [Apollo Game Engine](https://github.com/NeilProject/ApolloGameEngine) and is entirely played with a mouse.
+"The Fairy Tale" is a game written in [Scyndi's Creative Interpreter](https://github.com/TrickyGameTools/ScyndiCreativeInterpreter) and is entirely played with a mouse.
 Features:
 - An epic story
 - Voice acting
