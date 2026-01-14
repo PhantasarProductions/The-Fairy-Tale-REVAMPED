@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Link.scyndibundle/Map.scyndi
 // 
-// 	  Version: 26.01.14 I
+// 	  Version: 26.01.14 VIII
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -43,7 +43,11 @@
 // End License
 
 
-Script
+Module
+
+#use "Libs/SCI/SString"
+
+#use "Script/Use/Convert"
 
 Global Table MapScript
 
@@ -82,7 +86,7 @@ QuickMeta Players
 	End
 End
 
-Module
+//Module
 
 	Get Var Ach
 		Return Lua.Neil.Globals.Ach
@@ -286,8 +290,8 @@ Module
 	End
 	
 	Get Table ObjEnum
-		Table T = Split(ISGET.STRING("FLOW_FIELD","FlowField.Map.CurLayer.ObjEnumString"),";")
-		Int M = #T
+		Table T = XSplit(ISGET.STRING("FLOW_FIELD","FlowField.Map.CurLayer.ObjEnumString"),";")
+		Int M := len(T)
 		for i=1,M
 			T[i]=Lua.tonumber(T[i]) || 0
 		End
@@ -387,9 +391,6 @@ Module
 		End
 	End
 	
-	Set Bool AllowEncOff
-		gv.gbool["ALLOWENCOUNTEROFF_"..LoadedMap] = Value
-	End
 	
 	Get Bool AllowEncOff
 		Switch __Game
@@ -401,6 +402,11 @@ Module
 				Lua.error("No check of allowing random encounters on or off in this game")
 		End
 	End
+	
+	Set Bool AllowEncOff
+		gv.gbool["ALLOWENCOUNTEROFF_"..LoadedMap] = Value
+	End
+	
 	
 	Bool MapAllowEncOff(string m) 
 		return gv.gbool["ALLOWENCOUNTEROFF_"..m] || (__Chapter>0 && Prefixed(m:upper(),"PRO_"))
@@ -427,12 +433,12 @@ Module
 	End
 	
 	Var LabelEach(String Label)
-		String Raw = ISGET.String("FLOW_FIELD",sprintf("FlowField.Map.CurrentLayer.SLabelEnum(\"%s\")",Label))
-		Table Tab = Split(Raw,";")
+		String Raw := ISGET.String("FLOW_FIELD",sprintf("FlowField.Map.CurrentLayer.SLabelEnum(\"%s\")",Label))
+		Table Tab := XSplit(Raw,";")
 		Int I=0
 		Var Ret()
 			I++
-			If I>#Tab
+			If I>len(Tab)
 				Return Nil
 			End
 			Return Lua.tonumber(Tab[I])
@@ -464,25 +470,32 @@ Module
 	End
 	
 	Get Table Layers
-		return Split(ISGet.String("FLOW_FIELD","FlowField.Map.KthuraMap.StringLayers"),";")
+		return XSplit(ISGet.String("FLOW_FIELD","FlowField.Map.KthuraMap.StringLayers"),";")
 	End
 	
 	Get Table Tags
-		return Split(ISGet.String("FLOW_FIELD","FlowField.Map.CurLayer.TagList"),",")
+		return XSplit(ISGet.String("FLOW_FIELD","FlowField.Map.CurLayer.TagList"),",")
 	End
 	
 	Table LayTags(string Layer)
-		return Split(ISGet.String("FLOW_FIELD",sprintf("FlowField.Map.KthuraMap.Layer(\"%s\").TagList",Layer)),",")
+		return XSplit(ISGet.String("FLOW_FIELD",sprintf("FlowField.Map.KthuraMap.Layer(\"%s\").TagList",Layer)),",")
 	End
 
 	
-	CONSTRUCTOR
+	//CONSTRUCTOR
+	Init
 		table m
 		m = {}
-		delegate idx(s,string key)
-			Void f(para)
+		//delegate idx(s,string key)
+		ddef idx
+			plua s
+			string key
+			s,key = infinity
+			//Void f(para)
+			ddef f
+				para := infinity
 				para = para || "nil"
-				Script(key,para)
+				$Script(key,para)
 			end
 			return f
 		end
@@ -495,4 +508,4 @@ Module
 		Meta = Lua.setmetatable({},{["__index"]=MetaIndex})
 	end
 
-End
+//End
