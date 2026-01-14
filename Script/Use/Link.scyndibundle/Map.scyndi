@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Link.scyndibundle/Map.scyndi
 // 
-// 	  Version: 26.01.14 VIII
+// 	  Version: 26.01.14 IX
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -99,15 +99,17 @@ End
 	End
 	
 	Get String Layer
-		Return ISGet.String("FLOW_FIELD","FlowField.Map.Layer")
+		//Return ISGet.String("FLOW_FIELD","FlowField.Map.Layer")
+		Return gStr.Map_Layer
 	End
 	
 	Set String Layer
-		ISSet("STRING","FLOW_FIELD","FlowField.Map.Layer",Value)
+		//ISSet("STRING","FLOW_FIELD","FlowField.Map.Layer",Value)
+		gStr.Map_Layer = Value
 	End
 
 	Get String LoadedMap
-		Return gv.gstr.LoadedMap
+		Return gstr.LoadedMap
 	End
 	
 	#region Scroll
@@ -452,16 +454,20 @@ End
 	
 	#region Camera
 	Get Int CamX
-		Return ISGET.Int("FLOW_FIELD","FlowField.Map.ScrollX")
+		//Return ISGET.Int("FLOW_FIELD","FlowField.Map.ScrollX")
+		Return gInt.ScrollX
 	End
 	Get Int CamY
-		Return ISGET.Int("FLOW_FIELD","FlowField.Map.ScrollY")
+		//Return ISGET.Int("FLOW_FIELD","FlowField.Map.ScrollY")
+		Return gInt.ScrollY
 	End
 	Set Int CamX
-		ISSET("Int","FLOW_FIELD","FlowField.Map.ScrollX",Value)
+		//ISSET("Int","FLOW_FIELD","FlowField.Map.ScrollX",Value)
+		gInt.ScrollX = Value
 	End
 	Set Int CamY
-		ISSET("Int","FLOW_FIELD","FlowField.Map.ScrollY",Value)
+		//ISSET("Int","FLOW_FIELD","FlowField.Map.ScrollY",Value)
+		gInt.ScrollY = Value
 	End
 	#endregion
 	
