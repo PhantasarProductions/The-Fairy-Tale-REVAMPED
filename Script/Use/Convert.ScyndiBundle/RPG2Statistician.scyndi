@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Convert.ScyndiBundle/RPG2Statistician.scyndi
 // 
-// 	  Version: 26.01.14
+// 	  Version: 26.01.20
 // 	
 // 	  Copyright (C) 2026 Jeroen Petrus Broks
 // 	
@@ -42,6 +42,8 @@
 // 	  3. This notice may not be removed or altered from any source distribution.
 // End License
 Module
+
+#use "Libs/SCI/Statistician"
 
 QuickMeta RPGParty
 	NewIndex
