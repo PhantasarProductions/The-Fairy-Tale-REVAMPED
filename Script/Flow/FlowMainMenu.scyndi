@@ -1,8 +1,8 @@
-// License Information:
+// License:
 // **********************************************
 // 
-// src/Tricky Script/Script/Flow/FlowMainMenu.neil
-// (c) Jeroen Broks, 2001, 2018, 2021, 2022, All Rights Reserved.
+// src/Code/Script/Flow/FlowMainMenu.scyndi
+// (c) Jeroen Broks, 2001, 2018, 2021, 2022, 2026, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -24,6 +24,7 @@
 // from it, you can use it under that license.
 // Please check out the other files to find out
 // which license applies.
+// 
 // This file comes 'as-is' and in no possible
 // way the author can be held responsible of
 // any form of damages that may occur due to
@@ -32,37 +33,53 @@
 // 
 // **********************************************
 // 
-// version: 22.03.25
-// End License Information
+// 
+// version: 26.01.20
+// 
+// End License
 
-#use "Script/Use/Anyway"
+Script
+
+#Use "Libs/SCI/Sys"
+#use "Libs/SCI/Audio"
+#Use "Libs/SCI/Medals"
+#use "Libs/SCI/Events"
+#use "Libs/SCI/Graphics"
+
+#use "Libs/Music"
 #use "libs/linkedlist"
+
+#use "Script/Use/Link"
+#use "Script/Use/Anyway"
+#use "Script/Use/Convert"
 #use "Script/Use/Misc/PSaveGame"
+
+extern ll "#"
 
 table Nieuw()
 	return {}
 end
 
 class Stage
-	static table Lijst = Nieuw()
-	static int Pos = 1
-	static var Back = Image.Load("GFX/MainMenu/Ierland.png")
+	static table Lijst = nil; //Nieuw()
+	static int Pos = 0
+	static var Back = LoadImage("GFX/MainMenu/Ierland.png","Ierland")
 	
 	static void Go(int GPos)
 		Pos = GPos
-		printf("Go: Going to %3d/%3d\n",pos,#Lijst)
+		printf("Go: Going to %3d/%3d\n",pos,ll Lijst)
 		Lijst[Pos].Arrive()
 	end
 	
 	static void Next()	
-		Pos = (Pos % #Lijst) + 1
-		printf("Next: Going to %3d/%3d",pos,#Lijst)
+		Pos = (Pos+1) % Len(Lijst) 
+		CSayF("Next: Going to %3d/%3d",pos,ll Lijst)
 		Lijst[Pos].Arrive()
 	end
 	
 	static void DrawBack()
 		math.random(1,10) // Make sure the seed is entirely messed up. Nobody can press a button twice at exactly the same time
-		Back.Stretch(0,0,Screen.W,Screen.H)
+		Back.Stretch(0,0,Graphics.Width,Graphics.Height)
 	end
 	
 	void Arrive()
@@ -77,7 +94,7 @@ class Stage_Logo extends Stage
 	int Timer = 0
 	readonly int MaxTimer = 300
 	
-	readonly var logo = Image.Load("GFX/Logo/Phantasar Productions.png")
+	readonly var logo = LoadImage("GFX/Logo/Phantasar Productions.png","LOGO_PHANPRODUCTIONS")
 	
 	void Cycle()
 		Timer = (Timer + 1) % MaxTimer
@@ -85,23 +102,24 @@ class Stage_Logo extends Stage
 			Stage.Next()
 		end
 		Stage.DrawBack()
-		logo.Draw( (Screen.W div 2) - (logo.Width div 2),  (Screen.H div 2) - (logo.Height div 2) )
+		logo.Draw( (Graphics.Width div 2) - (logo.Width div 2),  (Graphics.Height div 2) - (logo.Height div 2) )
+		if (Timer%25==0); CSayF("Logo timer: %3d/%3d",Timer,MaxTimer); End
 	end
 end
 
 class Stage_QuickCredits extends Stage
 	readonly int MaxPerName = 200
-	readonly var Fnt = ImageFont.Obtain("SYSFONT")
+	readonly var Fnt = ObtainFont("SYSFONT")
 	int Timer = 0
 	table names
 	
 	
 	get int MPos
-		return math.min(#names,(Timer div MaxPerName)+1)
+		return math.min(len(names),(Timer div MaxPerName))
 	end
 	
 	get int TotalMax
-		return MaxPerName * #names
+		return MaxPerName * len(names)
 	end
 	
 	CONSTRUCTOR
@@ -120,8 +138,8 @@ class Stage_QuickCredits extends Stage
 	void Cycle()
 		__white
 		Stage.DrawBack()
-		fnt.DarkText(names[mpos][1],Screen.W div 2,(screen.H div 2)-10,2,1)
-		fnt.DarkText(names[mpos][2],Screen.W div 2,(screen.H div 2)+10,2,0)
+		fnt.DarkText(names[mpos][1],Graphics.Width div 2,(Graphics.Height div 2)-10,2,1)
+		fnt.DarkText(names[mpos][2],Graphics.Width div 2,(Graphics.Height div 2)+10,2,0)
 		Timer = (Timer + 1) % TotalMax
 		if Timer==0
 			Stage.Next()
@@ -135,7 +153,7 @@ class Stage_Title extends Stage
 	int Timer = 0
 	readonly int MaxTimer = 400
 	
-	readonly var logo = Image.Load("GFX/Logo/Title.png")
+	readonly var logo = LoadImage("GFX/Logo/Title.png","TFT_TITLE")
 	
 	void Cycle()
 		Timer = (Timer + 1) % MaxTimer
@@ -143,7 +161,7 @@ class Stage_Title extends Stage
 			Stage.Next()
 		end
 		Stage.DrawBack()
-		logo.Draw( (Screen.W div 2) - (logo.Width div 2),  (Screen.H div 2) - (logo.Height div 2) )
+		logo.Draw( (Graphics.Width div 2) - (logo.Width div 2),  (Graphics.Height div 2) - (logo.Height div 2) )
 	end
 end
 
@@ -152,7 +170,7 @@ class Stage_HandoStillor1 extends Stage
 	readonly var Stars
 	readonly var Earth
 	readonly table Voice
-	readonly var YFnt = ImageFont.Load("Font/Calendar.jfbf")
+	readonly var YFnt = LinkFont("Font/Calendar.jfbf","Font_Calendar")
 	readonly var Bushes
 	int VPos = 0
 	var VChan = nil
@@ -187,11 +205,11 @@ class Stage_HandoStillor1 extends Stage
 	
 	void DStars()
 		__white
-		Stars.Tile(0,0,Screen.W,Screen.H)
+		Stars.Tile(0,0,Graphics.Width,Graphics.Height)
 		Graphics.Scale(TrueEarthScale,TrueEarthScale)
-		Earth.Draw(Screen.W/2,Screen.H/2)
+		Earth.Draw(Graphics.Width/2,Graphics.Height/2)
 		Graphics.Scale(1,1)
-		YFnt.Text(sYear,Screen.W-100,100,1,0)
+		YFnt.Text(sYear,Graphics.Width-100,100,1,0)
 		if VPos>4
 			EarthScale = math.max(0,EarthScale-1)
 		end
@@ -210,10 +228,10 @@ class Stage_HandoStillor1 extends Stage
 	void CheckVoice()
 		if !Audio.ChannelPlaying(VChan)
 			VPos++
-			CSayF("Advancing to sample #%2d (of %2d)",VPos,#Voice) 
-			if VPos==#voice
-				Lua.Neil.Globals.MenuItem.ComeIn=true
-			elseif VPos>#Voice
+			CSayF("Advancing to sample #%2d (of %2d)",VPos,ll Voice) 
+			if VPos==ll Voice
+				Lua.Scyndi.Class.MenuItem.ComeIn=true
+			elseif VPos>ll Voice
 				Music.Play("Music/Hub/StartToFantasyInstrumental.ogg")
 				Stage.Next()
 				return
@@ -224,33 +242,33 @@ class Stage_HandoStillor1 extends Stage
 	
 	void DBushes()
 		Graphics.SetAlpha(alpha)
-		Bushes.Stretch(0,0,Screen.W,Screen.H)
+		Bushes.Stretch(0,0,Graphics.Width,Graphics.Height)
 		Graphics.SetAlpha(255)
 	end
 	
 	void Cycle()
 		if alpha<255
-			DStars()
+			Self.DStars()
 			if vPos>11
 				alpha++
 			end
 		end
 		if alpha>0
-			DBushes()
+			Self.DBushes()
 		end
-		CheckVoice()
+		Self.CheckVoice()
 	end
 	
 	
 	Constructor
-		Earth  = Image.Load("GFX/Algemeen/Earth.png")
-		Stars  = Image.Load("GFX/MainMenu/Starfield.png")
-		Bushes = Image.Load("GFX/Algemeen/Bushes.png")
+		Earth  = LoadImage("GFX/Algemeen/Earth.png","IEarth")
+		Stars  = LoadImage("GFX/MainMenu/Starfield.png","IStars")
+		Bushes = LoadImage("GFX/Algemeen/Bushes.png","IBushes")
 		HS1    = self
 		Voice  = {}
 		Earth.HotCenter()
 		for i=1,25
-			Voice[i] = Audio.Load(sprintf("Vocals/General/Introduction/STILLOR_%d.ogg",i))
+			Voice[i] = Audio.Load(sprintf("Vocals/General/Introduction/STILLOR_%d.ogg",i),sprintf("ISN_%d",i))
 		end
 	End
 End
@@ -258,7 +276,7 @@ End
 class MenuItem
 	static bool ComeIn = false
 	static int y
-	static var ItemList = new LinkedList()
+	static var ItemList = new TLinkedList()
 	static get int Count
 		return ItemList.Count
 	end
@@ -266,19 +284,20 @@ class MenuItem
 		return 1/(Count+1)
 	end
 	get int iw
-		return math.floor(Screen.W*Scale)
+		return math.floor(Graphics.Width*Scale)
 	end
 	get int x
-		return iw*self.ID
+		locextern _self "self"
+		return iw*_self.ID
 	end
 	static get int mx
-		return Events.MouseX()
+		return Events.MouseX
 	end
 	static get int my
-		return Events.MouseY()
+		return Events.MouseY
 	end
 	get bool hover
-		return ComeIn && Y<Screen.H && my>Screen.H-200 && mx>x-(iw div 2) && mx<x+(iw div 2)
+		return ComeIn && Y<Graphics.Height && my>Graphics.Height-200 && mx>x-(iw div 2) && mx<x+(iw div 2)
 	end
 	
 	readonly int ID
@@ -287,10 +306,10 @@ class MenuItem
 	bool Enabled = true
 	readonly string Name
 	
-	Constructor(string nImg,delegate pFunc)
+	Constructor(string nImg, pFunc)
 		ItemList.AddLast(self)
 		ID = Count
-		Img = Image.Load("GFX/MainMenu/"..nImg..".png")
+		Img = LoadImage("GFX/MainMenu/"..nImg..".png",sprintf("Menu Taggy Taggy %d",ID))
 		Func = pFunc
 		Name = nImg
 		Img.HotBottomCenter()
@@ -303,22 +322,22 @@ class MenuItem
 	
 	static void NewGame()
 		gv.Clear()
-		State.LoadFlow("NEWGAME","Script/Flow/FlowNewGame.neil")
+		State.LoadFlow("NEWGAME","Script/Flow/FlowNewGame.lbc")
 		Flow.GotoFlow("NEWGAME")
 	end
 	
 	static void NewGamePlus()
 		gv.Clear()
 		gv.gbool.NewGamePlus = true
-		State.LoadFlow("NEWGAME","Script/Flow/FlowNewGame.neil")
+		State.LoadFlow("NEWGAME","Script/Flow/FlowNewGame.lbc")
 		Flow.GotoFlow("NEWGAME")
 	end
 	
 	static bool AllowNewGamePlus()
-		Bool R
-		Medals.Game="TFT"
-		R = Medals.Awarded("CHAPTER4")
-		print("DEBUG! Allow New Game Plus:",R)
+		Bool R = False
+		//Medals.Game="TFT"
+		//R = Medals.Awarded("CHAPTER4")
+		//print("DEBUG! Allow New Game Plus:",R)		
 		return R
 	end
 	
@@ -328,7 +347,8 @@ class MenuItem
 	end
 	
 	static Bool IsThereAContinue()		
-		return SaveGame.Recognized("QUIT")
+		//return SaveGame.Recognized("QUIT")
+		return False
 	end
 	
 	static void LoadGame()
@@ -350,7 +370,7 @@ class MenuItem
 	
 	static void Bugs()
 		CSay("Opening your favorite browser to go to the github issue tracker!")
-		OpenURL("https://github.com/PhantasarProductions/The-Fairy-Tale-REVAMPED-for-Apollo/issues")
+		Sys.OpenURL("https://github.com/PhantasarProductions/The-Fairy-Tale-REVAMPED-for-Apollo/issues")
 	end
 	
 	static void ExitGame()
@@ -360,51 +380,52 @@ class MenuItem
 	end
 	
 	static void Create()
+		LocExtern s "Scyndi.Class.MenuItem"
 		var v
-		v = new MenuItem("New Game",NewGame)
-		v = new MenuItem("New Game+",NewGamePlus)
-		v.Enabled = AllowNewGamePlus()
-		v = new MenuItem("Continue",Continue)
-		v.Enabled = IsThereAContinue()
-		v = new MenuItem("Load Game",LoadGame)
-		v.Enabled = CanLoad()
-		v = new MenuItem("Jukebox",Jukebox)
-		v = new MenuItem("Bugs",Bugs)
-		v = new MenuItem("Exit",ExitGame)
-		y = Screen.H + (1000*Scale)
+		v = new MenuItem("New Game",s.NewGame)
+		v = new MenuItem("New Game+",s.NewGamePlus)
+		v.Enabled = s.AllowNewGamePlus()
+		v = new MenuItem("Continue",s.Continue)
+		v.Enabled = s.IsThereAContinue()
+		v = new MenuItem("Load Game",s.LoadGame)
+		v.Enabled = s.CanLoad()
+		v = new MenuItem("Jukebox",s.Jukebox)
+		v = new MenuItem("Bugs",s.Bugs)
+		v = new MenuItem("Exit",s.ExitGame)
+		y = Graphics.Height + (1000*Scale)
 	end
 	
 	void Show()
 		__white
 		if !Enabled
-			Graphics.SetScale(Scale*2,Scale*2)
+			Graphics.Scale(Scale*2,Scale*2)
 			Graphics.Color(120,120,120)
 			Img.Draw(x,y)
 		elseif hover
-			Graphics.SetScale(Scale*3,Scale*3)
+			Graphics.Scale(Scale*3,Scale*3)
 			Img.Draw(x,y-50)
-			if Events.MouseHitLeft()
+			if Events.MouseHitLeft
 				Func()
 			end
 		else
-			Graphics.SetScale(Scale*2,Scale*2)
+			Graphics.Scale(Scale*2,Scale*2)
 			Img.Draw(x,y)
 		end
 	end
 	
 	Static Void ShowAll()
-		static var Muis = Image.Obtain("MOUSE")
+		static var Muis = ObtainImage("MOUSE")
 		if !ComeIn
 			return
 		end
-		if y>Screen.H-20
+		if y>Graphics.Height-20
 			y--
 			//CSayF("Bringing in the menu. y=%04d",y)
 		end		
 		for It in ItemList.Each
 			It.Show()
 		end
-		Graphics.SetScale(1,1)
+		Graphics.Scale(1,1)
 		__white
 		Muis.Draw(mx,my)
 	End
@@ -412,18 +433,18 @@ end
 
 
 
-global void Apollo_Flow()	
+global void MainFlow()	
 	static bool StartDestroyed
-	if not StartDestroyed
+	if !StartDestroyed
 		Flow.Kill("APOLLO_MAIN")
 		StartDestroyed = true
 	end
-	Dev.ToConsole()
+	//Dev.ToConsole()
 	Stage.Lijst[Stage.Pos].Cycle()
 	math.random(1,10) // Make sure the seed is entirely messed up. Nobody can press a button twice at exactly the same time
-	MenuItem.ComeIn = MenuItem.ComeIn || Events.MouseHitLeft() || Events.KeyHit(13) || Events.KeyHit(32) || Events.KeyHit(27)
+	MenuItem.ComeIn = MenuItem.ComeIn || Events.MouseHitLeft || Events.KeyHit(13) || Events.KeyHit(32) || Events.KeyHit(27)
 	MenuItem.ShowAll()
-	
+	if Events.AppTerminate(); Sys.Exit(0); End
 end
 
 Global Void CONSOLE_Credits()
@@ -441,6 +462,7 @@ End
 
 init
 	Music.Play("Music/Hub/StartToFantasyInstrumental.ogg")
+	Stage.Lijst  = {}
 	Stage.Lijst += new Stage_Logo()
 	Stage.Lijst += new Stage_QuicKCredits()
 	Stage.Lijst += new Stage_Title()

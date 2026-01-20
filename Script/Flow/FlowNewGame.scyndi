@@ -1,8 +1,8 @@
-// License Information:
+// License:
 // **********************************************
 // 
-// src/Tricky Script/Script/Flow/FlowNewGame.neil
-// (c) Jeroen Broks, 2021, All Rights Reserved.
+// src/Code/Script/Flow/FlowNewGame.scyndi
+// (c) Jeroen Broks, 2021, 2026, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -24,6 +24,7 @@
 // from it, you can use it under that license.
 // Please check out the other files to find out
 // which license applies.
+// 
 // This file comes 'as-is' and in no possible
 // way the author can be held responsible of
 // any form of damages that may occur due to
@@ -32,14 +33,26 @@
 // 
 // **********************************************
 // 
-// version: 21.07.28
-// End License Information
+// 
+// version: 26.01.20 I
+// 
+// End License
 
+
+Script
+
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/JCR6"
+#use "Libs/SCI/SString"
+#use "Libs/SCI/Graphics"
+
+#use "Libs/LinkedList"
 
 #use "Script/Use/Anyway"
+#use "Script/Use/Convert"
 #use "Script/Use/Misc/Prologue"
 #use "Script/Use/Misc/SPS"
-#use "Script/Use/Misc/Box"
+#use "Script/Use/Misc/Box_Class"
 
 
 class NW_Base
@@ -50,7 +63,7 @@ class NW_Base
 	end
 	
 	
-	static readonly var Font = ImageFont.Obtain("BOXTEXT")
+	static readonly var Font = ObtainFont("BOXTEXT")
 	static table stages = {}
 	static int count
 	static int StageN = 1
@@ -71,7 +84,8 @@ class NW_Base
 		return Stages[StageN]
 	end
 	
-	final void Next()
+	//final 
+	void Next()
 		StageN++
 		if !Stage
 			Lua.error("Chain to game itself not yet implemented")
@@ -94,7 +108,7 @@ class SKILL_ITEMS
 		skillnum=skillcnt
 		Name = n
 		ImgFile = F
-		img = Image.Load(F)
+		img = LoadImage(F,"SKILL_"..F.."_"..N.."_"..D)
 		Img.HotBottomCenter()
 		Describe = Split(d,"\n")
 		show = {}
@@ -103,10 +117,10 @@ end
 
 class NW_Skill extends NW_Base
 	
-	var HTAY = Image.Load("GFX/NewGame/SkillSelect.png")
+	var HTAY = LoadNewImage("GFX/NewGame/SkillSelect.png","NEWGAME_SkillSelect")
 	table skill = {} 
 	void Start()
-		if #skill!=0
+		if len(skill)!=0
 			return
 		end
 		skill += new SKILL_ITEMS("GFX/BoxText/Portret/Marrilona/Cry.png","Easy","What? Are you a little crybaby?\nYou need your mommy to hold your hand?\nYou even get killed in DOOM, easiest mode with the IDDQD cheat on?\n\nWell fear not, little newbie. This mode is made for you!\n\nThe game will be simplefied on many accounts, so you can still have your fun in the game\n\nAre you happy now?")
@@ -116,16 +130,17 @@ class NW_Skill extends NW_Base
 	end
 	
 	void Draw()
-		int w = Screen.W Div (#skill+1)		
+		int w := Screen.W Div (len(skill)+1)		
 		HTAY.Draw(SCREEN.W DIV 2,100)
-		for idx,item in pairs(skill)
+		for _idx,item in pairs(skill)
+			idx:=_idx+1
 			Graphics.Color(255,255,255)
 			item.Img.Draw(w*idx,Screen.H-100)
 			if Mouse.MY>Screen.H-240 && Mouse.MX>(w*idx)-(w div 2) && Mouse.MX<(w*idx)+(w div 2)
 				bool shownext = true
 				for idx2,txt in pairs(item.Describe)
 					if shownext
-						self.Font.Text(txt,Screen.W div 2,200+(idx2*30),2,2)
+						NW_Base.Font.Text(txt,Screen.W div 2,200+(idx2*30),2,2)
 						item.show[idx2] = item.show[idx2] || math.random(50,75)
 						if item.show[idx2]>0
 							--item.show[idx2]
@@ -135,7 +150,7 @@ class NW_Skill extends NW_Base
 					end
 				end
 				Graphics.Color(255,180,0)
-				self.Font.Text(Item.Name.." mode",Screen.W div 2,Screen.H-20,2,1)
+				NW_Base.Font.Text(Item.Name.." mode",Screen.W div 2,Screen.H-20,2,1)
 				if Mouse.ML
 					//if Dialog.Yes("You have chosen to play the game in "..(Item.Name:lower()).." mode\n\nPlease note, since the game does not just make enemies more or less agressive, but actually changes many game rules, like inventory item number caps, the speed in which you can earn money, the rules about AP accumulation, and even the difficulty of some puzzles can be different depending on this.\n\n\nDue to these many changes it will NOT be possible to change the difficulty setting afterwards (the changes are so great, that would actually be cheating, or even cause technical conflicts).\n\nSo be sure about your choice!\n\n\nDo you really want to play the game in "..(item.name:lower()).." mode?")
 					// Set up this way, a Dialog.Yes closes down the full screen mode which my cause users to panic, and I cannot have that
@@ -157,18 +172,18 @@ class Lang
 	readonly table Desc
 	
 	Constructor(string N,string D="")
-		string Pic = sprintf("GFX/Languages/%s.png",N)
+		string Pic := sprintf("GFX/Languages/%s.png",N)
 		Name = N
 		if !JCR6.EntryExists(Pic)
-			unknown = unknown || Image.Load("GFX/Languages/Unknown.png")
+			unknown = unknown || LoadImage("GFX/Languages/Unknown.png","LANG_"..N)
 			img = unknown
 			CSayF("No picture found for language %s",N)
 		else
-			img = Image.Load(Pic)
+			img = LoadImage(Pic,"LANG_"..N)
 			CSayF("Language %s succesfully added",N)
 		end
 		img.HotBottomCenter()
-		Desc = Split(D,"<")
+		Desc = XSplit(D,"<")
 	end
 end
 
@@ -177,12 +192,14 @@ class NW_Language Extends NW_Base
 	
 	
 	Constructor
-		Lijst = new LinkedList()
-		for L in each(JCR6.LoadLines("Languages/List"))
+		Lijst = new TLinkedList()
+		GL:=JCR6.GetLines("Languages/List")
+		for L in each(GL)
 			if L!=""
 				CSay("NW_Language: Read: "..L)
-				table LS = Split(L,"|") 
-				Lijst.AddLast(new Lang(LS[1],LS[2]))
+				LS := XSplit(L,"|")
+				CSayF("Lang '%s', Desc: %s",LS[0],LS[1])
+				Lijst.AddLast(new Lang(LS[0],LS[1]))
 			end
 		end
 	end
@@ -191,9 +208,9 @@ class NW_Language Extends NW_Base
 		int gx = 200
 		int gy = 200
 		int x = 0
-		int y = gy
+		int y := gy
 		__Ember
-		self.Font.Text("In which language do you wanna have the scenario?",Screen.W div 2,10,2,0)
+		NW_Base.Font.Text("In which language do you wanna have the scenario?",Screen.W div 2,10,2,0)
 		for L in Lijst.Each
 			__White
 			x+=gx
@@ -202,9 +219,9 @@ class NW_Language Extends NW_Base
 				y+= gy
 			end
 			L.Img.Draw(x,y)
-			if Mouse.MX>x-60 && Mouse.MX<x+60 && Mouse.MY<y && Mouse.MY>y-l.img.h
+			if Mouse.MX>x-60 && Mouse.MX<x+60 && Mouse.MY<y && Mouse.MY>y-l.img.height
 				for i,v in ipairs(L.Desc)
-					self.font.Text(v,Screen.W div 2, math.floor(Screen.H*0.75)+(i*25),2,2)
+					NW_Base.Font.Text(v,Screen.W div 2, math.floor(Screen.H*0.75)+(i*25),2,2)
 				end
 				if Mouse.ML
 					__Lang = L.Name
@@ -212,7 +229,7 @@ class NW_Language Extends NW_Base
 				end
 				__ember
 			end
-			Self.Font.Text(L.Name,x,y+5,2,0)
+			NW_Base.Font.Text(L.Name,x,y+5,2,0)
 		end
 	end
 end
@@ -231,7 +248,7 @@ Class NW_Start Extends NW_Base
 	get var Banner
 		static var ret
 		if !ret
-			ret = Image.Load(BannerFile)
+			ret = LoadImage(BannerFile,"Banner_"..BannerFile)
 			ret.HotCenter()
 		end
 		return ret
@@ -250,16 +267,16 @@ Class NW_Start Extends NW_Base
 end
 	
 
-global void Apollo_Flow()
-	Dev.ToConsole()
-	Box.DrawAll()
+global void MainFlow()
+	//Dev.ToConsole()
+	CBox.DrawAll()
 	SPS.Draw()
 	NW_Base.Stage.Draw()
 	Mouse.Draw()
 end
 
 Init
-	Box.Add(0,0,Screen.W,Screen.H)
+	CBox.Add(0,0,Screen.W,Screen.H)
 	NW_BASE.ADD(new NW_Skill())	
 	NW_BASE.ADD(new NW_Language())
 	NW_BASE.ADD(new NW_Start())

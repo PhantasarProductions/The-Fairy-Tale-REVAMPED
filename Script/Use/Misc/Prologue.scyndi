@@ -1,8 +1,8 @@
-// License Information:
+// License:
 // **********************************************
 // 
-// src/Tricky Script/Script/Use/Misc/Prologue.neil
-// (c) Jeroen Broks, 2021, All Rights Reserved.
+// src/Code/Script/Use/Misc/Prologue.scyndi
+// (c) Jeroen Broks, 2021, 2026, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -24,6 +24,7 @@
 // from it, you can use it under that license.
 // Please check out the other files to find out
 // which license applies.
+// 
 // This file comes 'as-is' and in no possible
 // way the author can be held responsible of
 // any form of damages that may occur due to
@@ -32,12 +33,20 @@
 // 
 // **********************************************
 // 
-// version: 21.10.21
-// End License Information
+// 
+// version: 26.01.20 I
+// 
+// End License
+
+Module
 
 // Hmmm
 
-#gch gv
+//#gch gv
+
+#use "Libs/SCI/Sys"
+
+#use "Script/Use/Convert"
 
 QuickMeta PrologueDone
 
@@ -47,25 +56,26 @@ QuickMeta PrologueDone
 	
 	NewIndex
 		gv.gbool["Prologue_"..key] = value
-		Lua.Neil.Globals.CsayF("Prologue %s set to %s",key,lua.tostring(value))
+		CSayF("Prologue %s set to %s",key,lua.tostring(value))
 	End
 	
 End
 
-module
+// Module
 	
-	ReadOnly Var Done = PrologueDone
+	//ReadOnly Var Done = PrologueDone
+	Get Var Done; Return PrologueDone; End
 	
 	Bool HasDone(string ch)
-		bool ret = Done[ch]
+		bool ret := Done[ch]
 		Done[ch]=true
-		Lua.Neil.Globals.CSayF("Prologue %s has been closed now!",ch)
+		CSayF("Prologue %s has been closed now!",ch)
 		return ret
 	End
 	
 	Void GoSelect()
-		State.Load("FLOW_PROLOGUESELECT","Script/Flow/FlowPrologueCharSelect.neil")
+		State.Load("FLOW_PROLOGUESELECT","Script/Flow/FlowPrologueCharSelect.lbc")
 		Flow.GoToFlow("PROLOGUESELECT")
 	End
 	
-End
+//End

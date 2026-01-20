@@ -1,0 +1,121 @@
+// License:
+// 	  src/Code/Script/Use/Misc/Box_Class.scyndi
+// 
+// 	  Version: 26.01.20
+// 	
+// 	  Copyright (C) 2020, 2021, 2026 Jeroen Petrus Broks
+// 	
+// 	  ===========================
+// 	  This file is part of a project related to the Phantasar Chronicles or another
+// 	  series or saga which is property of Jeroen P. Broks.
+// 	  This means that it may contain references to a story-line plus characters
+// 	  which are property of Jeroen Broks. These references may only be distributed
+// 	  along with an unmodified version of the game.
+// 
+// 	  As soon as you remove or replace ALL references to the storyline or character
+// 	  references, or any termology specifically set up for the Phantasar universe,
+// 	  or any other univers a story of Jeroen P. Broks is set up for,
+// 	  the restrictions of this file are removed and will automatically become
+// 	  zLib licensed (see below).
+// 
+// 	  Please note that doing so counts as a modification and must be marked as such
+// 	  in accordance to the zLib license.
+// 	  ===========================
+// 
+// 
+// 	  zLib license terms:
+// 	
+// 	  This software is provided 'as-is', without any express or implied
+// 	  warranty.  In no event will the authors be held liable for any damages
+// 	  arising from the use of this software.
+// 
+// 	  Permission is granted to anyone to use this software for any purpose,
+// 	  including commercial applications, and to alter it and redistribute it
+// 	  freely, subject to the following restrictions:
+// 	
+// 	  1. The origin of this software must not be misrepresented; you must not
+// 	     claim that you wrote the original software. If you use this software
+// 	     in a product, an acknowledgment in the product documentation would be
+// 	     appreciated but is not required.
+// 	  2. Altered source versions must be plainly marked as such, and must not be
+// 	     misrepresented as being the original software.
+// 	  3. This notice may not be removed or altered from any source distribution.
+// End License
+
+Module
+
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/Graphics"
+
+#use "script/use/anyway.scyndibundle/Algemeen"
+#use "libs/ModVector"
+
+Class CBox
+
+	Int x
+	Int y
+	Int w
+	Int h
+	
+	Static ReadOnly Var Back = ObtainImage("BACKGROUND")
+	Static ReadOnly Table List = new Vector("table")
+	
+	Static Void Clear()
+		List.Clear()
+	End
+	
+	Void Draw()
+		__White
+		Back.Tile(x,y,w,h)
+		Graphics.SetAlpha(120)
+		For i=0,5
+		#if __IGNORE
+			Graphics.Color(100,100,100)
+			Graphics.Line(x+1, (y+h)-i,(x+w)-1,(h+y)-i) // Bottom
+			Graphics.Line(x-i,((y+h)-6),x-i,(y+i)+1) // Right
+			__White
+			Graphics.Line(x+i,y+i,(x+w)-(1+i),y+i) // Top
+			Graphics.Line(x+i,y+6,x+i,(y+h)-(1+i)) // Left
+		#fi
+			Graphics.Color(255,255,255)
+			Graphics.Line(x+i,y,x+i,(y+h)-(i+1)) // Left
+			Graphics.line(x+6,y+i,(x+w)-(i+1),y+i) // Top
+			Graphics.Color(127,127,127)
+			Graphics.Line(x+i+1,(y+h)-i,x+w,(y+h)-i) // Bottom
+			Graphics.Line(x+w-i,y+1+i,x+w-i,y+h-6) // Right
+		End
+		__White
+		Graphics.SetAlpha(255)
+	End
+	
+	Static Void DrawAll()
+		For b in List.Each
+			//print("Drawing",b," from ",List)
+			b.Draw()
+		End
+	End
+	
+	CONSTRUCTOR (Int ax, Int ay, Int aw, Int ah, addtolist)
+		addtolist = addtolist!=false 
+		x=ax
+		y=ay
+		w=aw
+		h=ah
+		Lua.assert(w>=20 && h>=20,"Box too small")
+		If addtolist
+			//print("Adding",self,"to list",list,"(Const)")
+			List.push_back(self)
+			//for b,q in List.Each
+			//	Print("= ",b,b.Draw,q)
+			//End
+		End
+	End
+	
+	Static Void Add(Int _X,Int _Y, Int _W, Int _H)
+		// Dirty code straight from Hell
+		plua N := new CBox(_X,_Y,_W,_H,false)
+		//print("Adding",N,"to list",list,"(add)")
+		List.push_back(N)
+	ENd
+
+End

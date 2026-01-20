@@ -1,8 +1,8 @@
-// License Information:
+// License:
 // **********************************************
 // 
-// src/Tricky Script/Script/Flow/FlowPrologueCharSelect.neil
-// (c) Jeroen Broks, 2021, All Rights Reserved.
+// src/Code/Script/Flow/FlowPrologueCharSelect.scyndi
+// (c) Jeroen Broks, 2021, 2026, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -24,6 +24,7 @@
 // from it, you can use it under that license.
 // Please check out the other files to find out
 // which license applies.
+// 
 // This file comes 'as-is' and in no possible
 // way the author can be held responsible of
 // any form of damages that may occur due to
@@ -32,12 +33,25 @@
 // 
 // **********************************************
 // 
-// version: 21.10.28
-// End License Information
+// 
+// version: 26.01.20 I
+// 
+// End License
+
+
+Script
+
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/Graphics"
+
+#use "Script/Use/Link"
 #use "Script/Use/Anyway"
+#use "Script/Use/Convert"
 #use "Script/Use/Misc/Prologue"
-#use "Script/Use/Misc/Box"
-#use "libs/Vector"
+#use "Script/Use/Misc/Box_Class"
+#use "libs/ModVector"
+
+
 
 
 Class PersonCard
@@ -49,7 +63,7 @@ Class PersonCard
 	Constructor(string N,int L=1)
 		Name = N
 		Lvl  = L
-		Card = Image.Load("GFX/PrologueChar/"..N..".png")
+		Card = LoadImage("GFX/PrologueChar/"..N..".png","Prologue::"..N)
 		Card.HotCenter()
 	End
 	
@@ -73,7 +87,7 @@ Init
 	RPGPARTY.MAX = 4
 	BX = new Box(0,0,Screen.W,Screen.H,false)
 	//new Box(0,0,Screen.W,Screen.H)
-	For Ch in each { "Jake", "Marrilona", "Dandor", "HandoStillor" }
+	For Ch in each { [0]="Jake", "Marrilona", "Dandor", "HandoStillor" }
 		If !Prologue.Done[Ch]
 			Int L 
 			Switch Ch
@@ -95,13 +109,15 @@ End
 
 
 
-Global Void Apollo_Flow()
-	Static Int Sel = 0
-	Static number D = ((Screen.H*0.75)/500)
+Global Void MainFlow()
+	//Static Int Sel = 0
+	//Static number D = ((Screen.H*0.75)/500)
+	locextern sel "sv_sel_275b89376d862aa05c1057853a74a599"; sel = sel || 0
+	locextern D   "sv_d_09292472d55495e26a9706a5cb435822";   D  = D    || ((Screen.H*0.75)/500) 
 	int PY=Screen.H div 2
 	//Box.DrawAll()
 	BX.Draw()
-	Dev.ToConsole()
+	//Dev.ToConsole()
 	For Idx,Crd in PersonCard.Lst.IPairs
 		// CSayF("ForIDXCRD: %d/%d",idx,sel)
 		If idx!=Sel
@@ -120,7 +136,7 @@ Global Void Apollo_Flow()
 		PersonCard.Lst[Sel].Card.Draw((Screen.W div 2),PY)
 		Graphics.Flip()
 		Mouse.Flush()
-		FPS.Sleep(400)
+		Sys.Sleep(400)
 		Party.CreateChar(PersonCard.Lst[Sel].Name, PersonCard.Lst[Sel].Lvl)
 		Switch PersonCard.Lst[Sel].Name
 			Case "Jake" 
@@ -131,7 +147,7 @@ Global Void Apollo_Flow()
 			Default
 				RPGParty[1] = PersonCard.Lst[Sel].Name
 		End
-		State.LoadNew("FLOW_FIELD","Script/Flow/FlowField.Neil")
+		State.LoadNew("FLOW_FIELD","Script/Flow/FlowField.lbc")
 		Map.GoToMap("PRO_Empty","EMPTY","Start")
 		//Lua.error("Start to dungeon not yet ready")
 		Flow.Current = "FLOW_FIELD"

@@ -1,0 +1,194 @@
+// License:
+// 	  src/Code/Script/Use/Misc/PSaveGame.scyndi
+// 
+// 	  Version: 26.01.20
+// 	
+// 	  Copyright (C) // End License, 2026 Jeroen Petrus Broks
+// 	
+// 	  ===========================
+// 	  This file is part of a project related to the Phantasar Chronicles or another
+// 	  series or saga which is property of Jeroen P. Broks.
+// 	  This means that it may contain references to a story-line plus characters
+// 	  which are property of Jeroen Broks. These references may only be distributed
+// 	  along with an unmodified version of the game.
+// 
+// 	  As soon as you remove or replace ALL references to the storyline or character
+// 	  references, or any termology specifically set up for the Phantasar universe,
+// 	  or any other univers a story of Jeroen P. Broks is set up for,
+// 	  the restrictions of this file are removed and will automatically become
+// 	  zLib licensed (see below).
+// 
+// 	  Please note that doing so counts as a modification and must be marked as such
+// 	  in accordance to the zLib license.
+// 	  ===========================
+// 
+// 
+// 	  zLib license terms:
+// 	
+// 	  This software is provided 'as-is', without any express or implied
+// 	  warranty.  In no event will the authors be held liable for any damages
+// 	  arising from the use of this software.
+// 
+// 	  Permission is granted to anyone to use this software for any purpose,
+// 	  including commercial applications, and to alter it and redistribute it
+// 	  freely, subject to the following restrictions:
+// 	
+// 	  1. The origin of this software must not be misrepresented; you must not
+// 	     claim that you wrote the original software. If you use this software
+// 	     in a product, an acknowledgment in the product documentation would be
+// 	     appreciated but is not required.
+// 	  2. Altered source versions must be plainly marked as such, and must not be
+// 	     misrepresented as being the original software.
+// 	  3. This notice may not be removed or altered from any source distribution.
+// End License
+
+
+Module
+
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/SString"
+#use "Libs/SCI/InterVar"
+
+#use "Script/Use/Anyway"
+#use "Script/Use/Convert"
+
+void MakeHeader()
+	string r := "Map:"..gStr.MapTitle.."\n"
+	r += "Difficulty:"..({"Easy","Casual","Hard"})[gInt.skill].."\n"
+	r += "Saved:"..gInt.Saved.."\n"
+	r += "LevelCap:"..gInt.LevelCap.."\n"
+	r += "Chapter:"..__Chapter.."\n"
+	For i=1,4
+		String Ch
+		Ch=RPGParty[i]
+		If Ch!=""
+			r += sPrintF("P%d:%s=%d\n",i,Ch,RPGChar[Ch].Stat.Level)
+		End
+	End
+	Lua.Error("Make Header not yet possible")
+	//SaveGame.Data.Head = r
+end
+
+global void PerformSaveGame(string f)
+	vInt.Saved++
+	CSayF("Saving: %s",f)
+	Lua.error("PerformSaveGame not yet possible")
+	//SaveGame.Clear()
+	//SaveGame.Assign(f)
+	//SaveGame.Data["*PARTY"] = "YES"
+	//SaveGame.Data["GAMEVARS.NEIL"] = Enroll
+	//Item.Save()
+	//Map.SG()
+	////Ach.Save()
+	////WorldMap.Save()
+	//if f=="QUIT"
+	//	SaveGame.Data["KILL ME"]="KILL ME"
+	//end
+	//MakeHeader()
+	//SaveGame.Save()	
+end
+
+//#if __IGNORE__
+//void Process(int p)
+	//static int max = 10
+	//Graphics.Cls()
+	//Loading()
+	//Graphics.Color(100,100,100)
+	//Graphics.Rect(0,Graphics.Height-10,Graphics.Width,10)
+	//Graphics.Color(255,math.ceil( (p/max)*180 ), 0)
+	//Graphics.Rect(0,Graphics.Height-10,math.ceil( (p/max)*Graphics.Width),10)
+	//Graphics.Flip()
+	//Events.Poll()
+//end
+//#fi
+
+global bool PerformLoadGame(string f)
+	Lua.error("Perform savegame not yet  possible")
+#if __IGNORE
+	static var tfnt
+	Int MProcess=12
+	Progress.Create("AAA_LOADSAVEGAME",MProcess,180,255,0)
+	Loading()
+	Progress.AAA_LOADSAVEGAME = 1
+	Loading()
+	CSay("Clearing SaveGame buffer")
+	Progress.AAA_LOADSAVEGAME = 2
+	Loading()
+	SaveGame.Clear()
+	Progress.AAA_LOADSAVEGAME = 3
+	Loading()
+	SaveGame.Assign(f)
+	CSayF("Loading: %s",f)
+	//try
+		// Load in general
+		Progress.AAA_LOADSAVEGAME = 4
+		Loading()
+		SaveGame.Load()
+		// Game Vars (must be first, as some data I need later is in there!
+		Progress.AAA_LOADSAVEGAME = 5
+		Loading()
+		CSayF("Parsing Game Vars")
+		NeilDoString(SaveGame.Data["GAMEVARS.NEIL"],"SG:GameVars.Neil")
+		// Inventory
+		Progress.AAA_LOADSAVEGAME = 6
+		Loading()
+		CSay("Loading Inventory")
+		State.Load("SUB_ITEMS","Script/Subs/SubItems.neil")
+		Progress.AAA_LOADSAVEGAME = 7
+		State.Call("SUB_ITEMS","LoadInventory","nil")
+		// Map
+		Progress.AAA_LOADSAVEGAME = 8
+		Loading()
+		CSay("Loading Field Flow")
+		Flow.Load("FIELD","Script/Flow/FlowField.neil")
+		CSay("Map stuff")
+		Progress.AAA_LOADSAVEGAME = 9
+		CSay("Parsing Permakills")
+		Loading()
+		State.Call("FLOW_FIELD","FlowField.Kill.LG","nil")
+		Progress.AAA_LOADSAVEGAME = 10		
+		Loading()
+		State.Call("FLOW_FIELD","FlowField.Map.LG","nil")	
+		Progress.AAA_LOADSAVEGAME = 11
+		Loading()
+		//Ach.Load() // To do!
+		Progress.AAA_LOADSAVEGAME = 12
+		Loading()
+		//WorldMap // Todo!
+	//catch e
+	// Lua.error("Loading game not yet implemented. Working on it!")
+	if SaveGame.HasData("KILL ME")
+		SaveGame.Mutilate()
+	end
+	Progress.Kill("AAA_LOADSAVEGAME")
+	return true
+#else
+	return false
+#fi
+
+end
+
+
+global string GetSGFileName(int page,int slot)
+	return SPRINTF("The Fairy Tale Revamped - Saved Game.%06d.%03d",page,slot)
+end
+
+global table GetHeader(int page,int i)
+Lua.error("Get Header not yet implemented")
+
+//	table ret:={}
+//	string h := SaveGame.GetHeader(GetSGFileName(page,i))
+	//// cout("<SaveGame Header ",i,">\n",h,"\n</SaveGame Header>\n")
+	//table lines := XSplit(h,"\n")
+	//for _,line in ipairs(lines)
+		//// cout("Parse> ",line,"\n")
+		//table chopped = XSplit(line,":")
+		//print(Serialize("chopped",chopped),Len(chopped))
+		//if len(chopped)==2
+		//	ret[chopped[0]] = chopped[1]
+		//end
+	//end
+	////print(Serialize("SG"..page.."."..i,ret))
+	//return ret
+	
+end
