@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.01.09
+// version: 26.01.20
 // 
 // End License
 
@@ -74,7 +74,7 @@ End
 	End
 	
 	Void GoSelect()
-		State.Load("FLOW_PROLOGUESELECT","Script/Flow/FlowPrologueCharSelect.neil")
+		State.Load("FLOW_PROLOGUESELECT","Script/Flow/FlowPrologueCharSelect.lbc")
 		Flow.GoToFlow("PROLOGUESELECT")
 	End
 	

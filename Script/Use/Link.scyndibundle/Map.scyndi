@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Link.scyndibundle/Map.scyndi
 // 
-// 	  Version: 26.01.14 IX
+// 	  Version: 26.01.17 III
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -45,8 +45,12 @@
 
 Module
 
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/Kthura"
 #use "Libs/SCI/SString"
+#use "Libs/SCI/InterVar"
 
+#use "Script/Use/Anyway"
 #use "Script/Use/Convert"
 
 Global Table MapScript
@@ -105,6 +109,7 @@ End
 	
 	Set String Layer
 		//ISSet("STRING","FLOW_FIELD","FlowField.Map.Layer",Value)
+		Kthura.CurrentLayer = Value
 		gStr.Map_Layer = Value
 	End
 
@@ -124,16 +129,20 @@ End
 	End
 	
 	Get Int ScrollX
-		Return ISGET.Int("FLOW_FIELD","FlowField.Map.ScrollX")
+		//Return ISGET.Int("FLOW_FIELD","FlowField.Map.ScrollX")
+		Return gInt.ScrollX
 	End
 	Set Int ScrollX
-		ISSET("INT","FLOW_FIELD","FlowField.Map.ScrollX",value)
+		//ISSET("INT","FLOW_FIELD","FlowField.Map.ScrollX",value)
+		gInt.ScrollX=Value
 	End
 	Get Int ScrollY
-		Return ISGET.Int("FLOW_FIELD","FlowField.Map.ScrollY")
+		//Return ISGET.Int("FLOW_FIELD","FlowField.Map.ScrollY")
+		Return gInt.ScrollX
 	End
 	Set Int ScrollY
-		ISSET("INT","FLOW_FIELD","FlowField.Map.ScrollY",value)
+		//ISSET("INT","FLOW_FIELD","FlowField.Map.ScrollY",value)
+		gInt.ScrollY=Value
 	End
 	#endregion
 
@@ -169,7 +178,7 @@ End
 	End
 	
 	Void LoadMap(string Map)
-		If ApolloState.Name=="MAPSCRIPT"
+		If Sys.StateName=="MAPSCRIPT"
 			MCall("FlowField.Schedule.Add","LOAD:"..Map)
 		Else
 			MCall("FlowField.LoadMap",Map)
@@ -181,7 +190,8 @@ End
 	End
 	
 	Bool HasTag(string Tag)
-		Return ISGET.BOOL("FLOW_FIELD",sPrintF("FlowField.Map.CurLayer.HasTag(\"%s\")",Tag))
+		//Return ISGET.BOOL("FLOW_FIELD",sPrintF("FlowField.Map.CurLayer.HasTag(\"%s\")",Tag))
+		Return Kthura.HasTag(Tag)
 	End
 	
 	Void GoToMap(string aMap,string aLayer,string SpawnPoint)
@@ -199,6 +209,7 @@ End
 
 	
 	Void GoToLayer(string aLayer, string SpawnPoint)
+		locExtern Self "Map"
 		If HasTag("PLAYER")
 			Self.Kill("PLAYER",False)
 		End
@@ -231,8 +242,13 @@ End
 		Spawn("PLAYER",a,b)
 	End
 	
-	Void Script(String Func,Args="nil")
+	Void _Script(String Func,Args)
 		State.Call("MAPSCRIPT","MScript."..Func,"\""..Lua.tostring(Args).."\"")
+	End
+	
+	Get Var $Script
+		locextern s "self"
+		return s._Script
 	End
 	
 	Void SG()
@@ -438,7 +454,8 @@ End
 		String Raw := ISGET.String("FLOW_FIELD",sprintf("FlowField.Map.CurrentLayer.SLabelEnum(\"%s\")",Label))
 		Table Tab := XSplit(Raw,";")
 		Int I=0
-		Var Ret()
+		//Var Ret()
+		dDef Ret
 			I++
 			If I>len(Tab)
 				Return Nil
@@ -507,7 +524,11 @@ End
 		end
 		m.__index = idx
 		MapScript = Lua.setmetatable({},m)
-		string MetaIndex(s,string key)
+		//string MetaIndex(s,string key)
+		dDef MetaIndex
+			plua s
+			String key
+			s,key = infinity
 			//CSayF("Remoye Map Meta Request: %s",key)
 			return ISGET.STRING("FLOW_FIELD",sprintf("FlowField.Map.KthuraMap.Meta[\"%s\"]",key))
 		end

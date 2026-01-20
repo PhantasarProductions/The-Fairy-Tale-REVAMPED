@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.01.11 VI
+// version: 26.01.20
 // 
 // End License
 
@@ -44,11 +44,14 @@ Script
 #use "Libs/SCI/Sys"
 #use "Libs/SCI/Graphics"
 
+#use "Script/Use/Link"
 #use "Script/Use/Anyway"
 #use "Script/Use/Convert"
 #use "Script/Use/Misc/Prologue"
 #use "Script/Use/Misc/Box_Class"
 #use "libs/ModVector"
+
+
 
 
 Class PersonCard
@@ -144,7 +147,7 @@ Global Void MainFlow()
 			Default
 				RPGParty[1] = PersonCard.Lst[Sel].Name
 		End
-		State.LoadNew("FLOW_FIELD","Script/Flow/FlowField.Neil")
+		State.LoadNew("FLOW_FIELD","Script/Flow/FlowField.lbc")
 		Map.GoToMap("PRO_Empty","EMPTY","Start")
 		//Lua.error("Start to dungeon not yet ready")
 		Flow.Current = "FLOW_FIELD"

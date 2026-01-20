@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Anyway.scyndibundle/Algemeen.scyndi
 // 
-// 	  Version: 26.01.06
+// 	  Version: 26.01.17
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -54,7 +54,7 @@ Module
 // Not likely to release a demo anymore, but hey, this way I can make things sure, eh?
 extern __FullVersion "True"
 
-extern __Game "\"The Fairy Tale\""
+extern __Game "'The Fairy Tale'"
 extern __PartyLevel "0"
 
 extern __White   "Scyndi.Globals.SetColor(255,255,255)"
