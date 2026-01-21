@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.01.20 I
+// version: 26.01.21 II
 // 
 // End License
 
@@ -85,7 +85,7 @@ Var BX
 Init	
 	bool Klaar = true
 	RPGPARTY.MAX = 4
-	BX = new Box(0,0,Screen.W,Screen.H,false)
+	BX = new CBox(0,0,Screen.W,Screen.H,false)
 	//new Box(0,0,Screen.W,Screen.H)
 	For Ch in each { [0]="Jake", "Marrilona", "Dandor", "HandoStillor" }
 		If !Prologue.Done[Ch]
@@ -129,7 +129,7 @@ Global Void MainFlow()
 			End
 		End
 	End
-	Graphics.SetScale(D,D)
+	Graphics.Scale(D,D)
 	Int cw = math.floor(D*250)
 	If Mouse.ML && Mouse.MX>(Screen.W div 2)-cw && Mouse.MX<(Screen.W div 2)+cw
 		Graphics.Cls()
@@ -154,6 +154,6 @@ Global Void MainFlow()
 		Schedule.Add("Start"..PersonCard.Lst[Sel].Name)
 	End
 	PersonCard.Lst[Sel].Card.Draw((Screen.W div 2),PY)
-	Graphics.SetScale(1,1)
+	Graphics.Scale(1,1)
 	Mouse.Draw()
 End
