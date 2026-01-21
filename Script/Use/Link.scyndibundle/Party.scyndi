@@ -1,8 +1,8 @@
-// License Information:
+// License:
 // **********************************************
 // 
-// src/Tricky Script/Script/Use/Link.neilbundle/Party.neil
-// (c) Jeroen Broks, 2021, 2022, All Rights Reserved.
+// src/Code/Script/Use/Link.scyndibundle/Party.scyndi
+// (c) Jeroen Broks, 2021, 2022, 2026, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -24,6 +24,7 @@
 // from it, you can use it under that license.
 // Please check out the other files to find out
 // which license applies.
+// 
 // This file comes 'as-is' and in no possible
 // way the author can be held responsible of
 // any form of damages that may occur due to
@@ -32,20 +33,30 @@
 // 
 // **********************************************
 // 
-// version: 22.02.22
-// End License Information
-
-Void LoadPartySub()
-	State.LoadNew("PARTY","Script/Subs/SubParty.Neil")
-End
+// 
+// version: 26.01.21 VI
+// 
+// End License
 
 
 Module
+
+
+#use "Script/Use/Anyway"
+#use "Script/Use/Convert"
+
+
+
+Void LoadPartySub()
+	State.LoadNew("PARTY","Script/Subs/SubParty.lbc")
+End
+
+
 	Int EVASION(ch)                          
-		If not prefixed(ch,"FOE")
-			Int spd = RPGChar[ch].Stat.END_Speed
-			Number rate = 0.09 / gv.gint.Skill
-			Int eva = math.floor(spd * rate)
+		If !prefixed(ch,"FOE")
+			Int spd := RPGChar[ch].Stat.END_Speed
+			Number rate := 0.09 / gv.gint.Skill
+			Int eva := math.floor(spd * rate)
 			RPGChar[ch].Stat.END_Speed.BASE_Evasion = eva
 		End                                          
   		Return RPGChar[ch].Stat.END_Speed.BASE_Evasion
@@ -74,7 +85,7 @@ Module
   	
   	Var Pairs()
   		int i=0
-  		Var Ret()
+  		dDef Ret
   			i++
   			If i>4 
   				Return nil,nil
@@ -115,9 +126,9 @@ Module
   	End
   	
   	Void IncSkill(String Tag, Int Skill, Int Experience,Force)
-  		String TagLevel = sPrintF("LVL_Skill%d",Skill)
-  		String TagExpnc = sPrintF("EXP_Skill%d",Skill)
-  		String TagTitle = sPrintF("Skill%d",Skill)
+  		String TagLevel := sPrintF("LVL_Skill%d",Skill)
+  		String TagExpnc := sPrintF("EXP_Skill%d",Skill)
+  		String TagTitle := sPrintF("Skill%d",Skill)
   		RPGChar[Tag].Points.LVL_Skill1.Have = math.max(1,RPGChar[Tag].Points.LVL_Skill1.Have) 
   		If (RPGChar[Tag].Points[TagLevel].Have>0 || Force) && RPGChar[Tag].Points[TagLevel].Have<RPGChar[Tag].Points[TagLevel].Maximum
   			RPGChar[Tag].Points[TagExpnc].Have += Experience
@@ -127,12 +138,12 @@ Module
   				SetSkill(Tag,Skill,RPGChar[Tag].Points[TagLevel].Have+1)
   				SkillLvlUpMsg(Tag,RPGChar[Tag].Data[TagTitle].." level up",SLUC[Skill][1],SLUC[Skill][2],SLUC[Skill][3])
   				SkillUpBonus(Tag,RPGChar[Tag].Points[TagLevel].Have)
-  				Var SLUV = NeilUse("Script/Data/Char/"..Tag.."/SkillUp")
+  				SLUV := NeilUse("Script/Data/Char/"..Tag.."/SkillUp")
   				//For k,v in sPairs(SLUV)
-  				Var SLUVS = SLUV["askillup"..skill]
+  				SLUVS := SLUV["askillup"..skill]
   				if SLUVS && SLUVS[1] && SLUVS[2]
-  					plua k = SLUVS[1]
-  					plua v = SLUVS[2]
+  					k := SLUVS[1]
+  					v := SLUVS[2]
   					Lua.Neil.Globals.CSayF("Due to skill %d going up on %s stat '%s' goes up by %02d",Skill,Tag,k,v)
   					RPGChar[Tag].Stat["PERMABUFF_"..k] += v
   				End
@@ -146,10 +157,12 @@ Module
   		End
   		Return ( (RPGChar.Marrilona.Points.HP.Have/RPGChar.Marrilona.Points.HP.Maximum)*100) < (20-(__skill*5))
   	End
+
+  	Void Niks()
+  	End
   	
-  	Constructor
-  		Void Niks()
-  		End
+  	
+  	Init
   		SkillLvlUpMsg = NIKS
   		SkillUpBonus = NIKS
   		SLUC = {}
@@ -159,4 +172,4 @@ Module
   		SLUC += {255,180,180}
   		SLUC += {255, 68,  0}  			
   	End
-End
+//End
