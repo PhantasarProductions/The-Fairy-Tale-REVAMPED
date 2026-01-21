@@ -1,8 +1,8 @@
-// License Information:
+// License:
 // **********************************************
 // 
-// src/Tricky Script/Script/Subs/SubParty.neil
-// (c) Jeroen Broks, 2021, 2022, All Rights Reserved.
+// src/Code/Script/Subs/SubParty.scyndi
+// (c) Jeroen Broks, 2021, 2022, 2026, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -24,6 +24,7 @@
 // from it, you can use it under that license.
 // Please check out the other files to find out
 // which license applies.
+// 
 // This file comes 'as-is' and in no possible
 // way the author can be held responsible of
 // any form of damages that may occur due to
@@ -32,19 +33,28 @@
 // 
 // **********************************************
 // 
-// version: 22.03.13
-// End License Information
+// 
+// version: 26.01.21 V
+// 
+// End License
+
+
+Script
+
+#use "Libs/SCI/SString"
+#use "Libs/SCI/Graphics"
 
 #Use "Script/Use/Anyway"
-#Use "Script/Use/Misc/Box"
+#use "Script/Use/Convert"
+#Use "Script/Use/Misc/Box_Class"
 #Use "Libs/XMath"
 
 #macro __BoxPosY Screen.H-100
 
-Table SubStat = {"BASE","BUFF","PERMABUFF","EQUIP","END","MASTER"}
-Table Stats = {"Power","Endurance","Intelligence","Resistance","Speed","Accuracy","Evasion","Critical","HP","AP"}
-Table Elements = {"Flame","Wind","Water","Earth","Lightning","Frost","Light","Darkness"}
-Table Ailments = {"Poison","Disease","Paralysis","Curse","Silence","Sleep","Death"}
+Table SubStat = {[0]="BASE","BUFF","PERMABUFF","EQUIP","END","MASTER"}
+Table Stats = {[0]="Power","Endurance","Intelligence","Resistance","Speed","Accuracy","Evasion","Critical","HP","AP"}
+Table Elements = {[0]="Flame","Wind","Water","Earth","Lightning","Frost","Light","Darkness"}
+Table Ailments = {[0]="Poison","Disease","Paralysis","Curse","Silence","Sleep","Death"}
 
 
 
@@ -52,29 +62,29 @@ Group SubParty
 
 	Table Pictures = {}
 	
-	ReadOnly Var Fnt = ImageFont.Obtain("FNTSBAR") 
-	ReadOnly Var BFnt = ImageFont.Obtain("FNTSTATSTAT")
+	ReadOnly Var Fnt = ObtainFont("FNTSBAR") 
+	ReadOnly Var BFnt = ObtainFont("FNTSTATSTAT")
 
 	Void GrabLevel(string char,Int Level, noauto)
-		String n = char
+		String n := char
 		//string dat = JCR6.LoadString(sprintf("Data/LvStats/%s/%d",n,math.floor(level/100)))
-		String dat = JCR6.LoadString(sPrintF("Data/CharStats/%s",n))
-		Table tdat = Split(dat,"\n")
+		String dat := JCR6.LoadString(sPrintF("Data/CharStats/%s",n))
+		Table tdat := XSplit(dat,"\n")
 		Int lvl = -100
 		For line in each(tdat)
 			If line!="" 
-				Table ins = split(line," ")
-				Switch ins[1]
+				Table ins = xsplit(line," ")
+				Switch ins[0]
 					Case "REM"
 						// DO NOTHING!
 					Case "LEVEL"
-						lvl = lua.tonumber(ins[2])
+						lvl = lua.tonumber(ins[1])
 					Default
-						If prefixed(ins[1],"STAT.") 
+						If prefixed(ins[0],"STAT.") 
 							If lvl==level
-								String st = right(ins[1],#ins[1]-5)
-								RPGChar[Char].Stat["BASE_"..st] = Lua.tonumber(ins[2])
-								Print("\t= "..st.." for "..Char.." is "..ins[2])
+								String st := right(ins[0],len(ins[0])-5)
+								RPGChar[Char].Stat["BASE_"..st] = Lua.tonumber(ins[1])
+								Print("\t= "..st.." for "..Char.." is "..ins[1])
 							End
 						Else
 							Lua.error("Unknown instruction! >> "..line)
@@ -159,7 +169,7 @@ Group SubParty
 				//RPGChar.Create("Nostramantu_Human")
 				//Var Nos = RPGChar.Nostramantu_Human
 				RPGChar.Create(Char)
-				Var Nos = RPGChar[Char]
+				Var Nos := RPGChar[Char]
 				Nos.Name = "Nostramantu"
 				Nos.Stat.Level = 1234567
 				Nos.Stat.Experience = 12345678
@@ -226,7 +236,7 @@ Group SubParty
 					End		
 				End
 			End
-			String Str="SUM:"..char
+			String Str:="SUM:"..char
 			For SBS in Each(SuBStat)
 				If SBS!="END"
 					
@@ -281,8 +291,8 @@ Group SubParty
 			End
 			Return
 		End
-		Var c = RPGChar[Ch]
-		Var s = c.Stats
+		Var c := RPGChar[Ch]
+		Var s := c.Stats
 		// Reset to 0
 		For stag In Each(Stats)
 			s["EQUIP_"..stag] = 0
@@ -337,7 +347,7 @@ Group SubParty
 
 	Void Boxes(string HLChar="")
 		Ach.Show()
-		Static Table Boxes = { new Box(0,__BoxPosY,20,128,false),new Box(0,__BoxPosY,20,128,false),new Box(0,__BoxPosY,20,128,false),new Box(0,__BoxPosY,20,128,false)}
+		Static Table Boxes = { New CBox(0,__BoxPosY,20,128,false),New CBox(0,__BoxPosY,20,128,false),New CBox(0,__BoxPosY,20,128,false),New CBox(0,__BoxPosY,20,128,false)}
 		Int C  = PartyCount
 		Int M3 = 0
 		Int W = Screen.W Div C
