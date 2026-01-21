@@ -1,7 +1,7 @@
 // License:
 // 	src/Code/Script/Use/Convert.ScyndiBundle/State_And_Flow.scyndi
 // 	State & Flow Void
-// 	version: 26.01.20
+// 	version: 26.01.21
 // 
 // 	Copyright (C) 2026 Jeroen P. Broks
 // 
@@ -30,6 +30,7 @@ Group State
 	Void LoadFlow(String Fln,String FFile); Sys.LoadState("FLOW_"..Fln,FFile); End
 	Link Kill = Sys.KillState
 	Link Load = Sys.LoadState
+	Link LoadNew = Sys.LoadNewState
 End
 
 
