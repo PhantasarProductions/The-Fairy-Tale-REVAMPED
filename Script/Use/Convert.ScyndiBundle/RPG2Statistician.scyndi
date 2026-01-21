@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Convert.ScyndiBundle/RPG2Statistician.scyndi
 // 
-// 	  Version: 26.01.20
+// 	  Version: 26.01.21 VIII
 // 	
 // 	  Copyright (C) 2026 Jeroen Petrus Broks
 // 	
@@ -43,15 +43,50 @@
 // End License
 Module
 
+#use "Libs/SCI/Sys"
 #use "Libs/SCI/Statistician"
+
+#use "Script/Use/Misc/Box_Class"
+
+plua _rpgstat = Statistician.CreateNew("TFT")
+plua _statsubs
+
+Get Var TrueRPG; return _rpgstat; End
+locExtern NT "type"
 
 QuickMeta RPGParty
 	NewIndex
-		Lua.error("RPGParty not yet set up for writing")
+		switch NT(Key)
+			case "string"
+				key=upper(key)
+				switch key
+					case "MAX"
+						CSayF("Max Party set to %d",Value)
+						_rpgstat.Party.Max = Value
+					default
+						Lua.error("W:RPG Party key unknown: "..key)
+				end
+			default
+				Lua.error("W:RPG Party can't handle key of type "..NT(Key))
+		end
+		//Lua.error(sprintf("RPGParty not yet set up for writing value '%s' to key %s",value,key))
 	End
 	
 	Index
-		Lua.error("RPGParty not yet set up for reading")
+		//Lua.error("RPGParty not yet set up for reading")
+		switch NT(Key)
+			case "string"
+				key=upper(key)
+				switch key
+					case "MAX"
+						//CSayF("Max Party set to %d",Value)
+						return _rpgstat.Party.Max
+					default
+						Lua.error("R:RPG Party key unknown: "..key)
+				end
+			default
+				Lua.error("R:RPG Party can't handle key of type "..NT(Key))
+		end
 	End
 End
 
@@ -67,12 +102,12 @@ QuickMeta RPGChar
 End
 
 
-QuickMeta Party
-	NewIndex
-		Lua.error("Party not yet set up for writing")
-	End
+//QuickMeta Party
+//	NewIndex
+//		Lua.error("Party not yet set up for writing")
+//	End
 	
-	Index
-		Lua.error("Party not yet set up for reading")
-	End
-End
+//	Index
+//		Lua.error(sprintf("Party not yet set up for reading: %s",key))
+//	End
+//End
