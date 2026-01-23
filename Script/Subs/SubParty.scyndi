@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.01.21 V
+// version: 26.01.21 VIII
 // 
 // End License
 
@@ -44,6 +44,7 @@ Script
 #use "Libs/SCI/SString"
 #use "Libs/SCI/Graphics"
 
+#Use "Script/Use/Link"
 #Use "Script/Use/Anyway"
 #use "Script/Use/Convert"
 #Use "Script/Use/Misc/Box_Class"
@@ -305,7 +306,7 @@ Group SubParty
 		End
 		// Now let's get ready to rumble
 		For EQS in Each{"Weapon","Armor","Jewel"}
-			String EQI = Trim(C.Data["EQUIP_"..EQS]:upper())
+			String EQI := Trim(C.Data["EQUIP_"..EQS]:upper())
 			CSayF("%s>%s -> '%s'",Ch,EQS,EQI)
 			If EQI!=""
 				Var I = Item[EQI]
