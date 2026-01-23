@@ -1,58 +1,74 @@
-// License Information:
-// src/Tricky Script/Script/Use/Link.neilbundle/Item.neil
-// Version: 22.07.30
-// Copyright (C) 2021, 2022 Jeroen Petrus Broks
+// License:
+// 	  src/Code/Script/Use/Link.scyndibundle/Item_h.scyndi
 // 
-// ===========================
-// This file is part of a project related to the Phantasar Chronicles or another
-// series or saga which is property of Jeroen P. Broks.
-// This means that it may contain references to a story-line plus characters
-// which are property of Jeroen Broks. These references may only be distributed
-// along with an unmodified version of the game.
+// 	  Version: 26.01.23 VI
+// 	
+// 	  Copyright (C) 2020, 2021, 2026 Jeroen Petrus Broks
+// 	
+// 	  ===========================
+// 	  This file is part of a project related to the Phantasar Chronicles or another
+// 	  series or saga which is property of Jeroen P. Broks.
+// 	  This means that it may contain references to a story-line plus characters
+// 	  which are property of Jeroen Broks. These references may only be distributed
+// 	  along with an unmodified version of the game.
 // 
-// As soon as you remove or replace ALL references to the storyline or character
-// references, or any termology specifically set up for the Phantasar universe,
-// or any other univers a story of Jeroen P. Broks is set up for,
-// the restrictions of this file are removed and will automatically become
-// zLib licensed (see below).
+// 	  As soon as you remove or replace ALL references to the storyline or character
+// 	  references, or any termology specifically set up for the Phantasar universe,
+// 	  or any other univers a story of Jeroen P. Broks is set up for,
+// 	  the restrictions of this file are removed and will automatically become
+// 	  zLib licensed (see below).
 // 
-// Please note that doing so counts as a modification and must be marked as such
-// in accordance to the zLib license.
-// ===========================
-// zLib license terms:
-// This software is provided 'as-is', without any express or implied
-// warranty.  In no event will the authors be held liable for any damages
-// arising from the use of this software.
-// Permission is granted to anyone to use this software for any purpose,
-// including commercial applications, and to alter it and redistribute it
-// freely, subject to the following restrictions:
-// 1. The origin of this software must not be misrepresented; you must not
-// claim that you wrote the original software. If you use this software
-// in a product, an acknowledgment in the product documentation would be
-// appreciated but is not required.
-// 2. Altered source versions must be plainly marked as such, and must not be
-// misrepresented as being the original software.
-// 3. This notice may not be removed or altered from any source distribution.
-// End License Information
+// 	  Please note that doing so counts as a modification and must be marked as such
+// 	  in accordance to the zLib license.
+// 	  ===========================
+// 
+// 
+// 	  zLib license terms:
+// 	
+// 	  This software is provided 'as-is', without any express or implied
+// 	  warranty.  In no event will the authors be held liable for any damages
+// 	  arising from the use of this software.
+// 
+// 	  Permission is granted to anyone to use this software for any purpose,
+// 	  including commercial applications, and to alter it and redistribute it
+// 	  freely, subject to the following restrictions:
+// 	
+// 	  1. The origin of this software must not be misrepresented; you must not
+// 	     claim that you wrote the original software. If you use this software
+// 	     in a product, an acknowledgment in the product documentation would be
+// 	     appreciated but is not required.
+// 	  2. Altered source versions must be plainly marked as such, and must not be
+// 	     misrepresented as being the original software.
+// 	  3. This notice may not be removed or altered from any source distribution.
+// End License
+Module
+
+#use "Libs/SCI/Sys"
+
+#use "Script/Use/Convert"
 
 #macro __LoadItemState State.LoadNew("SUB_ITEMS","Script/Subs/SubItems.Neil")
 
-#macro __CSay Lua.Neil.Globals.CSay
+// In Apollo this was needed, but in SCI this is not needed, but saves me a crap load of work.
+//#macro __CSay Lua.Neil.Globals.CSay
+LocExtern __CSay "Scyndi.Globals.CSay"
+LocExtern __CSayF "Scyndi.Globals.CSayF"
+
 
 Var IndexTypes
 
 Var __Overview(int x, int y, int w, int h, string filter,string char="Nobody")
 	__LoadItemState
-	string Ret = ISGET.String("SUB_ITEMS",sPrintF("OverView(%d,%d,%d,%d,'%s','%s')",x,y,w,h,filter,char))
+	string Ret := ISGET.String("SUB_ITEMS",sPrintF("OverView(%d,%d,%d,%d,'%s','%s')",x,y,w,h,filter,char))
 	If Ret==""
 		Return "",nil
 	End
-	Return Ret,Lua.Neil.Globals.Item[Ret]
+	Return Ret,Lua.Scyndi.Globals.Item[Ret]
 End
 	
 Var __AblOverView(string char,int x,int y, int w, int h,string situation)
 	__LoadItemState
-	string Ret = ISGET.String("SUB_ITEMS",sPrintF("AblOverView('%s',%d,%d,%d,%d,'%s')",char,x,y,w,h,situation))
+	string Ret := ISGET.String("SUB_ITEMS",sPrintF("AblOverView('%s',%d,%d,%d,%d,'%s')",char,x,y,w,h,situation))
 	If Ret==""
 		Return "",nil
 	End
@@ -74,7 +90,7 @@ End
 
 Var __TagIndex(s,string Key)
 	Static Table Ret = {}
-	Key = Key:upper()
+	Key = Upper(Key)
 	Switch Key
 		Case "CASH"
 			return gv.gint.Cash
@@ -86,20 +102,26 @@ Var __TagIndex(s,string Key)
 		Case "ABLOVERVIEW" "ABILITYOVERVIEW"
 			return __AblOverview
 		Case "SAVE"
-			Void _S()
+			//Void _S()
+			dDef _S
 				__LoadItemState
 				State.Call("SUB_ITEMS","SaveInventory","nil")
 			End
 			Return _S
 		Case "EMPTY"
-			Void _E()
+			//Void _E()
+			dDef _E
 				__LoadItemState
 				State.Call("SUB_ITEMS","EmptyInventory","nil")
 			End
 			Return _E
 		Default
 			if !ret[Key]	
-				Var __ItemIndex(s, Key2)
+				//Var __ItemIndex(s, Key2)
+				dDef __ItemIndex
+					plua s
+					plua Key2
+					s,key = Infinity
 					Lua.assert(Lua.type(Key2)=="string","String expected as key for item "..Key.." but what I got is "..Lua.type(Key2).."("..Lua.tostring(key2)..")")
 					Key2 = Key2:upper()
 					If Key2=="GIVE"
@@ -112,16 +134,18 @@ Var __TagIndex(s,string Key)
 						//CSayF("Getting sell price of item %s",Key)
 						return ISGET.INT("SUB_ITEMS",sprintf("GetSellPrice(\"%s\")",Key))
 					elseif Key2=="HASFIELD"
-						bool fuck(string K) 
+						//bool fuck(string K)
+						ddef Fuck
+							String K:=Infinity
 							IndexTypes = IndexTypes || NeilUse("Script/Use/Misc/ItemIndexTypes")
-							return NeilSomething(IndexTypes[K:upper()])
+							return NeilSomething(IndexTypes[Upper(K)])
 						end
 						return fuck
 					End
 					__LoadItemState
 					
 					If Prefixed(Key2,"ALLOW_")
-						Return ISGET.BOOL("SUB_ITEMS",SprintF("Allow('%s','%s')",Key,Right(Key2,#Key2-6)))
+						Return ISGET.BOOL("SUB_ITEMS",SprintF("Allow('%s','%s')",Key,Right(Key2,Len(Key2)-6)))
 					End
 					IndexTypes = IndexTypes || NeilUse("Script/Use/Misc/ItemIndexTypes")
 					Lua.assert(IndexTypes[Key2],"There is no field named "..Key2.." in the item database! ("..Key..")")
@@ -146,7 +170,7 @@ End
 
 Void __TagNewIndex(s,string Key,value)
 	//__CSay("TagNewIndex:"..Key.." >> "..value)
-	Switch key:upper()
+	Switch Upper(key)
 		Case "CASH"
 			Int MX = 2*(10^(10-gv.gint.skill))
 			__CSayF("Cash is now set to %09d shilders!",value)
@@ -156,7 +180,7 @@ Void __TagNewIndex(s,string Key,value)
 	End
 End
 
-Var Ret = Lua.setmetatable({},{["__index"]=__TagIndex,["__newindex"]=__TagNewIndex})
+//Var Ret = Lua.setmetatable({},{["__index"]=__TagIndex,["__newindex"]=__TagNewIndex})
 
 Global Bool TeachSkill(String Ch,String Skl)
 	State.Call("SUB_ITEMS","LoadAbilityList",sprintf("'%s'",Ch))
@@ -169,4 +193,13 @@ Global Bool TeachSkill(String Ch,String Skl)
 	Return True
 End
 
-Return Ret
+//Return Ret
+
+QuickMeta Item
+	index
+		return __TagIndex(Self,Key)
+	end
+	newindex
+		__TagNewIndex(Self,Key,Value)
+	end
+End
