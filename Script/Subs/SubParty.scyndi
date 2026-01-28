@@ -34,13 +34,16 @@
 // **********************************************
 // 
 // 
-// version: 26.01.21 VIII
+// version: 26.01.27 II
 // 
 // End License
 
 
 Script
 
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/JCR6"
+#use "Libs/SCI/Audio"
 #use "Libs/SCI/SString"
 #use "Libs/SCI/Graphics"
 
@@ -95,9 +98,9 @@ Group SubParty
 		End
 		RPGChar[Char].Points.HP.Have = RPGChar[Char].Points.HP.Maximum
 		If Char=="Jake_Human" && (!noauto)
-			GrabLevel("Jake_Fairy",level,true)
+			SubParty.GrabLevel("Jake_Fairy",level,true)
 		ElseIf Char=="Jake_Fairy" && (!noauto)
-			GrabLevel("Jake_Human",level,true)
+			SubParty.GrabLevel("Jake_Human",level,true)
 		End
 	End
 	
@@ -121,19 +124,19 @@ Group SubParty
 		If level>=lvl.Maximum 
 			exp.Maximum = 0 
 		End
-		lvl.Have = level or 0
+		lvl.Have = level || 0
 		lvl.Minimum = 0
 	End
 	
 	Void SetSkill(string char,int i,int level)
-		_SetSkill(RPGChar[char].Points["EXP_Skill"..i],RPGChar[char].Points["LVL_Skill"..i],Level)
+		SubParty._SetSkill(RPGChar[char].Points["EXP_Skill"..i],RPGChar[char].Points["LVL_Skill"..i],Level)
 	End
 	
 	Void CreateCharacter(string char, int level)
 		Switch Char
 			Case "Jake"
-				CreateCharacter("Jake_Human",level)
-				CreateCharacter("Jake_Fairy",level)
+				SubParty.CreateCharacter("Jake_Human",level)
+				SubParty.CreateCharacter("Jake_Fairy",level)
 				For S in Each(TotalStat)
 					For Sb in Each(SubStat)
 						if Sb!="BASE" && Sb!="END"
@@ -216,7 +219,7 @@ Group SubParty
 				RPGChar[char].Name=char
 				RPGChar[char].Stat.Level = level
 				RPGChar[char].Stat.Experience = EXP.ByLevel(Level+1)
-				Grablevel(char,level,true) // Must be true in order to prevent conflicts between te two versions of Jake.
+				SubParty.Grablevel(char,level,true) // Must be true in order to prevent conflicts between te two versions of Jake.
 		End
 		For S in Each(TotalStat)
 			For Sb in Each(SubStat)
@@ -265,7 +268,7 @@ Group SubParty
 			If i==1
 				val=1
 			End
-			_SetSkill(RPGChar[char].Points["EXP_Skill"..i],RPGChar[char].Points["LVL_Skill"..i],val)
+			SubParty._SetSkill(RPGChar[char].Points["EXP_Skill"..i],RPGChar[char].Points["LVL_Skill"..i],val)
 		End
 		NeilUse("Script/Data/Char/"..char.."/Meta")
 	End
@@ -287,7 +290,7 @@ Group SubParty
 		If Ch=="*"
 			For i=1,4
 				If RPGParty[i] && RPGParty[i]!=""
-					CheckEquip(RPGParty[i])
+					SubParty.CheckEquip(RPGParty[i])
 				End
 			End
 			Return
@@ -309,7 +312,7 @@ Group SubParty
 			String EQI := Trim(C.Data["EQUIP_"..EQS]:upper())
 			CSayF("%s>%s -> '%s'",Ch,EQS,EQI)
 			If EQI!=""
-				Var I = Item[EQI]
+				Var I := Item[EQI]
 				For stag In Each(Stats)
 					If I.hasfield("EQP_Stat_"..stag)
 						s["EQUIP_"..stag] += I["EQP_Stat_"..stag]
@@ -351,7 +354,7 @@ Group SubParty
 		Static Table Boxes = { New CBox(0,__BoxPosY,20,128,false),New CBox(0,__BoxPosY,20,128,false),New CBox(0,__BoxPosY,20,128,false),New CBox(0,__BoxPosY,20,128,false)}
 		Int C  = PartyCount
 		Int M3 = 0
-		Int W = Screen.W Div C
+		Int W := Screen.W Div C
 		Int Hover=0		
 		Graphics.Scale(1,1)
 		If C==3
@@ -360,7 +363,7 @@ Group SubParty
 		Lua.assert(C>0,"Empty party")
 		For i=1,C
 			String Ch = RPGParty[i]
-			Int W2 = W
+			Int W2 := W
 			if i==3
 				W2+=M3
 			End
@@ -403,26 +406,26 @@ Group SubParty
 				Graphics.Rect(Boxes[i].X,Boxes[i].Y,Boxes[i].W,Boxes[i].H)
 				Graphics.SetAlpha(255)
 			End
-			Var B=Boxes[i]
+			Var B:=Boxes[i]
 			// Portrait
 			__White
 				If ch==HLChar
-					plua alf = math.abs(math.floor(xmath.sin(FPS.Ticks/50)*255))
+					plua alf = math.abs(math.floor(xmath.sin(Sys.Ticks/50)*255))
 					//CSayF("Alpha: %03d / Tricks: %05d",alf,FPS.Ticks)
 					Graphics.SetAlpha(alf)
 				end
 			Portrait(ch,B.X,Screen.H)
 			Graphics.SetAlpha(255)
 			// Bars			
-			Int barx = B.X + 100
-			Int barwidth = B.W-110			
+			Int barx := B.X + 100
+			Int barwidth := B.W-110			
 			// HP
 			Do
-				Var HP = RPGChar[ch].Points.HP
-				Number Breuk = HP.Have / HP.Maximum
-				Int HPG = math.floor(255*Breuk)
-				Int HPR = math.floor(255 - HPG)
-				Int HBR = Math.floor(barwidth*Breuk)
+				Var HP := RPGChar[ch].Points.HP
+				Number Breuk := HP.Have / HP.Maximum
+				Int HPG := math.floor(255*Breuk)
+				Int HPR := math.floor(255 - HPG)
+				Int HBR := Math.floor(barwidth*Breuk)
 				// print(HPR,HPG,0)
 				Graphics.Color(50,50,50)
 				Graphics.Rect(barx,B.Y+25,barwidth,10)
@@ -433,11 +436,11 @@ Group SubParty
 			End
 			// AP
 			If RPGChar[ch].Points.AP.Maximum>0
-				Var AP = RPGChar[ch].Points.AP
-				Number Breuk = AP.Have / AP.Maximum
-				Int APG = math.floor(180*Breuk)			
-				Int ABB = 255
-				Int ABR = Math.floor(barwidth*Breuk)
+				Var AP := RPGChar[ch].Points.AP
+				Number Breuk := AP.Have / AP.Maximum
+				Int APG := math.floor(180*Breuk)			
+				Int ABB := 255
+				Int ABR := Math.floor(barwidth*Breuk)
 				// print(APR,APG,0)
 				Graphics.Color(50,50,50)
 				Graphics.Rect(barx,B.Y+50,barwidth,10)
@@ -451,9 +454,9 @@ Group SubParty
 			End
 			// Vitality (if appliccable)
 			If __Skill<3
-				Var VIT = RPGChar[ch].Points.VIT
-				Number Breuk = VIT.Have / VIT.Maximum
-				Int VBR = Math.floor(barwidth*Breuk)
+				Var VIT := RPGChar[ch].Points.VIT
+				Number Breuk := VIT.Have / VIT.Maximum
+				Int VBR := Math.floor(barwidth*Breuk)
 				// print(VITR,VITG,0)
 				Graphics.Color(50,50,50)
 				Graphics.Rect(barx,B.Y+75,barwidth,10)
