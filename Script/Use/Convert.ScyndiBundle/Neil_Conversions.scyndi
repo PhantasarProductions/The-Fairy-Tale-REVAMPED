@@ -1,7 +1,7 @@
 // License:
 // 	src/Code/Script/Use/Convert.ScyndiBundle/Neil_Conversions.scyndi
 // 	Neil Conversion Functions
-// 	version: 26.01.21
+// 	version: 26.01.24
 // 
 // 	Copyright (C) 2026 Jeroen P. Broks
 // 
@@ -29,4 +29,8 @@ Global Var NeilUse(String b)
 	pn:=StripAll(b)
 	Lua.Scyndi.Use(b)
 	return Lua.Scyndi.Class[pn]
+End
+
+Global Bool NeilSomething(v)
+	return v!=false && v!=nil 
 End
