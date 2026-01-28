@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.01.27 II
+// version: 26.01.28 III
 // 
 // End License
 
@@ -45,6 +45,7 @@ Script
 #use "Libs/SCI/JCR6"
 #use "Libs/SCI/Audio"
 #use "Libs/SCI/SString"
+#use "Libs/SCI/Intervar"
 #use "Libs/SCI/Graphics"
 
 #Use "Script/Use/Link"
@@ -351,7 +352,9 @@ Group SubParty
 
 	Void Boxes(string HLChar="")
 		Ach.Show()
-		Static Table Boxes = { New CBox(0,__BoxPosY,20,128,false),New CBox(0,__BoxPosY,20,128,false),New CBox(0,__BoxPosY,20,128,false),New CBox(0,__BoxPosY,20,128,false)}
+		//Static Table
+		LocExtern Boxes "SubParty___Boxes"
+		Boxes = Boxes || { [0]=New CBox(0,__BoxPosY,20,128,false),New CBox(0,__BoxPosY,20,128,false),New CBox(0,__BoxPosY,20,128,false),New CBox(0,__BoxPosY,20,128,false)}
 		Int C  = PartyCount
 		Int M3 = 0
 		Int W := Screen.W Div C
@@ -394,7 +397,7 @@ Group SubParty
 				AudLevelUp.Play()
 				LvScale[Ch]=1
 				RPGChar[Ch].Stat.Level++
-				Grablevel(Ch,RPGChar[Ch].Stat.Level)
+				SubParty.Grablevel(Ch,RPGChar[Ch].Stat.Level)
 				RPGChar[ch].Stat.Experience += EXP.ByLevel(RPGChar[Ch].Stat.Level)
 				RPGChar[ch].Points.HP.Have     = RPGChar[ch].Points.HP.Maximum
 				RPGChar[ch].Points.VIT.Have    = RPGChar[ch].Points.VIT.Maximum
@@ -414,7 +417,7 @@ Group SubParty
 					//CSayF("Alpha: %03d / Tricks: %05d",alf,FPS.Ticks)
 					Graphics.SetAlpha(alf)
 				end
-			Portrait(ch,B.X,Screen.H)
+			SubParty.Portrait(ch,B.X,Screen.H)
 			Graphics.SetAlpha(255)
 			// Bars			
 			Int barx := B.X + 100
