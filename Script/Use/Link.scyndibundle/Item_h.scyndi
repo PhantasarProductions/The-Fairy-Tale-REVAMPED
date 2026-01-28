@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Link.scyndibundle/Item_h.scyndi
 // 
-// 	  Version: 26.01.23 VI
+// 	  Version: 26.01.24
 // 	
 // 	  Copyright (C) 2020, 2021, 2026 Jeroen Petrus Broks
 // 	
@@ -121,9 +121,9 @@ Var __TagIndex(s,string Key)
 				dDef __ItemIndex
 					plua s
 					plua Key2
-					s,key = Infinity
+					s,key2 = Infinity
 					Lua.assert(Lua.type(Key2)=="string","String expected as key for item "..Key.." but what I got is "..Lua.type(Key2).."("..Lua.tostring(key2)..")")
-					Key2 = Key2:upper()
+					Key2 = Upper(Key2)
 					If Key2=="GIVE"
 						Return __ItmGive(Key)
 					elseif Key2=="TAG"
@@ -151,8 +151,13 @@ Var __TagIndex(s,string Key)
 					Lua.assert(IndexTypes[Key2],"There is no field named "..Key2.." in the item database! ("..Key..")")
 					Return ISGET[IndexTypes[Key2]]("SUB_ITEMS",sprintf("ItemField('%s','%s')",Key,Key2))
 				End
-				Var __ItemNewIndex(s, string Key2, value)
-					Switch Key2:upper()
+				//Var __ItemNewIndex(s, string Key2, value)
+				ddef __ItemNewIndex
+					plua s
+					String Key2
+					plua value
+					s,Key,Value=Infinity	
+					Switch Upper(Key2)
 						Case "NUM" "AMOUNT" "HAS"
 							__LoadItemState
 							//__CSayF("Linkthrough> Inventory> %s.HAS = %d",key2,value)
