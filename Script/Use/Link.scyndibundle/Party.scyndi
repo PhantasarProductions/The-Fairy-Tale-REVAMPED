@@ -34,13 +34,14 @@
 // **********************************************
 // 
 // 
-// version: 26.01.21 VI
+// version: 26.01.28 I
 // 
 // End License
 
 
 Module
 
+#use "Libs/SCI/Sys"
 
 #use "Script/Use/Anyway"
 #use "Script/Use/Convert"
@@ -64,23 +65,27 @@ End
 
   	Void CheckEquip(string Ch="*")
   		LoadPartySub()
-  		State.Call("PARTY","SubParty.CheckEquip",Sprintf("\"%s\"",Ch))
+  		//State.Call("PARTY","SubParty.CheckEquip",Sprintf("\"%s\"",Ch))
+  		Sys.Call("PARTY","SubParty.CheckEquip",Ch)
   	End
 
   	Void CreateChar(String Tag, Int Level)
   		LoadPartySub()
-  		State.Call("PARTY","SubParty.CreateCharacter",Sprintf("\"%s\",%d",Tag,level))
+  		//State.Call("PARTY","SubParty.CreateCharacter",Sprintf("\"%s\",%d",Tag,level))
+  		Sys.Call("PARTY","SubParty.CreateCharacter",Tag,level)
   		CheckEquip(Tag)
   	End	
   	
   	Void Boxes(string char="")
   		LoadPartySub()
-  		State.Call("PARTY","SubParty.Boxes",sprintf("'%s'",char))
+  		//State.Call("PARTY","SubParty.Boxes",sprintf("'%s'",char))
+  		Sys.Call("PARTY","SubParty.Boxes",char)
   	End
   	
   	Void Portrait(String Ch,Int X,Int Y)
   		LoadPartySub()
-  		State.Call("PARTY","SubParty.Portrait",Sprintf("\"%s\",%d,%d",Ch,X,Y))
+  		//State.Call("PARTY","SubParty.Portrait",Sprintf("\"%s\",%d,%d",Ch,X,Y))
+  		Sys.Call("PARTY","SubParty.Portrait",Ch,X,Y)
   	End
   	
   	Var Pairs()
@@ -122,7 +127,8 @@ End
   	Table SLUC
   	
   	Void SetSkill(String Tag, Int Skill, Int Level)
-  		State.Call("PARTY","SubParty.SetSkill",Sprintf("\"%s\",%d,%d",Tag,Skill,Level))
+  		//State.Call("PARTY","SubParty.SetSkill",Sprintf("\"%s\",%d,%d",Tag,Skill,Level))
+  		Sys.Call("PARTY","SubParty.SetSkill",Tag,Skill,Level)
   	End
   	
   	Void IncSkill(String Tag, Int Skill, Int Experience,Force)
