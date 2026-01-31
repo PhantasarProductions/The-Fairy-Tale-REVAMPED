@@ -1,8 +1,8 @@
-// License Information:
+// License:
 // **********************************************
 // 
-// src/Tricky Script/Script/Data/Char/Marrilona/Meta.neil
-// (c) Jeroen Broks, 2021, All Rights Reserved.
+// src/Code/Script/Data/Char/Feenalaria_Human/Meta.scyndi
+// (c) Jeroen Broks, 2021, 2026, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -24,6 +24,7 @@
 // from it, you can use it under that license.
 // Please check out the other files to find out
 // which license applies.
+// 
 // This file comes 'as-is' and in no possible
 // way the author can be held responsible of
 // any form of damages that may occur due to
@@ -32,26 +33,24 @@
 // 
 // **********************************************
 // 
-// version: 21.07.28
-// End License Information
+// 
+// version: 26.01.31
+// 
+// End License
+
+
+
+Module
+#use "Script/Use/Anyway"
+#use "Script/Use/Convert"
+
+
 Init
-	Var J = RPGChar.Marrilona.Data
-	Var P = RPGChar.Marrilona.Points
-	Var S = RPGChar.Marrilona.Stat
-	S.BASE_SR_Curse   = 90 div __skill
-	S.BASE_SR_Silence = 72 div __skill
-	J.Race = "Fairy"
+	Var J = RPGChar.Feenalaria_Human.Data
+	J.Skill1 = "Frying Pan Whacking"
+	J.Race = "Human"
 	J.Sex = "Female"
 	J.pvnw = "She"
 	J.bvnw = "Her"
-	J.avnw = "Her"
-	J.Skill1 = "Wand Waving Wonders"
-	J.Skill2 = "Fairy Fire Magic"
-	J.Skill3 = "Fairy Wind Magic"
-	J.Skill4 = "Fairy Water Magic"
-	J.Skill5 = "Fairy Earth Magic"
-	J.EQUIP_Weapon = "WAND_FLAME"
-	J.EQUIP_Armor  = "EQP_MARRILONA_AR1"
-
-	P.EXP_Skill1.Have = 1
+	J.avnw = "Her"	
 End
