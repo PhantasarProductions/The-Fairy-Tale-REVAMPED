@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.01.28 III
+// version: 26.01.31 V
 // 
 // End License
 
@@ -73,7 +73,7 @@ Group SubParty
 	Void GrabLevel(string char,Int Level, noauto)
 		String n := char
 		//string dat = JCR6.LoadString(sprintf("Data/LvStats/%s/%d",n,math.floor(level/100)))
-		String dat := JCR6.LoadString(sPrintF("Data/CharStats/%s",n))
+		String dat := JCR6.GetString(sPrintF("Data/CharStats/%s",n))
 		Table tdat := XSplit(dat,"\n")
 		Int lvl = -100
 		For line in each(tdat)
@@ -150,7 +150,7 @@ Group SubParty
 				RPGChar.Jake_Fairy.Link_List("Jake_Human","*")
 				RPGChar.Jake_Fairy.Link_Data("Jake_Human","*")
 				RPGChar.Jake_Human.Name = "Jake"
-				RPGChar.Jake_Human.Name = "Jake"
+				RPGChar.Jake_Fairy.Name = "Jake"
 				For i=1,5
 					RPGChar.Jake_Human.Points["EXP_Skill"..i].Have = 0 // must exist before linking, you know
 					RPGChar.Jake_Human.Points["LVL_Skill"..i].Have = 0 // must exist before linking
@@ -248,7 +248,7 @@ Group SubParty
 					Str+="."..SBS.."_"..S
 				End
 			End
-			RPGChar[char].StatScript["END_"..S]=Str
+			//RPGChar[char].StatScript["END_"..S]=Str
 			//Print(S,Str,RPGChar[char].Stat["END_"..S])
 		End
 		For A in Each(Ailments)
@@ -271,7 +271,7 @@ Group SubParty
 			End
 			SubParty._SetSkill(RPGChar[char].Points["EXP_Skill"..i],RPGChar[char].Points["LVL_Skill"..i],val)
 		End
-		NeilUse("Script/Data/Char/"..char.."/Meta")
+		NeilUse("Script/Data/Char/"..char.."_Meta")
 	End
 	
 	Get Int PartyCount
@@ -296,8 +296,15 @@ Group SubParty
 			End
 			Return
 		End
-		Var c := RPGChar[Ch]
-		Var s := c.Stats
+		if Upper(Ch)=="JAKE"
+			SubParty.CheckEquip("Jake_Fairy")
+			SubParty.CheckEquip("Jake_Human")
+			Return
+		End
+		c := RPGChar[Ch]
+		Lua.assert(c,"No Data for RPGChar."..Ch.."\n"..Lua.debug.traceback())
+		s := c.Stat
+		
 		// Reset to 0
 		For stag In Each(Stats)
 			s["EQUIP_"..stag] = 0
