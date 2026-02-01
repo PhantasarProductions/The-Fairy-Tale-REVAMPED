@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Convert.ScyndiBundle/RPG2Statistician.scyndi
 // 
-// 	  Version: 26.01.21 VIII
+// 	  Version: 26.01.31 III
 // 	
 // 	  Copyright (C) 2026 Jeroen Petrus Broks
 // 	
@@ -44,6 +44,7 @@
 Module
 
 #use "Libs/SCI/Sys"
+#use "Libs/SCI/SString"
 #use "Libs/SCI/Statistician"
 
 #use "Script/Use/Misc/Box_Class"
@@ -66,6 +67,10 @@ QuickMeta RPGParty
 					default
 						Lua.error("W:RPG Party key unknown: "..key)
 				end
+			case "number"
+				// New system starts at 0, but the old one at 1. This should prevent conflicts.
+				nk:=key-1 
+				_rpgstat.Party[nk]=Value
 			default
 				Lua.error("W:RPG Party can't handle key of type "..NT(Key))
 		end
@@ -84,11 +89,99 @@ QuickMeta RPGParty
 					default
 						Lua.error("R:RPG Party key unknown: "..key)
 				end
+			case "number"
+				// New system starts at 0, but the old one at 1. This should prevent conflicts.
+				nk:=key-1 
+				return _rpgstat.Party[nk]				
 			default
 				Lua.error("R:RPG Party can't handle key of type "..NT(Key))
 		end
 	End
 End
+
+ReadOnly Table SubStat = {[0]="BASE","BUFF","PERMABUFF","EQUIP","END","MASTER"}
+
+Int GetStat(ouwe,String Key)
+	this:=ouwe.this
+	if Prefixed(Key,"END_")
+		int r=0
+		for s in Each(SubStat)
+			r+=GetStat(ouwe,s)
+		end
+		return r
+	end
+	if !this.data.havestat(Key); return 0; end
+	return this.data.stat[key]
+End
+
+Void SetStat(ouwe,String Key,Int i)
+	if Prefixed(Key,"END_"); 
+		CSayF("END stat %s:%s got value %d",ouwe.this.Tag,Key,i)
+		Return
+	end
+	ouwe.this.ChData.stat[key]=i
+End
+
+plua StatMeta
+Init
+	StatMeta = {["__newindex"]=SetStat,["__index"]=GetStat}
+End
+
+locExtern ts "self"
+Class TFChar
+	readonly String Tag
+	ReadOnly Var ChData
+	ReadOnly Var Stat
+	Get Var Points; Return ts.ChData.Points; End
+	Get Var Data; Return ts.ChData.Data; End
+		
+	Get String Name;Return ts.ChData.Name; End
+	Set String Name
+		CSayF("Character %s is now named: %s",Tag,Value)
+		ts.ChData.Name=Value
+	End
+	
+	
+	Void Link_Stat(String TarChar,String _Stat)
+		//LinkStat(string st1,string TarChTag,string st2="")
+		ChData.LinkStat(_Stat,TarChar)
+	End
+	
+	Void Link_Data(String TarChar,String _Stat)
+		ChData.LinkData(_Stat,TarChar)
+	End
+
+	Void Link_List(String TarChar,String _Stat)
+		ChData.LinkList(_Stat,TarChar)
+	End
+
+	Void Link_Points(String TarChar,String _Stat)
+		ChData.LinkPoints(_Stat,TarChar)
+	End
+
+		
+	Constructor(String __Tag)
+		Tag=__Tag
+		ChData=TrueRPG.Char[tag]
+		CSayF("TFChar %s created",Tag)
+		Stat = SetMetaTable({["this"]=self},StatMeta)
+	End
+	
+	Destructor
+		CSayF("TFChar %s destroyed",Tag)
+	End
+end
+
+Group __RPGChar
+	Var Lijst
+	Void NewChar(string tag,name)
+		__RPGChar.Lijst=__RPGChar.Lijst||{}
+		CSayF("Creating %s > %s",tag,name || tag.." (auto)")
+		TrueRPG.NewChar(tag,name)
+		__RPGChar.Lijst[Upper(tag)]=new TFChar(tag)
+	End
+End	
+
 
 
 QuickMeta RPGChar
@@ -97,7 +190,15 @@ QuickMeta RPGChar
 	End
 	
 	Index
-		Lua.error("RPGChar not yet set up for reading")
+		//Lua.error("RPGChar not yet set up for reading")
+		Key=Upper(Key)
+		Switch Key
+			case "CREATECHARACTER" "NEWCHAR" "CREATE"
+				return __RPGChar.NewChar
+			default
+				//Lua.error(sprintf("RPGChar does not have a readable member called \"%s\"",Key))
+				return __RPGChar.Lijst[Key]
+		end
 	End
 End
 
