@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.01.21 II
+// version: 26.01.31
 // 
 // End License
 
@@ -137,16 +137,19 @@ Global Void MainFlow()
 		Graphics.Flip()
 		Mouse.Flush()
 		Sys.Sleep(400)
+		CSayF("Creating Char: %s",PersonCard.Lst[Sel].Name)
 		Party.CreateChar(PersonCard.Lst[Sel].Name, PersonCard.Lst[Sel].Lvl)
 		Switch PersonCard.Lst[Sel].Name
-			Case "Jake" 
-				RPGParty[1] = "Jake_Human"			
+			Case "Jake"
+				CSay("Jake in his human form")
+				RPGParty[1] = "Jake_Human"
 			Case "HandoStillor"
 				RPGParty[1] = "HandoStillor"
 				RPGChar.HandoStillor.Name = "Hando Stillor"
 			Default
 				RPGParty[1] = PersonCard.Lst[Sel].Name
 		End
+		CSay("Prepare to load the field")
 		State.LoadNew("FLOW_FIELD","Script/Flow/FlowField.lbc")
 		Map.GoToMap("PRO_Empty","EMPTY","Start")
 		//Lua.error("Start to dungeon not yet ready")
