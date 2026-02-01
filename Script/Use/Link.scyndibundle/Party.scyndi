@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.01.28 I
+// version: 26.01.31 I
 // 
 // End License
 
@@ -66,13 +66,14 @@ End
   	Void CheckEquip(string Ch="*")
   		LoadPartySub()
   		//State.Call("PARTY","SubParty.CheckEquip",Sprintf("\"%s\"",Ch))
+  		//print(Lua.debug.traceback()) // DEBUG ONLY!  		
   		Sys.Call("PARTY","SubParty.CheckEquip",Ch)
   	End
 
   	Void CreateChar(String Tag, Int Level)
   		LoadPartySub()
   		//State.Call("PARTY","SubParty.CreateCharacter",Sprintf("\"%s\",%d",Tag,level))
-  		Sys.Call("PARTY","SubParty.CreateCharacter",Tag,level)
+  		Sys.Call("PARTY","SubParty.CreateCharacter",Tag,level)  		
   		CheckEquip(Tag)
   	End	
   	
