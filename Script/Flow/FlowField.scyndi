@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowField.scyndi
 // 
-// 	  Version: 26.02.02 VI
+// 	  Version: 26.02.02 VII
 // 	
 // 	  Copyright (C) 2021, 2026 Jeroen Petrus Broks
 // 	
@@ -87,7 +87,8 @@ Init
 			CSayF("Skipping section %d/%d: %s => %s",idx,Aantal,File,Gestript)
 		Else
 			CSayF(" Loading section %d/%d: %s => %s",idx,Aantal,File,Gestript)
-			_real[Gestript] = NeilUse(Replace(Upper(File),".LBC",""),"FLOWFIELD."..Gestript)
+			um := NeilUse(Replace(Upper(File),".LBC",""),"FLOWFIELD."..Gestript)
+			_real[Replace(Gestript,"FF_","")] = Ternary(Prefixed(Gestript,"FF_"),um[Gestript],um)
 		End
 	End	
 	Progress.Kill("LOADFIELD")
