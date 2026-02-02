@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Link.scyndibundle/Loading_h.scyndi
 // 
-// 	  Version: 26.01.20
+// 	  Version: 26.02.02
 // 	
 // 	  Copyright (C) 2021, 2026 Jeroen Petrus Broks
 // 	
@@ -50,9 +50,9 @@ Module
 locExtern _CSayF "Scyndi.Globals.CSayF"
 
 Void LoadLoading()
-	_CSayF = Lua.Neil.Globals.CSayF
+	//_CSayF = Lua.Scyndi.Globals.CSayF
 	_CSayF("Loading the SubProgress")
-	State.LoadNew("SUB_LOADING","Script/Subs/SubProgress.neil")
+	State.LoadNew("SUB_LOADING","Script/Subs/SubProgress.lbc")
 	_CSayF("Loaded")
 End
 
