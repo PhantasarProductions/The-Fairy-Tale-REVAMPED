@@ -1,7 +1,7 @@
 // License:
 // 	src/Code/Script/Use/Anyway.scyndibundle/Mouse.scyndi
 // 	Mouse
-// 	version: 26.01.20
+// 	version: 26.02.02
 // 
 // 	Copyright (C) 2021, 2022, 2026 Jeroen P. Broks
 // 
@@ -26,6 +26,7 @@ Module
 
 #use "Libs/SCI/Events"
 #use "Libs/SCI/Graphics"
+#use "Libs/SCI/InterVar"
 
 	get bool ML
 		return Events.MouseHitLeft
@@ -42,6 +43,15 @@ Module
 	get int MY
 		return Events.MouseY
 	end
+	
+	Get Int KMX
+		return gint.ScrollX + Events.MouseX
+	End
+	
+	Get Int KMY 
+		return gint.ScrollY + Events.MouseY
+	End
+
 	
 	void Draw()
 		static var pointer := ObtainImage("MOUSE")
