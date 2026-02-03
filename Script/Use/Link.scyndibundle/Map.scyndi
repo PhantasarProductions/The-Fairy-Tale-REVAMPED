@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Link.scyndibundle/Map.scyndi
 // 
-// 	  Version: 26.01.20
+// 	  Version: 26.02.03 VII
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -58,33 +58,39 @@ Global Table MapScript
 Group Player
 
 	Set Int Dominance
-		Lua.Neil.Globals.Map.SetObj("PLAYER","Dominance",value)
+		//Lua.Neil.Globals.Map.SetObj("PLAYER","Dominance",value)
+		Kthura.Obj.Player.Dominance=value
 	End
 	
 	Get Int X
-		Return ISGet.Int("FLOW_FIELD","FlowField.Map.CurLayer.Obj('PLAYER').X")
+		//Return ISGet.Int("FLOW_FIELD","FlowField.Map.CurLayer.Obj('PLAYER').X")
+		Return Kthura.Obj.Player.X
 	End
 	
 	Get Int Y
-		Return ISGet.Int("FLOW_FIELD","FlowField.Map.CurLayer.Obj('PLAYER').Y")
+		//Return ISGet.Int("FLOW_FIELD","FlowField.Map.CurLayer.Obj('PLAYER').Y")
+		Return Kthura.Obj.Player.Y
 	End
 	
 	Void StopWalking()
-		Lua.Neil.Globals.Map.StopWalking()
+		//Lua.Neil.Globals.Map.StopWalking()
+		Kthura.Obj.Player.StopWalking()
 	End
 	
 	Void WalkTo(a,b,c)
-		Lua.Neil.Globals.Map.MCall("FlowField.Map.CurLayer.Obj('PLAYER').WalkTo",a,b,c)
+		Lua.Scyndi.AllIdentifiers.Map.MCall("FlowField.Map.CurLayer.Obj('PLAYER').WalkTo",a,b,c)
 	End
 End
 
 // For the "Follow the leader" effect
 QuickMeta Players
 	NewIndex
-		Lua.Neil.Globals.Map.SetObj("PLAYER",Key,value)
+		//Lua.Neil.Globals.Map.SetObj("PLAYER",Key,value)
+		Kthura.Obj.Player[Key]=value
 		For i=2,4
 			If RPGParty[i]!=""
-				Lua.Neil.Globals.Map.SetObj("PLAYER"..i,Key,value)
+				//Lua.Neil.Globals.Map.SetObj("PLAYER"..i,Key,value)
+				Kthura.Obj[sprintf("PLAYER%d",i)][Key]=value
 			End
 		End
 	End
@@ -93,14 +99,14 @@ End
 //Module
 
 	Get Var Ach
-		Return Lua.Neil.Globals.Ach
+		Return Lua.Scyndi.Globals.Ach
 	End
 
 	ReadOnly Var Meta
 	
-	Get Delegate CSayF
-		return Lua.Neil.Globals.CSayF
-	End
+	//Get Delegate CSayF
+	//	return Lua.Neil.Globals.CSayF
+	//End
 	
 	Get String Layer
 		//Return ISGet.String("FLOW_FIELD","FlowField.Map.Layer")
@@ -146,26 +152,29 @@ End
 	End
 	#endregion
 
-	Void MCall(String func,a,b,c,d,e,f,g,h)
-		String pr
-		For i,p in iPairs {a,b,c,d,e,f,g,h}
-			If i>1 
-				pr += ", "
-			End
-			Switch lua.type(p)
-				Case "string"
-					pr += "\""..p.."\""
-				Case "number" "boolean"
-					pr += toString(p)
-				Default
-					lua.error("Illegal MCall type "..lua.type(p))
-			End
-		End
-		If pr=="" 
-			pr = "nil"
-		End
+	//Void MCall(String func,a,b,c,d,e,f,g,h)
+	Void MCall(String func,infinity)
+		//String pr
+		//For i,p in iPairs {a,b,c,d,e,f,g,h}
+		//	If i>1 
+		//		pr += ", "
+		//	End
+		//	Switch lua.type(p)
+		//		Case "string"
+		//			pr += "\""..p.."\""
+		//		Case "number" "boolean"
+		//			pr += toString(p)
+		//		Default
+		//			lua.error("Illegal MCall type "..lua.type(p))
+		//	End
+		//End
+		//If pr=="" 
+		//	pr = "nil"
+		//End
 		//print(sprintf ("Calling %s(%s)",func,pr))
-		State.Call("FLOW_FIELD",func,pr)
+		//Sys.Call("FLOW_FIELD",func,pr)
+		
+		Sys.Call("FLOW_FIELD",func,infinity)
 	End
 
 	Void ScrollTo(Int X,Int Y,Int Speed = 1)
@@ -177,16 +186,22 @@ End
 		MCall("FlowField.Schedule.Schedule",scriptfunction)
 	End
 	
-	Void LoadMap(string Map)
+	Void LoadMap(string _Map)
+		CSayF("Map.LoadMap(\"%s\")",_Map)
+		If _Map=="nil"
+			CSay("Something odd's going on here!")
+			Sys.TraceBack()
+		End
+			
 		If Sys.StateName=="MAPSCRIPT"
-			MCall("FlowField.Schedule.Add","LOAD:"..Map)
+			MCall("FlowField.Schedule.Add","LOAD:".._Map)
 		Else
-			MCall("FlowField.LoadMap",Map)
+			MCall("FlowField.LoadMap",_Map)
 		End		
 	End
 	
-	Void Load(string Map)
-		LoadMap(Map)
+	Void Load(string _Map)
+		LoadMap(_Map)
 	End
 	
 	Bool HasTag(string Tag)
