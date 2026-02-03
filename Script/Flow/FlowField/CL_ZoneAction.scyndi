@@ -1,39 +1,55 @@
-// License Information:
-// src/Tricky Script/Script/Flow/FlowField/ZoneAction.neil
-// Version: 21.11.03
-// Copyright (C) 2020, 2021 Jeroen Petrus Broks
+// License:
+// 	  src/Code/Script/Flow/FlowField/CL_ZoneAction.scyndi
 // 
-// ===========================
-// This file is part of a project related to the Phantasar Chronicles or another
-// series or saga which is property of Jeroen P. Broks.
-// This means that it may contain references to a story-line plus characters
-// which are property of Jeroen Broks. These references may only be distributed
-// along with an unmodified version of the game.
+// 	  Version: 26.02.03 XIII
+// 	
+// 	  Copyright (C) 2020-'21, 2026 Jeroen Petrus Broks
+// 	
+// 	  ===========================
+// 	  This file is part of a project related to the Phantasar Chronicles or another
+// 	  series or saga which is property of Jeroen P. Broks.
+// 	  This means that it may contain references to a story-line plus characters
+// 	  which are property of Jeroen Broks. These references may only be distributed
+// 	  along with an unmodified version of the game.
 // 
-// As soon as you remove or replace ALL references to the storyline or character
-// references, or any termology specifically set up for the Phantasar universe,
-// or any other univers a story of Jeroen P. Broks is set up for,
-// the restrictions of this file are removed and will automatically become
-// zLib licensed (see below).
+// 	  As soon as you remove or replace ALL references to the storyline or character
+// 	  references, or any termology specifically set up for the Phantasar universe,
+// 	  or any other univers a story of Jeroen P. Broks is set up for,
+// 	  the restrictions of this file are removed and will automatically become
+// 	  zLib licensed (see below).
 // 
-// Please note that doing so counts as a modification and must be marked as such
-// in accordance to the zLib license.
-// ===========================
-// zLib license terms:
-// This software is provided 'as-is', without any express or implied
-// warranty.  In no event will the authors be held liable for any damages
-// arising from the use of this software.
-// Permission is granted to anyone to use this software for any purpose,
-// including commercial applications, and to alter it and redistribute it
-// freely, subject to the following restrictions:
-// 1. The origin of this software must not be misrepresented; you must not
-// claim that you wrote the original software. If you use this software
-// in a product, an acknowledgment in the product documentation would be
-// appreciated but is not required.
-// 2. Altered source versions must be plainly marked as such, and must not be
-// misrepresented as being the original software.
-// 3. This notice may not be removed or altered from any source distribution.
-// End License Information
+// 	  Please note that doing so counts as a modification and must be marked as such
+// 	  in accordance to the zLib license.
+// 	  ===========================
+// 
+// 
+// 	  zLib license terms:
+// 	
+// 	  This software is provided 'as-is', without any express or implied
+// 	  warranty.  In no event will the authors be held liable for any damages
+// 	  arising from the use of this software.
+// 
+// 	  Permission is granted to anyone to use this software for any purpose,
+// 	  including commercial applications, and to alter it and redistribute it
+// 	  freely, subject to the following restrictions:
+// 	
+// 	  1. The origin of this software must not be misrepresented; you must not
+// 	     claim that you wrote the original software. If you use this software
+// 	     in a product, an acknowledgment in the product documentation would be
+// 	     appreciated but is not required.
+// 	  2. Altered source versions must be plainly marked as such, and must not be
+// 	     misrepresented as being the original software.
+// 	  3. This notice may not be removed or altered from any source distribution.
+// End License
+
+
+Module
+
+#accept FlowField
+#accept Kthura
+#accept CSayF
+
+#use "Script/Use/Link"
 
 bool KettingInitDone
 
@@ -51,14 +67,15 @@ class _ZoneAction
 		var nLay
 		cLay = FlowField.Map.Layer
 		assert(prefixed(cLay,"#"),"Next/Prev only works for rooms prefixed with a #")
-		assert(#cLay==4,"Invalid Next/Prev length!")
+		assert(len(cLay)==4,"Invalid Next/Prev length!")
 		nLay = tonumber(right(cLay,3))
 		assert(nLay,"Numberic parsing error for Next/Prev ("..cLay..")")
 		//FlowField.Map.Kthura.Layer = sprintf("#%03d",nLay + inc)
-		if Map.HasTag("PLAYER")
+		if Kthura.HasTag("PLAYER")
 			Map.Kill("PLAYER")
 		end
-		FlowField.Map.Layer = sprintf("#%03d",nLay + inc)
+		//FlowField.Map.Layer = sprintf("#%03d",nLay + inc)
+		Kthura.CurrentLayer = sprintf("#%03d",nLay + inc)
 		Map.SpawnPlayer(exitpoint)
 	end
 	
@@ -76,7 +93,7 @@ class _ZoneAction
 		//	self.AltNext.NextRoom()
 		//	return
 		//end
-		RoomChange( 1,"Start")
+		_ZoneAction.RoomChange( 1,"Start")
 	end
 	
 	static void PrevRoom()
@@ -84,35 +101,41 @@ class _ZoneAction
 		//	self.AltNext.PrevRoom()
 		//	return
 		//end
-		RoomChange(-1,"Einde")
+		_ZoneAction.RoomChange(-1,"Einde")
 	end
 	
 	Static Void ShowSecret()
-		FlowField.Map.CurLayer.ShowByLabel("Secret")
+		Kthura.ShowByLabel("Secret")
 	End
 	
 	Static Void HideSecret(string L="")
-		Var Lay
+		//Var Lay
 		If L==""
-			Lay = FlowField.Map.CurLayer
+			//Lay = FlowField.Map.CurLayer
+			Kthura.HideByLabel("Secret")
+			Return
 		ElseIf L=="*"
 			For IL in each(FlowField.Map.KthuraMap.Layers)
-				HideSecret(IL)				
+				_ZoneAction.HideSecret(IL)				
 			End
 			Return
 		Else
-			Lay = FlowField.Map.KthuraMap.Layer(L)
-		ENd
-		Lay.HideByLabel("Secret")
+			//Lay = FlowField.Map.KthuraMap.Layer(L)
+			Lay:=Kthura.CurrentLayer
+			Kthura.CurrentLayer=L
+			Kthura.HideByLabel("Secret")
+			if Lay!=""; Kthura.CurrentLayer=Lay; End
+		End
+		//Lay.HideByLabel("Secret")
 	End
 
 	
 	static void Reset()
 		self.AltNext = nil;
-		self.List = self.List or {}
-		self.List.Enter = self.List.Enter or new TLinkedList()
-		self.List.Leave = self.List.Leave or new TLinkedList()
-		self.List.Cycle = self.List.Cycle or new TLinkedList()
+		self.List = self.List || {}
+		self.List.Enter = self.List.Enter || new TLinkedList()
+		self.List.Leave = self.List.Leave || new TLinkedList()
+		self.List.Cycle = self.List.Cycle || new TLinkedList()
 		for k,v in pairs(self.List) 
 			v.Clear()
 		end
@@ -129,12 +152,12 @@ class _ZoneAction
 	end
 	
 	Static Get Delegate CBLoadMap
-		Return Reset
+		Return _ZoneAction.Reset
 	End
 	
 	static void RejectReject()
 		for RR,RL in self.List.Enter.Each
-			if prefixed(RR.ActZone:upper(),"REJECT")
+			if prefixed(Upper(RR.ActZone),"REJECT")
 				CSayF("Removed %s in ZA Reject Zone",RR.ActZone)
 				RL.UnLink()
 			end
@@ -184,7 +207,7 @@ class _ZoneAction
 				else
 					//Zone.WordtInZone = FlowField.Map.Kthura.Actor.Player.IsInZone(Zone.ActZone)
 					Zone.WordtInZone = FlowField.Map.Player.IsInZone(Zone.ActZone)
-					if Zone.WordtInZone == self.CheckDels[Event].Wordt and Zone.WasInZone == self.CheckDels[Event].Was
+					if Zone.WordtInZone == self.CheckDels[Event].Wordt && Zone.WasInZone == self.CheckDels[Event].Was
 						switch Zone.ActType
 							case "function" "delegate"
 								Zone.Act(ZAXPand(Zone.ActParams))
@@ -240,4 +263,4 @@ init
 	_ZoneAction.Reset()
 end
 
-Return _ZoneAction
+//Return _ZoneAction
