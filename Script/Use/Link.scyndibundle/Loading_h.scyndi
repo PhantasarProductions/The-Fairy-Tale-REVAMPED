@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Link.scyndibundle/Loading_h.scyndi
 // 
-// 	  Version: 26.02.02
+// 	  Version: 26.02.02 III
 // 	
 // 	  Copyright (C) 2021, 2026 Jeroen Petrus Broks
 // 	
@@ -44,6 +44,7 @@
 Module
 
 #use "Libs/SCI/Sys"
+#use "Libs/SCI/InterVar"
 
 #use "Script/Use/Convert"
 
@@ -59,13 +60,14 @@ End
 void L_Create(String Tag,Int Max,int R=255,int G=180, Int B=0)
 	//LoadLoading()	
 	_CSayF("Create Progessbar >> '%s',%d,%d,%d,%d",Tag,Max,R,G,B)
-	State.Call("SUB_LOADING","ProgressBar.Create",sPrintF("'%s',%d,%d,%d,%d",Tag,Max,R,G,B))
+	//State.Call("SUB_LOADING","ProgressBar.Create",sPrintF("'%s',%d,%d,%d,%d",Tag,Max,R,G,B))
+	Sys.Call("SUB_LOADING","ProgressBar.Create",Tag,Max,R,G,B)
 	_CSayF("Progress Bar '%s' created",Tag)
 End
 
 Void L_Kill(String Tag)
 	LoadLoading()
-	State.Call("SUB_LOADING","ProgressBar.Kill",sPrintF("'%s'",Tag))
+	Sys.Call("SUB_LOADING","ProgressBar.Kill",Tag)
 	_CSayF("Progress Bar '%s' released for destruction",Tag)
 End
 
@@ -82,24 +84,26 @@ QuickMeta Progress
 				return L_Kill
 			Default
 				_CSayF("Getting progress value of '%s'",Key)
-				return ISGET.Int("SUB_LOADING",SprintF("ProgressBar.Register.%s.CurrentValue",Upper(key)))				
+				//return ISGET.Int("SUB_LOADING",SprintF("ProgressBar.Register.%s.CurrentValue",Upper(key)))
+				Sys.Call("GetCurValue",Key)
+				return gint.ProgCurValRet
 		End
 	End
 	
 	NewIndex
 		LoadLoading()
 		_CSayF("Definine value %d on progress bar: %s",value,key)
-		State.Call("SUB_LOADING",sprintf("ProgressBar.Register.%s.Define",Upper(key)),sprintf("%d",value))
+		Sys.Call("SUB_LOADING",sprintf("ProgressBar.Register.%s.Define",Upper(key)),value) //sprintf("%d",value))
 		_CSayF("Definition complete!")
 	End
 End
 
 Global Void Loading()
 	LoadLoading()
-	State.Call("SUB_LOADING","ProgressBar.LDNG","1")
+	Sys.Call("SUB_LOADING","ProgressBar.LDNG",1)
 End
 
 Global Void ConfiguringData()
 	LoadLoading()
-	State.Call("SUB_LOADING","ProgressBar.LDNG","2")
+	Sys.Call("SUB_LOADING","ProgressBar.LDNG",2)
 End
