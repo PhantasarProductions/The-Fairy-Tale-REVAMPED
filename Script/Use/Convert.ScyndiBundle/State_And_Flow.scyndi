@@ -1,7 +1,7 @@
 // License:
 // 	src/Code/Script/Use/Convert.ScyndiBundle/State_And_Flow.scyndi
 // 	State & Flow Void
-// 	version: 26.01.21
+// 	version: 26.02.02 I
 // 
 // 	Copyright (C) 2026 Jeroen P. Broks
 // 
@@ -31,6 +31,14 @@ Group State
 	Link Kill = Sys.KillState
 	Link Load = Sys.LoadState
 	Link LoadNew = Sys.LoadNewState
+	
+	Void Call(Infinity)
+		//f:={[0]=Infinity}
+		print("\x1b[32mStat.Call:",Infinity)
+		printf("\x1b[33m%s\x1b[34m\n",Lua.debug.traceback())
+		Sys.TraceBack()
+		Lua.error("State.Call should not be called!")
+	End
 End
 
 
