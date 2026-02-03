@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowField.scyndi
 // 
-// 	  Version: 26.02.02 VII
+// 	  Version: 26.02.03 VII
 // 	
 // 	  Copyright (C) 2021, 2026 Jeroen Petrus Broks
 // 	
@@ -59,7 +59,7 @@ QuickMeta FlowField
 	Index
 		k := Upper(Key)
 		If !_real[k]
-			Lua.error("No field named: "..Key)
+			Lua.error("FlowField: No field named: "..Key)
 		End
 		return _real[k]		
 	End
@@ -87,8 +87,20 @@ Init
 			CSayF("Skipping section %d/%d: %s => %s",idx,Aantal,File,Gestript)
 		Else
 			CSayF(" Loading section %d/%d: %s => %s",idx,Aantal,File,Gestript)
-			um := NeilUse(Replace(Upper(File),".LBC",""),"FLOWFIELD."..Gestript)
-			_real[Replace(Gestript,"FF_","")] = Ternary(Prefixed(Gestript,"FF_"),um[Gestript],um)
+			um := NeilUse(Replace(Upper(File),".LBC",""),"FLOWFIELD."..Replace(Gestript,"MD_",""))
+			//CSayF("FF: %s",Prefixed(Gestript,"FF_"))
+			//_real[Replace(Replace(Gestript,"FF_",""),"MD_","")] = Ternary(Prefixed(Gestript,"FF_"),um[Gestript],um)
+			_rn:=Replace(Replace(Replace(Gestript,"FF_",""),"MD_",""),"CL_","")
+			If Prefixed(Gestript,"FF_")
+				CSayF("Function section: %s",Gestript)
+				_real[_rn]=um[Gestript]
+			ElIf Prefixed(Gestript,"CL_")
+				CSayF("Class section: %s",Gestript)
+				_real[_rn]=Lua.Scyndi.Class["_".._rn]
+				
+			Else
+				_real[_rn]=um
+			End
 		End
 	End	
 	Progress.Kill("LOADFIELD")
