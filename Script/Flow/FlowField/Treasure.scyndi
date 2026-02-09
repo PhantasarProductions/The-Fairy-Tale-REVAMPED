@@ -1,57 +1,80 @@
-// License Information:
-// src/Tricky Script/Script/Flow/FlowField/Treasure.neil
-// Version: 22.03.09
-// Copyright (C) 2021, 2022 Jeroen Petrus Broks
+// License:
+// 	  src/Code/Script/Flow/FlowField/Treasure.scyndi
 // 
-// ===========================
-// This file is part of a project related to the Phantasar Chronicles or another
-// series or saga which is property of Jeroen P. Broks.
-// This means that it may contain references to a story-line plus characters
-// which are property of Jeroen Broks. These references may only be distributed
-// along with an unmodified version of the game.
+// 	  Version: 26.02.04 XII
+// 	
+// 	  Copyright (C) 2021-'22, 2026 Jeroen Petrus Broks
+// 	
+// 	  ===========================
+// 	  This file is part of a project related to the Phantasar Chronicles or another
+// 	  series or saga which is property of Jeroen P. Broks.
+// 	  This means that it may contain references to a story-line plus characters
+// 	  which are property of Jeroen Broks. These references may only be distributed
+// 	  along with an unmodified version of the game.
 // 
-// As soon as you remove or replace ALL references to the storyline or character
-// references, or any termology specifically set up for the Phantasar universe,
-// or any other univers a story of Jeroen P. Broks is set up for,
-// the restrictions of this file are removed and will automatically become
-// zLib licensed (see below).
+// 	  As soon as you remove or replace ALL references to the storyline or character
+// 	  references, or any termology specifically set up for the Phantasar universe,
+// 	  or any other univers a story of Jeroen P. Broks is set up for,
+// 	  the restrictions of this file are removed and will automatically become
+// 	  zLib licensed (see below).
 // 
-// Please note that doing so counts as a modification and must be marked as such
-// in accordance to the zLib license.
-// ===========================
-// zLib license terms:
-// This software is provided 'as-is', without any express or implied
-// warranty.  In no event will the authors be held liable for any damages
-// arising from the use of this software.
-// Permission is granted to anyone to use this software for any purpose,
-// including commercial applications, and to alter it and redistribute it
-// freely, subject to the following restrictions:
-// 1. The origin of this software must not be misrepresented; you must not
-// claim that you wrote the original software. If you use this software
-// in a product, an acknowledgment in the product documentation would be
-// appreciated but is not required.
-// 2. Altered source versions must be plainly marked as such, and must not be
-// misrepresented as being the original software.
-// 3. This notice may not be removed or altered from any source distribution.
-// End License Information
+// 	  Please note that doing so counts as a modification and must be marked as such
+// 	  in accordance to the zLib license.
+// 	  ===========================
+// 
+// 
+// 	  zLib license terms:
+// 	
+// 	  This software is provided 'as-is', without any express or implied
+// 	  warranty.  In no event will the authors be held liable for any damages
+// 	  arising from the use of this software.
+// 
+// 	  Permission is granted to anyone to use this software for any purpose,
+// 	  including commercial applications, and to alter it and redistribute it
+// 	  freely, subject to the following restrictions:
+// 	
+// 	  1. The origin of this software must not be misrepresented; you must not
+// 	     claim that you wrote the original software. If you use this software
+// 	     in a product, an acknowledgment in the product documentation would be
+// 	     appreciated but is not required.
+// 	  2. Altered source versions must be plainly marked as such, and must not be
+// 	     misrepresented as being the original software.
+// 	  3. This notice may not be removed or altered from any source distribution.
+// End License
+
+
 Module
+
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/Audio"
+#use "Libs/SCI/Kthura"
+#use "Libs/SCI/SString"
+
+#use "Script/Use/Link"
+#use "Script/Use/Anyway"
+#use "Script/Use/Convert"
+
+#accept FlowField
+LocExtern FieldFlow "Scyndi.AllIdentifiers.FlowField"
 
 	Table RandomItems
 	ReadOnly Var ChaChing = Audio.Obtain("CHACHING")
 
-	Void CBLoadMap()
+	Void CBLoadMap(String M)
 		RandomItems = {}
-		For TItem in Each(Split(FlowField.Map.KthuraMap.Meta.RandomItems,";"))
-			Table  SItem = Split(TItem,",")
-			Var    NItem = SItem[1]:upper()
-			Int    NRate = Lua.tonumber(TItem[2] || "1") || 1
-			If Prefixed(NItem,"CASH:") 
-				NItem = math.max(Lua.tonumber(Right(NItem,#NItem-5)) || 1,1)
-			End
-			For I=1,NRate
-				RandomItems += NItem
-			End
-		End
+		//For TItem in Each(XSplit(FlowField.Map.KthuraMap.Meta.RandomItems,";"))
+		//	Table  SItem = Split(TItem,",")
+		//	Var    NItem = SItem[1]:upper()
+		//	Int    NRate = Lua.tonumber(TItem[2] || "1") || 1
+		//	If Prefixed(NItem,"CASH:") 
+		//		NItem = math.max(Lua.tonumber(Right(NItem,#NItem-5)) || 1,1)
+		//	End
+		//	For I=1,NRate
+		//		RandomItems += NItem
+		//	End
+		//End
+		Lua.Scyndi.Use("Kthura/"..M.."/Treasures")
+		Lua.Scyndi.Class["Treasures_"..M].Treasures()
 	End
 
 	Void RandomItem(String Tag)
@@ -60,7 +83,7 @@ Module
 		Bool IsDone=False
 		String Msg=""
 		Repeat
-			Var N=RandomItems[math.random(1,#RandomItems)]
+			Var N:=RandomItems[math.random(0,Len(RandomItems)-1)]
 			Switch Lua.type(N)
 				Case "string"
 					N="ITM_"..N
@@ -91,25 +114,25 @@ Module
 			End
 		Until IsDone				
 		CSay(Msg)
-		Var O = FlowField.Map.CurLayer.Obj(Tag)
+		O := Kthura.Obj[Tag]
 		FlowField.Msg(Msg,O.X,O.Y,255,180,0)
 		Map.Kill(Tag,math.random(1,__skill^2)!=1)
 	End
 	
 	Void OChest(String Tag)
-		Var O = FlowField.Map.CurLayer.Obj(Tag)
+		O := Kthura.Obj[Tag]
 		O.AnimFrame=1
 		FlowField.Kill.SetPerma(Tag)
 	End
 	
 	Void Chest(String Tag)		
-		Static Var Prefixes = {"ITM_","EQP_","ZZKEY_","WAND_"}
-		Var O = FlowField.Map.CurLayer.Obj(Tag)
+		Static Var Prefixes = {[0]="ITM_","EQP_","ZZKEY_","WAND_"}
+		O := Kthura.Obj[Tag]
 		If O.AnimFrame>=1
 			Return
 		End
-		String ITag = O.Data["ITEM"]:upper()
-		String RTag = O.Data["REQUIREDITEM"]:upper()
+		String ITag := O.Data["ITEM"]:upper()
+		String RTag := O.Data["REQUIREDITEM"]:upper()
 		If ITag==":MIMIC:" || ITag==":MIMIC"
 			If Suffixed(Map.LoadedMap,"NOSTRAMANTUMANSION")
 				Static Var Laugh = Audio.LoadNew("Audio/SFX/Nostramantu/Laugh.ogg","MIMIC_NOSTRAMANTU_EVIL_LAUGH")
@@ -121,7 +144,7 @@ Module
 			Combat.Prepare(255,0,0)
 			Combat.Arena=FieldFlow.Map.KthuraMap.Meta.Arena
 			pLua aet = FieldFlow.Map.KthuraMap.Meta.AltEncounterTune
-			If aet and aet!=""
+			If aet && aet!=""
 				if ! suffixed(aet:lower(),".ogg")
 					aet += ".ogg"
 				end
@@ -151,7 +174,7 @@ Module
 			End
 		End
 		If Prefixed(ITag,"CASH:")
-			Int N = Lua.tonumber(Right(ITag,#ITag-5)) || 1
+			Int N := Lua.tonumber(Right(ITag,Len(ITag)-5)) || 1
 			String Msg
 			If N==1
 				Msg="1 shilder obtained"
@@ -185,4 +208,4 @@ Module
 		End
 	End
 	
-End
+//End
