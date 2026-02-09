@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Link.scyndibundle/Map.scyndi
 // 
-// 	  Version: 26.02.03 VII
+// 	  Version: 26.02.09
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -99,7 +99,7 @@ End
 //Module
 
 	Get Var Ach
-		Return Lua.Scyndi.Globals.Ach
+		Return Lua.Scyndi.Class.Ach
 	End
 
 	ReadOnly Var Meta
