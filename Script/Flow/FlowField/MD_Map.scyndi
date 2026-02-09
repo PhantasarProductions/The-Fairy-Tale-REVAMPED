@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowField/MD_Map.scyndi
 // 
-// 	  Version: 26.02.03 V
+// 	  Version: 26.02.09 II
 // 	
 // 	  Copyright (C) 2021, 2026 Jeroen Petrus Broks
 // 	
@@ -57,7 +57,14 @@ Module
 
 #accept FlowField
 
+
 	Var KthuraMap
+	
+	plua NKP(); Sys.TraceBack(); print("\x1b[37m"..Lua.debug.traceback()); Lua.error("KthuraMap Cannot be accessed anymore"); end
+	init
+		KthuraMap = SetMetaTable({},{["__index"]=NKP, ["__newindex"]=NKP})
+	end
+	
 	String Layer
 	Bool MSDraw 
 	Bool MSUpdate

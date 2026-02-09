@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowField/FF_LoadMap.scyndi
 // 
-// 	  Version: 26.02.02 X
+// 	  Version: 26.02.09 VI
 // 	
 // 	  Copyright (C) 2020, 2021, 2026 Jeroen Petrus Broks
 // 	
@@ -48,6 +48,7 @@ Module
 
 #use "Libs/SCI/Sys"
 #use "Libs/SCI/JCR6"
+#use "Libs/SCI/Kthura"
 
 #use "Script/Use/Link"
 #use "Script/Use/Anyway"
@@ -61,7 +62,7 @@ Void LoadMapScript(string LM)
 	Static String Dir = "Script/MapScript/"
 	String F := Dir..LM..".lbc"
 	If !JCR6.EntryExists(F)
-		F = Dir.."None.neil" 
+		F = Dir.."None.lbc" 
 	End
 	State.Load("MAPSCRIPT",F)
 	FlowField.Map.MSUpdate = true //ISGET.BOOL("MAPSCRIPT","MScript.HasUpdate")
@@ -69,17 +70,17 @@ Void LoadMapScript(string LM)
 	CSay("= MapScript '"..F.."' loaded")
 End
 
-Void LoadMapMusic(string LM)
-	If Prefixed(FlowField.Map.KthuraMap.Meta.Music,"*")
-		Switch FlowField.Map.KthuraMap.Meta.Music:upper()
+Void LoadMapMusic(string LM)	
+	if Prefixed(Kthura.MetaData.Music,"*")
+		Switch Upper(Kthura.MetaData.Music)
 			Case "*SCRIPT" "^*SCRIPT*"
 				MapScript.MapMusic()
 			Default
-				Lua.error("Special case "..FlowField.Map.KthuraMap.Meta.Music.." for music not supported")
+				Lua.error("Special case "..Kthura.MetaData.Music.." for music not supported")
 		End
 		Return
 	End
-	String MusFile = FlowField.Map.KthuraMap.Meta.Music
+	String MusFile = Kthura.MetaData.Music
 	If !Suffixed(Upper(MusFile),".OGG")
 		MusFile += ".ogg"
 	End
@@ -99,7 +100,8 @@ End
 
 
 Void Remap()
-	FlowField.Map.KthuraMap.Remap()
+	//FlowField.Map.KthuraMap.Remap()
+	Kthura.Remap()
 	FlowField.ZoneAction.HideSecret("*")
 End
 
@@ -141,7 +143,8 @@ Void FF_LoadMap(string mapbundle)
 				Lua.error("Unknown action type!")
 		End		
 	End
-	FlowField.Map.Layer = FlowField.Map.KthuraMap.Layers[1]
+	//FlowField.Map.Layer = FlowField.Map.KthuraMap.Layers[1]
+	FlowField.Map.Layer = Kthura.Layers[0]
 	Progress.Kill("LOADMAP")
 End
 
