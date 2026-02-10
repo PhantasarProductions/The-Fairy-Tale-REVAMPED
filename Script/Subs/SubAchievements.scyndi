@@ -1,47 +1,59 @@
-// License Information:
-// src/Tricky Script/Script/Subs/SubAchievements.neil
-// Version: 22.02.16
-// Copyright (C) 2021, 2022 Jeroen Petrus Broks
+// License:
+// 	  src/Code/Script/Subs/SubAchievements.scyndi
 // 
-// ===========================
-// This file is part of a project related to the Phantasar Chronicles or another
-// series or saga which is property of Jeroen P. Broks.
-// This means that it may contain references to a story-line plus characters
-// which are property of Jeroen Broks. These references may only be distributed
-// along with an unmodified version of the game.
+// 	  Version: 26.02.09 XVI
+// 	
+// 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
+// 	
+// 	  ===========================
+// 	  This file is part of a project related to the Phantasar Chronicles or another
+// 	  series or saga which is property of Jeroen P. Broks.
+// 	  This means that it may contain references to a story-line plus characters
+// 	  which are property of Jeroen Broks. These references may only be distributed
+// 	  along with an unmodified version of the game.
 // 
-// As soon as you remove or replace ALL references to the storyline or character
-// references, or any termology specifically set up for the Phantasar universe,
-// or any other univers a story of Jeroen P. Broks is set up for,
-// the restrictions of this file are removed and will automatically become
-// zLib licensed (see below).
+// 	  As soon as you remove or replace ALL references to the storyline or character
+// 	  references, or any termology specifically set up for the Phantasar universe,
+// 	  or any other univers a story of Jeroen P. Broks is set up for,
+// 	  the restrictions of this file are removed and will automatically become
+// 	  zLib licensed (see below).
 // 
-// Please note that doing so counts as a modification and must be marked as such
-// in accordance to the zLib license.
-// ===========================
-// zLib license terms:
-// This software is provided 'as-is', without any express or implied
-// warranty.  In no event will the authors be held liable for any damages
-// arising from the use of this software.
-// Permission is granted to anyone to use this software for any purpose,
-// including commercial applications, and to alter it and redistribute it
-// freely, subject to the following restrictions:
-// 1. The origin of this software must not be misrepresented; you must not
-// claim that you wrote the original software. If you use this software
-// in a product, an acknowledgment in the product documentation would be
-// appreciated but is not required.
-// 2. Altered source versions must be plainly marked as such, and must not be
-// misrepresented as being the original software.
-// 3. This notice may not be removed or altered from any source distribution.
-// End License Information
+// 	  Please note that doing so counts as a modification and must be marked as such
+// 	  in accordance to the zLib license.
+// 	  ===========================
+// 
+// 
+// 	  zLib license terms:
+// 	
+// 	  This software is provided 'as-is', without any express or implied
+// 	  warranty.  In no event will the authors be held liable for any damages
+// 	  arising from the use of this software.
+// 
+// 	  Permission is granted to anyone to use this software for any purpose,
+// 	  including commercial applications, and to alter it and redistribute it
+// 	  freely, subject to the following restrictions:
+// 	
+// 	  1. The origin of this software must not be misrepresented; you must not
+// 	     claim that you wrote the original software. If you use this software
+// 	     in a product, an acknowledgment in the product documentation would be
+// 	     appreciated but is not required.
+// 	  2. Altered source versions must be plainly marked as such, and must not be
+// 	     misrepresented as being the original software.
+// 	  3. This notice may not be removed or altered from any source distribution.
+// End License
 
 Script
 
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/Medals"
+#use "Libs/SCI/Events"
+#use "Libs/SCI/SString"
 #use "Libs/SCI/Graphics"
 #use "libs/SCI/InterVar"
 
 #use "Script/Use/Anyway"
-#use "Script/Use/Misc/Box"
+#use "Script/Use/Convert"
+#use "Script/Use/Misc/Box_Class"
 #use "Libs/LinkedList"
 #use "Libs/Keys"
 
@@ -136,11 +148,11 @@ Group SubAch
 					ACNT++
 				End
 			End
-			number rate=(ACNT/TotalExRate)*100
+			number rate:=(ACNT/TotalExRate)*100
 			CSayF("Achievement rating is now %03.2f%% (%03d/%03d)",rate,ACNT,TotalExRate)
 			For ir=25,100,25
 				If rate>=ir
-					Award(sprintf("RATE%03d",ir))
+					Self.Award(sprintf("RATE%03d",ir))
 				End
 			End
 		End
@@ -151,12 +163,12 @@ Group SubAch
 			If V.AutoVar!=""
 				Var CVar := XSplit(V.AutoVar," ")
 				Var CVal := XSplit(V.AutoVal," ")
-				Lua.assert(Len(CVar)==Len(CVal),SprintF("AutoAward checkup number mismatch in '%s'. %d variables and %d values",K,#CVar,#CVal))
+				Lua.assert(Len(CVar)==Len(CVal),SprintF("AutoAward checkup number mismatch in '%s'. %d variables and %d values",K,Len(CVar),Len(CVal)))
 				Bool Check = True
 				//For i=1,#CVar
 				for i=1,Len(CVar)-1
 					String ChTp := Left(CVar[i],1)
-					String ChVr := Right(CVar[i],#CVar[1]-1)
+					String ChVr := Right(CVar[i],len(CVar[1])-1)
 					Int ChVi := Lua.tonumber(CVal[i]) || 0
 					bool ChVb := Upper(CVal[i])=="TRUE"
 					Switch ChTp
@@ -173,7 +185,7 @@ Group SubAch
 					End
 				End
 				If Check
-					Award(K)
+					Self.Award(K)
 				End
 			End
 		End
@@ -182,8 +194,8 @@ Group SubAch
 	Void Overview(int x, int y, int w, int h)
 		//static int ah=75
 		//static int scroll=0
-		locExttern ah "SubAchievements_Static_Locals_Overview_ah"
-		locExttern scroll "SubAchievements_Static_Locals_Overview_scroll"
+		locExtern ah "SubAchievements_Static_Locals_Overview_ah"
+		locExtern scroll "SubAchievements_Static_Locals_Overview_scroll"
 		ah = ah || 75
 		scroll = scroll || 0
 		int ay = -scroll
@@ -225,8 +237,8 @@ Group SubAch
 	
 	Void Start()
 		Medals.Game="TFT"
-		Medals.Storage="zlib"
-		NeilUse("Script/Data/General/Achievements")
+		//Medals.Storage="zlib"
+		NeilUse("Script/Data/General/Achievements_Data")
 		Total=0
 		TotalExRate=0
 		For k,_ in pairs(Dat)
@@ -235,9 +247,10 @@ Group SubAch
 			End
 			Total++
 		End
-		Synchronize()
+		Self.Synchronize()
 	End
+End
 	
 Init
-	SubArch.Start()
+	SubAch.Start()
 End
