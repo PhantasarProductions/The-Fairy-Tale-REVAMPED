@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowField/CL_Compass.scyndi
 // 
-// 	  Version: 26.02.03 XVI
+// 	  Version: 26.02.10
 // 	
 // 	  Copyright (C) 2021, 2026 Jeroen Petrus Broks
 // 	
@@ -111,7 +111,7 @@ Class _Compass
 	End
 	
 	Static Void DrawAll()
-		If !Kthura.HasTag("PLAYER")
+		If !Kthura.HasObj("PLAYER")
 			Return
 		End
 		Int Y=50
