@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Link.scyndibundle/Ach.scyndi
 // 
-// 	  Version: 26.01.28 II
+// 	  Version: 26.02.09 II
 // 	
 // 	  Copyright (C) 2021, 2026 Jeroen Petrus Broks
 // 	
@@ -45,11 +45,12 @@
 
 
 Module 
+#use "Libs/SCI/Sys"
 #accept State
 
 //Bool Loaded
 PLUA LNA()
-	State.LoadNew("SUB_ACH","Script/Subs/SubAchievements.neil")
+	State.LoadNew("SUB_ACH","Script/Subs/SubAchievements.lbc")
 	//Loaded = True
 End
 
@@ -57,17 +58,18 @@ End
 
 	Void Award(String K)
 		LNA()
-		State.Call("SUB_ACH","SubAch.Award",sPrintF("'%s'",K))
+		//State.Call("SUB_ACH","SubAch.Award",sPrintF("'%s'",K))
+		Sys.Call("SUB_ACH","SubAch.Award",K)
 	End
 	
 	Void Auto()
 		LNA()
-		State.Call("SUB_ACH","SubAch.AutoAward","nil")
+		Sys.Call("SUB_ACH","SubAch.AutoAward",nil)
 	End
 	
 	Void Show()
 		If State.Has("SUB_ACH")
-			State.Call("SUB_ACH","SubAch.ShowBoxes","nil")
+			Sys.Call("SUB_ACH","SubAch.ShowBoxes",nil)
 		End
 	End
 	
