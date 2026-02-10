@@ -1,7 +1,7 @@
 // License:
 // 	src/Code/Script/Use/Convert.ScyndiBundle/State_And_Flow.scyndi
 // 	State & Flow Void
-// 	version: 26.02.02 I
+// 	version: 26.02.09 IV
 // 
 // 	Copyright (C) 2026 Jeroen P. Broks
 // 
@@ -43,9 +43,16 @@ End
 
 
 Group Flow
-	Void GoToFlow(string F); Sys.CurrentFlow=F; End
+	Void GoToFlow(string F)
+		if Prefixed(F,"FLOW_")
+			Sys.CurrentFlow=Right(F,Len(F)-5)
+			return
+		end
+		Sys.CurrentFlow=F; 
+	End
 	Void Kill(string F); Sys.KillState("FLOW_"..F); End
 	Link Quit=Sys.Exit
+	Link Current = Sys.CurrentFlow
 End
 
 
