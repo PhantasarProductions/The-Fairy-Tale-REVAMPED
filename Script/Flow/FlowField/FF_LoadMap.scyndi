@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowField/FF_LoadMap.scyndi
 // 
-// 	  Version: 26.02.09 VI
+// 	  Version: 26.02.10
 // 	
 // 	  Copyright (C) 2020, 2021, 2026 Jeroen Petrus Broks
 // 	
@@ -64,9 +64,12 @@ Void LoadMapScript(string LM)
 	If !JCR6.EntryExists(F)
 		F = Dir.."None.lbc" 
 	End
+	FlowField.Map.MSUpdate = false
+	FlowField.Map.MSDraw   = false
+
 	State.Load("MAPSCRIPT",F)
-	FlowField.Map.MSUpdate = true //ISGET.BOOL("MAPSCRIPT","MScript.HasUpdate")
-	FlowField.Map.MSDraw   = true //ISGET.BOOL("MAPSCRIPT","MScript.HasDraw")
+	//FlowField.Map.MSUpdate = true //ISGET.BOOL("MAPSCRIPT","MScript.HasUpdate")
+	//FlowField.Map.MSDraw   = true //ISGET.BOOL("MAPSCRIPT","MScript.HasDraw")
 	CSay("= MapScript '"..F.."' loaded")
 End
 
