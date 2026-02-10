@@ -1,8 +1,8 @@
-// License Information:
+// License:
 // **********************************************
 // 
-// src/Tricky Script/Script/Use/Link.neilbundle/Master.neil
-// (c) Jeroen Broks, 2021, 2022, All Rights Reserved.
+// src/Code/Script/Use/Link.scyndibundle/Master.scyndi
+// (c) Jeroen Broks, 2021, 2022,, 2026, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -24,6 +24,7 @@
 // from it, you can use it under that license.
 // Please check out the other files to find out
 // which license applies.
+// 
 // This file comes 'as-is' and in no possible
 // way the author can be held responsible of
 // any form of damages that may occur due to
@@ -32,30 +33,39 @@
 // 
 // **********************************************
 // 
-// version: 22.02.06
-// End License Information
+// 
+// version: 26.02.10 III
+// 
+// End License
+
+
 Module
+
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/InterVar"
+
+#use "Script/Use/Convert"
 
 	Void Def(String Ch, String Master, String Key, Int Value, Force)
 		If Prefixed(Ch,"Jake")
 			Ch = "Jake"
 		End
 		If Force || RPGChar[Ch].Data.Master == Master
-			gv.gInt["MASTER_"..Master.."_"..Ch.."_KEY_"..Key] = Value
+			gInt["MASTER_"..Master.."_"..Ch.."_KEY_"..Key] = Value
 		End
 	End
 	
 	Int Read(String Ch, String Master, String Key)
-		Return gv.gInt["MASTER_"..Master.."_"..Ch.."_KEY_"..Key]
+		Return gInt["MASTER_"..Master.."_"..Ch.."_KEY_"..Key]
 	End
 	
 	Void Inc(String Ch, String Master, String Key, Int Value, Force)
-		String Ch2=Ch
+		String Ch2:=Ch
 		If Prefixed(Ch,"Jake")
 			Ch2 = "Jake"
 		End
 		If Force || RPGChar[Ch].Data.Master == Master
-			//gv.gInt["MASTER_"..Master.."_"..Ch.."_KEY_"..Key] += Value
+			//gInt["MASTER_"..Master.."_"..Ch.."_KEY_"..Key] += Value
 			Switch Master
 				Case "Rubine" 
 					CSayF("%s is studying under master %s and will get %d extra points",ch,Master,value)
@@ -86,7 +96,7 @@ Module
 	End
 	
 	Bool Unlocked(string Key)
-		Return gv.gbool["MASTER_UNLOCKED_"..key]
+		Return gbool["MASTER_UNLOCKED_"..key]
 	End
 	
 	Void Speak(string Master)
@@ -94,4 +104,4 @@ Module
 		State.Call("FLOW_MASTER","FlowMaster.Speak",sprintf("'%s'",Master))
 	End
 		
-End
+//End
