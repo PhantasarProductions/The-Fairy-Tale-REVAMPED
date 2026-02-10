@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Link.scyndibundle/Schedule.scyndi
 // 
-// 	  Version: 26.01.19 III
+// 	  Version: 26.02.09 II
 // 	
 // 	  Copyright (C) 2021, 2026 Jeroen Petrus Broks
 // 	
@@ -44,28 +44,34 @@
 
 module
 
+#use "Libs/Sci/Sys"
+
 #use "Script/Use/Convert"
 
-	void MCall(string func,a,b,c,d,e,f,g,h)
-		string pr
-		for i,p in ipairs {a,b,c,d,e,f,g,h}
-			if i>1 
-				pr += ", "
-			end
-			switch lua.type(p)
-				case "string"
-					pr += "\""..p.."\""
-				case "number" "boolean"
-					pr += tostring(p)
-				default
-					lua.error("Illegal MCall type "..lua.type(p))
-			end
-		end
-		if pr=="" 
-			pr = "nil"
-		end
-		State.Call("FLOW_FIELD",func,pr)
-	end
+	//void MCall_Old(string func,a,b,c,d,e,f,g,h)
+	//	string pr
+	//	for i,p in ipairs {a,b,c,d,e,f,g,h}
+	//		if i>1 
+	//			pr += ", "
+	//		end
+	//		switch lua.type(p)
+	//			case "string"
+	//				pr += "\""..p.."\""
+	//			case "number" "boolean"
+	//				pr += tostring(p)
+	//			default
+	//				lua.error("Illegal MCall type "..lua.type(p))
+	//		end
+	//	end
+	//	if pr=="" 
+	//		pr = "nil"
+	//	end
+	//	State.Call("FLOW_FIELD",func,pr)
+	//end
+	
+	void MCall(String Func,Infinity)
+		Sys.Call("FLOW_FIELD",Func,Infinity)
+	End
 
 	void WaitForMovingActors(string After = "")
 		Schedule.MCall("FlowField.Schedule.WaitForMovingActors",After)
