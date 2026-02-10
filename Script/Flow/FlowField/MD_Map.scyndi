@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowField/MD_Map.scyndi
 // 
-// 	  Version: 26.02.09 II
+// 	  Version: 26.02.10 I
 // 	
 // 	  Copyright (C) 2021, 2026 Jeroen Petrus Broks
 // 	
@@ -66,15 +66,18 @@ Module
 	end
 	
 	String Layer
-	Bool MSDraw 
-	Bool MSUpdate
+	//Bool MSDraw 
+	//Bool MSUpdate
+	Link MSDraw = gbool.MapScriptSettings_MSDraw_CallBack
+	Link MSUpdate = gbool.MapScriptSettings_MSUpdate_CallBack
 	//Int ScrollX
 	//Int ScrollY
 	Link ScrollX = gint.ScrollX
 	Link ScrollY = gint.ScrollY
 	Int GoToX
 	Int GoToY
-	Bool AllowAutoScroll 
+	//Bool AllowAutoScroll
+	Link AllowAutoScroll = gBool.Autoscroll
 	Var ArriveFunc = Nil
 	String ArriveParam 
 
