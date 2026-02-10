@@ -1,0 +1,225 @@
+// License:
+// 	  src/Code/Script/Flow/FlowField/FF_DrawScreen.scyndi
+// 
+// 	  Version: 26.02.10 X
+// 	
+// 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
+// 	
+// 	  ===========================
+// 	  This file is part of a project related to the Phantasar Chronicles or another
+// 	  series or saga which is property of Jeroen P. Broks.
+// 	  This means that it may contain references to a story-line plus characters
+// 	  which are property of Jeroen Broks. These references may only be distributed
+// 	  along with an unmodified version of the game.
+// 
+// 	  As soon as you remove or replace ALL references to the storyline or character
+// 	  references, or any termology specifically set up for the Phantasar universe,
+// 	  or any other univers a story of Jeroen P. Broks is set up for,
+// 	  the restrictions of this file are removed and will automatically become
+// 	  zLib licensed (see below).
+// 
+// 	  Please note that doing so counts as a modification and must be marked as such
+// 	  in accordance to the zLib license.
+// 	  ===========================
+// 
+// 
+// 	  zLib license terms:
+// 	
+// 	  This software is provided 'as-is', without any express or implied
+// 	  warranty.  In no event will the authors be held liable for any damages
+// 	  arising from the use of this software.
+// 
+// 	  Permission is granted to anyone to use this software for any purpose,
+// 	  including commercial applications, and to alter it and redistribute it
+// 	  freely, subject to the following restrictions:
+// 	
+// 	  1. The origin of this software must not be misrepresented; you must not
+// 	     claim that you wrote the original software. If you use this software
+// 	     in a product, an acknowledgment in the product documentation would be
+// 	     appreciated but is not required.
+// 	  2. Altered source versions must be plainly marked as such, and must not be
+// 	     misrepresented as being the original software.
+// 	  3. This notice may not be removed or altered from any source distribution.
+// End License
+
+Module
+
+#accept FlowField
+
+#undef AutoScrollDebug
+
+#use "Libs/SCI/Kthura"
+#use "Libs/SCI/Events"
+#use "Libs/SCI/Graphics"
+
+#use "Script/Use/Link"
+#use "Script/Use/Anyway"
+#use "Script/Use/Convert"
+
+#use "Script/Use/Misc/CMiniMessage"
+
+QuickMeta PlTag
+	Index
+		If key==1
+			Return "PLAYER"
+		End
+		Return "PLAYER"..key
+	End
+End
+
+Void AutoPlayerTex()
+	For i=1,4
+		If Kthura.HasObj(PlTag[i]) 
+			If RPGParty[i]==""
+				Kthura.Kill(PlTag[i])
+			Else
+				PL:=Kthura.Obj[PlTag[i]]
+				If PL.Wind==""
+					PL.Wind="North"
+				End
+				PL.Texture = "GFX/Actors/Bundled/Player/".. RPGParty[i] .. "." .. PL.Wind .. ".jpbf"
+			End
+		//Else
+		//	If i>1 && RPGParty[i]!=""
+				//Lua.error("No followers for leader cannot yet be spawned... Combe back later!")
+		//	End
+		End
+	End
+End
+
+Void AutoScroll()
+	If (Kthura.HasObj("PLAYER")) && (FlowField.Map.AllowAutoScroll)
+		//Var PL=FlowField.Map.CurLayer.Obj("PLAYER")
+		PL:=Kthura.Obj.Player
+		Int W = Graphics.Width
+		Int H = Graphics.Height
+		//W,H = Kthura.ScreenSize()
+		FlowField.Map.ScrollX = PL.X - (W div 2)
+		FlowField.Map.ScrollY = PL.Y - (H div 2)
+	End
+End
+
+
+plua s_FieldStats = {["Alpha"]=-250,["OldX"]=0,["OldY"]=0,["FntTable"]={ ["FieldInfo"] = ObtainFont("BIGTEXT"), ["Stat"] = ObtainFont("FNTSTATSTAT") }}
+Void FieldStats()
+	//Static Int Alpha = -250
+	//Static Int OldX
+	//Static Int OldY
+	//Static Table FntTable = { ["FieldInfo"] = ObtainFont("BIGTEXT"), ["Stat"] = ObtainFont("FNTSTATSTAT") }
+	locExtern Alpha "s_FieldStats.Alpha"
+	locExtern OldX "s_FieldStats.OldX"
+	locExtern OldY "s_FieldStats.OldY"
+	locExtern FntTable "s_FieldStats.FntTable"
+	Var Fnt
+	if !Kthura.HasObj("PLAYER")
+		Return
+	End
+	If OldX!=Player.X || OldY!=Player.Y
+		Alpha = -250
+		OldX,OldY=Player.X,Player.Y
+		Return
+	End
+	Alpha = math.min(255,Alpha+1)
+	If Alpha<=0
+		Return
+	End
+	plua stuff = {}
+	//local layer
+	Graphics.SetAlpha(Alpha)
+	//if Maps.Multi()==1 then layer = FlowField.Map.Layer end
+	stuff[1] = {"FSTIT",Kthura.MetaData["Title"],"FieldInfo"}
+	if Left(FlowField.Map.Layer,1)=="#" 
+		stuff[2]={"FSROM",FlowField.Map.Layer} 
+	end
+    if FlowField.Map.LayerName[FlowField.Map.Layer]
+    	stuff += {"FSRMN",FlowField.Map.LayerName[FlowField.Map.Layer],"FieldInfo"} 
+    end    
+    if gv.gInt.CASH>0
+    	stuff += {"FSCSH",gv.gINT.CASH}     
+    end
+    if gv.gInt.ORBS>0
+    	stuff += {"FSORB",gv.gINT.ORBS}
+    end
+    if gv.gInt.LEVELCAP>0 
+    	stuff += {"FSLVC",gv.gINT.LEVELCAP } 
+    end
+    if gv.gbool["&ALLOW.ENCOFF['"..FlowField.Map.LoadedMap.."']"] || (__Chapter>0 && prefixed(FlowField.Map.LoadedMap:upper(),"PRO"))
+    	if Events.KeyHit(69)
+    		FlowField.Renc.rencon = !FlowField.Renc.rencon
+    	end
+    	stuff += {"FSREN",FlowField.Renc.RONOFF,"FieldInfo"}
+    else
+    	FlowField.renc.rencon = true
+    end
+    //stuff+= {'FSTIM',PlayTime()}    
+    If __newgameplus 
+    	stuff	+= {"FNGP","New Game +"}
+    End
+    for i,data in ipairs(stuff)
+    	__white
+    	//SetFont(data[3] or 'FieldStat')
+    	Fnt = FntTable[data[3] || "Stat"]
+    	Var Img = Image.LoadNew("GFX/Field Icons/"..data[1]..".png",data[1])
+    	Img.HotCenter()
+    	Img.Draw(35,i*35)
+    	Graphics.Color(180,255,0)
+    	If Alpha==255
+    		Fnt.DarkText(data[2],75,i*35,0,2)
+    	Else
+    		Fnt.Text(data[2],75,i*35,0,2)
+    	End
+    End
+    Graphics.SetAlpha(255)
+End
+
+
+Void FF_DrawScreen()
+	If FlowField.Map.Layer==""
+		Return
+	End
+	If FlowField.Map.MSDraw
+		MapScript.PreDraw()
+	End
+	AutoPlayerTex()
+	AutoScroll()
+	//FlowField.Map.KthuraMap.Draw(FlowField.Map.Layer,FlowField.Map.ScrollX,FlowField.Map.ScrollY)
+	Kthura.Draw(FlowField.Map.ScrollX,FlowField.Map.ScrollY)
+	#if AutoScrollDebug
+	__White
+	Static Var ASDF = ObtainFont("SYSFONT")
+	ASDF.DarkText(sprintf("AutoScroll: %s; Cam(%04d,%04d)",lua.tostring(FlowField.Map.AllowAutoScroll),FlowField.Map.ScrollX,FlowField.Map.ScrollY),5,5)
+	#fi
+	__White
+	Graphics.SetAlpha(255)
+	//Graphics.Blend(0)
+	FlowField.Compass.DrawAll()
+	MiniMessage.DrawAll()
+	FlowField.Renc.DrawGauge()
+	FieldStats()
+	If FlowField.Debug.MouseCoords
+		__White
+		int midx = Screen.W div 2
+		FlowField.Font.SmallFixed.Text("Mouse",midx,25,2)
+		FlowField.Font.SmallFixed.Text(sPrintF("Pure(%04d,%04d)",Mouse.MX,Mouse.MY),midx,50,2)
+		FlowField.Font.SmallFixed.Text(sPrintF("Kthura(%04d,%04d)",Kthura.MX,Kthura.MY),midx,75,2)
+		FlowField.Font.SmallFixed.Text(sPrintF("Pure+Scroll(%04d,%04d)",Mouse.MX+FlowField.Map.ScrollX,Mouse.MY+FlowField.Map.ScrollY),midx,100,2)
+		FlowField.Font.SmallFixed.Text(sPrintF("Kthura+Scroll(%04d,%04d)",Kthura.MX+FlowField.Map.ScrollX,Kthura.MY+FlowField.Map.ScrollY),midx,125,2)
+		FlowField.Font.SmallFixed.Text(sPrintF("Scroll(%04d,%04d)",FlowField.Map.ScrollX,FlowField.Map.ScrollY),midx,150,2)
+		If Kthura.HasObj("PLAYER")
+			Var PL=FlowField.Map.CurLayer.Obj("PLAYER")
+			FlowField.Font.SmallFixed.Text(sPrintF("Player(%04d,%04d)",PL.X,PL.Y),midx,175,2)
+		End
+		FlowField.Font.SmallFixed.Text(sPrintF("Walking(%s)",Lua.tostring(FlowField.Map.CurLayer.Obj("PLAYER").Walking)),midx,200,2)
+		FlowField.Font.SmallFixed.Text(sPrintF("Arrival(%s,%s)",Lua.tostring(FlowField.Map.ArriveFunc),FlowField.Map.ArriveParam),midx,225,2)
+	End
+	If FlowField.Map.MSDraw
+		MapScript.PostDraw()
+	End
+	If FlowField.Map.MSUpdate
+		Map.Script("Update")
+	End
+	FlowField.Chapter.Show()
+End
+
+
+
