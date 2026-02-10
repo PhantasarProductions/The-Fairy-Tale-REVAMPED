@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.09
+// version: 26.02.09 I
 // 
 // End License
 
@@ -71,6 +71,7 @@ end
 Init
 // Record: ANNA
 do
+	retbase = {}
 	var ret = new MyData_MyDataClass_51dba34577d17422c57afb6101ada9a5_1e9dc4fd33f29e3cd70f49a074169ce3()
 		ret.Title = "Jag kaenner en bot. Hon heter Anna, Anna heter hon!"
 		ret.Description = "Enter Anna's temple."
