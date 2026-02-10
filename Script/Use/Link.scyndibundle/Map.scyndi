@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Link.scyndibundle/Map.scyndi
 // 
-// 	  Version: 26.02.09
+// 	  Version: 26.02.10 II
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -98,6 +98,10 @@ End
 
 //Module
 
+	Link MSDraw = gbool.MapScriptSettings_MSDraw_CallBack
+	Link MSUpdate = gbool.MapScriptSettings_MSUpdate_CallBack
+
+
 	Get Var Ach
 		Return Lua.Scyndi.Class.Ach
 	End
@@ -131,7 +135,8 @@ End
 	Set Bool AllowAutoScroll
 		CSay("Setting AutoScroll To: "..lua.tostring(value))
 		//ISSET("BOOL","FLOW_FIELD","FlowField.Map.AllowAutoScroll",value)
-		State.Call("FLOW_FIELD","FlowField.Map.SetAutoScroll",lua.tostring(value))
+		//State.Call("FLOW_FIELD","FlowField.Map.SetAutoScroll",lua.tostring(value))
+		gBool.Autoscroll=value
 	End
 	
 	Get Int ScrollX
@@ -258,7 +263,8 @@ End
 	End
 	
 	Void _Script(String Func,Args)
-		State.Call("MAPSCRIPT","MScript."..Func,"\""..Lua.tostring(Args).."\"")
+		//State.Call("MAPSCRIPT","MScript."..Func,"\""..Lua.tostring(Args).."\"")
+		Sys.Call("MAPSCRIPT","MScript."..Func,Args)
 	End
 	
 	Get Var $Script
