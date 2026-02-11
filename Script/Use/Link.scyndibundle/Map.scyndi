@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Link.scyndibundle/Map.scyndi
 // 
-// 	  Version: 26.02.10 II
+// 	  Version: 26.02.10 III
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -248,11 +248,13 @@ End
 		Switch Lua.type(a)
 			Case "string"
 				CSayF("Spawning ActTag '%s' on spot '%s'",ActTag,a)
-				MCall("FlowField.Map.CurLayer.Spawn",ActTag,a)
+				//MCall("FlowField.Map.CurLayer.Spawn",ActTag,a)
+				Kthura.Spawn(ActTag,a)
 			Case "number"
 				assert(Lua.type(b)=="number","n::Illegal spawn function call")
 				CSayF("Spawning ActTag '%s' on coordinates (%4d,%4d)",ActTag,a,b)
-				MCall("FlowField.Map.CurLayer.Spawn",ActTag,a,b)
+				//MCall("FlowField.Map.CurLayer.Spawn",ActTag,a,b)
+				Kthura.Spawn(ActTag,a,b)
 			Default
 				Lua.error("t::Illegal spawn function call")			
 		End
