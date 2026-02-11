@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowField/CL_Compass.scyndi
 // 
-// 	  Version: 26.02.11
+// 	  Version: 26.02.11 III
 // 	
 // 	  Copyright (C) 2021, 2026 Jeroen Petrus Broks
 // 	
@@ -105,9 +105,13 @@ Class _Compass
 		//angle1,angle2 = CoordsToAngle(px,py,needle.x,needle.y)
 		Int Angle := Self.GetAngle( FlowField.Map.Player.x,FlowField.Map.Player.y,x,y)
 		//angle1 = math.floor(angle1) -- BlitzMax is allergic for non-intergers sent by Lua.
-		Image.Rotate=angle
-		Needle.XDraw(Screen.W-50,DY)
-		Image.Rotate=0
+		
+		// Rotation no longer works this way
+		//Image.Rotate=angle
+		//Needle.XDraw(Screen.W-50,DY)
+		//Image.Rotate=0
+		// Rotation the new way
+		Needle.DrawR(Graphics.Width-50,DY,Angle)
 	End
 	
 	Static Void DrawAll()
