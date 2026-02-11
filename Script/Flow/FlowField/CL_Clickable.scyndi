@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowField/CL_Clickable.scyndi
 // 
-// 	  Version: 26.02.04 VII
+// 	  Version: 26.02.11
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -90,7 +90,7 @@ Class _Clickable
 	Static Void Create(String _lay,String _tag,Int _wx,int _wy,_ae,String _ap="")
 		Register = Register || {}
 		Register[_Lay] = Register[_Lay] || new TLinkedList() 
-		Register[_Lay].AddLast(Self(_tag,_wx,_wy,_ae,_ap))		
+		Register[_Lay].AddLast(new _Clickable(_tag,_wx,_wy,_ae,_ap))		
 	End
 	
 	Static Table Spot(Lay,String ObjTag,Same)
