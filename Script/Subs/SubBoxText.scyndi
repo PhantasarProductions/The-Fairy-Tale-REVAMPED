@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Subs/SubBoxText.scyndi
 // 
-// 	  Version: 26.02.08 XXXVIII
+// 	  Version: 26.02.11 VIII
 // 	
 // 	  Copyright (C) 2020-'22, 2026 Jeroen Petrus Broks
 // 	
@@ -49,6 +49,7 @@ Script
 #use "Libs/SCI/Events"
 #use "Libs/SCI/SString"
 #use "Libs/SCI/Graphics"
+#use "Libs/SCI/InterVar"
 
 #use "libs/Music"
 #use "libs/DyrtScenario"
@@ -148,11 +149,13 @@ class TextBox
 	end
 
 	get int boxheight
-		return self.txtbox.h
+		locextern s "self"
+		return s.txtbox.h
 	end
 	
 	get int boxy
-		return Screen.Height - self.boxheight
+		locextern s "self"
+		return Screen.Height - s.boxheight
 	end
 	
 	CONSTRUCTOR(initcrap)
@@ -274,7 +277,7 @@ class TextBox
 		//if rec.PicDir:upper()=="ERIC" and __EricIsYasathar
 		//	rec.PicDir="Yasathar"
 		//end
-		sb_data = new TextBox( { ["Header"] = gv.Sub(rec.Header), ["PicDir"] = rec.PicDir, ["PicSpc"] = rec.PicSpc, ["Lines"] = {}, ["SL"] = 1, ["SP"]=1, ["AltTxtFont"] = rec.AltTxtFont, ["Voice"] = rec.SoundFile   } )
+		sb_data = new TextBox( { ["Header"] = gSub(rec.Header), ["PicDir"] = rec.PicDir, ["PicSpc"] = rec.PicSpc, ["Lines"] = {}, ["SL"] = 1, ["SP"]=1, ["AltTxtFont"] = rec.AltTxtFont, ["Voice"] = rec.SoundFile   } )
 		TextBox.Current = sb_data
 		width=Screen.Width-__BoxTextTotalWidthMargin //-- standard width, this can be shortened by the portraits popping with the textbox. SW is the screen width, this need to be taken in order.
 		//local ak,txt,cline,spline
@@ -293,15 +296,15 @@ class TextBox
 			CurrentFont = ObtainFont("BOXTEXT")
 		end   
 		sb_data.Font = CurrentFont
-		CSay("= Textwrapping!")
-		for ak,txt in ipairs(rec.Lines) 
+		CSayF("= Textwrapping! (%d|%d)",len(rec.Lines),ll rec.Lines)
+		for ak,txt in Lua.ipairs(rec.Lines) 
 			string cline
 			table spline
 			cline = ""
 			//spline = split(Var.S(txt)," ")
-			spline = xsplit(gv.SUB(txt)," ")
+			spline = xsplit(gSUB(txt)," ")
 			for aw,word in ipairs(spline)
-				if CurrentFont.TextWidth(cline..word)>width
+				if CurrentFont.Width(cline..word)>width
 					mtable.insert(sb_data.Lines,cline)
 					cline = ""
 				end
@@ -325,7 +328,7 @@ class TextBox
 			// Audio.Load(sb_data.Voice,'BOXTEXTVOICE')
 			// Audio.Play("BOXTEXTVOICE","BOXTEXTCHANNEL")
 			if audioplaying
-				audio.stop(audiochannel)
+				audio.haltchannel(audiochannel)
 			end
 			CSayF("Fading music from %d to 40",Music.MusicVolume)
 			Music.FadeTo(40)
@@ -374,13 +377,14 @@ group FlowBoxText
 		self.ReturnFlow = RF // or CurrentFlow()
 		self.Num = ANum || 1
 		self.Scen = AScen
-		self.Tag = Upper(Tag) //AUpper(Tag)
+		self.Tag = Upper(ATag) //AUpper(Tag)
 		// GoToFlow("BOXTEXT")
 		TextBox.Generate(trim(AScen),trim(ATag),ANum,RF)
 	end
 	
 	bool Next()
 		self.Num++
+		CSayF("Next BoxText %s::%s -> %d",self.Scen,self.Tag,self.Num)
 		if self.Num>ll TextBox.btdata[trim(self.Scen)][trim(self.Tag)]
 			// GoToFlow(trim(replace(self.ReturnFlow,"FLOW_","")))
 			return false
@@ -395,9 +399,9 @@ group FlowBoxText
 			Graphics.Cls()
 			Events.Poll()
 			Sys.WaitMinTicks()
-			State.Call(FlowBoxText.ReturnFlow,"BoxText_Back","nil")
+			Sys.Call(FlowBoxText.ReturnFlow,"BoxText_Back")
 			TextBox.Current.Show()
-			if TextBox.Current.SL>ll TextBox.Current.Lines && ( Events.MouseHitLeft() || (TextBox.audioplaying && (!Audio.ChannelPlaying(Textbox.audiochannel))))
+			if TextBox.Current.SL>ll TextBox.Current.Lines && ( Events.MouseHitLeft || (TextBox.audioplaying && (!Audio.ChannelPlaying(Textbox.audiochannel))))
 				if !FlowBoxText.Next()
 					Music.FadeTo(100) // Make sure music volume is always back to max
 					Return
