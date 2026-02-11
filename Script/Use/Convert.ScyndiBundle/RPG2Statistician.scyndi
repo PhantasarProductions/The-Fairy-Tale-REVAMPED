@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Convert.ScyndiBundle/RPG2Statistician.scyndi
 // 
-// 	  Version: 26.02.10 IX
+// 	  Version: 26.02.11 III
 // 	
 // 	  Copyright (C) 2026 Jeroen Petrus Broks
 // 	
@@ -139,7 +139,9 @@ Class TFChar
 	Get Var Points;
 		ts.ChData.Points.HP.Maximum = ts.Stat.END_HP
 		//CSayF("%s:>HP Auto -- %d -> %d",Tag,ts.Stat.END_HP,ts.ChData.Points.HP.Maximum) // DEBUG ONLY!
-		If (!Prefixed(Tag,"FOE_"))
+		//CSayF("%s: Is Foe? -> %s",Tag,Prefixed(Tag,"FOE_"))
+		If !Prefixed(Tag,"FOE_")
+			CSayF("%s:>AP Auto -- %d -> %d",Tag,ts.Stat.END_AP,ts.ChData.Points.AP.Maximum) // DEBUG ONLY!
 			ts.ChData.Points.AP.Maximum = ts.Stat.END_AP
 			//Switch gInt.Skill
 			//	case 1; ts.ChData.Points.VIT.Maximum = 250
