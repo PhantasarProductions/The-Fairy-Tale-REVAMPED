@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowField/MD_Map.scyndi
 // 
-// 	  Version: 26.02.10 I
+// 	  Version: 26.02.11 II
 // 	
 // 	  Copyright (C) 2021, 2026 Jeroen Petrus Broks
 // 	
@@ -175,7 +175,7 @@ Module
 		int x := mx + ScrollX
 		int y := my + ScrollY
 		CSayF("Request to walk to (%4d,%4d); Mouse(%4d,%4d); Scroll(%4d,%4d)",x,y,mx,my,ScrollX,ScrollY)
-		if !Kthura.HasTag("PLAYER")
+		if !Kthura.HasObj("PLAYER")
 			CSay("But there is no player available now, so the request will be ignored!")
 			return
 		end				
@@ -188,7 +188,7 @@ Module
 	End
 	
 	Void StopWalking()
-		if !Kthura.HasTag("PLAYER")
+		if !Kthura.HasObj("PLAYER")
 			Return
 		End		
 		Kthura.Obj.PLAYER.StopWalking()
@@ -255,11 +255,11 @@ Module
 		//	CSay("WARNING! KthuraMap is nil!")
 		//	Return False
 		//End
-		If !Kthura.HasTag("PLAYER")
+		If !Kthura.HasObj("PLAYER")
 			CSayF("No player!")
 			Return False
 		End		
-		Bool ret = CurLayer.Obj("PLAYER").Walking
+		Bool ret = Kthura.Obj["PLAYER"].Walking
 		//CSayF("Walking Check:!%s/%s => %s",Lua.tostring(ret),lua.tostring(ArriveFunc),lua.tostring((!ret) && ArriveFunc))
 		if (!ret) && ArriveFunc
 			number Afstand = xMath.Pythagoras(Player.X,Player.Y, GoToX, GoToY)
