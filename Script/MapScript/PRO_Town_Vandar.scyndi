@@ -34,13 +34,14 @@
 // **********************************************
 // 
 // 
-// version: 26.02.11 IV
+// version: 26.02.11 IX
 // 
 // End License
 
 
 Script
 
+#use "Libs/SCI/Sys"
 #use "Libs/SCI/Kthura"
 #use "Libs/SCI/InterVar"
 
@@ -218,20 +219,26 @@ Group MScript
 		ZA.Enter("Bye")
 		ZA.Enter("Exit")
 		ZA.Enter("Enter_Cave")
-		JennyCheck()
+		MScript.JennyCheck()
 		If __Chapter==2
 			ZA.Enter("CH2Scenario")
 		End
-		For K in Each{"Chief","Inn","Items","Weapons"}
+		For K in Each{[0]="Chief","Inn","Items","Weapons"}
 			ZA.Enter("Enter_"..K,"Enter."..K)
 		End
-		Var EnterIndex(s,String K)
-			Map.GoToLayer(K:upper(),"Entrance")
-			Entered=K:lower()
+		//Var EnterIndex(s,String K)
+		dDef EnterIndex
+			plua s
+			String K
+			s,K = Infinity
+			CSayF("Entering: %s",K)
+			Map.GoToLayer(Upper(K),"Entrance")
+			Entered=lower(K)
 			Return Niks
-		End		
+		End
 		Enter = Lua.setmetatable({},{["__index"]=EnterIndex})
 		if (!__newgameplus) || (__chapter<4)
+			CSayF("Not in chapter 4 in the new game+, so let's remove Narya!")
 			Map.LayKill("TOWN","NPC_Narya")
 		End
 	End
