@@ -1,8 +1,8 @@
-// License Information:
+// License:
 // **********************************************
 // 
-// src/Tricky Script/Script/Flow/FlowField/BlackOrb.neil
-// (c) Jeroen Broks, 2021, 2022, All Rights Reserved.
+// src/Code/Script/Flow/FlowField/FF_BlackOrb.scyndi
+// (c) Jeroen Broks, 2021, 2022, 2026, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -24,6 +24,7 @@
 // from it, you can use it under that license.
 // Please check out the other files to find out
 // which license applies.
+// 
 // This file comes 'as-is' and in no possible
 // way the author can be held responsible of
 // any form of damages that may occur due to
@@ -32,9 +33,20 @@
 // 
 // **********************************************
 // 
-// version: 22.07.29
-// End License Information
-Void _BO(string Tag)
+// 
+// version: 26.02.11 II
+// 
+// End License
+
+Module
+
+#use "Script/Use/Link"
+#use "Script/Use/Anyway"
+#use "Script/Use/Convert"
+
+#accept FlowField
+
+Void FF_BlackOrb(string Tag)
 	If Prefixed(RPGParty[1],"Nostramantu")
 		MapText("NOORB")
 		Return
@@ -68,4 +80,3 @@ Void _BO(string Tag)
 	Map.Kill(Tag,true)
 End
 
-Return _BO
