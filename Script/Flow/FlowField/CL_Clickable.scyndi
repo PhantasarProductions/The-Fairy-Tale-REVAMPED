@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowField/CL_Clickable.scyndi
 // 
-// 	  Version: 26.02.11
+// 	  Version: 26.02.11 II
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -176,7 +176,7 @@ Class _Clickable
 		If Debug
 			CSayF("Checking clickable object %s(%04d,%04d)",Tag,X,Y)
 		End
-		If !FieldFlow.Map.CurLayer.HasTag(Tag)
+		If !Kthura.HasObj(Tag)
 			If Debug
 				CSayF("= No such object here, so I'll pass")
 			End
