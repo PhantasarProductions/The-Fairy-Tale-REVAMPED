@@ -1,7 +1,7 @@
 // License:
 // 	src/Code/Script/Use/Convert.ScyndiBundle/Screen.scyndi
 // 	Fuck the screen
-// 	version: 26.01.20
+// 	version: 26.02.11
 // 
 // 	Copyright (C) 2026 Jeroen P. Broks
 // 
@@ -30,5 +30,14 @@ Get Int W
 End
 
 Get Int H
+	Return Graphics.Height
+End
+
+
+Get Int Width
+	Return Graphics.Width
+End
+
+Get Int Height
 	Return Graphics.Height
 End
