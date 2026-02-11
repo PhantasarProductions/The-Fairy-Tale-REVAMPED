@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.11 IX
+// version: 26.02.11 X
 // 
 // End License
 
@@ -78,7 +78,7 @@ Group MScript
 		//Map.SetObj("HEK_NEER","Impassible",true)
 		//Map.SetObj("HEK_OP",  "Impassible",true)
 		Kthura.Obj.OP_BRUG.ForcePassible=true
-		Kthura.Obj.HEK_NEED.Impassible=true
+		Kthura.Obj.HEK_NEER.Impassible=true
 		Kthura.Obj.HEK_OP.Impassible=true
 		Players.Dominance = 200
 	End
@@ -89,7 +89,7 @@ Group MScript
 		//Map.SetObj("HEK_NEER","Impassible",false)
 		//Map.SetObj("HEK_OP",  "Impassible",false)
 		Kthura.Obj.OP_BRUG.ForcePassible=true
-		Kthura.Obj.HEK_NEED.Impassible=true
+		Kthura.Obj.HEK_NEER.Impassible=true
 		Kthura.Obj.HEK_OP.Impassible=true
 		Players.Dominance = 20
 	End
