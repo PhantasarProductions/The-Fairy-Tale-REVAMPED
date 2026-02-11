@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowField/CL_Compass.scyndi
 // 
-// 	  Version: 26.02.10
+// 	  Version: 26.02.11
 // 	
 // 	  Copyright (C) 2021, 2026 Jeroen Petrus Broks
 // 	
@@ -73,13 +73,13 @@ Class _Compass
 	
 	Static ReadOnly Var Lijst = New TLinkedList()
 	
-	Static Void Create(Int X, Int Y, String Lay, String Desc)
+	Static Void Create(Int _X, Int _Y, String _Lay, String _Desc)
 		// This is very extremely dirty, but it works
 		// Should only be done from a static function for a non-static class.
-		CSayF("= Adding Compass Point %s on layer %s on (%d,%d)",Desc,Lay,X,Y)
-		Lijst.AddLast(new _Compass(X,Y,Lay,Desc))
+		CSayF("= Adding Compass Point %s on layer %s on (%d,%d)",_Desc,_Lay,_X,_Y)
+		Lijst.AddLast(new _Compass(_X,_Y,_Lay,_Desc))
 		Needle.HotCenter()
-		CSayF("= Added  Compass Point %s on layer %s on (%d,%d)",Desc,Lay,X,Y)
+		CSayF("= Added  Compass Point %s on layer %s on (%d,%d)",_Desc,_Lay,_X,_Y)
 	End
 	
 	Int GetAngle(Ax,Ay,Bx,By) 
