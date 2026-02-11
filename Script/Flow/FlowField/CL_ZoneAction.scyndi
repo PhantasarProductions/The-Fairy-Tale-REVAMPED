@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowField/CL_ZoneAction.scyndi
 // 
-// 	  Version: 26.02.09 II
+// 	  Version: 26.02.11 I
 // 	
 // 	  Copyright (C) 2020-'21, 2026 Jeroen Petrus Broks
 // 	
@@ -202,7 +202,8 @@ class _ZoneAction
 	end
 	
 	static bool CheckAll()
-		if !MD_Map.CurLayer.HasTag("PLAYER")
+		//if !MD_Map.CurLayer.HasTag("PLAYER")
+		if !Kthura.HasObj("PLAYER")
 			return false
 		end
 		bool ret = false
@@ -214,7 +215,7 @@ class _ZoneAction
 					//lnk.UnLink()
 				else
 					//Zone.WordtInZone = MD_Map.Kthura.Actor.Player.IsInZone(Zone.ActZone)
-					Zone.WordtInZone = MD_Map.Player.IsInZone(Zone.ActZone)
+					Zone.WordtInZone = Kthura.HasObj(Zone.ActZone) && MD_Map.Player.IsInZone(Zone.ActZone)
 					if Zone.WordtInZone == self.CheckDels[Event].Wordt && Zone.WasInZone == self.CheckDels[Event].Was
 						switch Zone.ActType
 							case "function" "delegate"
