@@ -1,7 +1,7 @@
 // License:
 // 	src/Code/Script/Use/Convert.ScyndiBundle/State_And_Flow.scyndi
 // 	State & Flow Void
-// 	version: 26.02.09 IV
+// 	version: 26.02.10 I
 // 
 // 	Copyright (C) 2026 Jeroen P. Broks
 // 
@@ -31,6 +31,7 @@ Group State
 	Link Kill = Sys.KillState
 	Link Load = Sys.LoadState
 	Link LoadNew = Sys.LoadNewState
+	Link Has = Sys.HasState
 	
 	Void Call(Infinity)
 		//f:={[0]=Infinity}
