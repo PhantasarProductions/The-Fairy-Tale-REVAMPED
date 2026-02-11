@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Link.scyndibundle/Map.scyndi
 // 
-// 	  Version: 26.02.10 III
+// 	  Version: 26.02.11
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -353,10 +353,10 @@ End
 	End
 	
 	Void LayKill(String Lay,String Tag,perma)
-		String O = Layer
-		Layer = Lay
+		String O = Kthura.CurrentLayer
+		Kthura.CurrentLayer = Lay
 		Kill(Tag,perma==true)
-		Layer = O
+		If (O!=""); Kthura.CurrentLayer = O; End
 	End
 	
 	Void HideObj(string Tag)
