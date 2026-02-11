@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowField/MD_Schedule.scyndi
 // 
-// 	  Version: 26.02.09 VIII
+// 	  Version: 26.02.10 I
 // 	
 // 	  Copyright (C) 2021-'22, 2026 Jeroen Petrus Broks
 // 	
@@ -55,6 +55,7 @@
 #use "script/use/misc/cminimessage"
 
 #accept FlowField
+#accept Kthura
 
 //group GrSchedule
 Module
@@ -130,7 +131,8 @@ Module
 			ElseIf prefixed(s,"MAPTEXT:")
 				MapText(right(s,len(s)-8))
 			ElseIf prefixed(s,"LAYER:")
-				FlowField.Map.Layer=upper(right(s,len(s)-6))
+				//FlowField.Map.Layer=upper(right(s,len(s)-6))
+				Kthura.CurrentLayer=upper(right(s,len(s)-6))
 			//ElseIf s=="SPAWN.GO"
 			//	Spawn.Go()
 			//ElseIf s=="SPAWN.RESET"
