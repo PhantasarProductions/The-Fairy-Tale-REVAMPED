@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.01.31 V
+// version: 26.02.10 VII
 // 
 // End License
 
@@ -89,7 +89,8 @@ Group SubParty
 							If lvl==level
 								String st := right(ins[0],len(ins[0])-5)
 								RPGChar[Char].Stat["BASE_"..st] = Lua.tonumber(ins[1])
-								Print("\t= "..st.." for "..Char.." is "..ins[1])
+								//Print("\t= "..st.." for "..Char.." is "..ins[1])
+								CSayF("\t = GrabLevel(%s,%d,%s): %s = %d -> %d",Char,Level,noauto,st,RPGChar[Char].Stat["BASE_"..st],RPGChar[Char].Stat["END_"..st]);
 							End
 						Else
 							Lua.error("Unknown instruction! >> "..line)
@@ -254,10 +255,10 @@ Group SubParty
 		For A in Each(Ailments)
 			RPGChar[char].Stat["BASE_SR_"..A]= 100-math.floor(33*__skill)
 		End
-		RPGChar[char].Points.HP.MaxCopy  = "END_HP"
+		//RPGChar[char].Points.HP.MaxCopy  = "END_HP"
 		RPGChar[char].Points.HP.Have     = RPGChar[char].Points.HP.Maximum
 		RPGChar[char].Points.AP.MaxCopy  = "END_AP"
-		RPGChar[char].Points.AP.Have     = RPGChar[char].Points.AP.Maximum
+		//RPGChar[char].Points.AP.Have     = RPGChar[char].Points.AP.Maximum
 		RPGChar[char].Points.VIT.Maximum = ({250,100,0})[__skill]
 		RPGChar[char].Points.VIT.Have    = RPGChar[char].Points.VIT.Maximum
 		RPGChar[char].Data.EQUIP_Weapon  = ""
@@ -340,20 +341,20 @@ Group SubParty
 		Graphics.Scale(1,1)
 		Switch ch
 			Case "Feenalaria_Human"
-				Pictures[ch] = Pictures[ch] || Image.Load("GFX/BoxText/Portret/Feenalaria/Human.png")
+				Pictures[ch] = Pictures[ch] || LoadImage("GFX/BoxText/Portret/Feenalaria/Human.png","Portret_Feenalaria_Human_Ugly_Dress")
 			Case "Feenalaria_Human2"
-				Pictures[ch] = Pictures[ch] || Image.Load("GFX/BoxText/Portret/Feenalaria/Human2.png")
+				Pictures[ch] = Pictures[ch] || LoadImage("GFX/BoxText/Portret/Feenalaria/Human2.png","Portret_Feenalaria_Human_Short_Dress")
 			Case "Nostramantu_Human"
-				Pictures[ch] = Pictures[ch] || Image.Load("GFX/BoxText/Portret/Nostramantu/Human.png")
+				Pictures[ch] = Pictures[ch] || LoadImage("GFX/BoxText/Portret/Nostramantu/Human.png","Portret_Nostramantu_Human")
 			Default
-				Pictures[ch] = Pictures[ch] || Image.Load("GFX/BoxText/Portret/"..ch.."/General.png")
+				Pictures[ch] = Pictures[ch] || LoadImage("GFX/BoxText/Portret/"..ch.."/General.png","Portret_"..ch)
 		End
-		Pictures[ch].Hot(0,Pictures[ch].H)
+		Pictures[ch].Hot(0,Pictures[ch].Height)
 		Pictures[ch].Draw(X,Y)
 	End
 	
 	Table LvScale = {}
-	Var ImgLevelUp = Image.Load(  "GFX/Party/Level Up.png","LevelUp")
+	Var ImgLevelUp = LoadImage(  "GFX/Party/Level Up.png","LevelUp")
 	Var AudLevelUp = Audio.Load("Audio/Party/Level Up.ogg","LevelUp")
 
 
@@ -432,6 +433,7 @@ Group SubParty
 			// HP
 			Do
 				Var HP := RPGChar[ch].Points.HP
+				If (HP.Maximum==0); PrintF("\x1b[31mERROR! \x1b[95mMaximum Hitpoints of Character '%s' happens to be zero\x1b[37m\n",ch); End  
 				Number Breuk := HP.Have / HP.Maximum
 				Int HPG := math.floor(255*Breuk)
 				Int HPR := math.floor(255 - HPG)
