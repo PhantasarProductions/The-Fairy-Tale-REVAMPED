@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Subs/SubAchievements.scyndi
 // 
-// 	  Version: 26.02.09 XVI
+// 	  Version: 26.02.11 III
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -159,6 +159,8 @@ Group SubAch
 	End
 	
 	Void AutoAward()
+		LocExtern WSF "Scyndi.Globals.CSayF"
+		//LocExtern WSF "-- Scyndi.Globals.CSayF"
 		For K,V in sPairs(Dat)
 			If V.AutoVar!=""
 				Var CVar := XSplit(V.AutoVar," ")
@@ -166,26 +168,31 @@ Group SubAch
 				Lua.assert(Len(CVar)==Len(CVal),SprintF("AutoAward checkup number mismatch in '%s'. %d variables and %d values",K,Len(CVar),Len(CVal)))
 				Bool Check = True
 				//For i=1,#CVar
-				for i=1,Len(CVar)-1
+				for i=0,Len(CVar)-1
 					String ChTp := Left(CVar[i],1)
-					String ChVr := Right(CVar[i],len(CVar[1])-1)
+					String ChVr := Right(CVar[i],len(CVar[i])-1)
 					Int ChVi := Lua.tonumber(CVal[i]) || 0
 					bool ChVb := Upper(CVal[i])=="TRUE"
 					Switch ChTp
 						Case "="
 							Check = Check && gInt[ChVr]==ChVi
+							WSF("%s: %s == %d -> %s",K,ChVr,ChVi,Check)
 						Case ">"
 							Check = Check && gInt[ChVr]>ChVi
+							WSF("%s: %s > %d -> %s",K,ChVr,ChVi,Check)
 						Case "<"
 							Check = Check && gInt[ChVr]<ChVi
+							WSF("%s: %s < %d -> %s",K,ChVr,ChVi,Check)
 						case "&"
 							Check = Check && gBool[ChVr]==ChVb
+							WSF("%s: %s (boolean) %s -> %s",K,ChVr,ChVb,Check)
 						Default
 							Lua.error(SprintF("Unknown check '%s'(%s) in %s",ChTp,CVar[i],K))
 					End
 				End
 				If Check
-					Self.Award(K)
+					//Self.Award(K)
+					WSF("Awarding %s",K)
 				End
 			End
 		End
