@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Misc/CMiniMessage.scyndi
 // 
-// 	  Version: 26.02.09 II
+// 	  Version: 26.02.12
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -93,8 +93,8 @@ Class MiniMessage
 		End
 	End
 	
-	Static Void NewMsg(String Msg,Int X, Int Y,Int R=255, Int G=255, Int B=255)
-		Lijst.AddLast(new MiniMessage(Msg,X,Y,R,G,B))		
+	Static Void NewMsg(String _Msg,Int _X, Int _Y,Int _R=255, Int _G=255, Int _B=255)
+		Lijst.AddLast(new MiniMessage(_Msg,_X,_Y,_R,_G,_B))		
 	End
 	
 	Void Draw()
