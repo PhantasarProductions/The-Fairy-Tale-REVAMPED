@@ -1,7 +1,7 @@
 // License:
 // 	src/Code/Script/Use/Anyway.scyndibundle/Mouse.scyndi
 // 	Mouse
-// 	version: 26.02.02
+// 	version: 26.02.11
 // 
 // 	Copyright (C) 2021, 2022, 2026 Jeroen P. Broks
 // 
@@ -52,12 +52,12 @@ Module
 		return gint.ScrollY + Events.MouseY
 	End
 
-	
-	void Draw()
-		static var pointer := ObtainImage("MOUSE")
+	plua pointer = ObtainImage("MOUSE")
+	void Draw()		
 		Graphics.Color(255,255,255)
 		Graphics.Scale(1,1)
 		pointer.Draw(MX,MY)
+		ObtainFont("BOXTEXT").Text(sprintf("Scroll(%4d,%4d); Mouse(%4d,%4d) -> (%4d,%4d)",gint.ScrollX,gint.ScrollY,MX,MY,KMX,KMY),0,0)
 	end
 	
 	void Flush()
