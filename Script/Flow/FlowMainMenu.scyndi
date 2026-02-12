@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.01.20
+// version: 26.02.12 I
 // 
 // End License
 
@@ -353,9 +353,9 @@ class MenuItem
 	
 	static void LoadGame()
 		Loading()
-		State.LoadNew("PARTY","Script/Subs/SubParty.Neil")
-		State.LoadNew("FLOW_SAVEGAME","Script/Flow/FlowSaveGame.neil")
-		State.Call("FLOW_SAVEGAME","WantLoad","mil")
+		State.LoadNew("PARTY","Script/Subs/SubParty.lbc")
+		State.LoadNew("FLOW_SAVEGAME","Script/Flow/FlowSaveGame.lbc")
+		Sys.Call("FLOW_SAVEGAME","ComeToLoad")
 		Flow.Current="SAVEGAME"
 	end
 	
