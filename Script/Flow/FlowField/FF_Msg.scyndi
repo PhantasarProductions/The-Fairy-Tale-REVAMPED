@@ -34,9 +34,9 @@
 // misrepresented as being the original software.
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
-Void _m(string Msg,Int X, Int Y,Int R=255,Int G=255,Int B=255)
+
+Void FF_Msg(string Msg,Int X, Int Y,Int R=255,Int G=255,Int B=255)
 	Var MP = FlowField.Map
 	MiniMessage.NewMsg(Msg,X-MP.ScrollX,Y-MP.ScrollY,R,G,B)
 End
 
-Return _m
