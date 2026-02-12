@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowField.scyndi
 // 
-// 	  Version: 26.02.03 X
+// 	  Version: 26.02.11
 // 	
 // 	  Copyright (C) 2021, 2026 Jeroen Petrus Broks
 // 	
@@ -119,6 +119,7 @@ Void Walk()
 	If Events.MouseHitLeft 
 		If Mouse.my<Screen.H-100 && (FlowField.Renc.AWalkClick)
 			//FlowField.Map.WalkClick(Kthura.mx,Kthura.my)
+			CSayF("Player clicked (%4d,%4d)",Mouse.kmx,Mouse.kmy)
 			FlowField.Map.WalkClick(Mouse.kmx,Mouse.kmy)
 		end
 	end	
