@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowField/CL_Clickable.scyndi
 // 
-// 	  Version: 26.02.11 II
+// 	  Version: 26.02.12 III
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -56,10 +56,10 @@ Class _Clickable
 	Static Table Register 
 
 	Static Bool All(Int X,Int Y)
-		If !Register[FieldFlow.Map.Layer]
+		If !Register[Kthura.CurrentLayer]
 			Return False
 		End
-		for CLK in Register[FieldFlow.Map.Layer].Each
+		for CLK in Register[Kthura.CurrentLayer].Each
 			if Clk.Clicked(x, y)
 				//Map.WalkTo(CLK.walkx,CLK.Walky)
 				//FieldFlow.Map.CurLayer.Obj("PLAYER").WalkTo(CLK.walkx,CLK.Walky)
@@ -72,6 +72,7 @@ Class _Clickable
 				return true
 			end
 		end
+		CSayF("All clickables checked! No clicked results")
 		return false
 	End
 	
@@ -90,7 +91,8 @@ Class _Clickable
 	Static Void Create(String _lay,String _tag,Int _wx,int _wy,_ae,String _ap="")
 		Register = Register || {}
 		Register[_Lay] = Register[_Lay] || new TLinkedList() 
-		Register[_Lay].AddLast(new _Clickable(_tag,_wx,_wy,_ae,_ap))		
+		Register[_Lay].AddLast(new _Clickable(_tag,_wx,_wy,_ae,_ap))
+		CSayF("Clickable.Create(\"%s\",\"%s\",%4d,%4d,<(%s)%s>,\"%s\"): Done!",_lay,_tag,_wx,_wy,Lua.type(_ae),_ae,_ap)
 	End
 	
 	Static Table Spot(Lay,String ObjTag,Same)
@@ -171,10 +173,10 @@ Class _Clickable
 	ReadOnly String ArriveParam
 	
 	
-	Const Bool Debug = False 
-	ReadOnly Bool Clicked(Int X, Int Y)
+	Const Bool Debug = True
+	Bool Clicked(Int X, Int Y)
 		If Debug
-			CSayF("Checking clickable object %s(%04d,%04d)",Tag,X,Y)
+			CSayF("Checking clickable object %s (%04d,%04d)",Tag,X,Y)
 		End
 		If !Kthura.HasObj(Tag)
 			If Debug
@@ -182,7 +184,22 @@ Class _Clickable
 			End
 			Return False
 		End
-		Return FieldFlow.Map.CurLayer.Obj(Tag).PixInObj(x,y)
+		If Debug
+			co:=Kthura.Obj[Tag]
+			CSayF("Let's debug %s (%d)",Tag,co.ID)
+			CSayF("\t=>Object coordinate(%04d,%04d)",co.X,co.Y)
+			os:=Kthura.ObjSize(Tag)			
+			CSayF("\t=>Size: x=%d; y=%d; w=%d; h=%d",os.x,os.y,os.w,os.h)
+		End
+		int cbx
+		int cby
+		int cw
+		int ch
+		cbx,cby,cw,ch = Kthura.PObjSize(Tag)
+		int cex := cbx+cw
+		int cey := cby+ch
+		return x>=cbx && x<=cex && y>=cby && y<=cey
+		//Return Kthura.Obj[Tag].PixInObj(x,y)
 	End
 	
 	Constructor(String _tag,Int _wx,int _wy,_ae,String _ap="")
