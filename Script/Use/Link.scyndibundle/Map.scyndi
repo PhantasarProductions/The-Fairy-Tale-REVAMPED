@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Link.scyndibundle/Map.scyndi
 // 
-// 	  Version: 26.02.11
+// 	  Version: 26.02.12
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -211,7 +211,7 @@ End
 	
 	Bool HasTag(string Tag)
 		//Return ISGET.BOOL("FLOW_FIELD",sPrintF("FlowField.Map.CurLayer.HasTag(\"%s\")",Tag))
-		Return Kthura.HasTag(Tag)
+		Return Kthura.HasObj(Tag)
 	End
 	
 	Void GoToMap(string aMap,string aLayer,string SpawnPoint)
@@ -229,7 +229,7 @@ End
 
 	
 	Void GoToLayer(string aLayer, string SpawnPoint)
-		locExtern Self "Map"
+		locExtern Self "Scyndi.Class.Map"
 		If HasTag("PLAYER")
 			Self.Kill("PLAYER",False)
 		End
@@ -262,6 +262,12 @@ End
 	
 	Void SpawnPlayer(a,b)		
 		Spawn("PLAYER",a,b)
+	End
+	
+	Void GotoMapXY(String GMXY_Map,String GMXY_Layer,Int GMXY_X, Int GMXY_Y)
+		LoadMap(GMXY_Map)
+		Kthura.CurrentLayer = GMXY_Layer
+		SpawnPlayer(GMXY_X,GMXY_Y)
 	End
 	
 	Void _Script(String Func,Args)
