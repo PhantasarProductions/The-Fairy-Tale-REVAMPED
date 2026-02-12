@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowField/FF_GoToSave.scyndi
 // 
-// 	  Version: 26.02.11 I
+// 	  Version: 26.02.12 II
 // 	
 // 	  Copyright (C) 2021, 2026 Jeroen Petrus Broks
 // 	
@@ -44,10 +44,13 @@
 
 Module
 
+#Use "Libs/SCI/Sys"
+
 #use "Script/Use/Convert"
 
 Void FF_GoToSave()
-	State.LoadNew("FLOW_SAVEGAME","Script/Flow/FlowSaveGame.neil")
-	Flow.Current="SAVEGAME"
+	State.LoadNew("FLOW_SAVEGAME","Script/Flow/FlowSaveGame.lbc")
+	//Flow.Current="SAVEGAME"
+	Sys.Call("FLOW_SAVEGAME","ComeToSave")
 End
 
