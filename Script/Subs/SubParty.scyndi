@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.10 VII
+// version: 26.02.11
 // 
 // End License
 
@@ -257,8 +257,8 @@ Group SubParty
 		End
 		//RPGChar[char].Points.HP.MaxCopy  = "END_HP"
 		RPGChar[char].Points.HP.Have     = RPGChar[char].Points.HP.Maximum
-		RPGChar[char].Points.AP.MaxCopy  = "END_AP"
-		//RPGChar[char].Points.AP.Have     = RPGChar[char].Points.AP.Maximum
+		//RPGChar[char].Points.AP.MaxCopy  = "END_AP"
+		RPGChar[char].Points.AP.Have     = RPGChar[char].Points.AP.Maximum
 		RPGChar[char].Points.VIT.Maximum = ({250,100,0})[__skill]
 		RPGChar[char].Points.VIT.Have    = RPGChar[char].Points.VIT.Maximum
 		RPGChar[char].Data.EQUIP_Weapon  = ""
