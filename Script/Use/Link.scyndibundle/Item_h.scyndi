@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Link.scyndibundle/Item_h.scyndi
 // 
-// 	  Version: 26.01.24
+// 	  Version: 26.02.12 IV
 // 	
 // 	  Copyright (C) 2020, 2021, 2026 Jeroen Petrus Broks
 // 	
@@ -44,16 +44,20 @@
 Module
 
 #use "Libs/SCI/Sys"
+#use "Libs/SCI/GINIE"
+#use "Libs/SCI/Intervar"
 
 #use "Script/Use/Convert"
 
-#macro __LoadItemState State.LoadNew("SUB_ITEMS","Script/Subs/SubItems.Neil")
+#macro __LoadItemState State.LoadNew("SUB_ITEMS","Script/Subs/SubItems.lbc")
 
 // In Apollo this was needed, but in SCI this is not needed, but saves me a crap load of work.
 //#macro __CSay Lua.Neil.Globals.CSay
 LocExtern __CSay "Scyndi.Globals.CSay"
 LocExtern __CSayF "Scyndi.Globals.CSayF"
 
+
+plua ItemGINIE = GINIE.CreateNew("INVENTORY")
 
 Var IndexTypes
 
@@ -76,7 +80,7 @@ Var __AblOverView(string char,int x,int y, int w, int h,string situation)
 End	
 
 Bool __ItmGive(String ItemTag)
-	Var I = Lua.Neil.Globals.Item
+	Var I = Lua.Scyndi.Globals.Item
 	__CSayF("Give %s (already has %d, max %d)",ItemTag,I[ItemTag].Has,I.Max)
 	If I[ItemTag].Has<I.Max
 		I[ItemTag].Has++
@@ -96,23 +100,31 @@ Var __TagIndex(s,string Key)
 			return gv.gint.Cash
 		Case "MAX"			
 			__LoadItemState
-			Return ISGET.Int("SUB_ITEMS","MAXITEM")
+			//Return ISGET.Int("SUB_ITEMS","MAXITEM")
+			Switch gint.Skill
+				case 1;	Return 150;
+				case 2; Return 50; 
+				case 3; return 10;
+				default; Return 1;
+			end
 		Case "OVERVIEW"
 			return __Overview
 		Case "ABLOVERVIEW" "ABILITYOVERVIEW"
 			return __AblOverview
 		Case "SAVE"
 			//Void _S()
-			dDef _S
-				__LoadItemState
-				State.Call("SUB_ITEMS","SaveInventory","nil")
-			End
-			Return _S
+			//dDef _S
+			//	__LoadItemState
+			//	State.Call("SUB_ITEMS","SaveInventory","nil")
+			//End
+			//Return _S
+			Lua.error("Item.Save no longer works")
 		Case "EMPTY"
 			//Void _E()
 			dDef _E
-				__LoadItemState
-				State.Call("SUB_ITEMS","EmptyInventory","nil")
+				//__LoadItemState
+				//State.Call("SUB_ITEMS","EmptyInventory","nil")
+				ItemGINIE = GINIE.Create("INVENTORY") // The the old data fall through the garbage collector.
 			End
 			Return _E
 		Default
@@ -132,7 +144,8 @@ Var __TagIndex(s,string Key)
 						Return False
 					elseif Key2=="SELLPRICE"
 						//CSayF("Getting sell price of item %s",Key)
-						return ISGET.INT("SUB_ITEMS",sprintf("GetSellPrice(\"%s\")",Key))
+						//return ISGET.INT("SUB_ITEMS",sprintf("GetSellPrice(\"%s\")",Key))
+						Lua.error("SELLPRICE property for items not yet set!")
 					elseif Key2=="HASFIELD"
 						//bool fuck(string K)
 						ddef Fuck
@@ -141,10 +154,13 @@ Var __TagIndex(s,string Key)
 							return NeilSomething(IndexTypes[Upper(K)])
 						end
 						return fuck
+					elif Key2=="HAS" || Key2=="NUM" || Key2=="AMOUNT"
+						return ItemGINIE.IntValue("Inventory",Key)
 					End
 					__LoadItemState
 					
 					If Prefixed(Key2,"ALLOW_")
+						Lua.error(sprintf("%s property for items not yet set! ALLOW setups must be done later.",Key2))
 						Return ISGET.BOOL("SUB_ITEMS",SprintF("Allow('%s','%s')",Key,Right(Key2,Len(Key2)-6)))
 					End
 					IndexTypes = IndexTypes || NeilUse("Script/Use/Misc/ItemIndexTypes")
@@ -162,7 +178,8 @@ Var __TagIndex(s,string Key)
 							__LoadItemState
 							//__CSayF("Linkthrough> Inventory> %s.HAS = %d",key2,value)
 							//State.Call("SUB_ITEMS","SetItemHas",sPrintF("'%s',%d",Key,Lua.tonumber(value) || 0))
-							State.Call("SUB_ITEMS","SetItemHas",sPrintF("'%s',%d",Key,value))
+							//State.Call("SUB_ITEMS","SetItemHas",sPrintF("'%s',%d",Key,value))
+							ItemGINIE.Value("Inventory",Key,value)
 						Default
 							Lua.error("Item."..key.."."..key2.." is either non-existent or read-only!")
 					End
