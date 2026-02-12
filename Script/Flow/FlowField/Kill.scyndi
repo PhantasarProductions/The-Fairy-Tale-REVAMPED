@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowField/Kill.scyndi
 // 
-// 	  Version: 26.02.03 III
+// 	  Version: 26.02.12
 // 	
 // 	  Copyright (C) 2026 Jeroen Petrus Broks
 // 	
@@ -72,6 +72,11 @@ Void ByLabel(string Label,Bool Perma)
 	End
 	//Kthura.Kill(Label)	
 	Lua.error(sprintf("Kill.ByLabel(\"%s\",%s): Kill.ByLabel not yet implemented",Label,Perma))
+End
+
+Void SetPerma(String Tag)
+	CSayF("%s now scheduled for removal, next time this man will be loaded",Tag)
+	KillData.Add(Kthura.LastLoadedMap,Kthura.CurrentLayer,Tag,True,True)	
 End
 
 Void CBLoadMap()
