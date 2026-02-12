@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowField/FF_DrawScreen.scyndi
 // 
-// 	  Version: 26.02.10 X
+// 	  Version: 26.02.12 II
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -51,6 +51,7 @@ Module
 #use "Libs/SCI/Kthura"
 #use "Libs/SCI/Events"
 #use "Libs/SCI/Graphics"
+#use "Libs/SCI/InterVar"
 
 #use "Script/Use/Link"
 #use "Script/Use/Anyway"
@@ -127,23 +128,23 @@ Void FieldStats()
 	//local layer
 	Graphics.SetAlpha(Alpha)
 	//if Maps.Multi()==1 then layer = FlowField.Map.Layer end
-	stuff[1] = {"FSTIT",Kthura.MetaData["Title"],"FieldInfo"}
+	stuff[0] = {"FSTIT",Kthura.MetaData["Title"],"FieldInfo"}
 	if Left(FlowField.Map.Layer,1)=="#" 
-		stuff[2]={"FSROM",FlowField.Map.Layer} 
+		stuff[1]={"FSROM",FlowField.Map.Layer} 
 	end
-    if FlowField.Map.LayerName[FlowField.Map.Layer]
+    if FlowField.Map.LayerName[Kthura.CurrentLayer]
     	stuff += {"FSRMN",FlowField.Map.LayerName[FlowField.Map.Layer],"FieldInfo"} 
     end    
-    if gv.gInt.CASH>0
-    	stuff += {"FSCSH",gv.gINT.CASH}     
+    if gInt.CASH>0
+    	stuff += {"FSCSH",gINT.CASH}     
     end
-    if gv.gInt.ORBS>0
-    	stuff += {"FSORB",gv.gINT.ORBS}
+    if gInt.ORBS>0
+    	stuff += {"FSORB",gINT.ORBS}
     end
-    if gv.gInt.LEVELCAP>0 
-    	stuff += {"FSLVC",gv.gINT.LEVELCAP } 
+    if gInt.LEVELCAP>0 
+    	stuff += {"FSLVC",gINT.LEVELCAP } 
     end
-    if gv.gbool["&ALLOW.ENCOFF['"..FlowField.Map.LoadedMap.."']"] || (__Chapter>0 && prefixed(FlowField.Map.LoadedMap:upper(),"PRO"))
+    if gbool["&ALLOW.ENCOFF['"..FlowField.Map.LoadedMap.."']"] || (__Chapter>0 && prefixed(Upper(FlowField.Map.LoadedMap),"PRO"))
     	if Events.KeyHit(69)
     		FlowField.Renc.rencon = !FlowField.Renc.rencon
     	end
@@ -155,11 +156,16 @@ Void FieldStats()
     If __newgameplus 
     	stuff	+= {"FNGP","New Game +"}
     End
-    for i,data in ipairs(stuff)
+    for _i,_data in ipairs(stuff)
+    	i:=_i+1
+    	data:=_data
     	__white
     	//SetFont(data[3] or 'FieldStat')
     	Fnt = FntTable[data[3] || "Stat"]
-    	Var Img = Image.LoadNew("GFX/Field Icons/"..data[1]..".png",data[1])
+    	LocExtern FIcons "FieldIcons"
+    	LocExtern Img "FieldIcons[data]"
+    	FIcons = FIcons || {} 
+    	Img = Img || LoadNewImage("GFX/Field Icons/"..data[1]..".png",data[1])
     	Img.HotCenter()
     	Img.Draw(35,i*35)
     	Graphics.Color(180,255,0)
