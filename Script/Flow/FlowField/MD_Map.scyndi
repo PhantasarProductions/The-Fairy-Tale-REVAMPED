@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowField/MD_Map.scyndi
 // 
-// 	  Version: 26.02.11 II
+// 	  Version: 26.02.11 IV
 // 	
 // 	  Copyright (C) 2021, 2026 Jeroen Petrus Broks
 // 	
@@ -51,6 +51,7 @@
 #use "Libs/XMath"
 
 #use "Script/Use/Link"
+#use "Script/Use/Anyway"
 #use "Script/Use/Convert"
 
 Module
@@ -171,17 +172,18 @@ Module
 		Kthura.CurrentLayer=Upper(L)
 	End
 	
-	Void WalkClick(Int mX, Int mY)		
-		int x := mx + ScrollX
-		int y := my + ScrollY
-		CSayF("Request to walk to (%4d,%4d); Mouse(%4d,%4d); Scroll(%4d,%4d)",x,y,mx,my,ScrollX,ScrollY)
+	Void WalkClick(Int __mX, Int __mY)		
+		//int x := mx + ScrollX
+		//int y := my + ScrollY
+		
+		CSayF("Request to walk to (%4d,%4d); Mouse(%4d,%4d); Scroll(%4d,%4d)",__mx,__my,Mouse.mx,mouse.my,ScrollX,ScrollY)
 		if !Kthura.HasObj("PLAYER")
 			CSay("But there is no player available now, so the request will be ignored!")
 			return
 		end				
-		if !Clickable.All(x,y)
+		if !Clickable.All(__mx,__my)
 			//CurLayer.Obj("PLAYER").WalkTo(x,y)
-			Kthura.Obj.PLAYER.WalkTo(x,y)
+			Kthura.Obj.PLAYER.WalkTo(__mx,__my)
 			ArriveFunc = nil
 			ArriveParam = ""
 		End	
