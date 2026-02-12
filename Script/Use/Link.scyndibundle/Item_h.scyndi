@@ -125,6 +125,7 @@ Var __TagIndex(s,string Key)
 				//__LoadItemState
 				//State.Call("SUB_ITEMS","EmptyInventory","nil")
 				ItemGINIE = GINIE.Create("INVENTORY") // The the old data fall through the garbage collector.
+				ItemGINIE.Value("Base","Initiated","True")
 			End
 			Return _E
 		Default

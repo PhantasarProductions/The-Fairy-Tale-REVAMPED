@@ -45,21 +45,50 @@
 
 Script
 
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/SString"
+#use "Libs/SCI/Graphics"
+#use "Libs/SCI/Intervar"
+
+#use "Script/Use/Link"
 #use "Script/Use/Anyway"
+#use "Script/Use/Convert"
+
 #use "Script/Data/IAA/MyData_ClassFile_IAA"
 #use "Libs/Fittext"
 
 #macro __ScrollY ScrollList[Filters]
 #macro __ScrollAY ScrollList[Situation]
 
-ReadOnly Var FilFnt = ImageFont.Obtain("FNTSBAR")
-ReadOnly Var ItmFnt = Imagefont.Obtain("FNTSTATSTAT")
-Global ReadOnly Int MaxItem=({100,50,10})[gv.gint.skill]
+ReadOnly Var FilFnt = ObtainFont("FNTSBAR")
+ReadOnly Var ItmFnt = ObtainFont("FNTSTATSTAT")
+Global ReadOnly Int MaxItem=({100,50,10})[gint.skill]
 
 Table LoadedItems = {}
 
-Global Table Inventory = {["ITM_APPLE"]=24 div gv.gInt.Skill, ["ITM_ANTIDOTE"]=6 div gv.gint.skill,["ITM_HEALINGHERB"]=3-gv.gint.skill }
+//Global Table Inventory = {["ITM_APPLE"]=24 div gv.gInt.Skill, ["ITM_ANTIDOTE"]=6 div gv.gint.skill,["ITM_HEALINGHERB"]=3-gv.gint.skill }
 Global Table Abilities = {}
+
+plua InvNums = GINIE.CreateNew("INVENTORY")
+QuickMeta Inventory
+	Index
+		Return InvNums.IntValue("Inventory",Key)
+	End
+	NewIndex
+		Int V:=Value
+		InvNums.Value("Inventory",Key,V)
+	End
+End
+Init
+	If Upper(ItemGINIE.Value("Base","Initiated"))!="TRUE"
+		Inventory["ITM_APPLE"]      += 24 div gInt.Skill
+		Inventory["ITM_ANTIDOTE"]   += 6 div gint.skill
+		Inventory["ITM_HEALINGHERB"]+= 3- gint.skill
+		CSayF("Base inventory for skill #%d initiated!")
+	End		
+	ItemGINIE.Value("Base","Initiated","True")
+End	
+
 
 Class ABLRec
 	ReadOnly String iTag
@@ -132,7 +161,7 @@ Class ABLRec
 	End
 	
 	Constructor(string T,string CH,int R1, int R2, int R3, int R4, int R5,string C)
-		iTag     = T:upper()
+		iTag     = Upper(T)
 		Char     = Ch
 		Category = C
 		Req1     = R1
@@ -143,7 +172,7 @@ Class ABLRec
 	End
 	
 	Static Void NewAbl(string T,string Ch,int R1, int R2, int R3, int R4, int R5,string Cat)
-		T = T:upper()
+		T = Upper(T)
 		Abilities[ch] = Abilities[ch] || { ["Ability"]={}, ["Skill"]={} }		
 		Abilities[ch].Ability[T] = new ABLRec(T,Ch,R1,R2,R3,R4,R5,Cat)
 		If ch=="Jake"
@@ -166,7 +195,7 @@ Class ABLRec
 	End
 	
 	Static Void NewSkill(string T, string CH)
-		T = T:upper()
+		T = Upper(T)
 		If Prefixed(ch,"Jake")
 			Abilities.Jake_Human = Abilities.Jake_Human || { ["Ability"]={}, ["Skill"]={} }
 			Abilities.Jake_Fairy = Abilities.Jake_Fairy || { ["Ability"]={}, ["Skill"]=Abilities.Jake_Human.Skill }
@@ -206,12 +235,13 @@ Class ABLRec
 			
 End
 
-Global Void SaveInventory()
-	String Data = "Init\n// Inventory\n"
-	For k,v in sPairs(Inventory)
-		Data += sPrintf("\tInventory[\"%s\"] = %4d\n",k,v)
-	End
-	Data += "\n\n//Skills\n"
+Global Void SaveSkills()
+//	String Data = "Init\n// Inventory\n"
+//	For k,v in sPairs(Inventory)
+//		Data += sPrintf("\tInventory[\"%s\"] = %4d\n",k,v)
+//	End
+//	Data += "\n\n//Skills\n"
+	InvNums.Kill("Skills")
 	For ch,abl in spairs(Abilities)
 		// Prevent dupes on Jake
 		//If Ch!="Jake_Fairy"
@@ -226,30 +256,43 @@ Global Void SaveInventory()
 			Case "Feenalaria_Human" "Nostramantu_Human" "Feenalaria_Human2"
 				//Lua.error("Feenalaria (Feenalaria_Human) not yet set up")
 			Default
-				Data += sprintf("\tLoadAbilityList(\"%s\")\n",Ch)
+//				Data += sprintf("\tLoadAbilityList(\"%s\")\n",Ch)
+				CSayF("W:Skills for character: %s",ch)
+				InvNums.Add("Skills","_Chars",ch)
 				For tag,_ in spairs(Abl.Skill)
-					Data += sprintf("\tAblRec.NewSkill(\"%s\",\"%s\")\n",tag,ch)
+					CSayF("= %s",tag)
+					InvNums.Add("Skills",ch,tag)
+//					Data += sprintf("\tAblRec.NewSkill(\"%s\",\"%s\")\n",tag,ch)
 				End
 		End
 	End
-	Data += "End\n\n"
-	SaveGame.Data["INVENTORY.NEIL"] = Data
+//	Data += "End\n\n"
+//	SaveGame.Data["INVENTORY.NEIL"] = Data
 End
 
-Global Void LoadInventory()
-	If SaveGame.HasData("INVENTORY.NEIL")
-		NeilDoString(SaveGame.Data["INVENTORY.NEIL"])
-	End
-End
+Global Void LoadSkills()
+	ChList:=InvNums.List("Skills","_Chars")
+	for Ch in Each(ChList)
+		CSayF("R:Load Ability list for character: %s",ch)
+		LoadAbilityList(Ch)
+		CSayF("R:Skills for character: %s",ch)
+		SkL:=InvNums.List("Skills",ch)
+		
+
+//Global Void LoadInventory()
+//	If SaveGame.HasData("INVENTORY.NEIL")
+//		NeilDoString(SaveGame.Data["INVENTORY.NEIL"])
+//	End
+//End
 
 Global Void SetItemHas(string itTag,int num)
 	Print("SetItemHas",itTag,num)
-	Inventory[itTag:upper()] = math.max(math.min(num,maxitem),0)
+	Inventory[Upper(itTag)] = math.max(math.min(num,maxitem),0)
 End
 
 Global Bool Allow(string itTag, string Filter,string Char="")
-	itTag = itTag:upper()
-	Filter = Filter:upper()
+	itTag = Upper(itTag)
+	Filter = Upper(Filter)
 	LoadedItems[itTag] = LoadedItems[itTag] || NeilUse("Script/Data/IAA/"..ItTag)
 	Var MyItem = LoadedItems[itTag]
 	Static String EQP="EQUIPMENT FOR "
@@ -302,8 +345,8 @@ Global Void Explain(it)
 		Explain(LoadedItems[it])
 		return
 	End
-	Int MX = Events.MouseX()
-	Int MY = Events.MouseY()
+	Int MX = Events.MouseX
+	Int MY = Events.MouseY
 	Graphics.Color(255,255,255)
 	//FitText.Dark(FilFnt,"DEBUG FUCK!",MX+10,MY+100)
 	FitText.Dark(FilFnt,it.Desc,MX+10,MY+100)
