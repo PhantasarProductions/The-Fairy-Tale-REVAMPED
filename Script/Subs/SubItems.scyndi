@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Subs/SubItems.scyndi
 // 
-// 	  Version: 26.02.12
+// 	  Version: 26.02.12 XXIV
 // 	
 // 	  Copyright (C) 2021-'22, 2026 Jeroen Petrus Broks
 // 	
@@ -46,6 +46,8 @@
 Script
 
 #use "Libs/SCI/Sys"
+#use "Libs/SCI/GINIE"
+#use "Libs/SCI/Events"
 #use "Libs/SCI/SString"
 #use "Libs/SCI/Graphics"
 #use "Libs/SCI/Intervar"
@@ -80,13 +82,13 @@ QuickMeta Inventory
 	End
 End
 Init
-	If Upper(ItemGINIE.Value("Base","Initiated"))!="TRUE"
+	If Upper(InvNums.Value("Base","Initiated"))!="TRUE"
 		Inventory["ITM_APPLE"]      += 24 div gInt.Skill
 		Inventory["ITM_ANTIDOTE"]   += 6 div gint.skill
 		Inventory["ITM_HEALINGHERB"]+= 3- gint.skill
 		CSayF("Base inventory for skill #%d initiated!")
 	End		
-	ItemGINIE.Value("Base","Initiated","True")
+	InvNums.Value("Base","Initiated","True")
 End	
 
 
@@ -99,7 +101,7 @@ Class ABLRec
 	End
 	
 	Get String UnlTag
-		string c=Char
+		string c:=Char
 		if prefixed(c,"Jake") 
 			c="jake"
 		End
@@ -113,10 +115,10 @@ Class ABLRec
 		If prefixed(Char,"Feenalaria") || Char=="Nostramantu"
 			Return True
 		End
-		Return gv.gBool[UnlTag]		
+		Return gBool[UnlTag]		
 	End
 	Set Bool Unlocked
-		gv.gBool[UnlTag]=value
+		gBool[UnlTag]=value
 	End
 	
 	ReadOnly Int Req1
@@ -150,7 +152,7 @@ Class ABLRec
 			Return Ability.Title
 		End
 		String Ret = ""		
-		For i=1,#Ability.Title
+		For i=1,Len(Ability.Title)
 			If Mid(Ability.Title,i,1)==" "
 				Ret += " " 
 			Else
@@ -272,11 +274,16 @@ End
 
 Global Void LoadSkills()
 	ChList:=InvNums.List("Skills","_Chars")
-	for Ch in Each(ChList)
+	For Ch in Each(ChList)
 		CSayF("R:Load Ability list for character: %s",ch)
 		LoadAbilityList(Ch)
 		CSayF("R:Skills for character: %s",ch)
 		SkL:=InvNums.List("Skills",ch)
+		For Sk in Each(SkL)
+			AblRec.NewSkill(ch,Sk)
+		End
+	End
+End	
 		
 
 //Global Void LoadInventory()
@@ -294,12 +301,13 @@ Global Bool Allow(string itTag, string Filter,string Char="")
 	itTag = Upper(itTag)
 	Filter = Upper(Filter)
 	LoadedItems[itTag] = LoadedItems[itTag] || NeilUse("Script/Data/IAA/"..ItTag)
-	Var MyItem = LoadedItems[itTag]
-	Static String EQP="EQUIPMENT FOR "
+	MyItem := LoadedItems[itTag].ret
+	LocExtern EQP "SubItems_EQP" 
+	EQP = EQP || "EQUIPMENT FOR "
 	EQP = Replace(EQP,"HANDO STILLOR","HANDOSTILLOR")
 	If Prefixed(Filter,EQP)
-		String Name = Right(Filter,#Filter-#EQP)
-		Return MyItem.ITM_EQPFOR:upper()==Name || MyItem["ITM_ACC_"..Name]
+		String Name := Right(Filter,Len(Filter)-Len(EQP))
+		Return Upper(MyItem.ITM_EQPFOR)==Name || MyItem["ITM_ACC_"..Name]
 	End
 	Switch Filter
 		Case "ALL" "" "*"
@@ -354,11 +362,11 @@ End
 
 Global Int GetSellPrice(string iTag)
 	LoadedItems[iTag] = LoadedItems[iTag] || NeilUse("Script/Data/IAA/"..iTag)
-	var s = LoadedItems[iTag]
+	s := LoadedItems[iTag]
 	if !s.ITM_Sellable
 		Return 0
 	End
-	Switch gv.gint.Skill
+	Switch gint.Skill
 		case 1
 			Return s.ITM_ShopPrice
 		case 2
@@ -378,17 +386,18 @@ Global String OverView(int x, int y, int w, int h, string Filters,string char)
 	Static Table ListOfFilters = { ["FIELDMENU"] = {"All","Consumables","Combat","Equipment","Key"}, ["COMBAT"] = {"Combat"}, ["STORE"] = {"Sellable"}, ["SHOP"]={"All"}, ["WSHOP"]={"All"} }
 	Static Table CurrentFilter = {}
 	Static Table ScrollList = {}
-	Int MX = Events.MouseX()
-	Int MY = Events.MouseY()
-	Bool ML = Events.MouseHitLeft()
+	Int MX = Events.MouseX
+	Int MY = Events.MouseY
+	Bool ML = Events.MouseHitLeft
 	ListOfFilters.FIELD = ListOfFilters.FIELDMENU
 	Lua.assert(ListOfFilters[Filters],"No filterlist for situation: "..Filters)
 	CurrentFilter[Filters] = CurrentFilter[Filters] || 1
-	String CF = ListOfFilters[Filters][CurrentFilter[Filters]]
+	String CF := ListOfFilters[Filters][CurrentFilter[Filters]]
 	__ScrollY = __ScrollY || 0
 	// Filter menu
-	Int FW = w div (#ListOfFilters[Filters]+1)
-	For i,fitem in iPairs(ListOfFilters[Filters])
+	locextern ll "#"
+	Int FW := w div (ll ListOfFilters[Filters]+1)
+	For i,fitem in Lua.ipairs(ListOfFilters[Filters])
 		String CFI = fitem
 		Switch Char
 			Case "Jake_Human" "Jake_Fairy"
@@ -402,9 +411,9 @@ Global String OverView(int x, int y, int w, int h, string Filters,string char)
 					CFI=""
 				End
 		End
-		Int TW = FilFnt.TextWidth(CFI)
-		Int WH = TW div 2
-		Int FX = (i * FW)+x
+		Int TW := FilFnt.TextWidth(CFI)
+		Int WH := TW div 2
+		Int FX := (i * FW)+x
 		if i==CurrentFilter[Filters]
 			Graphics.Color(50,36,0)
 			Graphics.Rect(FX-WH,y+5,TW,40)
@@ -421,7 +430,7 @@ Global String OverView(int x, int y, int w, int h, string Filters,string char)
 		FilFnt.DarkText(CFI,FX,y+25,2,2)
 	End
 	// Items
-	Int iY = -__ScrollY
+	Int iY := -__ScrollY
 	//String Hover = ""	
 	Bool CanGoDown 
 	For iTag,iNum in sPairs(Inventory)
@@ -431,8 +440,8 @@ Global String OverView(int x, int y, int w, int h, string Filters,string char)
 		If iY>=0 && iY<=H-150 && iNum>0 && Allow(iTag,ListOfFilters[Filters][CurrentFilter[Filters]],Char)
 			CanGoDown = False
 			Int MDX = 0
-			Int DX = X+10
-			Int DY = Y+iY+100
+			Int DX := X+10
+			Int DY := Y+iY+100
 			bool Hovering = False
 			If MX>DX && MX<(X+W)-80 && MY>DY && MY<DY+35
 				MDX = 30
@@ -480,7 +489,7 @@ Void Categorize(String Char)
 	End
 End
 		
-Global Void QuickWork(Table AT,String Char)
+Global Void QuickWork(AT,String Char)
 	Printf("Abilities for: %s\n",char)
 	For Category,Lijst in Pairs(AT)
 		printF("- Category: %s\n",Category) 
@@ -542,16 +551,17 @@ Global String AblOverview(String Char,int x, int y, int w, int h,string situatio
 	Int MY = Events.MouseY()
 	Bool ML = Events.MouseHitLeft()		
 	LoadAbilityList(Char)
-	String ctn = Abilities[Char].Cat[CurrentCat[Char]]
-	CurrentCat[char] = CurrentCat[char] || 1	
+	String ctn := Abilities[Char].Cat[CurrentCat[Char]]
+	CurrentCat[char] = CurrentCat[char] || 0	
 	LScrollY[char] = LScrollY[char] || {}
 	__ScrollAY = __ScrollAY || 0
 	__AScrollY = __AScrollY || 0
-	Int cw = w div (#Abilities[Char].Cat+1)	
-	For i,ct in ipairs(Abilities[Char].Cat)
-		Int CX = i*cw 
-		Int CW = FilFnt.TextWidth(ct)
-		Int WH = CW div 2
+	Int cw := w div (len(Abilities[Char].Cat)+1)	
+	For _i,ct in ipairs(Abilities[Char].Cat)
+		Int i  :=_i
+		Int CX := i*cw 
+		Int CW := FilFnt.TextWidth(ct)
+		Int WH := CW div 2
 		Graphics.Color( 50, 36,0)
 		Graphics.Rect(x+cx-wh,y+5,cw+2,45)
 		Graphics.Color(255,180,0)
@@ -567,11 +577,11 @@ Global String AblOverview(String Char,int x, int y, int w, int h,string situatio
 		End
 		FilFnt.DarkText(ct,x+CX,y+25,2,2)
 	End
-	Bool AllowUp = __AScrollY>0
-	Bool AllowDown = False
-	Int AY = (y+75)-__AScrollY
-	Var ALs = Abilities[Char].Ability
-	If CurrentCat[char]==#Abilities[Char].Cat
+	Bool AllowUp := __AScrollY>0
+	Bool AllowDown := False
+	Int AY := (y+75)-__AScrollY
+	Var ALs := Abilities[Char].Ability
+	If CurrentCat[char]==(Abilities[Char].Cat)-1
 		Als = Abilities[Char].Skill
 		//Lua.error("Skill!") // For debug use ONLY!
 	End	
@@ -605,7 +615,7 @@ Global String AblOverview(String Char,int x, int y, int w, int h,string situatio
 					If Dat.Unlocked
 						Explain(Abl)
 					Else
-						Int EY = MY+100
+						Int EY := MY+100
 						If Dat.ReqByStory 
 							FitText.Dark(FilFnt,"Unlocked when you reach a certain point in the scenario",MX+10,EY)
 						Else
