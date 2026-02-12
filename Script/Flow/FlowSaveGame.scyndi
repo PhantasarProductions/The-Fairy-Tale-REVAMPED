@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowSaveGame.scyndi
 // 
-// 	  Version: 26.02.12 XXX
+// 	  Version: 26.02.12 XXXI
 // 	
 // 	  Copyright (C) 2023, 2024, 2025, 2026 Jeroen Petrus Broks
 // 	
@@ -289,6 +289,11 @@ Void Action_Save(int Spot)
 	CSay("Unparsing permakill")	
 	S.Text["PermaKill.ini"] = GINIE.Obtain("MAP_KILLDATA").Source
 	
+	// Skills must be recived before the the inventory is unparsed or stuff won't work.
+	CSay("Receiving skills")
+	State.LoadNew("SUB_ITEMS","Script/Subs/SubItems.lbc")
+	Sys.Call("SUB_ITEMS","SaveSkills")
+	
 	CSay("Unparsing inventory")
 	s.Text["Inventory.ini"] = GINIE.CreateNew("INVENTORY").Source
 	
@@ -357,6 +362,10 @@ void Action_Load(int Spot)
 	CSay("Parsing inventory")
 	Plua Inv = GINIE.CreateNew("INVENTORY")
 	Inv.Source = S.Text["Inventory.ini"]
+	CSay("Reinstating skills")
+	State.LoadNew("SUB_ITEMS","Script/Subs/SubItems.lbc")
+	Sys.Call("SUB_ITEMS","LoadSkills")
+
 	CSay("Loading the FlowField")
 	State.LoadNew("FLOW_FIELD","Script/Flow/FlowField.lbc")
 	CSay("Loading the map")
