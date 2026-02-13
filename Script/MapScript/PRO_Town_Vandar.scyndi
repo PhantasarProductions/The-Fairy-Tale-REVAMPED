@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.11 X
+// version: 26.02.13 I
 // 
 // End License
 
@@ -81,6 +81,8 @@ Group MScript
 		Kthura.Obj.HEK_NEER.Impassible=true
 		Kthura.Obj.HEK_OP.Impassible=true
 		Players.Dominance = 200
+		Kthura.Remap()
+		CSayF("Upper Layer")
 	End
 	
 	Void GoDown()
@@ -88,10 +90,12 @@ Group MScript
 		//Map.SetObj("OP_BRUG" ,"ForcePassible",false)
 		//Map.SetObj("HEK_NEER","Impassible",false)
 		//Map.SetObj("HEK_OP",  "Impassible",false)
-		Kthura.Obj.OP_BRUG.ForcePassible=true
-		Kthura.Obj.HEK_NEER.Impassible=true
-		Kthura.Obj.HEK_OP.Impassible=true
+		Kthura.Obj.OP_BRUG.ForcePassible=false
+		Kthura.Obj.HEK_NEER.Impassible=false
+		Kthura.Obj.HEK_OP.Impassible=false
 		Players.Dominance = 20
+		Kthura.Remap()
+		CSayF("Lower Layer")
 	End
 	
 	Void StartPrologue()
