@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Subs/SubItems.scyndi
 // 
-// 	  Version: 26.02.12 XXIV
+// 	  Version: 26.02.13 V
 // 	
 // 	  Copyright (C) 2021-'22, 2026 Jeroen Petrus Broks
 // 	
@@ -86,7 +86,7 @@ Init
 		Inventory["ITM_APPLE"]      += 24 div gInt.Skill
 		Inventory["ITM_ANTIDOTE"]   += 6 div gint.skill
 		Inventory["ITM_HEALINGHERB"]+= 3- gint.skill
-		CSayF("Base inventory for skill #%d initiated!")
+		CSayF("Base inventory for skill #%d initiated!",gInt.Skill)
 	End		
 	InvNums.Value("Base","Initiated","True")
 End	
@@ -96,7 +96,7 @@ Class ABLRec
 	ReadOnly String iTag
 	ReadOnly String Char
 	Get Var Ability
-		LoadedItems[iTag] = LoadedItems[iTag] || NeilUse("Script/Data/IAA/"..iTag)
+		LoadedItems[iTag] = LoadedItems[iTag] || NeilUse("Script/Data/IAA/"..iTag).Ret
 		Return LoadedItems[iTag]
 	End
 	
@@ -243,8 +243,10 @@ Global Void SaveSkills()
 //		Data += sPrintf("\tInventory[\"%s\"] = %4d\n",k,v)
 //	End
 //	Data += "\n\n//Skills\n"
-	InvNums.Kill("Skills")
+	//InvNums.Kill("Skills")
+	InvNums.ClearList("Skills","_Chars")	
 	For ch,abl in spairs(Abilities)
+	InvNums.ClearList("Skills",Ch)
 		// Prevent dupes on Jake
 		//If Ch!="Jake_Fairy"
 		Switch Ch
@@ -300,7 +302,7 @@ End
 Global Bool Allow(string itTag, string Filter,string Char="")
 	itTag = Upper(itTag)
 	Filter = Upper(Filter)
-	LoadedItems[itTag] = LoadedItems[itTag] || NeilUse("Script/Data/IAA/"..ItTag)
+	LoadedItems[itTag] = LoadedItems[itTag] || NeilUse("Script/Data/IAA/"..ItTag).Ret
 	MyItem := LoadedItems[itTag].ret
 	LocExtern EQP "SubItems_EQP" 
 	EQP = EQP || "EQUIPMENT FOR "
@@ -334,13 +336,13 @@ Global Bool Allow(string itTag, string Filter,string Char="")
 End
 
 Global Var ItemField(string ItTag,ItField)
-	ItTag = ItTag:upper()
-	ItField = ItField:upper()
+	ItTag = Upper(ItTag)
+	ItField = Upper(ItField)
 	Switch ItField
 		Case "HAS" "NUMBER" "AMOUNT" "HAVE" 
 			Return Inventory[itTag] || 0
 		Default
-			LoadedItems[itTag] = LoadedItems[itTag] || NeilUse("Script/Data/IAA/"..ItTag)
+			LoadedItems[itTag] = LoadedItems[itTag] || NeilUse("Script/Data/IAA/"..ItTag).Ret
 			//cOut("Item requested: ",ittag,"; Field: ",itfield," => ",LoadedItems[itTag][ItField])
 			Return LoadedItems[itTag][ItField]
 	End
@@ -349,7 +351,7 @@ End
 Global Void Explain(it)
 	if (Lua.type(it)=="string")
 		// By lack of a proper overload I guess this will have to do
-		LoadedItems[it] = LoadedItems[it] || NeilUse("Script/Data/IAA/"..It)
+		LoadedItems[it] = LoadedItems[it] || NeilUse("Script/Data/IAA/"..It).Ret
 		Explain(LoadedItems[it])
 		return
 	End
@@ -361,7 +363,7 @@ Global Void Explain(it)
 End
 
 Global Int GetSellPrice(string iTag)
-	LoadedItems[iTag] = LoadedItems[iTag] || NeilUse("Script/Data/IAA/"..iTag)
+	LoadedItems[iTag] = LoadedItems[iTag] || NeilUse("Script/Data/IAA/"..iTag).Ret
 	s := LoadedItems[iTag]
 	if !s.ITM_Sellable
 		Return 0
@@ -435,7 +437,7 @@ Global String OverView(int x, int y, int w, int h, string Filters,string char)
 	Bool CanGoDown 
 	For iTag,iNum in sPairs(Inventory)
 		CanGoDown = True
-		LoadedItems[iTag] = LoadedItems[iTag] || NeilUse("Script/Data/IAA/"..iTag)
+		LoadedItems[iTag] = LoadedItems[iTag] || NeilUse("Script/Data/IAA/"..iTag).Ret
 		Var iData = LoadedItems[iTag]		
 		If iY>=0 && iY<=H-150 && iNum>0 && Allow(iTag,ListOfFilters[Filters][CurrentFilter[Filters]],Char)
 			CanGoDown = False
@@ -663,3 +665,12 @@ Global Void EmptyInventory()
 		end
 	end
 end
+
+Global Bool LinkHaveSkill(String Ch,String Skl)
+	Return Abilities[ch].Skill[Skl]!=nil
+End
+
+Global Void LinkInvoke(String Glob,Infinity)
+	ret:=Lua.Scyndi.Globals[Glob](Infinity)
+	gStr.IAA_LinkInvoke = Lua.tostring(ret)
+End
