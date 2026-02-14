@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Subs/SubItems.scyndi
 // 
-// 	  Version: 26.02.13 V
+// 	  Version: 26.02.14 VI
 // 	
 // 	  Copyright (C) 2021-'22, 2026 Jeroen Petrus Broks
 // 	
@@ -508,7 +508,7 @@ Global Void LoadAbilityList(String Char,Force)
 		Return
 	End
 	If (!Abilities[char]) || Force
-		NeilUse("Script/Data/Char/"..char.."/Abilities")
+		NeilUse("Script/Data/Char/"..char.."_Abilities")
 	End
 	If Char=="Jake_Human"
 		LoadAbilityList("Jake_Fairy",true)		
@@ -549,9 +549,9 @@ Global String AblOverview(String Char,int x, int y, int w, int h,string situatio
 	Static Table CurrentCat = {}
 	Static Table LScrollY = {}
 	String Ret = "" 
-	Int MX = Events.MouseX()
-	Int MY = Events.MouseY()
-	Bool ML = Events.MouseHitLeft()		
+	Int  MX = Events.MouseX
+	Int  MY = Events.MouseY
+	Bool ML = Events.MouseHitLeft		
 	LoadAbilityList(Char)
 	String ctn := Abilities[Char].Cat[CurrentCat[Char]]
 	CurrentCat[char] = CurrentCat[char] || 0	
@@ -560,9 +560,9 @@ Global String AblOverview(String Char,int x, int y, int w, int h,string situatio
 	__AScrollY = __AScrollY || 0
 	Int cw := w div (len(Abilities[Char].Cat)+1)	
 	For _i,ct in ipairs(Abilities[Char].Cat)
-		Int i  :=_i
+		Int i  :=_i+1
 		Int CX := i*cw 
-		Int CW := FilFnt.TextWidth(ct)
+		Int CW := FilFnt.Width(ct)
 		Int WH := CW div 2
 		Graphics.Color( 50, 36,0)
 		Graphics.Rect(x+cx-wh,y+5,cw+2,45)
@@ -570,11 +570,11 @@ Global String AblOverview(String Char,int x, int y, int w, int h,string situatio
 		If MX>x+cx-wh && MX<x+cx+wh && MY>y && MY<50+y
 			Graphics.Color(255,255,0)
 			If ML 
-				CurrentCat[char]=i
-				Print("Category set to: ",i)
+				CurrentCat[char]=_i
+				CSayF("Category set to: %d",i)
 			End
 		End
-		If i==CurrentCat[char]
+		If _i==CurrentCat[char]
 			Graphics.Rect(x+cx-wh,y+5,cw+2,45,true)
 		End
 		FilFnt.DarkText(ct,x+CX,y+25,2,2)
@@ -583,7 +583,7 @@ Global String AblOverview(String Char,int x, int y, int w, int h,string situatio
 	Bool AllowDown := False
 	Int AY := (y+75)-__AScrollY
 	Var ALs := Abilities[Char].Ability
-	If CurrentCat[char]==(Abilities[Char].Cat)-1
+	If CurrentCat[char]==len(Abilities[Char].Cat)-1
 		Als = Abilities[Char].Skill
 		//Lua.error("Skill!") // For debug use ONLY!
 	End	
@@ -639,9 +639,9 @@ Global String AblOverview(String Char,int x, int y, int w, int h,string situatio
 			AllowDown = AllowDown || AY>=(y+h)-40
 			//(y+h+75)-40
 			AY+=40
-			If     Events.MouseWheelY()<0 && AllowDown
+			If     Events.MouseWheelY<0 && AllowDown
 				__AScrollY+=1
-			Elseif Events.MouseWheelY()>0 && AllowUp
+			Elseif Events.MouseWheelY>0 && AllowUp
 				__AScrollY-=1
 			End
 		End
