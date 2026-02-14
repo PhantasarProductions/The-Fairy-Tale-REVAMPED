@@ -1,7 +1,7 @@
 // License:
 // **********************************************
 // 
-// src/Code/Script/Data/Char/Jake_Fairy/Meta.scyndi
+// src/Code/Script/Data/Char/Jake_Fairy_Meta.scyndi
 // (c) Jeroen Broks, 2021, 2026, All Rights Reserved.
 // 
 // This file contains material that is related
@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.01.31
+// version: 26.02.14 I
 // 
 // End License
 
@@ -44,7 +44,16 @@ Module
 
 
 Init
-	Var S = RPGChar.Jake_Fairy.Stat
+	S := RPGChar.Jake_Fairy.Stat
 	S.BASE_SR_Curse   = 90 div __skill
 	S.BASE_SR_Silence = 72 div __skill
+	J := RPGChar.Jake_Fairy.Data
+	J.EQUIP_Weapon = "EQP_JAKE_WP1"
+	J.EQUIP_Armor  = "EQP_JAKE_AR1"
+	J.AVNW = "Him"
+	J.BVNW = "His"
+	J.PVNW = "He"
+	J.RACE = "Fairy Hybrid"
+	J.SEX  = "Male"
+
 End
