@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowFieldMenu.scyndi
 // 
-// 	  Version: 26.02.14 XVI
+// 	  Version: 26.02.14 XXI
 // 	
 // 	  Copyright (C) 2020, 2021, 2026 Jeroen Petrus Broks
 // 	
@@ -65,8 +65,8 @@ readonly var   topbox = new CBox(0,0,Screen.W,74,false)
 readonly var   lftbox = new CBox(0,75,Screen.W/2,Screen.H-176,false)
 readonly var   rgtbox = new CBox(Screen.W/2,75,Screen.W/2,Screen.H-176,false)
 readonly var   whlbox = new CBox(0,75,Screen.W,Screen.H-176,false)
-readonly table  boxes = {topbox,lftbox,rgtbox,["LEFT"]=lftbox,["RIGHT"]=rgtbox}
-readonly table wboxes = {topbox,whlbox,["WHOLE"]=whlbox,["LEFT"]=lftbox,["RIGHT"]=rgtbox}
+readonly table  boxes = {[0]=topbox,lftbox,rgtbox,["LEFT"]=lftbox,["RIGHT"]=rgtbox}
+readonly table wboxes = {[0]=topbox,whlbox,["WHOLE"]=whlbox,["LEFT"]=lftbox,["RIGHT"]=rgtbox}
  
 
 
@@ -85,7 +85,7 @@ init
 	//Situations_Field += { ["LEFT"] = { ["ID"]="STATUS" }, ["RIGHT"] = { ["ID"]="QUIT" } ,         ["ICONFILE"] = "QUIT" }
 	Situations_Field += {["WHOLE"]={["ID"]="MASTER"}, ["ICONFILE"]="MASTER"}
 	Situations_Field += {["WHOLE"]={["ID"]="ACHIEVEMENTS"}, ["ICONFILE"]="ACHIEVEMENTS"}
-	Situations_Field += {["WHOLE"]={["ID"]="QUIT"}, ["ICONFILE"]="QUIT"}
+	//Situations_Field += {["WHOLE"]={["ID"]="QUIT"}, ["ICONFILE"]="QUIT"}
 	Situations.FIELD = Situations_Field
 	Situations.COMBAT_ABILITIES = {[0]= { ["LEFT"] = { ["ID"]="STATUS" }, ["RIGHT"] = { ["ID"]="ABILITIES" } ,    ["ICONFILE"] = "ABILITIES" } }
 	//Situations.COMBAT_ARMS = Situations.COMBAT_ABILITY 
@@ -119,7 +119,7 @@ global void PartyClick(int i,string ch)
 				//	RPGChar[itmod.rcitem].Data[sprintf("INVITEM%d",itmod.rsitem)]=itmod.citem
 				//	itmod.citem=""
 				//end
-				Flow.Current="FLOW_FIELD"
+				Flow.Current="FIELD"
 			else
 				FMChar = ch
 			end
@@ -181,6 +181,7 @@ global void MainFlow()
 	int iw = math.floor(Screen.W/(Len(Situations[FMSituation])+1))
 	// CSayF("Icons in situation '%s': %d",FMSituation,#Situations[FMSituation])
 	for i,ico in ipairs(Situations[FMSituation])
+		i1:=i+1
 		SitActive[FMSituation] = SitActive[FMSituation] || i
 		//__skyblue
 		__white
@@ -188,12 +189,14 @@ global void MainFlow()
 			__black
 		end
 		ico.ICON = ico.ICON || ObtainImage("ICO_"..ico.ICONFILE)
-		if Events.MouseHitLeft && my<topbox.h && mx>(i*iw)-ico.ICON.W && mx<(i*iw)+Ico.ICON.W
+		if Events.MouseHitLeft && my<topbox.height && mx>(i1*iw)-ico.ICON.Width && mx<(i1*iw)+Ico.ICON.Width
 			//Graphics.Rect(0,(i*iw)-15,Topbox.h,30) // debug only!
 			SitActive[FMSituation]=i
+			CSayF("Chosen %d as tab in situation %s",i,FMSituation)
 		end
 		Lua.assert(ico.ICON.Draw,"Draw method became 'nil' in "..Lua.tostring(ico.ICONFILE))
-		ico.ICON.Draw((i+1)*iw,topbox.h div 2)
+		//ico.ICON.Draw((i+1)*iw,topbox.h div 2)
+		ico.ICON.Draw((i+1)*iw,10) 
 		if SitActive[FMSituation]==i
 			//static table kanten={"LEFT","RIGHT"}
 			//static table whole={"WHOLE"}
