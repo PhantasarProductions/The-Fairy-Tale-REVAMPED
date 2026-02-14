@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Link.scyndibundle/Item_h.scyndi
 // 
-// 	  Version: 26.02.13 V
+// 	  Version: 26.02.14 I
 // 	
 // 	  Copyright (C) 2020, 2021, 2026 Jeroen Petrus Broks
 // 	
@@ -62,8 +62,8 @@ plua ItemGINIE = GINIE.CreateNew("INVENTORY")
 Var IndexTypes
 
 String StrGet(String F,Infinity)
-	CSayF("StrGet: %s",F)
-	CSay(Infinity)
+	//CSayF("StrGet: %s",F)
+	//CSay(Infinity)
 	Sys.Call("SUB_ITEMS","LinkInvoke",F,Infinity)
 	ret:=gstr.IAA_LinkInvoke
 	gstr.IAA_LinkInvoke=""
