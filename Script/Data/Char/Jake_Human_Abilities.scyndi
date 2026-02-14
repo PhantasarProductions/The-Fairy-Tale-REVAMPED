@@ -1,8 +1,8 @@
-// License Information:
+// License:
 // **********************************************
 // 
-// src/Tricky Script/Script/Data/Char/Jake_Human/Abilities.neil
-// (c) Jeroen Broks, 2021, All Rights Reserved.
+// src/Code/Script/Data/Char/Jake_Human_Abilities.scyndi
+// (c) Jeroen Broks, 2021, 2026, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -24,6 +24,7 @@
 // from it, you can use it under that license.
 // Please check out the other files to find out
 // which license applies.
+// 
 // This file comes 'as-is' and in no possible
 // way the author can be held responsible of
 // any form of damages that may occur due to
@@ -32,14 +33,18 @@
 // 
 // **********************************************
 // 
-// version: 21.08.19
-// End License Information
+// 
+// version: 26.02.14 IV
+// 
+// End License
+
 
 Module
 
 #use "Libs/SCI/InterVar"
 
 #accept ABLRec
+#accept QuickWork
 
 Init
 	ABLRec.NewABL("ABL_HERO_JAKE_SHIFT_HUMAN","Jake_Human",0,0,0,0,0,"1. Sword")
@@ -51,19 +56,19 @@ Init
 	//if not fullversion then r["1. Sword"].abl_hero_jake_berserk=nil end
 	//No longer needed: ABL_HERO_JAKE_SHIFT_FAIRY={[2]=99,[3]=99,[4]=99,[5]=99}
 	//#pure
-	r = {}
-	r["1. Sword"]  = {}
-	rt:=r["1. Sword"]
+	r := {}
+	rt:= {}
+	r["1. Sword"]  = rt	
 	rt.abl_hero_jake_2ps = {5}
     rt.abl_hero_jake_3ps={20}
     rt.abl_hero_jake_4ps={40}
-    rt.abl_hero_jake_cleave={9*skill,3,3,3,3}                              
+    rt.abl_hero_jake_cleave={9*skill,3,3,3,3}
     rt={};r["3. Hybrid"] = rt
     rt.abl_hero_jake_healblade = {[1]=30,[4]=15,[5]=15}
     rt.abl_foe_paradive={15,10,10}
     rt.abl_hero_jake_flameblade={8,2*skill}
     rt.abl_hero_jake_earthslice = {[1]=10+(skill^2),[5]=skill*15}
-    rt.abl_hero_jake_windstrike={[1]=27,[3]=23}}          
+    rt.abl_hero_jake_windstrike={[1]=27,[3]=23}          
     if newgameplus
     	r["3. Hybrid"].abl_hero_jake_deathstrike = {skill*5,skill,skill,skill,skill} 
     end    	
