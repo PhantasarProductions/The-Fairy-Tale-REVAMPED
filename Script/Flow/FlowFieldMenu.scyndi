@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowFieldMenu.scyndi
 // 
-// 	  Version: 26.02.14
+// 	  Version: 26.02.14 XIII
 // 	
 // 	  Copyright (C) 2020, 2021, 2026 Jeroen Petrus Broks
 // 	
@@ -41,45 +41,17 @@
 // 	     misrepresented as being the original software.
 // 	  3. This notice may not be removed or altered from any source distribution.
 // End License
-// License Information:
-// src/Tricky Script/Script/Flow/FlowFieldMenu.Neil
-// Version: 21.12.10
-// Copyright (C) 2020, 2021 Jeroen Petrus Broks
-// 
-// ===========================
-// This file is part of a project related to the Phantasar Chronicles or another
-// series or saga which is property of Jeroen P. Broks.
-// This means that it may contain references to a story-line plus characters
-// which are property of Jeroen Broks. These references may only be distributed
-// along with an unmodified version of the game.
-// 
-// As soon as you remove or replace ALL references to the storyline or character
-// references, or any termology specifically set up for the Phantasar universe,
-// or any other univers a story of Jeroen P. Broks is set up for,
-// the restrictions of this file are removed and will automatically become
-// zLib licensed (see below).
-// 
-// Please note that doing so counts as a modification and must be marked as such
-// in accordance to the zLib license.
-// ===========================
-// zLib license terms:
-// This software is provided 'as-is', without any express or implied
-// warranty.  In no event will the authors be held liable for any damages
-// arising from the use of this software.
-// Permission is granted to anyone to use this software for any purpose,
-// including commercial applications, and to alter it and redistribute it
-// freely, subject to the following restrictions:
-// 1. The origin of this software must not be misrepresented; you must not
-// claim that you wrote the original software. If you use this software
-// in a product, an acknowledgment in the product documentation would be
-// appreciated but is not required.
-// 2. Altered source versions must be plainly marked as such, and must not be
-// misrepresented as being the original software.
-// 3. This notice may not be removed or altered from any source distribution.
-// End License Information
 
+Script
+
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/Events"
+#use "Libs/SCI/Graphics"
+
+#use "Script/Use/Link"
 #use "Script/Use/Anyway"
-#use "Script/Use/Misc/Box"
+#use "Script/Use/Convert"
+#use "Script/Use/Misc/Box_Class"
 #use "Libs/FitText"
 
 table Situations
@@ -89,10 +61,10 @@ global string FMChar
 string FMSituation
 
 //readonly var   Mouse = Image.Obtain("MOUSE")
-readonly var   topbox = new Box(0,0,Screen.W,74,false)
-readonly var   lftbox = new Box(0,75,Screen.W/2,Screen.H-176,false)
-readonly var   rgtbox = new Box(Screen.W/2,75,Screen.W/2,Screen.H-176,false)
-readonly var   whlbox = new Box(0,75,Screen.W,Screen.H-176,false)
+readonly var   topbox = new CBox(0,0,Screen.W,74,false)
+readonly var   lftbox = new CBox(0,75,Screen.W/2,Screen.H-176,false)
+readonly var   rgtbox = new CBox(Screen.W/2,75,Screen.W/2,Screen.H-176,false)
+readonly var   whlbox = new CBox(0,75,Screen.W,Screen.H-176,false)
 readonly table  boxes = {topbox,lftbox,rgtbox,["LEFT"]=lftbox,["RIGHT"]=rgtbox}
 readonly table wboxes = {topbox,whlbox,["WHOLE"]=whlbox,["LEFT"]=lftbox,["RIGHT"]=rgtbox}
  
@@ -102,6 +74,8 @@ readonly table wboxes = {topbox,whlbox,["WHOLE"]=whlbox,["LEFT"]=lftbox,["RIGHT"
 
 
 init
+	Situations = {}
+	Situations_Field = {}
 	Situations_Field += { ["LEFT"] = { ["ID"]="STATUS" }, ["RIGHT"] = { ["ID"]="META" } ,        ["ICONFILE"] = "STATUS" }
 	Situations_Field += { ["LEFT"] = { ["ID"]="STATUS" }, ["RIGHT"] = { ["ID"]="ITEMS" } ,        ["ICONFILE"] = "ITEMS" }
 	Situations_Field += { ["LEFT"] = { ["ID"]="STATUS" }, ["RIGHT"] = { ["ID"]="ABILITIES" } ,    ["ICONFILE"] = "ABILITIES" }
@@ -113,13 +87,13 @@ init
 	Situations_Field += {["WHOLE"]={["ID"]="ACHIEVEMENTS"}, ["ICONFILE"]="ACHIEVEMENTS"}
 	Situations_Field += {["WHOLE"]={["ID"]="QUIT"}, ["ICONFILE"]="QUIT"}
 	Situations.FIELD = Situations_Field
-	Situations.COMBAT_ABILITIES = { { ["LEFT"] = { ["ID"]="STATUS" }, ["RIGHT"] = { ["ID"]="ABILITIES" } ,    ["ICONFILE"] = "ABILITIES" } }
+	Situations.COMBAT_ABILITIES = {[0]= { ["LEFT"] = { ["ID"]="STATUS" }, ["RIGHT"] = { ["ID"]="ABILITIES" } ,    ["ICONFILE"] = "ABILITIES" } }
 	//Situations.COMBAT_ARMS = Situations.COMBAT_ABILITY 
-	Situations.COMBAT_ITEMS = { { ["LEFT"] = { ["ID"]="STATUS" }, ["RIGHT"] = { ["ID"]="ITEMS" } ,        ["ICONFILE"] = "ITEMS" } }
+	Situations.COMBAT_ITEMS = { [0] = { ["LEFT"] = { ["ID"]="STATUS" }, ["RIGHT"] = { ["ID"]="ITEMS" } ,        ["ICONFILE"] = "ITEMS" } }
 	//Situations.COMBAT_SWITCH = {{ ["LEFT"] = { ["ID"]="STATUS" }, ["RIGHT"] = { ["ID"]="SWITCH" } ,       ["ICONFILE"] = "SWITCH" }}
 	//Situations.VAULT = {{ ["RIGHT"] = { ["ID"]="VAULT" }, ["LEFT"] = { ["ID"]="ITEMS" } ,        ["ICONFILE"] = "ITEMS" }}
-	Situations.SHOP  = {{ ["RIGHT"] = { ["ID"]="SHOP" }, ["LEFT"] = { ["ID"]="ITEMS" } ,        ["ICONFILE"] = "BUY" }}
-	Situations.WSHOP = {{ ["RIGHT"] = { ["ID"]="SHOP" }, ["LEFT"] = { ["ID"]="ITEMS" } ,        ["ICONFILE"] = "BUY" },{["ICONFILE"]="TRADE",["LEFT"] = { ["ID"]="STATUS" }, ["RIGHT"] = { ["ID"]="TRADE" }}}
+	Situations.SHOP  = { [0] = { ["RIGHT"] = { ["ID"]="SHOP" }, ["LEFT"] = { ["ID"]="ITEMS" } ,        ["ICONFILE"] = "BUY" }}
+	Situations.WSHOP = { [0] = { ["RIGHT"] = { ["ID"]="SHOP" }, ["LEFT"] = { ["ID"]="ITEMS" } ,        ["ICONFILE"] = "BUY" },{["ICONFILE"]="TRADE",["LEFT"] = { ["ID"]="STATUS" }, ["RIGHT"] = { ["ID"]="TRADE" }}}
 	//Situations.UPGRADE = {}
 	//Situations.UPGRADE += { ["LEFT"] = { ["ID"]="STATUS" }, ["RIGHT"] = { ["ID"]="UPGRADE" } ,        ["ICONFILE"] = "UPGRADEWEAPON" }
 	//Situations.UPGRADE += { ["LEFT"] = { ["ID"]="ABILITIES" }, ["RIGHT"] = { ["ID"]="UPGRADEARM" } ,        ["ICONFILE"] = "UPGRADEARM" }
@@ -173,16 +147,19 @@ global Var Shop
 global Var TradeShop
 
 global void LoadShop(string shp)
-	Situations.SHOP[1].RIGHT.MOD = Situations.SHOP[1].RIGHT.MOD || NeilUse("Script/Flow/FieldMenu/Shop")
+	Situations.SHOP[1].RIGHT.MOD = Situations.SHOP[1].RIGHT.MOD || NeilUse("Script/Flow/FieldMenu/MENU_Shop")
 	Situations.SHOP[1].RIGHT.MOD.LoadStore(shp)
 	Shop = Situations.SHOP[1].RIGHT.MOD
 end
 
-global void Apollo_Flow()
+global void MainFlow()
 	int mx = Events.MouseX()
 	int my = Events.MouseY()
 	// Debug
-	Dev.ToConsole()
+	//Dev.ToConsole()
+	
+	// Does the user want to quit?
+	WantQuit()
 	
 	// Boxes	
 	if (Situations[FMSituation][SitActive[FMSituation] || 1] || {}).WHOLE
@@ -198,31 +175,31 @@ global void Apollo_Flow()
 	// Top Icon Strip
 	// Lua.assert(Situations[FMSituation],"No situation named: "..FMSituation)
 	Lua.assert(Situations[FMSituation],sprintf("Situation '%s' does not exist!",FMSituation))
-	int iw = math.floor(Screen.W/(#Situations[FMSituation]+1))
+	int iw = math.floor(Screen.W/(Len(Situations[FMSituation])+1))
 	// CSayF("Icons in situation '%s': %d",FMSituation,#Situations[FMSituation])
 	for i,ico in ipairs(Situations[FMSituation])
 		SitActive[FMSituation] = SitActive[FMSituation] || i
 		//__skyblue
 		__white
-		if SitActive[FMSituation]==i && (math.floor(FPS.Ticks/200)%2==0)
+		if SitActive[FMSituation]==i && (math.floor(Sys.Ticks/200)%2==0)
 			__black
 		end
-		ico.ICON = ico.ICON or Image.Obtain("ICO_"..ico.ICONFILE)
-		if Events.MouseHitLeft() && my<topbox.h and mx>(i*iw)-ico.ICON.W  and mx<(i*iw)+Ico.ICON.W
+		ico.ICON = ico.ICON || ObtainImage("ICO_"..ico.ICONFILE)
+		if Events.MouseHitLeft() && my<topbox.h && mx>(i*iw)-ico.ICON.W && mx<(i*iw)+Ico.ICON.W
 			//Graphics.Rect(0,(i*iw)-15,Topbox.h,30) // debug only!
 			SitActive[FMSituation]=i
 		end
 		Lua.assert(ico.ICON.Draw,"Draw method became 'nil' in "..Lua.tostring(ico.ICONFILE))
-		ico.ICON.Draw(i*iw,topbox.h div 2)
+		ico.ICON.Draw((i+1)*iw,topbox.h div 2)
 		if SitActive[FMSituation]==i
 			static table kanten={"LEFT","RIGHT"}
 			static table whole={"WHOLE"}
-			var weach = kanten
+			weach := kanten
 			if ico.WHOLE
 				weach=whole
 			end
 			for kant in each(weach)
-				ico[kant].MOD = ico[kant].MOD || NeilUse("Script/Flow/FieldMenu/".. ico[kant].ID )
+				ico[kant].MOD = ico[kant].MOD || NeilUse("Script/Flow/FieldMenu/MENU_".. ico[kant].ID )
 				ico[kant].MOD.Flow(wboxes[kant],FMChar,FMSituation)
 				//if ico[kant].ID=="ITEMS"
 				//	itmod = itmod || ico[kant].MOD
