@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowFieldMenu.scyndi
 // 
-// 	  Version: 26.02.14 XIII
+// 	  Version: 26.02.14 XVI
 // 	
 // 	  Copyright (C) 2020, 2021, 2026 Jeroen Petrus Broks
 // 	
@@ -152,9 +152,12 @@ global void LoadShop(string shp)
 	Shop = Situations.SHOP[1].RIGHT.MOD
 end
 
+plua FM_KANTEN
+plua FM_WHOLE
+
 global void MainFlow()
-	int mx = Events.MouseX()
-	int my = Events.MouseY()
+	int mx = Events.MouseX
+	int my = Events.MouseY
 	// Debug
 	//Dev.ToConsole()
 	
@@ -185,15 +188,19 @@ global void MainFlow()
 			__black
 		end
 		ico.ICON = ico.ICON || ObtainImage("ICO_"..ico.ICONFILE)
-		if Events.MouseHitLeft() && my<topbox.h && mx>(i*iw)-ico.ICON.W && mx<(i*iw)+Ico.ICON.W
+		if Events.MouseHitLeft && my<topbox.h && mx>(i*iw)-ico.ICON.W && mx<(i*iw)+Ico.ICON.W
 			//Graphics.Rect(0,(i*iw)-15,Topbox.h,30) // debug only!
 			SitActive[FMSituation]=i
 		end
 		Lua.assert(ico.ICON.Draw,"Draw method became 'nil' in "..Lua.tostring(ico.ICONFILE))
 		ico.ICON.Draw((i+1)*iw,topbox.h div 2)
 		if SitActive[FMSituation]==i
-			static table kanten={"LEFT","RIGHT"}
-			static table whole={"WHOLE"}
+			//static table kanten={"LEFT","RIGHT"}
+			//static table whole={"WHOLE"}
+			LocExtern kanten "FM_KANTEN"
+			LocExtern whole "FM_WHOLE"
+			kanten = kanten || {[0]="LEFT","RIGHT"}
+			whole = whole || {[0]="WHOLE"}
 			weach := kanten
 			if ico.WHOLE
 				weach=whole
