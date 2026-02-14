@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.11
+// version: 26.02.14
 // 
 // End License
 
@@ -486,7 +486,8 @@ Group SubParty
 			End
 		End
 		If Mouse.ML && Hover>0
-			State.Call(Flow.Current,"PartyClick",sprintf("%d,\"%s\"",Hover,RPGParty[Hover]))
+			//State.Call(Flow.Current,"PartyClick",sprintf("%d,\"%s\"",Hover,RPGParty[Hover]))
+			Sys.Call(Flow.Current,"PartyClick",Hover,RPGParty[Hover])
 		End
 	End
 	
