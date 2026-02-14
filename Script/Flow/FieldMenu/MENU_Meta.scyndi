@@ -35,22 +35,28 @@
 // version: 22.02.10
 // End License Information
 
-Const String BCD = "GFX/Big_Char/"
+Module
+
+#use "Libs/SCI/Graphics"
+
+// LocExtern is faster in this case.
+//Const String BCD = "GFX/Big_Char/"
+LocExtern BCD = "'GFX/Big_Char/'"
 
 QuickMeta MetaPic
 	Index
 		Static Var _P
 		_P = _P || {}
-		key = key:upper()
-		_P[key] = _P[key] || { ["IMG"] = Image.LoadNew(BCD..key..".png","FMMB_"..key) }
+		key = Upper(Key)
+		_P[key] = _P[key] || { ["IMG"] = LoadImage(BCD..key..".png","FMMB_"..key) }
 		return _P[key]		
 	End
 End
 
-Module
+//Module
 	
-	ReadOnly Var BigFnt  = ImageFont.Obtain("BIGTEXT")
-	ReadOnly Var LitFnt = ImageFont.Obtain("FNTSTATSTAT")
+	ReadOnly Var BigFnt  = ObtainFont("BIGTEXT")
+	ReadOnly Var LitFnt = ObtainFont("FNTSTATSTAT")
 	
 	Void Pic(ubox,string CharTag)
 		If Prefixed(CharTag,"Jake")
@@ -99,11 +105,11 @@ Module
 		LitFnt.DarkText(RPGChar[CharTag].Data.Race.." "..RPGChar[CharTag].Data.Sex,ubox.x+10,ubox.y+50)
 		Int BarSiz = (ubox.w - 30)
 		For i=1,5
-			String SkName = RPGCHar[CharTag].Data[sPrintF("Skill%d",i)]			
-			Var SkLvl = RPGChar[CharTag].Points[sPrintF("LVL_Skill%d",i)]
-			Var SkExp = RPGChar[CharTag].Points[sPrintF("EXP_Skill%d",i)]
-			Int SkSiz = math.floor((SkExp.Have / math.max(SkExp.Maximum,1)) * BarSiz)
-			Int Y = ubox.y+100+(i*50)
+			String SkName := RPGCHar[CharTag].Data[sPrintF("Skill%d",i)]			
+			Var SkLvl := RPGChar[CharTag].Points[sPrintF("LVL_Skill%d",i)]
+			Var SkExp := RPGChar[CharTag].Points[sPrintF("EXP_Skill%d",i)]
+			Int SkSiz := math.floor((SkExp.Have / math.max(SkExp.Maximum,1)) * BarSiz)
+			Int Y := ubox.y+100+(i*50)
 			If SkName==""
 				// Nothing!
 			ElseIf SkLvl.Have<=0
@@ -127,7 +133,7 @@ Module
 		End
 	End
 	
-	Constructor
-	End
+	//Constructor
+	//End
 		
-End
+//End
