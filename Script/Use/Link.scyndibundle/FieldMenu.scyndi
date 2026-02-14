@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Link.scyndibundle/FieldMenu.scyndi
 // 
-// 	  Version: 26.02.02
+// 	  Version: 26.02.14
 // 	
 // 	  Copyright (C) 2020, 2021, 2026 Jeroen Petrus Broks
 // 	
@@ -45,6 +45,8 @@
 
 Module
 
+#use "Libs/SCI/Sys"
+
 #use "Script/Use/Convert"
 
 PLUA FML()
@@ -56,19 +58,22 @@ end
 
 	void Go(string char,string situation)
 		FML()
-		State.Call("FLOW_FIELDMENU","SetFM","\""..char.."\",\""..situation.."\"")
+		//State.Call("FLOW_FIELDMENU","SetFM","\""..char.."\",\""..situation.."\"")
+		Sys.Call("FLOW_FIELDMENU","SetFM",char,situation)
 		Flow.GoToFlow("FIELDMENU")
 	end
 	
 	void Shop(string store)
 		FML()
-		State.Call("FLOW_FIELDMENU","LoadShop","\""..store.."\"")
+		//State.Call("FLOW_FIELDMENU","LoadShop","\""..store.."\"")
+		Sys.Call("FLOW_FIELDMENU","LoadShop",store)
 		Go(RPGParty[1],"SHOP")
 	end
 	
 	void WeaponShop(string store)
 		FML()
-		State.Call("FLOW_FIELDMENU","LoadShop","\""..store.."\"")
+		//State.Call("FLOW_FIELDMENU","LoadShop","\""..store.."\"")
+		Sys.Call("FLOW_FIELDMENU","LoadShop",store)
 		Go(RPGParty[1],"WSHOP")
 	end
 	
