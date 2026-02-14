@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.13 I
+// version: 26.02.14 III
 // 
 // End License
 
@@ -47,6 +47,7 @@ Script
 
 #use "Script/Use/Link"
 #use "Script/Use/Anyway"
+#use "Script/Use/Convert"
 #use "Script/Use/Misc/Inn"
 
 #macro DoneChief gBool.SpokenToChiefWerrington_Prologue
@@ -250,4 +251,10 @@ End
 
 Init
 	MScript.StartUpSequence()
+	J := RPGChar.Jake_Human.Data
+	If J.EQUIP_Weapon==""
+		CSayF("\x07Jake's got no weapon! Likely a Fairy Linking issue! Fixing!")
+		J.EQUIP_Weapon = "EQP_JAKE_WP1"
+		J.EQUIP_Armor  = "EQP_JAKE_AR1"
+	End
 End
