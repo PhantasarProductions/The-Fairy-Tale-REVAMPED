@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FieldMenu/MENU_Status.scyndi
 // 
-// 	  Version: 26.02.14 VII
+// 	  Version: 26.02.14 XI
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -93,7 +93,7 @@ Module
     	StatFnt.DarkText("AP "..AP.Have.." of "..AP.Maximum,x+25,y+95,0,0) //,0,180,255)
     	// Statistics
     	For i,s in Lua.ipairs(ShowStats)
-    		Int ipy := y+100+(i*35)
+    		Int ipy := y+100+(i*32)
     		__White
         	StatFnt.DarkText(s,x+25,ipy)
         	__Ember
@@ -118,27 +118,27 @@ Module
         End
         // Experience
         __White
-        StatFnt.DarkText("Experience needed",x+25,y+400)
-        StatFnt.DarkText("Level",x+25,y+435)
+        StatFnt.DarkText("Experience needed",x+25,y+380)
+        StatFnt.DarkText("Level",x+25,y+405)
         if RPGChar[chartag].Stat.Level<__LevelCap
         	__Ember
-        	StatFnt.DarkText(""..RPGChar[chartag].Stat.Experience,(x+w)-25,y+400,1)
+        	StatFnt.DarkText(""..RPGChar[chartag].Stat.Experience,(x+w)-25,y+380,1)
         Else
         	__Red
-        	StatFnt.DarkText("---",(x+w)-25,y+400,1)
+        	StatFnt.DarkText("---",(x+w)-25,y+380,1)
         End
         if RPGChar[chartag].Stat.Level<=__LevelCap
         	__Ember
-        	StatFnt.DarkText(""..RPGChar[chartag].Stat.Level,(x+w)-25,y+435,1)
+        	StatFnt.DarkText(""..RPGChar[chartag].Stat.Level,(x+w)-25,y+405,1)
         Else
         	__Red
-        	StatFnt.DarkText("---",(x+w)-25,y+435,1)
+        	StatFnt.DarkText("---",(x+w)-25,y+405,1)
         End
         If RPGChar[chartag].Data.Master!=""
         	__White
-        	StatFnt.DarkText("Master",x+25,y+490)
+        	StatFnt.DarkText("Master",x+25,y+440)
         	__Ember
-        	StatFnt.DarkText(RPGChar[chartag].Data.Master,(x+w)-25,y+490,1)
+        	StatFnt.DarkText(RPGChar[chartag].Data.Master,(x+w)-25,y+440,1)
         End
         // Skills
         RPGChar[chartag].Points.LVL_Skill1.Have = math.max(RPGChar[chartag].Points.LVL_Skill1.Have,1)
