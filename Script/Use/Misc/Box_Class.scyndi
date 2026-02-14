@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Misc/Box_Class.scyndi
 // 
-// 	  Version: 26.01.20
+// 	  Version: 26.02.14 I
 // 	
 // 	  Copyright (C) 2020, 2021, 2026 Jeroen Petrus Broks
 // 	
@@ -50,12 +50,17 @@ Module
 #use "script/use/anyway.scyndibundle/Algemeen"
 #use "libs/ModVector"
 
+LocExtern _this_ "self"
+
 Class CBox
 
 	Int x
 	Int y
 	Int w
 	Int h
+	
+	Get Int Width; return _this_.w; end
+	Get Int Height; return _this_.h; end
 	
 	Static ReadOnly Var Back = ObtainImage("BACKGROUND")
 	Static ReadOnly Table List = new Vector("table")
