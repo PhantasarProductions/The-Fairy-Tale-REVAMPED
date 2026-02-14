@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowSaveGame.scyndi
 // 
-// 	  Version: 26.02.12 XXXI
+// 	  Version: 26.02.14
 // 	
 // 	  Copyright (C) 2023, 2024, 2025, 2026 Jeroen Petrus Broks
 // 	
@@ -434,6 +434,10 @@ End
 
 Global Void MainFlow()	
 	//MultiPointer.Rcv()
+	// Does the user want to quit?
+	WantQuit()
+	
+	// Quick linkups
 	LocExtern MX "Scyndi.Class.Mouse.MX"
 	LocExtern MY "Scyndi.Class.Mouse.MY"
 	LocExtern ML "Scyndi.Class.Mouse.ML"
