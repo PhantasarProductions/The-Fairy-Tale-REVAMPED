@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowSaveGame.scyndi
 // 
-// 	  Version: 26.02.14
+// 	  Version: 26.02.14 IV
 // 	
 // 	  Copyright (C) 2023, 2024, 2025, 2026 Jeroen Petrus Broks
 // 	
@@ -183,7 +183,20 @@ Class SlotData
 		PageData.Value(Cat,"Time",Value)
 	End
 	
+	Set Int Skill
+		Switch Value
+			Case 1; PageData.Value(Cat,"Skill","Easy")
+			Case 2; PageData.Value(Cat,"Skill","Casual")
+			Case 3; PageData.Value(Cat,"Skill","Hard")
+			Default; PageData.Value(Cat,"Skill",sprintf("Unknown %d",Value))
+		End
+	End
 	
+	Get String SkillName
+		r:=PageData.Value(Cat,"Skill")
+		Return Ternary(r!="",r,"Not set!") 
+	End
+			
 	
 	
 	static Var Reg
@@ -308,7 +321,9 @@ Void Action_Save(int Spot)
 	d = SlotData.Obtain(spot)
 	d.Location = Kthura.MetaData.Title
 	//d.Myrah    = sprintf("%d",Party.GetLevel("Myrah"))
-	d.Time     = "<Time Comes Later>" //GameTime.FShow
+	//d.Time     = "<Time Comes Later>" //GameTime.FShow
+	d.Time = "Not set!"
+	d.skill = gInt.Skill
 	For i=1,4
 		ch:=RPGParty[i]
 		Switch ch
@@ -508,9 +523,11 @@ Global Void MainFlow()
 				//SetColor(  0,180,255)
 				//Fnt.Text(d.Myrah,Graphics.Width,180,1)
 				SetColor(255,255,255)
-				Fnt.Dark("Time",Graphics.Width,150,1)
+				//Fnt.Dark("Time",Graphics.Width,150,1)
+				Fnt.Dark("Mode",Graphics.Width,150,1)
 				SetColor(  0,180,255)
-				Fnt.Dark(d.Time,Graphics.Width,180,1)
+				//Fnt.Dark(d.Time,Graphics.Width,180,1)
+				Fnt.Dark(d.SkillName,Graphics.Width,180,1)
 				For i=1,4
 					y:=200+(i*30)
 					SetColor(255,180,0)
