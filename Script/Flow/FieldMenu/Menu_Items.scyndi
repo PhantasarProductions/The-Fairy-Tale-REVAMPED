@@ -41,12 +41,16 @@
 // 	     misrepresented as being the original software.
 // 	  3. This notice may not be removed or altered from any source distribution.
 // End License
+
 Module
+
+#use "Libs/SCI/Audio"
+
 	Void Flow(uBox,string CharTag,string situation)
 		String CItemTag
 		Var CItem
 		Static Var Buzz = Audio.Obtain("BUZZ")
-		CItemTag,CItem = Item.Overview(ubox.x,ubox.y,ubox.w,ubox.h,situation,CharTag)
+		CItemTag,CItem := Item.Overview(ubox.x,ubox.y,ubox.w,ubox.h,situation,CharTag)
 		if CItem
 			Switch Situation
 				Case "SHOP" "WSHOP"
