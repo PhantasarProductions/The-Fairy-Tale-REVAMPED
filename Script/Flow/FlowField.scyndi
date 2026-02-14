@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowField.scyndi
 // 
-// 	  Version: 26.02.11
+// 	  Version: 26.02.14
 // 	
 // 	  Copyright (C) 2021, 2026 Jeroen Petrus Broks
 // 	
@@ -132,6 +132,7 @@ End
 
 Global Void MainFlow()
 	//Dev.ToConsole()
+	WantQuit()
 	FlowField.DrawScreen()
 	FlowField.FollowTheLeader.Run()
 	FlowField.Renc.UpdateGauge()
