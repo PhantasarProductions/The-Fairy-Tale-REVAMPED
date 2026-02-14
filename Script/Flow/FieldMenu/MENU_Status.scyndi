@@ -36,9 +36,13 @@
 // End License Information
 Module
 
-	ReadOnly Var BigFnt  = ImageFont.Obtain("BIGTEXT")
-	ReadOnly Var StatFnt = ImageFont.Obtain("FNTSTATSTAT")
-	ReadOnly Var EQPFnt  = ImageFont.Obtain("FNTEQP")
+#use "Libs/SCI/Graphics"
+
+#use "Script/Use/Convert"
+
+	ReadOnly Var BigFnt  = ObtainFont("BIGTEXT")
+	ReadOnly Var StatFnt = ObtainFont("FNTSTATSTAT")
+	ReadOnly Var EQPFnt  = ObtainFont("FNTEQP")
 	
 	Void EqName(string Char,string EType,Int X, Int Y)
 		If RPGChar[Char].Data["EQUIP_"..EType]!=""
@@ -48,7 +52,7 @@ Module
 	
 	Void EqIcon(String ITag,Int X, Int Y)
 		Static Table Icons = {}
-		Icons[ITag] = Icons[ITag] || Image.Load("GFX/Equipment/"..ITag..".png")
+		Icons[ITag] = Icons[ITag] || LoadImage("GFX/Equipment/"..ITag..".png","EQP_TAG_"..iTag)
 		Icons[ITag].Draw(X,Y)
 	End
 	
@@ -75,7 +79,7 @@ Module
     	Graphics.Color(0,180,255)
     	StatFnt.DarkText("AP "..AP.Have.." of "..AP.Maximum,x+25,y+95,0,0) //,0,180,255)
     	// Statistics
-    	For i,s in ipairs(ShowStats)
+    	For i,s in Lua.ipairs(ShowStats)
     		Int ipy = y+100+(i*35)
     		__White
         	StatFnt.DarkText(s,x+25,ipy)
