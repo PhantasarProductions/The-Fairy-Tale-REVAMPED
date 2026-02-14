@@ -1,8 +1,8 @@
-// License Information:
+// License:
 // **********************************************
 // 
-// src/Tricky Script/Script/Flow/FieldMenu/Meta.neil
-// (c) Jeroen Broks, 2021, 2022, All Rights Reserved.
+// src/Code/Script/Flow/FieldMenu/MENU_Meta.scyndi
+// (c) Jeroen Broks, 2021, 2022, 2026, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -24,6 +24,7 @@
 // from it, you can use it under that license.
 // Please check out the other files to find out
 // which license applies.
+// 
 // This file comes 'as-is' and in no possible
 // way the author can be held responsible of
 // any form of damages that may occur due to
@@ -32,20 +33,29 @@
 // 
 // **********************************************
 // 
-// version: 22.02.10
-// End License Information
+// 
+// version: 26.02.14 VII
+// 
+// End License
+
 
 Module
 
+#use "Libs/SCI/Sys"
 #use "Libs/SCI/Graphics"
+
+#use "Script/Use/Anyway"
+#use "Script/Use/Convert"
 
 // LocExtern is faster in this case.
 //Const String BCD = "GFX/Big_Char/"
-LocExtern BCD = "'GFX/Big_Char/'"
+LocExtern BCD "'GFX/Big_Char/'"
+
+plua MetaPic_P
 
 QuickMeta MetaPic
 	Index
-		Static Var _P
+		LocExtern _P "MetaPic_P"
 		_P = _P || {}
 		key = Upper(Key)
 		_P[key] = _P[key] || { ["IMG"] = LoadImage(BCD..key..".png","FMMB_"..key) }
@@ -62,13 +72,13 @@ End
 		If Prefixed(CharTag,"Jake")
 			CharTag="Jake"
 		End
-		Var MP = MetaPic[CharTag]
+		MP := MetaPic[CharTag]
 		If !MP.X
-			Int PW = MP.IMG.Width
-			Int PH = MP.IMG.Height
-			Number D = ubox.h / PH
-			Int IW = math.floor(math.min(ubox.w,PW*D))
-			Int IX = ubox.w-IW
+			Int PW := MP.IMG.Width
+			Int PH := MP.IMG.Height
+			Number D := ubox.h / PH
+			Int IW := math.floor(math.min(ubox.w,PW*D))
+			Int IX := ubox.w-IW
 			MP.Y = ubox.y
 			MP.X = IX + ubox.x
 			MP.W = IW 
@@ -103,7 +113,7 @@ End
 		BigFnt.DarkText(Name,ubox.x+10,ubox.y+10)
 		__White
 		LitFnt.DarkText(RPGChar[CharTag].Data.Race.." "..RPGChar[CharTag].Data.Sex,ubox.x+10,ubox.y+50)
-		Int BarSiz = (ubox.w - 30)
+		Int BarSiz := (ubox.w - 30)
 		For i=1,5
 			String SkName := RPGCHar[CharTag].Data[sPrintF("Skill%d",i)]			
 			Var SkLvl := RPGChar[CharTag].Points[sPrintF("LVL_Skill%d",i)]
