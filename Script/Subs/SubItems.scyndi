@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Subs/SubItems.scyndi
 // 
-// 	  Version: 26.02.14 VI
+// 	  Version: 26.02.14 X
 // 	
 // 	  Copyright (C) 2021-'22, 2026 Jeroen Petrus Broks
 // 	
@@ -81,6 +81,16 @@ QuickMeta Inventory
 		InvNums.Value("Inventory",Key,V)
 	End
 End
+
+plua _EI = {}
+Get Var EachItem	
+	For k in Each(InvNums.Values("Inventory"))
+		_EI[k]=Inventory[k]
+		If (_EI[k]<=0); _EI[k]=nil; End
+	End
+	return _EI
+End
+
 Init
 	If Upper(InvNums.Value("Base","Initiated"))!="TRUE"
 		Inventory["ITM_APPLE"]      += 24 div gInt.Skill
@@ -303,7 +313,7 @@ Global Bool Allow(string itTag, string Filter,string Char="")
 	itTag = Upper(itTag)
 	Filter = Upper(Filter)
 	LoadedItems[itTag] = LoadedItems[itTag] || NeilUse("Script/Data/IAA/"..ItTag).Ret
-	MyItem := LoadedItems[itTag].ret
+	MyItem := LoadedItems[itTag]
 	LocExtern EQP "SubItems_EQP" 
 	EQP = EQP || "EQUIPMENT FOR "
 	EQP = Replace(EQP,"HANDO STILLOR","HANDOSTILLOR")
@@ -413,7 +423,7 @@ Global String OverView(int x, int y, int w, int h, string Filters,string char)
 					CFI=""
 				End
 		End
-		Int TW := FilFnt.TextWidth(CFI)
+		Int TW := FilFnt.Width(CFI)
 		Int WH := TW div 2
 		Int FX := (i * FW)+x
 		if i==CurrentFilter[Filters]
@@ -435,7 +445,8 @@ Global String OverView(int x, int y, int w, int h, string Filters,string char)
 	Int iY := -__ScrollY
 	//String Hover = ""	
 	Bool CanGoDown 
-	For iTag,iNum in sPairs(Inventory)
+	//For iTag,iNum in sPairs(Inventory)
+	For iTag,iNum in sPairs(EachItem)
 		CanGoDown = True
 		LoadedItems[iTag] = LoadedItems[iTag] || NeilUse("Script/Data/IAA/"..iTag).Ret
 		Var iData = LoadedItems[iTag]		
@@ -469,10 +480,10 @@ Global String OverView(int x, int y, int w, int h, string Filters,string char)
 			iY+=40
 		End
 	End
-	//CSayF("N:Wheel: %d; Scroll: %d; CanGoDown: %s;",Events.MouseWheelY(),__ScrollY,Lua.tostring(CanGoDown))
-	If (Events.MouseWheelY()>0 && __ScrollY>0) || (Events.MouseWheelY()<0 && CanGoDown) 
-		__ScrollY -=(Events.MouseWheelY()*8)
-		CSayF("S:Wheel: %d; Scroll: %d; CanGoDown: %s;",Events.MouseWheelY(),__ScrollY,Lua.tostring(CanGoDown))
+	//CSayF("N:Wheel: %d; Scroll: %d; CanGoDown: %s;",Events.MouseWheelY,__ScrollY,Lua.tostring(CanGoDown))
+	If (Events.MouseWheelY>0 && __ScrollY>0) || (Events.MouseWheelY<0 && CanGoDown) 
+		__ScrollY -=(Events.MouseWheelY*8)
+		CSayF("S:Wheel: %d; Scroll: %d; CanGoDown: %s;",Events.MouseWheelY,__ScrollY,Lua.tostring(CanGoDown))
 	End
 	Return ""
 End
