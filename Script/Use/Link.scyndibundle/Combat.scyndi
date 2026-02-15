@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Link.scyndibundle/Combat.scyndi
 // 
-// 	  Version: 26.02.04 XII
+// 	  Version: 26.02.15
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -124,13 +124,13 @@ Module
 			Events.Poll()
 			Sys.WaitMinTicks()
 		LoopWhile Time>0 || BossPlaying()
-		Lua.Neil.Globals.Loading()
-		State.LoadNew("FLOW_COMBAT","Script/Flow/FlowCombat.neil")
+		Lua.Scyndi.Globals.Loading()
+		State.LoadNew("FLOW_COMBAT","Script/Flow/FlowCombat.lbc")
 		If BossHead!=""
 			//ISSet("BOOL","FLOW_COMBAT","FlowCombat.Start.Music_DontPush",true)
 			gbool.Combat_Start_Music_DontPush = true
 		End
-		State.Call("FLOW_COMBAT","FlowCombat.Start.StartPreparation","nil")
+		Sys.Call("FLOW_COMBAT","FlowCombat.Start.StartPreparation")
 		StartEvent=""
 	End
 	
