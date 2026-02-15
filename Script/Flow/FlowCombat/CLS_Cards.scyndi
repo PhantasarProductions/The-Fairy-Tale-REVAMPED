@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/CLS_Cards.scyndi
 // 
-// 	  Version: 26.02.15
+// 	  Version: 26.02.15 XIV
 // 	
 // 	  Copyright (C) 2021-'22, 2026 Jeroen Petrus Broks
 // 	
@@ -47,9 +47,14 @@
 
 Module
 
+#use "Libs/SCI/Sys"
 #use "Libs/SCI/Audio"
+#use "Libs/SCI/Graphics"
 
+#use "Script/Use/Anyway"
 #use "Script/Use/Convert"
+
+#accept Fighter
 
 Class Cards
 
@@ -79,7 +84,7 @@ Class Cards
 		While Lijst[idx] && (!Lijst[idx].None)
 			idx++
 		End
-		Var Old = Lijst[idx]		
+		Var Old := Lijst[idx]		
 		Lijst[idx] = Self(FighterTag,Action,Joker)
 		If Old
 			Lijst[idx].X = Old.X
@@ -90,11 +95,11 @@ Class Cards
 	End
 	
 	Static Get Delegate AddCard
-		Return Add
+		Return Cards.Add
 	End
 	
 	Static Void Replace(Int idx,String FighterTag,Action,Joker)
-		Var Old = Lijst[idx]		
+		Var Old := Lijst[idx]		
 		Lijst[idx] = Self(FighterTag,Action,Joker)
 		if Old
 			Lijst[idx].X = Old.X
@@ -141,11 +146,11 @@ Class Cards
 			End
 		End
 		Slide.Play()
-		DelShift(1)
+		Cards.DelShift(1)
 	End
 	
 	Static Void DrawCard(int i)
-		var crd = Lijst[i]
+		var crd := Lijst[i]
 		If crd
 			crd.Img.Draw(crd.X,crd.Y)
 		Else 
@@ -158,7 +163,7 @@ Class Cards
 		Graphics.Alpha(255)
 		__White
 		For i=25,1,-1
-			DrawCard(i)
+			Cards.DrawCard(i)
 			Var crd = Lijst[i]
 			crd.Y = math.max(ToY,Crd.Y-4)
 			Int wx=(MxX-10)-(i*20)
@@ -177,7 +182,7 @@ Class Cards
 	End
 	
 	Static Void Neutralize(int i)
-		Var crd = Lijst[i]
+		Var crd := Lijst[i]
 		Lijst[i] = Self("NONE")
 		Lijst[i].X = crd.X
 		Lijst[i].Y = crd.Y
@@ -224,9 +229,9 @@ Class Cards
      End
      
      Static Void SetupInitialCards(empty)
-     	CreateOrder()
+     	Cards.CreateOrder()
      	CSay("Setting up initial cards")
-     	Lijst = Lijst or {}
+     	Lijst = Lijst || {}
      	If empty 
      		Lijst={} 
      	End
