@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowField/Renc.scyndi
 // 
-// 	  Version: 26.02.05 XV
+// 	  Version: 26.02.15 VII
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -94,7 +94,7 @@ locextern __bmr "17"
 		Static Int GX = Screen.W + 250
 		Int GY = Screen.H - 150
 		Int WX
-		Var NE = NEnc[FlowField.Map.Layer]
+		Var NE = NEnc[Kthura.CurrentLayer]
 		Graphics.Alpha(255)
 		If NE
 			WX = Screen.W - 80
@@ -133,14 +133,18 @@ locextern __bmr "17"
 		CSay("Start Enoounter")
 		// Reset
 		RateLevel = 1
-		NEnc[FlowField.Map.Layer]--
+		NEnc[Kthura.CurrentLayer]--
 		// Set up encounter itself
-		Static Var Max
-		Static Var Tab
-		max = max || ({{1,2,3,4},{2,3,6,9},{3,6,9,9}})[__skill][party.count]
-		tab = tab || ({{1,1,1,2,2,3,1,1,2,3,4},{3,3,3,1,3,3,2,2,3,3,4,4,3,6,3,3,1,1,9},{3,3,3,6,6,9}})[__skill]
+		
+		//Static Var Max
+		//Static Var Tab
+		//max = max || ({{1,2,3,4},{2,3,6,9},{3,6,9,9}})[__skill][party.count]
+		//tab = tab || ({{1,1,1,2,2,3,1,1,2,3,4},{3,3,3,1,3,3,2,2,3,3,4,4,3,6,3,3,1,1,9},{3,3,3,6,6,9}})[__skill]
+		max := ({{1,2,3,4},{2,3,6,9},{3,6,9,9}})[__skill][party.count]
+		tab := ({{1,1,1,2,2,3,1,1,2,3,4},{3,3,3,1,3,3,2,2,3,3,4,4,3,6,3,3,1,1,9},{3,3,3,6,6,9}})[__skill]
+		// Why static? This would only spook up things when the number of party members changes and the speed loss is minimal as this is only called at the start of an encounter.
 		int num := tab[math.random(1,ll tab)]
-		string arena = FlowField.Map.KthuraMap.Meta.Arena
+		string arena = Kthura.MetaData.Arena
 		//if not suffixed(arena,".png") then arena = arena..".png" end
 		num = math.min(num,max)
 		Combat.Prepare()
@@ -168,10 +172,10 @@ locextern __bmr "17"
 	
 	Void UpdateGauge()
 		Static Int Cnt
-		If (!RencOn) || (!NEnc[FlowField.Map.Layer]) || NEnc[FlowField.Map.Layer]<=0 
+		If (!RencOn) || (!NEnc[Kthura.CurrentLayer]) || NEnc[Kthura.CurrentLayer]<=0 
 			Return
 		End
-		If FlowField.Map.CurLayer.HasTag("PLAYER") && FlowField.Map.CurLayer.Obj("PLAYER").Walking
+		If Kthura.HasObj("PLAYER") && Kthura.Obj.PLAYER.Walking
 			Cnt = (Cnt+1)%(300 div __skill)
 			If Cnt==0
 				RateLevel++
@@ -180,7 +184,7 @@ locextern __bmr "17"
 				Return
 			End
 			If  (RateLevel==5 || Math.Random(1,RRate[RateLevel])==1)
-				// NEnc[FlowField.Map.Layer]>0
+				// NEnc[Kthura.CurrentLayer]>0
 				StartEncounter()
 			End
 		End
@@ -221,6 +225,17 @@ locextern __bmr "17"
 		RencOn = True
 		Lua.Scyndi.Use("Kthura/"..M.."/Renc")
 		Lua.Scyndi.Class["Renc_"..M].Renc()
+		CSayF("Enemies: %d",Len(Enemies))
+	End
+	
+	Global Void DBG_Renc()
+		PrintF("\x1b[32mEnemies: %d\n",Len(Enemies))
+		For k,v In sPairs(Nenc)
+			PrintF("\x1b[%dm%s has encounters: %s\n",Ternary(k==Kthura.CurrentLayer,93,94),k,Ternary(v,v,"No encounters!"))
+		End
+		PrintF("\x1b[%dmRandom Encounters: %s\n",Ternary(RencOn,92,91),Ternary(Rencon,"On","Off"))
+		PrintF("\x1b[95mMax Encounters: %d\n",MaxEnc)
+		PrintF("\x1b[96mRate: %d\n",RateLevel)
 	End
 	
 	Init
