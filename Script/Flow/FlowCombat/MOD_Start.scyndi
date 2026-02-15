@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/MOD_Start.scyndi
 // 
-// 	  Version: 26.02.15
+// 	  Version: 26.02.15 XVI
 // 	
 // 	  Copyright (C) 2021, '22, 2026 Jeroen Petrus Broks
 // 	
@@ -45,7 +45,26 @@
 
 Module
 
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/JCR6"
+#use "Libs/SCI/Graphics"
+
+#use "Libs/Music"
 #use "Libs/LinkedList"
+
+#use "Script/Use/Link"
+#use "Script/Use/Convert"
+
+#accept Foe
+#accept Hero
+#accept VicQ
+#accept Stage
+#accept Fighter
+#accept EXPRate
+#accept FlowCombat
+
+#macro _ASW Graphics.Width
+#macro _ASH Graphics.Height
 
 Class InitFoe
 	String Foe
@@ -70,10 +89,10 @@ End
 	
 	Void AddFoe(String F)
 		Int Aantal = FoeList.Count
-		Int Col = Aantal div 3
-		Int Row = Aantal % 3
-		Int X = ((Col+1)*(_ASW div 5))-(row*(_ASW div 15))
-		Int Y = (_ASH div 2) + (row * (_ASH div 9)) + 40
+		Int Col := Aantal div 3
+		Int Row := Aantal % 3
+		Int X := ((Col+1)*(_ASW div 5))-(row*(_ASW div 15))
+		Int Y := (_ASH div 2) + (row * (_ASH div 9)) + 40
 		LastFoe = New InitFoe()
 		LastFoe.Foe = F
 		LastFoe.X = X
@@ -97,13 +116,13 @@ End
 		CSay("Starting music")
 		Switch FMusic:upper()
 			Case "*RANDOM"
-				Table Bundle = JCR6.GetDir("Music/Combat/RandomEncounter")
+				Table Bundle = JCR6.Dir("Music/Combat/RandomEncounter")
 				Music_Push()
-				Music.Play(Bundle[math.random(1,#Bundle)])
+				Music.Play(Bundle[math.random(0,len(Bundle)-1)])
 			Case "*BOSS"
-				Table Bundle = JCR6.GetDir("Music/Combat/Boss")
+				Table Bundle = JCR6.Dir("Music/Combat/Boss")
 				Music_Push()
-				Music.Play(Bundle[math.random(1,#Bundle)])
+				Music.Play(Bundle[math.random(1,Len(Bundle)-1)])
 			Case "*NOCHANGE" "*NOCHANGE*" "*NOCHANGE*.OGG"
 				
 			Default
