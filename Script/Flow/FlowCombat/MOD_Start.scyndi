@@ -1,0 +1,142 @@
+// License:
+// 	  src/Code/Script/Flow/FlowCombat/MOD_Start.scyndi
+// 
+// 	  Version: 26.02.15
+// 	
+// 	  Copyright (C) 2021, '22, 2026 Jeroen Petrus Broks
+// 	
+// 	  ===========================
+// 	  This file is part of a project related to the Phantasar Chronicles or another
+// 	  series or saga which is property of Jeroen P. Broks.
+// 	  This means that it may contain references to a story-line plus characters
+// 	  which are property of Jeroen Broks. These references may only be distributed
+// 	  along with an unmodified version of the game.
+// 
+// 	  As soon as you remove or replace ALL references to the storyline or character
+// 	  references, or any termology specifically set up for the Phantasar universe,
+// 	  or any other univers a story of Jeroen P. Broks is set up for,
+// 	  the restrictions of this file are removed and will automatically become
+// 	  zLib licensed (see below).
+// 
+// 	  Please note that doing so counts as a modification and must be marked as such
+// 	  in accordance to the zLib license.
+// 	  ===========================
+// 
+// 
+// 	  zLib license terms:
+// 	
+// 	  This software is provided 'as-is', without any express or implied
+// 	  warranty.  In no event will the authors be held liable for any damages
+// 	  arising from the use of this software.
+// 
+// 	  Permission is granted to anyone to use this software for any purpose,
+// 	  including commercial applications, and to alter it and redistribute it
+// 	  freely, subject to the following restrictions:
+// 	
+// 	  1. The origin of this software must not be misrepresented; you must not
+// 	     claim that you wrote the original software. If you use this software
+// 	     in a product, an acknowledgment in the product documentation would be
+// 	     appreciated but is not required.
+// 	  2. Altered source versions must be plainly marked as such, and must not be
+// 	     misrepresented as being the original software.
+// 	  3. This notice may not be removed or altered from any source distribution.
+// End License
+
+
+Module
+
+#use "Libs/LinkedList"
+
+Class InitFoe
+	String Foe
+	Int X
+	Int Y
+End
+
+//Module
+
+	Var FoeList
+	String Arena
+	String FMusic
+	String Lose = "ERROR"
+	String StartEvent = ""
+	Var LastFoe = Nil
+	
+	Void StartPreparation()
+		Fighter.ClearAll()
+		FoeList = New TLinkedList()
+		FlowCombat.Cards.Lijst = {}
+	End
+	
+	Void AddFoe(String F)
+		Int Aantal = FoeList.Count
+		Int Col = Aantal div 3
+		Int Row = Aantal % 3
+		Int X = ((Col+1)*(_ASW div 5))-(row*(_ASW div 15))
+		Int Y = (_ASH div 2) + (row * (_ASH div 9)) + 40
+		LastFoe = New InitFoe()
+		LastFoe.Foe = F
+		LastFoe.X = X
+		LastFoe.Y = Y
+		FoeList.AddLast(LastFoe)
+	End
+	
+	Bool Music_DontPush = False
+	
+	Void Music_Push()
+		If !Music_DontPush
+			CSay("Combat Push Music")
+			Music.Push()
+		Else
+			CSay("DontPush is set so no pushing music now!")
+		End
+		Music_DontPush = False
+	End
+	
+	Void StartMusic()
+		CSay("Starting music")
+		Switch FMusic:upper()
+			Case "*RANDOM"
+				Table Bundle = JCR6.GetDir("Music/Combat/RandomEncounter")
+				Music_Push()
+				Music.Play(Bundle[math.random(1,#Bundle)])
+			Case "*BOSS"
+				Table Bundle = JCR6.GetDir("Music/Combat/Boss")
+				Music_Push()
+				Music.Play(Bundle[math.random(1,#Bundle)])
+			Case "*NOCHANGE" "*NOCHANGE*" "*NOCHANGE*.OGG"
+				
+			Default
+				Music_Push()
+				Music.Play("Music/"..FMusic)
+		End
+	End
+	
+	Void Start()
+		For F in FoeList.Each
+			CSayF("Adding foe %s on position (%04d,%04d)",F.Foe,F.X,F.Y)
+			Var MF = Foe.Compile(F.Foe,NeilUse("Script/Data/Foe/"..F.Foe))
+			MF.X = F.X
+			MF.Y = F.Y
+		End
+		For i=1,4
+			If RPGParty[i] && RPGParty[i]!=""
+				Hero.Compile(RPGParty[i])
+				EXPRate[RPGParty[i]] = 1
+			End
+		End
+		FlowCombat.DrawScreen.LoadArena(Arena)
+		FlowCombat.Cards.SetupInitialCards(true)
+		FlowCombat.Cards.StartEffectCards()
+		StartMusic()
+		Flow.Current="COMBAT"
+		Stage.Current="WAIT"
+		VicQ = "PERFECT"
+		If StartEvent!=""
+			CSayF("Running combat start event '%s'",StartEvent) 
+			Map.Script(StartEvent)
+		End
+		CSay("Let combat commence")
+		Hero.ScanDandletonCitizen()
+	End
+//End
