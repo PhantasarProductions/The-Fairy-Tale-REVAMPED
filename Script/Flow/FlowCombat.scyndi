@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat.scyndi
 // 
-// 	  Version: 26.02.15 XV
+// 	  Version: 26.02.15 XVI
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -88,32 +88,34 @@ Init
 	LB:={}
 	Progress.Create("LOADCOMBAT",Aantal,255,0,0)
 	CSayF("Loading %d combat sub-modules!",Len(Bundle))
+	Loading()
 	For idx,File in iPairs(Bundle)
-		Progress.LOADCOMBAT=idx
-		Loading()
 		Table Gespleten := XSplit(File,"/")
 		String Gestript := Upper(Gespleten[Len(Gespleten)-1])
 		Gestript = Replace(Gestript,".lbc","")
 		If Prefixed(File,"#") || Suffixed(File,"#")
-			CSayF("Skipping section %d/%d: %s => %s",idx,Aantal,File,Gestript)
+			CSayF("Skipping section %d/%d: %s => %s",idx+1,Aantal,File,Gestript)
 		Else
-			CSayF("  Adding section %d/%d: %s => %s",idx,Aantal,File,Gestript)
+			CSayF("  Adding section %d/%d: %s => %s",idx+1,Aantal,File,Gestript)
 			//_real[Gestript] = NeilUse(Replace(File:upper(),".NEIL",""),"FLOWCOMBAT."..Gestript)
-			PF:=Right(Gestript,Len(Gestript)-4)
-			LB[PF]={["Short"]=Gestript,["Full"]=File,["Type"]=Upper(Left(Gestript,3))}
+			PF:=StripExt(Right(Gestript,Len(Gestript)-4))
+			LB[PF]={["Short"]=Gestript,["Full"]=File,["Type"]=Upper(Left(Gestript,3)),["idx"]=idx+1}
 		End
 	End	
-	For Sh,LbD in sPairs(LB)		
+	For Sh,LbD in sPairs(LB)	
+		Progress.LOADCOMBAT=LbD.idx
+		Loading()
 		switch LbD.Type
 			case "MOD"
-				CSayF("Loading module:   %s",Sh)
+				CSayF("%4d: Loading module:   %s",Sh)
 				_real[Sh] = NeilUse(Replace(Upper(LbD.Full),".LBC",""),"FLOWCOMBAT."..LbD.Short)
 			case "FUN" "FNC"
-				CSayF("Loading function: %s",Sh)
+				CSayF("%4d: Loading function: %s",Lbd.idx,Sh)
 				_real[Sh] = NeilUse(Replace(Upper(LbD.Full),".LBC",""),"FLOWCOMBAT."..LbD.Short).CombatLinkFunction
 			case "CLS","CLA"	
-				CSayF("Loading function: %s",Sh)
-				_real[Sh] = Lua.Scyndi.Class["CLC_"..Sh]
+				CSayF("%4d: Loading function: %s",Lbd.idx,Sh)
+				_real[Sh] = Lua.Scyndi.Class[lbc.Short]
+				//Lua.Scyndi.Class["CLC_"..Sh]
 			default; Lua.error("Unknown Combat Section Type: "..LbD.Type.." ("..sh..")")
 		End
 	End
