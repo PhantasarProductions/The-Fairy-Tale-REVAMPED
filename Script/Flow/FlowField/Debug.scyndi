@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.10 VII
+// version: 26.02.15 II
 // 
 // End License
 
@@ -67,6 +67,8 @@ End
 
 Global Void CONSOLE_Save(a)
 	FlowField.GoToSave()
+	Print("\x1b[32mSave flow activated\n\x1b[33mPlease return to game Window")
+	Sys.EndConsole()
 End
 
 Global Void CONSOLE_Clickables()
@@ -137,3 +139,9 @@ End
 //Module
 	Bool MouseCoords=False	
 //End
+
+Init
+	 Sys.ConsoleLocal("SAVE","CONSOLE_Save")
+End 
+	
+	 
