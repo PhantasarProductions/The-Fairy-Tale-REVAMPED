@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Subs/SubAchievements.scyndi
 // 
-// 	  Version: 26.02.11 III
+// 	  Version: 26.02.14
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -220,7 +220,7 @@ Group SubAch
 					__SkyBlue
 					string tr=v.Trace
 					For _Vr in each(XSplit(v.AutoVar," "))
-						string vr:=right(_vr,len(_vr)-1):upper()
+						string vr:=Upper(right(_vr,len(_vr)-1))
 						switch left(_vr,1)
 						case "<" ">" "="
 							tr = Replace(tr,"_"..(Vr).."_",Lua.tostring(gInt[vr]))
