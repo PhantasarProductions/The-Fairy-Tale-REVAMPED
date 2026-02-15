@@ -34,13 +34,19 @@
 // **********************************************
 // 
 // 
-// version: 26.02.15
+// version: 26.02.15 X
 // 
 // End License
 
 Script
 
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/Events"
+#use "Libs/SCI/Graphics"
+
+#use "script/use/link"
 #use "script/use/anyway"
+#use "Script/use/convert"
 
 Group MScript
 
@@ -60,7 +66,7 @@ Group MScript
 			Map.CamY=i
 			Map.DrawScreen()
 			Graphics.Flip()
-			FPS.WaitMinTicks()
+			Sys.WaitMinTicks()
 			Events.Poll()
 		End
 		Map.HideObj("PLAYER")
@@ -106,7 +112,7 @@ Group MScript
 		End
 		PuzzleData = {}
 		plua Puzzle = PuzzleData
-		PuzzleData.Today = ADT.Day 
+		PuzzleData.Today = Lua.tonumber(os.date("%d")) || 01 //= ADT.Day 
 		//(Sys.Val(left(Time.Date(),2))); 
 		CSay("Today is "..PuzzleData.Today)
 		PuzzleData.Slots = {}
@@ -131,15 +137,15 @@ Group MScript
 	End
 	
 	Void NPC_S1() 
-		NTSign(1) 
+		Self.NTSign(1) 
 	End
 	
 	Void NPC_S2() 
-		NTSign(2) 
+		Self.NTSign(2) 
 	End
 	
 	Void NPC_S3() 
-		NTSign(3)
+		Self.NTSign(3)
 	End
 	
 	Void NTSwitch(Int num)
@@ -175,15 +181,15 @@ Group MScript
 	end
 	
 	Void NPC_SW1() 
-		NTSwitch(1) 
+		Self.NTSwitch(1) 
 	End
 	
 	Void NPC_SW2() 
-		NTSwitch(2) 
+		Self.NTSwitch(2) 
 	End
 	
 	Void NPC_SW3()
-		NTSwitch(3)
+		Self.NTSwitch(3)
 	End
 
 	#endregion
@@ -219,7 +225,8 @@ Group MScript
 		Item.ZZKEY_BLUESTAFF.Has = 1
 	End
 	
-	Constructor
+	
+	Void Start()
 		CSay("Welcome to the Dragon Cave")
 		ZA.TabEnter{"BackToTown","Terug"}
 		//ZA.Enter("Secret","ShowSecret")
@@ -237,4 +244,8 @@ Group MScript
 		End
 	End
 		
+End
+
+Init 
+	MScript.Start()
 End
