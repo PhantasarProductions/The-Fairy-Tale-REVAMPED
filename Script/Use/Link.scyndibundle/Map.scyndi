@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Link.scyndibundle/Map.scyndi
 // 
-// 	  Version: 26.02.12
+// 	  Version: 26.02.15
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -401,32 +401,32 @@ End
 	End
 	
 	Get String Arena
-		Return ISGET.String("FLOW_FIELD","FieldFlow.Map.KthuraMap.Meta.Arena")
+		Return ISGET.String("FLOW_FIELD","FlowField.Map.KthuraMap.Meta.Arena")
 	End
 	
 	Void GoToSave()
-		MCall("FieldFlow.GoToSave","nil")
+		MCall("FlowField.GoToSave","nil")
 	End
 	
 	Void ColorByLabel(String Zone, Int R=255,Int G=255,Int B=255)
-		MCall("FieldFlow.Map.CurLayer.ColorByLabel",Zone,R,G,B)
+		MCall("FlowField.Map.CurLayer.ColorByLabel",Zone,R,G,B)
 	End
 	
 	Void TexByLabel(String Zone,String Tex,String Kind="ALL")
-		MCall("FieldFlow.Map.CurLayer.TexByLabel",Zone,Tex,Kind)
+		MCall("FlowField.Map.CurLayer.TexByLabel",Zone,Tex,Kind)
 	End
 	
 	Void NewObj(string Kind, string Tag="")
-		MCall("FieldFlow.Map.CurLayer.NewObj",Kind,Tag)
+		MCall("FlowField.Map.CurLayer.NewObj",Kind,Tag)
 	End
 	
 	Void DrawScreen()
-		MCall("FieldFlow.DrawScreen","nil")
+		MCall("FlowField.DrawScreen","nil")
 	End
 	
 	Void Chapter(int i)
 		__Chapter = i
-		MCall("FieldFlow.Chapter.Start",i)
+		MCall("FlowField.Chapter.Start",i)
 	End
 	
 	Get Int MapLevel
@@ -460,7 +460,7 @@ End
 	End
 	
 	Void Pop(string spot,string wind="North", instant)
-		MCall("FieldFlow.FollowTheLeader.Pop",Spot,Wind,instant==true)
+		MCall("FlowField.FollowTheLeader.Pop",Spot,Wind,instant==true)
 	End
 	
 	Void MustHave(string Tag,String BaseTex)
