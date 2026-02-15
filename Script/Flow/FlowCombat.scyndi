@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat.scyndi
 // 
-// 	  Version: 26.02.15 XVII
+// 	  Version: 26.02.15 XXI
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -107,14 +107,15 @@ Init
 		Loading()
 		switch LbD.Type
 			case "MOD"
-				CSayF("%4d: Loading module:   %s",Sh)
+				CSayF("%4d: Loading module:   %s",LbD.idx,Sh)
 				_real[Sh] = NeilUse(Replace(Upper(LbD.Full),".LBC",""),"FLOWCOMBAT."..LbD.Short)
 			case "FUN" "FNC"
 				CSayF("%4d: Loading function: %s",Lbd.idx,Sh)
 				_real[Sh] = NeilUse(Replace(Upper(LbD.Full),".LBC",""),"FLOWCOMBAT."..LbD.Short).CombatLinkFunction
 			case "CLS","CLA"	
 				CSayF("%4d: Loading function: %s",Lbd.idx,Sh)
-				_real[Sh] = Lua.Scyndi.Class[lbc.Short]
+				NeilUse(Replace(Upper(LbD.Full),".LBC",""),"FLOWCOMBAT."..LbD.Short)
+				_real[Sh] = Lua.Scyndi.Class[Sh]
 				//Lua.Scyndi.Class["CLC_"..Sh]
 			default; Lua.error("Unknown Combat Section Type: "..LbD.Type.." ("..sh..")")
 		End
