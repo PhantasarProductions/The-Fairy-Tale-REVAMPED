@@ -35,6 +35,8 @@
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
 
+Script
+
 #use "Script/Use/Anyway"
 #use "Script/Use/Misc/MiniMessage"
 #use "libs/LinkedList"
@@ -52,7 +54,7 @@ Global String LastAction = ""
 
 QuickMeta FlowCombat
 	Index
-		plua k = Key:upper()
+		k := Upper(Key)
 		If !_real[k]
 			Lua.error("No FlowCombat field named: "..Key)
 		End
@@ -69,22 +71,43 @@ Global Const Var CombatFlow = FlowCombat
 Init
 	Screen.NewAlt(_ASW,_ASH,"COMBAT")
 	Table Bundle = JCR6.GetDir("Script/Flow/FlowCombat")
-	int Aantal = #Bundle
+	int Aantal = Len(Bundle)
+	LB:={}
 	Progress.Create("LOADCOMBAT",Aantal,255,0,0)
-	CSayF("Loading %d combat sub-modules!",#Bundle)
+	CSayF("Loading %d combat sub-modules!",Len(Bundle))
 	For idx,File in iPairs(Bundle)
 		Progress.LOADCOMBAT=idx
 		Loading()
-		Table Gespleten = Split(File,"/")
-		String Gestript = Gespleten[#Gespleten]:upper()
-		Gestript = Replace(Gestript,".NEIL","")
+		Table Gespleten = XSplit(File,"/")
+		String Gestript = Upper(Gespleten[Len(Gespleten)-1])
+		Gestript = Replace(Gestript,".lbc","")
 		If Prefixed(File,"#") || Suffixed(File,"#")
 			CSayF("Skipping section %d/%d: %s => %s",idx,Aantal,File,Gestript)
 		Else
-			CSayF(" Loading section %d/%d: %s => %s",idx,Aantal,File,Gestript)
-			_real[Gestript] = NeilUse(Replace(File:upper(),".NEIL",""),"FLOWCOMBAT."..Gestript)
+			CSayF("  Adding section %d/%d: %s => %s",idx,Aantal,File,Gestript)
+			//_real[Gestript] = NeilUse(Replace(File:upper(),".NEIL",""),"FLOWCOMBAT."..Gestript)
+			PF:=Right(Gestript,Len(Gestript)-4)
+			LB[PF]={["Short"]=Gestript,["Full"]=File,["Type"]=Upper(Left(Gestript,3))}
 		End
 	End	
+	For Sh,LbD in sPairs(LB)		
+		switch LbD.Type
+			case "MOD"
+				CSayF("Loading module:   %s",Sh)
+				_real[Sh] = NeilUse(Replace(Upper(LbD.Full),".LBC",""),"FLOWCOMBAT."..Gestript)
+			case "FUN" "FNC"
+				CSayF("Loading function: %s",Sh)
+				_real[Sh] = NeilUse(Replace(Upper(LbD.Full),".LBC",""),"FLOWCOMBAT."..Gestript).CombatLinkFunction
+			case "CLS","CLA"	
+			case "FUN" "FNC"
+				CSayF("Loading class:    %s",Sh)
+				NeilUse(Replace(Upper(LbD.Full),".LBC",""),"FLOWCOMBAT."..Gestript)
+				_real[Sh] = 			case "FUN" "FNC"
+				CSayF("Loading function: %s",Sh)
+				_real[Sh] = Lua.Scyndi.Class["CLC_"..Sh]
+			default; Lua.error("Unknown Combat Section Type: "..LbD.Type.." ("..sh..")")
+		End
+	End
 	Progress.Kill("LOADCOMBAT")
 	BoxText.Load("LEARNABILITY","COMBAT/LEARN")
 End
