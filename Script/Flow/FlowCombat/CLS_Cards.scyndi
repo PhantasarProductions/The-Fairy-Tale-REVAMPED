@@ -34,7 +34,16 @@
 // misrepresented as being the original software.
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
-Module Class
+//Module Class
+
+Module
+
+#use "Libs/SCI/Audio"
+
+#use "Script/Use/Convert"
+
+Class Cards
+
 #region Static Crap
 	Const Int ToY = 50
 	Const Int CW = 42
