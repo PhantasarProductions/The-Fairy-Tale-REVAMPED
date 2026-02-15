@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.15 II
+// version: 26.02.15 III
 // 
 // End License
 
@@ -142,6 +142,7 @@ End
 
 Init
 	 Sys.ConsoleLocal("SAVE","CONSOLE_Save")
+	 Sys.ConsoleLocal("RENC","DBG_Renc")
 End 
 	
 	 
