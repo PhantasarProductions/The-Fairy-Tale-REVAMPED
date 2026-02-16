@@ -1,0 +1,100 @@
+#Converted from Neil to Scyndi
+
+Module
+
+LocExtern __skill Scyndi.Globals.gInt.Skill
+
+// Generated 7/30/2022 3:47:11 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	Ret.DESC = "All it can do is hit you.\nBut its force is a killed"
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/Reg/EarthElemental.png"
+	Ret.DropRate_1 = 5
+	Ret.DropItem_1 = "ITM_AMBROSIA"
+	Ret.DropRate_2 = 1
+	Ret.DropItem_2 = "ITM_BANANAS"
+	Ret.StealRate_1 = 1
+	Ret.StealItem_1 = "ITM_POCKETTSUNAMI"
+	Ret.StealRate_2 = 50
+	Ret.StealItem_2 = "ITM_SAUERKRAUT"
+	Ret.StealRate_3 = 4
+	Ret.StealItem_3 = "ITM_BELL"
+	Ret.NAME = "Earth Elemental"
+	Ret.CASH = 1
+	Ret.SR_CONFUSION = 100
+	Ret.SR_CURSE = 100
+	Ret.SR_DEATH = 100
+	Ret.SR_DISEASE = 100
+	Ret.SR_PARALYSIS = 100
+	Ret.SR_PETRIFICATION = 100
+	Ret.SR_POISON = 100
+	Ret.SR_SILENCE = 100
+	Ret.SR_SLEEP = 100
+	Ret.SR_UNDEAD = 100
+	Ret.VOCALTAG = "EarthElemental"
+
+
+	Ret.AllowOversoul = True
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 95
+		Ret.Stats.ENDURANCE = 12345678
+		Ret.Stats.ER_DARKNESS = 100
+		Ret.Stats.ER_EARTH = 500
+		Ret.Stats.ER_FLAME = 100
+		Ret.Stats.ER_FROST = 100
+		Ret.Stats.ER_LIGHT = -100
+		Ret.Stats.ER_LIGHTNING = 100
+		Ret.Stats.ER_WATER = 100
+		Ret.Stats.ER_WIND = -800
+		Ret.Stats.EVASION = 0
+		Ret.Stats.EXP = 125
+		Ret.Stats.HP = 1000000000
+		Ret.Stats.INTELLIGENCE = 1
+		Ret.Stats.POWER = 12345678
+		Ret.Stats.RESISTANCE = 1
+		Ret.Stats.SPEED = 5
+	Else
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 12345678
+		Ret.Stats.ER_DARKNESS = 100
+		Ret.Stats.ER_EARTH = 500
+		Ret.Stats.ER_FLAME = 100
+		Ret.Stats.ER_FROST = 100
+		Ret.Stats.ER_LIGHT = -100
+		Ret.Stats.ER_LIGHTNING = 100
+		Ret.Stats.ER_WATER = 100
+		Ret.Stats.ER_WIND = -800
+		Ret.Stats.EVASION = 100
+		Ret.Stats.EXP = 250
+		Ret.Stats.HP = 2000000
+		Ret.Stats.INTELLIGENCE = 1
+		Ret.Stats.POWER = 12345678
+		Ret.Stats.RESISTANCE = 1
+		Ret.Stats.SPEED = 6
+	End
+
+	Ret.IsHumanoid = False
+
+	Ret.Actions = {}
+	If True
+		Ret.Actions += "AAA_ATTACK"
+	End
+	If True && (__skill!=2) && (__skill!=3)
+		Ret.Actions += "AAA_GUARD"
+	End
+	Return Ret
+End
+

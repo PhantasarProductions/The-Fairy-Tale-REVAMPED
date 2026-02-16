@@ -1,0 +1,124 @@
+#Converted from Neil to Scyndi
+
+Module
+
+LocExtern __skill Scyndi.Globals.gInt.Skill
+
+// Generated 7/30/2022 3:47:31 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	Ret.Undead = True
+	Ret.Undead = True
+	Ret.DESC = "Just an animated skeleton"
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/Reg/Skeleton.png"
+	Ret.DropRate_1 = 5
+	Ret.DropItem_1 = "ITM_BELL"
+	Ret.DropRate_2 = 5
+	Ret.DropItem_2 = "ITM_CARROT"
+	Ret.StealRate_1 = 25
+	Ret.StealItem_1 = "ITM_CARROT"
+	Ret.StealRate_2 = 25
+	Ret.StealItem_2 = "ITM_PHOENIX"
+	Ret.StealRate_3 = 50
+	Ret.StealItem_3 = "ITM_SALVE"
+	Ret.NAME = "Skeleton"
+	Ret.CASH = 4
+	Ret.SR_CURSE = 100
+	Ret.SR_DEATH = 100
+	Ret.SR_DISEASE = 100
+	Ret.SR_PARALYSIS = 100
+	Ret.SR_PETRIFICATION = 100
+	Ret.SR_POISON = 100
+	Ret.SR_SILENCE = 100
+	Ret.SR_UNDEAD = 100
+	Ret.VOCALTAG = "Skeleton"
+
+
+	Ret.AllowOversoul = True
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 75
+		Ret.Stats.ENDURANCE = 1
+		Ret.Stats.ER_DARKNESS = 300
+		Ret.Stats.ER_EARTH = 100
+		Ret.Stats.ER_FLAME = -100
+		Ret.Stats.ER_FROST = 100
+		Ret.Stats.ER_LIGHT = -300
+		Ret.Stats.ER_LIGHTNING = -120
+		Ret.Stats.ER_WATER = 75
+		Ret.Stats.ER_WIND = 75
+		Ret.Stats.EVASION = 0
+		Ret.Stats.EXP = 8
+		Ret.Stats.HP = 100
+		Ret.Stats.INTELLIGENCE = 1
+		Ret.Stats.POWER = 250
+		Ret.Stats.RESISTANCE = 1
+		Ret.Stats.SPEED = 1
+	Else
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 2
+		Ret.Stats.ER_DARKNESS = 300
+		Ret.Stats.ER_EARTH = 100
+		Ret.Stats.ER_FLAME = -100
+		Ret.Stats.ER_FROST = 100
+		Ret.Stats.ER_LIGHT = -300
+		Ret.Stats.ER_LIGHTNING = -120
+		Ret.Stats.ER_WATER = 75
+		Ret.Stats.ER_WIND = 75
+		Ret.Stats.EVASION = 0
+		Ret.Stats.EXP = 10
+		Ret.Stats.HP = 200
+		Ret.Stats.INTELLIGENCE = 2
+		Ret.Stats.POWER = 500
+		Ret.Stats.RESISTANCE = 2
+		Ret.Stats.SPEED = 2
+	End
+
+	Ret.IsHumanoid = True
+
+	Ret.Actions = {}
+	If True
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+	End
+	If True && (Oversoul) && (__skill!=1)
+		Ret.Actions += "ABL_HERO_JAKE_2PS"
+	End
+	Return Ret
+End
+

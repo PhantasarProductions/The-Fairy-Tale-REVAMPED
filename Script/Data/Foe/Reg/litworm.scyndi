@@ -1,0 +1,144 @@
+#Converted from Neil to Scyndi
+
+Module
+
+LocExtern __skill Scyndi.Globals.gInt.Skill
+
+// Generated 7/30/2022 3:47:22 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	If Oversoul
+		Lua.error("Enemy 'Reg/litworm' does not support oversoul!")
+	End
+
+	Ret.DESC = "It's gonna LECTURE you!\nGet it, get it?"
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/reg/Boekenworm.png"
+	Ret.DropRate_1 = 2
+	Ret.DropItem_1 = "ITM_ANABOLINEA"
+	Ret.DropRate_2 = 100
+	Ret.DropItem_2 = "ITM_PURELITERATURE"
+	Ret.StealRate_1 = 1
+	Ret.StealItem_1 = "ITM_AMBROSIA"
+	Ret.StealRate_2 = 5
+	Ret.StealItem_2 = "ITM_PURELITERATURE"
+	Ret.StealRate_3 = 1
+	Ret.StealItem_3 = "ITM_BANANA"
+	Ret.NAME = "Literature Worm"
+	Ret.CASH = 75
+	Ret.SR_CONFUSION = 100
+	Ret.SR_CURSE = 0
+	Ret.SR_DEATH = 75
+	Ret.SR_DISEASE = 100
+	Ret.SR_PARALYSIS = 50
+	Ret.SR_PETRIFICATION = 100
+	Ret.SR_POISON = 60
+	Ret.SR_SILENCE = 100
+	Ret.SR_SLEEP = 20
+	Ret.SR_UNDEAD = 5
+	Ret.VOCALTAG = "litworm"
+
+
+	Ret.AllowOversoul = False
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 300
+		Ret.Stats.ENDURANCE = 2
+		Ret.Stats.ER_DARKNESS = 100
+		Ret.Stats.ER_EARTH = 50
+		Ret.Stats.ER_FLAME = -199
+		Ret.Stats.ER_FROST = 100
+		Ret.Stats.ER_LIGHT = 95
+		Ret.Stats.ER_LIGHTNING = 100
+		Ret.Stats.ER_WATER = -123
+		Ret.Stats.ER_WIND = 50
+		Ret.Stats.EVASION = 2
+		Ret.Stats.EXP = 1234
+		Ret.Stats.HP = 1234
+		Ret.Stats.INTELLIGENCE = 300
+		Ret.Stats.POWER = 300
+		Ret.Stats.RESISTANCE = 2
+		Ret.Stats.SPEED = 300
+	End
+
+	Ret.IsHumanoid = False
+
+	Ret.Actions = {}
+	If True && (__skill!=3)
+		Ret.Actions += "AAA_ATTACK"
+	End
+	If True && (__skill!=2) && (__skill!=3)
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_CRUSH"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_HORROR"
+		Ret.Actions += "ABL_FOE_HORROR"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_RANDOMIZER"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_RANDOMIZERTOTAL"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_SETTHESTAGEONFIRE"
+		Ret.Actions += "ABL_FOE_SETTHESTAGEONFIRE"
+		Ret.Actions += "ABL_FOE_SETTHESTAGEONFIRE"
+		Ret.Actions += "ABL_FOE_SETTHESTAGEONFIRE"
+		Ret.Actions += "ABL_FOE_SETTHESTAGEONFIRE"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_SHOCKINGSTORIES"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_SICKSTORIES"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_SOULCRUSHINGSTORY"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_TAKEOVER"
+		Ret.Actions += "ABL_FOE_TAKEOVER"
+	End
+	If True && (__skill!=1)
+		Ret.Actions += "ABL_FOE_TAKEOVER2"
+		Ret.Actions += "ABL_FOE_TAKEOVER2"
+		Ret.Actions += "ABL_FOE_TAKEOVER2"
+		Ret.Actions += "ABL_FOE_TAKEOVER2"
+		Ret.Actions += "ABL_FOE_TAKEOVER2"
+	End
+	If True
+		Ret.Actions += "ITM_PURELITERATURE"
+		Ret.Actions += "ITM_PURELITERATURE"
+		Ret.Actions += "ITM_PURELITERATURE"
+		Ret.Actions += "ITM_PURELITERATURE"
+		Ret.Actions += "ITM_PURELITERATURE"
+		Ret.Actions += "ITM_PURELITERATURE"
+		Ret.Actions += "ITM_PURELITERATURE"
+		Ret.Actions += "ITM_PURELITERATURE"
+		Ret.Actions += "ITM_PURELITERATURE"
+		Ret.Actions += "ITM_PURELITERATURE"
+		Ret.Actions += "ITM_PURELITERATURE"
+		Ret.Actions += "ITM_PURELITERATURE"
+	End
+	Return Ret
+End
+

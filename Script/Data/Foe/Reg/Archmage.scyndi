@@ -1,0 +1,443 @@
+#Converted from Neil to Scyndi
+
+Module
+
+LocExtern __skill Scyndi.Globals.gInt.Skill
+
+// Generated 7/30/2022 3:47:04 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	Ret.DESC = "A magic lizard kind commonly known as \"Archmage\",\nbecause its magic is very extremely strong, and when\nunprepared it's unlikely you'll live to tell the tale. \nPhysically these lizards are very weak, so basically\nthe trick is to kill it before it can cast any spell at all."
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/Reg/Archmage.png"
+	Ret.DropRate_1 = 1
+	Ret.DropItem_1 = "ITM_BANANA"
+	Ret.DropRate_2 = 25
+	Ret.DropItem_2 = "ITM_JUSDORANGE"
+	Ret.StealRate_1 = 1
+	Ret.StealItem_1 = "WAND_II_WATT"
+	Ret.StealRate_2 = 1
+	Ret.StealItem_2 = "WAND_II_VOLCANOWAND"
+	Ret.StealRate_3 = 25
+	Ret.StealItem_3 = "ITM_JUSDORANGE"
+	Ret.NAME = "Archmage"
+	Ret.CASH = 8
+	Ret.SR_CONFUSION = 100
+	Ret.SR_CURSE = 100
+	Ret.SR_DEATH = 75
+	Ret.SR_DISEASE = 0
+	Ret.SR_PARALYSIS = 25
+	Ret.SR_PETRIFICATION = 100
+	Ret.SR_POISON = 0
+	Ret.SR_SILENCE = 100
+	Ret.SR_SLEEP = 100
+	Ret.SR_UNDEAD = 65
+	Ret.VOCALTAG = "Archmage"
+
+
+	Ret.AllowOversoul = True
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 1
+		Ret.Stats.ER_DARKNESS = 100
+		Ret.Stats.ER_EARTH = 100
+		Ret.Stats.ER_FLAME = 100
+		Ret.Stats.ER_FROST = 100
+		Ret.Stats.ER_LIGHT = 100
+		Ret.Stats.ER_LIGHTNING = 100
+		Ret.Stats.ER_WATER = 100
+		Ret.Stats.ER_WIND = 100
+		Ret.Stats.EVASION = 1
+		Ret.Stats.EXP = 1200
+		Ret.Stats.HP = 123
+		Ret.Stats.INTELLIGENCE = 8000
+		Ret.Stats.POWER = 5
+		Ret.Stats.RESISTANCE = 123456
+		Ret.Stats.SPEED = 125
+	Else
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 1
+		Ret.Stats.ER_DARKNESS = 100
+		Ret.Stats.ER_EARTH = 100
+		Ret.Stats.ER_FLAME = 100
+		Ret.Stats.ER_FROST = 100
+		Ret.Stats.ER_LIGHT = 100
+		Ret.Stats.ER_LIGHTNING = 100
+		Ret.Stats.ER_WATER = 100
+		Ret.Stats.ER_WIND = 100
+		Ret.Stats.EVASION = 5
+		Ret.Stats.EXP = 2400
+		Ret.Stats.HP = 246
+		Ret.Stats.INTELLIGENCE = 9000
+		Ret.Stats.POWER = 1
+		Ret.Stats.RESISTANCE = 234567
+		Ret.Stats.SPEED = 250
+	End
+
+	Ret.IsHumanoid = True
+
+	Ret.Actions = {}
+	If True && (__skill!=2) && (__skill!=3)
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+	End
+	If True && (__skill!=3)
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_CRUSH"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_DEATHSPELL"
+		Ret.Actions += "ABL_FOE_DEATHSPELL"
+		Ret.Actions += "ABL_FOE_DEATHSPELL"
+		Ret.Actions += "ABL_FOE_DEATHSPELL"
+		Ret.Actions += "ABL_FOE_DEATHSPELL"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_DEMON_SOUL_BREAKER"
+		Ret.Actions += "ABL_FOE_DEMON_SOUL_BREAKER"
+		Ret.Actions += "ABL_FOE_DEMON_SOUL_BREAKER"
+		Ret.Actions += "ABL_FOE_DEMON_SOUL_BREAKER"
+		Ret.Actions += "ABL_FOE_DEMON_SOUL_BREAKER"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_DISINTEGRATE"
+		Ret.Actions += "ABL_FOE_DISINTEGRATE"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_HORROR"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_SMITE"
+		Ret.Actions += "ABL_FOE_SMITE"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_TAKEOVER2"
+	End
+	If True && (__skill!=1)
+		Ret.Actions += "ABL_FOE_TOTALEXHAUSTION"
+		Ret.Actions += "ABL_FOE_TOTALEXHAUSTION"
+		Ret.Actions += "ABL_FOE_TOTALEXHAUSTION"
+		Ret.Actions += "ABL_FOE_TOTALEXHAUSTION"
+		Ret.Actions += "ABL_FOE_TOTALEXHAUSTION"
+		Ret.Actions += "ABL_FOE_TOTALEXHAUSTION"
+		Ret.Actions += "ABL_FOE_TOTALEXHAUSTION"
+		Ret.Actions += "ABL_FOE_TOTALEXHAUSTION"
+		Ret.Actions += "ABL_FOE_TOTALEXHAUSTION"
+		Ret.Actions += "ABL_FOE_TOTALEXHAUSTION"
+		Ret.Actions += "ABL_FOE_TOTALEXHAUSTION"
+		Ret.Actions += "ABL_FOE_TOTALEXHAUSTION"
+		Ret.Actions += "ABL_FOE_TOTALEXHAUSTION"
+		Ret.Actions += "ABL_FOE_TOTALEXHAUSTION"
+		Ret.Actions += "ABL_FOE_TOTALEXHAUSTION"
+		Ret.Actions += "ABL_FOE_TOTALEXHAUSTION"
+		Ret.Actions += "ABL_FOE_TOTALEXHAUSTION"
+		Ret.Actions += "ABL_FOE_TOTALEXHAUSTION"
+		Ret.Actions += "ABL_FOE_TOTALEXHAUSTION"
+		Ret.Actions += "ABL_FOE_TOTALEXHAUSTION"
+		Ret.Actions += "ABL_FOE_TOTALEXHAUSTION"
+		Ret.Actions += "ABL_FOE_TOTALEXHAUSTION"
+		Ret.Actions += "ABL_FOE_TOTALEXHAUSTION"
+		Ret.Actions += "ABL_FOE_TOTALEXHAUSTION"
+		Ret.Actions += "ABL_FOE_TOTALEXHAUSTION"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
+		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
+		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
+		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
+		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
+		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
+		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
+		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
+		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
+		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
+		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
+		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
+		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
+		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
+		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
+		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
+		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
+		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
+		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
+		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
+		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
+		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
+		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
+		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
+		Ret.Actions += "ABL_FOE_ULTIMATESOULCRUSHER"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_WELCOMEINHELL"
+		Ret.Actions += "ABL_FOE_WELCOMEINHELL"
+		Ret.Actions += "ABL_FOE_WELCOMEINHELL"
+		Ret.Actions += "ABL_FOE_WELCOMEINHELL"
+		Ret.Actions += "ABL_FOE_WELCOMEINHELL"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_BIO"
+		Ret.Actions += "ABL_HERO_MARRILONA_BIO"
+		Ret.Actions += "ABL_HERO_MARRILONA_BIO"
+		Ret.Actions += "ABL_HERO_MARRILONA_BIO"
+		Ret.Actions += "ABL_HERO_MARRILONA_BIO"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_CURSEDHEALING"
+		Ret.Actions += "ABL_HERO_MARRILONA_CURSEDHEALING"
+		Ret.Actions += "ABL_HERO_MARRILONA_CURSEDHEALING"
+		Ret.Actions += "ABL_HERO_MARRILONA_CURSEDHEALING"
+		Ret.Actions += "ABL_HERO_MARRILONA_CURSEDHEALING"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_ELECTROCUTION"
+		Ret.Actions += "ABL_HERO_MARRILONA_ELECTROCUTION"
+		Ret.Actions += "ABL_HERO_MARRILONA_ELECTROCUTION"
+		Ret.Actions += "ABL_HERO_MARRILONA_ELECTROCUTION"
+		Ret.Actions += "ABL_HERO_MARRILONA_ELECTROCUTION"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_ETERNALFLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_ETERNALFLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_ETERNALFLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_ETERNALFLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_ETERNALFLAME"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_FIREBLAST"
+		Ret.Actions += "ABL_HERO_MARRILONA_FIREBLAST"
+		Ret.Actions += "ABL_HERO_MARRILONA_FIREBLAST"
+		Ret.Actions += "ABL_HERO_MARRILONA_FIREBLAST"
+		Ret.Actions += "ABL_HERO_MARRILONA_FIREBLAST"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
+		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
+		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
+		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
+		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_HURRICANE"
+		Ret.Actions += "ABL_HERO_MARRILONA_HURRICANE"
+		Ret.Actions += "ABL_HERO_MARRILONA_HURRICANE"
+		Ret.Actions += "ABL_HERO_MARRILONA_HURRICANE"
+		Ret.Actions += "ABL_HERO_MARRILONA_HURRICANE"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_ICEBLAST"
+		Ret.Actions += "ABL_HERO_MARRILONA_ICEBLAST"
+		Ret.Actions += "ABL_HERO_MARRILONA_ICEBLAST"
+		Ret.Actions += "ABL_HERO_MARRILONA_ICEBLAST"
+		Ret.Actions += "ABL_HERO_MARRILONA_ICEBLAST"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_INFERNO"
+		Ret.Actions += "ABL_HERO_MARRILONA_INFERNO"
+		Ret.Actions += "ABL_HERO_MARRILONA_INFERNO"
+		Ret.Actions += "ABL_HERO_MARRILONA_INFERNO"
+		Ret.Actions += "ABL_HERO_MARRILONA_INFERNO"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_PROTECT"
+		Ret.Actions += "ABL_HERO_MARRILONA_PROTECT"
+		Ret.Actions += "ABL_HERO_MARRILONA_PROTECT"
+		Ret.Actions += "ABL_HERO_MARRILONA_PROTECT"
+		Ret.Actions += "ABL_HERO_MARRILONA_PROTECT"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_QUAKE"
+		Ret.Actions += "ABL_HERO_MARRILONA_QUAKE"
+		Ret.Actions += "ABL_HERO_MARRILONA_QUAKE"
+		Ret.Actions += "ABL_HERO_MARRILONA_QUAKE"
+		Ret.Actions += "ABL_HERO_MARRILONA_QUAKE"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_ROCK"
+		Ret.Actions += "ABL_HERO_MARRILONA_ROCK"
+		Ret.Actions += "ABL_HERO_MARRILONA_ROCK"
+		Ret.Actions += "ABL_HERO_MARRILONA_ROCK"
+		Ret.Actions += "ABL_HERO_MARRILONA_ROCK"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_SPEEDUP"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPEEDUP"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPEEDUP"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPEEDUP"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPEEDUP"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_SPLASH"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPLASH"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPLASH"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPLASH"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPLASH"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_TSUNAMI"
+		Ret.Actions += "ABL_HERO_MARRILONA_TSUNAMI"
+		Ret.Actions += "ABL_HERO_MARRILONA_TSUNAMI"
+		Ret.Actions += "ABL_HERO_MARRILONA_TSUNAMI"
+		Ret.Actions += "ABL_HERO_MARRILONA_TSUNAMI"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_ZAP"
+		Ret.Actions += "ABL_HERO_MARRILONA_ZAP"
+		Ret.Actions += "ABL_HERO_MARRILONA_ZAP"
+		Ret.Actions += "ABL_HERO_MARRILONA_ZAP"
+		Ret.Actions += "ABL_HERO_MARRILONA_ZAP"
+	End
+	If True
+	End
+	If True
+		Ret.Actions += "ABL_MASTER_FEENA_COCYTUS"
+	End
+	If True
+		Ret.Actions += "ABL_MASTER_FEENA_DROWN"
+	End
+	If True
+		Ret.Actions += "ABL_MASTER_FEENA_FULLPOWER"
+	End
+	If True
+		Ret.Actions += "ABL_MASTER_FEENA_KATRINA"
+	End
+	If True
+		Ret.Actions += "ABL_MASTER_FEENA_MAGMABLAST"
+	End
+	If True
+		Ret.Actions += "ABL_MASTER_FEENA_MEGAQUAKE"
+	End
+	If True
+		Ret.Actions += "ABL_MASTER_FEENA_SCYLLA"
+	End
+	If True
+	End
+	Return Ret
+End
+

@@ -1,0 +1,108 @@
+#Converted from Neil to Scyndi
+
+Module
+
+LocExtern __skill Scyndi.Globals.gInt.Skill
+
+// Generated 7/30/2022 3:47:13 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	Ret.DESC = "It loves fire.\nIt hates the cold"
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/reg/HellHound.png"
+	Ret.DropRate_1 = 6
+	Ret.DropItem_1 = "ITM_FLAMEORB"
+	Ret.DropRate_2 = 2
+	Ret.DropItem_2 = "ITM_APPLE"
+	Ret.StealRate_1 = 5
+	Ret.StealItem_1 = "ITM_FLAMEORB"
+	Ret.StealRate_2 = 2
+	Ret.StealItem_2 = "ITM_POTION"
+	Ret.StealRate_3 = 2
+	Ret.StealItem_3 = "ITM_PHOENIX"
+	Ret.NAME = "Fire Hound"
+	Ret.CASH = 6
+	Ret.SR_CURSE = 100
+	Ret.SR_DEATH = 100
+	Ret.SR_DISEASE = 100
+	Ret.SR_PARALYSIS = 100
+	Ret.SR_PETRIFICATION = 100
+	Ret.SR_POISON = 20
+	Ret.SR_SILENCE = 100
+	Ret.SR_UNDEAD = 100
+	Ret.VOCALTAG = "FireHound"
+
+
+	Ret.AllowOversoul = True
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 53
+		Ret.Stats.ER_DARKNESS = 100
+		Ret.Stats.ER_FLAME = 500
+		Ret.Stats.ER_FROST = -100
+		Ret.Stats.ER_WATER = -75
+		Ret.Stats.EVASION = 3
+		Ret.Stats.EXP = 4
+		Ret.Stats.HP = 286
+		Ret.Stats.INTELLIGENCE = 120
+		Ret.Stats.POWER = 100
+		Ret.Stats.RESISTANCE = 35
+		Ret.Stats.SPEED = 100
+	Else
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 100
+		Ret.Stats.ER_DARKNESS = 100
+		Ret.Stats.ER_FLAME = 500
+		Ret.Stats.ER_FROST = -100
+		Ret.Stats.ER_WATER = -75
+		Ret.Stats.EVASION = 6
+		Ret.Stats.EXP = 2
+		Ret.Stats.HP = 500
+		Ret.Stats.INTELLIGENCE = 240
+		Ret.Stats.POWER = 200
+		Ret.Stats.RESISTANCE = 60
+		Ret.Stats.SPEED = 200
+	End
+
+	Ret.IsHumanoid = False
+
+	Ret.Actions = {}
+	If True
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+		Ret.Actions += "ABL_HERO_MARRILONA_FLAME"
+	End
+	Return Ret
+End
+

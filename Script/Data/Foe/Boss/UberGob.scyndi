@@ -1,0 +1,128 @@
+#Converted from Neil to Scyndi
+
+Module
+
+LocExtern __skill Scyndi.Globals.gInt.Skill
+
+// Generated 7/30/2022 3:47:00 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	Ret.Boss = true
+	If Oversoul
+		Lua.error("Enemy 'Boss/UberGob' does not support oversoul!")
+	End
+
+	Ret.DESC = "Very very strong"
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/Boss/UberGoblin.png"
+	Ret.DropRate_1 = 100
+	Ret.DropItem_1 = "ITM_BANANA"
+	Ret.DropRate_2 = 50
+	Ret.DropItem_2 = "EQP_JEWEL_SAPPHIRE"
+	Ret.StealRate_1 = 1
+	Ret.StealItem_1 = "EQP_JEWEL_AMETHYST"
+	Ret.StealRate_2 = 1
+	Ret.StealItem_2 = "EQP_JEWEL_ONYX"
+	Ret.StealRate_3 = 1
+	Ret.StealItem_3 = "EQP_JEWEL_RUBY"
+	Ret.NAME = "UeberGoblin"
+	Ret.CASH = 12345
+	Ret.SR_CONFUSION = 100
+	Ret.SR_CURSE = 5
+	Ret.SR_DEATH = 95
+	Ret.SR_DISEASE = 25
+	Ret.SR_PARALYSIS = 40
+	Ret.SR_PETRIFICATION = 100
+	Ret.SR_POISON = 35
+	Ret.SR_SILENCE = 100
+	Ret.SR_SLEEP = 40
+	Ret.SR_UNDEAD = 95
+	Ret.VOCALTAG = "UberGob"
+
+
+	Ret.AllowOversoul = False
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 800
+		Ret.Stats.ER_DARKNESS = -100
+		Ret.Stats.ER_EARTH = -100
+		Ret.Stats.ER_FLAME = -100
+		Ret.Stats.ER_FROST = -100
+		Ret.Stats.ER_LIGHT = -100
+		Ret.Stats.ER_LIGHTNING = -100
+		Ret.Stats.ER_WATER = -100
+		Ret.Stats.ER_WIND = -100
+		Ret.Stats.EVASION = 3
+		Ret.Stats.EXP = 100000
+		Ret.Stats.HP = 30000
+		Ret.Stats.INTELLIGENCE = 5
+		Ret.Stats.POWER = 1000
+		Ret.Stats.RESISTANCE = 20
+		Ret.Stats.SPEED = 123
+	End
+
+	Ret.IsHumanoid = False
+
+	Ret.Actions = {}
+	If True
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+	End
+	If True && (__skill!=3)
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_CRUSH"
+		Ret.Actions += "ABL_FOE_CRUSH"
+		Ret.Actions += "ABL_FOE_CRUSH"
+		Ret.Actions += "ABL_FOE_CRUSH"
+	End
+	If True && (__skill!=1) && (__skill!=2)
+		Ret.Actions += "ABL_FOE_DEMON_SOUL_BREAKER"
+		Ret.Actions += "ABL_FOE_DEMON_SOUL_BREAKER"
+		Ret.Actions += "ABL_FOE_DEMON_SOUL_BREAKER"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_ENERGYDRAIN"
+	End
+	If True && (__skill!=1) && (__skill!=2)
+		Ret.Actions += "ABL_FOE_EVIL_EYE_PETRIFY"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_FATALPOISON"
+		Ret.Actions += "ABL_FOE_FATALPOISON"
+		Ret.Actions += "ABL_FOE_FATALPOISON"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_MULTISTRIKE"
+		Ret.Actions += "ABL_FOE_MULTISTRIKE"
+		Ret.Actions += "ABL_FOE_MULTISTRIKE"
+		Ret.Actions += "ABL_FOE_MULTISTRIKE"
+		Ret.Actions += "ABL_FOE_MULTISTRIKE"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_PARADIVE"
+		Ret.Actions += "ABL_FOE_PARADIVE"
+	End
+	Return Ret
+End
+

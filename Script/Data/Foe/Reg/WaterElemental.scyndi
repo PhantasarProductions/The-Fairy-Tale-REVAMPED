@@ -1,0 +1,131 @@
+#Converted from Neil to Scyndi
+
+Module
+
+LocExtern __skill Scyndi.Globals.gInt.Skill
+
+// Generated 7/30/2022 3:47:35 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	Ret.Boss = false
+	Ret.DESC = "Composed of pure water.\nAnd water is not only the source of life.\nIt can also be the source of DEATH!"
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/Reg/WaterElemental.png"
+	Ret.DropRate_1 = 10
+	Ret.DropItem_1 = "ITM_POCKETTSUNAMI"
+	Ret.DropRate_2 = 25
+	Ret.DropItem_2 = "ITM_WATERBUBBLE"
+	Ret.StealRate_1 = 1
+	Ret.StealItem_1 = "ITM_AMBROSIA"
+	Ret.StealRate_2 = 1
+	Ret.StealItem_2 = "ITM_ANABOLINEA"
+	Ret.StealRate_3 = 5
+	Ret.StealItem_3 = "ITM_BANANA"
+	Ret.NAME = "Water Elemental"
+	Ret.CASH = 1
+	Ret.SR_CONFUSION = 100
+	Ret.SR_CURSE = 100
+	Ret.SR_DEATH = 80
+	Ret.SR_DISEASE = 100
+	Ret.SR_PARALYSIS = 5
+	Ret.SR_PETRIFICATION = 100
+	Ret.SR_POISON = 100
+	Ret.SR_SILENCE = 100
+	Ret.SR_SLEEP = 100
+	Ret.SR_UNDEAD = 100
+	Ret.VOCALTAG = "WaterElemental"
+
+
+	Ret.AllowOversoul = True
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 9999
+		Ret.Stats.ER_EARTH = 0
+		Ret.Stats.ER_FLAME = -200
+		Ret.Stats.ER_FROST = -195
+		Ret.Stats.ER_LIGHTNING = -300
+		Ret.Stats.ER_WATER = 800
+		Ret.Stats.ER_WIND = 0
+		Ret.Stats.EVASION = 0
+		Ret.Stats.EXP = 1256
+		Ret.Stats.HP = 12000
+		Ret.Stats.INTELLIGENCE = 650
+		Ret.Stats.POWER = 500
+		Ret.Stats.RESISTANCE = 9999
+		Ret.Stats.SPEED = 125
+	Else
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 99990
+		Ret.Stats.ER_EARTH = 0
+		Ret.Stats.ER_FLAME = -200
+		Ret.Stats.ER_FROST = -195
+		Ret.Stats.ER_LIGHTNING = -300
+		Ret.Stats.ER_WATER = 800
+		Ret.Stats.ER_WIND = 0
+		Ret.Stats.EXP = 12567
+		Ret.Stats.HP = 120000
+		Ret.Stats.INTELLIGENCE = 6500
+		Ret.Stats.POWER = 5000
+		Ret.Stats.RESISTANCE = 99990
+		Ret.Stats.SPEED = 1250
+	End
+
+	Ret.IsHumanoid = False
+
+	Ret.Actions = {}
+	If True && (__skill!=2) && (__skill!=3)
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_CHILL"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_CURSEDHEALING"
+		Ret.Actions += "ABL_HERO_MARRILONA_CURSEDHEALING"
+		Ret.Actions += "ABL_HERO_MARRILONA_CURSEDHEALING"
+		Ret.Actions += "ABL_HERO_MARRILONA_CURSEDHEALING"
+		Ret.Actions += "ABL_HERO_MARRILONA_CURSEDHEALING"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
+		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
+		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
+		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
+		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_SPLASH"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPLASH"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPLASH"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPLASH"
+		Ret.Actions += "ABL_HERO_MARRILONA_SPLASH"
+	End
+	If True && (__skill!=1)
+		Ret.Actions += "ABL_HERO_MARRILONA_TSUNAMI"
+		Ret.Actions += "ABL_HERO_MARRILONA_TSUNAMI"
+		Ret.Actions += "ABL_HERO_MARRILONA_TSUNAMI"
+	End
+	Return Ret
+End
+

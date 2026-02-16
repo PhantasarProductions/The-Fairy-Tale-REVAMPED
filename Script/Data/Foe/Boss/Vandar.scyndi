@@ -1,0 +1,108 @@
+#Converted from Neil to Scyndi
+
+Module
+
+LocExtern __skill Scyndi.Globals.gInt.Skill
+
+// Generated 7/30/2022 3:47:01 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	Ret.Boss = true
+	If Oversoul
+		Lua.error("Enemy 'Boss/Vandar' does not support oversoul!")
+	End
+
+	Ret.Undead = True
+	Ret.DESC = "Shadow of the past.\nHaunts Dandleton forever."
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/Boss/Vandar.png"
+	Ret.DropRate_1 = 100
+	Ret.DropItem_1 = "WAND_II_SAINT"
+	Ret.DropRate_2 = 100
+	Ret.DropItem_2 = "ITM_BANANAS"
+	Ret.StealRate_1 = 1
+	Ret.StealItem_1 = "ITM_BANANA"
+	Ret.StealRate_2 = 0
+	Ret.StealItem_2 = "ITM_AMBROSIA"
+	Ret.StealRate_3 = 0
+	Ret.StealItem_3 = "ITM_AMBROSIA"
+	Ret.NAME = "Vandar"
+	Ret.CASH = 1200000
+	Ret.SR_CONFUSION = 1000
+	Ret.SR_CURSE = 1000
+	Ret.SR_DEATH = 1000
+	Ret.SR_DISEASE = 1000
+	Ret.SR_PARALYSIS = 1000
+	Ret.SR_PETRIFICATION = 1000
+	Ret.SR_POISON = 1000
+	Ret.SR_SILENCE = 1000
+	Ret.SR_SLEEP = 1000
+	Ret.SR_UNDEAD = 0
+	Ret.VOCALTAG = "Vandar"
+
+
+	Ret.AllowOversoul = False
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 5
+		Ret.Stats.ER_DARKNESS = 500
+		Ret.Stats.ER_EARTH = 100
+		Ret.Stats.ER_FLAME = -180
+		Ret.Stats.ER_FROST = 100
+		Ret.Stats.ER_LIGHT = -200
+		Ret.Stats.ER_LIGHTNING = -195
+		Ret.Stats.ER_WATER = 75
+		Ret.Stats.EVASION = 25
+		Ret.Stats.EXP = 500000000
+		Ret.Stats.HP = 123456
+		Ret.Stats.INTELLIGENCE = 500
+		Ret.Stats.POWER = 1234
+		Ret.Stats.RESISTANCE = 3
+		Ret.Stats.SPEED = 123
+	End
+
+	Ret.IsHumanoid = True
+
+	Ret.Actions = {}
+	If True && (__skill!=1)
+		Ret.Actions += "ABL_FOE_V_ACCIO"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_V_ARRESTOMOMENTUM"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_V_AVADAKEDAVRA"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_V_BRACKIUMEMENDO"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_V_CRUCIO"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_V_FIREBOLT"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_V_IMPERIO"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_V_M"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_V_RICTUSEMPRA"
+	End
+	Return Ret
+End
+

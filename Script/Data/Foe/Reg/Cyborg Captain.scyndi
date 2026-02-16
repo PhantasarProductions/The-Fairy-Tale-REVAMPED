@@ -1,0 +1,235 @@
+#Converted from Neil to Scyndi
+
+Module
+
+LocExtern __skill Scyndi.Globals.gInt.Skill
+
+// Generated 7/30/2022 3:47:08 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	If Oversoul
+		Lua.error("Enemy 'Reg/Cyborg Captain' does not support oversoul!")
+	End
+
+	Ret.DESC = "Used to be a captain for some space organisation. This is what is left of her"
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/Reg/Cyborg Captain.png"
+	Ret.DropRate_1 = 100
+	Ret.DropItem_1 = "ITM_X_AURINA"
+	Ret.DropRate_2 = 25
+	Ret.DropItem_2 = "ITM_X_BANDAGE"
+	Ret.StealRate_1 = 25
+	Ret.StealItem_1 = "ITM_X_AURINA"
+	Ret.StealRate_2 = 0
+	Ret.StealItem_2 = "ITM_X_BANDAGE"
+	Ret.StealRate_3 = 0
+	Ret.StealItem_3 = "ITM_X_STEROIDS"
+	Ret.NAME = "Cyborg Captain"
+	Ret.CASH = 6
+	Ret.SR_CURSE = 100
+	Ret.SR_DEATH = 90
+	Ret.SR_DISEASE = 75
+	Ret.SR_PARALYSIS = 100
+	Ret.SR_PETRIFICATION = 100
+	Ret.SR_POISON = 100
+	Ret.SR_SILENCE = 100
+	Ret.SR_UNDEAD = 100
+
+
+	Ret.AllowOversoul = False
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 450
+		Ret.Stats.ER_DARKNESS = 75
+		Ret.Stats.ER_EARTH = 75
+		Ret.Stats.ER_FLAME = 75
+		Ret.Stats.ER_FROST = 75
+		Ret.Stats.ER_LIGHT = 75
+		Ret.Stats.ER_LIGHTNING = 600
+		Ret.Stats.ER_WATER = -75
+		Ret.Stats.ER_WIND = 75
+		Ret.Stats.EVASION = 5
+		Ret.Stats.EXP = 2000
+		Ret.Stats.HP = 3000
+		Ret.Stats.INTELLIGENCE = 100
+		Ret.Stats.POWER = 550
+		Ret.Stats.RESISTANCE = 550
+		Ret.Stats.SPEED = 250
+	End
+
+	Ret.IsHumanoid = True
+
+	Ret.Actions = {}
+	If True
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+	End
+	If True && (!__NewGamePlus) && (__skill!=3)
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+	End
+	If True && (__skill!=1) && (__skill!=2)
+		Ret.Actions += "ABL_HERO_JAKE_2PS"
+		Ret.Actions += "ABL_HERO_JAKE_2PS"
+	End
+	Return Ret
+End
+

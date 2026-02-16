@@ -1,0 +1,162 @@
+#Converted from Neil to Scyndi
+
+Module
+
+LocExtern __skill Scyndi.Globals.gInt.Skill
+
+// Generated 7/30/2022 3:46:44 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	Ret.Boss = true
+	If Oversoul
+		Lua.error("Enemy 'Boss/GiantEagle' does not support oversoul!")
+	End
+
+	Ret.DESC = "You look yummy to him."
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/Boss/GiantEagle.png"
+	Ret.DropRate_1 = 100
+	Ret.DropItem_1 = "ITM_AMBROSIA"
+	Ret.DropRate_2 = 100
+	Ret.DropItem_2 = "ITM_LEADERFLAG"
+	Ret.StealRate_1 = 3
+	Ret.StealItem_1 = "ITM_AMBROSIA"
+	Ret.StealRate_2 = 1
+	Ret.StealItem_2 = "ITM_ANABOLINEA"
+	Ret.StealRate_3 = 50
+	Ret.StealItem_3 = "EQP_MARRILONA_AR2"
+	Ret.NAME = "Gaint Eagle"
+	Ret.CASH = 55
+	Ret.SR_CONFUSION = 100
+	Ret.SR_CURSE = 100
+	Ret.SR_DEATH = 100
+	Ret.SR_DISEASE = 75
+	Ret.SR_PARALYSIS = 95
+	Ret.SR_PETRIFICATION = 100
+	Ret.SR_POISON = 65
+	Ret.SR_SILENCE = 100
+	Ret.SR_SLEEP = 100
+	Ret.SR_UNDEAD = 100
+	Ret.VOCALTAG = "GiantEagle"
+
+
+	Ret.AllowOversoul = False
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 300
+		Ret.Stats.EVASION = 1
+		Ret.Stats.HP = 15000
+		Ret.Stats.INTELLIGENCE = 850
+		Ret.Stats.POWER = 850
+		Ret.Stats.RESISTANCE = 300
+		Ret.Stats.SPEED = 200
+	End
+
+	Ret.IsHumanoid = False
+
+	Ret.Actions = {}
+	If True
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+	End
+	If True && (__skill!=3)
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_EXHAUST"
+	End
+	If True && (__skill!=1)
+		Ret.Actions += "ABL_HERO_JAKE_2PS"
+	End
+	If True && (__skill!=1) && (__skill!=2)
+		Ret.Actions += "ABL_HERO_JAKE_3PS"
+		Ret.Actions += "ABL_HERO_JAKE_3PS"
+		Ret.Actions += "ABL_HERO_JAKE_3PS"
+	End
+	If True && (__skill!=1) && (__skill!=2)
+		Ret.Actions += "ABL_HERO_JAKE_DEATHSTRIKE"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
+		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
+		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
+		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
+		Ret.Actions += "ABL_HERO_MARRILONA_HEAL"
+	End
+	Return Ret
+End
+
