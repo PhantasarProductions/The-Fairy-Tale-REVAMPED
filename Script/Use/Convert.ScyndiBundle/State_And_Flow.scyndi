@@ -38,7 +38,7 @@ Group State
 		print("\x1b[32mStat.Call:",Infinity)
 		printf("\x1b[33m%s\x1b[34m\n",Lua.debug.traceback())
 		Sys.TraceBack()
-		printf("\x1b[92m%s: \x1b[93mState.Call(\"%s\",'%s')\n",Sys.StatName,Infinity)
+		printf("\x1b[92m%s: \x1b[93mState.Call(\"%s\",'%s')\n",Sys.StateName,Infinity)
 		Lua.error("State.Call should not be called!")
 	End
 End
