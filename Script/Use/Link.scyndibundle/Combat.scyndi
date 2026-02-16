@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Link.scyndibundle/Combat.scyndi
 // 
-// 	  Version: 26.02.15
+// 	  Version: 26.02.16
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -141,11 +141,13 @@ Module
 	End
 	
 	Void Start()
-		State.Call("FLOW_COMBAT","FlowCombat.Start.Start","nil")
+		//State.Call("FLOW_COMBAT","FlowCombat.Start.Start","nil")
+		Sys.Call("FLOW_COMBAT","FlowCombat.Start.Start")
 	End
 	
 	Set String NewEnemy
-		State.Call("FLOW_COMBAT","FlowCombat.Start.AddFoe",sprintf("'%s'",value))
+		//State.Call("FLOW_COMBAT","FlowCombat.Start.AddFoe",sprintf("'%s'",value))
+		Sys.Call("FLOW_COMBAT","FlowCombat.Start.AddFoe",value)
 	End
 	
 	// Last Enemy X
