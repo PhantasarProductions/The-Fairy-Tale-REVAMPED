@@ -1,8 +1,10 @@
-#Converted from Neil to Scyndi
+// Converted from Neil to Scyndi
 
 Module
 
-LocExtern __skill Scyndi.Globals.gInt.Skill
+LocExtern __skill "Scyndi.Globals.gInt.Skill"
+LocExtern __NewGamePlus "Scyndi.Globals.gBool.NewGamePlus"
+
 
 // Generated 7/30/2022 3:46:56 PM
 // (c) Jeroen P. Broks

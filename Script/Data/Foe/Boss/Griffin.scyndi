@@ -1,8 +1,10 @@
-#Converted from Neil to Scyndi
+// Converted from Neil to Scyndi
 
 Module
 
-LocExtern __skill Scyndi.Globals.gInt.Skill
+LocExtern __skill "Scyndi.Globals.gInt.Skill"
+LocExtern __NewGamePlus "Scyndi.Globals.gBool.NewGamePlus"
+
 
 // Generated 7/30/2022 3:46:45 PM
 // (c) Jeroen P. Broks
@@ -103,7 +105,7 @@ Table _R(Bool Oversoul)
 		Ret.Actions += "AAA_ATTACK"
 	End
 	If True && (__skill!=3)
-		For i = 1,100-(__skill*.25)
+		For i = 1,100-(__skill*0.25)
 			Ret.Actions += "AAA_GUARD"
 		End
 	End
