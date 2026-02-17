@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/MOD_Start.scyndi
 // 
-// 	  Version: 26.02.15 XVI
+// 	  Version: 26.02.17
 // 	
 // 	  Copyright (C) 2021, '22, 2026 Jeroen Petrus Broks
 // 	
@@ -114,7 +114,7 @@ End
 	
 	Void StartMusic()
 		CSay("Starting music")
-		Switch FMusic:upper()
+		Switch Upper(FMusic)
 			Case "*RANDOM"
 				Table Bundle = JCR6.Dir("Music/Combat/RandomEncounter")
 				Music_Push()
@@ -134,7 +134,7 @@ End
 	Void Start()
 		For F in FoeList.Each
 			CSayF("Adding foe %s on position (%04d,%04d)",F.Foe,F.X,F.Y)
-			Var MF = Foe.Compile(F.Foe,NeilUse("Script/Data/Foe/"..F.Foe))
+			Var MF = Foe.Compile(F.Foe,NeilUse("Script/Data/Foe/"..F.Foe)._R)
 			MF.X = F.X
 			MF.Y = F.Y
 		End
