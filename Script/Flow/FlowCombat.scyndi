@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat.scyndi
 // 
-// 	  Version: 26.02.15 XXI
+// 	  Version: 26.02.17
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -115,7 +115,12 @@ Init
 			case "CLS","CLA"	
 				CSayF("%4d: Loading function: %s",Lbd.idx,Sh)
 				NeilUse(Replace(Upper(LbD.Full),".LBC",""),"FLOWCOMBAT."..LbD.Short)
-				_real[Sh] = Lua.Scyndi.Class[Sh]
+				_real[Sh] = Lua.Scyndi.Class[Sh]				
+				//Lua.Scyndi.Class["CLC_"..Sh]
+			case "CL2"	
+				CSayF("%4d: Loading function: %s",Lbd.idx,Sh)
+				NeilUse(Replace(Upper(LbD.Full),".LBC",""),"FLOWCOMBAT."..LbD.Short)
+				_real[Sh] = Lua.Scyndi.Class[Right(Sh,len(SH)-6)]				
 				//Lua.Scyndi.Class["CLC_"..Sh]
 			default; Lua.error("Unknown Combat Section Type: "..LbD.Type.." ("..sh..")")
 		End
