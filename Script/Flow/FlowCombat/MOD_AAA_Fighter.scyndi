@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/MOD_AAA_Fighter.scyndi
 // 
-// 	  Version: 26.02.15 XIII
+// 	  Version: 26.02.17
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -261,7 +261,7 @@ Class Fighter
 	
 	// First upper rest lower
 	Static String FURL(string s)
-		Return (Upper(Left(s,1)))..Lower(Right(s,Len(s-1)))
+		Return (Upper(Left(s,1)))..Lower(Right(s,Len(s)-1))
 	End
 	
 	Void SetUp(String _Tag,String _Team)
