@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/CL2_Class_Hero.scyndi
 // 
-// 	  Version: 26.02.17
+// 	  Version: 26.02.17 XXVII
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -45,8 +45,22 @@
 
 Module
 
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/Events"
+#use "Libs/SCI/Intervar"
+#use "Libs/SCI/Graphics"
+
+#use "Script/Use/Link"
+#use "Script/Use/Anyway"
 #use "Script/Use/Convert"
-#use "Script/Use/Misc/Box"
+#use "Script/Use/Misc/Box_Class"
+
+#accept Stage
+#accept Fighter
+#Accept FlowCombat
+
+#macro _ASH Graphics.Height
+#macro _ASW Graphics.Width
 
 Bool BoxCancel(Box)
 	if !Box
@@ -150,7 +164,7 @@ Class Hero Extends Fighter
 			Default
 		End
 		Image.AltScale("COMBAT",2,2)
-		String ITag = self.Tag.."."..DTag
+		String ITag := self.Tag.."."..DTag
 		Images[ITag] = Images[ITag] || Image.LoadNew(SprintF(Format,Self.Tag,DTag),ITag)
 		Images[ITag].HotBottomCenter()
 		Images[ITag].ASDraw("COMBAT",Self.X,Self.Y)
@@ -177,7 +191,7 @@ Class Stage_PlayerSelectTarget Extends Stage
 	Static Int OldMouseX
 	Static Int OldMouseY
 	Static Var Targets
-	ReadOnly Static Var Fnt = ImageFont.Obtain("SYSFONT")
+	ReadOnly Static Var Fnt = ObtainFont("SYSFONT")
 	Static Get String WantTarget
 		Return Act.Act.Target
 	End
@@ -244,7 +258,7 @@ Class Stage_PlayerSelectTarget Extends Stage
 				End
 			Case "1F"
 				Targets = Targets || {}
-				Targets[1] = nil
+				Targets[0] = nil
 				For K,F in sPairs(Fighter.ByTag)
 					Int TX
 					Int TY
@@ -252,14 +266,14 @@ Class Stage_PlayerSelectTarget Extends Stage
 					Int TH
 					TX,TY,TW,TH = F.TrueCoords()
 					If F.Team=="Foe" && F.Hydra && F.TarByHero && Mouse.MX>TX && Mouse.MX<TX+TW && Mouse.MY<TY && Mouse.MY>TY-TH
-						Targets[1]=K
+						Targets[0]=K
 					ElseIf F.Team=="Foe" && F.TarByHero && Mouse.MX>TX-(TW div 2) && Mouse.MX<TX+(TW div 2) && Mouse.MY<TY && Mouse.MY>TY-TH
-						Targets[1]=K
+						Targets[0]=K
 					End
 				End
 			Case "1A"
 				Targets = Targets || {}
-				Targets[1] = nil
+				Targets[0] = nil
 				For K,F in sPairs(Fighter.ByTag)
 					Int TX
 					Int TY
@@ -267,20 +281,20 @@ Class Stage_PlayerSelectTarget Extends Stage
 					Int TH
 					TX,TY,TW,TH = F.TrueCoords()
 					If F.Team=="Hero" && Mouse.MX>TX-(TW div 2) && Mouse.MX<TX+(TW div 2) && Mouse.MY<TY && Mouse.MY>TY-TH
-						Targets[1]=K
+						Targets[0]=K
 					End
 				End
 			Default
 				Lua.error("Unknown target type: "..WantTarget)
 		End		
-		If Mouse.ML && #Targets>0
+		If Mouse.ML && Len(Targets)>0
 			Int i=0
 			Repeat
-				i++
 				Act.TarTags[i]=Targets[i]
+				i++
 			LoopWhile Targets[i]
 			// ^ This seems like an odd way to do it, but this guarantees the transfer went well ^
-			CombatFlow.Execution.ComeToMe(Act,CombatFlow.Cards.Lijst[1])
+			FlowCombat.Execution.ComeToMe(Act,FlowCombat.Cards.Lijst[1])
 		End
 	End
 	
@@ -291,11 +305,11 @@ Class Stage_PlayerSelectTarget Extends Stage
 	
 	Void Draw()
 		For Tag in Each(Targets || {})
-			Var F = Fighter.ByTag[Tag]
+			Var F := Fighter.ByTag[Tag]
 			Bool ShowBar = True
 			Bool BarKnown = True
-			Int TX = F.TX
-			Int TY = F.TY - (F.TH div 2)
+			Int TX := F.TX
+			Int TY := F.TY - (F.TH div 2)
 			If F.Team=="Foe"
 				ShowBar  = __skill != 3
 				BarKnown = __skill == 1 || gv.gint["KILLED_"..F.File]>0
@@ -305,11 +319,11 @@ Class Stage_PlayerSelectTarget Extends Stage
 			__White
 			Fnt.DarkText(F.Name,TX,TY-3,0,1)
 			If ShowBar
-				Int BarSize = Fnt.TextWidth(F.Name)
+				Int BarSize := Fnt.Width(F.Name)
 				Graphics.Color(123,123,123)
 				Graphics.Rect(TX,TY,BarSize,20)
 				If BarKnown
-					Int G = math.floor( (F.HP / F.HPMax) *255)
+					Int G := math.floor( (F.HP / F.HPMax) *255)
 					Graphics.Color(255-G,G,0)
 					Graphics.Rect(TX,TY,math.floor( (F.HP / F.HPMax) * BarSize),20)
 				Else
@@ -373,7 +387,7 @@ End
 
 Class Stage_PlayerInput_Main Extends Stage
 
-	Static ReadOnly Var Fnt = ImageFont.Obtain("SYSFONT")
+	Static ReadOnly Var Fnt = ObtainFont("SYSFONT")
 	Static Table Banners = {}
 	Static Table Portraits = {}
 	Static Int Alpha 
@@ -454,8 +468,8 @@ Class Stage_PlayerInput_Main Extends Stage
 			If Prefixed(EX,"JAKE_")
 				EX="JAKE"
 			End
-			plua A = new Action("SPIRATA_ATTACK_"..EX,Exe,tgt,{})
-			CombatFlow.Execution.ComeToMe(A,CombatFlow.Cards.Lijst[1])
+			A := new Action("SPIRATA_ATTACK_"..EX,Exe,tgt,{})
+			FlowCombat.Execution.ComeToMe(A,FlowCombat.Cards.Lijst[1])
 		Else
 			Stage.Current = "PLAYERINPUT_MAIN"
 		End
@@ -503,7 +517,7 @@ Class Stage_PlayerInput_Ability Extends Stage
 					BoxText.Serial("LEARNABILITY", "AUTO_MARRILONA", "FLOW_COMBAT")
 				End
 			End
-			var Act = new Action(Chosen,Exe,{},{["DeductAP"]=Deduct})
+			Act := new Action(Chosen,Exe,{},{["DeductAP"]=Deduct})
 			Stage_PlayerSelectTarget.ComeToMe(Act)
 			Chosen=""
 		End
@@ -550,7 +564,7 @@ Class Stage_PlayerInput_Items Extends Stage
 		If Chosen!=""
 			Bool Deduct = True
 			// TODO: Marrilona no AP use when HP is too low
-			var Act = new Action(Chosen,Exe,{},{["ConsumeItem"]=true})
+			Act := new Action(Chosen,Exe,{},{["ConsumeItem"]=true})
 			Stage_PlayerSelectTarget.ComeToMe(Act)
 			Chosen=""
 		End
@@ -572,11 +586,14 @@ Var CheckAbilityLearn(Act)
 		Return Act
 	End
 	__LoadItemState
-	string Abl = ISGET.String("SUB_ITEMS",sPrintF("AblCheckLearn('%s')",Act.Executor.Tag))
+	//string Abl = ISGET.String("SUB_ITEMS",sPrintF("AblCheckLearn('%s')",Act.Executor.Tag))
+	String Abl
+	Sys.Call("SUB_ITEMS","AblCheckLearn",Act.Executor.Tag)
+	Abl=gStr.IAA_LinkInvoke
 	If Abl==""
 		Return Act
 	End
-	Var ActAbl=Item[Abl]
+	Var ActAbl:=Item[Abl]
 	Table ActTar
 	Switch ActAbl.Target
 		Case "OS" "1A"
@@ -601,7 +618,7 @@ Var CheckAbilityLearn(Act)
 				End
 			End
 		Case "1F"
-			If #Act.TarTags==1 && #Act.Targets[1].Team=="Foe"
+			If len(Act.TarTags)==1 && Act.Targets[0].Team=="Foe"
 				ActTar = Act.TarTags
 			Else
 				int TimeOut=10000
@@ -610,17 +627,17 @@ Var CheckAbilityLearn(Act)
 					TimeOut--
 					If TimeOut<0
 						Lua.error("Ability learn random target time-out")
-						Return
+						Return nil
 					End
 					Table TR = Fighter.GetTags("Foe")
-					TT = TR[math.random(1,#TR)]
+					TT = TR[math.random(0,len(TR))]
 				Until Fighter.ByTag[TT].HP>0
 				ActTar = {TT}
 			End
 		Default
 			Lua.error("Ability learn target error: "..ActAbl.Target)			
 	End
-	String Taggy = Act.Executor.Tag:upper()
+	String Taggy := Upper(Act.Executor.Tag)
 	If Prefixed(Taggy,"JAKE")
 		Taggy="JAKE"
 	End
@@ -637,10 +654,10 @@ Void PIMI_Attack()
 	If It.ITM_WeaponAbility
 		WAbl = SPIM.Executor.Char.Data.EQUIP_Weapon
 	End
-	Var Act = new Action(WAbl,SPIM.Exe,{},{["CheckAfterAction"]=true})
+	Var Act := new Action(WAbl,SPIM.Exe,{},{["CheckAfterAction"]=true})
 	Act = CheckAbilityLearn(Act)
 	If Act.Teaching
-		CombatFlow.Execution.ComeToMe(Act,CombatFlow.Cards.Lijst[1])
+		FlowCombat.Execution.ComeToMe(Act,FlowCombat.Cards.Lijst[1])
 	Else
 		Stage_PlayerSelectTarget.ComeToMe(Act)		
 	End
@@ -656,13 +673,13 @@ End
 
 Void PIMI_Spirata()
 	Var Act = new Action("SPIRATATRANSFORM",SPIM.Exe,{SPIM.Exe},{["CheckAfterAction"]=true})
-	CombatFlow.Execution.ComeToMe(Act,CombatFlow.Cards.Lijst[1])
+	FlowCombat.Execution.ComeToMe(Act,FlowCombat.Cards.Lijst[1])
 	//Lua.error("Spirata not implemented yet!")
 End
 
 Void PIMI_Guard()
 	Var Act = new Action("AAA_GUARD",SPIM.Exe,{SPIM.Exe},{["CheckAfterAction"]=true})
-	CombatFlow.Execution.ComeToMe(Act,CombatFlow.Cards.Lijst[1])
+	FlowCombat.Execution.ComeToMe(Act,FlowCombat.Cards.Lijst[1])
 End
 
 Bool NotNostra()
@@ -691,4 +708,4 @@ Init
 	PIMI.Lst.AddLast(new PIMI("Guard",50,0,PIMI_Guard))
 End
 
-Return Foe
+//Return Foe
