@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Link.scyndibundle/Item_h.scyndi
 // 
-// 	  Version: 26.02.14 I
+// 	  Version: 26.02.17
 // 	
 // 	  Copyright (C) 2020, 2021, 2026 Jeroen Petrus Broks
 // 	
@@ -49,7 +49,8 @@ Module
 
 #use "Script/Use/Convert"
 
-#macro __LoadItemState State.LoadNew("SUB_ITEMS","Script/Subs/SubItems.lbc")
+//#macro __LoadItemState State.LoadNew("SUB_ITEMS","Script/Subs/SubItems.lbc")
+Extern __LoadItemState "Scyndi.Class.State.LoadNew('SUB_ITEMS','Script/Subs/SubItems.lbc')"
 
 // In Apollo this was needed, but in SCI this is not needed, but saves me a crap load of work.
 //#macro __CSay Lua.Neil.Globals.CSay
