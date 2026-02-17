@@ -1,9 +1,9 @@
 // License:
-// 	  src/Code/Script/Flow/FlowCombat/CLS_Class_Foe.scyndi
+// 	  src/Code/Script/Flow/FlowCombat/CL2_Class_Foe.scyndi
 // 
-// 	  Version: 26.02.17 XVI
+// 	  Version: 26.02.17 III
 // 	
-// 	  Copyright (C) 2021, '22, 2026 Jeroen Petrus Broks
+// 	  Copyright (C) case 2021-2026 Jeroen Petrus Broks
 // 	
 // 	  ===========================
 // 	  This file is part of a project related to the Phantasar Chronicles or another
@@ -215,8 +215,8 @@ Class Foe Extends Fighter
 				End
 				WFoe.Char.Stats["BASE_"..Key]     = v
 				WFoe.Char.Stats["BUFF_"..Key]     = 0
-				WFoe.Char.Stats["END_" ..Key]     = 0
-				WFoe.Char.StatScript["END_"..Key] = "SUM:"..WFoe.Tag..".".."BUFF_"..Key..".".."BASE_"..Key
+				//WFoe.Char.Stats["END_" ..Key]     = 0
+				//WFoe.Char.StatScript["END_"..Key] = "SUM:"..WFoe.Tag..".".."BUFF_"..Key..".".."BASE_"..Key
 				CSayF("- Stat.%s = { BASE = %d, END = %d }",Key,WFoe.Char.Stats["BASE_"..Key],WFoe.Char.Stats["END_"..Key])
 			End
 		End
