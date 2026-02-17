@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Convert.ScyndiBundle/RPG2Statistician.scyndi
 // 
-// 	  Version: 26.02.12
+// 	  Version: 26.02.17
 // 	
 // 	  Copyright (C) 2026 Jeroen Petrus Broks
 // 	
@@ -136,6 +136,7 @@ Class TFChar
 	readonly String Tag
 	ReadOnly Var ChData
 	ReadOnly Var Stat
+	ReadOnly Var Stats
 	Get Var Points;
 		ts.ChData.Points.HP.Maximum = ts.Stat.END_HP
 		//CSayF("%s:>HP Auto -- %d -> %d",Tag,ts.Stat.END_HP,ts.ChData.Points.HP.Maximum) // DEBUG ONLY!
@@ -183,6 +184,7 @@ Class TFChar
 		ChData=TrueRPG.Char[tag]
 		CSayF("TFChar %s created",Tag)
 		Stat = SetMetaTable({["this"]=self},StatMeta)
+		Stats = Stat
 	End
 	
 	Destructor
