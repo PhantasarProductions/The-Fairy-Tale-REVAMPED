@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/CL2_Class_Hero.scyndi
 // 
-// 	  Version: 26.02.18 IX
+// 	  Version: 26.02.18 XIII
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -166,12 +166,15 @@ Class Hero Extends Fighter
 				End
 			Default
 		End
-		Image.AltScale("COMBAT",2,2)
+		//Image.AltScale("COMBAT",2,2)
+		SetScale(2,2)
 		String ITag := self.Tag.."."..DTag
-		Images[ITag] = Images[ITag] || Image.LoadNew(SprintF(Format,Self.Tag,DTag),ITag)
+		Images[ITag] = Images[ITag] || LoadNewImage(SprintF(Format,Self.Tag,DTag),ITag)
 		Images[ITag].HotBottomCenter()
-		Images[ITag].ASDraw("COMBAT",Self.X,Self.Y)
-		Image.AltScale("COMBAT",1,1)
+		//Images[ITag].ASDraw("COMBAT",Self.X,Self.Y)
+		Images[ITag].Draw(Self.X,Self.Y)
+		//Image.AltScale("COMBAT",1,1)
+		setScale(1,1)
 	End
 	
 	Bool Pose(Act)	 	
@@ -463,8 +466,8 @@ Class Stage_PlayerInput_Main
 	Static Void ComeToMe(String _Exe)
 		Exe = _Exe
 		Alpha = 0
-		Portraits[Exe] = Image.LoadNew("GFX/BoxText/Portret/"..Exe.."/General.png","PIMI_POR_"..Exe)
-		Banners[Exe]   = Image.LoadNew("GFX/Combat/HeroBanners/"..Exe..".png","PIMI_BAN_"..Exe)
+		Portraits[Exe] = LoadNewImage("GFX/BoxText/Portret/"..Exe.."/General.png","PIMI_POR_"..Exe)
+		Banners[Exe]   = LoadNewImage("GFX/Combat/HeroBanners/"..Exe..".png","PIMI_BAN_"..Exe)
 		Portraits[Exe].HotCenter()
 		Banners[Exe].HotCenter()
 		If (Exe=="Marrilona" || math.random(0,__skill^__skill)==0) && gv.gBool.MarFeena_Curse && RPGParty[2]=="Marrilona"
