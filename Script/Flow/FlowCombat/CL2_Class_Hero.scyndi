@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/CL2_Class_Hero.scyndi
 // 
-// 	  Version: 26.02.18 V
+// 	  Version: 26.02.18 VII
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -77,7 +77,7 @@ Class Hero Extends Fighter
 	Int Num
 	Int AttackFrame = 0
 	Get Int Spirata
-		Return RPGChar[Self.Tag].SafeStat.Spirata
+		Return RPGChar[This.Tag].SafeStat.Spirata
 		//Return RPGChar[Self.Tag].SafeStat.END_SpirataRate
 	End
 	Set Int Spirata
@@ -89,7 +89,7 @@ Class Hero Extends Fighter
 	Const Var Images = {}
 	
 	Get Bool DrawThis
-		return RPGParty[num] == self.Tag
+		return RPGParty[num] == this.Tag
 	End
 	
 	Get Bool Gone
@@ -107,7 +107,7 @@ Class Hero Extends Fighter
 	End
 	
 	Get Bool TarByFoe
-		Return Self.HP>0
+		Return This.HP>0
 	End
 	Get Bool TarByHero
 		Return True
@@ -138,8 +138,8 @@ Class Hero Extends Fighter
 	End
 	
 	Void Draw()
-		Static String Format = "GFX/Combat/Fighters/Hero/%s.%s.png"
-		String DTag = Self.Stage
+		String Format = "GFX/Combat/Fighters/Hero/%s.%s.png"
+		String DTag := Self.Stage
 		//CSay("#1")
 		if Self.HP==0
 			Self.Stage="DEAD"
