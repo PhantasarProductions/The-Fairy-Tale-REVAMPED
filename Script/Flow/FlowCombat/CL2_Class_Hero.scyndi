@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/CL2_Class_Hero.scyndi
 // 
-// 	  Version: 26.02.18 VII
+// 	  Version: 26.02.18 IX
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -115,7 +115,7 @@ Class Hero Extends Fighter
 
 	Static Bool _Damned
 	Get Bool Damned
-		return _Damned || Self.StatusChanges.Undead!=nil && Self.StatusChanges.Undead!=false
+		return _Damned || This.StatusChanges.Undead!=nil && This.StatusChanges.Undead!=false
 	End
 	
 	Static Void ScanDandletonCitizen()
@@ -153,7 +153,7 @@ Class Hero Extends Fighter
 			Graphics.Color(180,0,255)
 		End
 		//CSay("#2")
-		Switch Self.Stage:upper()
+		Switch Upper(Self.Stage)
 			Case "ATTACK"
 				DTag = SprintF("Attack.%d",math.max(1,math.min(2,AttackFrame div 30)))
 			Case "SPIRATA" "SPIRATA.ACTION" 
