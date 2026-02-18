@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/CLS_Cards.scyndi
 // 
-// 	  Version: 26.02.18 I
+// 	  Version: 26.02.18 III
 // 	
 // 	  Copyright (C) 2021-'22, 2026 Jeroen Petrus Broks
 // 	
@@ -190,7 +190,7 @@ Class Cards
 	
 	Static Void StartEffectCards()	
 		For i=1,25
-			Lijst[i] = Lijst[i] || self("None")
+			Lijst[i] = Lijst[i] || new Cards("None")
 			var crd = Lijst[i]
 			crd.x = -(i*50)
 			crd.y = Screen.H+(i*60)
@@ -309,7 +309,7 @@ Class Cards
 			default
 				Lua.error("Invalid joker type: "..Lua.type(Jok))
 		end
-		None = FT:upper()=="NONE"
+		None = Upper(FT)=="NONE"
 		Y = ToY
 		//For _,C in pairs(Lijst)
 		//	X = math.min(X,C.X-60)
