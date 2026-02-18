@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/STG_Execution.scyndi
 // 
-// 	  Version: 26.02.18 VII
+// 	  Version: 26.02.18 XVI
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -46,18 +46,26 @@
 Module
 
 #use "Libs/SCI/Sys"
+#use "Libs/SCI/JCR6"
 #use "Libs/SCI/Audio"
 #use "Libs/SCI/Graphics"
 
-
+#use "Script/Use/Link"
+#use "Script/Use/Anyway"
 #use "Script/Use/Convert"
 
 #Use "Script/Use/Misc/Box_Class"
 
 #Macro __Execution CombatFlow.Execution
 
+#accept EXPBaseRate
 #accept FlowCombat
+#accept EXPRate
 #accept CharMsg
+#accept Effect
+#accept Stage
+
+LocExtern LastAction "Scyndi.Globals.LastAction"
 
 plua NIKS()
 end
