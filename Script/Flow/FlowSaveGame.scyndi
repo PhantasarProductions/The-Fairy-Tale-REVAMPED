@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowSaveGame.scyndi
 // 
-// 	  Version: 26.02.15 VI
+// 	  Version: 26.02.18 I
 // 	
 // 	  Copyright (C) 2023, 2024, 2025, 2026 Jeroen Petrus Broks
 // 	
@@ -91,7 +91,7 @@ init
 	for p in Each{[0]="Jake","Marrilona","Dandor","Hando Stillor","Cherry","Dreshka","Sandra","Harry","Jenny","Fandalora","Sasha Funda","Chief Werrington","Yannee","Tai","Sandra","Master John","Krandar","Marata","Feenalaria","Nostramantu"}
 		file1 := sprintf("GFX/BoxText/Portret/%s/Save.png",p)
 		file2 := sprintf("GFX/BoxText/Portret/%s/General.png",p)
-		CSayF("%s or %s ",file1,file2)
+		CSayF("%s or %s -> %s!",file1,file2,Ternary(JCR6.EntryExists(file1),"Save","General"))
 		Pics += LoadImage(Ternary(JCR6.EntryExists(file1),file1,file2),sprintf("SAVEGAME_PORTRET_%s",p))
 	end
 end
