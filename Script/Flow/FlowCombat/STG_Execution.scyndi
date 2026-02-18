@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/STG_Execution.scyndi
 // 
-// 	  Version: 26.02.18
+// 	  Version: 26.02.18 VII
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -49,8 +49,18 @@ Module
 #use "Libs/SCI/Audio"
 #use "Libs/SCI/Graphics"
 
-#Use "Script/Use/Misc/Box"
+
+#use "Script/Use/Convert"
+
+#Use "Script/Use/Misc/Box_Class"
+
 #Macro __Execution CombatFlow.Execution
+
+#accept FlowCombat
+#accept CharMsg
+
+plua NIKS()
+end
 
 Class Stage_Execution Extends Stage
 
@@ -147,7 +157,7 @@ Class Stage_Execution Extends Stage
 			if Act.Executor.Team=="Foe"
 				Ch = Act.Executor.Raw.VOCALTAG
 			End
-			String Voc = sPrintF("Vocals/Combat/%s/%s/Action/%s.ogg",Act.Executor.Team,Ch,Act.Act.Voice)
+			String Voc := sPrintF("Vocals/Combat/%s/%s/Action/%s.ogg",Act.Executor.Team,Ch,Act.Act.Voice)
 			If JCR6.HasEntry(Voc)
 				Audio.LoadNew(Voc,sprintf("CombatVoice.%s.%s.%s",Act.Executor.Team,Ch,Act.Act.Voice)).Play()
 			End
@@ -234,7 +244,7 @@ Class Stage_Execution Extends Stage
 		End
 		// After Action Script 
 		String AA_Dir = "Script/Use/Combat/AfterAction/"
-		String AA_File = AA_Dir
+		String AA_File := AA_Dir
 		//Switch Act.Executor.Team
 		//	Case "Hero"
 		//		String T = Act.Executor.Tag
@@ -309,4 +319,4 @@ Init
 	Stage.Register("Execution",new Stage_Execution())
 End
 
-Return Stage_Execution
+//Return Stage_Execution
