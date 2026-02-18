@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/CLS_Cards.scyndi
 // 
-// 	  Version: 26.02.15 XIV
+// 	  Version: 26.02.18 I
 // 	
 // 	  Copyright (C) 2021-'22, 2026 Jeroen Petrus Broks
 // 	
@@ -240,7 +240,7 @@ Class Cards
      	For i,data in pairs(order.iorder)
      		cidx=i*3
      		//Cards[cidx] = Cards[cidx] or {}
-     		Lijst[cidx] = Self(data)
+     		Lijst[cidx] = new Cards(data)
      		//card = Cards[cidx]
      		//card.data=data
      		//CSay("Defining card: "..cidx) CSay(serialize("card["..cidx.."]",card))
