@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/CL2_Class_Hero.scyndi
 // 
-// 	  Version: 26.02.17 XXVII
+// 	  Version: 26.02.18 IV
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -62,6 +62,9 @@ Module
 #macro _ASH Graphics.Height
 #macro _ASW Graphics.Width
 
+// Void a nasty "self" bug in properties in Scyndi
+locextern this "self"
+
 Bool BoxCancel(Box)
 	if !Box
 		Return False
@@ -78,8 +81,8 @@ Class Hero Extends Fighter
 		//Return RPGChar[Self.Tag].SafeStat.END_SpirataRate
 	End
 	Set Int Spirata
-		RPGChar[Self.Tag].Stat.Spirata = Value
-		RPGChar[Self.Tag].Stat.END_SpirataRate = math.ceil((Value/100)* RPGChar[Self.Tag].Stat.END_Intelligence) 
+		RPGChar[This.Tag].Stat.Spirata = Value
+		RPGChar[This.Tag].Stat.END_SpirataRate = math.ceil((Value/100)* RPGChar[This.Tag].Stat.END_Intelligence) 
 	End
 	
 	Const Int AttackFrames = 100
@@ -186,7 +189,16 @@ End
 
 
 
-Class Stage_PlayerSelectTarget Extends Stage
+Class Stage_PlayerSelectTarget 
+	//Extends Stage
+	
+	// I don't know why, but extending causes a stack overflow (for no apparent reason)
+	Link _Current = Stage._Current
+	Link Map = Stage.Map 
+	Link Current = Stage.Current
+	Link Register = Stage.Register
+	
+	
 	Static Var Act
 	Static Int OldMouseX
 	Static Int OldMouseY
@@ -357,7 +369,7 @@ Class PIMI
 	ReadOnly Delegate Allow
 	ReadOnly Delegate Action
 	ReadOnly Var Icon
-	ReadOnly Static Var Lst = new LinkedList()
+	ReadOnly Static Var Lst = new TLinkedList()
 	ReadOnly String Name
 	Int Alpha
 	
@@ -374,7 +386,7 @@ Class PIMI
 		X = _x
 		Y = _y
 		Name = _Icon
-		Icon = Image.LoadNew("GFX/Combat/Menu/".._icon..".png","COMBAT_PIMI_"..(_icon:upper()))
+		Icon = LoadNewImage("GFX/Combat/Menu/".._icon..".png","COMBAT_PIMI_"..upper(_icon))
 		Icon.HotCenter()
 		Action = _Action
 		Allow = _Allow || AAlways
@@ -385,7 +397,13 @@ End
 
 
 
-Class Stage_PlayerInput_Main Extends Stage
+Class Stage_PlayerInput_Main 
+	//Extends Stage
+	Link _Current = Stage._Current
+	Link Map = Stage.Map 
+	Link Current = Stage.Current
+	Link Register = Stage.Register
+	
 
 	Static ReadOnly Var Fnt = ObtainFont("SYSFONT")
 	Static Table Banners = {}
@@ -479,7 +497,13 @@ End
 ReadOnly Var SPIM = Stage_PlayerInput_Main
 
 
-Class Stage_PlayerInput_Ability Extends Stage
+Class Stage_PlayerInput_Ability 
+	//Extends Stage
+	Link _Current = Stage._Current
+	Link Map = Stage.Map 
+	Link Current = Stage.Current
+	Link Register = Stage.Register
+	
 
 	ReadOnly Int BX = 100
 	ReadOnly Int BY = 100
@@ -533,7 +557,13 @@ Class Stage_PlayerInput_Ability Extends Stage
 	End
 End
 
-Class Stage_PlayerInput_Items Extends Stage
+Class Stage_PlayerInput_Items 
+	//Extends Stage
+	Link _Current = Stage._Current
+	Link Map = Stage.Map 
+	Link Current = Stage.Current
+	Link Register = Stage.Register
+
 	ReadOnly Int BX = 100
 	ReadOnly Int BY = 100
 	ReadOnly Int BW = Screen.W - 200
@@ -697,15 +727,18 @@ End
 
 
 Init
+	CSay("Init PLAYER INPUT stages!")
 	Stage.Register("PLAYERINPUT_MAIN",new Stage_PlayerInput_Main())
 	Stage.Register("PLAYERINPUT_SELECTTARGET",new Stage_PlayerSelectTarget())
 	Stage.Register("PLAYERINPUT_ABILITY",new Stage_PlayerInput_Ability())
 	Stage.Register("PLAYERINPUT_ITEMS",new Stage_PlayerInput_Items())
+	CSay("Init PIMI")
 	PIMI.Lst.AddLast(new PIMI("Attack",0,0,PIMI_Attack))
 	PIMI.Lst.AddLast(new PIMI("Ability",0,-50,PIMI_Ability,NotNostra))
 	PIMI.Lst.AddLast(new PIMI("Spirata",0,50,PIMI_Spirata,HasSpirata))
 	PIMI.Lst.AddLast(new PIMI("Items",-50,0,PIMI_Items))
 	PIMI.Lst.AddLast(new PIMI("Guard",50,0,PIMI_Guard))
+	CSay("Hero Init Done")
 End
 
 //Return Foe
