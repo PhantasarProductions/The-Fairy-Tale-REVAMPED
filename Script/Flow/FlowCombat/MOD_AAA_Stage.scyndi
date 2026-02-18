@@ -1,53 +1,65 @@
-// License Information:
-// src/Tricky Script/Script/Flow/FlowCombat/AAA_Stage.neil
-// Version: 22.07.30
-// Copyright (C) 2021, 2022 Jeroen Petrus Broks
+// License:
+// 	  src/Code/Script/Flow/FlowCombat/MOD_AAA_Stage.scyndi
 // 
-// ===========================
-// This file is part of a project related to the Phantasar Chronicles or another
-// series or saga which is property of Jeroen P. Broks.
-// This means that it may contain references to a story-line plus characters
-// which are property of Jeroen Broks. These references may only be distributed
-// along with an unmodified version of the game.
+// 	  Version: 26.02.17 XVIII
+// 	
+// 	  Copyright (C) '21-'22, 2026 Jeroen Petrus Broks
+// 	
+// 	  ===========================
+// 	  This file is part of a project related to the Phantasar Chronicles or another
+// 	  series or saga which is property of Jeroen P. Broks.
+// 	  This means that it may contain references to a story-line plus characters
+// 	  which are property of Jeroen Broks. These references may only be distributed
+// 	  along with an unmodified version of the game.
 // 
-// As soon as you remove or replace ALL references to the storyline or character
-// references, or any termology specifically set up for the Phantasar universe,
-// or any other univers a story of Jeroen P. Broks is set up for,
-// the restrictions of this file are removed and will automatically become
-// zLib licensed (see below).
+// 	  As soon as you remove or replace ALL references to the storyline or character
+// 	  references, or any termology specifically set up for the Phantasar universe,
+// 	  or any other univers a story of Jeroen P. Broks is set up for,
+// 	  the restrictions of this file are removed and will automatically become
+// 	  zLib licensed (see below).
 // 
-// Please note that doing so counts as a modification and must be marked as such
-// in accordance to the zLib license.
-// ===========================
-// zLib license terms:
-// This software is provided 'as-is', without any express or implied
-// warranty.  In no event will the authors be held liable for any damages
-// arising from the use of this software.
-// Permission is granted to anyone to use this software for any purpose,
-// including commercial applications, and to alter it and redistribute it
-// freely, subject to the following restrictions:
-// 1. The origin of this software must not be misrepresented; you must not
-// claim that you wrote the original software. If you use this software
-// in a product, an acknowledgment in the product documentation would be
-// appreciated but is not required.
-// 2. Altered source versions must be plainly marked as such, and must not be
-// misrepresented as being the original software.
-// 3. This notice may not be removed or altered from any source distribution.
-// End License Information
+// 	  Please note that doing so counts as a modification and must be marked as such
+// 	  in accordance to the zLib license.
+// 	  ===========================
+// 
+// 
+// 	  zLib license terms:
+// 	
+// 	  This software is provided 'as-is', without any express or implied
+// 	  warranty.  In no event will the authors be held liable for any damages
+// 	  arising from the use of this software.
+// 
+// 	  Permission is granted to anyone to use this software for any purpose,
+// 	  including commercial applications, and to alter it and redistribute it
+// 	  freely, subject to the following restrictions:
+// 	
+// 	  1. The origin of this software must not be misrepresented; you must not
+// 	     claim that you wrote the original software. If you use this software
+// 	     in a product, an acknowledgment in the product documentation would be
+// 	     appreciated but is not required.
+// 	  2. Altered source versions must be plainly marked as such, and must not be
+// 	     misrepresented as being the original software.
+// 	  3. This notice may not be removed or altered from any source distribution.
+// End License
 
 Module
 
 #use "Libs/SCI/Sys"
 #use "Libs/SCI/InterVar"
 
+#use "Script/Use/Link"
+#use "Script/Use/Anyway"
+#use "Script/Use/Convert"
+
 LocExtern s "self"
 
 
-Accept "FlowCombat"
+#Accept "FlowCombat"
+#Accept "Fighter"
 
 Class Stage
-	Static Table Map = {}
 	Static Var _Current
+	Static Table Map 
 	Static Get Var Current
 		s._Current = s._Current || s.Map.IDLE
 		return s._Current
@@ -82,6 +94,10 @@ Class Stage
 	
 	Bool DontCheckForVictory = False
 	
+End
+
+Init
+	Stage.Map = {}
 End
 
 Class Stage_IDLE extends Stage
@@ -170,7 +186,8 @@ Class Stage_IDLE extends Stage
 	Void Update()		
 		//Static Table AI = {}
 		LocExtern AI "COMBAT_STAGE_IDLE_UPDATE_AI"
-		CardCheck()
+		AI = AI || {}
+		s.CardCheck()
 		If !Cards.Present(1)
 			Cards.DelFirst()
 		elseif FirstCard.Joker
@@ -180,9 +197,9 @@ Class Stage_IDLE extends Stage
 			If Fighter.ByTag[FirstCard.FightTag].HP<=0
 				Cards.DelFirst()
 			Else
-				CombatFlow.Execution.ComeToMe(FirstCard.Action,CombatFlow.Cards.Lijst[1])
+				FlowCombat.Execution.ComeToMe(FirstCard.Action,FlowCombat.Cards.Lijst[1])
 			End
-		ElseIf (!FirstCard.Action) && (Fighter.ByTag[FirstCard.FightTag].HP>0) && (AltAI(FirstCard))
+		ElseIf (!FirstCard.Action) && (Fighter.ByTag[FirstCard.FightTag].HP>0) && (s.AltAI(FirstCard))
 			// Basically that should already cover stuff by the boolean line
 			// But due to ElseIF.... 
 		ElseIf FirstCard.FightTeam=="Hero" && (!FirstCard.Action)  
@@ -197,33 +214,33 @@ Class Stage_IDLE extends Stage
 				Fighter.ByTag[FirstCard.FightTag].Char.Points.AP.Have+=pl
 				FlowCombat.CharMsg(FirstCard.FightTag,Lua.tostring(pl),0,180,255)
 			End
-			If (!PreTurn(FirstCard)) || Fighter.ByTag[FirstCard.FightTag].HP<=0
+			If (!s.PreTurn(FirstCard)) || Fighter.ByTag[FirstCard.FightTag].HP<=0
 				Cards.DelFirst()				
 			Else
 				Lua.Scyndi.Globals.Stage_PlayerInput_Main.ComeToMe(FirstCard.FightTag)
 			End
 		ElseIf FirstCard.FightTeam=="Foe" && (!FirstCard.Action) 
-			If (!PreTurn(FirstCard)) || Fighter.ByTag[FirstCard.FightTag].HP<=0
+			If (!s.PreTurn(FirstCard)) || Fighter.ByTag[FirstCard.FightTag].HP<=0
 				Cards.DelFirst()			
 			Else
 				Static Int SO = ({0,10,5})[__skill]
-				Var vFoe = Fighter.ByTag[FirstCard.FightTag]
+				vFoe := Fighter.ByTag[FirstCard.FightTag]
 				If gint["OVERSOUL_"..vFoe.File]>SO
 					gint["OVERSOUL_"..vFoe.File]=0
 					If __Skill>1 && RPGParty[2] && RPGParty[2]!="" && vFoe.Raw.AllowOversoul
 						FlowCombat.charmsg(vFoe.Tag,"Oversoul",180,0,255)
 						CSayF("Foe #%03d (%s) goes oversoul",vFoe.Num,vFoe.Tag)
-						int OX = vFoe.X
-						int OY = vFoe.Y						
-						Lua.Scyndi.Globals.Foe.Compile(vFoe.File,NeilUse(sprintf("Script/Data/Foe/%s",vFoe.File)),vFoe.Num,true)
-						vAR oFoe = Fighter.ByTag[vFoe.Tag]
+						int OX := vFoe.X
+						int OY := vFoe.Y						
+						Lua.Scyndi.Globals.Foe.Compile(vFoe.File,NeilUse(sprintf("Script/Data/Foe/%s",vFoe.File))._R,vFoe.Num,true)
+						vAR oFoe := Fighter.ByTag[vFoe.Tag]
 						oFoe.X,oFoe.Y = OX,OY
 						Cards.CreateOrder()
 						Cards.DelFirst()
 						Return
 					End
 				End
-				Var Act = vFoe.AI.Decide(vFoe)
+				Act := vFoe.AI.Decide(vFoe)
 				If !Act
 					CSayF("Foe %s failed to get a proper move!",vFoe.Tag)
 					FlowCombat.charmsg(vFoe.Tag,"Can't decide",255,180,0)
@@ -248,8 +265,10 @@ Class Stage_Wait extends Stage
 End
 
 Init
+	CSay("Init Base Stages!")
 	Stage.Register("IDLE",new Stage_IDLE())
 	Stage.Register("WAIT",new Stage_Wait())
+	CSay("Done")
 End
 
 Get Var AAA_Stage
