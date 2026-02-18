@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat.scyndi
 // 
-// 	  Version: 26.02.17
+// 	  Version: 26.02.18
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -113,15 +113,19 @@ Init
 				CSayF("%4d: Loading function: %s",Lbd.idx,Sh)
 				_real[Sh] = NeilUse(Replace(Upper(LbD.Full),".LBC",""),"FLOWCOMBAT."..LbD.Short).CombatLinkFunction
 			case "CLS","CLA"	
-				CSayF("%4d: Loading function: %s",Lbd.idx,Sh)
+				CSayF("%4d: Loading class: %s",Lbd.idx,Sh)
 				NeilUse(Replace(Upper(LbD.Full),".LBC",""),"FLOWCOMBAT."..LbD.Short)
 				_real[Sh] = Lua.Scyndi.Class[Sh]				
 				//Lua.Scyndi.Class["CLC_"..Sh]
 			case "CL2"	
-				CSayF("%4d: Loading function: %s",Lbd.idx,Sh)
+				CSayF("%4d: Loading class2: %s",Lbd.idx,Sh)
 				NeilUse(Replace(Upper(LbD.Full),".LBC",""),"FLOWCOMBAT."..LbD.Short)
 				_real[Sh] = Lua.Scyndi.Class[Right(Sh,len(SH)-6)]				
 				//Lua.Scyndi.Class["CLC_"..Sh]
+			case "STG"
+				CSayF("%4d: Loading stage: %s",Lbd.idx,Sh)
+				NeilUse(Replace(Upper(LbD.Full),".LBC",""),"FLOWCOMBAT."..LbD.Short)
+				_real[Sh] = Lua.Scyndi.Class["Stage_"..Right(Sh,len(SH)-6)]
 			default; Lua.error("Unknown Combat Section Type: "..LbD.Type.." ("..sh..")")
 		End
 	End
