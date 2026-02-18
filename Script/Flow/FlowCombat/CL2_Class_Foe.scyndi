@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/CL2_Class_Foe.scyndi
 // 
-// 	  Version: 26.02.17 III
+// 	  Version: 26.02.18 II
 // 	
 // 	  Copyright (C) case 2021-2026 Jeroen Petrus Broks
 // 	
@@ -348,9 +348,13 @@ end
 	Void DrawKO()
 		self.CheckKilled()
 		if NKillScale>0
-			Image.AltScale("COMBAT",NKillScale,PKillScale)
-			NorImage.ASDraw("COMBAT",Self.X,Self.Y)
-			Image.AltScale("COMBAT",1,1)
+			//Image.AltScale("COMBAT",NKillScale,PKillScale)
+			SetScale(NKillScale,PKillScale)
+			//NorImage.ASDraw("COMBAT",Self.X,Self.Y)
+			NorImage.Draw(Self.X,Self.Y)
+			
+			//Image.AltScale("COMBAT",1,1)
+			SetScale(1,1)
 			_KillScale += 0.1			
 		End
 	End
