@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/CL2_Class_Hero.scyndi
 // 
-// 	  Version: 26.02.18 IV
+// 	  Version: 26.02.18 V
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -121,7 +121,7 @@ Class Hero Extends Fighter
 	Static Void ScanDandletonCitizen()
 		_Damned = false
 		for _,f in pairs(fighter.bytag)
-			_Damned = _Damned || (f.team=="Foe" && suffixed(f.file:upper(),"DANDLETONCITIZEN") && f.HP>0)
+			_Damned = _Damned || (f.team=="Foe" && suffixed(Upper(f.file),"DANDLETONCITIZEN") && f.HP>0)
 		End
 	End
 
