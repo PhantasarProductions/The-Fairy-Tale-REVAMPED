@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/MOD_Start.scyndi
 // 
-// 	  Version: 26.02.17
+// 	  Version: 26.02.18 I
 // 	
 // 	  Copyright (C) 2021, '22, 2026 Jeroen Petrus Broks
 // 	
@@ -117,6 +117,7 @@ End
 		Switch Upper(FMusic)
 			Case "*RANDOM"
 				Table Bundle = JCR6.Dir("Music/Combat/RandomEncounter")
+				for m in Each(Bundle); CSayF("Random encounter music -> %s",m); end
 				Music_Push()
 				Music.Play(Bundle[math.random(0,len(Bundle)-1)])
 			Case "*BOSS"
@@ -124,8 +125,9 @@ End
 				Music_Push()
 				Music.Play(Bundle[math.random(1,Len(Bundle)-1)])
 			Case "*NOCHANGE" "*NOCHANGE*" "*NOCHANGE*.OGG"
-				
+				CSayF("Music mustn't change")
 			Default
+				CSayF("Music for encounter: %s",FMusic)
 				Music_Push()
 				Music.Play("Music/"..FMusic)
 		End
