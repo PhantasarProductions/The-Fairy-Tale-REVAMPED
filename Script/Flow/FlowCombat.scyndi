@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat.scyndi
 // 
-// 	  Version: 26.02.18
+// 	  Version: 26.02.19
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -125,7 +125,7 @@ Init
 			case "STG"
 				CSayF("%4d: Loading stage: %s",Lbd.idx,Sh)
 				NeilUse(Replace(Upper(LbD.Full),".LBC",""),"FLOWCOMBAT."..LbD.Short)
-				_real[Sh] = Lua.Scyndi.Class["Stage_"..Right(Sh,len(SH)-6)]
+				_real[Sh] = Lua.Scyndi.Class["Stage_"..sh]
 			default; Lua.error("Unknown Combat Section Type: "..LbD.Type.." ("..sh..")")
 		End
 	End
@@ -144,7 +144,8 @@ Global Void MainFlow()
 	__White
 	WantQuit()
 	FlowCombat.DrawScreen.Run()
-	FlowCombat.AAA_Stage.Current.Update()
+	//FlowCombat.AAA_Stage.Current.Update()
+	Lua.Scyndi.Class.Stage.Current.Update()
 	If !Lua.Neil.Globals.Stage.Current.DontCheckForVictory
 		if !FlowCombat.Wiped.Check()
 			FlowCombat.Victory.Check()

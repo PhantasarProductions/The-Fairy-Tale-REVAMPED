@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/STG_Execution.scyndi
 // 
-// 	  Version: 26.02.18 XVI
+// 	  Version: 26.02.19
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -70,7 +70,14 @@ LocExtern LastAction "Scyndi.Globals.LastAction"
 plua NIKS()
 end
 
-Class Stage_Execution Extends Stage
+Class Stage_Execution
+	#region Extention Stack Overflow Void
+	//Extends Stage
+	Link _Current = Stage._Current
+	Link Map = Stage.Map 
+	Link Current = Stage.Current
+	Link Register = Stage.Register
+	#endregion
 
 	#region Basic crap
 	Static ReadOnly Int ASiz = 60
@@ -317,7 +324,7 @@ Class Stage_Execution Extends Stage
 	End
 	
 	Constructor
-		ABox = ABox || new Box(0,AYPS,Screen.W,ASiz,false)
+		ABox = ABox || new CBox(0,AYPS,Screen.W,ASiz,false)
 	End
 
 
