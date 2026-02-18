@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/CLS_Cards.scyndi
 // 
-// 	  Version: 26.02.18 III
+// 	  Version: 26.02.18 IX
 // 	
 // 	  Copyright (C) 2021-'22, 2026 Jeroen Petrus Broks
 // 	
@@ -59,9 +59,9 @@ Module
 Class Cards
 
 #region Static Crap
-	Const Int ToY = 50
-	Const Int CW = 42
-	Const Int CH = 82
+	Static ReadOnly Int ToY = 50
+	Static ReadOnly Int CW = 42
+	Static ReadOnly Int CH = 82
 	Static Get Int MxX 
 		Return Screen.W - 25
 	End
@@ -159,13 +159,13 @@ Class Cards
 	End
 	
 	Static Void DrawCards()
-		Graphics.SetScale(1,1)
+		Graphics.Scale(1,1)
 		Graphics.Alpha(255)
 		__White
 		For i=25,1,-1
 			Cards.DrawCard(i)
 			Var crd = Lijst[i]
-			crd.Y = math.max(ToY,Crd.Y-4)
+			crd.Y = math.max(Cards.ToY,Crd.Y-4)
 			Int wx=(MxX-10)-(i*20)
 			If i==1
 				wx=MxX 
@@ -281,17 +281,17 @@ Class Cards
 		ElseIf Joker
 			Tag = "Joker"
 		Elseif FightTeam=="Hero"
-			Tag = "HERO_"..(FightTag:upper())
+			Tag = "HERO_"..(Upper(FightTag))
 		ElseIf FightTeam=="Foe"
 			if Fight.Boss
-				Tag = "BOSS_"..(Fight.CLetter:upper())
+				Tag = "BOSS_"..(Upper(Fight.CLetter))
 			Else
-				Tag = "FOE_"..(Fight.CLetter:upper())
+				Tag = "FOE_"..(Upper(Fight.CLetter))
 			End
 		Else
 			Lua.error("Invalid card! Can't retrieve image for that")
 		End
-		Imgs[Tag] = Imgs[Tag] || Image.LoadNew("GFX/Combat/Cards/"..Tag..".PNG",Tag:upper())
+		Imgs[Tag] = Imgs[Tag] || LoadNewImage("GFX/Combat/Cards/"..Tag..".PNG",Upper(Tag))
 		Imgs[Tag].HotCenter()
 		Return Imgs[Tag]
 	End
