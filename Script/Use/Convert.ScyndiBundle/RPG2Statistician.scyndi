@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Convert.ScyndiBundle/RPG2Statistician.scyndi
 // 
-// 	  Version: 26.02.17
+// 	  Version: 26.02.18 I
 // 	
 // 	  Copyright (C) 2026 Jeroen Petrus Broks
 // 	
@@ -126,9 +126,12 @@ Void SetStat(ouwe,String Key,Int i)
 	ouwe.this.ChData.stat[key]=i
 End
 
+	
+
 plua StatMeta
+
 Init
-	StatMeta = {["__newindex"]=SetStat,["__index"]=GetStat}
+	StatMeta = {["__newindex"]=SetStat,["__index"]=GetStat}	
 End
 
 locExtern ts "self"
@@ -137,6 +140,7 @@ Class TFChar
 	ReadOnly Var ChData
 	ReadOnly Var Stat
 	ReadOnly Var Stats
+	ReadOnly Var SafeStat
 	Get Var Points;
 		ts.ChData.Points.HP.Maximum = ts.Stat.END_HP
 		//CSayF("%s:>HP Auto -- %d -> %d",Tag,ts.Stat.END_HP,ts.ChData.Points.HP.Maximum) // DEBUG ONLY!
@@ -185,6 +189,7 @@ Class TFChar
 		CSayF("TFChar %s created",Tag)
 		Stat = SetMetaTable({["this"]=self},StatMeta)
 		Stats = Stat
+		SafeStat = Stat
 	End
 	
 	Destructor
