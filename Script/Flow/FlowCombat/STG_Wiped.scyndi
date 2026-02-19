@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/STG_Wiped.scyndi
 // 
-// 	  Version: 26.02.19 V
+// 	  Version: 26.02.19 VI
 // 	
 // 	  Copyright (C) 2021-'22, 2026 Jeroen Petrus Broks
 // 	
@@ -100,6 +100,7 @@ Class Stage_Wiped
 	Link Map = Stage.Map 
 	Link Current = Stage.Current
 	Link Register = Stage.Register
+	Link DONTCHECKFORVICTORY = Stage.IDLE.DONTCHECKFORVICTORY
 	#endregion
 
 

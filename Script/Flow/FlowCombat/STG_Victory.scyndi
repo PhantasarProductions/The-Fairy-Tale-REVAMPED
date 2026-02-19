@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/STG_Victory.scyndi
 // 
-// 	  Version: 26.02.19 XIII
+// 	  Version: 26.02.19 XVI
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -70,6 +70,12 @@ Class Stage_Victory
 	Link Map = Stage.Map 
 	Link Current = Stage.Current
 	Link Register = Stage.Register
+	
+	Get String FlashChar
+		Return ""
+	End	
+	
+	Link DONTCHECKFORVICTORY = Stage.IDLE.DONTCHECKFORVICTORY
 	#endregion
 
 	Static Var Vic
