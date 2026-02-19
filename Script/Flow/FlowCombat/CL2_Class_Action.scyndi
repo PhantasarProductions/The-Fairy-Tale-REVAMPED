@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/CL2_Class_Action.scyndi
 // 
-// 	  Version: 26.02.19 VII
+// 	  Version: 26.02.19 XI
 // 	
 // 	  Copyright (C) 2021, 2022, 2024, 2026 Jeroen Petrus Broks
 // 	
@@ -44,6 +44,8 @@
 
 Module
 
+#use "Libs/SCI/Sys"
+
 #use "Script/Use/Link"
 
 #accept fighter
@@ -84,9 +86,9 @@ Class Action
 	Int TarFilter()
 		Table NTargets
 		NTargets = {}
-		Int CTars = Len(TarTags)
+		Int CTars := Len(TarTags)
 		for i=0,CTars-1
-			Var Tgt=Fighter.ByTag[TarTags[i]]
+			Tgt:=Fighter.ByTag[TarTags[i]]
 			if Tgt==nil
 				if TarTags[i]=="Jake_Fairy"
 					Tgt=Fighter.ByTag.Jake_Human
@@ -126,7 +128,7 @@ Class Action
 	End
 
 	
-	Constructor(String _Act,String _Exe,Table _Targets,_XVars)
+	Constructor(String _Act,String _Exe,_Targets,_XVars)
 		CSayF("Creating action %s for %s",_Act,_Exe)
 		ActTag = _Act
 		ExeTag = _Exe
