@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Link.scyndibundle/Combat.scyndi
 // 
-// 	  Version: 26.02.16
+// 	  Version: 26.02.20 I
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -87,9 +87,9 @@ Module
 		Int m = 360-math.random(0,125)
 		If BossHead!=""
 			Time = 250
-			Music.Push()
+			Lua.Scyndi.Class.Music.Push()
 			BossAudio = BossAudio || Audio.LoadNew("Audio/Combat/Boss Intro.ogg","BOSS_INTRO")
-			Lua.Scyndi.Globals.Music.Stop()
+			Lua.Scyndi.Class.Music.Stop()
 			BossAudio.Play()			
 		End
 		
