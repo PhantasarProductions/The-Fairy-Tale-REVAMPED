@@ -1,39 +1,52 @@
-// License Information:
-// src/Tricky Script/Script/Flow/FlowCombat/Class_Action.neil
-// Version: 24.02.25
-// Copyright (C) 2021, 2022, 2024 Jeroen Petrus Broks
+// License:
+// 	  src/Code/Script/Flow/FlowCombat/CL2_Class_Action.scyndi
 // 
-// ===========================
-// This file is part of a project related to the Phantasar Chronicles or another
-// series or saga which is property of Jeroen P. Broks.
-// This means that it may contain references to a story-line plus characters
-// which are property of Jeroen Broks. These references may only be distributed
-// along with an unmodified version of the game.
+// 	  Version: 26.02.19 VII
+// 	
+// 	  Copyright (C) 2021, 2022, 2024, 2026 Jeroen Petrus Broks
+// 	
+// 	  ===========================
+// 	  This file is part of a project related to the Phantasar Chronicles or another
+// 	  series or saga which is property of Jeroen P. Broks.
+// 	  This means that it may contain references to a story-line plus characters
+// 	  which are property of Jeroen Broks. These references may only be distributed
+// 	  along with an unmodified version of the game.
 // 
-// As soon as you remove or replace ALL references to the storyline or character
-// references, or any termology specifically set up for the Phantasar universe,
-// or any other univers a story of Jeroen P. Broks is set up for,
-// the restrictions of this file are removed and will automatically become
-// zLib licensed (see below).
+// 	  As soon as you remove or replace ALL references to the storyline or character
+// 	  references, or any termology specifically set up for the Phantasar universe,
+// 	  or any other univers a story of Jeroen P. Broks is set up for,
+// 	  the restrictions of this file are removed and will automatically become
+// 	  zLib licensed (see below).
 // 
-// Please note that doing so counts as a modification and must be marked as such
-// in accordance to the zLib license.
-// ===========================
-// zLib license terms:
-// This software is provided 'as-is', without any express or implied
-// warranty.  In no event will the authors be held liable for any damages
-// arising from the use of this software.
-// Permission is granted to anyone to use this software for any purpose,
-// including commercial applications, and to alter it and redistribute it
-// freely, subject to the following restrictions:
-// 1. The origin of this software must not be misrepresented; you must not
-// claim that you wrote the original software. If you use this software
-// in a product, an acknowledgment in the product documentation would be
-// appreciated but is not required.
-// 2. Altered source versions must be plainly marked as such, and must not be
-// misrepresented as being the original software.
-// 3. This notice may not be removed or altered from any source distribution.
-// End License Information
+// 	  Please note that doing so counts as a modification and must be marked as such
+// 	  in accordance to the zLib license.
+// 	  ===========================
+// 
+// 
+// 	  zLib license terms:
+// 	
+// 	  This software is provided 'as-is', without any express or implied
+// 	  warranty.  In no event will the authors be held liable for any damages
+// 	  arising from the use of this software.
+// 
+// 	  Permission is granted to anyone to use this software for any purpose,
+// 	  including commercial applications, and to alter it and redistribute it
+// 	  freely, subject to the following restrictions:
+// 	
+// 	  1. The origin of this software must not be misrepresented; you must not
+// 	     claim that you wrote the original software. If you use this software
+// 	     in a product, an acknowledgment in the product documentation would be
+// 	     appreciated but is not required.
+// 	  2. Altered source versions must be plainly marked as such, and must not be
+// 	     misrepresented as being the original software.
+// 	  3. This notice may not be removed or altered from any source distribution.
+// End License
+
+Module
+
+#use "Script/Use/Link"
+
+#accept fighter
 
 #undef TarFilterDebug
 
@@ -71,8 +84,8 @@ Class Action
 	Int TarFilter()
 		Table NTargets
 		NTargets = {}
-		Int CTars = #TarTags
-		for i=1,CTars
+		Int CTars = Len(TarTags)
+		for i=0,CTars-1
 			Var Tgt=Fighter.ByTag[TarTags[i]]
 			if Tgt==nil
 				if TarTags[i]=="Jake_Fairy"
@@ -91,15 +104,17 @@ Class Action
 				if Tgt.Team!="Foe" || (Tgt.HP>0 && (!Tgt.Gone))
 					NTargets+=TarTags[i]
 				#if TarFilterDebug
-					CSayF("Target #%d Accepted! Team: %s; Tag: %s! HP: %06d; Gone: %s! Accepted: %d",i,Tgt.Team,TarTags[i],Tgt.HP,Lua.tostring(tgt.Gone),#NTargets)
+					CSayF("Target #%d Accepted! Team: %s; Tag: %s! HP: %06d; Gone: %s! Accepted: %d",i,Tgt.Team,TarTags[i],Tgt.HP,Lua.tostring(tgt.Gone),len(NTargets))
+				#fi
 				Else
+				#if TarFilterDebug
 					CSayF("Target #%d rejected! Team: %s; Tag: %s! HP: %06d; Gone: %s",i,Tgt.Team,TarTags[i],Tgt.HP,Lua.tostring(tgt.Gone))
 				#fi
 				End
 			End
 		End
-		If #NTargets==#Targets
-			Return #Targets
+		If Len(NTargets)==Len(Targets)
+			Return Len(Targets)
 		End
 		For i=1,CTars
 			TarTags[i]=NTargets[i]
@@ -107,7 +122,7 @@ Class Action
 			CSayF("Target %d: %s",i,Lua.tostring(NTargets[i]))
 			#fi
 		End
-		Return #TarTags
+		Return Len(TarTags)
 	End
 
 	
@@ -120,21 +135,28 @@ Class Action
 			CSayF("= Extra Variable %s => %s",k,Lua.tostring(v))
 		End
 		TarTags = _Targets
-		Var TarEach()
-			Int i=0
-			Return Var()
+		//Var TarEach()
+		dDef TarEach
+			Int i=-1
+			//Return Var()
+			dDef __Ret
 				Var Tgt
 				Repeat				
 					i++
-					If i>#TarTags
+					If i>=len(TarTags)
 						Return nil,nil,nil
 					End
 					Tgt=TarTags[i]
 				LoopWhile (Tgt.Team=="Foe" && (Tgt.HP==0 || Tgt.Gone))
 				Return Tgt,TarTags[i],i
 			End
+			Return __Ret
 		End
-		Var TarIndex(s,idx)
+		//Var TarIndex(s,idx)
+		dDef TarIndex
+			plua s
+			plua idx
+			s,idx=Infinity
 			Switch Lua.type(idx)
 				Case "nil"
 					Lua.error("No index for action targets received!")
@@ -142,9 +164,9 @@ Class Action
 					Lua.assert(math.floor(idx)==idx,"Action target index not integer")
 					return Fighter.ByTag[TarTags[idx]]
 				case "string"
-					Switch idx:upper()
+					Switch Upper(idx)
 						case "COUNT" "LEN" "CNT" "LENGTH"
-							return #TarTags
+							return Len(TarTags)
 						case "EACH"
 							return TarEach()
 						default
@@ -161,4 +183,4 @@ End
 
 
 // This is just for multifunctionality
-Return Action
+//Return Action
