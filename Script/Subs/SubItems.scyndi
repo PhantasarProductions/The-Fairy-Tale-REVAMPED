@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Subs/SubItems.scyndi
 // 
-// 	  Version: 26.02.14 X
+// 	  Version: 26.02.19
 // 	
 // 	  Copyright (C) 2021-'22, 2026 Jeroen Petrus Broks
 // 	
@@ -529,7 +529,7 @@ End
 
 Global String AblCheckLearn(String Char)
 	If (!Abilities[char])
-		NeilUse("Script/Data/Char/"..char.."/Abilities")
+		NeilUse("Script/Data/Char/"..char.."_Abilities")
 	End
 	For tag,abl in pairs(Abilities[Char].Ability)
 		Print("ABLCHECKLEARN> ",type(abl),tag)
