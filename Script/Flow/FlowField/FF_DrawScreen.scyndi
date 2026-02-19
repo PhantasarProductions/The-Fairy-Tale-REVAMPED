@@ -130,10 +130,10 @@ Void FieldStats()
 	//if Maps.Multi()==1 then layer = FlowField.Map.Layer end
 	stuff[0] = {"FSTIT",Kthura.MetaData["Title"],"FieldInfo"}
 	if Left(FlowField.Map.Layer,1)=="#" 
-		stuff[1]={"FSROM",FlowField.Map.Layer} 
+		stuff[1]={"FSROM",Kthura.CurrentLayer} 
 	end
     if FlowField.Map.LayerName[Kthura.CurrentLayer]
-    	stuff += {"FSRMN",FlowField.Map.LayerName[FlowField.Map.Layer],"FieldInfo"} 
+    	stuff += {"FSRMN",FlowField.Map.LayerName[Kthura.CurrentLayer],"FieldInfo"} 
     end    
     if gInt.CASH>0
     	stuff += {"FSCSH",gINT.CASH}     
