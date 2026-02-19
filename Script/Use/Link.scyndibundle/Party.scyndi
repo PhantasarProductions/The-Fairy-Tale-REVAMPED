@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.19
+// version: 26.02.19 I
 // 
 // End License
 
@@ -151,7 +151,7 @@ End
   				if SLUVS && SLUVS[1] && SLUVS[2]
   					k := SLUVS[1]
   					v := SLUVS[2]
-  					Lua.Neil.Globals.CSayF("Due to skill %d going up on %s stat '%s' goes up by %02d",Skill,Tag,k,v)
+  					CSayF("Due to skill %d going up on %s stat '%s' goes up by %02d",Skill,Tag,k,v)
   					RPGChar[Tag].Stat["PERMABUFF_"..k] += v
   				End
   			End
