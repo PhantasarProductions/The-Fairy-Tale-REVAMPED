@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.15 X
+// version: 26.02.20 I
 // 
 // End License
 
@@ -43,6 +43,7 @@ Script
 #use "Libs/SCI/Sys"
 #use "Libs/SCI/Events"
 #use "Libs/SCI/Graphics"
+#use "Libs/SCI/InterVar"
 
 #use "script/use/link"
 #use "script/use/anyway"
@@ -132,7 +133,7 @@ Group MScript
 			MapText("NPC_MT_NOTTODAY")
 			Return
 		End		
-		gv.gint.NOTTODAYTAG=PuzzleData.Slots[num]
+		gint.NOTTODAYTAG=PuzzleData.Slots[num]
 		MapText("NOTTODAYTAG")
 	End
 	
@@ -174,6 +175,7 @@ Group MScript
         		//DrawScreen()
         		//Flip()
         	//end
+        	CSay("Puzzle solved")
         	Map.Kill("Puz_deur_links",true) //Maps.Obj.Kill('Puz_deur_links' ,1)
         	Map.Kill("Puz_deur_rechts",true) //Maps.Obj.Kill('Puz_deur_rechts',1)
         	Map.Remap()
