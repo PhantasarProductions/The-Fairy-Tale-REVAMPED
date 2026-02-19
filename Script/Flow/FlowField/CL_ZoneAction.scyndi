@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowField/CL_ZoneAction.scyndi
 // 
-// 	  Version: 26.02.19
+// 	  Version: 26.02.19 II
 // 	
 // 	  Copyright (C) 2020-'21, 2026 Jeroen Petrus Broks
 // 	
@@ -68,8 +68,8 @@ class _ZoneAction
 
 	static void RoomChange(int inc,string exitpoint)
 		string cLay
-		var nLay
-		cLay = MD_Map.Layer
+		plua nLay
+		cLay = Kthura.CurrentLayer
 		assert(prefixed(cLay,"#"),"Next/Prev only works for rooms prefixed with a #")
 		assert(len(cLay)==4,"Invalid Next/Prev length!")
 		nLay = tonumber(right(cLay,3))
@@ -79,6 +79,7 @@ class _ZoneAction
 			Map.Kill("PLAYER")
 		end
 		//MD_Map.Layer = sprintf("#%03d",nLay + inc)
+		CSayF("Going from #%03d to #%03d (inc %d)",nLay,nLay+inc,inc)
 		Kthura.CurrentLayer = sprintf("#%03d",nLay + inc)
 		Map.SpawnPlayer(exitpoint)
 	end
