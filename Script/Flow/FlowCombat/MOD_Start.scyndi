@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/MOD_Start.scyndi
 // 
-// 	  Version: 26.02.18 II
+// 	  Version: 26.02.19 I
 // 	
 // 	  Copyright (C) 2021, '22, 2026 Jeroen Petrus Broks
 // 	
@@ -48,6 +48,7 @@ Module
 #use "Libs/SCI/Sys"
 #use "Libs/SCI/JCR6"
 #use "Libs/SCI/Graphics"
+#use "Libs/SCI/InterVar"
 
 #use "Libs/Music"
 #use "Libs/LinkedList"
@@ -75,8 +76,8 @@ End
 //Module
 
 	Var FoeList
-	String Arena
-	String FMusic
+	Link Arena  = gstr.FlowCombat_Start_Arena
+	Link FMusic = gstr.FlowCombat_Start_Music
 	String Lose = "ERROR"
 	String StartEvent = ""
 	Var LastFoe = Nil

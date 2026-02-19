@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat.scyndi
 // 
-// 	  Version: 26.02.19
+// 	  Version: 26.02.19 II
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -146,7 +146,7 @@ Global Void MainFlow()
 	FlowCombat.DrawScreen.Run()
 	//FlowCombat.AAA_Stage.Current.Update()
 	Lua.Scyndi.Class.Stage.Current.Update()
-	If !Lua.Neil.Globals.Stage.Current.DontCheckForVictory
+	If !Lua.Scyndi.Class.Stage.Current.DontCheckForVictory
 		if !FlowCombat.Wiped.Check()
 			FlowCombat.Victory.Check()
 		End
