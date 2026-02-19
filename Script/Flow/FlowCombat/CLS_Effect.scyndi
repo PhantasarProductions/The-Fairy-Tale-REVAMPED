@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/CLS_Effect.scyndi
 // 
-// 	  Version: 26.02.19 XXXI
+// 	  Version: 26.02.19 XXXIII
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -198,7 +198,7 @@ Group Effect
       	if (! prefixed(tag,"FOE")) && ((! VicQ) || upper(VicQ)=="PERFECT") 
       		VicQ="General" 
       	end
-      	if fighter.bytag[tag].Team=="Foe" && suffixed(fighter.bytag[tag].File:upper(),"GENDRABROE")
+      	if fighter.bytag[tag].Team=="Foe" && suffixed(upper(fighter.bytag[tag].File),"GENDRABROE")
       		A := Lua.Scyndi.Globals.Action("SPECIAL_GENDRABROE_COUNTER",tag,{Executor.Tag})
       		C := FlowCombat.Cards.Add(1,tag,A,nil)
       		C.Gendrabroe = dmg
@@ -361,7 +361,7 @@ Group Effect
     
     Get Bool ActScript
     	Static Table Scripts
-    	String S = Act.EffectScript:upper()
+    	String S = Upper(Act.EffectScript)
     	if S==""
     		Return False
     	End
