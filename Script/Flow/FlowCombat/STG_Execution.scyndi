@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/STG_Execution.scyndi
 // 
-// 	  Version: 26.02.19
+// 	  Version: 26.02.19 II
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -75,7 +75,8 @@ Class Stage_Execution
 	//Extends Stage
 	Link _Current = Stage._Current
 	Link Map = Stage.Map 
-	Link Current = Stage.Current
+	Static Get Var Current; Return Stage.Current; End
+	Static Set Var Current; Stage.Current=Value; End
 	Link Register = Stage.Register
 	#endregion
 
