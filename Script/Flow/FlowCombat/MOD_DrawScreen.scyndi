@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/MOD_DrawScreen.scyndi
 // 
-// 	  Version: 26.02.18 VI
+// 	  Version: 26.02.19
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -92,7 +92,8 @@ Module
 		// Arena
 		ArenaPre()
 		If ArenaImg
-			ArenaImg.ASDraw("COMBAT",0,0)
+			//ArenaImg.ASDraw("COMBAT",0,0)
+			ArenaImg.Draw(0,0)
 		End
 		ArenaPst()
 		// Fighters
