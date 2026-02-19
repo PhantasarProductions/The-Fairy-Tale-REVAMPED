@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat.scyndi
 // 
-// 	  Version: 26.02.19 II
+// 	  Version: 26.02.19 III
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -57,6 +57,7 @@ Script
 #macro _ASW 1200
 #macro _ASH 980
 
+#accept Stage
 
 Table _real = {}
 global Const Int EXPBaseRate = ({3.5,1,0.75})[__skill]
@@ -151,5 +152,6 @@ Global Void MainFlow()
 			FlowCombat.Victory.Check()
 		End
 	End
-	Party.Boxes(FlowCombat.AAA_Stage.Current.FlashChar)
+	//Party.Boxes(FlowCombat.AAA_Stage.Current.FlashChar)
+	Party.Boxes(Stage.Current.FlashChar)
 End
