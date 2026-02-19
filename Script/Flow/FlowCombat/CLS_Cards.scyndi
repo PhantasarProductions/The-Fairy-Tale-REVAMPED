@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/CLS_Cards.scyndi
 // 
-// 	  Version: 26.02.18 IX
+// 	  Version: 26.02.19
 // 	
 // 	  Copyright (C) 2021-'22, 2026 Jeroen Petrus Broks
 // 	
@@ -154,7 +154,7 @@ Class Cards
 		If crd
 			crd.Img.Draw(crd.X,crd.Y)
 		Else 
-			Lijst[i] = Self("None")
+			Lijst[i] = New Cards("None")
 		End
 	End
 	
