@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/CL2_Class_Hero.scyndi
 // 
-// 	  Version: 26.02.19 I
+// 	  Version: 26.02.19 II
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -458,7 +458,8 @@ Class Stage_PlayerInput_Main
 		Alpha = math.min(255,Alpha+1)
 		__white
 		Portraits[Exe].Draw(MdX-250,MdY)
-		Banners[Exe].Draw(MdX,MdY-250)
+		//Banners[Exe].Draw(MdX,MdY-250)
+		Banners[Exe].Draw(MdX,MdY-150)
 		Graphics.SetAlpha(255)
 		Mouse.Draw()
 		Fnt.DarkText(HText,Mouse.MX+5,Mouse.MY+40)
