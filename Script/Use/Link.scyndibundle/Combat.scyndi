@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Link.scyndibundle/Combat.scyndi
 // 
-// 	  Version: 26.02.20 I
+// 	  Version: 26.02.20 II
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -184,8 +184,8 @@ Module
 	
 	Void QuickBoss(string Header,String BossName,String Boss1,string Boss2="",string Boss3="",string Boss4="")		
 		Boss(Header,BossName)
-		Arena = Lua.Neil.Globals.Map.Arena
-		Switch Boss1:upper()
+		Arena = Lua.Scyndi.Class.Map.Arena
+		Switch Upper(Boss1)
 			Case "AQUA" "IGNIS" "AER" "TERRA"
 				Music = "Combat/SpecialBoss/Summon the Rawk.ogg"
 			Default
@@ -197,7 +197,7 @@ Module
 				NewEnemy = "Boss/"..Boss
 			End
 		End
-		Lua.Neil.Globals.Map.StopWalking()
+		Lua.Scyndi.Class.Map.StopWalking()
 		Start()
 	End
 	
