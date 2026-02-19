@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowField/Renc.scyndi
 // 
-// 	  Version: 26.02.15 VII
+// 	  Version: 26.02.19
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -130,7 +130,7 @@ locextern __bmr "17"
 	Void StartEncounter()
 		LocExtern ll "#"
 		// Announce
-		CSay("Start Enoounter")
+		CSay("Start Encounter")
 		// Reset
 		RateLevel = 1
 		NEnc[Kthura.CurrentLayer]--
