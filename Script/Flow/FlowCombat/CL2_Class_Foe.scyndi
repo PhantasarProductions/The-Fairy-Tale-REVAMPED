@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/CL2_Class_Foe.scyndi
 // 
-// 	  Version: 26.02.18 II
+// 	  Version: 26.02.19 I
 // 	
 // 	  Copyright (C) case 2021-2026 Jeroen Petrus Broks
 // 	
@@ -405,7 +405,8 @@ end
 		End
 		Switch Self.Stage
 			Case "IDLE"
-				NorImage.ASDraw("COMBAT",Self.X,Self.Y)			
+				//NorImage.ASDraw("COMBAT",Self.X,Self.Y)
+				NorImage.Draw(Self.X,Self.Y)
 			Case "KO"
 				//Lua.error("Death animation not yet done")
 				Self.DrawKO()
