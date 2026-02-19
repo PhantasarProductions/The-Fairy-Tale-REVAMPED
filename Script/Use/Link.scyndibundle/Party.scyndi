@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.01.31 I
+// version: 26.02.19
 // 
 // End License
 
@@ -145,7 +145,7 @@ End
   				SetSkill(Tag,Skill,RPGChar[Tag].Points[TagLevel].Have+1)
   				SkillLvlUpMsg(Tag,RPGChar[Tag].Data[TagTitle].." level up",SLUC[Skill][1],SLUC[Skill][2],SLUC[Skill][3])
   				SkillUpBonus(Tag,RPGChar[Tag].Points[TagLevel].Have)
-  				SLUV := NeilUse("Script/Data/Char/"..Tag.."/SkillUp")
+  				SLUV := NeilUse("Script/Data/Char/"..Tag.."_SkillUp")
   				//For k,v in sPairs(SLUV)
   				SLUVS := SLUV["askillup"..skill]
   				if SLUVS && SLUVS[1] && SLUVS[2]
