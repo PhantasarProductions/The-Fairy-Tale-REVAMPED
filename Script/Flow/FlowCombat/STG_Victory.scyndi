@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/STG_Victory.scyndi
 // 
-// 	  Version: 26.02.19 XVIII
+// 	  Version: 26.02.19 XIX
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -98,7 +98,7 @@ Class Stage_Victory
 		End
 		String FL := sPrintF("Vocals/Combat/Hero/%s/Victory/%s.ogg",Ch,VicQ)
 		CSayF("= Shout: %s",FL)
-		If JCR6.HasEntry(FL)
+		If JCR6.EntryExists(FL)
 			Audio.LoadNew(FL,sprintF("VICTORYQUOTE_%s_%s",Ch,VicQ)).Play()
 		End	
 		If VicQ=="BOSS"
