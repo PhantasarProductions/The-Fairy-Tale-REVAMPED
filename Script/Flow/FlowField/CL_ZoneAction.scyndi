@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowField/CL_ZoneAction.scyndi
 // 
-// 	  Version: 26.02.13 III
+// 	  Version: 26.02.19
 // 	
 // 	  Copyright (C) 2020-'21, 2026 Jeroen Petrus Broks
 // 	
@@ -75,7 +75,7 @@ class _ZoneAction
 		nLay = tonumber(right(cLay,3))
 		assert(nLay,"Numberic parsing error for Next/Prev ("..cLay..")")
 		//MD_Map.Kthura.Layer = sprintf("#%03d",nLay + inc)
-		if Kthura.HasTag("PLAYER")
+		if Kthura.HasObj("PLAYER")
 			Map.Kill("PLAYER")
 		end
 		//MD_Map.Layer = sprintf("#%03d",nLay + inc)
