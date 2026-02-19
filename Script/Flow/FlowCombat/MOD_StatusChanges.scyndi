@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/MOD_StatusChanges.scyndi
 // 
-// 	  Version: 26.02.19
+// 	  Version: 26.02.19 XV
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -47,6 +47,19 @@ Module
 
 #use "Libs/xmath"
 
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/Graphics"
+
+#use "Script/Use/Anyway"
+#use "Script/Use/Convert"
+
+#accept CharMsg
+#accept Fighter
+#accept FlowCombat
+#accept Stage_Execution
+
+locextern ll "#"
+
 Class TStatusChange
 	Delegate PreTurn
 	Delegate Draw
@@ -72,9 +85,12 @@ End
 	
 	
 	
-	Constructor
+	//Constructor
+	//Init
 		// Poison
-		Register.Poison = new TStatusChange()
+		Init
+			Register.Poison = new TStatusChange()
+		End
 		Void Poison_Preturn(Char)
 			int Dmg = 0
 			Switch Char.Team
@@ -109,68 +125,88 @@ End
 				Char.StatusChanges.Poison=False
 			End
 		End
+		
+		Init
 		Register.Poison.PreTurn = Poison_Preturn
 		Register.Poison.Draw    = Poison_Draw
+		End
 		
 		// Disease
+		Init
 		Register.Disease = New TStatusChange()
 		Register.Disease.BlockHeal = true
+		End
+		
 		Void Disease_Draw(Char)
 			Graphics.Color(255,180,0)
 			If Char.Damned
 				Char.StatusChanges.Disease=False
 			End
 		End
+		
+		Init
 		Register.Disease.Draw = Disease_Draw
+		End
 		
 		// Sleep
 		Void PreTurnCure(Char,string status)
 			Char.StatusChanges[status] = False
 		End
+		Init
 		Register.Sleep = New TStatusChange()
 		Register.Sleep.PreTurn=PreTurnCure
 		Register.Sleep.SkipTurn=True
+		End
 		Void Sleep_Draw(Char)
 			Static Table SinBub = {}
-			Static Var Z = Image.LoadNew("GFX/Combat/StatusChanges/Sleep/Z.png","Status_Sleep")
+			Static Var Z = LoadNewImage("GFX/Combat/StatusChanges/Sleep/Z.png","Status_Sleep")
 			SinBub[Char.Tag] = ((SinBub[Char.Tag] || math.random(0,180)) + 1) % 180
 			Graphics.Scale(xmath.sin(SinBub[Char.Tag])+1,1.5)
 			Z.HotBottomCenter()
 			Z.Draw(Char.TX,Char.TY-Char.TH-10)
 			Graphics.Scale(1,1)
 		End
+		
+		Init
 		Register.Sleep.Draw = Sleep_Draw
+		End
 		
 		// Paralysis
+		Init
 		Register.Paralysis = new TStatusChange()
 		Register.Paralysis.PreTurn=PreTurnCure
 		Register.Paralysis.SkipTurn=True
+		End
 		Void Paralysis_Draw(Char)
-			Static Var b = Image.LoadNew("GFX/Combat/StatusChanges/Paralysis/Bliksem.png","COMBAT_PARA_BLIKSEM")
+			Static Var b = LoadNewImage("GFX/Combat/StatusChanges/Paralysis/Bliksem.png","COMBAT_PARA_BLIKSEM")
 			Graphics.Scale(1,1)
 			for i=1,10
 				b.Draw(math.random(Char.TX-(Char.TW div 2),Char.TX+(Char.TW div 2)),math.random(Char.TY-Char.TH-10,Char.TY))
 			End
 		End
+		Init
 		Register.Paralysis.Draw = Paralysis_Draw
+		End
 		
 		// Charm
+		Init
 		Register.Charm = new TStatusChange()
+		End
 		Bool Charm_AI(Char)
 			PreTurnCure(Char,"Charm")
 			Switch Char.Tag
 				Case "Jake_Human" "Jake_Fairy"
 					If RPGParty[2]!="Marrilona"
-						Var Act = new Action("AAA_GUARD",Char,{Char},{})
+						Act := new Action("AAA_GUARD",Char,{Char},{})
 						Stage_Execution.ComeToMe(Act)
 						Return True
 					End
-					Var WAbl = RPGChar.Jake_Human.Data.EQUIP_Weapon					
-					Var Act = new Action(WAbl,Char.Tag,{"Marrilona"},{["CheckAfterAction"]=true})
+					WAbl := RPGChar.Jake_Human.Data.EQUIP_Weapon					
+					Act := new Action(WAbl,Char.Tag,{"Marrilona"},{["CheckAfterAction"]=true})
 					Stage_Execution.ComeToMe(Act)
 					Return True
 				Case "Krandar" "Marrilona" "Nostramantu_Human" "Nostramantu"
-					Var Act = new Action("AAA_GUARD",Char,{Char},{})
+					Act := new Action("AAA_GUARD",Char,{Char},{})
 					Stage_Execution.ComeToMe(Act)
 					Return True
 				Case "Dandor"
@@ -186,7 +222,7 @@ End
 						End
 						R = math.random(1,4)
 					LoopWhile RPGChar[R]=="" || RPGChar[R]=="Dandor"
-					Var Act = new Action("AAA_ATTACK","Dandor",{RPGParty[R]},{})
+					Act := new Action("AAA_ATTACK","Dandor",{RPGParty[R]},{})
 					Stage_Execution.ComeToMe(Act)
 					Return True
 				Case "HandoStillor"
@@ -207,9 +243,9 @@ End
 							Stage_Execution.ComeToMe(Act)
 							Return True
 						End
-						R = math.random(1,#Foes)
+						R = math.random(0,Len(Foes)-1)
 					Until Fighter.ByTag[Foes[R]].HP>0
-					Var Act = new Action("ABL_HERO_HANDOSTILLOR_FIRSTAID","HandoStillor",{Foes[R]},{["DeductAP"]=True})
+					Act := new Action("ABL_HERO_HANDOSTILLOR_FIRSTAID","HandoStillor",{Foes[R]},{["DeductAP"]=True})
 					Stage_Execution.ComeToMe(Act)
 					Return True
 				Default
@@ -218,7 +254,7 @@ End
 			End
 		End
 		Void Charm_Draw(Char)
-			Static Var b = Image.LoadNew("GFX/Combat/SpellAni/Temptation/Heart.png","COMBAT_CHARM_HARTJE")
+			Static Var b = LoadNewImage("GFX/Combat/SpellAni/Temptation/Heart.png","COMBAT_CHARM_HARTJE")
 			Graphics.Scale(1,1)
 			__White
 			for i=1,10
@@ -228,8 +264,10 @@ End
 			End
 			Graphics.Scale(1,1)
 		End
+		Init
 		Register.Charm.AltAI=Charm_AI
 		Register.Charm.Draw=Charm_Draw
+		End
 		
 		
 		// Curse
@@ -253,8 +291,8 @@ End
       
       Void Curse_PreTurn(ch)
       	//local me = StatusChanges.Curse
-      	Var HP = RPGChar[ch.Tag].Points.HP
-      	Var AP
+      	HP := RPGChar[ch.Tag].Points.HP
+      	pLua AP
           //if prefixed(ch,"FOE") then
           if ch.team=="Foe"
              AP = HP
@@ -263,24 +301,24 @@ End
           end   
           //local forf = "Hero" -- Friend or foe?
           //if prefixed(ch,'FOE') then forf='Foe' end
-          String forf = Ch.Team
+          String forf := Ch.Team
           Int r=math.random(1,__skill*10)
-          if r==1 or r==21 or r==29
+          if r==1 || r==21 || r==29
              HP.Have=1
-          elseif r==2 and __skill!=3
+          elseif r==2 && __skill!=3
              HP.Have = HP.Maximum
           elseif r==3 || r>24 
              HP.Have = math.random(1,HP.Maximum)
           elseif r==11 || r==22
              AP.Have=0
-          elseif r==12 and __skill!=3
+          elseif r==12 && __skill!=3
              AP.Have = AP.Maximum
-          elseif r==13 and __skill==3
+          elseif r==13 && __skill==3
              HP.Have=1
              AP.Have=0
-          elseif (r>14 and r<20) or (r==23) 
-             plua cstat = Curse_stat[math.random(1,#Curse_Stat)]
-             if (cstat=="Death" || cstat=="Petrification") and forf=="Foe"
+          elseif (r>14 && r<20) || (r==23) 
+             plua cstat = Curse_stat[math.random(1,ll Curse_Stat)]
+             if (cstat=="Death" || cstat=="Petrification") && forf=="Foe"
              	return 
              end
              //SetStatus(ch,cstat)
@@ -291,10 +329,12 @@ End
              End
             end
 		end 
+		Init
 		Curse_CreateMe()
 		Register.Curse = New TStatusChange()
 		Register.Curse.PreTurn = Curse_PreTurn
 		Register.Curse.Draw    = Curse_Draw
+		End
 		
 		// URegister
 		Var _Get(s,string K)
@@ -310,7 +350,9 @@ End
 			end
 			Return R[K]
 		end
+		Init
 		URegister = Lua.setmetatable({},{["__index"]=_Get})
+		End
 	
 		// Death
 	
@@ -321,10 +363,13 @@ End
 			End
 			ch.HP = 0
 		End
+		Init
 		Register.Death = new TStatusChange()
 		Register.Death.Inflict = Death_Inflict
+		End
 		
 		// Undead
+	Init
 		Register.Undead = new TStatusChange()
 		Register.Undead.Draw = NIKS		
 	End
