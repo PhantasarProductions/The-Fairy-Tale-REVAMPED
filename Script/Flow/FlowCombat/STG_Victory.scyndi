@@ -160,7 +160,7 @@ Class Stage_Victory
 			Self.ResetBuffs()
 			Flow.Current="FIELD"
 			Ach.Auto()
-			If !Prefixed(FlowCombat.Start.FMusic:upper(),"*NOCHANGE")
+			If !Prefixed(Upper(FlowCombat.Start.FMusic),"*NOCHANGE")
 				Music.Pop()
 			End
 		End
