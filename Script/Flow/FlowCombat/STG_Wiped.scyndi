@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/STG_Wiped.scyndi
 // 
-// 	  Version: 26.02.19 II
+// 	  Version: 26.02.19 V
 // 	
 // 	  Copyright (C) 2021-'22, 2026 Jeroen Petrus Broks
 // 	
@@ -50,8 +50,11 @@ Module
 #use "Libs/SCI/SString"
 #use "Libs/SCI/Graphics"
 
+#use "Script/Use/Link"
+#use "Script/Use/Anyway"
 #use "Script/Use/Convert"
 
+#accept Stage
 #accept FlowCombat
 
 
