@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/CL2_Class_Action.scyndi
 // 
-// 	  Version: 26.02.19 XI
+// 	  Version: 26.02.19 XIII
 // 	
 // 	  Copyright (C) 2021, 2022, 2024, 2026 Jeroen Petrus Broks
 // 	
@@ -171,6 +171,8 @@ Class Action
 							return Len(TarTags)
 						case "EACH"
 							return TarEach()
+						case ".ISCLASS" ".ISCLASSINSTANCE"
+							return false
 						default
 							Lua.error("Unknown action target command: "..idx)
 					End
