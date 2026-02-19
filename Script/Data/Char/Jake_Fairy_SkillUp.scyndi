@@ -34,15 +34,14 @@
 // **********************************************
 // 
 // 
-// version: 26.02.19
+// version: 26.02.19 II
 // 
 // End License
 Module
 
-Init
-	askillup1 = {"Power",25},
-	askillup2 = {}
-	askillup3 = {}
-	askillup4 = {}
-	askillup5 = {}
-End
+
+	Var askillup1 = {"Power",2}
+	Var askillup2 = {"Intelligence",1}
+	Var askillup3 = {"Speed",1}
+	Var askillup4 = {"HP",1}
+	Var askillup5 = {"Endurance",2}
