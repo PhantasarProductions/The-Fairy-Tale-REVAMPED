@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/CLS_Cards.scyndi
 // 
-// 	  Version: 26.02.19 IV
+// 	  Version: 26.02.20
 // 	
 // 	  Copyright (C) 2021-'22, 2026 Jeroen Petrus Broks
 // 	
@@ -85,12 +85,12 @@ Class Cards
 		return Cards.Lijst[i]
 	End
 	
-	Static Var Add(Int idx,String FighterTag,Action,Joker)
+	Static Var Add(Int idx,String _FighterTag,_Action,_Joker)
 		While Lijst[idx] && (!Lijst[idx].None)
 			idx++
 		End
 		Var Old := Lijst[idx]		
-		Lijst[idx] = Self(FighterTag,Action,Joker)
+		Lijst[idx] = New Cards(_FighterTag,_Action,_Joker)
 		If Old
 			Lijst[idx].X = Old.X
 		Else
