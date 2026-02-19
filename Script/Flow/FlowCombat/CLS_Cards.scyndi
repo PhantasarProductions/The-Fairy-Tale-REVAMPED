@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/CLS_Cards.scyndi
 // 
-// 	  Version: 26.02.19
+// 	  Version: 26.02.19 IV
 // 	
 // 	  Copyright (C) 2021-'22, 2026 Jeroen Petrus Broks
 // 	
@@ -76,8 +76,13 @@ Class Cards
 		End
 		Return R
 	End
-	Static Get Var HighestCard
+	Static Get Var HighestCard		
 		Return Lijst[Highest]
+	End
+	
+	static Var STATICNUMINDEX(int i)
+		Lijst[i] = Lijst[i] || new Cards("None")
+		return Cards.Lijst[i]
 	End
 	
 	Static Var Add(Int idx,String FighterTag,Action,Joker)
