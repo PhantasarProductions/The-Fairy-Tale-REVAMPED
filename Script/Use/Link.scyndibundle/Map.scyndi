@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Link.scyndibundle/Map.scyndi
 // 
-// 	  Version: 26.02.15
+// 	  Version: 26.02.20
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -393,7 +393,8 @@ End
 	end
 	
 	Void ReMap()
-		MCall("FlowField.Map.KthuraMap.ReMap","nil")
+		//MCall("FlowField.Map.KthuraMap.ReMap","nil")
+		Kthura.Remap()
 	End
 	
 	Void StopWalking()
