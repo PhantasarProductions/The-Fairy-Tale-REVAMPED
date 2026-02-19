@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/CL2_Class_Hero.scyndi
 // 
-// 	  Version: 26.02.18 XIII
+// 	  Version: 26.02.19 I
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -200,6 +200,8 @@ Class Stage_PlayerSelectTarget
 	Link Map = Stage.Map 
 	Link Current = Stage.Current
 	Link Register = Stage.Register
+	
+	Bool DontCheckForVictory = True
 	
 	
 	Static Var Act
@@ -407,6 +409,8 @@ Class Stage_PlayerInput_Main
 	Link Current = Stage.Current
 	Link Register = Stage.Register
 	
+	Bool DontCheckForVictory = True
+	
 
 	Static ReadOnly Var Fnt = ObtainFont("SYSFONT")
 	Static Table Banners = {}
@@ -430,7 +434,7 @@ Class Stage_PlayerInput_Main
 		Int MdX = Screen.W div 2
 		Int MdY = Screen.H div 2
 		String HText = ""
-		Graphics.SetScale(1,1)
+		Graphics.Scale(1,1)
 		For P in PIMI.lst.Each
 			P.Alpha = math.min(255,P.Alpha+1)
 			If P.Alpha>0
