@@ -220,7 +220,8 @@ Class Foe Extends Fighter
 				CSayF("- Stat.%s = { BASE = %d, END = %d }",Key,WFoe.Char.Stats["BASE_"..Key],WFoe.Char.Stats["END_"..Key])
 			End
 		End
-		WFoe.Char.Points.HP.MaxCopy  = "END_HP"
+		//WFoe.Char.Points.HP.MaxCopy  = "END_HP"
+		
 		WFoe.Char.Points.HP.Have     = WFoe.Char.Points.HP.Maximum
 		Return WFoe
 	End
