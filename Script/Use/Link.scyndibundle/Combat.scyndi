@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Link.scyndibundle/Combat.scyndi
 // 
-// 	  Version: 26.02.20 IV
+// 	  Version: 26.02.20 V
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -194,7 +194,7 @@ Module
 				Music = "*BOSS"
 		End
 		Lose = "GameOver"
-		For Boss in Each{Boss1,Boss2,Boss3,Boss4}
+		For Boss in Each{[0]=Boss1,Boss2,Boss3,Boss4}
 			If Boss!=""
 				NewEnemy = "Boss/"..Boss
 			End
