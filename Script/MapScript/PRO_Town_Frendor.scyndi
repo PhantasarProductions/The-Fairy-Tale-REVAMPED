@@ -34,15 +34,23 @@
 // **********************************************
 // 
 // 
-// version: 26.02.20
+// version: 26.02.20 X
 // 
 // End License
 
+Script
 
-#use "Script/Use/Misc/Prologue"
-#use "Script/Use/Misc/ManaOrb"
-#use "Script/Use/Anyway"
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/InterVar"
+
 #use "Script/Use/Misc/Inn"
+#use "Script/Use/Misc/Prologue"
+#use "Script/Use/Misc/MManaOrb"
+
+#use "Script/Use/Link"
+#use "Script/Use/Anyway"
+#use "Script/Use/Convert"
+
 
 Group MScript
 
@@ -104,8 +112,8 @@ Group MScript
 			marrilona += RPGChar.Marrilona.Points["LVL_Skill"..i].Have 
 			//   if  RPG.PointsExists("Marrilona" ,"SK_LVL_"..i)==1 then marrilona = marrilona + RPG.Points("Marrilona","SK_LVL_"..i).Have end
 		end
-		int amarrilona = marrilona div 5
-		int ajake      = jake      div 4
+		int amarrilona := marrilona div 5
+		int ajake      := jake      div 4
 		CSay("Fandalora requires: "..need)
 		CSay("Marrilona has:      "..amarrilona)
 		CSay("Jake has:           "..ajake)
@@ -127,12 +135,12 @@ Group MScript
 		End
 		// Dandor
 		// Master
-		Master_Fandalora() // Lua.error("Master Fandalora not yet scripted")
+		MScript.Master_Fandalora() // Lua.error("Master Fandalora not yet scripted")
 	End
 	
 	Void NPC_FandaloraOutside()
 		MapText("FANDALORA_OUTSIDE")
-		Master_Fandalora()
+		MScript.Master_Fandalora()
 	End
 	
 	Void NPC_YanneeOutside()
@@ -287,10 +295,14 @@ Group MScript
 		WorldMap.Go()
 	End
 	
-	Constructor
+	Void LoadMe()
 		ZA.TabEnter{"ExitHouse","Elder_Exit","ComeInEvents","B_Exit", "ByeBye","Byebye","EnterMarrilona" }
 		For L in Each {"wands","weapons","items","inn"}
 			ZA.Enter("enter_"..L,"EnterBuilding",l:upper())
 		End
 	End
+End
+
+Init
+	LoadMe()
 End
