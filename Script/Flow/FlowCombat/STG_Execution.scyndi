@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/STG_Execution.scyndi
 // 
-// 	  Version: 26.02.19 X
+// 	  Version: 26.02.20
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -209,7 +209,7 @@ Class Stage_Execution
 			Return
 		End
 		if !Initiated
-			SpellAni = NeilUse("Script/Use/Combat/SpellAni/"..Act.Act.SpellAni)
+			SpellAni = NeilUse("Script/Use/Combat/SpellAni/SA_"..Act.Act.SpellAni)
 			SpellAni.Start(Act,Act.Act.SpellAni_Arg)
 			Initiated = True
 		End
