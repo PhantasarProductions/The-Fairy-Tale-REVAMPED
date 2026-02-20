@@ -1,8 +1,8 @@
-// License Information:
+// License:
 // **********************************************
 // 
-// src/Tricky Script/Script/Use/Misc/ManaOrb.neil
-// (c) Jeroen Broks, 2021, All Rights Reserved.
+// src/Code/Script/Use/Misc/MManaOrb.scyndi
+// (c) Jeroen Broks, 2021, 2026, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -24,6 +24,7 @@
 // from it, you can use it under that license.
 // Please check out the other files to find out
 // which license applies.
+// 
 // This file comes 'as-is' and in no possible
 // way the author can be held responsible of
 // any form of damages that may occur due to
@@ -32,11 +33,20 @@
 // 
 // **********************************************
 // 
-// version: 21.10.25
-// End License Information
-Void _ManaOrb(String Ch="Marrilona")
+// 
+// version: 26.02.20 II
+// 
+// End License
+
+Module
+
+#use "Libs/SCI/Sys"
+#use "Script/Use/Convert"
+
+Global Void ManaOrb(String Ch="Marrilona")
 	State.LoadNew("FLOW_MANAORB","Script/Flow/FlowManaOrb.neil")
-	State.Call("FLOW_MANAORB","ComeToMe",sPrintF("'%s'",Ch))
+	//State.Call("FLOW_MANAORB","ComeToMe",sPrintF("'%s'",Ch))
+	Sys.Call("FLOW_MANAORB","ComeToMe",Ch)
 End
 
-Return _ManaOrb
+//Return _ManaOrb
