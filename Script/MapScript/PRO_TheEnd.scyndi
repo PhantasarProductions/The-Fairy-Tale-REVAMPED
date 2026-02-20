@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.20 VII
+// version: 26.02.20 X
 // 
 // End License
 
@@ -51,7 +51,7 @@ Script
 #use "Script/Use/Anyway"
 #use "Script/Use/Convert"
 
-Const Table Chars = {"Jake","Marrilona","Dandor","HandoStillor"}
+Const Table Chars = {[0]="Jake","Marrilona","Dandor","HandoStillor"}
 
 #undef ForceJake
 #undef ForceMarrilona
@@ -104,7 +104,7 @@ Group RealThing
 			Prologue.GoSelect()
 			Return
 		End
-		MapText(Char:upper())
+		MapText(Upper(Char))
 		Map.GoToSave()
 		Schedule.Add("END_"..Char)
 	End
@@ -132,6 +132,7 @@ End
 
 Init
 	For Ch in Each(Chars)
+		CSayF("End zone: %s",Ch)
 		ZA.Enter("END_"..Ch)
 	End
 End
