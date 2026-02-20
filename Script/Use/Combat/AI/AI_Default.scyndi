@@ -36,9 +36,12 @@
 // End License Information
 Module
 
+#accept Action
+#accept Fighter
+
 	String GetRandomTarget(String Team)
 		Table TR = Fighter.GetTags(Team)
-		return TR[math.random(1,#TR)]
+		return TR[math.random(0,len(TR))]
 	End
 
 	Var Decide(Foe)
@@ -57,7 +60,7 @@ Module
 			End
 			Switch ActAct.Target
 				Case "OS"
-					Tars = {Foe.Tag}
+					Tars = { [0]=Foe.Tag }
 					Ok = True
 				Case "EV"
 					Tars = Fighter.GetTags()
@@ -70,11 +73,11 @@ Module
 					Ok = True
 				Case "1F"
 					String GRT = GetRandomTarget("Hero")
-					Tars = { GRT }
+					Tars = { [0]=GRT }
 					Ok = Fighter.ByTag[GRT].HP>0
 				Case "1A"
 					String GRT = GetRandomTarget("Foe")
-					Tars = { GRT }
+					Tars = { [0]=GRT }
 					Ok = Fighter.ByTag[GRT].HP>0
 				Default
 					Lua.error("COMBAT.AI.DEFAULT("..Foe.Tag..","..ActTag.."): Unknown Target Type: "..ActAct.Target)
@@ -85,4 +88,3 @@ Module
 		//Lua.error("No return for Default AI (yet)")
 	End
 
-End
