@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/CL2_Class_Foe.scyndi
 // 
-// 	  Version: 26.02.19 I
+// 	  Version: 26.02.20
 // 	
 // 	  Copyright (C) case 2021-2026 Jeroen Petrus Broks
 // 	
@@ -424,9 +424,9 @@ end
 					FlashEnd = FlashCount == 0
 				End
 				If Neg
-					NegImage.ASDraw("COMBAT",Self.X,Self.Y)
+					NegImage.Draw(Self.X,Self.Y)
 				Else
-					NorImage.ASDraw("COMBAT",Self.X,Self.Y)
+					NorImage.Draw(Self.X,Self.Y)
 				End
 		End
 		Graphics.Alpha(255)
