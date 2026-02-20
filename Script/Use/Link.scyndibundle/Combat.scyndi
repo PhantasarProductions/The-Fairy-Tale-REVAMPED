@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Link.scyndibundle/Combat.scyndi
 // 
-// 	  Version: 26.02.20 II
+// 	  Version: 26.02.20 IV
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -50,6 +50,7 @@ Module
 
 #use "Libs/SCI/Sys"
 #use "Libs/SCI/Audio"
+#use "Libs/SCI/Kthura"
 #use "Libs/SCI/Events"
 #use "Libs/SCI/Graphics"
 #use "Libs/SCI/Intervar"
@@ -184,7 +185,8 @@ Module
 	
 	Void QuickBoss(string Header,String BossName,String Boss1,string Boss2="",string Boss3="",string Boss4="")		
 		Boss(Header,BossName)
-		Arena = Lua.Scyndi.Class.Map.Arena
+		//Arena = Lua.Scyndi.Class.Map.Arena
+		Arena = Kthura.MetaData.Arena
 		Switch Upper(Boss1)
 			Case "AQUA" "IGNIS" "AER" "TERRA"
 				Music = "Combat/SpecialBoss/Summon the Rawk.ogg"
