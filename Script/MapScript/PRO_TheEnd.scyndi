@@ -1,8 +1,8 @@
-// License Information:
+// License:
 // **********************************************
 // 
-// src/Tricky Script/Script/MapScript/PRO_TheEnd.neil
-// (c) Jeroen Broks, 2021, 2022, All Rights Reserved.
+// src/Code/Script/MapScript/PRO_TheEnd.scyndi
+// (c) Jeroen Broks, 2021, 2022, 2026, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -24,6 +24,7 @@
 // from it, you can use it under that license.
 // Please check out the other files to find out
 // which license applies.
+// 
 // This file comes 'as-is' and in no possible
 // way the author can be held responsible of
 // any form of damages that may occur due to
@@ -32,10 +33,24 @@
 // 
 // **********************************************
 // 
-// version: 22.02.16
-// End License Information
+// 
+// version: 26.02.20 VII
+// 
+// End License
+
+
+Script
+
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/Events"
+#use "Libs/Sci/Graphics"
+
 #use "Script/Use/Misc/Prologue"
+
+#use "Script/Use/Link"
 #use "Script/Use/Anyway"
+#use "Script/Use/Convert"
+
 Const Table Chars = {"Jake","Marrilona","Dandor","HandoStillor"}
 
 #undef ForceJake
@@ -45,11 +60,17 @@ Group RealThing
 
 	ReadOnly Bool HasDraw   = False
 	ReadOnly Bool HasUpdate = False
+		
+	Get Int Sec
+		s:=lua.tonumber(os.date("%S")) || 0
+		return s+1
+	End
 	
 	Void ChainToGame()
 		Table ChCode = {"Jake_Human","Marrilona"}
 		Table Char = {"Jake","Marrilona"}
-		Int Pick = (ADT.Second % 2) + 1
+		//Int Pick = (ADT.Second % 2) + 1
+		Int Pick = Sec
 		#if ForceJake
 			Pick = 1
 		#fi
@@ -68,7 +89,7 @@ Group RealThing
 		For i=1,100
 			Graphics.Flip()
 			Events.Poll()
-			FPS.WaitMinTicks()
+			Sys.WaitMinTicks()
 		End
 		If Prologue.HasDone(Char)
 			Bool AllDone = true
@@ -77,7 +98,7 @@ Group RealThing
 			End
 			If AllDone
 				//Lua.error("All prologues done -> Continuation script not yet written")
-				ChainToGame()
+				RealThing.ChainToGame()
 				Return
 			End
 			Prologue.GoSelect()
@@ -93,15 +114,15 @@ End
 QuickMeta MScript
 
 	index
-		Void Exe()
+		dDef Exe
 			If prefixed(key,"END_")
-				string ch = right(key,#key-4)
+				string ch = right(key,len(key)-4)
 				RealThing.EndPrologue(ch)
 			Else
 				RealThing[key]()
 			End
 		End
-		If Prefixed(key:upper(),"HAS")
+		If Prefixed(Upper(key),"HAS")
 			Return False
 		End
 		
