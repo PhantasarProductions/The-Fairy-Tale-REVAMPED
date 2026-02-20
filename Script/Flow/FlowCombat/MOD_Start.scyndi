@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/MOD_Start.scyndi
 // 
-// 	  Version: 26.02.19 I
+// 	  Version: 26.02.20
 // 	
 // 	  Copyright (C) 2021, '22, 2026 Jeroen Petrus Broks
 // 	
@@ -124,7 +124,7 @@ End
 			Case "*BOSS"
 				Table Bundle = JCR6.Dir("Music/Combat/Boss")
 				Music_Push()
-				Music.Play(Bundle[math.random(1,Len(Bundle)-1)])
+				Music.Play(Bundle[math.random(0,Len(Bundle)-1)])
 			Case "*NOCHANGE" "*NOCHANGE*" "*NOCHANGE*.OGG"
 				CSayF("Music mustn't change")
 			Default
