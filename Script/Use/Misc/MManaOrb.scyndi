@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.20 II
+// version: 26.02.21
 // 
 // End License
 
@@ -44,7 +44,7 @@ Module
 #use "Script/Use/Convert"
 
 Global Void ManaOrb(String Ch="Marrilona")
-	State.LoadNew("FLOW_MANAORB","Script/Flow/FlowManaOrb.neil")
+	State.LoadNew("FLOW_MANAORB","Script/Flow/FlowManaOrb.lbc")
 	//State.Call("FLOW_MANAORB","ComeToMe",sPrintF("'%s'",Ch))
 	Sys.Call("FLOW_MANAORB","ComeToMe",Ch)
 End
