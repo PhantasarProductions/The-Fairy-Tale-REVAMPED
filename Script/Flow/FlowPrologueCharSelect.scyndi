@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.09
+// version: 26.02.21
 // 
 // End License
 
@@ -118,6 +118,7 @@ Global Void MainFlow()
 	//Box.DrawAll()
 	BX.Draw()
 	//Dev.ToConsole()
+	WantQuit()
 	For Idx,Crd in PersonCard.Lst.IPairs
 		// CSayF("ForIDXCRD: %d/%d",idx,sel)
 		If idx!=Sel
