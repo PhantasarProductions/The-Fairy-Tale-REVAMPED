@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Misc/PuzSet.scyndi
 // 
-// 	  Version: 26.02.21 VIII
+// 	  Version: 26.02.21 XIV
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -45,9 +45,12 @@
 Module
 
 #use "Libs/SCI/Sys"
+#use "Libs/SCI/Audio"
+#use "Libs/SCI/Kthura"
 #use "Libs/SCI/Intervar"
 
 #use "Script/Use/Link"
+#use "Script/Use/Convert"
 
 LocExtern ll "#"
 
@@ -109,7 +112,8 @@ LocExtern ll "#"
 	
 	Void QC(string tag, string P)
 		for d in each{[0]="R","G","B"}
-			Map.SetObj(Tag,d,self[P..D])
+			//Map.SetObj(Tag,d,self[P..D])
+			Kthura.Obj[Tag][d]=PuzSet[P..D]
 		end
 	End
 	
@@ -157,19 +161,21 @@ LocExtern ll "#"
 			End
 		End
 		For value,index in pairs(Used)
+				LocExtern PS "Scyndi.Class.PuzSet"
 				// Order seems odd, but it has to be this way
 				If index==correct2
-					Map.ObjSet("Sym"..Index,"Texture",Self["Dir"..TReg]..Tab[C2])
+					//Map.ObjSet("Sym"..Index,"Texture",Self["Dir"..TReg]..Tab[C2])
+					Kthura.Obj["Sym"..index].Texture = PS["Dir"..TReg]..Tab[C2]
 				Else
-					Map.ObjSet("Sym"..Index,"Texture",Self["Dir"..TReg]..Tab[value])
+					//Map.ObjSet("Sym"..Index,"Texture",Self["Dir"..TReg]..Tab[value])
+					Kthura.Obj["Sym"..index].Texture = PS["Dir"..TReg]..Tab[value]
 				End
-				QC("Sym"..index,"U")
-				
+				QC("Sym"..index,"U")				
 		End
 	End
 	
 	Void Action(string Tag,string BarPrefix,Int EXP=0)
-		Int TNum = Lua.tonumber(Right(Tag,Len(Tag)-3))
+		Int TNum := Lua.tonumber(Right(Tag,Len(Tag)-3))
 		Pressed[TNum] = !Pressed[TNum]
 		if Pressed[TNum]
 			QC(Tag,"P")
