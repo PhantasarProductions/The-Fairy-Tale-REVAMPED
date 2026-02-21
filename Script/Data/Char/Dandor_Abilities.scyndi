@@ -34,13 +34,15 @@
 // **********************************************
 // 
 // 
-// version: 26.02.21
+// version: 26.02.21 II
 // 
 // End License
 
+Module
+
 Init
-	rp ={}
-	r = {}
+	rp := {}
+	r  := {}
     r["1. Dandor's Abilities"]=rp
                              rp.abl_hero_dandor_axesmash={16}
                              rp.abl_hero_dandor_superaxesmash={50}
