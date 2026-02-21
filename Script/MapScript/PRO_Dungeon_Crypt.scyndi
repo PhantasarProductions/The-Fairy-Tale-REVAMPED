@@ -1,0 +1,169 @@
+// License:
+// **********************************************
+// 
+// src/Code/Script/MapScript/PRO_Dungeon_Crypt.scyndi
+// (c) Jeroen Broks, 2021, 2022, 2026, All Rights Reserved.
+// 
+// This file contains material that is related
+// to a storyline that is which is strictly
+// copyrighted to Jeroen Broks.
+// 
+// This file may only be used in an unmodified
+// form with an unmodified version of the
+// software this file belongs to.
+// 
+// You may use this file for your study to see
+// how I solved certain things in the creation
+// of this project to see if you find valuable
+// leads for the creation of your own.
+// 
+// Mostly this file comes along with a project
+// that is for most part released under an
+// open source license and that means that if
+// you use that code with this file removed
+// from it, you can use it under that license.
+// Please check out the other files to find out
+// which license applies.
+// 
+// This file comes 'as-is' and in no possible
+// way the author can be held responsible of
+// any form of damages that may occur due to
+// the usage of this file
+// 
+// 
+// **********************************************
+// 
+// 
+// version: 26.02.21
+// 
+// End License
+
+
+Script
+
+#use "Libs/SCI/Kthura"
+#use "Libs/SCI/InterVar"
+
+#use "Script/Use/Link"
+#use "Script/Use/Anyway"
+#use "Script/Use/Misc/Steps"
+
+Group TrueScript
+
+	ReadOnly Bool HasDraw   = False
+	ReadOnly Bool HasUpdate = False
+	
+	ReadOnly int LightZones = 10
+	
+	Int Lit = -1
+
+	Void AllDark()
+		if Lit>=0
+			Return
+		End
+		Lit=0
+		For i=0,LightZones
+			Map.ColorByLabel("BLZ"..i,0,0,0)
+		End
+	End
+	
+	Void LightCandles(Int z)
+		if z<lit
+			Return
+		End
+		lit=z
+		For i=0,LightZones
+			Int v := math.max(1,i-z)
+			Map.ColorByLabel("BLZ"..i,255 div v,180 div v,0)
+		End
+		Map.TexByLabel("BLZ"..z,"GFX/Textures/Objects/Kaars.jpbf","Obstacle")
+		if Kthura.HaveObj("Boss")
+			Kthura.Obj.Boss.Texture = GFX/Combat/Fighters/Foe/Reg/Zombie.png
+		End
+	End
+	
+	Void StartBoss()
+		Map.Kill("StartBoss",true)
+		Map.Kill("Boss",true)		
+		Combat.Boss("Undead Leader","Super Zombie")
+		Combat.Arena = Kthura.MetaData.Arena
+		Combat.Music = "Combat/AltBoss/Day Of Chaos.ogg"
+		Combat.Lose = "GameOver"
+		Combat.NewEnemy = "Boss/SuperZombie"		
+		Combat.Start()
+		Kthura.Obj.Player.StopWalking()
+	End
+	
+	Void ResetRespawn()
+		Respawn.Reset()
+	End
+	
+	Get Bool _StepsPuzzle
+		//static Bool AlreadyDone
+		locExtern AlreadyDone "MapScript_HandoStillor_Crypt_Prologue_StepPuzzle_AlreadyDone"
+		if AlreadyDone			
+			return true
+		End
+		AlreadyDone = true
+		return gbool.prologue_handostillor_crypt_steps
+	End
+	
+	Set Bool _StepsPuzzle
+		gbool.prologue_handostillor_crypt_steps = value
+	End
+	
+	Void StartPuzzle()
+		If ! _StepsPuzzle 
+			Steps.Start({["width"]=30,["height"]=16,["plusx"]=64,["plusy"]=160,["tilesize"]=32,["tileprefix"]="YurgonTile_",["correct"]="WENIARIA"}) 
+		End
+	End
+	
+	Void PuzzleSolved()
+		Audio.LoadNew("Audio/SFX/Solved.ogg","SOLVED").Play()
+		Steps.RemoveBadCells()
+		_StepsPuzzle = True
+	End
+	
+	Void ToEnd()
+		// Makes sure the ZA is empty, as the puzzle was really a killer on the performance
+		Map.GoToMap("PRO_Dungeon_Crypt","#008","Start")		
+	End
+	
+	Void Angevin()
+		Music.Play("Music/Hub/Angevin.ogg")
+	End
+	
+	Void LeaveEnd()
+		Map.GoToMap("PRO_Dungeon_Crypt","#007","Einde")
+	End
+	
+	Void InitEnd()
+		MapText("THE_END")
+		Map.GoToMap("PRO_TheEnd","HANDO STILLOR","Start")
+	End
+End	
+	
+Init
+	ZA.TabEnter{"AllDark","StartBoss","ResetRespawn","StartPuzzle","PuzzleSolved","ToEnd","LeaveEnd","Angevin","InitEnd" }
+	For i=1,lightzones
+		ZA.Enter("ABZ"..i)
+	End
+	Ach.Award("SCEN_PROLOGUE_CRYPT")
+End
+	
+
+
+QuickMeta MScript
+	index
+		If Prefixed(Key,"ABZ")
+			TrueScript.LightCandles(Lua.tonumber(Right(Key,#Key-3)))
+			Return NIKS
+		ElseIf Prefixed(key,"StepsAction_")
+			Var k = split(key,"_")
+			CSayF("Action %s",key)
+			Steps.Action(k[2])
+			Return Niks
+		End
+		Return TrueScript[Key]
+	End
+End
