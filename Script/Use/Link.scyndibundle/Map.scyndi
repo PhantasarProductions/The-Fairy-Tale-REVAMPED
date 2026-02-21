@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Link.scyndibundle/Map.scyndi
 // 
-// 	  Version: 26.02.21 II
+// 	  Version: 26.02.21 X
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -78,7 +78,9 @@ Group Player
 	End
 	
 	Void WalkTo(a,b,c)
-		Lua.Scyndi.AllIdentifiers.Map.MCall("FlowField.Map.CurLayer.Obj('PLAYER').WalkTo",a,b,c)
+		//Lua.Scyndi.AllIdentifiers.Map.MCall("FlowField.Map.CurLayer.Obj('PLAYER').WalkTo",a,b,c)
+		//Sys.Call("FLOW_FIELD","FlowField.Map.CurLayer.Obj.PLAYER.WalkTo",a,b,c)
+		Kthura.Obj.Player.WalkTo(a,b,c)
 	End
 End
 
@@ -273,7 +275,16 @@ End
 	
 	Void _Script(String Func,Args)
 		//State.Call("MAPSCRIPT","MScript."..Func,"\""..Lua.tostring(Args).."\"")
-		Sys.Call("MAPSCRIPT","MScript."..Func,Args)
+		//Sys.Call("MAPSCRIPT","MScript."..Func,Args)
+		plua s
+		plua e
+		s,e = Lua.pcall(Sys.Call,"MAPSCRIPT","MScript."..Func,Args)
+		if (!s)
+			CSayF("Map._Script(\"%s\",%s): Failure: %s",Func,Args,e)
+			Sys.Traceback()
+			printf("\x1b[95m%s\n",lua.debug.traceback())
+			Lua.error("MapScript Failure: "..e)
+		End
 	End
 	
 	Get Var $Script
@@ -535,6 +546,8 @@ End
 	Table LayTags(string Layer)
 		return XSplit(ISGet.String("FLOW_FIELD",sprintf("FlowField.Map.KthuraMap.Layer(\"%s\").TagList",Layer)),",")
 	End
+	
+
 
 	
 	//CONSTRUCTOR
