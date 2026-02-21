@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/CL2_Class_Hero.scyndi
 // 
-// 	  Version: 26.02.21 IV
+// 	  Version: 26.02.21 V
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -674,7 +674,7 @@ Var CheckAbilityLearn(Act)
 						Return nil
 					End
 					Table TR = Fighter.GetTags("Foe")
-					TT = TR[math.random(0,len(TR))]
+					TT = TR[math.random(0,len(TR)-1)]
 				Until Fighter.ByTag[TT].HP>0
 				ActTar = {TT}
 			End
