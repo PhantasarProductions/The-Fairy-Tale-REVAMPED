@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Link.scyndibundle/Map.scyndi
 // 
-// 	  Version: 26.02.21
+// 	  Version: 26.02.21 II
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -403,7 +403,8 @@ End
 	End
 	
 	Get String Arena
-		Return ISGET.String("FLOW_FIELD","FlowField.Map.KthuraMap.Meta.Arena")
+		//Return ISGET.String("FLOW_FIELD","FlowField.Map.KthuraMap.Meta.Arena")
+		Return Kthura.MetaData.Arena
 	End
 	
 	Void GoToSave()
