@@ -39,6 +39,10 @@
 
 module 
 
+#accept Audio
+#accept LoadNewImage
+
+
 	bool DrawOvertake
 	var Flame
 	var MAudio
@@ -47,12 +51,8 @@ module
 	int Frame
 	var Act
 	
-	// The difference between a CONSTRUCTOR and the and Init function
-	// Is that CONSTRUCTOR is only automatically loaded when this
-	// module is called fo the first time in a combat.
-	// Init will be called EVERY time a move is being performed.
-	CONSTRUCTOR
-		self.Flame = Image.LoadNew("gfx/Combat/SpellAni/Flame.jpbf","SPELLANI_Flame")
+	Init
+		self.Flame = LoadNewImage("gfx/Combat/SpellAni/Flame.jpbf","SPELLANI_Flame")
 		self.MAudio = Audio.LoadNew("Audio/SpellAni/Fire.ogg","SPELLANI_Flame")
 		self.Flame.HotBottomCenter()
 	end	
@@ -94,4 +94,3 @@ module
 		return self.Frame>=10
 	end
 	
-end
