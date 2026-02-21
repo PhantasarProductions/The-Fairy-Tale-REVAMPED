@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/MapScript/PRO_Hub_Weniaria.scyndi
 // 
-// 	  Version: 26.02.21
+// 	  Version: 26.02.21 II
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -45,10 +45,12 @@
 
 Script
 
+#use "Libs/SCI/Sys"
 #use "Libs/SCI/InterVar"
 
 #use "Script/Use/Link"
 #use "Script/Use/Anyway"
+#use "Script/Use/Convert"
 
 Group MScript
 
