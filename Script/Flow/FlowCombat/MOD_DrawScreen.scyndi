@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/MOD_DrawScreen.scyndi
 // 
-// 	  Version: 26.02.21
+// 	  Version: 26.02.21 IV
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -68,7 +68,7 @@ Module
 	Void LoadArena(string Ar)
 		String ArN := Replace(Upper(Ar),".PNG","")
 		String ArI := Upper("GFX/Combat/Arena/"..Ar..".png")
-		String ArS := Upper("GFX/Combat/Arena/ARENA_"..Ar)
+		String ArS := Upper("Script/Use/Combat/Arena/ARENA_"..Ar)
 		If (Right(Ari,4)!=".PNG") 
 			ArI += ".PNG"
 		End
@@ -79,8 +79,8 @@ Module
 			ArenaImg = nil
 			CSayF("Skipped loading arena image: %s (does not exist)",ArI)
 		End
-		If JCR6.EntryExists("Script/Use/Combat/Arena/"..ArN..".lbc")
-			AScr := NeilUse("Script/Use/Combat/Arena/"..ArN)
+		If JCR6.EntryExists(ArS..".lbc")
+			AScr := NeilUse(ArS)
 			ArenaPre = AScr.Pre
 			ArenaPst = AScr.Pst
 		Else
