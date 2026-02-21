@@ -40,13 +40,16 @@
 
 Module
 
+	#use "Libs/SCI/Graphics"
 	#use "Libs/SCI/BlopPlasma"
 
 	Void Pst()
 	End
 	
 	Void Pre()
+		Color(255,255,255)
 		BlopPlasma.Draw()
+		Color(255,255,255)
 	End
 
 //End
