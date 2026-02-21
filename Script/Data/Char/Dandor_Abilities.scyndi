@@ -1,8 +1,8 @@
-// License Information:
+// License:
 // **********************************************
 // 
-// src/Tricky Script/Script/Data/Char/Dandor/Abilities.neil
-// (c) Jeroen Broks, 2021, All Rights Reserved.
+// src/Code/Script/Data/Char/Dandor_Abilities.scyndi
+// (c) Jeroen Broks, 2021, 2026, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -24,6 +24,7 @@
 // from it, you can use it under that license.
 // Please check out the other files to find out
 // which license applies.
+// 
 // This file comes 'as-is' and in no possible
 // way the author can be held responsible of
 // any form of damages that may occur due to
@@ -32,21 +33,19 @@
 // 
 // **********************************************
 // 
-// version: 21.10.30
-// End License Information
+// 
+// version: 26.02.21
+// 
+// End License
 
 Init
-	plua r
-	#pure
-	r = {
-                 ["1. Dandor's Abilities"]  = {
-                             abl_hero_dandor_axesmash={16},
-                             abl_hero_dandor_superaxesmash={50},
-                             abl_hero_dandor_shield={[2]=15},
-                             abl_hero_dandor_barrier={[3]=15}
-                             --abl_hero_dandor_iddqd={[2]=100,[3]=100}
-                             },
-          }
-	#endpure
+	rp ={}
+	r = {}
+    r["1. Dandor's Abilities"]=rp
+                             rp.abl_hero_dandor_axesmash={16}
+                             rp.abl_hero_dandor_superaxesmash={50}
+                             rp.abl_hero_dandor_shield={[2]=15}
+                             rp.abl_hero_dandor_barrier={[3]=15}
+                             //--abl_hero_dandor_iddqd={[2]=100,[3]=100}
 	QuickWork(r,"Dandor")
 End
