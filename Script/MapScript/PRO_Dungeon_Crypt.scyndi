@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.21
+// version: 26.02.21 I
 // 
 // End License
 
@@ -78,7 +78,7 @@ Group TrueScript
 		End
 		Map.TexByLabel("BLZ"..z,"GFX/Textures/Objects/Kaars.jpbf","Obstacle")
 		if Kthura.HaveObj("Boss")
-			Kthura.Obj.Boss.Texture = GFX/Combat/Fighters/Foe/Reg/Zombie.png
+			Kthura.Obj.Boss.Texture = "GFX/Combat/Fighters/Foe/Reg/Zombie.png"
 		End
 	End
 	
@@ -156,7 +156,7 @@ End
 QuickMeta MScript
 	index
 		If Prefixed(Key,"ABZ")
-			TrueScript.LightCandles(Lua.tonumber(Right(Key,#Key-3)))
+			TrueScript.LightCandles(Lua.tonumber(Right(Key,Len(Key)-3)))
 			Return NIKS
 		ElseIf Prefixed(key,"StepsAction_")
 			Var k = split(key,"_")
