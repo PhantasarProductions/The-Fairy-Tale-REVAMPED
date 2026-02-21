@@ -34,13 +34,17 @@
 // **********************************************
 // 
 // 
-// version: 26.02.21 I
+// version: 26.02.22 II
 // 
 // End License
 
 
 Script
 
+#use "Libs/Music"
+
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/Audio"
 #use "Libs/SCI/Kthura"
 #use "Libs/SCI/InterVar"
 
@@ -63,7 +67,7 @@ Group TrueScript
 		End
 		Lit=0
 		For i=0,LightZones
-			Map.ColorByLabel("BLZ"..i,0,0,0)
+			Kthura.ColorByLabel("BLZ"..i,0,0,0)
 		End
 	End
 	
@@ -74,10 +78,10 @@ Group TrueScript
 		lit=z
 		For i=0,LightZones
 			Int v := math.max(1,i-z)
-			Map.ColorByLabel("BLZ"..i,255 div v,180 div v,0)
+			Kthura.ColorByLabel("BLZ"..i,255 div v,180 div v,0)
 		End
-		Map.TexByLabel("BLZ"..z,"GFX/Textures/Objects/Kaars.jpbf","Obstacle")
-		if Kthura.HaveObj("Boss")
+		Kthura.TexByLabel("BLZ"..z,"GFX/Textures/Objects/Kaars.jpbf","Obstacle")
+		if Kthura.HasObj("Boss")
 			Kthura.Obj.Boss.Texture = "GFX/Combat/Fighters/Foe/Reg/Zombie.png"
 		End
 	End
@@ -144,8 +148,8 @@ Group TrueScript
 End	
 	
 Init
-	ZA.TabEnter{"AllDark","StartBoss","ResetRespawn","StartPuzzle","PuzzleSolved","ToEnd","LeaveEnd","Angevin","InitEnd" }
-	For i=1,lightzones
+	ZA.TabEnter{[0]="AllDark","StartBoss","ResetRespawn","StartPuzzle","PuzzleSolved","ToEnd","LeaveEnd","Angevin","InitEnd" }
+	For i=1,TrueScript.lightzones
 		ZA.Enter("ABZ"..i)
 	End
 	Ach.Award("SCEN_PROLOGUE_CRYPT")
