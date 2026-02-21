@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/MOD_DrawScreen.scyndi
 // 
-// 	  Version: 26.02.19 I
+// 	  Version: 26.02.21
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -67,7 +67,7 @@ Module
 	
 	Void LoadArena(string Ar)
 		String ArN := Replace(Upper(Ar),".PNG","")
-		String ArI := Upper("GFX/Combat/Arena/"..Ar)
+		String ArI := Upper("GFX/Combat/Arena/ARENA_"..Ar)
 		If (Right(Ari,4)!=".PNG") 
 			ArI += ".PNG"
 		End
