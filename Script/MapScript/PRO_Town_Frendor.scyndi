@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.20 XII
+// version: 26.02.21
 // 
 // End License
 
@@ -298,7 +298,8 @@ Group MScript
 	End
 	
 	Void LoadMe()
-		ZA.TabEnter{"ExitHouse","Elder_Exit","ComeInEvents","B_Exit", "ByeBye","Byebye","EnterMarrilona" }
+		CSay("Welcome to Frendor")
+		ZA.TabEnter{[0]="ExitHouse","Elder_Exit","ComeInEvents","B_Exit", "ByeBye","Byebye","EnterMarrilona" }
 		For L in Each {"wands","weapons","items","inn"}
 			ZA.Enter("enter_"..L,"EnterBuilding",l:upper())
 		End
