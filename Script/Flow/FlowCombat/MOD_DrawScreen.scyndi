@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/MOD_DrawScreen.scyndi
 // 
-// 	  Version: 26.02.21 IV
+// 	  Version: 26.02.21 VI
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -67,11 +67,11 @@ Module
 	
 	Void LoadArena(string Ar)
 		String ArN := Replace(Upper(Ar),".PNG","")
-		String ArI := Upper("GFX/Combat/Arena/"..Ar..".png")
+		String ArI := Upper("GFX/Combat/Arena/"..StripExt(Ar)..".png")
 		String ArS := Upper("Script/Use/Combat/Arena/ARENA_"..Ar)
-		If (Right(Ari,4)!=".PNG") 
-			ArI += ".PNG"
-		End
+		//If (Right(Upper(Ari),4)!=".PNG") 
+		//	ArI += ".PNG"
+		//End
 		If JCR6.EntryExists(ArI)
 			CSayF("Loading arena image: %s",ArI)
 			ArenaImg = LoadImage(ArI,"COMBAT_ARENA")
