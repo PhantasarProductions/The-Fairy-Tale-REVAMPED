@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/CL2_Class_Hero.scyndi
 // 
-// 	  Version: 26.02.21 III
+// 	  Version: 26.02.21 IV
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -536,7 +536,7 @@ Class Stage_PlayerInput_Ability
 	String Chosen = ""
 
 	Void Draw()
-		ubox = ubox ||  new Box(BX,BY,BW,BH,False)
+		ubox = ubox ||  new CBox(BX,BY,BW,BH,False)
 		ubox.Draw()
 		Chosen = Item.AbilityOverview(Exe,bx,by,bw,bh,"InCombat")
 		Mouse.Draw()
