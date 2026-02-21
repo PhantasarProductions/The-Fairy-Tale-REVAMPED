@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/CL2_Class_Hero.scyndi
 // 
-// 	  Version: 26.02.21 II
+// 	  Version: 26.02.21 III
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -513,6 +513,7 @@ Class Stage_PlayerInput_Ability
 	Link Register = Stage.Register
 	
 	Bool DontCheckForVictory = True
+	Void FlashChar(); End
 	
 
 	ReadOnly Int BX = 100
