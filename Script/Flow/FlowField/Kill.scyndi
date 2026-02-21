@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowField/Kill.scyndi
 // 
-// 	  Version: 26.02.12
+// 	  Version: 26.02.21 II
 // 	
 // 	  Copyright (C) 2026 Jeroen Petrus Broks
 // 	
@@ -51,6 +51,7 @@ Module
 #use "Libs/SCI/Sys"
 #use "Libs/SCI/GINIE"
 #use "Libs/SCI/Kthura"
+#use "Libs/SCI/SString"
 
 plua KillData = GINIE.CreateNew("MAP_KILLDATA")
 
@@ -62,7 +63,21 @@ Void Kill(String Tag,perma)
 End
 
 Void KillByPrefix(String Pre,bool Permanent)
-	Lua.error("KillByPrefix has not yet been impemented")
+	//Lua.error("KillByPrefix has not yet been impemented")
+	Victims:={}
+	CSayF("KillByPrefix(\"%s\",\"%s\"): Scanning Tags!",Pre,Permanent)
+	For V in Each(Kthura.TagList)
+		If Prefixed(V,Upper(Pre))
+			Victims+=V
+			CSayF("KillByPrefix(\"%s\",\"%s\"): Scheduled '%s' for liquidation!",Pre,Permanent,V)
+		Else
+			CSayF("KillByPrefix(\"%s\",\"%s\"): Scheduled '%s' may live on!",Pre,Permanent,V)
+		End
+	End
+	For V in Each(Victims)
+		Kill(V,Permanent)
+		CSayF("KillByPrefix(\"%s\",\"%s\"): Liquidation '%s' complete",Pre,Permanent,V)
+	End
 End
 
 
