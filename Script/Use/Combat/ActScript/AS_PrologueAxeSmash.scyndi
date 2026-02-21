@@ -1,0 +1,16 @@
+
+Module
+
+#accept CSay
+#accept FlowCombat
+#accept RPGChar
+
+Bool _Act(Act,Tar)
+	CSay("Marrilona is being chopped up!")
+	FlowCombat.Start.Lose = "Continue"
+	RPGChar.Marrilona.Points.HP.Have = 0
+	FlowCombat.charmsg("Marrilona","Ready to be food!",255,0,0)
+	CSay("Dwarf is ready to eat Marrilona")
+	Return True
+End
+
