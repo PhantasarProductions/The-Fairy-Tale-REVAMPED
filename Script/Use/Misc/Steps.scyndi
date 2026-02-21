@@ -1,8 +1,8 @@
-// License Information:
+// License:
 // **********************************************
 // 
-// src/Tricky Script/Script/Use/Misc/Steps.neil
-// (c) Jeroen Broks, 2016, 2017, 2021, All Rights Reserved.
+// src/Code/Script/Use/Misc/Steps.scyndi
+// (c) Jeroen Broks, 2015, 2016, 2021, 2026, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -24,6 +24,7 @@
 // from it, you can use it under that license.
 // Please check out the other files to find out
 // which license applies.
+// 
 // This file comes 'as-is' and in no possible
 // way the author can be held responsible of
 // any form of damages that may occur due to
@@ -32,9 +33,24 @@
 // 
 // **********************************************
 // 
-// version: 21.11.05
-// End License Information
+// 
+// version: 26.02.21 XI
+// 
+// End License
+
+
 Module
+
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/Audio"
+#use "Libs/SCI/Graphics"
+
+#use "Script/Use/Link"
+#use "Script/Use/Anyway"
+#use "Script/Use/Convert"
+
+plua Niks()
+End
 
 	ReadOnly Delegate Rand = math.random
 
@@ -54,7 +70,7 @@ Module
 	String Wrong
 	
 	Get Var StepsPuzzle
-		Return Self
+		Return Steps
 	End
 	
 	Void Fail(cell)
@@ -65,7 +81,7 @@ Module
 		Graphics.Cls()
 		Map.DrawScreen()
 		Graphics.Flip()
-		FPS.Sleep(150)
+		Sys.Sleep(150)
 		//-- InitStepsPuzzleA(StepsPuzzle.Table)
 		//Maps.Obj.Kill("PLAYER")
 		//SpawnPlayer("Start")
@@ -81,14 +97,15 @@ Module
 		end
 	End
 	
-	Void Start(Table _config)
-		Static Bool StartDone = False
+	Void Start( _config)
+		//Static Bool StartDone = False
+		LocExtern StartDone "Script_Use_Misc_Steps_Start_StartDone"
 		If StartDone
 			StartDone = True
 			Return
 		End
 		For k,v in pairs(_config)
-			Self[k]=v
+			Steps[k]=v
 		End
 		
 		//s
@@ -97,7 +114,7 @@ Module
 		Progress.Create("Steps2",Height, 255, 165,   0)
 		Progress.Create("Steps3",    26, 255,   0,   0)
 		ConfiguringData()
-		StepsZADone = StepsZADone or {}
+		StepsZADone = StepsZADone || {}
 		//StepsPuzzle = {}
 		//StepsPuzzle.Table = _config
 		Field = {}
@@ -110,7 +127,7 @@ Module
 			Progress.Steps3=i-64
 			ConfiguringData()
         	plua have=false
-        	for i2=1,#correct 
+        	for i2=1,len(correct) 
         		have=have || mid(correct,i2,1)==chr(i) 
         	end
         	if !have 
@@ -123,37 +140,37 @@ Module
         int action = 10
         for y=1,height 
         	Progress.Steps2=y
-        	plua range = {cur,cur+1}
-        	plua ry = Lua.tonumber(right(y,1))
+        	range := {cur,cur+1}
+        	ry := Lua.tonumber(right(y,1))
         	if ry==0 || ry==2 || ry==4 || ry==6 || ry==8 
         		action=rand(1,10)
         	end
         	Switch action
             	CASE 1
-            		plua tocur = rand(1,cur)
+            		tocur := rand(1,cur)
             		range = {tocur,cur+1}
             		cur = tocur
             	CASE 2
-            		plua tocur = rand(cur,width-2)
+            		tocur := rand(cur,width-2)
             		range = {cur,tocur+1}
             	DEFAULT
             end
             for x=1,width 
             	progress.Steps1=x
             	ConfiguringData()
-            	plua ox=((x-1)*(tilesize or 32))+(plusx or 0)
-            	plua oy=((y-1)*(tilesize or 32))+(plusy or 0)
-            	plua cell = {}
+            	ox:=((x-1)*(tilesize || 32))+(plusx || 0)
+            	oy:=((y-1)*(tilesize || 32))+(plusy || 0)
+            	cell := {}
             	cell.Tag="TILEX"..x.."Y"..y
             	Field[cell.Tag]=cell
             	cell.x=ox
             	cell.y=oy
             	if x>=range[1] && x<=range[2]
             		cell.action=Niks
-            		cell.letter=mid(StepsPuzzle.Correct,rand(1,#Correct),1)
+            		cell.letter=mid(StepsPuzzle.Correct,rand(1,Len(Correct)),1)
             	else
             		cell.action=Fail
-            		cell.letter=mid(StepsPuzzle.Wrong  ,rand(1,#Wrong  ),1)
+            		cell.letter=mid(StepsPuzzle.Wrong  ,rand(1,Len(Wrong)  ),1)
             	end
             	if !StepsZADone[cell.Tag] 
             		ZA.Enter(cell.Tag,"StepsAction_"..cell.Tag); 
@@ -183,7 +200,7 @@ Module
 	
 	Void Action(string Tag)
 		Lua.assert(Field[Tag],SPrintF("There is no steps tile tagged '%s'",Tag))
-		Field[tag]:action()
+		Field[tag].action()
 	End
 	
-End
+//End
