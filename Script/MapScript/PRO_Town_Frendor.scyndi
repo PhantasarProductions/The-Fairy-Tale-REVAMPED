@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.21
+// version: 26.02.21 II
 // 
 // End License
 
@@ -168,19 +168,19 @@ Group MScript
 	Void OrbChosen()
 		//String Elem = ({"","Fire","Wind","Water","Earth"})[gv.gint.ManaOrb_LastChosen]
 		MapText("ELDER_OVER")
-		MapText("MARRILONA_OVER"..gv.gint.ManaOrb_LastChosen)
+		MapText("MARRILONA_OVER"..gint.ManaOrb_LastChosen)
 		MapText("ELDER_WARNING")
 	End
 	
 	Void Elder_Exit()
 		MapText("ELDER_WARNING")
 		Combat.Boss("Hungry Fellow","Dwarf")
-		Combat.Arena = Lua.Neil.Globals.Map.Arena
+		Combat.Arena = Lua.Scyndi.Class.Map.Arena
 		Combat.Music = "*BOSS"
 		Combat.Lose = "GameOver"
 		Combat.NewEnemy = "Boss/Dwarf"
 		Combat.StartEvent = "StartBoss"
-		Lua.Neil.Globals.Map.StopWalking()
+		Lua.Scyndi.Class.Map.StopWalking()
 		Combat.Start()
 		Schedule.Add("PostBoss")
 	End
