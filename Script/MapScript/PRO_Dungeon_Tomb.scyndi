@@ -35,11 +35,17 @@
 // version: 22.06.29
 // End License Information
 
+Script
+
+#use "Libs/SCI/Kthura"
+#use "Libs/SCI/Intervar"
+
+#use "Script/Use/Link"
 #use "Script/Use/Anyway"
 #use "Script/Use/Misc/PuzSet"
 
-#macro __DoneBrug gv.gbool.Prologue_Dandor_FeenalariasTomb_Brug
-#macro __BrugAlph gv.gint.Prologue_Dandor_FeenalariasTomb_Brug_Alpha
+#macro __DoneBrug gbool.Prologue_Dandor_FeenalariasTomb_Brug
+#macro __BrugAlph gint.Prologue_Dandor_FeenalariasTomb_Brug_Alpha
 
 Group TrueMScript
 
@@ -69,12 +75,14 @@ Group TrueMScript
 	End
 	
 	Void NPC_Brug()
-		Map.SetObj("NPC_Brug","Texture","GFX/Textures/Switch/Left.png")
+		//Map.SetObj("NPC_Brug","Texture","GFX/Textures/Switch/Left.png")
+		Kthura.Obj.NPC_Brug.Texture="GFX/Textures/Switch/Left.png"
 		__DoneBrug = True
 	End
 	
 	Void Update()
-		Static Bool BrugCheck = False
+		//Static Bool BrugCheck = False
+		LocExtern BrugCheck "MapScript_FeenalariasTomb_Update_BrugCheck"
 		If Map.Layer=="#001" && __DoneBrug
 			__BrugAlph = math.min(255,__BrugAlph+1)
 			For i=1,2
@@ -121,8 +129,8 @@ Group TrueMScript
 			Player.StopWalking()
 			Map.Pop("Full_","North",true)
 			MapText("FEENA_REVIVE_1")
-			gv.gInt.MarFeena_HP=1
-			gv.gBool.MarFeena_Curse=True
+			gInt.MarFeena_HP=1
+			gBool.MarFeena_Curse=True
 			For a=0,255,0.4
 				Map.SetObj("Feenalaria","Alpha",math.ceil(a))
 				Graphics.Cls()
