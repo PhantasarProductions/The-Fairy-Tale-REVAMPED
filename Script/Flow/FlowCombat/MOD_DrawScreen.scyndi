@@ -67,7 +67,8 @@ Module
 	
 	Void LoadArena(string Ar)
 		String ArN := Replace(Upper(Ar),".PNG","")
-		String ArI := Upper("GFX/Combat/Arena/ARENA_"..Ar)
+		String ArI := Upper("GFX/Combat/Arena/"..Ar..".png")
+		String ArS := Upper("GFX/Combat/Arena/ARENA_"..Ar)
 		If (Right(Ari,4)!=".PNG") 
 			ArI += ".PNG"
 		End
