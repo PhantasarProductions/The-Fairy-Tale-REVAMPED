@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Subs/SubItems.scyndi
 // 
-// 	  Version: 26.02.19
+// 	  Version: 26.02.21 I
 // 	
 // 	  Copyright (C) 2021-'22, 2026 Jeroen Petrus Broks
 // 	
@@ -532,16 +532,18 @@ Global String AblCheckLearn(String Char)
 		NeilUse("Script/Data/Char/"..char.."_Abilities")
 	End
 	For tag,abl in pairs(Abilities[Char].Ability)
-		Print("ABLCHECKLEARN> ",type(abl),tag)
+		CSayF("ABLCHECKLEARN> %s\t%s",type(abl),tag)
 		Bool ReqOk=!abl.Unlocked
 		Bool AllZero = True
 		For si=1,5 			
 			If Abl["Req"..si]>0
 				ReqOk = ReqOk && (!abl.Unlocked) && RPGChar[Char].Points["LVL_Skill"..si].Have>=Abl["Req"..si]
 				AllZero=False
+				CSayF("Skill #%d: %s - %d must be %d -> %s - ReqOK: %s",si,tag,RPGChar[Char].Points["LVL_Skill"..si].Have,Abl["Req"..si],RPGChar[Char].Points["LVL_Skill"..si].Have>=Abl["Req"..si],ReqOk)
 			End
 		End		
 		if ReqOk && (!AllZero)
+			CSayF("Time to learn: %s",tag)
 			abl.Unlocked=true
 			Return tag
 		End
