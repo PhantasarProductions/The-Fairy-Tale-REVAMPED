@@ -34,11 +34,13 @@
 // **********************************************
 // 
 // 
-// version: 26.02.20 X
+// version: 26.02.20 XII
 // 
 // End License
 
 Script
+
+#use "Libs/Music"
 
 #use "Libs/SCI/Sys"
 #use "Libs/SCI/InterVar"
@@ -304,5 +306,5 @@ Group MScript
 End
 
 Init
-	LoadMe()
+	MScript.LoadMe()
 End
