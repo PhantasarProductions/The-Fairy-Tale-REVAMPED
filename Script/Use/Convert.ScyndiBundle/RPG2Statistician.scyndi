@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Convert.ScyndiBundle/RPG2Statistician.scyndi
 // 
-// 	  Version: 26.02.18 I
+// 	  Version: 26.02.21
 // 	
 // 	  Copyright (C) 2026 Jeroen Petrus Broks
 // 	
@@ -209,6 +209,7 @@ End
 
 
 
+
 QuickMeta RPGChar
 	NewIndex
 		Lua.error("RPGChar not yet set up for writing")
@@ -220,6 +221,8 @@ QuickMeta RPGChar
 		Switch Key
 			case "CREATECHARACTER" "NEWCHAR" "CREATE"
 				return __RPGChar.NewChar
+			case "EXISTS"
+				return _rpgstat.HasChar
 			default
 				//Lua.error(sprintf("RPGChar does not have a readable member called \"%s\"",Key))
 				__RPGChar.Lijst=__RPGChar.Lijst||{}
