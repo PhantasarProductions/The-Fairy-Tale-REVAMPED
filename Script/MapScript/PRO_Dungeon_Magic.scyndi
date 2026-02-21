@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/MapScript/PRO_Dungeon_Magic.scyndi
 // 
-// 	  Version: 26.02.21 VIII
+// 	  Version: 26.02.21 IX
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -172,4 +172,5 @@ End
 Init
 	MScript.Begin()
 	gbool.MapScriptSettings_MSDraw_CallBack=true
+	gbool.MapScriptSettings_MSUpdate_CallBack=true
 End
