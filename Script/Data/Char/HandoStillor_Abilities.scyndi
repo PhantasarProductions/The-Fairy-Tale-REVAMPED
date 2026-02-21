@@ -34,11 +34,16 @@
 // **********************************************
 // 
 // 
-// version: 26.02.21 I
+// version: 26.02.21 IX
 // 
 // End License
 
 Module
+
+#accept Done
+#accept gbool
+#accept RPGChar
+#accept QuickWork
 
 Init
 
@@ -86,16 +91,16 @@ r["2. Level 2"] = rp
                        rp.abl_hero_handostillor_smite = {(skill^skill)+(2*skill)},                    // 2
                        rp.abl_hero_handostillor_whizzy = {[2]=50},                                    // 3
                        rp.abl_hero_handostillor_prayforall = { 8*skill, math.ceil(3^skill) *2 }       // 4
-                     }
+  
 
-  if skill~=3 
+  if skill!=3 
      r["3. Level 3"].abl_hero_handostillor_resurrect = { [2] = ({20,50})[skill]} //5
      r["3. Level 3"].abl_hero_handostillor_everybodykneelbeforeme = {10*skill,95}  //6 
    end 
-  if newgameplus then
+  if newgameplus 
      r["3. Level 3"].abl_hero_handostillor_firestorm = { [1]=9*skill,[2]=({25,60,90})[skill]} // 7
   end
-end             
+//end             
 
 QuickWork(r,"HandoStillor")
 
