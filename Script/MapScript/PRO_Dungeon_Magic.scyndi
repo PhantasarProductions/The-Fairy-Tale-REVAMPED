@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/MapScript/PRO_Dungeon_Magic.scyndi
 // 
-// 	  Version: 26.02.21 III
+// 	  Version: 26.02.21 VIII
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -45,10 +45,13 @@
 
 Script
 
+#use "Libs/SCI/Kthura"
 #use "Libs/SCI/InterVar"
 #use "Libs/SCI/BlopPlasma"
 
 #use "Libs/XMath"
+
+#use "Script/Use/Link"
 #use "Script/Use/Anyway"
 
 locExtern Blop "Scyndi.Class.BlopPlasma"
@@ -107,28 +110,28 @@ Group MScript
 	Void Z1()
 		PuzzTab[1] = !PuzzTab[1]
 		PuzzTab[5] = !PuzzTab[5]
-		Check()
+		MScript.Check()
 	End
 	Void Z2()
 		PuzzTab[2] = !PuzzTab[2]
 		PuzzTab[5] = !PuzzTab[5]
-		Check()
+		MScript.Check()
 	End
 	Void Z3()
 		PuzzTab[3] = !PuzzTab[3]
 		PuzzTab[5] = !PuzzTab[5]
-		Check()
+		MScript.Check()
 	End
 	Void Z4()
 		PuzzTab[4] = !PuzzTab[4]
 		PuzzTab[5] = !PuzzTab[5]
-		Check()
+		MScript.Check()
 	End
 	Void Z5()
 		For i = 1,5 
 			PuzzTab[i] = !PuzzTab[i]
 		End
-		Check()
+		MScript.Check()
 	End
 	Void BarrierLift()
 		Static Int A = 0
@@ -168,4 +171,5 @@ End
 
 Init
 	MScript.Begin()
+	gbool.MapScriptSettings_MSDraw_CallBack=true
 End
