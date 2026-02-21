@@ -34,14 +34,14 @@
 // **********************************************
 // 
 // 
-// version: 26.02.21 IX
+// version: 26.02.21 X
 // 
 // End License
 
 Module
 
-#accept Done
-#accept gbool
+#use "Libs/SCI/InterVar"
+
 #accept RPGChar
 #accept QuickWork
 
