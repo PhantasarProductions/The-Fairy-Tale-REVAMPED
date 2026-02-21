@@ -34,15 +34,16 @@
 // **********************************************
 // 
 // 
-// version: 26.02.21
+// version: 26.02.21 I
 // 
 // End License
 
 
 Module
-	Table askillup1 = {"Intelligence",5}
-	Table askillup2 = {"Intelligence",2}
-	Table askillup3 = {"Speed",2}
-	Table askillup4 = {"HP",2}
-	Table askillup5 = {"Endurance",1}
-End
+
+Table askillup1 = {"Intelligence",5}
+Table askillup2 = {"Intelligence",2}
+Table askillup3 = {"Speed",2}
+Table askillup4 = {"HP",2}
+Table askillup5 = {"Endurance",1}
+
