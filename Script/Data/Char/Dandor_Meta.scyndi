@@ -1,7 +1,7 @@
 // License:
 // **********************************************
 // 
-// src/Code/Script/Data/Char/Dandor/Meta.scyndi
+// src/Code/Script/Data/Char/Dandor_Meta.scyndi
 // (c) Jeroen Broks, 2021, 2026, All Rights Reserved.
 // 
 // This file contains material that is related
@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.01.31 I
+// version: 26.02.21
 // 
 // End License
 
@@ -55,7 +55,6 @@ Init
 	J.Skill1 = "Axe Chopping Abilities"
 	J.Skill2 = "Physical Defense"
 	J.Skill3 = "Magical Defense"	
-	J.Race = "Fairy"
 	P.EXP_Skill1.Have = 30 div __skill
 	S.BASE_SR_Poison = 90 div __skill
 	S.BASE_SR_Disease = 90 div __skill 
