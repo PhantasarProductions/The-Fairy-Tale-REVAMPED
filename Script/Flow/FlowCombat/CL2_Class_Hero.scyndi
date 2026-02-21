@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/CL2_Class_Hero.scyndi
 // 
-// 	  Version: 26.02.21
+// 	  Version: 26.02.21 I
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -638,7 +638,7 @@ Var CheckAbilityLearn(Act)
 	Table ActTar
 	Switch ActAbl.Target
 		Case "OS" "1A"
-			ActTar = { Act.Executor.Tag }
+			ActTar = { [0]=Act.Executor.Tag }
 		Case "EV"
 			ActTar = {}
 			For k,_ in pairs(Fighter.ByTag)
