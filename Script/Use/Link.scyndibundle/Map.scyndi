@@ -114,7 +114,8 @@ End
 	
 	Get String Layer
 		//Return ISGet.String("FLOW_FIELD","FlowField.Map.Layer")
-		Return gStr.Map_Layer
+		//Return gStr.Map_Layer
+		Return Kthura.CurrentLayer
 	End
 	
 	Set String Layer
