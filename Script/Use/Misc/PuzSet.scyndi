@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Misc/PuzSet.scyndi
 // 
-// 	  Version: 26.02.21 VI
+// 	  Version: 26.02.21 VIII
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -46,6 +46,8 @@ Module
 
 #use "Libs/SCI/Sys"
 #use "Libs/SCI/Intervar"
+
+#use "Script/Use/Link"
 
 LocExtern ll "#"
 
@@ -134,7 +136,7 @@ LocExtern ll "#"
 		LoopWhile Correct1==Correct2
 		int C2
 		CSayF("Correct tiles: %02d/%02d",Correct1,Correct2)
-		Table Tab = Self["Tex"..TReg]
+		Table Tab := PuzSet["Tex"..TReg]
 		CSayF("Number of Texures: %d",ll Tab)
 		For i=1,Num
 			CSayF("Setting tile: %02d/%02d",i,Num)
