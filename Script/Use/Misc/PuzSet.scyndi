@@ -1,40 +1,53 @@
-// License Information:
-// src/Tricky Script/Script/Use/Misc/PuzSet.neil
-// Version: 22.01.23
-// Copyright (C) 2021, 2022 Jeroen Petrus Broks
+// License:
+// 	  src/Code/Script/Use/Misc/PuzSet.scyndi
 // 
-// ===========================
-// This file is part of a project related to the Phantasar Chronicles or another
-// series or saga which is property of Jeroen P. Broks.
-// This means that it may contain references to a story-line plus characters
-// which are property of Jeroen Broks. These references may only be distributed
-// along with an unmodified version of the game.
+// 	  Version: 26.02.21 VI
+// 	
+// 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
+// 	
+// 	  ===========================
+// 	  This file is part of a project related to the Phantasar Chronicles or another
+// 	  series or saga which is property of Jeroen P. Broks.
+// 	  This means that it may contain references to a story-line plus characters
+// 	  which are property of Jeroen Broks. These references may only be distributed
+// 	  along with an unmodified version of the game.
 // 
-// As soon as you remove or replace ALL references to the storyline or character
-// references, or any termology specifically set up for the Phantasar universe,
-// or any other univers a story of Jeroen P. Broks is set up for,
-// the restrictions of this file are removed and will automatically become
-// zLib licensed (see below).
+// 	  As soon as you remove or replace ALL references to the storyline or character
+// 	  references, or any termology specifically set up for the Phantasar universe,
+// 	  or any other univers a story of Jeroen P. Broks is set up for,
+// 	  the restrictions of this file are removed and will automatically become
+// 	  zLib licensed (see below).
 // 
-// Please note that doing so counts as a modification and must be marked as such
-// in accordance to the zLib license.
-// ===========================
-// zLib license terms:
-// This software is provided 'as-is', without any express or implied
-// warranty.  In no event will the authors be held liable for any damages
-// arising from the use of this software.
-// Permission is granted to anyone to use this software for any purpose,
-// including commercial applications, and to alter it and redistribute it
-// freely, subject to the following restrictions:
-// 1. The origin of this software must not be misrepresented; you must not
-// claim that you wrote the original software. If you use this software
-// in a product, an acknowledgment in the product documentation would be
-// appreciated but is not required.
-// 2. Altered source versions must be plainly marked as such, and must not be
-// misrepresented as being the original software.
-// 3. This notice may not be removed or altered from any source distribution.
-// End License Information
+// 	  Please note that doing so counts as a modification and must be marked as such
+// 	  in accordance to the zLib license.
+// 	  ===========================
+// 
+// 
+// 	  zLib license terms:
+// 	
+// 	  This software is provided 'as-is', without any express or implied
+// 	  warranty.  In no event will the authors be held liable for any damages
+// 	  arising from the use of this software.
+// 
+// 	  Permission is granted to anyone to use this software for any purpose,
+// 	  including commercial applications, and to alter it and redistribute it
+// 	  freely, subject to the following restrictions:
+// 	
+// 	  1. The origin of this software must not be misrepresented; you must not
+// 	     claim that you wrote the original software. If you use this software
+// 	     in a product, an acknowledgment in the product documentation would be
+// 	     appreciated but is not required.
+// 	  2. Altered source versions must be plainly marked as such, and must not be
+// 	     misrepresented as being the original software.
+// 	  3. This notice may not be removed or altered from any source distribution.
+// End License
+
 Module
+
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/Intervar"
+
+LocExtern ll "#"
 
 	ReadOnly Int DefaultNum = 16
 	Int Num
@@ -54,12 +67,12 @@ Module
 	
 		
 	Bool IsSolved(string k)
-		CSayF("Checking solved %s => %s",k,tostring(gv.gbool["SET_PUZZLE_"..k]))
-		return gv.gbool["SET_PUZZLE_"..k]
+		CSayF("Checking solved %s => %s",k,tostring(gbool["SET_PUZZLE_"..k]))
+		return gbool["SET_PUZZLE_"..k]
 	End
 	
 	Void SetSolved(string k, bool v)
-		gv.gbool["SET_PUZZLE_"..k] = v
+		gbool["SET_PUZZLE_"..k] = v
 	End
 	
 	Get Bool Solved
@@ -93,7 +106,7 @@ Module
 	Table Pressed
 	
 	Void QC(string tag, string P)
-		for d in each{"R","G","B"}
+		for d in each{[0]="R","G","B"}
 			Map.SetObj(Tag,d,self[P..D])
 		end
 	End
@@ -122,7 +135,7 @@ Module
 		int C2
 		CSayF("Correct tiles: %02d/%02d",Correct1,Correct2)
 		Table Tab = Self["Tex"..TReg]
-		CSayF("Number of Texures: %d",#Tab)
+		CSayF("Number of Texures: %d",ll Tab)
 		For i=1,Num
 			CSayF("Setting tile: %02d/%02d",i,Num)
 			Int TimeOut=10000
@@ -132,10 +145,10 @@ Module
 				If TimeOut<0
 					Lua.error("Puzzle initiation time-out! ("..i..") Stage 1") // Safety pre-caution
 				End
-				RT = math.random(1,#Tab)
+				RT = math.random(1,ll Tab)
 			LoopWhile Used[RT]			
 			Used[RT]=i
-			CSayF("- Tile: %02d/%02d; Tex: %02d/%02d;",i,num,RT,#Tab) 
+			CSayF("- Tile: %02d/%02d; Tex: %02d/%02d;",i,num,RT,ll Tab) 
 			Pressed = {}
 			if i==Correct1
 				C2=RT
@@ -154,7 +167,7 @@ Module
 	End
 	
 	Void Action(string Tag,string BarPrefix,Int EXP=0)
-		Int TNum = Lua.tonumber(Right(Tag,#Tag-3))
+		Int TNum = Lua.tonumber(Right(Tag,Len(Tag)-3))
 		Pressed[TNum] = !Pressed[TNum]
 		if Pressed[TNum]
 			QC(Tag,"P")
@@ -187,15 +200,23 @@ Module
 	End
 
 	
-	Constructor
+	Init
 		CSay("Loading PuzSet")
-		Bool Index(string k)
-			CSayF("Checking solved %s => %s",k,tostring(gv.gbool["SET_PUZZLE_"..k]))
-			return gv.gbool["SET_PUZZLE_"..k]
+		dDef Index
+			plua s
+			string k
+			s,k=infinity
+			CSayF("Checking solved %s => %s",k,tostring(gbool["SET_PUZZLE_"..k]))
+			return gbool["SET_PUZZLE_"..k]
 		End
-		Void NewId(string k, bool v)
-			gv.gbool["SET_PUZZLE_"..k] = v
+		dDef NewId
+			//(string k, bool v)
+			plua s
+			string k
+			bool v
+			s,k,v=Infinity
+			gbool["SET_PUZZLE_"..k] = v
 		End
 		MLSolved = Lua.setmetatable({},{["__index"]=Index,["__newindex"]=NewId})
 	End
-End
+//End
