@@ -365,7 +365,7 @@ Group Effect
     	if S==""
     		Return False
     	End
-    	Scripts[S] = Scripts[S] || NeilUse("Script/Use/Combat/ActScript/"..Act.EffectScript)
+    	Scripts[S] = Scripts[S] || NeilUse("Script/Use/Combat/ActScript/AS_"..Act.EffectScript)._Act
     	Return Scripts[S](Act,Target,Action.Executor)
     End
     
