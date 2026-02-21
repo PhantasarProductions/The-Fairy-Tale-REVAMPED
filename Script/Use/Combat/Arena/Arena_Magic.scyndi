@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.21
+// version: 26.02.21 II
 // 
 // End License
 
@@ -47,9 +47,9 @@ Module
 	End
 	
 	Void Pre()
-		Color(255,255,255)
+		SetColor(255,255,255)
 		BlopPlasma.Draw()
-		Color(255,255,255)
+		SetColor(255,255,255)
 	End
 
 //End
