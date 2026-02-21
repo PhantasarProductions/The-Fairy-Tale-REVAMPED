@@ -139,6 +139,7 @@ Group MScript
 			A = math.min(255,A+1)
 			Map.SetObj("Barrier","Alpha",A)
 			Map.SetObj("Barrier","ForcePassible",A>=255)
+			Kthura.Remap()
 		End
 	End
 	
