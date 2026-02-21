@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/CL2_Class_Hero.scyndi
 // 
-// 	  Version: 26.02.21 I
+// 	  Version: 26.02.21 II
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -511,6 +511,8 @@ Class Stage_PlayerInput_Ability
 	Link Map = Stage.Map 
 	Link Current = Stage.Current
 	Link Register = Stage.Register
+	
+	Bool DontCheckForVictory = True
 	
 
 	ReadOnly Int BX = 100
