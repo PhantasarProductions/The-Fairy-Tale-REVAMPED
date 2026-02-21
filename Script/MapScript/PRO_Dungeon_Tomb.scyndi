@@ -34,14 +34,19 @@
 // **********************************************
 // 
 // 
-// version: 26.02.21 I
+// version: 26.02.21 VIII
 // 
 // End License
 
 
 Script
 
+#use "Libs/Music"
+
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/Events" 
 #use "Libs/SCI/Kthura"
+#use "Libs/SCI/Graphics"
 #use "Libs/SCI/Intervar"
 
 #use "Script/Use/Link"
@@ -140,7 +145,7 @@ Group TrueMScript
 				Graphics.Cls()
 				Map.DrawScreen()
 				Graphics.Flip()
-				FPS.WaitMinTicks()
+				Sys.WaitMinTicks()
 				Events.Poll()
 			End
 			MapText("FEENA_REVIVE_2")
@@ -163,7 +168,7 @@ Group TrueMScript
 	End
 	
 	
-	Constructor
+	Void LoadMe()
 		ZA.Enter("ToMine")
 		ZA.Enter("PuzzleField")
 		ZA.Enter("To001")
@@ -182,7 +187,7 @@ End
 QuickMeta MScript
 	index
 		If Prefixed(key,"Sym")
-			Void r()
+			dDef R
 				TrueMScript.Sym(key,"Block")
 			End
 			Return R
@@ -191,3 +196,7 @@ QuickMeta MScript
 		End
 	End
 End
+
+Init
+	MScript.LoadMe()
+ENd
