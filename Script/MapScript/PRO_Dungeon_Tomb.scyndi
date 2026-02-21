@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.21 VIII
+// version: 26.02.21 X
 // 
 // End License
 
@@ -98,6 +98,7 @@ Group TrueMScript
 				If !BrugCheck
 					Map.SetObj("BRUG"..i,"ForcePassible",true)
 					CSay("Bridges can be passed now")
+					Kthura.Remap()
 					// Must prevent slowdown due to needless remapping
 				End				
 				Map.SetObj("BRUG"..i,"Alpha",__BrugAlph)
@@ -199,4 +200,5 @@ End
 
 Init
 	MScript.LoadMe()
+	Map.MSUpdate=True
 ENd
