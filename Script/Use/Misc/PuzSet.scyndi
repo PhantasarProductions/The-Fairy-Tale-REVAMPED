@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Misc/PuzSet.scyndi
 // 
-// 	  Version: 26.02.21 XIV
+// 	  Version: 26.02.21 XV
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -199,8 +199,9 @@ LocExtern ll "#"
 				Map.Kill("Sym"..i,True)
 			End
 			Map.KillByPrefix(BarPrefix,True)
+			Kthura.Remap()
 			If EXP>0
-				for ch in Each{"Jake_Human","Marrilona","Dandor","HandoStillor"}
+				for ch in Each{[0]="Jake_Human","Marrilona","Dandor","HandoStillor"}
 					RPGChar[ch].Stat.Experience -= EXP
 				End
 			End
