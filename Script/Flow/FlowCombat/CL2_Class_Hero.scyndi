@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/CL2_Class_Hero.scyndi
 // 
-// 	  Version: 26.02.20 II
+// 	  Version: 26.02.21
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -629,7 +629,7 @@ Var CheckAbilityLearn(Act)
 	__LoadItemState
 	//string Abl = ISGET.String("SUB_ITEMS",sPrintF("AblCheckLearn('%s')",Act.Executor.Tag))
 	String Abl
-	Sys.Call("SUB_ITEMS","AblCheckLearn",Act.Executor.Tag)
+	Sys.Call("SUB_ITEMS","LinkInvoke","AblCheckLearn",Act.Executor.Tag)
 	Abl=gStr.IAA_LinkInvoke
 	If Abl==""
 		Return Act
