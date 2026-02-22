@@ -1,8 +1,8 @@
-// License Information:
+// License:
 // **********************************************
 // 
-// src/Tricky Script/Script/MapScript/CH1_Hub_JakeHut.neil
-// (c) Jeroen Broks, 2021, 2022, All Rights Reserved.
+// src/Code/Script/MapScript/CH1_Hub_JakeHut.scyndi
+// (c) Jeroen Broks, 2021, 2022, 2026, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -24,6 +24,7 @@
 // from it, you can use it under that license.
 // Please check out the other files to find out
 // which license applies.
+// 
 // This file comes 'as-is' and in no possible
 // way the author can be held responsible of
 // any form of damages that may occur due to
@@ -32,14 +33,25 @@
 // 
 // **********************************************
 // 
-// version: 22.02.22
-// End License Information
+// 
+// version: 26.02.22 IV
+// 
+// End License
 
+Script
+
+#use "Libs/Music"
+
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/InterVar"
+
+#use "Script/Use/Link"
 #use "Script/Use/Anyway"
+#use "Script/Use/Convert"
 #use "Script/Use/Misc/Inn"
 
 
-#macro Midas_Recruited gv.gbool.Master_Midas_Paid_And_Recruited
+#macro Midas_Recruited gbool.Master_Midas_Paid_And_Recruited
 
 Group MScript
 
@@ -70,7 +82,7 @@ Group MScript
 		MapText("LOVE_3")
 		//Lua.error("Rest not scripted yet! Hang on!")
 		MapText("LOVE_JOIN_"..WhoJoins)
-		MapMusic()
+		MScript.MapMusic()
 		Respawn.Reset()
 		Ach.Award("SCEN_LOVE")
 	End
@@ -81,14 +93,14 @@ Group MScript
 		RPGParty[1] = "Jake_Human"
 		RPGParty[2] = "Marrilona"
 		WhoJoins="Jake"
-		Love()
+		Mscript.Love()
 	End
 	
 	Void Start_Jake()
 		RPGParty[1] = "Jake_Human"
 		RPGParty[2] = "Marrilona"
 		WhoJoins="Marrilona"
-		Love()
+		Mscript.Love()
 	End	
 	#endregion
 	
@@ -166,12 +178,16 @@ Group MScript
 	End
 	
 	#region Linking it all up
-	Constructor
-		ZA.TabEnter{"ExitHut","Buiten","Bye"}
+	Void StartHub()
+		ZA.TabEnter{[0]="ExitHut","Buiten","Bye"}
 		If __Chapter<2 && (!__newgameplus)
 			Map.LayKill("EXTERIOR","NPC_Monk")
 		End
 	End
 	#endregion
 	
+End
+
+Init
+	MScript.StartHub()
 End
