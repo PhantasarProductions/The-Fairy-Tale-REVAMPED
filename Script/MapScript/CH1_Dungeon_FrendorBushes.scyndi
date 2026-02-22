@@ -34,13 +34,14 @@
 // **********************************************
 // 
 // 
-// version: 26.02.22 V
+// version: 26.02.22 VIII
 // 
 // End License
 
 Script
 
 #use "Libs/SCI/Sys"
+#use "Libs/SCI/Kthura"
 #use "Libs/SCI/InterVar"
 
 #use "Script/Use/Link"
@@ -79,12 +80,12 @@ Group MScript
 	Void Boss_Marrilona()
 		MapText("BOSS_MARRILONA")
 		Combat.Boss("Another","Dwarf")
-		Combat.Arena = Lua.Neil.Globals.Map.Arena
+		Combat.Arena = Kthura.MetaData.Arena
 		Combat.Music = "*BOSS"
 		Combat.Lose = "GameOver"
 		Combat.NewEnemy = "Boss/Dwarf"
 		Combat.StartEvent = "StartBoss_Marrilona"
-		Lua.Neil.Globals.Map.StopWalking()
+		Kthura.Obj.Player.StopWalking()
 		Combat.Start()
 		Schedule.Add("PostBoss_Marrilona")
 	End
