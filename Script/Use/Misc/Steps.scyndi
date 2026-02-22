@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.21 XI
+// version: 26.02.22
 // 
 // End License
 
@@ -200,7 +200,7 @@ End
 	
 	Void Action(string Tag)
 		Lua.assert(Field[Tag],SPrintF("There is no steps tile tagged '%s'",Tag))
-		Field[tag].action()
+		Field[tag].action(Field[tag])
 	End
 	
 //End
