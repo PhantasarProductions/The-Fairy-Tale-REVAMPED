@@ -1,3 +1,46 @@
+// License:
+// 	  src/Code/Script/Flow/FlowMaster.scyndi
+// 
+// 	  Version: 26.02.22
+// 	
+// 	  Copyright (C) 2016, 2017, 2021, 2022, 2026 Jeroen Petrus Broks
+// 	
+// 	  ===========================
+// 	  This file is part of a project related to the Phantasar Chronicles or another
+// 	  series or saga which is property of Jeroen P. Broks.
+// 	  This means that it may contain references to a story-line plus characters
+// 	  which are property of Jeroen Broks. These references may only be distributed
+// 	  along with an unmodified version of the game.
+// 
+// 	  As soon as you remove or replace ALL references to the storyline or character
+// 	  references, or any termology specifically set up for the Phantasar universe,
+// 	  or any other univers a story of Jeroen P. Broks is set up for,
+// 	  the restrictions of this file are removed and will automatically become
+// 	  zLib licensed (see below).
+// 
+// 	  Please note that doing so counts as a modification and must be marked as such
+// 	  in accordance to the zLib license.
+// 	  ===========================
+// 
+// 
+// 	  zLib license terms:
+// 	
+// 	  This software is provided 'as-is', without any express or implied
+// 	  warranty.  In no event will the authors be held liable for any damages
+// 	  arising from the use of this software.
+// 
+// 	  Permission is granted to anyone to use this software for any purpose,
+// 	  including commercial applications, and to alter it and redistribute it
+// 	  freely, subject to the following restrictions:
+// 	
+// 	  1. The origin of this software must not be misrepresented; you must not
+// 	     claim that you wrote the original software. If you use this software
+// 	     in a product, an acknowledgment in the product documentation would be
+// 	     appreciated but is not required.
+// 	  2. Altered source versions must be plainly marked as such, and must not be
+// 	     misrepresented as being the original software.
+// 	  3. This notice may not be removed or altered from any source distribution.
+// End License
 // License Information:
 // src/Tricky Script/Script/Flow/FlowMaster.neil
 // Version: 22.02.16
@@ -35,15 +78,19 @@
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
 
+Script
+
+#use "Libs/SCI/InterVar"
+
 #use "Script/Use/Anyway"
 
 QuickMeta Unlocked
 	Index
-		Return gv.gbool["MASTER_UNLOCKED_"..key]
+		Return gbool["MASTER_UNLOCKED_"..key]
 	End
 	
 	NewIndex
-		gv.gbool["MASTER_UNLOCKED_"..key] = value==true
+		gbool["MASTER_UNLOCKED_"..key] = value==true
 	End
 End
 
@@ -73,7 +120,9 @@ Group FlowMaster
     Var cMaster
     
     var MData(string id)
-    	Static Var MTab = {}
+    	//Static Var MTab = {}
+    	LocExtern MTab "Masters_MDATA_MTab"
+    	MTab = MTab || {}
     	If !MTab[id]
     		CSay("Load Master: "..id)
     		MTab[id] = NeilUse("Script/Data/Masters/"..id)
@@ -140,7 +189,7 @@ Group FlowMaster
     //CSay(ret)
     //end
         
-   Var BFnt = ImageFont.Obtain("FNTSTATSTAT")
+   Var BFnt = ObtainFont("FNTSTATSTAT")
    Void Eyes(string Mid,int x,int y)   
    //mid,mdata,x,y)
    		
@@ -183,7 +232,7 @@ Group FlowMaster
 	Void Dismiss(string ch,string master,nomorejake)
 		CSay("Dismiss master "..master.." from "..ch)
 		//local stats = mysplit(RPG.StatFields(ch),";")
-		plua stats = RPGChar[ch].StatTable
+		stats := RPGChar[ch].StatTable
 		for st in each(stats) 
 			if prefixed(st,"MASTER_") 
 				//RPG.DelStat(ch,st)
@@ -194,7 +243,7 @@ Group FlowMaster
 			end
 		end
 		//local tmaster = jinc('Script/JINC/Masters/'..master..".lua")
-		plua tmaster = mData(master)
+		tmaster := mData(master)
 		//;(tmaster.dismiss or Nothing)(ch)
 		tmaster.dismiss()
 		RPGChar[ch].Data.Master=""
@@ -287,12 +336,12 @@ End
 #region Flow
 Table A_Col = { [true]={255,180,0},[false]={50,50,50}}
 //function MAIN_FLOW()
-Global Void Apollo_Flow()
+Global Void MainFlow()
 	Dev.ToConsole()
-	Static ReadOnly Var Back = Image.Obtain("BACKGROUND")
-	Static ReadOnly Var BFnt = ImageFont.Obtain("BIGTEXT")
-	Static ReadOnly Var CFnt = ImageFont.Obtain("BOXTEXT")
-	Static ReadOnly Var SFnt = ImageFont.Obtain("FNTSTATSTAT")
+	Static ReadOnly Var Back = ObtainImage("BACKGROUND")
+	Static ReadOnly Var BFnt = ObtainFont("BIGTEXT")
+	Static ReadOnly Var CFnt = ObtainFont("BOXTEXT")
+	Static ReadOnly Var SFnt = ObtainFont("FNTSTATSTAT")
     //local jl,jr = joyhit(joy_left),joyhit(joy_right)
     //local jp = 0
     //local mx,my = MouseCoords()
@@ -305,11 +354,11 @@ Global Void Apollo_Flow()
     //SetFont("MasterContent")
     __White
     CFnt.DarkText("Click characters to appoint them to this master or to dismiss them",20,80)
-    plua Center_X = Screen.W div 2
-    plua Center_Y = Screen.H div 2
-    plua gy={120,120}
-    plua col={{180,255,0},{255,0,0}}
-    plua gx = {{20,Center_X-10},{Center_X+20,Screen.W-100}}
+    Center_X := Screen.W div 2
+    Center_Y := Screen.H div 2
+    gy:={120,120}
+    col:={{180,255,0},{255,0,0}}
+    gx := {{20,Center_X-10},{Center_X+20,Screen.W-100}}
     for key,value in spairs(FlowMaster.cMaster.stats || {}) 
         Int rij=1
         if value<0 
@@ -371,9 +420,9 @@ End
 Global Void MasterData(string id,int sizes_x,int sizes_y,int sizes_w,int sizes_h)
 	Static Var omd = nil
 	Static Var OverViewMaster
-	Static ReadOnly Var BFnt = ImageFont.Obtain("BIGTEXT")
-	Static ReadOnly Var CFnt = ImageFont.Obtain("BOXTEXT")
-	Static ReadOnly Var SFnt = ImageFont.Obtain("FNTSTATSTAT")
+	Static ReadOnly Var BFnt = ObtainFont("BIGTEXT")
+	Static ReadOnly Var CFnt = ObtainFont("BOXTEXT")
+	Static ReadOnly Var SFnt = ObtainFont("FNTSTATSTAT")
 	if omd!=id 
 		//OverViewMaster = jinc('Script/JINC/Masters/'..id..".lua") omd = id end
 		Overviewmaster = FlowMaster.mdata(id)
@@ -411,7 +460,7 @@ end
 global Void MasterOverview(int sizes_x,int sizes_y,int sizes_w,int sizes_h)
 	//local fsizes = loadstring('return '..ssizes); if not fsizes then Sys.Crash('Sizes wrong!','Sizes,',ssizes) end
     //local sizes = fsizes()
-    Static ReadOnly Var CFnt = ImageFont.Obtain("BOXTEXT")
+    Static ReadOnly Var CFnt = ObtainFont("BOXTEXT")
     Static Int MasterPos = 1
     //MasterPos = MasterPos or 1
     Int i=0
