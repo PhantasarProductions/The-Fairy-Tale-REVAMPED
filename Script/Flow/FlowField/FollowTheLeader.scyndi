@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowField/FollowTheLeader.scyndi
 // 
-// 	  Version: 26.02.11
+// 	  Version: 26.02.22 I
 // 	
 // 	  Copyright (C) 2021-'22, 2026 Jeroen Petrus Broks
 // 	
@@ -45,6 +45,7 @@
 Module
 
 #use "Libs/SCI/Sys"
+#use "Libs/SCI/Kthura"
 #use "Libs/SCI/InterVar"
 
 #accept FlowField
@@ -63,10 +64,10 @@ Module
 		If n==1
 			Return
 		End
-		if (!FlowField.Map.CurrentLayer.HasTag("PLAYER"..n)) && RPGParty[n] && RPGParty[n]!=""
+		if (!Kthura.HasObj("PLAYER"..n)) && RPGParty[n] && RPGParty[n]!=""
 			CSayF("Need follower on spot #%d > %s",n,RPGParty[n])
-			FlowField.Map.CurrentLayer.Spawn("PLAYER"..n,"PLAYER")
-			o := FlowField.Map.CurrentLayer.Obj(PlayTag[n])
+			Kthura.Spawn("PLAYER"..n,"PLAYER")
+			o := Kthura.Obj[PlayTag[n]]
 			o.Texture = sPrintF("GFX/Actors/Bundled/Player/%s.South.jpbf",RPGParty[n])
 		end
 	End
@@ -75,16 +76,16 @@ Module
 		For i=1,4
 			If  RPGParty[i] && RPGParty[i]!=""
 				SpawnNew(i)
-				Var o = FlowField.Map.CurrentLayer.Obj(PlayTag[i])
+				o := Kthura.Obj[PlayTag[i]]
 				o.StopWalking()
 				o.Texture = sPrintF("GFX/Actors/Bundled/Player/%s.%s.jpbf",RPGParty[i],Wind)
 				if Instant
-					if Prefixed(RPGParty[i],"Jake_") && FlowField.Map.CurrentLayer.Obj(spot.."Jake")
-						o.X = FlowField.Map.CurrentLayer.Obj(spot.."Jake").X
-						o.Y = FlowField.Map.CurrentLayer.Obj(spot.."Jake").Y
+					if Prefixed(RPGParty[i],"Jake_") && Kthura.HasObj(spot.."Jake")
+						o.X = Kthura.Obj[spot.."Jake"].X
+						o.Y = Kthura.Obj[spot.."Jake"].Y
 					else
-						o.X = FlowField.Map.CurrentLayer.Obj(spot..RPGParty[i]).X
-						o.Y = FlowField.Map.CurrentLayer.Obj(spot..RPGParty[i]).Y
+						o.X = Kthura.Obj[spot..RPGParty[i]].X
+						o.Y = Kthura.Obj[spot..RPGParty[i]].Y
 					End
 				Else
 					String Tg := spot.."_".. RPGParty[i]
@@ -115,7 +116,7 @@ Module
 					Var PL = Kthura.Obj[PlayTag[i-1]]
 					Var o  = Kthura.Obj[PlayTag[i]]
 					if !o.walking
-						Switch PL.Wind:lower()
+						Switch lower(PL.Wind)
 							Case "north"
 								o.WalkTo(PL.X,PL.Y+32)
 							Case "south"
