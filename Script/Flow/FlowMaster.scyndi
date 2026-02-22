@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowMaster.scyndi
 // 
-// 	  Version: 26.02.22 I
+// 	  Version: 26.02.22 XIX
 // 	
 // 	  Copyright (C) 2016, 2017, 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -45,9 +45,13 @@
 
 Script
 
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/Graphics"
 #use "Libs/SCI/InterVar"
 
+#use "Script/Use/Link"
 #use "Script/Use/Anyway"
+#use "Script/Use/Convert"
 
 QuickMeta Unlocked
 	Index
@@ -60,11 +64,11 @@ QuickMeta Unlocked
 End
 
 
-Group FlowMaster
+//Group FlowMaster
 	//Unlocked = Unlocked or {}
 	ReadOnly Table sptag = { [false]="INTRO",[true]="BACK"}
 	ReadOnly Var pointer 
-	ReadOnly Table FullList = {"Fandalora","Feenalaria","Freya","Krandar","Midas","Rubine","Russell"}
+	ReadOnly Table FullList = {[0]="Fandalora","Feenalaria","Freya","Krandar","Midas","Rubine","Russell"}
 	//Image.Hot(pointer,Image.Width(pointer)/2,Image.Height(pointer))
 
 	// function GALE_OnLoad()
@@ -103,27 +107,27 @@ Group FlowMaster
     	//cMaster.id = id
     	//if (not Unlocked[id]) and cMaster.requirement and (not cMaster.requirement()) then
     	If (!Unlocked[id]) && (!cMaster.Requirement)
-    		MapText(id:upper().."_NOTREADY")
+    		MapText(Upper(id).."_NOTREADY")
     		Return
     	End
-    	MapText(id:upper().."_"..sptag[Unlocked[id]==true])
+    	MapText(Upper(id).."_"..sptag[Unlocked[id]==true])
     	For i=1,4
     		String ch=RPGParty[i]
     		If ch!="" && RPGChar[ch].Data.Master==id
     			//local teach,allteach = cMaster.teach(ch)
-    			plua teach=cMaster.Teach(ch)
+    			teach:=cMaster.Teach(ch)
     			//CSay("teach = "..sval(teach))
     			//CSay("alltech = "..sval(allteach))
-    			if teach and TeachSkill(ch,teach)
+    			if teach && TeachSkill(ch,teach)
     				//local i = ItemGet(teach) --Var.C('$MASTERABLCODE'))
-    				plua i = Item[teach]
-    				gv.gString.MASTERCHAR=RPGChar[ch].Name //Var.D("$MASTERCHAR",RPG.GetName(ch))
-    				gv.gString.MASTERMOVE=i.Title //Var.D("$MASTERMOVE",i.Title)
-    				MapText(id:upper().."_LEARN")
+    				i := Item[teach]
+    				gString.MASTERCHAR=RPGChar[ch].Name //Var.D("$MASTERCHAR",RPG.GetName(ch))
+    				gString.MASTERMOVE=i.Title //Var.D("$MASTERMOVE",i.Title)
+    				MapText(Upper(id).."_LEARN")
     			End
     			If cMaster.all
-    				MapText(id:upper().."_ALL")
-    				gv.gbool["MASTER.ALL."..id]=true
+    				MapText(Upper(id).."_ALL")
+    				gbool["MASTER.ALL."..id]=true
     			End
     		End
     	End
@@ -167,7 +171,7 @@ Group FlowMaster
         		if Prefixed(Ch,"Jake_")
         			che="Jake" 
         		End
-        		ImgEyes[che] = ImgEyes[che] || Image.LoadNew(sprintf("GFX/Eyes/%s.png",che),sPrintF("EYES_%s",che))
+        		ImgEyes[che] = ImgEyes[che] || LoadNewImage(sprintf("GFX/Eyes/%s.png",che),sPrintF("EYES_%s",che))
         		ImgEyes[che].Draw(x-100,y+(i*21))
         		//Eyes(ch,x-100,y+(i*21))
         		//plua = mdata
@@ -180,7 +184,7 @@ Group FlowMaster
 	//function MasterAbl(mid,mdata,x,py)
 	Void Abl(String Mid,int x,int py)
 		//SetFont("MasterContent")
-		Int y = py
+		Int y := py
 		//plua _item
 		For i,a in pairs(mdata(Mid).abl) 
 			y += 20
@@ -232,7 +236,7 @@ Group FlowMaster
     	If RPGChar[Char].Data.Master==""
     		Return
     	End
-    	plua tmaster = mData(RPGChar[Char].Data.Master)
+    	tmaster := mData(RPGChar[Char].Data.Master)
     	For key,value in spairs(tmaster.stats)
     		RPGChar[Char].Stats["MASTER_"..key] = math.ceil(RPGChar[Char].Stats["BASE_"..key] * (value/100))
     	End
@@ -267,7 +271,7 @@ Group FlowMaster
     		if oldmaster!="" && oldmaster!=id && AppSet[i] 
     			Lua.Neil.Globals.FlowMaster.Dismiss(ch,oldmaster) 
     		end
-    		if (!AppSet[i]) and oldmaster==id 
+    		if (!AppSet[i]) && oldmaster==id 
     			Lua.Neil.Globals.FlowMaster.Dismiss(ch,id) 
     		end
     		if AppSet[i] && oldmaster!=id 
@@ -275,7 +279,7 @@ Group FlowMaster
     		end
     	end
     	Flow.Current="FIELD" //LAURA.Flow('FIELD')
-    	MapText(id:upper().."_BYE")
+    	MapText(Upper(id).."_BYE")
     end
     
     Void DefStat(string Ch,string Stat,int Value)
@@ -289,20 +293,23 @@ Group FlowMaster
     	End
     End
     
-   	Constructor
-		Pointer = Image.LoadNew("GFX/Algemeen/CharPointer.png","CharPointer")
+   	Init
+		Pointer = LoadNewImage("GFX/Algemeen/CharPointer.png","CharPointer")
 		Pointer.HotBottomCenter()
 		CSay("Master Group Loaded")
 	End
-
     
-End
+
+//End
+
+	
 
 #region Flow
 Table A_Col = { [true]={255,180,0},[false]={50,50,50}}
 //function MAIN_FLOW()
 Global Void MainFlow()
-	Dev.ToConsole()
+	//Dev.ToConsole()
+	WantQuit()
 	Static ReadOnly Var Back = ObtainImage("BACKGROUND")
 	Static ReadOnly Var BFnt = ObtainFont("BIGTEXT")
 	Static ReadOnly Var CFnt = ObtainFont("BOXTEXT")
@@ -336,7 +343,7 @@ Global Void MainFlow()
         gy[rij]=gy[rij]+20
     end    
     for i,l in ipairs(FlowMaster.cMaster.Desc or {})
-    	Graphics.Color(255,255-math.floor((i/#FlowMaster.cMaster.Desc)*75),255-math.floor((i/#FlowMaster.cMaster.Desc)*255))
+    	Graphics.Color(255,255-math.floor((i/Len(FlowMaster.cMaster.Desc))*75),255-math.floor( (i/Len(FlowMaster.cMaster.Desc)*255) ) )
         CFnt.DarkText(l,20,gy[1]+20+(i*20))
     end    
     FlowMaster.Eyes(FlowMaster.cMaster.id,Screen.W-40,40)
@@ -345,9 +352,9 @@ Global Void MainFlow()
     plua CHW = Screen.W div Party.Count
     for i=1,4 
         if FlowMaster.AppSet[i]!=nil 
-           plua C=A_Col[FlowMaster.AppSet[i]]
+           C:=A_Col[FlowMaster.AppSet[i]]
            Graphics.Color(C[1],C[2],C[3])
-           plua CHX = (CHW*(i-1))+(CHW div 2)           
+           CHX := (CHW*(i-1))+(CHW div 2)           
            FlowMaster.Pointer.Draw(CHX,Screen.H-130) //Image.Show(pointer,CHX,(SH-sty)-120)
            //-- DarkText(CHW..";"..i..";"..sval(CHW*i)..";"..sval((SH-sty)-10),0,i*25)           
            //if (mousehit(1) or joyhit('CONFIRM')) and ClickedChar(i) then FlowMaster.AppSet[i]=not FlowMaster.AppSet[i] end
@@ -384,7 +391,7 @@ End
 
 Global Void MasterData(string id,int sizes_x,int sizes_y,int sizes_w,int sizes_h)
 	Static Var omd = nil
-	Static Var OverViewMaster
+	LocExtern OverViewMaster "FLOW_MASTER_OVERVIEWMASTER_STATIC_LOCAL"
 	Static ReadOnly Var BFnt = ObtainFont("BIGTEXT")
 	Static ReadOnly Var CFnt = ObtainFont("BOXTEXT")
 	Static ReadOnly Var SFnt = ObtainFont("FNTSTATSTAT")
@@ -392,16 +399,16 @@ Global Void MasterData(string id,int sizes_x,int sizes_y,int sizes_w,int sizes_h
 		//OverViewMaster = jinc('Script/JINC/Masters/'..id..".lua") omd = id end
 		Overviewmaster = FlowMaster.mdata(id)
 	End
-	plua mymaster = OverViewMaster // I am LAZY!!!
+	mymaster := OverViewMaster // I am LAZY!!!
 	//SetFont('MasterHeader')
 	__Ember
 	BFnt.DarkText(mymaster.name,20,20,0,0) //,255,180,0)
 	// SetFont("MasterContent")
-	plua gy={sizes_y+20,sizes_y+20}
+	gy:={sizes_y+20,sizes_y+20}
 	Static Var col={{180,255,0},{255,0,0}}
 	Int Center_X = Screen.W Div 2
 	Int Center_Y = Screen.H Div 2
-	plua gx = {{Center_X div 2,Center_X-10},{Center_X+20,(Center_X+20)+(Center_X div 2)}}
+	gx := {{Center_X div 2,Center_X-10},{Center_X+20,(Center_X+20)+(Center_X div 2)}}
 	for key,value in spairs(mymaster.stats || {})
 		plua rij=1
 		if value<0 
@@ -414,7 +421,7 @@ Global Void MasterData(string id,int sizes_x,int sizes_y,int sizes_w,int sizes_h
 		gy[rij]=gy[rij]+20
      end
      for i,l in ipairs(mymaster.Desc || {})
-     	Graphics.Color(255,255-math.floor((i/#mymaster.Desc)*75),255-math.floor((i/#mymaster.Desc)*255))
+     	Graphics.Color(255,255-math.floor((i/Len(mymaster.Desc))*75),255-math.floor((i/Len(mymaster.Desc))*255))
      	CFnt.DarkText(l,100,gy[1]+20+(i*20))
      end
      FlowMaster.Abl(id,gx[2][1],gy[2]+20)
