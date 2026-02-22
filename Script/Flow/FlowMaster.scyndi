@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowMaster.scyndi
 // 
-// 	  Version: 26.02.22 XXVII
+// 	  Version: 26.02.22 XXVIII
 // 	
 // 	  Copyright (C) 2016, 2017, 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -199,7 +199,7 @@ End
 		End
 	End
 
-	Void Dismiss(string ch,string master,nomorejake)
+	Global Void Dismiss(string ch,string master,nomorejake)
 		CSay("Dismiss master "..master.." from "..ch)
 		//local stats = mysplit(RPG.StatFields(ch),";")
 		stats := RPGChar[ch].StatTable
@@ -283,7 +283,7 @@ End
     	MapText(Upper(id).."_BYE")
     end
     
-    Void DefStat(string Ch,string Stat,int Value)
+    Global Void DefStat(string Ch,string Stat,int Value)
     	RPGChar[Ch].Stat[Stat] = Value
     	Switch Ch
     		Case "Jake_Human"
