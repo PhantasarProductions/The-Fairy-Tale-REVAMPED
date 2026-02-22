@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.20 X
+// version: 26.02.22
 // 
 // End License
 
@@ -63,7 +63,7 @@ Group RealThing
 		
 	Get Int Sec
 		s:=lua.tonumber(os.date("%S")) || 0
-		return s+1
+		return (s%2)+1
 	End
 	
 	Void ChainToGame()
@@ -77,7 +77,7 @@ Group RealThing
 		#if ForceMarrilona
 			Pick = 2
 		#fi
-		CSayF("Chosen character: %s",Char[Pick])
+		CSayF("Chosen character: #%d %s",Pick,Char[Pick])
 		RPGParty[1] = ChCode[Pick]
 		Map.GoToMap("CH1_DUNGEON_FrendorBushes","FRENDORBUSHES","Start_"..Char[Pick])
 		Schedule.Add("StartChapter1")
