@@ -34,6 +34,9 @@
 // misrepresented as being the original software.
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
+
+Module
+
 Void _PTE(string Tag)
 	Map.AllowEncOff = True
 	FlowField.Msg("Traveler's Emblem Obtained",Player.X,Player.Y,255,180,0)
