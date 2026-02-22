@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Link.scyndibundle/Map.scyndi
 // 
-// 	  Version: 26.02.21 X
+// 	  Version: 26.02.22
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -431,7 +431,8 @@ End
 	End
 	
 	Void NewObj(string Kind, string Tag="")
-		MCall("FlowField.Map.CurLayer.NewObj",Kind,Tag)
+		//MCall("FlowField.Map.CurLayer.NewObj",Kind,Tag)
+		Kthura.NewObject(Kind,Tag)
 	End
 	
 	Void DrawScreen()
