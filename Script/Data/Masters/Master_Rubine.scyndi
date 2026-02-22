@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.22 VII
+// version: 26.02.22 VIII
 // 
 // End License
 
@@ -118,6 +118,7 @@ Module
      	// Spd +25%, Atk -10%, End -5%, Int -10%, Res - 5%, Acc +5%, eva +5%     	
      	//#pure
      	//_stats = {
+     		Stats={}
      		Stats.Speed = 25,
      		Stats.Power = -10,
      		Stats.Endurance = -10,
