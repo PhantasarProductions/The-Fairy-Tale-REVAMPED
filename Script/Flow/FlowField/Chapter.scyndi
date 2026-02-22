@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowField/Chapter.scyndi
 // 
-// 	  Version: 26.02.10 V
+// 	  Version: 26.02.22
 // 	
 // 	  Copyright (C) 2021, 2026 Jeroen Petrus Broks
 // 	
@@ -59,7 +59,9 @@ Module
 	End
 	
 	Set Int Cycle
-		static int wait
+		//static int wait
+		LocExtern Wait "FLOWFIELD_CHAPTER_CYCLE_WAIT"
+		Wait=Wait||0
 		if _Cycle==900
 			Wait = (wait+1)%200
 			if Wait!=0
