@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowMaster.scyndi
 // 
-// 	  Version: 26.02.22 XIX
+// 	  Version: 26.02.22 XXIV
 // 	
 // 	  Copyright (C) 2016, 2017, 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -46,6 +46,7 @@
 Script
 
 #use "Libs/SCI/Sys"
+#use "Libs/SCI/events"
 #use "Libs/SCI/Graphics"
 #use "Libs/SCI/InterVar"
 
@@ -269,13 +270,13 @@ End
     		//if RPG.DataExists(ch,"Master")~=0 then oldmaster = RPG.GetData(ch,"Master") end
     		oldmaster = RPGChar[ch].Data.Master
     		if oldmaster!="" && oldmaster!=id && AppSet[i] 
-    			Lua.Neil.Globals.FlowMaster.Dismiss(ch,oldmaster) 
+    			Lua.Neil.Globals.Dismiss(ch,oldmaster) 
     		end
     		if (!AppSet[i]) && oldmaster==id 
-    			Lua.Neil.Globals.FlowMaster.Dismiss(ch,id) 
+    			Lua.Neil.Globals.Dismiss(ch,id) 
     		end
     		if AppSet[i] && oldmaster!=id 
-    			Lua.Neil.Globals.FlowMaster.Appoint(ch,id) 
+    			Lua.Neil.Globals.Appoint(ch,id) 
     		end
     	end
     	Flow.Current="FIELD" //LAURA.Flow('FIELD')
@@ -322,7 +323,7 @@ Global Void MainFlow()
     Back.Tile(0,0,Screen.W,Screen.H)    
     //SetFont('MasterHeader')
     __Ember
-    BFnt.DarkText(FlowMaster.cMaster.name,20,20,0,0)
+    BFnt.DarkText(cMaster.name,20,20,0,0)
     //SetFont("MasterContent")
     __White
     CFnt.DarkText("Click characters to appoint them to this master or to dismiss them",20,80)
@@ -331,7 +332,7 @@ Global Void MainFlow()
     gy:={120,120}
     col:={{180,255,0},{255,0,0}}
     gx := {{20,Center_X-10},{Center_X+20,Screen.W-100}}
-    for key,value in spairs(FlowMaster.cMaster.stats || {}) 
+    for key,value in spairs(cMaster.stats || {}) 
         Int rij=1
         if value<0 
         	rij=2 
@@ -342,25 +343,25 @@ Global Void MainFlow()
         SFnt.DarkText(value.."%",gx[rij][2],gy[rij],1,0)
         gy[rij]=gy[rij]+20
     end    
-    for i,l in ipairs(FlowMaster.cMaster.Desc or {})
-    	Graphics.Color(255,255-math.floor((i/Len(FlowMaster.cMaster.Desc))*75),255-math.floor( (i/Len(FlowMaster.cMaster.Desc)*255) ) )
+    for i,l in ipairs(cMaster.Desc || {})
+    	Graphics.Color(255,255-math.floor((i/Len(cMaster.Desc))*75),255-math.floor( (i/Len(cMaster.Desc)*255) ) )
         CFnt.DarkText(l,20,gy[1]+20+(i*20))
     end    
-    FlowMaster.Eyes(FlowMaster.cMaster.id,Screen.W-40,40)
-    FlowMaster.Abl(FlowMaster.cMaster.id,gx[2][1],gy[2]+20)
+    Eyes(cMaster.id,Screen.W-40,40)
+    Abl(cMaster.id,gx[2][1],gy[2]+20)
     //CHW = CHW or (SW/4)
     plua CHW = Screen.W div Party.Count
     for i=1,4 
-        if FlowMaster.AppSet[i]!=nil 
-           C:=A_Col[FlowMaster.AppSet[i]]
+        if AppSet[i]!=nil 
+           C:=A_Col[AppSet[i]]
            Graphics.Color(C[1],C[2],C[3])
            CHX := (CHW*(i-1))+(CHW div 2)           
-           FlowMaster.Pointer.Draw(CHX,Screen.H-130) //Image.Show(pointer,CHX,(SH-sty)-120)
+           Pointer.Draw(CHX,Screen.H-130) //Image.Show(pointer,CHX,(SH-sty)-120)
            //-- DarkText(CHW..";"..i..";"..sval(CHW*i)..";"..sval((SH-sty)-10),0,i*25)           
-           //if (mousehit(1) or joyhit('CONFIRM')) and ClickedChar(i) then FlowMaster.AppSet[i]=not FlowMaster.AppSet[i] end
-           //if (INP.KeyH(i+49)==1) then FlowMaster.AppSet[i]=not FlowMaster.AppSet[i] end           	
+           //if (mousehit(1) or joyhit('CONFIRM')) and ClickedChar(i) then AppSet[i]=not AppSet[i] end
+           //if (INP.KeyH(i+49)==1) then AppSet[i]=not AppSet[i] end           	
            if Events.KeyHit(i+48)
-              FlowMaster.AppSet[i]=not FlowMaster.AppSet[i]
+              AppSet[i]=! AppSet[i]
            end
            //if mx>=CHW*i and mx<=CHW*(i+1) then jp=i end 
         end
@@ -370,7 +371,7 @@ Global Void MainFlow()
     //elseif  jr and jp<3 then INP.MoveMouse(((jp+1)*CHW)+(CHW/2),SH-25) end
     //if mousehit(2) or joyhit('CANCEL') or INP.KeyH(KEY_ESCAPE)==1 then Master_EndSession() end
     if Mouse.MR
-    	FlowMaster.EndSession()
+    	EndSession()
     End
     party.Boxes() //ShowParty()    
     Mouse.Draw() //ShowMouse()
@@ -381,7 +382,7 @@ Global Void PartyClick(int i,string ch)
 	CSayF("PartyClick(%d,'%s')",i,ch)
 	For j=1,4
 		If ch==RPGParty[j]
-			FlowMaster.AppSet[j]=!FlowMaster.AppSet[j]
+			AppSet[j]=!AppSet[j]
 		End
 	End
 End
@@ -397,7 +398,7 @@ Global Void MasterData(string id,int sizes_x,int sizes_y,int sizes_w,int sizes_h
 	Static ReadOnly Var SFnt = ObtainFont("FNTSTATSTAT")
 	if omd!=id 
 		//OverViewMaster = jinc('Script/JINC/Masters/'..id..".lua") omd = id end
-		Overviewmaster = FlowMaster.mdata(id)
+		Overviewmaster = mdata(id)
 	End
 	mymaster := OverViewMaster // I am LAZY!!!
 	//SetFont('MasterHeader')
@@ -424,8 +425,8 @@ Global Void MasterData(string id,int sizes_x,int sizes_y,int sizes_w,int sizes_h
      	Graphics.Color(255,255-math.floor((i/Len(mymaster.Desc))*75),255-math.floor((i/Len(mymaster.Desc))*255))
      	CFnt.DarkText(l,100,gy[1]+20+(i*20))
      end
-     FlowMaster.Abl(id,gx[2][1],gy[2]+20)
-     FlowMaster.Eyes(id,sizes_w-20,sizes_y+20)
+     Abl(id,gx[2][1],gy[2]+20)
+     Eyes(id,sizes_w-20,sizes_y+20)
 end
 
 //function MasterOverview(ssizes)
@@ -440,7 +441,7 @@ global Void MasterOverview(int sizes_x,int sizes_y,int sizes_w,int sizes_h)
     //Int count = 0    
     //local mx,my = MouseCoords()    
     //for masterid,_ in spairs(Unlocked) do
-    For masterid in each(FlowMaster.FullList)
+    For masterid in each(FullList)
     	if Unlocked[MasterID]
         	i = i + 1
         	//SetFont('MastersList')
