@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.22
+// version: 26.02.22 I
 // 
 // End License
 
@@ -99,9 +99,9 @@ Module
 		Return gbool["MASTER_UNLOCKED_"..key]
 	End
 	
-	Void Speak(string Master)
+	Void Speak(string Mstr)
 		State.LoadNew("FLOW_MASTER","Script/Flow/FlowMaster.lbc")
-		State.Call("FLOW_MASTER","FlowMaster.Speak",sprintf("'%s'",Master))
+		Sys.Call("FLOW_MASTER","FlowMaster.Speak",Mstr)
 	End
 		
 //End
