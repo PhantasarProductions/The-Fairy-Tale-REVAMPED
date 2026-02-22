@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.22 I
+// version: 26.02.22 II
 // 
 // End License
 
@@ -101,7 +101,7 @@ Module
 	
 	Void Speak(string Mstr)
 		State.LoadNew("FLOW_MASTER","Script/Flow/FlowMaster.lbc")
-		Sys.Call("FLOW_MASTER","FlowMaster.Speak",Mstr)
+		Sys.Call("FLOW_MASTER","Speak",Mstr)
 	End
 		
 //End

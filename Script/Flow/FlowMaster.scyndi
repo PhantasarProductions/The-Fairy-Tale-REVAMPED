@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowMaster.scyndi
 // 
-// 	  Version: 26.02.22 XXIV
+// 	  Version: 26.02.22 XXV
 // 	
 // 	  Copyright (C) 2016, 2017, 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -100,7 +100,7 @@ End
     	return MTab[id] 
     End
     
-    Void Speak(string id)
+    Global Void Speak(string id)
     	//cMaster = jinc('Script/JINC/Masters/'..id..".lua")
     	cMaster = MData(id)
     	//cMaster.name = cMaster.name || id
