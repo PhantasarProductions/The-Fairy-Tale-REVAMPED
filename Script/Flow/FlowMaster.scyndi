@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowMaster.scyndi
 // 
-// 	  Version: 26.02.22 XXV
+// 	  Version: 26.02.22 XXVII
 // 	
 // 	  Copyright (C) 2016, 2017, 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -243,7 +243,7 @@ End
     	End
     End
     	
-    Void Appoint(String ch,String master)
+    Global Void Appoint(String ch,String master)
     	CSay("Appoint master "..master.." to "..ch)
     	//jincdebug = true -- Something went wrong here, and I need to investigate. Must be on 'rem' in release. ;)
     	//local tmaster = jinc('Script/JINC/Masters/'..master..".lua","local function Master_DefStat(c,s,v) MS.Run('MASTER','Master_DefStat',c..';'..s..';'..v) end")
@@ -270,13 +270,13 @@ End
     		//if RPG.DataExists(ch,"Master")~=0 then oldmaster = RPG.GetData(ch,"Master") end
     		oldmaster = RPGChar[ch].Data.Master
     		if oldmaster!="" && oldmaster!=id && AppSet[i] 
-    			Lua.Neil.Globals.Dismiss(ch,oldmaster) 
+    			Lua.Scyndi.Globals.Dismiss(ch,oldmaster) 
     		end
     		if (!AppSet[i]) && oldmaster==id 
-    			Lua.Neil.Globals.Dismiss(ch,id) 
+    			Lua.Scyndi.Globals.Dismiss(ch,id) 
     		end
     		if AppSet[i] && oldmaster!=id 
-    			Lua.Neil.Globals.Appoint(ch,id) 
+    			Lua.Scyndi.Globals.Appoint(ch,id) 
     		end
     	end
     	Flow.Current="FIELD" //LAURA.Flow('FIELD')
