@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Link.scyndibundle/Item_h.scyndi
 // 
-// 	  Version: 26.02.17
+// 	  Version: 26.02.22
 // 	
 // 	  Copyright (C) 2020, 2021, 2026 Jeroen Petrus Broks
 // 	
@@ -247,7 +247,8 @@ End
 //Var Ret = Lua.setmetatable({},{["__index"]=__TagIndex,["__newindex"]=__TagNewIndex})
 
 Global Bool TeachSkill(String Ch,String Skl)
-	State.Call("SUB_ITEMS","LoadAbilityList",sprintf("'%s'",Ch))
+	//State.Call("SUB_ITEMS","LoadAbilityList",sprintf("'%s'",Ch))
+	Sys.Call("SUB_ITEMS","LoadAbilityList",Ch)
 	//If ISGet.Bool("SUB_ITEMS",sprintf("Abilities.%s.Skill['%s']~=nil",ch,skl))
 	If BoolGet("LinkHaveSkill",Ch,Skl)
 		CSayF("Teaching skill %s to %s rejected! Character already has it!",skl,ch)
