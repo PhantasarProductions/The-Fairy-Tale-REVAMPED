@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Convert.ScyndiBundle/RPG2Statistician.scyndi
 // 
-// 	  Version: 26.02.21
+// 	  Version: 26.02.22
 // 	
 // 	  Copyright (C) 2026 Jeroen Petrus Broks
 // 	
@@ -71,7 +71,8 @@ QuickMeta RPGParty
 			case "number"
 				// New system starts at 0, but the old one at 1. This should prevent conflicts.
 				nk:=key-1 
-				_rpgstat.Party[nk]=Value
+				CSayF("Setting %s(%s) to index %d(Real:%d)",Value,Lua.type(Value),Key,nk)
+				_rpgstat.Party[nk]=Value || ""
 			default
 				Lua.error("W:RPG Party can't handle key of type "..NT(Key))
 		end
