@@ -1,8 +1,8 @@
-// License Information:
+// License:
 // **********************************************
 // 
-// src/Tricky Script/Script/Data/Masters/Rubine.neil
-// (c) Jeroen Broks, 2009, 2021, All Rights Reserved.
+// src/Code/Script/Data/Masters/Master_Rubine.scyndi
+// (c) Jeroen Broks, 2009, 2021, 2026, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -24,6 +24,7 @@
 // from it, you can use it under that license.
 // Please check out the other files to find out
 // which license applies.
+// 
 // This file comes 'as-is' and in no possible
 // way the author can be held responsible of
 // any form of damages that may occur due to
@@ -32,28 +33,34 @@
 // 
 // **********************************************
 // 
-// version: 21.12.28
-// End License Information
+// 
+// version: 26.02.22 II
+// 
+// End License
+
 
 Module
 
-	Get Bool requirement() 
+	#use "Script/Use/Anyway"
+	#use "Script/Use/Convert"
+
+	Get Bool requirement 
 		Return true
 	End
 
 	Var Abl
 	Void DefAbl()
-		plua _Abl
-		#pure
-		_Abl = {
-                     [ 20] = 'abl_master_rubine_pickpocket',
-                     [ 40] = 'abl_master_rubine_poisonstab',
-                     [ 60] = 'abl_master_rubine_invade',
-                     [200] = 'abl_master_rubine_backstab',
-                     [400] = 'abl_master_rubine_followme'
-              }              
-		#endpure
-		Abl = _Abl
+		Abl = {}
+		//#pure
+		//_Abl = {
+                     Abl[ 20] = "abl_master_rubine_pickpocket"
+                     Abl[ 40] = "abl_master_rubine_poisonstab"
+                     Abl[ 60] = "abl_master_rubine_invade"
+                     Abl[200] = "abl_master_rubine_backstab"
+                     Abl[400] = "abl_master_rubine_followme"
+        //      }              
+		//#endpure
+		//Abl = _Abl
 		if __newgameplus 
 			abl[30] = "abl_master_rubine_fastdraw" 
 		end
@@ -99,24 +106,24 @@ Module
      End
 
      Var Stats
-     Table Desc = {"Rubine is a female thief","She rewards the ability to find money","You score a point each time you find money","Score enough points to learn new skills","","While you study under Rubine,","there is 1 to "..math.abs((__skill*2)^2).." chance","an attack can be completely voided",""}
+     Table Desc = {[0]="Rubine is a female thief","She rewards the ability to find money","You score a point each time you find money","Score enough points to learn new skills","","While you study under Rubine,","there is 1 to "..math.abs((__skill*2)^2).." chance","an attack can be completely voided",""}
 
      Void DefStats()
-     	plua _stats
+     	//plua _stats
      	// Spd +25%, Atk -10%, End -5%, Int -10%, Res - 5%, Acc +5%, eva +5%     	
-     	#pure
-     	_stats = {
-     		Speed = 25,
-     		Power = -10,
-     		Endurance = -10,
-     		Intelligence = -10,
-     		Resistance = -10,
-     		Accuracy = 5,
-     		Evasion = 5
+     	//#pure
+     	//_stats = {
+     		Stats.Speed = 25,
+     		Stats.Power = -10,
+     		Stats.Endurance = -10,
+     		Stats.Intelligence = -10,
+     		Stats.Resistance = -10,
+     		Stats.Accuracy = 5,
+     		Stats.Evasion = 5
      	}
-     	#endpure
-     	Stats = _stats
-     	Desc[#Desc+1]=({"In easy mode you only need half the points, normally required for a new skill","","In hard mode you need twice the points to learn a new skill"})[__skill]
+     	//#endpure
+     	//Stats = _stats
+     	Desc+=({"In easy mode you only need half the points, normally required for a new skill","","In hard mode you need twice the points to learn a new skill"})[__skill]
      End
      
      String ShowScore(ch)
@@ -127,8 +134,8 @@ Module
      ReadOnly String ID   = "Rubine"
      ReadOnly Bool   HideRates = False
 
-     Constructor
+     Init
      	DefStats()
      	DefAbl()
      End
-End
+//End
