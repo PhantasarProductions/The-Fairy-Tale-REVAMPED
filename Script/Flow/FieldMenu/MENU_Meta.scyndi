@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.14 VII
+// version: 26.02.22 I
 // 
 // End License
 
@@ -65,7 +65,8 @@ End
 
 //Module
 	
-	ReadOnly Var BigFnt  = ObtainFont("BIGTEXT")
+	ReadOnly Var BigFnt = ObtainFont("BIGTEXT")
+	ReadOnly Var SmlFnt = ObtainFont("BOXTEXT")
 	ReadOnly Var LitFnt = ObtainFont("FNTSTATSTAT")
 	
 	Void Pic(ubox,string CharTag)
@@ -110,7 +111,7 @@ End
 				Name = Chartag
 		End
 		__Ember
-		BigFnt.DarkText(Name,ubox.x+10,ubox.y+10)
+		Ternary(ubox.x+10+BigFnt.Width(Name)<Graphics.Width-10,BigFnt,SmlFnt).DarkText(Name,ubox.x+10,ubox.y+10)
 		__White
 		LitFnt.DarkText(RPGChar[CharTag].Data.Race.." "..RPGChar[CharTag].Data.Sex,ubox.x+10,ubox.y+50)
 		Int BarSiz := (ubox.w - 30)
