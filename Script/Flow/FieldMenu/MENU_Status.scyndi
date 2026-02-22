@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FieldMenu/MENU_Status.scyndi
 // 
-// 	  Version: 26.02.14 XI
+// 	  Version: 26.02.22 I
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -92,8 +92,10 @@ Module
     	Graphics.Color(0,180,255)
     	StatFnt.DarkText("AP "..AP.Have.." of "..AP.Maximum,x+25,y+95,0,0) //,0,180,255)
     	// Statistics
+    	int masty=0
     	For i,s in Lua.ipairs(ShowStats)
-    		Int ipy := y+100+(i*32)
+    		Int ipy := y+100+(i*30)
+    		masty=math.max(masty,ipy+32)
     		__White
         	StatFnt.DarkText(s,x+25,ipy)
         	__Ember
@@ -136,9 +138,11 @@ Module
         End
         If RPGChar[chartag].Data.Master!=""
         	__White
-        	StatFnt.DarkText("Master",x+25,y+440)
+        	//StatFnt.DarkText("Master",x+25,y+440)
+        	StatFnt.DarkText("Master",x+25,masty)
         	__Ember
-        	StatFnt.DarkText(RPGChar[chartag].Data.Master,(x+w)-25,y+440,1)
+        	//StatFnt.DarkText(RPGChar[chartag].Data.Master,(x+w)-25,y+440,1)
+        	StatFnt.DarkText(RPGChar[chartag].Data.Master,(x+w)-25,Masty,1)
         End
         // Skills
         RPGChar[chartag].Points.LVL_Skill1.Have = math.max(RPGChar[chartag].Points.LVL_Skill1.Have,1)
