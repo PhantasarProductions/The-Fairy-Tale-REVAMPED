@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Link.scyndibundle/Map.scyndi
 // 
-// 	  Version: 26.02.22
+// 	  Version: 26.02.22 I
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -457,7 +457,7 @@ End
 	Get Bool AllowEncOff
 		Switch __Game
 			Case "The Fairy Tale"
-				return gv.gbool["ALLOWENCOUNTEROFF_"..LoadedMap] || (__Chapter>0 && Prefixed(LoadedMap:upper(),"PRO_"))
+				return gv.gbool["ALLOWENCOUNTEROFF_"..LoadedMap] || (__Chapter>0 && Prefixed(Upper(LoadedMap),"PRO_"))
 			Case "Star Story II"
 				return __PartyLevel>MapLevel
 			Default
@@ -471,7 +471,7 @@ End
 	
 	
 	Bool MapAllowEncOff(string m) 
-		return gv.gbool["ALLOWENCOUNTEROFF_"..m] || (__Chapter>0 && Prefixed(m:upper(),"PRO_"))
+		return gv.gbool["ALLOWENCOUNTEROFF_"..m] || (__Chapter>0 && Prefixed(Upper(m),"PRO_"))
 	End
 	
 	Void Pop(string spot,string wind="North", instant)
