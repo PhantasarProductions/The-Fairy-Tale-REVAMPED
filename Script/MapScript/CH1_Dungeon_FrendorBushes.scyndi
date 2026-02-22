@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.22 IV
+// version: 26.02.22 V
 // 
 // End License
 
@@ -166,7 +166,7 @@ Group MScript
 		If !Done.Chapter1Announced
 			Map.Chapter(1)		
 		End
-		ZA.TabEnter{"Boss_Jake","Boss_Marrilona","RemoveSure"}
+		ZA.TabEnter{[0]="Boss_Jake","Boss_Marrilona","RemoveSure"}
 		ZA.Enter("ExitSouthWest","Leave")
 		ZA.Enter("ExitNorthEast","Leave")
 	End
