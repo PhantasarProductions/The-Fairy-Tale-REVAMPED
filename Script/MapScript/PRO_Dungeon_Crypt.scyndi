@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.22 II
+// version: 26.02.22 III
 // 
 // End License
 
@@ -46,6 +46,7 @@ Script
 #use "Libs/SCI/Sys"
 #use "Libs/SCI/Audio"
 #use "Libs/SCI/Kthura"
+#use "Libs/SCI/SString"
 #use "Libs/SCI/InterVar"
 
 #use "Script/Use/Link"
@@ -163,9 +164,9 @@ QuickMeta MScript
 			TrueScript.LightCandles(Lua.tonumber(Right(Key,Len(Key)-3)))
 			Return NIKS
 		ElseIf Prefixed(key,"StepsAction_")
-			Var k = split(key,"_")
+			Var k = xsplit(key,"_")
 			CSayF("Action %s",key)
-			Steps.Action(k[2])
+			Steps.Action(k[1])
 			Return Niks
 		End
 		Return TrueScript[Key]
