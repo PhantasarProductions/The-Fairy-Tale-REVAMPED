@@ -34,15 +34,19 @@
 // **********************************************
 // 
 // 
-// version: 26.02.22 II
+// version: 26.02.22 VI
 // 
 // End License
 
 
 Module
 
+	#use "Libs/SCI/InterVar"
+
 	#use "Script/Use/Anyway"
 	#use "Script/Use/Convert"
+	
+	#accept FlowMaster
 
 	Get Bool requirement 
 		Return true
@@ -80,7 +84,7 @@ Module
     		if __skill==1 
     			req=truereq div 2 
     		end
-    		if maylearn and RPGChar[ch].Stat.RubinePoints>=req and (!Done["MASTER.RUBINE."..ch.."."..abl])
+    		if maylearn && RPGChar[ch].Stat.RubinePoints>=req && (!Done["MASTER.RUBINE."..ch.."."..abl])
     			//Console.Write(RPG.Stat(ch,"RubinePoints")..">="..req.." so let's teach!",180,255,0)
     			maylearn=false
     			rabl=abl
@@ -120,7 +124,7 @@ Module
      		Stats.Resistance = -10,
      		Stats.Accuracy = 5,
      		Stats.Evasion = 5
-     	}
+     	//}
      	//#endpure
      	//Stats = _stats
      	Desc+=({"In easy mode you only need half the points, normally required for a new skill","","In hard mode you need twice the points to learn a new skill"})[__skill]
