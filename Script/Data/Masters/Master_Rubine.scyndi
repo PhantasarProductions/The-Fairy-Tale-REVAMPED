@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.22 VI
+// version: 26.02.22 VII
 // 
 // End License
 
@@ -46,7 +46,8 @@ Module
 	#use "Script/Use/Anyway"
 	#use "Script/Use/Convert"
 	
-	#accept FlowMaster
+	//#accept FlowMaster
+	#accept DefStat
 
 	Get Bool requirement 
 		Return true
@@ -100,7 +101,7 @@ Module
       //Console.Write('Creating point for Rubine on '..ch,255,255,255)
       //Master_DefStat(ch,"RubinePoints",0)
       //RPGChar[ch].Stats.RubinePoints=0
-      FlowMaster.DefStat(Ch,"RubinePoints",0)
+      DefStat(Ch,"RubinePoints",0)
      End
      
      
