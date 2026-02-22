@@ -1,8 +1,8 @@
-// License Information:
+// License:
 // **********************************************
 // 
-// src/Tricky Script/Script/MapScript/CH1_Dungeon_FrendorBushes.neil
-// (c) Jeroen Broks, 2021, 2022, All Rights Reserved.
+// src/Code/Script/MapScript/CH1_Dungeon_FrendorBushes.scyndi
+// (c) Jeroen Broks, 2021-2022, 2026, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -24,6 +24,7 @@
 // from it, you can use it under that license.
 // Please check out the other files to find out
 // which license applies.
+// 
 // This file comes 'as-is' and in no possible
 // way the author can be held responsible of
 // any form of damages that may occur due to
@@ -32,12 +33,21 @@
 // 
 // **********************************************
 // 
-// version: 22.02.16
-// End License Information
+// 
+// version: 26.02.22 IV
+// 
+// End License
 
+Script
+
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/InterVar"
+
+#use "Script/Use/Link"
 #use "Script/Use/Anyway"
+#use "Script/Use/Convert"
 
-#macro __BossDone gv.gbool.Done_Chapter1_FrendorBushes_Boss
+#macro __BossDone gbool.Done_Chapter1_FrendorBushes_Boss
 
 Group MScript
 
@@ -59,7 +69,7 @@ Group MScript
 	End
 	
 	Void RemoveStartCrap()
-		For OTag in Each{"PRC_Jake","PRC_Marrilona","Boss_Jake","Boss_Marrilona","BlockJake","BlockMarrilona","RemoveSure"}
+		For OTag in Each{[0]="PRC_Jake","PRC_Marrilona","Boss_Jake","Boss_Marrilona","BlockJake","BlockMarrilona","RemoveSure"}
 			CSayF("Killing off object '%s' permanently!",OTag)
 			Map.Kill(OTag,true)
 		End
@@ -85,7 +95,7 @@ Group MScript
 	End
 	
 	Void PostBoss_Marrilona()
-		RemoveStartCrap()
+		MScript.RemoveStartCrap()
 		Map.GoToMap("CH1_HUB_JAKEHUT","BLACK","Yeah")
 		Schedule.Add("Start_Marrilona")
 		__BossDone = True
@@ -100,7 +110,7 @@ Group MScript
 	End
 	
 	Void PostBoss_Jake()
-		RemoveStartCrap()
+		MScript.RemoveStartCrap()
 		Map.GoToLayer("FRENDORBUSHES","PostBossJake")
 		Map.ShowObj("DeadMarrilona")
 		MapText("POSTBOSS_JAKE")
@@ -141,7 +151,7 @@ Group MScript
 		__BossDone = RPGParty[2]=="Marrilona"
 		If __BossDone 
 			CSay("Oops, stuff is still there?")
-			RemoveStartCrap()
+			MapScript.RemoveStartCrap()
 			CSay("Should be corrected now!")
 		Else
 			CSay("Boss not defeated, yet! Okay!")
@@ -149,7 +159,7 @@ Group MScript
 	End
 
 	
-	Constructor
+	Void Welcome()
 		If !__NewGamePlus
 			Map.Kill("NPC_Tai")
 		End
@@ -162,3 +172,7 @@ Group MScript
 	End
 	
 End
+
+Init
+	MScript.Welcome()
+End	
