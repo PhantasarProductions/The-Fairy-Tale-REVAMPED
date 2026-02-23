@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.14 I
+// version: 26.02.23
 // 
 // End License
 
@@ -111,7 +111,7 @@ init
 	LAsset.C("Fonts/monof55.25.jfbf","FNTEQP",wh_Font)
 	LAsset.C("Fonts/monof55.35.jfbf","FNTSTATSTAT",wh_Font)
 	LAsset.C("Fonts/ECN.jfbf","ECN",wh_Font)
-	For Ico in Each{[0]="Items","Abilities","Master","Quit","Achievements","Status","Config","Buy","Trade"}
+	For Ico in Each{[0]="Items","Abilities","Master","Achievements","Status","Config","Buy","Trade"}
 		LAsset.C(sPrintF("GFX/Menu Icons/%s.png",Ico),sPrintF("ICO_%s",upper(ico)),wh_Image)
 	End
 	LAsset.C("Audio/Shopping/ChaChing.ogg","CHACHING",wh_Audio)
