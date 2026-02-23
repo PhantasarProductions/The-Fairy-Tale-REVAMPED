@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/STG_Wiped.scyndi
 // 
-// 	  Version: 26.02.23
+// 	  Version: 26.02.23 I
 // 	
 // 	  Copyright (C) 2021-'22, 2026 Jeroen Petrus Broks
 // 	
@@ -79,7 +79,7 @@ Group WipeDo
 	
 	Void Respawn()
 		Music.PopVoid()		
-		Lua.Neil.Globals.Respawn.Wipe()
+		Lua.Scyndi.Class.Respawn.Wipe()
 		Flow.Current="FIELD"
 		Ach.Auto()
 	End
