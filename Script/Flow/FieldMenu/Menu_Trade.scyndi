@@ -121,9 +121,9 @@ Module
 	
 	End
 	
-	Constructor
-		TradeShop = Self
-		CSayF("Tradeshop created as %s",Lua.tostring(Self))
-	End
+	//Constructor
+	//	TradeShop = Self
+	//	CSayF("Tradeshop created as %s",Lua.tostring(Self))
+	//End
 
-End
+//End
