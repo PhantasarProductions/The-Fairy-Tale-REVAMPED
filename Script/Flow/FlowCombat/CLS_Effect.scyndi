@@ -1,0 +1,483 @@
+// License:
+// 	  src/Code/Script/Flow/FlowCombat/CLS_Effect.scyndi
+// 
+// 	  Version: 26.02.21
+// 	
+// 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
+// 	
+// 	  ===========================
+// 	  This file is part of a project related to the Phantasar Chronicles or another
+// 	  series or saga which is property of Jeroen P. Broks.
+// 	  This means that it may contain references to a story-line plus characters
+// 	  which are property of Jeroen Broks. These references may only be distributed
+// 	  along with an unmodified version of the game.
+// 
+// 	  As soon as you remove or replace ALL references to the storyline or character
+// 	  references, or any termology specifically set up for the Phantasar universe,
+// 	  or any other univers a story of Jeroen P. Broks is set up for,
+// 	  the restrictions of this file are removed and will automatically become
+// 	  zLib licensed (see below).
+// 
+// 	  Please note that doing so counts as a modification and must be marked as such
+// 	  in accordance to the zLib license.
+// 	  ===========================
+// 
+// 
+// 	  zLib license terms:
+// 	
+// 	  This software is provided 'as-is', without any express or implied
+// 	  warranty.  In no event will the authors be held liable for any damages
+// 	  arising from the use of this software.
+// 
+// 	  Permission is granted to anyone to use this software for any purpose,
+// 	  including commercial applications, and to alter it and redistribute it
+// 	  freely, subject to the following restrictions:
+// 	
+// 	  1. The origin of this software must not be misrepresented; you must not
+// 	     claim that you wrote the original software. If you use this software
+// 	     in a product, an acknowledgment in the product documentation would be
+// 	     appreciated but is not required.
+// 	  2. Altered source versions must be plainly marked as such, and must not be
+// 	     misrepresented as being the original software.
+// 	  3. This notice may not be removed or altered from any source distribution.
+// End License
+
+
+Module
+
+#use "Libs/SCI/Sys"
+
+#use "Script/Use/Link"
+#use "Script/Use/Anyway"
+#use "Script/Use/Convert"
+
+#accept VicQ
+#accept Fighter
+#accept CharMsg
+#accept EXPRate
+#accept FlowCombat
+
+LocExtern Rand "Scyndi.Class.Effect.Rand"
+LocExtern Hurt "Scyndi.Class.Effect.Hurt"
+
+Group Effect
+	
+	Var Target
+	Var Action
+	Int LastDamageDone
+	
+	Const Delegate ToNumber = Lua.tonumber
+	Const Delegate Upper = Lua.string.upper
+	
+	Get Var Executor
+		Return Action.Executor
+	End
+	
+	Get Var Act
+		Return Action.Act
+	End
+	
+	Int SVal(s)
+		return tonumber(s) || 0
+	End
+	
+	Int Rand(A,B)
+		If !B
+			Return math.random(0,math.floor(A))
+		Else
+			Return math.random(math.floor(A),math.floor(B))
+		End
+	End
+		
+	
+	Int Hurt(String tag,Number damage,string element="None")
+		eleprot  := RPGChar[tag].SafeStat["END_ER_"..(element)]
+		hp       := RPGChar[tag].Points.HP
+		modifier := -(eleprot/100)
+		dmg      := damage
+		
+		if fighter.bytag[tag].Team=="Foe" && fighter.bytag[tag].Hydra
+			CSay("Hydra checkup: "..tag)
+			if fighter.bytag[tag].HP==1 && element=="Flame"
+				CSay("Hydra fatally wounded by fire. Goodbye!")
+				fighter.bytag[tag].Char.Points.HP.Minimum = 0
+				fighter.bytag[tag].Char.Points.HP.Have    = 0
+				charmsg(tag,"DEATH!",255,0,0)
+				return 1
+			end
+		end
+		
+		if tag=="Dandor"
+			r := self.rand(1,4^__skill)
+			if r==1
+				dmg=0
+				// MS.Run("BOXTEXT","LoadData","COMBAT/LEARN;COMBATLEARN")
+				BOXTEXT.Load("COMBATLEARN","Combat/Learn")
+				Boxtext.Serial("COMBATLEARN","AUTO_DANDOR","FLOW_COMBAT")
+			end
+		end
+		dmg = round(dmg + round(dmg*modifier))
+		Lua.assert(fighter.bytag[tag],"NIL-record: "..tag)
+		fighter.bytag[tag].StatusChanges = fighter.bytag[tag].StatusChanges || {}
+		
+		
+		// alt damage routine
+		for s,d in pairs(Fighter.ByTag[tag].StatusChanges)
+			if d.HalfDamage
+				dmg=math.ceil(dmg/2)
+			end
+			if d.BlockHurt && dmg>=0
+				dmg=0
+			end
+		end
+		
+		// default damage routine
+		if eleprot<-200
+      		// Fatal
+      		if dmg>0
+      			dmg = hp.Have
+      		end
+      		charmsg(tag,"DEATH!",255,0,0)
+      		hp.Minimum=0
+      	elseif eleprot<-100 
+      		// Very weak
+      		charmsg(tag,dmg,255,0,0)
+      	elseif eleprot<0
+      		// Weak
+      		charmsg(tag,dmg,200,10,0)
+      	elseif eleprot==0 
+      		// No weak no defense either
+      		charmsg(tag,dmg,255,255,255)
+      	elseif eleprot<100 
+      		// Higher resistant
+      		charmsg(tag,dmg,140,140,140)
+      	elseif eleprot==100 
+      		// Immune
+      		dmg=0
+      		charmsg(tag,"NO EFFECT!",255,180,0)
+      	else  
+      		// Absorb
+      		//for k,d in pairs(Fighter.ByTag[tag].StatusChanges )
+      		for k,d in Fighter.ByTag[tag].EachStatusChange()
+      			if d.BlockHeal 
+      				dmg=0
+      			end
+      		end
+      		charmsg(tag,math.abs(dmg),180,255,0)
+      	end
+      	if Fighter.ByTag[tag].Team=="Hero"
+      		// God Mode
+      		if gv.gbool["CHEAT.GOD"]
+      			dmg=0 
+      		end 
+      		// Damage
+      		RPGChar[tag].Points.AP.Have+= 6 div __skill
+      		// EXP Rate up
+      		Switch __skill
+      			case 1
+      				EXPRate[Tag]+= (dmg/RPGChar[tag].Points.HP.Have)/100
+      			case 2
+      				EXPRate[Tag]+= (dmg/RPGChar[tag].Points.HP.Maximum)/1000
+      			case 3
+      				EXPRate[Tag]+=0.0000001
+      			Default
+      		      	EXPRate[Tag]-=1
+      		End
+      	End      	
+      	hp.Have -= dmg 
+      	// Yeah that even works for absorb, as a negative value is then in dmg && two negatives make one positive.
+      	CSay(tag.." has "..hp.Have.." HP left")
+      	// RPG.Points(tag,'HP') -- Any minimums && maximums are now taken in order automatically.
+      	//if hp.Have<=0 
+      		// SetStatus(tag,'Death',true)
+      	// End
+      	if tag=="Marrilona" && gv.gint["HANDICAP.MARRILONA"]>0
+      		gv.gint["HANDICAP.MARRILONA"] += math.ceil(dmg div __skill)
+      	end
+      	CSay(tag.." suffered "..dmg.." damage")
+      	if (! prefixed(tag,"FOE")) && ((! VicQ) || upper(VicQ)=="PERFECT") 
+      		VicQ="General" 
+      	end
+      	if fighter.bytag[tag].Team=="Foe" && suffixed(upper(fighter.bytag[tag].File),"GENDRABROE")
+      		A := Lua.Scyndi.Globals.Action("SPECIAL_GENDRABROE_COUNTER",tag,{Executor.Tag})
+      		C := FlowCombat.Cards.Add(1,tag,A,nil)
+      		C.Gendrabroe = dmg
+      	End
+      	
+      	// Hando Stillor Emergency action
+      	If fighter.bytag[tag].Team=="Hero"
+      		Bool AnyBad = False
+      		For t,hero in pairs(fighter.bytag)
+      			if hero.Team=="Hero"
+      				number p := Hero.HP / Hero.HPMax
+      				AnyBad = AnyBad || (p<(0.12 / __skill))
+      			end
+      		end
+      		If AnyBad && fighter.bytag.HandoStillor && RPGChar.HandoStillor.Points.HP.Have>0
+      			BoxText.Serial("LEARNABILITY", "AUTO_HANDOSTILLOR", "FLOW_COMBAT")
+      			FlowCombat.Cards.Add(1,"HandoStillor")
+      		End
+      	End      	
+      	return dmg
+    end
+	     
+    
+	
+	// The calcuation has been copied from the original source code && been adapted
+	// To Neil && the underlying APIs.
+	Get Bool Attack
+		// function Attack(act,g,i,na) // Original
+		String g = Target.Team
+		
+		//CSay("Attack on: "..sval(g).."/"..sval(i))
+		CSayF("Attack on %s.%s",Target.Team,Target.Tag)
+		// Init
+		//local ttag = Fighters[g][i].tag
+		String ttag := Target.Tag
+		String atag := Executor.tag
+		Number atk  := RPGChar[atag].Stat["END_"..act.Attack_AttackStat] * ((act.Attack || 100)/100)
+		Number def  := 0
+		Bool voided := False
+		If Atk<=0
+			Return False
+		End
+		If act.Attack_DefenseStat!="None" 
+			def = RPGChar[ttag].Stat["END_"..act.Attack_DefenseStat] 
+		End
+		
+		// Defense modifier based on difficulty settings
+		Table defmod = { ["Foe"] = {0.25,0.50,0.75},["Hero"]={0.50,0.30,0.15}}
+		def = def * defmod[g][__skill]
+		// Damage itself
+		Number rate   := atk-def
+		Number damage := math.max(1,rate + Effect.rand(math.max(1,rate div 4)))
+		//if damage<1 then damage=1 end -- Never less than 1 HP damage.
+		
+		// Critical
+		pLua criticalrate = 0
+		pLua critical = False
+		critical = RPGChar[atag].SafeStat["END_Critical"]>0
+		critical = critical && self.rand(0,100)<RPGChar[atag].SafeStat["END_Critical"]
+		critical = critical || act.Attack_Desperate // Must be last (and most be "or" in stead of "and" || this doesn't work).
+		If critical 
+			damage = self.rand(damage,damage*2)
+			charmsg(ttag,"Critical!",255,0,0)
+		End
+		
+		// Dandor skills
+		If ttag=="Dandor" && prefixed(atag,"FOE") 
+			//-- Attacks from confused allies won't count!
+			#if FOUT_NEGEER
+			//--[[ Fout, Jeroentje! Fout!
+			//if act.Attack_DefenseStat=="Power" || act.Attack_DefenseStat=="Endurance" && RPG.PointsExists("Dandor","SK_EXP_2")~=0 then RPG.Points("Dandor","SK_EXP_2").inc(damage)
+			//elseif act.Attack_DefenseStat=="Intelligence" || act.Attack_DefenseStat=="Resistance" && RPG.PointsExists("Dandor","SK_EXP_3")~=0 then RPG.Points("Dandor","SK_EXP_3").inc(damage) end
+			//]]
+			#fi
+			if (act.Attack_DefenseStat=="Power" || act.Attack_DefenseStat=="Endurance") && RPGChar.Dandor.Points.LVL_Skill2.Have>0 
+				Party.IncSkill("Dandor",2,damage)
+			elseif (act.Attack_DefenseStat=="Intelligence" || act.Attack_DefenseStat=="Resistance") && RPGChar.Dandor.Points.LVL_Skill3.Have>0 
+				Party.IncSkill("Dandor",3,damage) 
+			end
+		end
+		
+		// Rubine's void
+		If g=="Hero" && RPGChar[ttag].Data.Master=="Rubine" && rand(1,(__skill*2)^2)==1
+			charmsg(ttag,"Voided",180,255)
+			RPGChar[ttag].Points.AP.Have += 12 div __skill
+			voided=true
+		End
+		
+		// && let's put it all through now...
+		if !voided 
+			lastdamagedone = Hurt(ttag,damage,act.Attack_Element) 
+		end
+		
+		mychar := fighter.bytag[ttag]
+		if mychar.statuschanges
+			for s,d in pairs(mychar.statuschanges) 
+				if d.AttackExpire
+					mychar.statuschanges[s] = nil 
+				end
+			end
+		end
+		
+		// If enemies respond to certain attacks, let's init that effect then, shall we?
+		// TODO: Sort this out! (Gendrabroe most of all has to deal with this!
+		//;(HitBy[mychar.HitBy || 'Nothing'] || Nothing)(ttag,act.Attack_Element,act.Attack_AttackStat,act.Attack_DefenseStat,{damage=damage,executor=atag})       
+		Return True
+    end	
+    
+    Get Bool XTurnCard
+    	If !Action.Executor
+    		Return False
+    	End
+    	If Act.ADDCARD_Char_Number && Act.ADDCARD_Char_Number>=0
+    		Int maxmove = ({ ["Foe"] = {100,1000,5000}, ["Hero"]={5000,1000,95} })[Action.Executor.Team][__skill]
+        	Int moved = 0
+        	For ak=1,Act.ADDCARD_Char_Number
+        		If moved<maxmove
+        			//If AddCard(card2add,ak*(act.ADDCARD_Char_Interval || 2)) then moved=moved+1 end
+        			//FlowCombat.Cards.Add(ak*math.max(2,Act.ADDCARD_Char_Interval || 2),Action.Executor.Tag)
+        			FlowCombat.Cards.Add(ak*math.max(2,Act.ADDCARD_Char_Interval || 2),Target.Tag)
+        		End
+        	End
+        	Return True
+        End
+        Return False
+    End
+    
+    Get Bool Heal
+    	If Act.Heal<=0 || Target.HP<=0
+    		Return False
+    	End
+    	Int HV
+    	Switch Act.Heal_Type
+    		Case "Absolute"
+    			HV = Act.Heal
+    		Case "Percent"
+    			HV = math.ceil( (Target.HPMax/100)*Act.Heal)
+    		Case "StatPercent"
+    			HV = math.ceil( (Action.Executor.Char.Stat["END_"..Act.Heal_StatPercent])*(Act.Heal/100) )
+    		Default
+    			Lua.error("Unknown HealType: "..Act.Heal_Type)
+    	End
+    	// TODO: Heal => Damage if Undead status
+    	If Target.Damned
+    		charmsg(Target.Tag,math.abs(HV),180,0,255)
+    		Target.HP -= HV
+    		Return True
+    	ElseIf Target.StatusChanges.Disease
+    		charmsg(Target.Tag,"No effect!",255,180,0)
+    		Return True
+    	End
+    	CSayF("Healing %s with %s extra hitpoints",Target.Tag,Lua.tostring(HV))
+    	charmsg(Target.Tag,math.abs(HV),180,255,0)
+    	Target.HP += HV
+    	If Target.Tag=="Marrilona" && HV>0 && gv.gBool.MarFeena_Curse
+    		gv.gInt.MarFeena_HP++
+    	End
+    	Return True
+    End
+    
+    Get Bool ActScript
+    	Static Table Scripts
+    	String S = Upper(Act.EffectScript)
+    	if S==""
+    		Return False
+    	End
+    	Scripts[S] = Scripts[S] || NeilUse("Script/Use/Combat/ActScript/AS_"..Act.EffectScript)._Act
+    	Return Scripts[S](Act,Target,Action.Executor)
+    End
+    
+    Get Bool CauseStatus
+    	Bool Ret = False
+    	For k,d in pairs(FlowCombat.StatusChanges.Register)
+    		If Act["Cause"..k] && (!Target.StatusChanges[k]) && math.random(0,100)>Target.Char.SafeStat["END_SR_"..k]
+    			Target.StatusChanges[k] = true
+    			Invoke(d.Inflict,Target)
+    			charmsg(Target.Tag,k,180,0,255)
+    			Ret = True
+    		End
+    	End
+    	Return Ret
+    End
+    
+    Get Bool CureStatus
+    	Bool Ret = False
+    	For k,d in pairs(FlowCombat.StatusChanges.Register)
+    		If Act["CUre"..k] && (Target.StatusChanges[k])
+    			Target.StatusChanges[k] = False
+    			Invoke(d.Cure,Target)
+    			charmsg(Target.Tag,"Cure: "..k,180,255,0)
+    			Ret = True
+    		End
+    	End
+    	Return Ret
+    End
+    
+    Get Bool Revive
+    	If Act.Revive && Target.HP==0 && Target.Team=="Hero"
+    		Target.HP=1
+    		charmsg(Target.Tag,"Revive",0,255,0)
+    		Return True
+    	End
+    	Return False
+    End
+    
+    Get Bool Buffs
+    	Static Table ST = {"Power","Endurance","Intelligence","Resistance","Speed","Accuracy","Evasion"}
+    	Bool Ret = False
+    	For S in Each(ST)
+    		Int Base = Target.Char.Stat["BASE_"..S]
+    		Int Prc  = Act["BUFF_"..S]
+    		Int CBuf = Target.Char.Stat["BUFF_"..S]
+    		If Prc!=0
+    			Int Buff := math.ceil(Base * (Prc/100))
+    			If Buff>0 && CBuf<Buff
+    				charmsg(Target.Tag,sprintf("%s up to %3d%%",S,Prc),0,255,0)
+    				Ret = True
+    				Target.Char.Stat["BUFF_"..S] = Buff
+    			ElseIf Buff<0 && CBuf>Buff
+    				charmsg(Target.Tag,sprintf("%s down to %3d%%",S,math.abs(Prc)),255,0,0)
+    				Ret = True
+    				Target.Char.Stat["BUFF_"..S] = Buff
+    			End
+    		End
+    	End
+    	Return Ret
+    End
+
+	Bool Run(_Action,_Target)
+		Bool Ret = False		
+		Switch Lua.type(_Target)
+			Case "string"
+				Target = Fighter.ByTag[_Target]
+				Lua.assert(Target,"COMBAT.EFFECT: Target definition failed: ".._Target)
+			Case "table"
+				Target = _Target
+			Default
+				Lua.error("Cannot handle target of type: "..Lua.type(_Target))
+		End
+		Action = _Action
+		
+		// Check hit / critical / desperation
+		If Act.Attack_AllowAccuracy
+			int Roll=math.random(1,100)
+			If Roll>Action.Executor.Char.Stat.END_Accuracy
+				Return False
+			end
+		End
+		If Act.Attack_AllowAccuracy
+			Int Roll=math.random(1,100)
+			If Roll<=Target.Char.Stat.END_Evasion
+				Return False
+			End
+		End
+		
+		// Cure status changes (must be first)
+		Ret = CureStatus || Ret
+		Ret = Revive || Ret
+		// Healing
+		Ret = Heal || Ret
+		
+		// Attack
+		Ret = Attack || Ret
+		
+		// Buffs & Debuffs
+		Ret = Buffs || Ret
+		
+		// Script
+		Ret = ActScript || Ret
+		
+		// Target gets extra turn cards
+		Ret = XTurnCard || Ret
+		
+		// Cause status changes (must be last)
+		Ret = CauseStatus || Ret
+		
+		// Return result
+		Return Ret
+	End
+End
+
+//Return Effect

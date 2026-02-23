@@ -1,0 +1,196 @@
+// Converted from Neil to Scyndi
+
+Module
+
+LocExtern __skill "Scyndi.Globals.gInt.Skill"
+LocExtern __NewGamePlus "Scyndi.Globals.gBool.NewGamePlus"
+
+
+// Generated 7/30/2022 3:47:17 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	Ret.DESC = "They roam the mines"
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/reg/Gremlin.png"
+	Ret.DropRate_1 = 1
+	Ret.DropItem_1 = "ITM_AMBROSIA"
+	Ret.DropRate_2 = 25
+	Ret.DropItem_2 = "ITM_PHOENIX"
+	Ret.StealRate_1 = 1
+	Ret.StealItem_1 = "ITM_AMBROSIA"
+	Ret.StealRate_2 = 2
+	Ret.StealItem_2 = "ITM_DEATHCUBE"
+	Ret.StealRate_3 = 4
+	Ret.StealItem_3 = "ITM_HOLYSCROLL"
+	Ret.NAME = "Gremlin"
+	Ret.CASH = 75
+	Ret.SR_CURSE = 100
+	Ret.SR_DEATH = 45
+	Ret.SR_DISEASE = 25
+	Ret.SR_PARALYSIS = 75
+	Ret.SR_PETRIFICATION = 100
+	Ret.SR_POISON = 50
+	Ret.SR_SILENCE = 100
+	Ret.SR_UNDEAD = 25
+	Ret.VOCALTAG = "Gremlin"
+
+
+	Ret.AllowOversoul = True
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 1
+		Ret.Stats.ER_DARKNESS = 123456789
+		Ret.Stats.ER_EARTH = -300
+		Ret.Stats.ER_FLAME = -300
+		Ret.Stats.ER_FROST = -300
+		Ret.Stats.ER_LIGHT = -800
+		Ret.Stats.ER_LIGHTNING = -300
+		Ret.Stats.ER_WATER = -300
+		Ret.Stats.ER_WIND = -300
+		Ret.Stats.EVASION = 25
+		Ret.Stats.EXP = 123
+		Ret.Stats.HP = 123
+		Ret.Stats.INTELLIGENCE = 2
+		Ret.Stats.POWER = 1000
+		Ret.Stats.RESISTANCE = 3
+		Ret.Stats.SPEED = 9999
+	Else
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 1000
+		Ret.Stats.ER_DARKNESS = 123456789
+		Ret.Stats.ER_EARTH = -300
+		Ret.Stats.ER_FLAME = -300
+		Ret.Stats.ER_FROST = -300
+		Ret.Stats.ER_LIGHT = -800
+		Ret.Stats.ER_LIGHTNING = -300
+		Ret.Stats.ER_WATER = -300
+		Ret.Stats.ER_WIND = -300
+		Ret.Stats.EVASION = 75
+		Ret.Stats.EXP = 200
+		Ret.Stats.HP = 500
+		Ret.Stats.INTELLIGENCE = 3
+		Ret.Stats.POWER = 2000
+		Ret.Stats.RESISTANCE = 4
+		Ret.Stats.SPEED = 100000
+	End
+
+	Ret.IsHumanoid = False
+
+	Ret.Actions = {}
+	If True
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+	End
+	Return Ret
+End
+

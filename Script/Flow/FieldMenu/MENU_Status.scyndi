@@ -1,0 +1,159 @@
+// License:
+// 	  src/Code/Script/Flow/FieldMenu/MENU_Status.scyndi
+// 
+// 	  Version: 26.02.23
+// 	
+// 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
+// 	
+// 	  ===========================
+// 	  This file is part of a project related to the Phantasar Chronicles or another
+// 	  series or saga which is property of Jeroen P. Broks.
+// 	  This means that it may contain references to a story-line plus characters
+// 	  which are property of Jeroen Broks. These references may only be distributed
+// 	  along with an unmodified version of the game.
+// 
+// 	  As soon as you remove or replace ALL references to the storyline or character
+// 	  references, or any termology specifically set up for the Phantasar universe,
+// 	  or any other univers a story of Jeroen P. Broks is set up for,
+// 	  the restrictions of this file are removed and will automatically become
+// 	  zLib licensed (see below).
+// 
+// 	  Please note that doing so counts as a modification and must be marked as such
+// 	  in accordance to the zLib license.
+// 	  ===========================
+// 
+// 
+// 	  zLib license terms:
+// 	
+// 	  This software is provided 'as-is', without any express or implied
+// 	  warranty.  In no event will the authors be held liable for any damages
+// 	  arising from the use of this software.
+// 
+// 	  Permission is granted to anyone to use this software for any purpose,
+// 	  including commercial applications, and to alter it and redistribute it
+// 	  freely, subject to the following restrictions:
+// 	
+// 	  1. The origin of this software must not be misrepresented; you must not
+// 	     claim that you wrote the original software. If you use this software
+// 	     in a product, an acknowledgment in the product documentation would be
+// 	     appreciated but is not required.
+// 	  2. Altered source versions must be plainly marked as such, and must not be
+// 	     misrepresented as being the original software.
+// 	  3. This notice may not be removed or altered from any source distribution.
+// End License
+
+
+Module
+
+#use "Libs/SCI/Graphics"
+
+#use "Script/Use/Link"
+#use "Script/Use/Anyway"
+#use "Script/Use/Convert"
+
+#accept TradeShop
+
+	ReadOnly Var BigFnt  = ObtainFont("BIGTEXT")
+	ReadOnly Var StatFnt = ObtainFont("FNTSTATSTAT")
+	ReadOnly Var EQPFnt  = ObtainFont("FNTEQP")
+	
+	Void EqName(string Char,string EType,Int X, Int Y)
+		If RPGChar[Char].Data["EQUIP_"..EType]!=""
+			EQPFnt.Text(Item[RPGChar[Char].Data["EQUIP_"..EType]].Title,X,Y)
+		End
+	End
+	
+	Void EqIcon(String ITag,Int X, Int Y)
+		Static Table Icons = {}
+		Icons[ITag] = Icons[ITag] || LoadImage("GFX/Equipment/"..ITag..".png","EQP_TAG_"..iTag)
+		Icons[ITag].Draw(X,Y)
+	End
+	
+	Void Flow(uBox,string CharTag,string situation)
+		// Declarations
+    	Static Table Procent = {["Accuracy"]=true,["Evasion"]=true}
+    	Static Table procentteken = {[false]="",[true]="%"}
+    	Static Table ShowStats = {"Power","Endurance","Intelligence","Resistance","Speed","Accuracy","Evasion"}
+    	Int x := ubox.x
+    	Int y := ubox.y
+    	Int w := ubox.w
+    	Int h := ubox.h
+    	// Head
+    	__white
+    	// ORIGINAL: Image.Show("CL_FACE_"..ch,(x+w)-(25+Image.Width("CL_FACE_"..ch)),y+25)
+    	Party.Portrait(CharTag,(x+w)-200,y+125)
+    	//SetFont('StatusName')
+    	BigFnt.DarkText(RPGChar[CharTag].Name,x+25,y+25)
+    	//SetFont('StatusStat')
+    	plua HP := RPGChar[CharTag].Points.HP
+    	plua AP := RPGChar[CharTag].Points.AP
+    	Graphics.Color(180,255,0)
+    	StatFnt.DarkText("HP "..HP.Have.." of "..HP.Maximum,x+25,y+75,0,0) //,180,255,0)
+    	Graphics.Color(0,180,255)
+    	StatFnt.DarkText("AP "..AP.Have.." of "..AP.Maximum,x+25,y+95,0,0) //,0,180,255)
+    	// Statistics
+    	int masty=0
+    	For i,s in Lua.ipairs(ShowStats)
+    		Int ipy := y+100+(i*30)
+    		masty=math.max(masty,ipy+32)
+    		__White
+        	StatFnt.DarkText(s,x+25,ipy)
+        	__Ember
+        	int shw := RPGChar[chartag].Stat["END_"..s]
+        	if procent[s]
+        		shw = math.max(shw,  0)
+        		shw = math.min(shw,100)
+        	end
+        	StatFnt.DarkText(shw..procentteken[procent[s]==true],(x+w)-25,ipy,1,0)
+        	//CSayF("Sit: %s; TrShop: %s; Buy: %s; Sell: %s",Situation, Lua.tostring(TradeShop),Lua.tostring(TradeShop.TradeBuyItem), Lua.tostring(TradeShop.TradeInItem))
+        	If Situation=="WSHOP" && TradeShop && TradeShop.TradeBuyItem && TradeShop.TradeInItem && upper(s)!="SPEED"
+        		Int BuyS := TradeShop.TradeBuyItem["EQP_STAT_"..s]
+        		Int SellS := TradeShop.TradeInItem["EQP_STAT_"..s]
+        		If BuyS>SellS
+        			Graphics.Color(180,255,0)
+        			StatFnt.DarkText(sPrintF("+%3d",BuyS-SellS),x+(w div 2),ipy,2,0)
+        		ElseIf BuyS<SellS
+        			Graphics.Color(180,255,0)
+        			StatFnt.DarkText(sPrintF("-%3d",SellS-BuyS),x+(w div 2),ipy,2,0)
+        		End
+        	End
+        End
+        // Experience
+        __White
+        StatFnt.DarkText("Experience needed",x+25,y+380)
+        StatFnt.DarkText("Level",x+25,y+405)
+        if RPGChar[chartag].Stat.Level<__LevelCap
+        	__Ember
+        	StatFnt.DarkText(""..RPGChar[chartag].Stat.Experience,(x+w)-25,y+380,1)
+        Else
+        	__Red
+        	StatFnt.DarkText("---",(x+w)-25,y+380,1)
+        End
+        if RPGChar[chartag].Stat.Level<=__LevelCap
+        	__Ember
+        	StatFnt.DarkText(""..RPGChar[chartag].Stat.Level,(x+w)-25,y+405,1)
+        Else
+        	__Red
+        	StatFnt.DarkText("---",(x+w)-25,y+405,1)
+        End
+        If RPGChar[chartag].Data.Master!=""
+        	__White
+        	//StatFnt.DarkText("Master",x+25,y+440)
+        	StatFnt.DarkText("Master",x+25,masty)
+        	__Ember
+        	//StatFnt.DarkText(RPGChar[chartag].Data.Master,(x+w)-25,y+440,1)
+        	StatFnt.DarkText(RPGChar[chartag].Data.Master,(x+w)-25,Masty,1)
+        End
+        // Skills
+        RPGChar[chartag].Points.LVL_Skill1.Have = math.max(RPGChar[chartag].Points.LVL_Skill1.Have,1)
+        // Equipment
+    	__Ember
+    	eqIcon("Acc"         ,x+10,(y+h)-25)
+    	eqIcon("Armor"       ,x+10,(y+h)-50)
+    	eqIcon("WP_"..chartag,x+10,(y+h)-75)
+    	__White
+    	eqName(chartag,"Jewel" ,x+40,(y+h)-25)
+    	eqName(chartag,"Armor" ,x+40,(y+h)-50)
+    	eqName(chartag,"Weapon",x+40,(y+h)-75)
+	End
+//End

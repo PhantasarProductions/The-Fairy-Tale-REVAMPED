@@ -1,0 +1,376 @@
+// License:
+// 	  src/Code/Script/Flow/FlowCombat/MOD_StatusChanges.scyndi
+// 
+// 	  Version: 26.02.19 XV
+// 	
+// 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
+// 	
+// 	  ===========================
+// 	  This file is part of a project related to the Phantasar Chronicles or another
+// 	  series or saga which is property of Jeroen P. Broks.
+// 	  This means that it may contain references to a story-line plus characters
+// 	  which are property of Jeroen Broks. These references may only be distributed
+// 	  along with an unmodified version of the game.
+// 
+// 	  As soon as you remove or replace ALL references to the storyline or character
+// 	  references, or any termology specifically set up for the Phantasar universe,
+// 	  or any other univers a story of Jeroen P. Broks is set up for,
+// 	  the restrictions of this file are removed and will automatically become
+// 	  zLib licensed (see below).
+// 
+// 	  Please note that doing so counts as a modification and must be marked as such
+// 	  in accordance to the zLib license.
+// 	  ===========================
+// 
+// 
+// 	  zLib license terms:
+// 	
+// 	  This software is provided 'as-is', without any express or implied
+// 	  warranty.  In no event will the authors be held liable for any damages
+// 	  arising from the use of this software.
+// 
+// 	  Permission is granted to anyone to use this software for any purpose,
+// 	  including commercial applications, and to alter it and redistribute it
+// 	  freely, subject to the following restrictions:
+// 	
+// 	  1. The origin of this software must not be misrepresented; you must not
+// 	     claim that you wrote the original software. If you use this software
+// 	     in a product, an acknowledgment in the product documentation would be
+// 	     appreciated but is not required.
+// 	  2. Altered source versions must be plainly marked as such, and must not be
+// 	     misrepresented as being the original software.
+// 	  3. This notice may not be removed or altered from any source distribution.
+// End License
+
+
+Module
+
+#use "Libs/xmath"
+
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/Graphics"
+
+#use "Script/Use/Anyway"
+#use "Script/Use/Convert"
+
+#accept CharMsg
+#accept Fighter
+#accept FlowCombat
+#accept Stage_Execution
+
+locextern ll "#"
+
+Class TStatusChange
+	Delegate PreTurn
+	Delegate Draw
+	Delegate Inflict
+	Delegate Cure
+	Delegate AltAI
+	String Defense
+	Bool SkipTurn = False
+	Bool BlockHeal = False
+	
+	
+	Constructor
+		PreTurn = NIKS
+		AltAI = NIKS
+	End
+End
+
+
+//Module
+	ReadOnly Var Register = {}
+	
+	Var URegister
+	
+	
+	
+	//Constructor
+	//Init
+		// Poison
+		Init
+			Register.Poison = new TStatusChange()
+		End
+		Void Poison_Preturn(Char)
+			int Dmg = 0
+			Switch Char.Team
+				Case "Foe"
+					Switch __skill
+						Case 1
+							Dmg = Char.HPMax div 4
+						Case 2
+							Dmg = Char.HPMax div 10
+						Case 3
+							Dmg = Char.HPMax div 100
+						Default
+					End
+				Case "Hero"
+					Switch __skill
+						Case 1
+							Dmg = Char.HPMax div 25
+						Case 2
+							Dmg = Char.HPMax div 10
+						Case 3
+							Dmg = Char.HPMax div 5
+						Default
+					End
+				Default
+			End
+			charmsg(Char.Tag,SPrintF("Poison Damage: %d",Dmg),0,180,0)
+			Char.HP-=Dmg
+		End
+		Void Poison_Draw(Char)
+			Graphics.Color(0,255,0)
+			If Char.Damned
+				Char.StatusChanges.Poison=False
+			End
+		End
+		
+		Init
+		Register.Poison.PreTurn = Poison_Preturn
+		Register.Poison.Draw    = Poison_Draw
+		End
+		
+		// Disease
+		Init
+		Register.Disease = New TStatusChange()
+		Register.Disease.BlockHeal = true
+		End
+		
+		Void Disease_Draw(Char)
+			Graphics.Color(255,180,0)
+			If Char.Damned
+				Char.StatusChanges.Disease=False
+			End
+		End
+		
+		Init
+		Register.Disease.Draw = Disease_Draw
+		End
+		
+		// Sleep
+		Void PreTurnCure(Char,string status)
+			Char.StatusChanges[status] = False
+		End
+		Init
+		Register.Sleep = New TStatusChange()
+		Register.Sleep.PreTurn=PreTurnCure
+		Register.Sleep.SkipTurn=True
+		End
+		Void Sleep_Draw(Char)
+			Static Table SinBub = {}
+			Static Var Z = LoadNewImage("GFX/Combat/StatusChanges/Sleep/Z.png","Status_Sleep")
+			SinBub[Char.Tag] = ((SinBub[Char.Tag] || math.random(0,180)) + 1) % 180
+			Graphics.Scale(xmath.sin(SinBub[Char.Tag])+1,1.5)
+			Z.HotBottomCenter()
+			Z.Draw(Char.TX,Char.TY-Char.TH-10)
+			Graphics.Scale(1,1)
+		End
+		
+		Init
+		Register.Sleep.Draw = Sleep_Draw
+		End
+		
+		// Paralysis
+		Init
+		Register.Paralysis = new TStatusChange()
+		Register.Paralysis.PreTurn=PreTurnCure
+		Register.Paralysis.SkipTurn=True
+		End
+		Void Paralysis_Draw(Char)
+			Static Var b = LoadNewImage("GFX/Combat/StatusChanges/Paralysis/Bliksem.png","COMBAT_PARA_BLIKSEM")
+			Graphics.Scale(1,1)
+			for i=1,10
+				b.Draw(math.random(Char.TX-(Char.TW div 2),Char.TX+(Char.TW div 2)),math.random(Char.TY-Char.TH-10,Char.TY))
+			End
+		End
+		Init
+		Register.Paralysis.Draw = Paralysis_Draw
+		End
+		
+		// Charm
+		Init
+		Register.Charm = new TStatusChange()
+		End
+		Bool Charm_AI(Char)
+			PreTurnCure(Char,"Charm")
+			Switch Char.Tag
+				Case "Jake_Human" "Jake_Fairy"
+					If RPGParty[2]!="Marrilona"
+						Act := new Action("AAA_GUARD",Char,{Char},{})
+						Stage_Execution.ComeToMe(Act)
+						Return True
+					End
+					WAbl := RPGChar.Jake_Human.Data.EQUIP_Weapon					
+					Act := new Action(WAbl,Char.Tag,{"Marrilona"},{["CheckAfterAction"]=true})
+					Stage_Execution.ComeToMe(Act)
+					Return True
+				Case "Krandar" "Marrilona" "Nostramantu_Human" "Nostramantu"
+					Act := new Action("AAA_GUARD",Char,{Char},{})
+					Stage_Execution.ComeToMe(Act)
+					Return True
+				Case "Dandor"
+					Int TimeOut=1000
+					Int R
+					Repeat
+						TimeOut--
+						If TimeOut<=0
+							CSay("Dandor - Charm - Timeout!")
+							Var Act = new Action("AAA_GUARD","Dandor",{"Dandor"},{})
+							Stage_Execution.ComeToMe(Act)
+							Return True
+						End
+						R = math.random(1,4)
+					LoopWhile RPGChar[R]=="" || RPGChar[R]=="Dandor"
+					Act := new Action("AAA_ATTACK","Dandor",{RPGParty[R]},{})
+					Stage_Execution.ComeToMe(Act)
+					Return True
+				Case "HandoStillor"
+					Var Foes
+					Foes = {}
+					For T,D in pairs(Fighter.ByTag)
+						If D.Team=="Foe"
+							Foes+=T
+						End
+					End
+					Int TimeOut=1000
+					Int R
+					Repeat
+						TimeOut--
+						If TimeOut<=0
+							CSay("Hando Stillor - Charm - Timeout!")
+							Var Act = new Action("AAA_GUARD","HandoStillor",{"HandoStillor"},{})
+							Stage_Execution.ComeToMe(Act)
+							Return True
+						End
+						R = math.random(0,Len(Foes)-1)
+					Until Fighter.ByTag[Foes[R]].HP>0
+					Act := new Action("ABL_HERO_HANDOSTILLOR_FIRSTAID","HandoStillor",{Foes[R]},{["DeductAP"]=True})
+					Stage_Execution.ComeToMe(Act)
+					Return True
+				Default
+					FlowCombat.Cards.DelShift()
+					Return False
+			End
+		End
+		Void Charm_Draw(Char)
+			Static Var b = LoadNewImage("GFX/Combat/SpellAni/Temptation/Heart.png","COMBAT_CHARM_HARTJE")
+			Graphics.Scale(1,1)
+			__White
+			for i=1,10
+				number sc = math.random(20,250)/1000
+				Graphics.Scale(sc,sc)
+				b.Draw(math.random(Char.TX-(Char.TW div 2),Char.TX+(Char.TW div 2)),math.random(Char.TY-Char.TH-10,Char.TY))
+			End
+			Graphics.Scale(1,1)
+		End
+		Init
+		Register.Charm.AltAI=Charm_AI
+		Register.Charm.Draw=Charm_Draw
+		End
+		
+		
+		// Curse
+		Var Curse_stat = { }
+		Void Curse_CreateMe()
+			//local skill=Sys.Val(Var.C("%SKILL"))
+			Switch __Skill
+				Case 1
+					Curse_stat = {"Poison","Disease","Zombie","Sleep"}
+				Case 2
+					Curse_stat = {"Poison","Disease","Zombie","Sleep","Death","Poison","Paralysis"}
+				Case 3
+					Curse_stat = {"Zombie","Death","Death","Petrification","Poison"}
+				Default
+           End      
+      End
+
+      Void Curse_Draw(Char)
+         Graphics.Color(255,0,0)
+      end   
+      
+      Void Curse_PreTurn(ch)
+      	//local me = StatusChanges.Curse
+      	HP := RPGChar[ch.Tag].Points.HP
+      	pLua AP
+          //if prefixed(ch,"FOE") then
+          if ch.team=="Foe"
+             AP = HP
+          else
+             AP = RPGChar[ch.Tag].Points.AP
+          end   
+          //local forf = "Hero" -- Friend or foe?
+          //if prefixed(ch,'FOE') then forf='Foe' end
+          String forf := Ch.Team
+          Int r=math.random(1,__skill*10)
+          if r==1 || r==21 || r==29
+             HP.Have=1
+          elseif r==2 && __skill!=3
+             HP.Have = HP.Maximum
+          elseif r==3 || r>24 
+             HP.Have = math.random(1,HP.Maximum)
+          elseif r==11 || r==22
+             AP.Have=0
+          elseif r==12 && __skill!=3
+             AP.Have = AP.Maximum
+          elseif r==13 && __skill==3
+             HP.Have=1
+             AP.Have=0
+          elseif (r>14 && r<20) || (r==23) 
+             plua cstat = Curse_stat[math.random(1,ll Curse_Stat)]
+             if (cstat=="Death" || cstat=="Petrification") && forf=="Foe"
+             	return 
+             end
+             //SetStatus(ch,cstat)
+             if Register[cstat]
+             	ch.StatusChanges[cstat] = true
+             else
+             	CSayF("WARNING! Status Change '%s' does not yet exist so it could not yet be applied through curse!",cstat)
+             End
+            end
+		end 
+		Init
+		Curse_CreateMe()
+		Register.Curse = New TStatusChange()
+		Register.Curse.PreTurn = Curse_PreTurn
+		Register.Curse.Draw    = Curse_Draw
+		End
+		
+		// URegister
+		Var _Get(s,string K)
+			Static Var R = {}
+			K = K:upper()
+			if !R[K]
+				for _k,_v in pairs(Register)
+					if _k:upper()==K
+						R[K]=_v
+						break
+					end
+				end
+			end
+			Return R[K]
+		end
+		Init
+		URegister = Lua.setmetatable({},{["__index"]=_Get})
+		End
+	
+		// Death
+	
+		Void Death_Inflict(ch)
+			if ch.StatusChanges.Undead
+				ch.StatusChanges.Death = False
+				Return
+			End
+			ch.HP = 0
+		End
+		Init
+		Register.Death = new TStatusChange()
+		Register.Death.Inflict = Death_Inflict
+		End
+		
+		// Undead
+	Init
+		Register.Undead = new TStatusChange()
+		Register.Undead.Draw = NIKS		
+	End
+//End

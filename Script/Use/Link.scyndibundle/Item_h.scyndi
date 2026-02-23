@@ -1,0 +1,274 @@
+// License:
+// 	  src/Code/Script/Use/Link.scyndibundle/Item_h.scyndi
+// 
+// 	  Version: 26.02.23
+// 	
+// 	  Copyright (C) 2020, 2021, 2026 Jeroen Petrus Broks
+// 	
+// 	  ===========================
+// 	  This file is part of a project related to the Phantasar Chronicles or another
+// 	  series or saga which is property of Jeroen P. Broks.
+// 	  This means that it may contain references to a story-line plus characters
+// 	  which are property of Jeroen Broks. These references may only be distributed
+// 	  along with an unmodified version of the game.
+// 
+// 	  As soon as you remove or replace ALL references to the storyline or character
+// 	  references, or any termology specifically set up for the Phantasar universe,
+// 	  or any other univers a story of Jeroen P. Broks is set up for,
+// 	  the restrictions of this file are removed and will automatically become
+// 	  zLib licensed (see below).
+// 
+// 	  Please note that doing so counts as a modification and must be marked as such
+// 	  in accordance to the zLib license.
+// 	  ===========================
+// 
+// 
+// 	  zLib license terms:
+// 	
+// 	  This software is provided 'as-is', without any express or implied
+// 	  warranty.  In no event will the authors be held liable for any damages
+// 	  arising from the use of this software.
+// 
+// 	  Permission is granted to anyone to use this software for any purpose,
+// 	  including commercial applications, and to alter it and redistribute it
+// 	  freely, subject to the following restrictions:
+// 	
+// 	  1. The origin of this software must not be misrepresented; you must not
+// 	     claim that you wrote the original software. If you use this software
+// 	     in a product, an acknowledgment in the product documentation would be
+// 	     appreciated but is not required.
+// 	  2. Altered source versions must be plainly marked as such, and must not be
+// 	     misrepresented as being the original software.
+// 	  3. This notice may not be removed or altered from any source distribution.
+// End License
+Module
+
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/GINIE"
+#use "Libs/SCI/Intervar"
+
+#use "Script/Use/Convert"
+
+//#macro __LoadItemState State.LoadNew("SUB_ITEMS","Script/Subs/SubItems.lbc")
+Extern __LoadItemState "Scyndi.Class.State.LoadNew('SUB_ITEMS','Script/Subs/SubItems.lbc')"
+
+// In Apollo this was needed, but in SCI this is not needed, but saves me a crap load of work.
+//#macro __CSay Lua.Neil.Globals.CSay
+LocExtern __CSay "Scyndi.Globals.CSay"
+LocExtern __CSayF "Scyndi.Globals.CSayF"
+
+
+plua ItemGINIE = GINIE.CreateNew("INVENTORY")
+
+Var IndexTypes
+
+String StrGet(String F,Infinity)
+	//CSayF("StrGet: %s",F)
+	//CSay(Infinity)
+	Sys.Call("SUB_ITEMS","LinkInvoke",F,Infinity)
+	ret:=gstr.IAA_LinkInvoke
+	gstr.IAA_LinkInvoke=""
+	return ret
+End
+
+Int IntGet(F,Infinity)
+	ret:=Lua.tonumber(StrGet(F,Infinity)) || 0
+	return ret
+End
+
+Bool BoolGet(F,Infinity)
+	Ret:=Upper(StrGet(F,Infinity) )=="TRUE"
+	return Ret
+End
+
+Var __Overview(int x, int y, int w, int h, string filter,string char="Nobody")
+	__LoadItemState
+	//string Ret := ISGET.String("SUB_ITEMS",sPrintF("OverView(%d,%d,%d,%d,'%s','%s')",x,y,w,h,filter,char))
+	string Ret:=StrGet("OverView",x,y,w,h,filter,char)
+	If Ret==""
+		Return "",nil
+	End
+	Return Ret,Lua.Scyndi.Globals.Item[Ret]
+End
+	
+Var __AblOverView(string char,int x,int y, int w, int h,string situation)
+	__LoadItemState
+	//string Ret := ISGET.String("SUB_ITEMS",sPrintF("AblOverView('%s',%d,%d,%d,%d,'%s')",char,x,y,w,h,situation))
+	String Ret:=StrGet("AblOverview",char,x,y,w,h,situation)
+	If Ret==""
+		Return "",nil
+	End
+	Return Ret,Lua.Scyndi.Globals.Item[Ret]
+End	
+
+Bool __ItmGive(String ItemTag)
+	Var I = Lua.Scyndi.Globals.Item
+	__CSayF("Give %s (already has %d, max %d)",ItemTag,I[ItemTag].Has,I.Max)
+	If I[ItemTag].Has<I.Max
+		__CSay("= Accepted")
+		I[ItemTag].Has++
+		Return True
+	Else
+		__CSay("= Rejected")
+		Return False
+	End
+End
+
+Var __TagIndex(s,string Key)
+	Static Table Ret = {}
+	Key = Upper(Key)
+	Switch Key
+		Case "CASH"
+			return gint.Cash
+		Case "MAX"			
+			__LoadItemState
+			//Return ISGET.Int("SUB_ITEMS","MAXITEM")
+			Switch gint.Skill
+				case 1;	Return 150;
+				case 2; Return 50; 
+				case 3; return 10;
+				default; Return 1;
+			end
+		Case "OVERVIEW"
+			return __Overview
+		Case "ABLOVERVIEW" "ABILITYOVERVIEW"
+			return __AblOverview
+		Case "SAVE"
+			//Void _S()
+			//dDef _S
+			//	__LoadItemState
+			//	State.Call("SUB_ITEMS","SaveInventory","nil")
+			//End
+			//Return _S
+			Lua.error("Item.Save no longer works")
+		Case "EMPTY"
+			//Void _E()
+			dDef _E
+				//__LoadItemState
+				//State.Call("SUB_ITEMS","EmptyInventory","nil")
+				ItemGINIE = GINIE.Create("INVENTORY") // The the old data fall through the garbage collector.
+				ItemGINIE.Value("Base","Initiated","True")
+			End
+			Return _E
+		Default
+			if !ret[Key]	
+				//Var __ItemIndex(s, Key2)
+				dDef __ItemIndex
+					plua s
+					plua Key2
+					s,key2 = Infinity
+					Lua.assert(Lua.type(Key2)=="string","String expected as key for item "..Key.." but what I got is "..Lua.type(Key2).."("..Lua.tostring(key2)..")")
+					Key2 = Upper(Key2)
+					If Key2=="GIVE"
+						Return __ItmGive(Key)
+					elseif Key2=="TAG"
+						Return Key
+					elseif (prefixed(Key2,"CURE") || prefixed(Key2,"CAUSE")) && (!IndexTypes[Key2])
+						Return False
+					elseif Key2=="SELLPRICE"
+						//CSayF("Getting sell price of item %s",Key)
+						//return ISGET.INT("SUB_ITEMS",sprintf("GetSellPrice(\"%s\")",Key))
+						//Lua.error("SELLPRICE property for items not yet set!")
+						r:=IntGet("GetSellPrice",Key)
+						return r
+					elseif Key2=="HASFIELD"
+						//bool fuck(string K)
+						ddef Fuck
+							String K:=Infinity
+							//IndexTypes = IndexTypes || NeilUse("Script/Use/Misc/ItemIndexTypes")
+							Lua.Scyndi.Use("Script/Use/Misc/ItemIndexTypes_h")
+							IndexTypes=Lua.Scyndi.Class.ItemIndexTypes_h.Ret
+							return NeilSomething(IndexTypes[Upper(K)])
+						end
+						return fuck
+					elif Key2=="HAS" || Key2=="NUM" || Key2=="AMOUNT"
+						return ItemGINIE.IntValue("Inventory",Key)
+					End
+					__LoadItemState
+					
+					If Prefixed(Key2,"ALLOW_")
+						Lua.error(sprintf("%s property for items not yet set! ALLOW setups must be done later.",Key2))
+						//Return ISGET.BOOL("SUB_ITEMS",SprintF("Allow('%s','%s')",Key,Right(Key2,Len(Key2)-6)))
+						r:=BoolGet("Allow",Key,Right(Key2,Len(Key2)-6))
+					End
+					//IndexTypes = IndexTypes || NeilUse("Script/Use/Misc/ItemIndexTypes")
+					Lua.Scyndi.Use("Script/Use/Misc/ItemIndexTypes_h")
+					IndexTypes=Lua.Scyndi.Class.ItemIndexTypes_h.Ret
+					Lua.assert(IndexTypes[Key2],"There is no field named "..Key2.." in the item database! ("..Key..")")
+					//Return ISGET[IndexTypes[Key2]]("SUB_ITEMS",sprintf("ItemField('%s','%s')",Key,Key2))
+					plua ret
+					Switch Upper(IndexTypes[Key2])
+						case "STRING" "STR"
+							return StrGet("ItemField",Key,Key2)
+						case "INT" "INTEGER"
+							return IntGet("ItemField",Key,Key2)
+						case "BOOL"
+							return BoolGet("ItemField",Key,Key2)
+						default
+							Lua.error("Unknown action for IAA Index Type "..IndexTypes[Key2].." ("..Key2..")")
+					End
+					Return ret
+				End
+				//Var __ItemNewIndex(s, string Key2, value)
+				ddef __ItemNewIndex
+					plua s
+					String Key2
+					plua value
+					s,Key2,Value=Infinity	
+					Switch Upper(Key2)
+						Case "NUM" "AMOUNT" "HAS"
+							__LoadItemState
+							//__CSayF("Linkthrough> Inventory> %s.HAS = %d",key2,value)
+							//State.Call("SUB_ITEMS","SetItemHas",sPrintF("'%s',%d",Key,Lua.tonumber(value) || 0))
+							//State.Call("SUB_ITEMS","SetItemHas",sPrintF("'%s',%d",Key,value))
+							ItemGINIE.Value("Inventory",Key,value)
+						Default
+							printf("\x1b[37m%s\n",Lua.debug.traceback())
+							Sys.TraceBack()
+							Lua.error("Item."..key.."."..key2.." is either non-existent or read-only!")
+					End
+				End
+				Ret[Key] = Lua.setmetatable({},{["__index"]=__ItemIndex,["__newindex"]=__ItemNewIndex})
+			End
+			Return Ret[Key]
+	End	
+End
+
+Void __TagNewIndex(s,string Key,value)
+	//__CSay("TagNewIndex:"..Key.." >> "..value)
+	Switch Upper(key)
+		Case "CASH"
+			Int MX = 2*(10^(10-gv.gint.skill))
+			__CSayF("Cash is now set to %09d shilders!",value)
+			gv.gInt.Cash = math.max(0,math.min(MX,value))
+		Default
+			Lua.error("Item."..key.." is either non-existent or read-only!")
+	End
+End
+
+//Var Ret = Lua.setmetatable({},{["__index"]=__TagIndex,["__newindex"]=__TagNewIndex})
+
+Global Bool TeachSkill(String Ch,String Skl)
+	//State.Call("SUB_ITEMS","LoadAbilityList",sprintf("'%s'",Ch))
+	Sys.Call("SUB_ITEMS","LoadAbilityList",Ch)
+	//If ISGet.Bool("SUB_ITEMS",sprintf("Abilities.%s.Skill['%s']~=nil",ch,skl))
+	If BoolGet("LinkHaveSkill",Ch,Skl)
+		CSayF("Teaching skill %s to %s rejected! Character already has it!",skl,ch)
+		Return False
+	End
+	//State.Call("SUB_ITEMS","AblRec.NewSkill",sprintf("'%s','%s'",skl,Ch))
+	Sys.Call("SUB_Items","AblRec.NewSkill",Skl,Ch)
+	CSayF("Teaching skill %s to %s!",skl,ch)
+	Return True
+End
+
+//Return Ret
+
+QuickMeta Item
+	index
+		return __TagIndex(Self,Key)
+	end
+	newindex
+		__TagNewIndex(Self,Key,Value)
+	end
+End

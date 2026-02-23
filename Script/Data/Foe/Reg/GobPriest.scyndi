@@ -1,0 +1,127 @@
+// Converted from Neil to Scyndi
+
+Module
+
+LocExtern __skill "Scyndi.Globals.gInt.Skill"
+LocExtern __NewGamePlus "Scyndi.Globals.gBool.NewGamePlus"
+
+
+// Generated 7/30/2022 3:47:16 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	Ret.DESC = "What? Do do have a priesthood?\nIs this some kind of a joke?"
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/reg/GobPriest.png"
+	Ret.DropRate_1 = 20
+	Ret.DropItem_1 = "ITM_SALVE"
+	Ret.DropRate_2 = 2
+	Ret.DropItem_2 = "ITM_POTION"
+	Ret.StealRate_1 = 1
+	Ret.StealItem_1 = "ITM_POTION"
+	Ret.StealRate_2 = 100
+	Ret.StealItem_2 = "ITM_APPLE"
+	Ret.StealRate_3 = 50
+	Ret.StealItem_3 = "ITM_ANTIDOTE"
+	Ret.NAME = "Goblin priest"
+	Ret.CASH = 0
+	Ret.SR_CURSE = 100
+	Ret.SR_DEATH = 2
+	Ret.SR_DISEASE = 85
+	Ret.SR_PARALYSIS = 76
+	Ret.SR_PETRIFICATION = 95
+	Ret.SR_POISON = 76
+	Ret.SR_SILENCE = 100
+	Ret.SR_UNDEAD = 100
+
+
+	Ret.AllowOversoul = True
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 19
+		Ret.Stats.ER_DARKNESS = 9999
+		Ret.Stats.ER_EARTH = -100
+		Ret.Stats.ER_FLAME = -100
+		Ret.Stats.ER_FROST = -100
+		Ret.Stats.ER_LIGHT = 200
+		Ret.Stats.ER_LIGHTNING = -100
+		Ret.Stats.ER_WATER = -100
+		Ret.Stats.ER_WIND = -100
+		Ret.Stats.EVASION = 1
+		Ret.Stats.EXP = 8
+		Ret.Stats.HP = 100
+		Ret.Stats.INTELLIGENCE = 5
+		Ret.Stats.POWER = 5
+		Ret.Stats.RESISTANCE = 200
+		Ret.Stats.SPEED = 45
+	Else
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 10
+		Ret.Stats.ER_DARKNESS = 9999
+		Ret.Stats.ER_EARTH = -100
+		Ret.Stats.ER_FLAME = -100
+		Ret.Stats.ER_FROST = -100
+		Ret.Stats.ER_LIGHT = 200
+		Ret.Stats.ER_LIGHTNING = -100
+		Ret.Stats.ER_WATER = -100
+		Ret.Stats.ER_WIND = -100
+		Ret.Stats.EVASION = 5
+		Ret.Stats.EXP = 20
+		Ret.Stats.HP = 111
+		Ret.Stats.INTELLIGENCE = 100
+		Ret.Stats.POWER = 5
+		Ret.Stats.RESISTANCE = 900
+		Ret.Stats.SPEED = 60
+	End
+
+	Ret.IsHumanoid = False
+
+	Ret.Actions = {}
+	If True
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_FIRSTAID"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_FIRSTAID"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_FIRSTAID"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_FIRSTAID"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_FIRSTAID"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_NEUTRALIZEPOISON"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_NEUTRALIZEPOISON"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_PURIFY"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_RECOVER"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_RECOVER"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_RECOVER"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_RECOVER"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_RECOVER"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_RECOVER"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_RECOVER"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_REMOVEPARALYSIS"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_REMOVEPARALYSIS"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_REMOVEPARALYSIS"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_VITALIZE"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_VITALIZE"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_VITALIZE"
+		Ret.Actions += "ABL_HERO_HANDOSTILLOR_VITALIZE"
+	End
+	Return Ret
+End
+

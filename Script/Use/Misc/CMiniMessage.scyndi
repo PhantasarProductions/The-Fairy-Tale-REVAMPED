@@ -1,0 +1,125 @@
+// License:
+// 	  src/Code/Script/Use/Misc/CMiniMessage.scyndi
+// 
+// 	  Version: 26.02.12
+// 	
+// 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
+// 	
+// 	  ===========================
+// 	  This file is part of a project related to the Phantasar Chronicles or another
+// 	  series or saga which is property of Jeroen P. Broks.
+// 	  This means that it may contain references to a story-line plus characters
+// 	  which are property of Jeroen Broks. These references may only be distributed
+// 	  along with an unmodified version of the game.
+// 
+// 	  As soon as you remove or replace ALL references to the storyline or character
+// 	  references, or any termology specifically set up for the Phantasar universe,
+// 	  or any other univers a story of Jeroen P. Broks is set up for,
+// 	  the restrictions of this file are removed and will automatically become
+// 	  zLib licensed (see below).
+// 
+// 	  Please note that doing so counts as a modification and must be marked as such
+// 	  in accordance to the zLib license.
+// 	  ===========================
+// 
+// 
+// 	  zLib license terms:
+// 	
+// 	  This software is provided 'as-is', without any express or implied
+// 	  warranty.  In no event will the authors be held liable for any damages
+// 	  arising from the use of this software.
+// 
+// 	  Permission is granted to anyone to use this software for any purpose,
+// 	  including commercial applications, and to alter it and redistribute it
+// 	  freely, subject to the following restrictions:
+// 	
+// 	  1. The origin of this software must not be misrepresented; you must not
+// 	     claim that you wrote the original software. If you use this software
+// 	     in a product, an acknowledgment in the product documentation would be
+// 	     appreciated but is not required.
+// 	  2. Altered source versions must be plainly marked as such, and must not be
+// 	     misrepresented as being the original software.
+// 	  3. This notice may not be removed or altered from any source distribution.
+// End License
+
+Module
+
+#use "Libs/SCI/Graphics"
+
+
+#use "libs/xmath"
+#use "libs/linkedlist"
+
+//Class __minimessage_ret
+Class MiniMessage
+
+	Static ReadOnly Int MaxCount=150
+	Static ReadOnly Var Lijst = new TLinkedList()
+	Static ReadOnly Var Fnt = ObtainFont("FNTSBAR")
+
+	ReadOnly Int R
+	ReadOnly Int G
+	ReadOnly Int B
+	ReadOnly Int X
+	ReadOnly Int Y
+	
+	ReadOnly String Msg
+
+	Int Delay = 0
+	Int Count = 0
+	Int _DEG = math.random(0,360)
+	Get Int Deg
+		Return _DEG
+	End
+	Set Int Deg
+		_DEG = value % 360
+	End
+	Int DegMod(int I)
+		int IH := i div 2
+		return math.floor(128 + math.abs(xMath.Sin(Deg)*IH))
+	End
+	
+	Constructor(String _Msg,Int _X, Int _Y,Int _R=255, Int _G=255, Int _B=255)
+		X = _X
+		Y = _Y
+		R = _R
+		G = _G
+		B = _B
+		Msg = _Msg
+		For Chk in Lijst.Each
+			If math.abs(_Y-Chk.Y)<30 && math.abs(_X-Chk.X)<100
+				Delay = 50 - math.abs(_Y-Chk.Y)
+			End
+		End
+	End
+	
+	Static Void NewMsg(String _Msg,Int _X, Int _Y,Int _R=255, Int _G=255, Int _B=255)
+		Lijst.AddLast(new MiniMessage(_Msg,_X,_Y,_R,_G,_B))		
+	End
+	
+	Void Draw()
+		DEG++
+		//Graphics.Color(math.floor(R*DegMod),math.floor(G*DegMod),math.floor(B*DegMod))
+		//Graphics.Color(DegMod(R),DegMod(G),DegMod(B))
+		Graphics.Color(R,G,B)
+		Fnt.DarkText(Msg,X,Y-Count,2,2)
+	End
+	
+	Static Void DrawAll()
+		For M,L in Lijst.Each
+			If M.Delay>0
+				M.Delay--
+			Else
+				M.Draw()
+				M.Count++
+				If M.Count>MaxCount
+					L.UnLink()
+				End
+			End
+		End
+	End
+	
+End
+
+
+//Return __minimessage_ret

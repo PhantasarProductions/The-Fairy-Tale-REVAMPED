@@ -1,0 +1,124 @@
+// Converted from Neil to Scyndi
+
+Module
+
+LocExtern __skill "Scyndi.Globals.gInt.Skill"
+LocExtern __NewGamePlus "Scyndi.Globals.gBool.NewGamePlus"
+
+
+// Generated 7/30/2022 3:46:56 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	Ret.Boss = true
+	If Oversoul
+		Lua.error("Enemy 'Boss/ShadowRogue' does not support oversoul!")
+	End
+
+	Ret.Undead = True
+	Ret.DESC = "Restless corpse of a dead rogue.\nHaunts old ruins and still tries\nto rob people... eternally."
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/boss/ShadowRogue.png"
+	Ret.DropRate_1 = 3
+	Ret.DropItem_1 = "ITM_AMBROSIA"
+	Ret.DropRate_2 = 1
+	Ret.DropItem_2 = "ITM_ANABOLINEA"
+	Ret.StealRate_1 = 5
+	Ret.StealItem_1 = "ITM_ANABOLINEA"
+	Ret.StealRate_2 = 5
+	Ret.StealItem_2 = "ITM_AMBROSIA"
+	Ret.StealRate_3 = 25
+	Ret.StealItem_3 = "ITM_CHERRY"
+	Ret.NAME = "Shadow Rogue"
+	Ret.CASH = 255
+	Ret.SR_CONFUSION = 100
+	Ret.SR_CURSE = 100
+	Ret.SR_DEATH = 100
+	Ret.SR_DISEASE = 100
+	Ret.SR_PARALYSIS = 100
+	Ret.SR_PETRIFICATION = 100
+	Ret.SR_POISON = 100
+	Ret.SR_SILENCE = 100
+	Ret.SR_SLEEP = 100
+	Ret.SR_UNDEAD = 100
+	Ret.VOCALTAG = "ShadowRogue"
+
+
+	Ret.AllowOversoul = False
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 64
+		Ret.Stats.ER_DARKNESS = 12345
+		Ret.Stats.ER_EARTH = 100
+		Ret.Stats.ER_FLAME = -100
+		Ret.Stats.ER_FROST = 100
+		Ret.Stats.ER_LIGHT = -300
+		Ret.Stats.ER_LIGHTNING = -150
+		Ret.Stats.ER_WATER = 100
+		Ret.Stats.ER_WIND = 100
+		Ret.Stats.EVASION = 35
+		Ret.Stats.EXP = 123
+		Ret.Stats.HP = 1500
+		Ret.Stats.INTELLIGENCE = 90
+		Ret.Stats.POWER = 70
+		Ret.Stats.RESISTANCE = 69
+		Ret.Stats.SPEED = 100
+	End
+
+	Ret.IsHumanoid = False
+
+	Ret.Actions = {}
+	If True && (__skill!=1)
+		Ret.Actions += "ABL_NPSH_OVERNAME"
+		Ret.Actions += "ABL_NPSH_OVERNAME"
+		Ret.Actions += "ABL_NPSH_OVERNAME"
+	End
+	If True && (__skill!=1) && (__skill!=2)
+		Ret.Actions += "ABL_NPSR_DOOD"
+	End
+	If True
+		Ret.Actions += "ABL_NPSR_GIF"
+		Ret.Actions += "ABL_NPSR_GIF"
+		Ret.Actions += "ABL_NPSR_GIF"
+		Ret.Actions += "ABL_NPSR_GIF"
+		Ret.Actions += "ABL_NPSR_GIF"
+	End
+	If True
+		Ret.Actions += "ABL_NPSR_RUG"
+		Ret.Actions += "ABL_NPSR_RUG"
+	End
+	If True
+		Ret.Actions += "ABL_NPSR_VERLAM"
+		Ret.Actions += "ABL_NPSR_VERLAM"
+		Ret.Actions += "ABL_NPSR_VERLAM"
+		Ret.Actions += "ABL_NPSR_VERLAM"
+		Ret.Actions += "ABL_NPSR_VERLAM"
+	End
+	If True
+		Ret.Actions += "ABL_NPSR_VLOEK"
+		Ret.Actions += "ABL_NPSR_VLOEK"
+		Ret.Actions += "ABL_NPSR_VLOEK"
+		Ret.Actions += "ABL_NPSR_VLOEK"
+		Ret.Actions += "ABL_NPSR_VLOEK"
+	End
+	If True
+		Ret.Actions += "ABL_NPSR_ZIEKTE"
+		Ret.Actions += "ABL_NPSR_ZIEKTE"
+		Ret.Actions += "ABL_NPSR_ZIEKTE"
+		Ret.Actions += "ABL_NPSR_ZIEKTE"
+		Ret.Actions += "ABL_NPSR_ZIEKTE"
+	End
+	Return Ret
+End
+

@@ -1,0 +1,296 @@
+// Converted from Neil to Scyndi
+
+Module
+
+LocExtern __skill "Scyndi.Globals.gInt.Skill"
+LocExtern __NewGamePlus "Scyndi.Globals.gBool.NewGamePlus"
+
+
+// Generated 7/30/2022 3:46:48 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	Ret.Boss = true
+	If Oversoul
+		Lua.error("Enemy 'Boss/Ignis' does not support oversoul!")
+	End
+
+	Ret.DESC = "Protector of the Fire Spirata"
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/boss/Ignis.png"
+	Ret.DropRate_1 = 80
+	Ret.DropItem_1 = "ITM_INFERNOORB"
+	Ret.DropRate_2 = 20
+	Ret.DropItem_2 = "ITM_CARROT"
+	Ret.StealRate_1 = 50
+	Ret.StealItem_1 = "ITM_MANDRAKE"
+	Ret.StealRate_2 = 20
+	Ret.StealItem_2 = "ITM_CARROT"
+	Ret.StealRate_3 = 50
+	Ret.StealItem_3 = "ITM_VOLTABALL"
+	Ret.NAME = "Ignis"
+	Ret.CASH = 500
+	Ret.SR_CONFUSION = 100
+	Ret.SR_CURSE = 100
+	Ret.SR_DEATH = 100
+	Ret.SR_DISEASE = 100
+	Ret.SR_PARALYSIS = 100
+	Ret.SR_PETRIFICATION = 100
+	Ret.SR_POISON = 100
+	Ret.SR_SILENCE = 100
+	Ret.SR_SLEEP = 100
+	Ret.SR_UNDEAD = 100
+	Ret.VOCALTAG = "Ignis"
+
+
+	Ret.AllowOversoul = False
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 92
+		Ret.Stats.ENDURANCE = 136
+		Ret.Stats.ER_DARKNESS = -50
+		Ret.Stats.ER_EARTH = 0
+		Ret.Stats.ER_FLAME = 200
+		Ret.Stats.ER_FROST = -175
+		Ret.Stats.ER_LIGHT = 100
+		Ret.Stats.ER_LIGHTNING = 0
+		Ret.Stats.ER_WATER = -75
+		Ret.Stats.ER_WIND = 0
+		Ret.Stats.EVASION = 3
+		Ret.Stats.EXP = 100
+		Ret.Stats.HP = 3000
+		Ret.Stats.INTELLIGENCE = 105
+		Ret.Stats.POWER = 149
+		Ret.Stats.RESISTANCE = 51
+		Ret.Stats.SPEED = 70
+	End
+
+	Ret.IsHumanoid = False
+
+	Ret.Actions = {}
+	If True
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+	End
+	If True
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+	End
+	If True && (__skill!=1)
+		Ret.Actions += "ABL_FOE_CRUSH"
+		Ret.Actions += "ABL_FOE_CRUSH"
+		Ret.Actions += "ABL_FOE_CRUSH"
+	End
+	If True && (__skill!=1)
+		Ret.Actions += "ABL_FOE_DESPERATEATTACK"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+		Ret.Actions += "ABL_FOE_FLAMESTRIKE"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_TAKEOVER"
+		Ret.Actions += "ABL_FOE_TAKEOVER"
+		Ret.Actions += "ABL_FOE_TAKEOVER"
+		Ret.Actions += "ABL_FOE_TAKEOVER"
+		Ret.Actions += "ABL_FOE_TAKEOVER"
+		Ret.Actions += "ABL_FOE_TAKEOVER"
+		Ret.Actions += "ABL_FOE_TAKEOVER"
+		Ret.Actions += "ABL_FOE_TAKEOVER"
+		Ret.Actions += "ABL_FOE_TAKEOVER"
+		Ret.Actions += "ABL_FOE_TAKEOVER"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_TAKEOVER2"
+	End
+	If True && (__skill!=1)
+		Ret.Actions += "ABL_HERO_JAKE_2PS"
+	End
+	If True && (__skill!=1) && (__skill!=2)
+		Ret.Actions += "ABL_HERO_JAKE_3PS"
+		Ret.Actions += "ABL_HERO_JAKE_3PS"
+	End
+	If True
+		Ret.Actions += "ABL_HERO_MARRILONA_ZAP"
+		Ret.Actions += "ABL_HERO_MARRILONA_ZAP"
+		Ret.Actions += "ABL_HERO_MARRILONA_ZAP"
+		Ret.Actions += "ABL_HERO_MARRILONA_ZAP"
+		Ret.Actions += "ABL_HERO_MARRILONA_ZAP"
+	End
+	Return Ret
+End
+

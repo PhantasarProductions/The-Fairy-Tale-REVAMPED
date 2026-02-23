@@ -1,0 +1,132 @@
+// Converted from Neil to Scyndi
+
+Module
+
+LocExtern __skill "Scyndi.Globals.gInt.Skill"
+LocExtern __NewGamePlus "Scyndi.Globals.gBool.NewGamePlus"
+
+
+// Generated 7/30/2022 3:47:20 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	Ret.DESC = "They roam dark ruins.\nThey can be pretty strong, \nbut they are also pretty stupid."
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/Reg/Kobold.png"
+	Ret.DropRate_1 = 10
+	Ret.DropItem_1 = "ITM_APPLES"
+	Ret.DropRate_2 = 1
+	Ret.DropItem_2 = "ITM_BANANA"
+	Ret.StealRate_1 = 30
+	Ret.StealItem_1 = "ITM_BELL"
+	Ret.StealRate_2 = 1
+	Ret.StealItem_2 = "ITM_AMBROSIA"
+	Ret.StealRate_3 = 90
+	Ret.StealItem_3 = "ITM_APPLE"
+	Ret.NAME = "Kobold"
+	Ret.CASH = 5
+	Ret.SR_DEATH = 80
+	Ret.VOCALTAG = "Kobold"
+
+
+	Ret.AllowOversoul = True
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 20
+		Ret.Stats.ER_DARKNESS = -300
+		Ret.Stats.ER_EARTH = -300
+		Ret.Stats.ER_FLAME = -300
+		Ret.Stats.ER_FROST = -300
+		Ret.Stats.ER_LIGHT = -300
+		Ret.Stats.ER_LIGHTNING = -300
+		Ret.Stats.ER_WATER = -300
+		Ret.Stats.ER_WIND = -300
+		Ret.Stats.EVASION = 25
+		Ret.Stats.EXP = 3
+		Ret.Stats.HP = 100
+		Ret.Stats.INTELLIGENCE = 1
+		Ret.Stats.POWER = 30
+		Ret.Stats.RESISTANCE = 1
+		Ret.Stats.SPEED = 900
+	Else
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 10
+		Ret.Stats.ER_DARKNESS = -300
+		Ret.Stats.ER_EARTH = -300
+		Ret.Stats.ER_FLAME = -300
+		Ret.Stats.ER_FROST = -300
+		Ret.Stats.ER_LIGHT = -300
+		Ret.Stats.ER_LIGHTNING = -300
+		Ret.Stats.ER_WATER = -300
+		Ret.Stats.ER_WIND = -300
+		Ret.Stats.EVASION = 100
+		Ret.Stats.EXP = 10
+		Ret.Stats.HP = 100000
+		Ret.Stats.INTELLIGENCE = 3
+		Ret.Stats.POWER = 900
+		Ret.Stats.RESISTANCE = 3
+		Ret.Stats.SPEED = 1600
+	End
+
+	Ret.IsHumanoid = False
+
+	Ret.Actions = {}
+	If True
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+		Ret.Actions += "AAA_ATTACK"
+	End
+	If True && (__skill!=3)
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+		Ret.Actions += "AAA_GUARD"
+	End
+	If True && (__skill!=1) && (__skill!=2)
+		Ret.Actions += "ABL_FOE_EVIL_EYE"
+		Ret.Actions += "ABL_FOE_EVIL_EYE"
+		Ret.Actions += "ABL_FOE_EVIL_EYE"
+		Ret.Actions += "ABL_FOE_EVIL_EYE"
+		Ret.Actions += "ABL_FOE_EVIL_EYE"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_LIFEFORCE"
+		Ret.Actions += "ABL_FOE_LIFEFORCE"
+	End
+	Return Ret
+End
+

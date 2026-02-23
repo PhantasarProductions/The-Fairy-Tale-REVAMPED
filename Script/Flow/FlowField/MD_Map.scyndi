@@ -1,0 +1,285 @@
+// License:
+// 	  src/Code/Script/Flow/FlowField/MD_Map.scyndi
+// 
+// 	  Version: 26.02.11 IV
+// 	
+// 	  Copyright (C) 2021, 2026 Jeroen Petrus Broks
+// 	
+// 	  ===========================
+// 	  This file is part of a project related to the Phantasar Chronicles or another
+// 	  series or saga which is property of Jeroen P. Broks.
+// 	  This means that it may contain references to a story-line plus characters
+// 	  which are property of Jeroen Broks. These references may only be distributed
+// 	  along with an unmodified version of the game.
+// 
+// 	  As soon as you remove or replace ALL references to the storyline or character
+// 	  references, or any termology specifically set up for the Phantasar universe,
+// 	  or any other univers a story of Jeroen P. Broks is set up for,
+// 	  the restrictions of this file are removed and will automatically become
+// 	  zLib licensed (see below).
+// 
+// 	  Please note that doing so counts as a modification and must be marked as such
+// 	  in accordance to the zLib license.
+// 	  ===========================
+// 
+// 
+// 	  zLib license terms:
+// 	
+// 	  This software is provided 'as-is', without any express or implied
+// 	  warranty.  In no event will the authors be held liable for any damages
+// 	  arising from the use of this software.
+// 
+// 	  Permission is granted to anyone to use this software for any purpose,
+// 	  including commercial applications, and to alter it and redistribute it
+// 	  freely, subject to the following restrictions:
+// 	
+// 	  1. The origin of this software must not be misrepresented; you must not
+// 	     claim that you wrote the original software. If you use this software
+// 	     in a product, an acknowledgment in the product documentation would be
+// 	     appreciated but is not required.
+// 	  2. Altered source versions must be plainly marked as such, and must not be
+// 	     misrepresented as being the original software.
+// 	  3. This notice may not be removed or altered from any source distribution.
+// End License
+
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/Kthura"
+#use "Libs/SCI/Events"
+#use "Libs/SCI/Graphics"
+#use "Libs/SCI/InterVar"
+
+#use "Libs/XMath"
+
+#use "Script/Use/Link"
+#use "Script/Use/Anyway"
+#use "Script/Use/Convert"
+
+Module
+
+#accept FlowField
+
+
+	Var KthuraMap
+	
+	plua NKP(); Sys.TraceBack(); print("\x1b[37m"..Lua.debug.traceback()); Lua.error("KthuraMap Cannot be accessed anymore"); end
+	init
+		KthuraMap = SetMetaTable({},{["__index"]=NKP, ["__newindex"]=NKP})
+	end
+	
+	String Layer
+	//Bool MSDraw 
+	//Bool MSUpdate
+	Link MSDraw = gbool.MapScriptSettings_MSDraw_CallBack
+	Link MSUpdate = gbool.MapScriptSettings_MSUpdate_CallBack
+	//Int ScrollX
+	//Int ScrollY
+	Link ScrollX = gint.ScrollX
+	Link ScrollY = gint.ScrollY
+	Int GoToX
+	Int GoToY
+	//Bool AllowAutoScroll
+	Link AllowAutoScroll = gBool.Autoscroll
+	Var ArriveFunc = Nil
+	String ArriveParam 
+
+	Get String LoadedMap
+		Return gstr.LoadedMap
+	End
+	Set String LoadedMap
+		gstr.LoadedMap=value
+	End
+	
+	
+	Get Var CurLayer
+		//Return KthuraMap.Layer(Layer)
+		Return Kthura.CurrentLayer
+	End
+	
+	Get Var CurrentLayer
+		//Return CurLayer
+		Return Kthura.CurrentLayer
+	End
+	
+	Get Var Clickable
+		Return FlowField.Clickable
+	End
+	
+	Get Var Player
+		//Return CurrentLayer.Obj("PLAYER")
+		Return Kthura.Obj.PLAYER
+	End
+	
+	
+	Get Var GMB
+		//static var _ret
+		locextern _ret "FlowField_Map_GMB_returner"
+		_ret = _ret || NeilUse("Script/Use/Misc/GreatMagicBack")
+		return _ret
+	End
+
+	Void SetAutoScroll(Bool V)
+		AllowAutoScroll = V
+	End
+	
+	Void ScrollTo(Int X,Int Y, Int Speed=1)
+		AllowAutoScroll = False
+		Int SX := 0 
+		Int SY := 0
+		Int NX := ScrollX
+		Int NY := ScrollY
+		Int XX := ScrollX
+		Int XY := ScrollY
+		If X<ScrollX
+			SX = math.max(1,Speed)
+			NX = X
+		elseif X>ScrollX
+			SX = 0-math.max(1,Speed)
+			XX = X
+		End
+		If Y<ScrollY
+			NY = Y
+			SY = math.max(1,Speed)
+		elseif Y>ScrollY
+			XY = Y
+			SY = 0-math.max(1,Speed)
+		End
+		CSayF("Scrolling to (%d,%d) from (%d,%d) Speed: (%d,%d)",ScrollX,ScrollY,X,Y,SX,SY)
+		Int TimeOut=1000
+		Repeat
+			ScrollX += SX
+			ScrollY += SY
+			ScrollX = math.min(XX,ScrollX)
+			ScrollX = math.max(NX,ScrollX)
+			ScrollY = math.min(XY,ScrollY)
+			ScrollY = math.max(NY,ScrollY)
+			Graphics.Cls()
+			FlowField.DrawScreen()
+			Graphics.Flip()
+			Events.Poll()
+			Sys.WaitMinTicks()
+			TimeOut--
+			if TimeOut<9000
+				CSayF("- Scrolling to (%d,%d) Current (%d,%d) Speed: (%d,%d); TimeOut: %04d",ScrollX,ScrollY,X,Y,SX,SY,TimeOut)
+			End
+		Until (ScrollX==X && ScrollY==Y) || TimeOut<=0
+		if (TimeOut<=0)
+			Print("\7WARNING! Scroll failed! Timed out!")
+		End
+	End
+	
+	Void SetLayer(String L)
+		//Layer = L:upper()
+		Kthura.CurrentLayer=Upper(L)
+	End
+	
+	Void WalkClick(Int __mX, Int __mY)		
+		//int x := mx + ScrollX
+		//int y := my + ScrollY
+		
+		CSayF("Request to walk to (%4d,%4d); Mouse(%4d,%4d); Scroll(%4d,%4d)",__mx,__my,Mouse.mx,mouse.my,ScrollX,ScrollY)
+		if !Kthura.HasObj("PLAYER")
+			CSay("But there is no player available now, so the request will be ignored!")
+			return
+		end				
+		if !Clickable.All(__mx,__my)
+			//CurLayer.Obj("PLAYER").WalkTo(x,y)
+			Kthura.Obj.PLAYER.WalkTo(__mx,__my)
+			ArriveFunc = nil
+			ArriveParam = ""
+		End	
+	End
+	
+	Void StopWalking()
+		if !Kthura.HasObj("PLAYER")
+			Return
+		End		
+		Kthura.Obj.PLAYER.StopWalking()
+		ArriveFunc = nil
+		ArriveParam = ""
+	End
+
+	Table LayerName
+	Void CBLoadMap(string mapbundle)
+		AllowAutoScroll = true
+		LoadedMap = Upper(MapBundle)
+		CSayF("= Loading Kthura Map: %s",MapBundle)
+		if (MapBundle=="nil")
+			Sys.TraceBack()
+		End
+		//KthuraMap = Kthura.Load("Kthura/"..MapBundle)
+		//Kthura.Load("Kthura/"..MapBundle)
+		Kthura.GoToMap("TFT_Map","Kthura/"..MapBundle)
+		//Kthura.Remap()
+		//Layer = KthuraMap.Layers[1]
+		gStr.MapTitle = Kthura.Meta.Title
+		//LayerName = {}
+		//If Trim(KthuraMap.Meta.NamedZones)!=""
+		//	For PL in each(XSplit(KthuraMap.Meta.NamedZones,";"))
+		//		Var Cut := XSplit(PL,"=")
+		//		String Lay = Cut[1]:upper()
+		//		LayerName[Lay]=Cut[2]
+		//	End
+		//End
+		Lua.Scyndi.Use("Kthura/"..MapBundle.."/LayerNames")
+		LayerName = Lua.Scyndi.Class["LayerNames_"..MapBundle].LayerNames()
+	End
+	
+	
+		
+	Void SG()
+		//SaveGame.Data["PermaKills.NEIL"] = FieldFlow.Kill.Serialize
+		//string r = "// Mapstuff\nInit\n"		
+		//r += "\tFlowField.Map.ScrollX = "..tostring(FlowField.Map.ScrollX).."\n"
+		//r += "\tFlowField.Map.ScrollY = "..tostring(FlowField.Map.ScrollY).."\n"
+		//r += "\tFlowField.Map.AllowAutoScroll = "..tostring(FlowField.Map.AllowAutoScroll).."\n"
+		//r += "\tFlowField.Map.Layer = \""..FlowField.Map.Layer.."\"\n"
+		//r += "\tFlowField.Map.CurLayer.Spawn(\"PLAYER\",0,0)\n"
+		//r += "\tFlowField.Map.Player.X = "..tostring(FlowField.Map.Player.X).."\n"
+		//r += "\tFlowField.Map.Player.Y = "..tostring(FlowField.Map.Player.Y).."\n"
+		//r += "\tFlowField.Map.Player.Wind = \""..FlowField.Map.Player.Wind.."\"\n"
+		//r += "end\n"
+		//SaveGameData["Map.neil"] = r
+	End
+	
+	Void LG()
+		//FlowField.LoadMap(LoadedMap)
+		//Loading()
+		//NeilDoString(SaveGame.Data["MAP.NEIL"],"SG:Map.Neil")
+	End
+	
+	Void ObjSet(Tag,string Key,value)
+		//CurrentLayer.Obj(Tag)[Key] = value
+		Kthura.Obj[Tag][Key] = value
+	End
+	
+	Bool Walking()
+		//If !KthuraMap
+		//	CSay("WARNING! KthuraMap is nil!")
+		//	Return False
+		//End
+		If !Kthura.HasObj("PLAYER")
+			CSayF("No player!")
+			Return False
+		End		
+		Bool ret = Kthura.Obj["PLAYER"].Walking
+		//CSayF("Walking Check:!%s/%s => %s",Lua.tostring(ret),lua.tostring(ArriveFunc),lua.tostring((!ret) && ArriveFunc))
+		if (!ret) && ArriveFunc
+			number Afstand = xMath.Pythagoras(Player.X,Player.Y, GoToX, GoToY)
+			CSayF("Distance is %04.3f",Afstand)
+			If Afstand < 60
+				Switch Lua.type(ArriveFUNC)
+					Case "function"
+						ArriveFUNC(ArriveParam)
+					Case "string"
+						Map.Script(ArriveFunc,ArriveParam)						
+					Default
+						Lua.error("Walk arrive error!")
+				End
+				ArriveFunc = nil
+			End
+		end
+		return ret
+	end
+		
+	
+//End

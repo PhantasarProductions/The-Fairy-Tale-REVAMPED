@@ -1,0 +1,3 @@
+*.scyndi linguist-language=Scyndi linguist-detectable=true
+*.saskia linguist-language=SASKIA linguist-detectable=true
+*.SASKIA linguist-language=SASKIA linguist-detectable=true

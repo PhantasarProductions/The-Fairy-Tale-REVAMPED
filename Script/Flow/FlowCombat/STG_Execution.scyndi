@@ -1,0 +1,344 @@
+// License:
+// 	  src/Code/Script/Flow/FlowCombat/STG_Execution.scyndi
+// 
+// 	  Version: 26.02.20
+// 	
+// 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
+// 	
+// 	  ===========================
+// 	  This file is part of a project related to the Phantasar Chronicles or another
+// 	  series or saga which is property of Jeroen P. Broks.
+// 	  This means that it may contain references to a story-line plus characters
+// 	  which are property of Jeroen Broks. These references may only be distributed
+// 	  along with an unmodified version of the game.
+// 
+// 	  As soon as you remove or replace ALL references to the storyline or character
+// 	  references, or any termology specifically set up for the Phantasar universe,
+// 	  or any other univers a story of Jeroen P. Broks is set up for,
+// 	  the restrictions of this file are removed and will automatically become
+// 	  zLib licensed (see below).
+// 
+// 	  Please note that doing so counts as a modification and must be marked as such
+// 	  in accordance to the zLib license.
+// 	  ===========================
+// 
+// 
+// 	  zLib license terms:
+// 	
+// 	  This software is provided 'as-is', without any express or implied
+// 	  warranty.  In no event will the authors be held liable for any damages
+// 	  arising from the use of this software.
+// 
+// 	  Permission is granted to anyone to use this software for any purpose,
+// 	  including commercial applications, and to alter it and redistribute it
+// 	  freely, subject to the following restrictions:
+// 	
+// 	  1. The origin of this software must not be misrepresented; you must not
+// 	     claim that you wrote the original software. If you use this software
+// 	     in a product, an acknowledgment in the product documentation would be
+// 	     appreciated but is not required.
+// 	  2. Altered source versions must be plainly marked as such, and must not be
+// 	     misrepresented as being the original software.
+// 	  3. This notice may not be removed or altered from any source distribution.
+// End License
+
+
+Module
+
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/JCR6"
+#use "Libs/SCI/Audio"
+#use "Libs/SCI/Graphics"
+
+#use "Script/Use/Link"
+#use "Script/Use/Anyway"
+#use "Script/Use/Convert"
+
+#Use "Script/Use/Misc/Box_Class"
+
+#Macro __Execution CombatFlow.Execution
+
+#accept EXPBaseRate
+#accept FlowCombat
+#accept EXPRate
+#accept CharMsg
+#accept Effect
+#accept Stage
+
+LocExtern LastAction "Scyndi.Globals.LastAction"
+
+plua NIKS()
+end
+
+Class Stage_Execution
+	#region Extention Stack Overflow Void
+	//Extends Stage
+	Link _Current = Stage._Current
+	Link Map = Stage.Map 
+	Static Get Var Current; Return Stage.Current; End
+	Static Set Var Current; Stage.Current=Value; End
+	Link Register = Stage.Register
+	Bool DONTCHECKFORVICTORY = True
+	Link FlashChar = NIKS
+	#endregion
+
+	#region Basic crap
+	Static ReadOnly Int ASiz = 60
+	Static ReadOnly Var AFnt = ObtainFont("BIGTEXT")
+	Static Readonly Int AYPS = Screen.H div 20	
+	Static Var ABox 
+	Static String ExStage
+	Static Var Act
+	Static Var Card
+	Static Int Time
+	Static Bool DoShowBox
+	Static Void ComeToMe(_Act,_Card)
+		Static Var Buzz = Audio.Obtain("BUZZ")
+		Act          = _Act
+		Card         = _Card || FlowCombat.Cards[1]
+		ExStage      = "Start"
+		Time         = 150
+		Self.Current = "Execution"
+		DoShowBox    = True
+		If Act.DeductAP && Act.Executor.Team=="Hero"
+			AP := Act.Executor.Char.Points.AP			
+			If Act.Act.ABL_APCost>AP.Have
+				charmsg(Act.Executor.Tag,"Out of AP",255,0,0)
+				Buzz.Play()
+				FlowCombat.Cards.DelShift()
+				Stage.Current = Nil
+				DoShowBox    = False
+			Else
+				AP.Have -= Act.Act.ABL_APCost
+			End
+		End		
+		if Act.ConsumeItem && Act.Executor.Team=="Hero"			
+			If Act.Act.Has<1
+				charmsg(Act.Executor.Tag,"Out of Items",255,0,0)
+				Buzz.Play()
+				FlowCombat.Cards.DelShift()
+				Stage.Current = Nil
+				DoShowBox    = False
+				// It should not be possible this happens, but this is to be 100% sure!
+			Else
+				Act.Act.Has--
+			End
+		End
+		If Act.TarFilter()==0
+			charmsg(Act.Executor.Tag,"No valid targets",255,0,0)
+			Buzz.Play()
+			FlowCombat.Cards.DelShift()
+			Stage.Current = Nil
+			DoShowBox    = False
+		End
+	End
+	
+	Void Update()
+		Self["Update_"..ExStage]()
+		//DoShowBox = Stage.Current == Self
+	End
+	
+	Void Draw()		
+		Lua.assert(Self["Draw_"..ExStage],sprintf("Execution.Draw_%s is nil in stead of a function",ExStage))
+		Self["Draw_"..ExStage]()
+	End
+	
+	Static Void ShowBox()
+		If DoShowBox
+			ABox.Draw()
+			AFnt.DarkText(Act.Act.Title,Screen.W div 2,AYPS + (ASiz div 2),2,2)
+			If Card
+				//Image.Rotate = -30
+				//card.Img.XDraw(50,AYPS + (ASiz div 2))
+				//Image.Rotate = 0
+				card.Img.DrawR(50,AYPS + (ASiz div 2),-30)
+			End
+		End
+	End
+
+	#endregion
+	
+	
+	
+	#region Start
+	//Const Delegate Draw_Start = NIKS
+	Link Draw_Start = NIKS
+	Void Update_Start()		
+		Time--
+		If Time==0
+			if Card.Action
+				ExStage="SpellAni"
+				Return
+			End
+			ExStage="Pose"
+			String ch = Act.Executor.Tag
+			If prefixed(ch,"Jake")
+				Ch = "Jake"
+			End
+			if Act.Executor.Team=="Foe"
+				Ch = Act.Executor.Raw.VOCALTAG
+			End
+			String Voc := sPrintF("Vocals/Combat/%s/%s/Action/%s.ogg",Act.Executor.Team,Ch,Act.Act.Voice)
+			If JCR6.EntryExists(Voc)
+				Audio.LoadNew(Voc,sprintf("CombatVoice.%s.%s.%s",Act.Executor.Team,Ch,Act.Act.Voice)).Play()
+			End
+		End
+		Self.DontCheckForVictory = True
+	End
+	#endregion
+	
+	#region Pose
+	//Const Delegate Draw_Pose = NIKS
+	Link Draw_Pose = NIKS
+	Void Update_Pose()
+		If Act.Executor.Pose(Act)
+			ExStage="SpellAni"
+		End
+	End
+	#endregion
+	
+	#region SpellAni
+	Var SpellAni
+	Void Update_SpellAni()
+		Static Bool Initiated = False
+		DoShowBox = False
+		if Act.Act.SpellAni==""
+			Initiated = False
+			SpellAni = nil
+			ExStage="Effect"
+			Return
+		End
+		if !Initiated
+			SpellAni = NeilUse("Script/Use/Combat/SpellAni/SA_"..Act.Act.SpellAni)
+			SpellAni.Start(Act,Act.Act.SpellAni_Arg)
+			Initiated = True
+		End
+		__White
+		SpellAni.Update()
+		If SpellAni.Ended
+			Initiated = False
+			SpellAni = nil
+			ExStage="Effect"
+			Return
+		End
+	End
+	
+	Void Draw_SpellAni()
+		If SpellAni
+			__White
+			SpellAni.Draw()
+		End
+	End
+	#endregion
+	
+	#region Effect
+	Link Draw_Effect = NIKS
+	Void Update_Effect()
+		//For Tar,TarTag,idx in Act.Targets.Each
+		For TarTag in Each(Act.TarTags)
+			If !Effect.Run(Act,TarTag)
+				charmsg(tartag,"Miss")
+			End
+		End
+		ExStage="AfterAction"
+	End
+	#endregion
+	
+	#region After Action
+	Link Draw_AfterAction = NIKS
+	Static Var AfterActions = {}
+	
+	Void Update_AfterAction()
+		// Are there additional cards to be added?
+		If Act.Act.ADDCARD_Action_Number>0			
+			String AddAct = Act.Act.ADDCARD_Action_Act
+			Bool Allowed = true
+			if AddAct=="Self"
+				Allowed = !Card.Action
+				AddAct = Act.Act.Tag
+			End
+			If Allowed
+				For i = 1,Act.Act.ADDCARD_Action_Number
+					CSayF("%0d/%0d:> Adding action card '%s'",i,Act.Act.ADDCARD_Action_Number,AddAct)
+					FlowCombat.Cards.AddCard(i*Act.Act.ADDCARD_Action_Interval,Act.Executor.Tag,new Action(AddAct,Act.Executor.Tag,Act.TarTags))
+				End
+			End
+		End
+		// After Action Script 
+		String AA_Dir = "Script/Use/Combat/AfterAction/"
+		String AA_File := AA_Dir
+		//Switch Act.Executor.Team
+		//	Case "Hero"
+		//		String T = Act.Executor.Tag
+		//		Switch Act.Executor.Tag
+		//			Case "Jake_Human" "Jake_Fairy"
+		//				T = "Jake"
+		//			Default
+		//		End
+		//		AA_File += "Hero/"..T
+		//	Case "Foe"
+		//		AA_File += "Foe/"..Act.Executor.File
+		//	Default
+		//		Lua.error("Invalid team")
+		//End
+		//If JCR6.EntryExists(AA_File..".neil")
+		//	AfterActions[AA_File] = AfterActions[AA_File] || NeilUse(AA_File)
+		//	AfterActions[AA_File](Act)
+		//End
+			
+		If Act.Executor && Act.Executor.Team=="Hero"
+			// To make sure only the last one to act speaks and moves (in boss they all move, but only the last actor speaks)
+			LastAction = Act.Executor.Tag
+			// Pose to normal
+			Act.Executor.Stage = "IDLE"
+			// AP Up
+			Act.Executor.AP += Act.Act.rew_GainAP
+			If Act.Executor.Char.Data.Master=="Fandalora"
+				Act.Executor.AP += Act.Act.rew_GainAP div __skill
+			End
+			// Exp Rate
+			ExpRate[Act.Executor.Tag]=ExpRate[Act.Executor.Tag]||EXPBaseRate
+			ExpRate[Act.Executor.Tag]+= 0.003 - (__skill/1000)
+			// Skill up
+			For ski=1,5
+				Int tme = 1
+				if __NewGamePlus
+					tme += 3-__skill
+					CSayF("Times increased by New Game+ to %d",tme)
+				End
+				If Act.Executor.Char.Data.Master=="Fandalora"
+					tme += (4-__skill)
+					CSayF("Times increased by Fandalora to %d",tme)
+				End
+				For skj=1,tme
+					Party.IncSkill(Act.Executor.Tag,ski,Act.Act["rew_GainSkill"..ski],Act.Act["rew_CreateSkill"..ski])
+				End
+			End
+			If Act.Teaching
+				CharMsg(act.executor.tag,"Learned: "..Act.Act.Title,180,0,255)
+			ElseIf Act.CheckAfterAction && Prefixed(act.executor.tag,"Jake") && math.random(1,4*__skill)==1
+				BoxText.Serial("LEARNABILITY", "AUTO_JAKE", "FLOW_COMBAT")
+				FlowCombat.Cards.AddCard(2,Act.Executor.Tag,new Action(Act.Act.Tag,Act.Executor.Tag,Act.TarTags,{["CheckAfterAction"]=True}))
+			End
+		End
+		// Is there a message? (Should only be used for learning new spells).
+		If act.aftermsg!=""
+			CharMsg(act.executor.tag,act.aftermsg,0,180,255)
+		End
+		// Lastly remove the front card and go back to the "IDLE" mode
+		FlowCombat.Cards.DelShift()
+		Stage.Current = Nil
+	End
+	
+	Constructor
+		ABox = ABox || new CBox(0,AYPS,Screen.W,ASiz,false)
+	End
+
+
+End
+
+Init
+	Stage.Register("Execution",new Stage_Execution())
+End
+
+//Return Stage_Execution

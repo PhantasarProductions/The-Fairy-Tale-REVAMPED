@@ -1,0 +1,448 @@
+// License:
+// 	  src/Code/Script/Flow/FlowCombat/CL2_Class_Foe.scyndi
+// 
+// 	  Version: 26.02.20
+// 	
+// 	  Copyright (C) case 2021-2026 Jeroen Petrus Broks
+// 	
+// 	  ===========================
+// 	  This file is part of a project related to the Phantasar Chronicles or another
+// 	  series or saga which is property of Jeroen P. Broks.
+// 	  This means that it may contain references to a story-line plus characters
+// 	  which are property of Jeroen Broks. These references may only be distributed
+// 	  along with an unmodified version of the game.
+// 
+// 	  As soon as you remove or replace ALL references to the storyline or character
+// 	  references, or any termology specifically set up for the Phantasar universe,
+// 	  or any other univers a story of Jeroen P. Broks is set up for,
+// 	  the restrictions of this file are removed and will automatically become
+// 	  zLib licensed (see below).
+// 
+// 	  Please note that doing so counts as a modification and must be marked as such
+// 	  in accordance to the zLib license.
+// 	  ===========================
+// 
+// 
+// 	  zLib license terms:
+// 	
+// 	  This software is provided 'as-is', without any express or implied
+// 	  warranty.  In no event will the authors be held liable for any damages
+// 	  arising from the use of this software.
+// 
+// 	  Permission is granted to anyone to use this software for any purpose,
+// 	  including commercial applications, and to alter it and redistribute it
+// 	  freely, subject to the following restrictions:
+// 	
+// 	  1. The origin of this software must not be misrepresented; you must not
+// 	     claim that you wrote the original software. If you use this software
+// 	     in a product, an acknowledgment in the product documentation would be
+// 	     appreciated but is not required.
+// 	  2. Altered source versions must be plainly marked as such, and must not be
+// 	     misrepresented as being the original software.
+// 	  3. This notice may not be removed or altered from any source distribution.
+// End License
+
+Module
+
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/JCR6"
+#use "Libs/SCI/SString"
+#use "Libs/SCI/Graphics"
+
+#use "Script/Use/Link"
+#use "Script/Use/Anyway"
+#use "Script/Use/Convert"
+
+#accept exprate
+#accept CharMsg
+
+#accept Hero
+#accept VicQ
+
+locExtern s "self"
+
+Class Foe Extends Fighter
+
+	Const String ImgDir = "GFX/Combat/Fighters/Foe/"
+	
+	Delegate Rand = math.random
+	Get Int Skill
+		Return __Skill
+	End
+	
+	Bool StolenFrom = False
+	
+	Bool Gone = False
+	Bool Vandar = False
+	
+	Var Raw
+	Var NorImage
+	Var NegImage
+	Number Scale = 1
+
+	Get String AITag
+		Return Raw.AI
+	End
+	
+	Static Table AIBase = {}
+	
+	Get Var AI
+		AIBase[AITag] = AIBase[AITag] || NeilUse(sPrintF("Script/Use/Combat/AI/AI_%s",AITag))		
+		Return AIBase[AITag]
+	End
+
+	Get Bool IsUndead
+		Return Raw.Undead!=nil && Raw.Undead!=false
+	End
+	
+	Get Bool Damned
+		return IsUndead || (Self.StatusChanges.Undead!=nil && Self.StatusChanges.Undead!=false)
+	End
+	
+	Bool _CheckKilled = False
+	
+	Get Bool TarByFoe
+		Return S.HP>0
+	End
+	Get Bool TarByHero
+		Return S.HP>0
+	End
+	
+	Get Int W
+		Return NorImage.Width * Scale
+	End
+	
+	Get Int H
+		Return NorImage.Height * Scale
+	End
+	
+		
+	
+	Number DeadScale = 1
+	Int FlashCount
+	Bool FlashEnd
+	
+	Bool Oversoul	
+	
+	Int Num
+	Get Int Experience
+		if __skill==3 && Oversoul
+			Return 0
+		End
+		Return Raw.Stats.EXP
+	End
+	String File
+	
+	Get String Letter
+		If num>26
+			Return "?"
+		End
+		Return Chr(num+64)
+	End
+	
+	
+	Get String CLetter
+		If num>26
+			Return "Unknown"
+		End
+		Return Chr(num+64)
+	End
+
+	Get Bool Boss
+		Return Raw.Boss==true
+	End
+	
+	
+	Static String MakeTag(int _n)
+		return sPrintF("FOE%03d",_n)
+	End
+	
+	Static Var Compile(string F,Rw,int _num=0,_oversoul)
+		If _num==0
+			Repeat
+				_num++
+			LoopWhile Self.ByTag[Self.MakeTag(_num)]
+		End
+		CSayF("Compiling Foe: %s on spot %03d",F,_num)
+		Var WFoe = new Foe()
+		WFoe.Vandar = suffixed(Upper(F),"/VANDAR")
+		WFoe.InitStatusChanges()
+		WFoe.Setup(Self.MakeTag(_num),"Foe")
+		WFoe.File = F
+		WFoe.Num=_num
+		WFoe.Oversoul = _oversoul==true
+		WFoe.Raw = Rw(WFoe.Oversoul)
+		If Suffixed(WFoe.Raw.IMAGE,"/")
+			d := JCR6.GetDir(WFoe.Raw.IMAGE)
+			String img
+			int countdown=10000
+			Lua.assert(Len(d)>0,"No foe images to pick in folder: "..WFoe.Raw.IMAGE)
+			Repeat
+				countdown--
+				Lua.assert(countdown>0,"Foe image bundle timeout: "..WFoe.Raw.IMAGE)
+				//img = d[math.random(1,#d)]
+				img = d[math.random(0,len(d)-1)]
+			LoopWhile Suffixed(Upper(img),".NEGATIVE.PNG")
+			WFoe.NorImage = LoadImage(img,"NOR"..WFoe.Tag)
+			WFoe.NegImage = LoadImage(Replace(img,".PNG",".NEGATIVE.PNG"),"NEG"..WFOE.Tag)			
+		Else
+			WFoe.NorImage = LoadImage(WFoe.Raw.IMAGE,"NOR"..WFoe.Tag)
+			WFoe.NegImage = LoadImage(Replace(Upper(WFoe.Raw.IMAGE),".PNG",".NEGATIVE.PNG"),"NEG"..WFOE.Tag)
+		End
+		WFoe.NorImage.HotBottomCenter()
+		WFoe.NegImage.HotBottomCenter()
+		RPGChar.Create(WFoe.Tag)
+		WFoe.Char.Name=WFoe.Raw.NAME
+		for k,v in Pairs(WFoe.Raw)
+			If prefixed(k,"SR_")
+				WFoe.Char.Stats["END_SR_" ..Self.FURL(right(k,len(k)-3))] = v
+				CSayF("Resistance to %9s: %03d%%",Self.FURL(right(k,len(k)-3)),v)
+			End
+		End
+		For k,v in Pairs(WFoe.Raw.Stats)
+			If Upper(k)=="EXP"
+				WFoe.Char.Stats[Upper(k)] = v
+			Else
+				string Key := self.FURL(k)
+				If Upper(Key)=="HP" 
+					Key="HP"
+				End
+				If Prefixed(Upper(Key),"ER_")
+					Key="ER_"..self.FURL(Right(Key,len(Key)-3))
+				End
+				If Prefixed(Upper(Key),"SR_")
+					Key="SR_"..self.FURL(Right(Key,len(Key)-3))
+				End
+				WFoe.Char.Stats["BASE_"..Key]     = v
+				WFoe.Char.Stats["BUFF_"..Key]     = 0
+				//WFoe.Char.Stats["END_" ..Key]     = 0
+				//WFoe.Char.StatScript["END_"..Key] = "SUM:"..WFoe.Tag..".".."BUFF_"..Key..".".."BASE_"..Key
+				CSayF("- Stat.%s = { BASE = %d, END = %d }",Key,WFoe.Char.Stats["BASE_"..Key],WFoe.Char.Stats["END_"..Key])
+			End
+		End
+		//WFoe.Char.Points.HP.MaxCopy  = "END_HP"
+		
+		WFoe.Char.Points.HP.Have     = WFoe.Char.Points.HP.Maximum
+		Return WFoe
+	End
+	
+	
+	Void KillAward()	
+	// function KillAward(myfoe)
+    // -- End?
+    // if CVV('&DONE.ULTIMATENOSTRAMANTU.MORPH.COMPLETE') then LAURA.Flow('FIELD') end
+    CSay("Foe kill detected! Let's award all stuff accordingly!") 
+    If gv.gbool["DONE.ULTIMATENOSTRAMANTU.MORPH.COMPLETE"]
+    	CSay("= Final battle, Nostramantu! Quit immediately")
+    	Flow.Current="FIELD"
+    	Return
+    End
+    // -- Normal?
+    pLua itemgiven = false
+    pLua midasmodifier = 1
+    // -- Experience
+    CSay("= Experience")
+    For i=1,4
+    	ch := RPGParty[i]    	
+        If ch!="" && RPGChar[ch].Stat.Level<__LevelCap && RPGChar[ch].Points.HP.Have>0
+        	CSayF("=> %d:%s",i,ch)
+        	rate := exprate[ch] || 1
+        	xget := (Self.Raw.Stats.EXP || 1)*(rate)
+        	xget = math.ceil(xget)
+        	If __NewGamePlus
+           		xget = xget * (4-__skill) 
+           	End
+        	If xget<0 || xget>2000000000
+        		// Overflow into minus protection!
+        		xget=2000000000
+        	End
+           	RPGChar[ch].Stat.Experience -= xget
+           	CSayF("=> %d:%09d EXP",i,xget)
+           	CSayF("=> %d:Rate %3.5f",i,rate)
+           	charmsg(ch,"EXP "..xget,rand(0,255),rand(0,255),rand(0,255))
+           	//if RPG.Stat(ch,"EXP")<=0 then charmsg(ch,"LEVEL UP!",rand(0,255),rand(0,255),rand(0,255)) end
+           	RPGChar[ch].Points.AP.Have+=30-(skill*10)
+        end
+    end
+    //-- Drop items
+    CSay("= Item drops")
+    For i=1,3 
+    	Int    Roll := math.random(1,100)
+    	Int    Rate := (Raw["DropRate_"..i] || 0)
+    	String ITag := (Raw["DropItem_"..i] || "")
+    	CSayF("=> Slot: %d; rate: %03d; item %s; Roll: %03d (%s/%s)",i,Rate, ITag,roll,Lua.tostring(Roll<Rate),Lua.tostring(ITag!=""))
+        if Roll<Rate && ITag!=""
+        	CSay("==> Roll satisfactory")
+           gitem := Raw["DropItem_"..i] || ""
+           idat := Item[gitem]
+           have := iDat.Has
+           itemmax := ({50,25,10})[__Skill]
+           if have<itemmax 
+              //ItemGive(item,1)
+              if idat.Give
+              	CharMsg(self.tag,"Dropped "..idat.Title,0,180,255)
+              	itemgiven = true
+              End
+           end
+        end
+    end
+    CSay("= Cash")
+    // If no items are dropped, drop money in stead of this foe has it.
+    if Raw.CASH && Raw.CASH>0 && (!itemgiven)
+    	for i=1,4
+    		pLua ch = RPGParty[i]
+    		if ch!="" && RPGChar[ch].Data.Master=="Midas"
+    			midasmodifier = midasmodifier + ({5,2.5,1.25})[__skill]
+    		end
+    	end
+    	acash := math.ceil(Raw.CASH * ({2,1,0.5})[__skill])
+    	acash = math.floor(acash * midasmodifier)
+    	if __newgameplus 
+    		acash = acash * (4-skill)
+    	end
+    	String shilders = "shilders"
+    	if acash==1 
+    		shilders="shilder" 
+    	end
+    	CharMsg(self.tag,"Dropped "..acash.." "..shilders,0,180,255)
+    	Master.AllInc("Rubine","RubinePoints")
+    	//inc("%CASH",acash)
+    	__Cash += acash
+    end
+    CSay("= Body Count")
+    // -- Bodycount
+    CSay("= Update master Russell")
+    Master.AllInc("Russell","RussellKills")
+    CSay(" = Update other kill based data")
+    gv.gint.KILLS++
+    //bestiary[myfoe.fidtag] = (bestiary[myfoe.fidtag] or 0) + 1
+    //oversoul[myfoe.fidtag] = (oversoul[myfoe.fidtag] or 0) + 1
+    gv.gint["KILLED_"..Self.File]++
+    gv.gint["OVERSOUL_"..Self.File]++
+    //-- Achievements based on kills
+    // TODO: Achievements based on kills
+    //MS.LoadNew("ACH","Script/Subs/Achievements.lua")
+    //MS.Run('ACH','AchByKill')
+    CSay("All updates required for kills accounted for!")
+end
+	
+	Void CheckKilled()
+		If !_CheckKilled
+			Self.KillAward()
+			If Boss
+				VicQ = "Boss"
+			End
+			Hero.ScanDandletonCitizen()
+		End
+		_CheckKilled = True
+	End
+	
+	
+	Number _KillScale = 0
+	Get Number NKillScale
+		Return math.max(0,1 - _KillScale)
+	End
+	Get Number PKillScale
+		Return 1 + _KillScale
+	End
+	
+	Void DrawKO()
+		self.CheckKilled()
+		if NKillScale>0
+			//Image.AltScale("COMBAT",NKillScale,PKillScale)
+			SetScale(NKillScale,PKillScale)
+			//NorImage.ASDraw("COMBAT",Self.X,Self.Y)
+			NorImage.Draw(Self.X,Self.Y)
+			
+			//Image.AltScale("COMBAT",1,1)
+			SetScale(1,1)
+			_KillScale += 0.1			
+		End
+	End
+	
+	Bool Hydra = False
+	Void Draw()
+		If self.HP==0
+			Self.Stage="KO"
+		End
+		if Hydra
+			If self.HP==1
+				Graphics.Color(0,0,0)
+				Graphics.Alpha(100)
+			Else
+				Graphics.Color(255,255,255)
+				Graphics.Alpha(255)
+			End
+		End
+		If Vandar
+			Static Int R
+			Static Int G
+			Static Int B
+			Static Int SR = math.random(1,4)
+			Static Int SG = math.random(1,4)
+			Static Int SB = math.random(1,4)
+			R = math.max(math.min(255,R+SR),0)
+			G = math.max(math.min(255,G+SG),0)
+			B = math.max(math.min(255,B+SB),0)
+			//CSayF("Current %d,%d,%d >> Change: %d,%d,%d",R,G,B,SR,SG,SB)
+			If R>=255
+				SR = 0-math.random(1,4)
+			ElseIf R<=0
+				SR = math.random(1,4)
+			ElseIf G>=255
+				SG = 0-math.random(1,4)
+			ElseIf G<=0
+				SG = math.random(1,4)
+			ElseIf B>=255
+				SB = 0-math.random(1,4)
+			ElseIf B<=0
+				SB = math.random(1,4)
+			End
+			Graphics.Color(R,G,B)
+		End
+		If Oversoul
+			Graphics.Color(180,127,255)
+		End
+		Switch Self.Stage
+			Case "IDLE"
+				//NorImage.ASDraw("COMBAT",Self.X,Self.Y)
+				NorImage.Draw(Self.X,Self.Y)
+			Case "KO"
+				//Lua.error("Death animation not yet done")
+				Self.DrawKO()
+			Default
+				Static Bool Neg
+				Static Int OTicks
+				//If FPS.Ticks % 25 == 0
+				if math.abs(Sys.Ticks - OTicks) > 50
+					OTicks = Sys.Ticks
+					Neg = !Neg
+					FlashCount = (FlashCount+1) % 5
+					//If FlashCount==0
+					//	Self.Stage = "IDLE"
+					//End
+					FlashEnd = FlashCount == 0
+				End
+				If Neg
+					NegImage.Draw(Self.X,Self.Y)
+				Else
+					NorImage.Draw(Self.X,Self.Y)
+				End
+		End
+		Graphics.Alpha(255)
+	End
+	
+	
+	Bool Pose(Act)
+	 	//Lua.error("No foe pose implemented yet")
+	 	If (FlashEnd)
+	 		Self.Stage="IDLE"
+	 	Else
+	 		Self.Stage="MOVE"
+	 	End
+	 	Ret := FlashEnd==True
+	 	FlashEnd = False
+	 	Return Ret
+	End
+End
+

@@ -1,0 +1,125 @@
+// License:
+// 	  src/Code/Script/Subs/SubProgress.scyndi
+// 
+// 	  Version: 26.02.02 II
+// 	
+// 	  Copyright (C) 2026 Jeroen Petrus Broks
+// 	
+// 	  ===========================
+// 	  This file is part of a project related to the Phantasar Chronicles or another
+// 	  series or saga which is property of Jeroen P. Broks.
+// 	  This means that it may contain references to a story-line plus characters
+// 	  which are property of Jeroen Broks. These references may only be distributed
+// 	  along with an unmodified version of the game.
+// 
+// 	  As soon as you remove or replace ALL references to the storyline or character
+// 	  references, or any termology specifically set up for the Phantasar universe,
+// 	  or any other univers a story of Jeroen P. Broks is set up for,
+// 	  the restrictions of this file are removed and will automatically become
+// 	  zLib licensed (see below).
+// 
+// 	  Please note that doing so counts as a modification and must be marked as such
+// 	  in accordance to the zLib license.
+// 	  ===========================
+// 
+// 
+// 	  zLib license terms:
+// 	
+// 	  This software is provided 'as-is', without any express or implied
+// 	  warranty.  In no event will the authors be held liable for any damages
+// 	  arising from the use of this software.
+// 
+// 	  Permission is granted to anyone to use this software for any purpose,
+// 	  including commercial applications, and to alter it and redistribute it
+// 	  freely, subject to the following restrictions:
+// 	
+// 	  1. The origin of this software must not be misrepresented; you must not
+// 	     claim that you wrote the original software. If you use this software
+// 	     in a product, an acknowledgment in the product documentation would be
+// 	     appreciated but is not required.
+// 	  2. Altered source versions must be plainly marked as such, and must not be
+// 	     misrepresented as being the original software.
+// 	  3. This notice may not be removed or altered from any source distribution.
+// End License
+
+Script
+
+#use "Libs/SCI/Events"
+#use "Libs/SCI/Graphics"
+#use "Libs/SCI/InterVar"
+
+#use "Script/Use/Convert"
+
+Class ProgressBar
+	ReadOnly Int R = 255
+	ReadOnly Int G = 180
+	ReadOnly Int B = 0
+	ReadOnly Int MaxValue = 1
+	Int CurrentValue
+	
+	Void Draw(int Y)
+		Int L := math.floor( (CurrentValue/MaxValue) * Screen.W)
+		Graphics.Color(80,80,80)
+		Graphics.Rect(0,Y,Screen.W,15)
+		Graphics.Color(R,G,B)
+		Graphics.Rect(0,Y,L,15)
+	End
+	
+	Constructor(Int Mx,Int Rood = 255, int Groen = 180, Int Blauw = 0)
+		MaxValue = Mx
+		R = Rood
+		G = Groen
+		B = Blauw
+	End
+	
+	Void Define(int V)
+		CurrentValue = math.max(0,math.min(V,MaxValue))
+	End
+	
+	Static Table Register = {}
+	
+	Static Void Create(string Tag,Int Mx,Int Rood = 255, int Groen = 180, Int Blauw = 0)
+		Register[Upper(Tag)] = new ProgressBar(mx,Rood,Groen,Blauw)
+	End
+	
+	Static Void Kill(string Tag)
+		Register[Upper(Tag)] = nil
+	End
+		
+	
+	Static Void DrawAll()
+		Int Y = Screen.H 
+		For k,bar in Spairs(Register)
+			Y -= 20
+			bar.Draw(y)
+		End
+	End
+	
+	Static Void LDNG(int sit)
+		LocExtern Back "LDNG_Back"
+		LocExtern Banner "LDNG_Banner"
+		Back   = Back || ObtainImage("BACKGROUND")
+		Banner = Banner || { ObtainImage("LOADING"),ObtainImage("CONFIGURINGDATA") }
+		for i=1,2
+			Banner[i].HotCenter()
+		end
+		Graphics.Color(255,255,255)
+		Graphics.Scale(1,1)
+		Back.Tile(0,0,Screen.W,Screen.H)
+		Lua.assert(Banner[sit],"No 'loading' banner for situation: "..sit)
+		Banner[sit].Draw(Screen.W div 2, Screen.H div 2)
+		ProgressBar.DrawAll()
+		Graphics.Flip()
+		Events.Poll()
+	End
+		
+
+End
+
+Global Void GetCurValue(String Key) 
+	gint.ProgCurValRet = ProgressBar.Register[key].CurrentValue
+End	
+
+Init
+	ProgressBar.Register={}
+End

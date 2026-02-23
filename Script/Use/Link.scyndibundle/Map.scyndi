@@ -1,0 +1,584 @@
+// License:
+// 	  src/Code/Script/Use/Link.scyndibundle/Map.scyndi
+// 
+// 	  Version: 26.02.22 I
+// 	
+// 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
+// 	
+// 	  ===========================
+// 	  This file is part of a project related to the Phantasar Chronicles or another
+// 	  series or saga which is property of Jeroen P. Broks.
+// 	  This means that it may contain references to a story-line plus characters
+// 	  which are property of Jeroen Broks. These references may only be distributed
+// 	  along with an unmodified version of the game.
+// 
+// 	  As soon as you remove or replace ALL references to the storyline or character
+// 	  references, or any termology specifically set up for the Phantasar universe,
+// 	  or any other univers a story of Jeroen P. Broks is set up for,
+// 	  the restrictions of this file are removed and will automatically become
+// 	  zLib licensed (see below).
+// 
+// 	  Please note that doing so counts as a modification and must be marked as such
+// 	  in accordance to the zLib license.
+// 	  ===========================
+// 
+// 
+// 	  zLib license terms:
+// 	
+// 	  This software is provided 'as-is', without any express or implied
+// 	  warranty.  In no event will the authors be held liable for any damages
+// 	  arising from the use of this software.
+// 
+// 	  Permission is granted to anyone to use this software for any purpose,
+// 	  including commercial applications, and to alter it and redistribute it
+// 	  freely, subject to the following restrictions:
+// 	
+// 	  1. The origin of this software must not be misrepresented; you must not
+// 	     claim that you wrote the original software. If you use this software
+// 	     in a product, an acknowledgment in the product documentation would be
+// 	     appreciated but is not required.
+// 	  2. Altered source versions must be plainly marked as such, and must not be
+// 	     misrepresented as being the original software.
+// 	  3. This notice may not be removed or altered from any source distribution.
+// End License
+
+
+Module
+
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/Kthura"
+#use "Libs/SCI/SString"
+#use "Libs/SCI/InterVar"
+
+#use "Script/Use/Anyway"
+#use "Script/Use/Convert"
+
+Global Table MapScript
+
+Group Player
+
+	Set Int Dominance
+		//Lua.Neil.Globals.Map.SetObj("PLAYER","Dominance",value)
+		Kthura.Obj.Player.Dominance=value
+	End
+	
+	Get Int X
+		//Return ISGet.Int("FLOW_FIELD","FlowField.Map.CurLayer.Obj('PLAYER').X")
+		Return Kthura.Obj.Player.X
+	End
+	
+	Get Int Y
+		//Return ISGet.Int("FLOW_FIELD","FlowField.Map.CurLayer.Obj('PLAYER').Y")
+		Return Kthura.Obj.Player.Y
+	End
+	
+	Void StopWalking()
+		//Lua.Neil.Globals.Map.StopWalking()
+		Kthura.Obj.Player.StopWalking()
+	End
+	
+	Void WalkTo(a,b,c)
+		//Lua.Scyndi.AllIdentifiers.Map.MCall("FlowField.Map.CurLayer.Obj('PLAYER').WalkTo",a,b,c)
+		//Sys.Call("FLOW_FIELD","FlowField.Map.CurLayer.Obj.PLAYER.WalkTo",a,b,c)
+		Kthura.Obj.Player.WalkTo(a,b,c)
+	End
+End
+
+// For the "Follow the leader" effect
+QuickMeta Players
+	NewIndex
+		//Lua.Neil.Globals.Map.SetObj("PLAYER",Key,value)
+		Kthura.Obj.Player[Key]=value
+		For i=2,4
+			If RPGParty[i]!=""
+				//Lua.Neil.Globals.Map.SetObj("PLAYER"..i,Key,value)
+				Kthura.Obj[sprintf("PLAYER%d",i)][Key]=value
+			End
+		End
+	End
+End
+
+//Module
+
+	Link MSDraw = gbool.MapScriptSettings_MSDraw_CallBack
+	Link MSUpdate = gbool.MapScriptSettings_MSUpdate_CallBack
+
+
+	Get Var Ach
+		Return Lua.Scyndi.Class.Ach
+	End
+
+	ReadOnly Var Meta
+	
+	//Get Delegate CSayF
+	//	return Lua.Neil.Globals.CSayF
+	//End
+	
+	Get String Layer
+		//Return ISGet.String("FLOW_FIELD","FlowField.Map.Layer")
+		//Return gStr.Map_Layer
+		Return Kthura.CurrentLayer
+	End
+	
+	Set String Layer
+		//ISSet("STRING","FLOW_FIELD","FlowField.Map.Layer",Value)
+		Kthura.CurrentLayer = Value
+		gStr.Map_Layer = Value
+	End
+
+	Get String LoadedMap
+		Return gstr.LoadedMap
+	End
+	
+	#region Scroll
+	Get Bool AllowAutoScroll
+		Return ISGet.Bool("FLOW_FIELD","FlowField.Map.AllowAutoScroll")
+	End
+	
+	Set Bool AllowAutoScroll
+		CSay("Setting AutoScroll To: "..lua.tostring(value))
+		//ISSET("BOOL","FLOW_FIELD","FlowField.Map.AllowAutoScroll",value)
+		//State.Call("FLOW_FIELD","FlowField.Map.SetAutoScroll",lua.tostring(value))
+		gBool.Autoscroll=value
+	End
+	
+	Get Int ScrollX
+		//Return ISGET.Int("FLOW_FIELD","FlowField.Map.ScrollX")
+		Return gInt.ScrollX
+	End
+	Set Int ScrollX
+		//ISSET("INT","FLOW_FIELD","FlowField.Map.ScrollX",value)
+		gInt.ScrollX=Value
+	End
+	Get Int ScrollY
+		//Return ISGET.Int("FLOW_FIELD","FlowField.Map.ScrollY")
+		Return gInt.ScrollX
+	End
+	Set Int ScrollY
+		//ISSET("INT","FLOW_FIELD","FlowField.Map.ScrollY",value)
+		gInt.ScrollY=Value
+	End
+	#endregion
+
+	//Void MCall(String func,a,b,c,d,e,f,g,h)
+	Void MCall(String func,infinity)
+		//String pr
+		//For i,p in iPairs {a,b,c,d,e,f,g,h}
+		//	If i>1 
+		//		pr += ", "
+		//	End
+		//	Switch lua.type(p)
+		//		Case "string"
+		//			pr += "\""..p.."\""
+		//		Case "number" "boolean"
+		//			pr += toString(p)
+		//		Default
+		//			lua.error("Illegal MCall type "..lua.type(p))
+		//	End
+		//End
+		//If pr=="" 
+		//	pr = "nil"
+		//End
+		//print(sprintf ("Calling %s(%s)",func,pr))
+		//Sys.Call("FLOW_FIELD",func,pr)
+		
+		Sys.Call("FLOW_FIELD",func,infinity)
+	End
+
+	Void ScrollTo(Int X,Int Y,Int Speed = 1)
+		MCall("FlowField.Map.ScrollTo",X,Y,Speed)
+	End
+
+	
+	Void Schedule(String scriptfunction)
+		MCall("FlowField.Schedule.Schedule",scriptfunction)
+	End
+	
+	Void LoadMap(string _Map)
+		CSayF("Map.LoadMap(\"%s\")",_Map)
+		If _Map=="nil"
+			CSay("Something odd's going on here!")
+			Sys.TraceBack()
+		End
+			
+		If Sys.StateName=="MAPSCRIPT"
+			MCall("FlowField.Schedule.Add","LOAD:".._Map)
+		Else
+			MCall("FlowField.LoadMap",_Map)
+		End		
+	End
+	
+	Void Load(string _Map)
+		LoadMap(_Map)
+	End
+	
+	Bool HasTag(string Tag)
+		//Return ISGET.BOOL("FLOW_FIELD",sPrintF("FlowField.Map.CurLayer.HasTag(\"%s\")",Tag))
+		Return Kthura.HasObj(Tag)
+	End
+	
+	Void GoToMap(string aMap,string aLayer,string SpawnPoint)
+		LoadMap(aMap)
+		Schedule("LAYER:"..aLayer)
+		Schedule("SPAWN:"..SpawnPoint)
+		Ach.Auto()
+	End
+	
+	Void GoToMapPos(string aMap,string aLayer,Int X, Int Y)
+		LoadMap(aMap)
+		Schedule("LAYER:"..aLayer)
+		Schedule("SPAWNPOS:"..X..","..Y)
+	End
+
+	
+	Void GoToLayer(string aLayer, string SpawnPoint)
+		locExtern Self "Scyndi.Class.Map"
+		If HasTag("PLAYER")
+			Self.Kill("PLAYER",False)
+		End
+		For i=2,4
+			String P = "PLAYER"..i
+			If HasTag(P)
+				Self.Kill(P,False)
+			End
+		End
+		MCall("FlowField.Map.SetLayer",aLayer)
+		Self.Spawn("PLAYER",SpawnPoint)
+		Ach.Auto()
+	End
+	
+	Void Spawn(string ActTag,a,b)
+		Switch Lua.type(a)
+			Case "string"
+				CSayF("Spawning ActTag '%s' on spot '%s'",ActTag,a)
+				//MCall("FlowField.Map.CurLayer.Spawn",ActTag,a)
+				Kthura.Spawn(ActTag,a)
+			Case "number"
+				assert(Lua.type(b)=="number","n::Illegal spawn function call")
+				CSayF("Spawning ActTag '%s' on coordinates (%4d,%4d)",ActTag,a,b)
+				//MCall("FlowField.Map.CurLayer.Spawn",ActTag,a,b)
+				Kthura.Spawn(ActTag,a,b)
+			Default
+				Lua.error("t::Illegal spawn function call")			
+		End
+	End
+	
+	Void SpawnPlayer(a,b)		
+		Spawn("PLAYER",a,b)
+	End
+	
+	Void GotoMapXY(String GMXY_Map,String GMXY_Layer,Int GMXY_X, Int GMXY_Y)
+		LoadMap(GMXY_Map)
+		Kthura.CurrentLayer = GMXY_Layer
+		SpawnPlayer(GMXY_X,GMXY_Y)
+	End
+	
+	Void _Script(String Func,Args)
+		//State.Call("MAPSCRIPT","MScript."..Func,"\""..Lua.tostring(Args).."\"")
+		//Sys.Call("MAPSCRIPT","MScript."..Func,Args)
+		plua s
+		plua e
+		s,e = Lua.pcall(Sys.Call,"MAPSCRIPT","MScript."..Func,Args)
+		if (!s)
+			CSayF("Map._Script(\"%s\",%s): Failure: %s",Func,Args,e)
+			Sys.Traceback()
+			printf("\x1b[95m%s\n",lua.debug.traceback())
+			Lua.error("MapScript Failure: "..e)
+		End
+	End
+	
+	Get Var $Script
+		locextern s "self"
+		return s._Script
+	End
+	
+	Void SG()
+		MCall("FlowField.Map.SG")
+	End
+	
+	Void ObjSet(tag,string vartag,value)
+		MCall("FlowField.Map.ObjSet",tag,vartag,value)
+	End
+	Void SetObj(tag,string vartag,value)
+		MCall("FlowField.Map.ObjSet",tag,vartag,value)
+	End	
+	String ObjGetString(tag,string VarTag)
+		//CSayF("ObjGetString(%s %s,%s)",Lua.type(tag),Lua.tostring(tag),VarTag)
+		switch Lua.type(Tag)
+			case "string"
+				Return ISGet.String("FLOW_FIELD",sprintf("FlowField.Map.CurLayer.Obj(\"%s\").%s",tag,VarTag))
+			case "number"
+				Return ISGet.String("FLOW_FIELD",sprintf("FlowField.Map.CurLayer.Obj(%d).%s",tag,VarTag))
+			default
+				Lua.Error(sprintf("ObjGetString(<%s>,\"%s\"): Illegal function call",Lua.type(tag),VarTag))
+		End
+	End
+	Get Delegate GetObjString
+		Return ObjGetString
+	End
+	
+	Int ObjGetInt(tag,string VarTag)
+		//CSayF("ObjGetInt(%s %s,%s)",Lua.type(tag),Lua.tostring(tag),VarTag)
+		switch Lua.type(Tag)
+			case "string"
+				Return ISGet.Int("FLOW_FIELD",sprintf("FlowField.Map.CurLayer.Obj(\"%s\").%s",tag,VarTag))
+			case "number"
+				Return ISGet.Int("FLOW_FIELD",sprintf("FlowField.Map.CurLayer.Obj(%d).%s",tag,VarTag))
+			default
+				Lua.Error(sprintf("ObjGetInt(<%s>,\"%s\"): Illegal function call",Lua.type(tag),VarTag))
+		End
+	End
+	
+	Get Delegate GetObjInt
+		return ObjGetInt
+	End
+	
+	Bool ObjGetBool(tag,string VarTag)
+		switch Lua.type(Tag)
+			case "string"
+				Return ISGet.Bool("FLOW_FIELD",sprintf("FlowField.Map.CurLayer.Obj(\"%s\").%s",tag,VarTag))
+			case "number"
+				Return ISGet.Bool("FLOW_FIELD",sprintf("FlowField.Map.CurLayer.Obj(%d).%s",tag,VarTag))
+			default
+				Lua.Error(sprintf("ObjGetBool(<%s>,\"%s\"): Illegal function call",Lua.type(tag),VarTag))
+		End
+	End
+	
+	Get Delegate GetObjBool
+		Return ObjGetBool
+	End
+	
+	Get Table ObjEnum
+		Table T = XSplit(ISGET.STRING("FLOW_FIELD","FlowField.Map.CurLayer.ObjEnumString"),";")
+		Int M := len(T)
+		for i=1,M
+			T[i]=Lua.tonumber(T[i]) || 0
+		End
+		Return T
+	End
+	
+	Void Kill(String Tag, bool perma)
+		MCall("FlowField.Kill.Kill",Tag,perma==true)
+	End
+	
+	Void KillByPrefix(String Tag,perma)
+		MCall("FlowField.Kill.KillByPrefix",Tag,perma==true)
+	End
+	
+	// Doesn't kill an object immediately, but when leaving and coming back here, the object will be gone
+	Void DelayKill(String Tag)
+		MCall("FlowField.Kill.SetPerma",Tag)
+	End
+	
+	Void LayKill(String Lay,String Tag,perma)
+		String O = Kthura.CurrentLayer
+		Kthura.CurrentLayer = Lay
+		Kill(Tag,perma==true)
+		If (O!=""); Kthura.CurrentLayer = O; End
+	End
+	
+	Void HideObj(string Tag)
+		ObjSet(Tag,"Visible",false)
+	End
+	
+	Void ShowObj(string Tag)
+		ObjSet(Tag,"Visible",true)
+	End
+	
+	Void LayHideByLabel(string Layer,string Label)
+		MCall(sprintf("FlowField.Map.KthuraMap.Layer('%s').HideByLabel",Layer),Label)
+	End
+	Void LayShowByLabel(string Layer,string Label)
+		MCall(sprintf("FlowField.Map.KthuraMap.Layer('%s').ShowByLabel",Layer),Label)
+	End
+	Void HideByLabel(string Label)
+		MCall("FlowField.Map.CurLayer.HideByLabel",Label)
+	End
+	Void ShowByLabel(string Label)
+		MCall("FlowField.Map.CurLayer.ShowByLabel",Label)
+	End
+	Void HideButLabel(string label)
+		Mcall("FlowField.Map.CurLayer.HideButLabel",label)
+	end
+	Void ShowButLabel(string label)
+		Mcall("FlowField.Map.CurLayer.ShowButLabel",label)
+	end
+	
+	Void ReMap()
+		//MCall("FlowField.Map.KthuraMap.ReMap","nil")
+		Kthura.Remap()
+	End
+	
+	Void StopWalking()
+		MCall("FlowField.Map.StopWalking","nil")
+	End
+	
+	Get String Arena
+		//Return ISGET.String("FLOW_FIELD","FlowField.Map.KthuraMap.Meta.Arena")
+		Return Kthura.MetaData.Arena
+	End
+	
+	Void GoToSave()
+		MCall("FlowField.GoToSave","nil")
+	End
+	
+	Void ColorByLabel(String Zone, Int R=255,Int G=255,Int B=255)
+		MCall("FlowField.Map.CurLayer.ColorByLabel",Zone,R,G,B)
+	End
+	
+	Void TexByLabel(String Zone,String Tex,String Kind="ALL")
+		MCall("FlowField.Map.CurLayer.TexByLabel",Zone,Tex,Kind)
+	End
+	
+	Void NewObj(string Kind, string Tag="")
+		//MCall("FlowField.Map.CurLayer.NewObj",Kind,Tag)
+		Kthura.NewObject(Kind,Tag)
+	End
+	
+	Void DrawScreen()
+		MCall("FlowField.DrawScreen","nil")
+	End
+	
+	Void Chapter(int i)
+		__Chapter = i
+		MCall("FlowField.Chapter.Start",i)
+	End
+	
+	Get Int MapLevel
+		Switch __Game
+			Case "Star Story II"
+				Lua.error("The game is not yet properly configured for Map.MapLevel")
+			Default
+				Return 0
+		End
+	End
+	
+	
+	Get Bool AllowEncOff
+		Switch __Game
+			Case "The Fairy Tale"
+				return gv.gbool["ALLOWENCOUNTEROFF_"..LoadedMap] || (__Chapter>0 && Prefixed(Upper(LoadedMap),"PRO_"))
+			Case "Star Story II"
+				return __PartyLevel>MapLevel
+			Default
+				Lua.error("No check of allowing random encounters on or off in this game")
+		End
+	End
+	
+	Set Bool AllowEncOff
+		gv.gbool["ALLOWENCOUNTEROFF_"..LoadedMap] = Value
+	End
+	
+	
+	Bool MapAllowEncOff(string m) 
+		return gv.gbool["ALLOWENCOUNTEROFF_"..m] || (__Chapter>0 && Prefixed(Upper(m),"PRO_"))
+	End
+	
+	Void Pop(string spot,string wind="North", instant)
+		MCall("FlowField.FollowTheLeader.Pop",Spot,Wind,instant==true)
+	End
+	
+	Void MustHave(string Tag,String BaseTex)
+		If !HasTag(Tag)
+			Spawn(Tag,"PLAYER")
+			ObjSet(Tag,"TEXTURE",BaseTex)
+		End
+	End
+	
+	Void Message(string msg, int R=255, int G=255, int B=255)
+		print("FlowField.Msg",sprintf("'%s',%d,%d,%d,%d,%d",msg,PLAYER.X,PLAYER.Y,R,G,B))
+		MCall("FlowField.Msg",msg,PLAYER.X,PLAYER.Y,R,G,B)
+	End
+	
+	Bool InZone(String Act,String Zone)
+		Return ISGET.Bool("FLOW_FIELD",sprintf("FlowField.Map.CurrentLayer.Obj(\"%s\").IsInZone(\"%s\")",Act,Zone))
+	End
+	
+	Var LabelEach(String Label)
+		String Raw := ISGET.String("FLOW_FIELD",sprintf("FlowField.Map.CurrentLayer.SLabelEnum(\"%s\")",Label))
+		Table Tab := XSplit(Raw,";")
+		Int I=0
+		//Var Ret()
+		dDef Ret
+			I++
+			If I>len(Tab)
+				Return Nil
+			End
+			Return Lua.tonumber(Tab[I])
+		End
+		Return Ret
+	End
+	
+	Void KillByLabel(string Label,Bool Perm)
+		MCall("FlowField.Kill.ByLabel",Label,Perm)
+	End
+	
+	#region Camera
+	Get Int CamX
+		//Return ISGET.Int("FLOW_FIELD","FlowField.Map.ScrollX")
+		Return gInt.ScrollX
+	End
+	Get Int CamY
+		//Return ISGET.Int("FLOW_FIELD","FlowField.Map.ScrollY")
+		Return gInt.ScrollY
+	End
+	Set Int CamX
+		//ISSET("Int","FLOW_FIELD","FlowField.Map.ScrollX",Value)
+		gInt.ScrollX = Value
+	End
+	Set Int CamY
+		//ISSET("Int","FLOW_FIELD","FlowField.Map.ScrollY",Value)
+		gInt.ScrollY = Value
+	End
+	#endregion
+	
+	Bool Block(Int X, Int Y, pure)
+		return ISGET.Bool("FLOW_FIELD",sprintf("FlowField.Map.CurrentLayer.Blocked(%d,%d,%s)",X,Y,Lua.tostring(pure!=nil && pure!=false)))
+	End
+	
+	Get Table Layers
+		return XSplit(ISGet.String("FLOW_FIELD","FlowField.Map.KthuraMap.StringLayers"),";")
+	End
+	
+	Get Table Tags
+		return XSplit(ISGet.String("FLOW_FIELD","FlowField.Map.CurLayer.TagList"),",")
+	End
+	
+	Table LayTags(string Layer)
+		return XSplit(ISGet.String("FLOW_FIELD",sprintf("FlowField.Map.KthuraMap.Layer(\"%s\").TagList",Layer)),",")
+	End
+	
+
+
+	
+	//CONSTRUCTOR
+	Init
+		table m
+		m = {}
+		//delegate idx(s,string key)
+		ddef idx
+			plua s
+			string key
+			s,key = infinity
+			//Void f(para)
+			ddef f
+				para := infinity
+				para = para || "nil"
+				$Script(key,para)
+			end
+			return f
+		end
+		m.__index = idx
+		MapScript = Lua.setmetatable({},m)
+		//string MetaIndex(s,string key)
+		dDef MetaIndex
+			plua s
+			String key
+			s,key = infinity
+			//CSayF("Remoye Map Meta Request: %s",key)
+			return ISGET.STRING("FLOW_FIELD",sprintf("FlowField.Map.KthuraMap.Meta[\"%s\"]",key))
+		end
+		Meta = Lua.setmetatable({},{["__index"]=MetaIndex})
+	end
+
+//End

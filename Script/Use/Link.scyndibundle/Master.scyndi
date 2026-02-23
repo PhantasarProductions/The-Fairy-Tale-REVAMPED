@@ -1,0 +1,107 @@
+// License:
+// **********************************************
+// 
+// src/Code/Script/Use/Link.scyndibundle/Master.scyndi
+// (c) Jeroen Broks, 2021, 2022,, 2026, All Rights Reserved.
+// 
+// This file contains material that is related
+// to a storyline that is which is strictly
+// copyrighted to Jeroen Broks.
+// 
+// This file may only be used in an unmodified
+// form with an unmodified version of the
+// software this file belongs to.
+// 
+// You may use this file for your study to see
+// how I solved certain things in the creation
+// of this project to see if you find valuable
+// leads for the creation of your own.
+// 
+// Mostly this file comes along with a project
+// that is for most part released under an
+// open source license and that means that if
+// you use that code with this file removed
+// from it, you can use it under that license.
+// Please check out the other files to find out
+// which license applies.
+// 
+// This file comes 'as-is' and in no possible
+// way the author can be held responsible of
+// any form of damages that may occur due to
+// the usage of this file
+// 
+// 
+// **********************************************
+// 
+// 
+// version: 26.02.22 II
+// 
+// End License
+
+
+Module
+
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/InterVar"
+
+#use "Script/Use/Convert"
+
+	Void Def(String Ch, String Master, String Key, Int Value, Force)
+		If Prefixed(Ch,"Jake")
+			Ch = "Jake"
+		End
+		If Force || RPGChar[Ch].Data.Master == Master
+			gInt["MASTER_"..Master.."_"..Ch.."_KEY_"..Key] = Value
+		End
+	End
+	
+	Int Read(String Ch, String Master, String Key)
+		Return gInt["MASTER_"..Master.."_"..Ch.."_KEY_"..Key]
+	End
+	
+	Void Inc(String Ch, String Master, String Key, Int Value, Force)
+		String Ch2:=Ch
+		If Prefixed(Ch,"Jake")
+			Ch2 = "Jake"
+		End
+		If Force || RPGChar[Ch].Data.Master == Master
+			//gInt["MASTER_"..Master.."_"..Ch.."_KEY_"..Key] += Value
+			Switch Master
+				Case "Rubine" 
+					CSayF("%s is studying under master %s and will get %d extra points",ch,Master,value)
+					RPGChar[ch].Stat.RubinePoints += Value
+				case "Russell"
+					CSayF("%s is studying under master %s and will get %d extra points",ch,Master,value)
+					RPGChar[ch].Stat.RussellKills += Value
+				case "Feenalaria"
+					CSayF("%s is studying under master %s and will get %d extra points",ch,Master,value)
+					//Lua.error("Feenalaria must be scripted to get the points now! Do it!")
+					RPGChar[ch].Stat.FeenalariaPoints += Value
+				Default
+					Lua.error("Unknown master: "..Master)
+			End
+		End
+	End
+	
+	Void Dec(String Ch, String Master, String Key, Int Value, Force)
+		Inc(Ch,Master,Key,-Value,Force)
+	End
+
+	Void AllInc(String Master,String Key,Int Value=1)
+		For i=1,4
+			If RPGParty[i] && RPGParty[i]!=""
+				Inc(RPGParty[i],Master,Key,Value)
+			End
+		End
+	End
+	
+	Bool Unlocked(string Key)
+		Return gbool["MASTER_UNLOCKED_"..key]
+	End
+	
+	Void Speak(string Mstr)
+		State.LoadNew("FLOW_MASTER","Script/Flow/FlowMaster.lbc")
+		Sys.Call("FLOW_MASTER","Speak",Mstr)
+	End
+		
+//End

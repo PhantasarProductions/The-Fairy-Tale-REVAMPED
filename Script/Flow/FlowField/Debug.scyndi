@@ -1,0 +1,148 @@
+// License:
+// **********************************************
+// 
+// src/Code/Script/Flow/FlowField/Debug.scyndi
+// (c) Jeroen Broks, 2021, 2022, 2026, All Rights Reserved.
+// 
+// This file contains material that is related
+// to a storyline that is which is strictly
+// copyrighted to Jeroen Broks.
+// 
+// This file may only be used in an unmodified
+// form with an unmodified version of the
+// software this file belongs to.
+// 
+// You may use this file for your study to see
+// how I solved certain things in the creation
+// of this project to see if you find valuable
+// leads for the creation of your own.
+// 
+// Mostly this file comes along with a project
+// that is for most part released under an
+// open source license and that means that if
+// you use that code with this file removed
+// from it, you can use it under that license.
+// Please check out the other files to find out
+// which license applies.
+// 
+// This file comes 'as-is' and in no possible
+// way the author can be held responsible of
+// any form of damages that may occur due to
+// the usage of this file
+// 
+// 
+// **********************************************
+// 
+// 
+// version: 26.02.15 III
+// 
+// End License
+
+Module
+
+#use "Libs/SCI/Sys" 
+#use "Libs/SCI/InterVar"
+
+#use "Script/Use/Link"
+#use "Script/Use/Anyway"
+
+#accept FlowField
+
+Table OO = { [True]="On", [False]="Off" }
+
+Global Void CONSOLE_TagList()
+	CSayF("Map layer: %s",FlowField.Map.Layer)
+	For a in Each(Split(FlowField.Map.KthuraMap.Layer(FlowField.Map.Layer).TagList,","))
+		CSay(a)
+		For dt in Each(FlowField.Map.KthuraMap.Layer(FlowField.Map.Layer).Obj(a).DumpData)
+			CSay("=> "..dt)
+		End
+	End
+End
+
+Global Void CONSOLE_MouseDebug()
+	FlowField.Debug.MouseCoords = !FlowField.Debug.MouseCoords
+	CSay("Mouse debug: "..OO[FlowField.Debug.MouseCoords])
+End
+
+Global Void CONSOLE_Save(a)
+	FlowField.GoToSave()
+	Print("\x1b[32mSave flow activated\n\x1b[33mPlease return to game Window")
+	Sys.EndConsole()
+End
+
+Global Void CONSOLE_Clickables()
+	For a,b in spairs(FlowField.Clickable.Register)
+		CSayF("%s => %s",a,Lua.tostring(b))
+		//for c,d in spairs(b)
+		for c in b.Each
+			CSayF("> %s => (%05d,%05d) => %s",c.Tag,c.WalkX,c.WalkY,Lua.tostring(c.ArriveEvent))
+		end
+	End
+	CSayF("Current Layer: %s ",FlowField.Map.Layer)	
+End
+
+Global Void CONSOLE_Shift()
+	CSay("Shifting Jake")
+	FlowField.Shift(true)
+End
+
+Global Void CONSOLE_SetCash(c)
+	__cash = math.floor(Lua.tonumber(c[1]) || 0)
+End
+
+Global Void CONSOLE_Rubine(c)
+	int a := Lua.tonumber(c[1]) || 1
+	Master.AllInc("Rubine","???",a)
+End
+
+Global Void CONSOLE_Feena(c)
+	int a := Lua.tonumber(c[1]) || 1
+	Master.AllInc("Feenalaria","???",a)
+End
+
+Global Void CONSOLE_Russell(c)
+	int a := Lua.tonumber(c[1]) || 1
+	Master.AllInc("Russell","???",a)
+End
+
+
+Global Void CONSOLE_Fandalora()
+	gbool.CheatFandalora = !gbool.CheatFandalora
+	CSayF("Fandalora cheat now set to: %s",Lua.tostring(gbool.CheatFandalora))
+End
+
+//Global Void CONSOLE_BlackOrbs()
+	//Var O
+	//Var D
+	//O = {}
+	//D = {}
+	
+	//For L in each(FlowField.Map.KthuraMap.Layers)
+	//	Var Lay = FlowField.Map.KthuraMap.Layer(L)
+	//	O += L
+	//	D[L] = 0
+	//	For T in each(LAY.TagListArray)
+	//		If Prefixed(T,"BLACKORB_")
+	//			D[L]++
+	//		End
+	//	End
+	//End
+	//For i,l in ipairs(O)
+	//	int g = math.floor((i/#o)*255)
+	//	int r = 255-g
+		//Dev.CWrite(sprintf("Layer '%9s' has %2d black orbs",l,D[l]),r,g,0)
+	//	CSayF("Layer '%9s' has %2d black orbs",l,D[l])
+	//End
+//End
+
+//Module
+	Bool MouseCoords=False	
+//End
+
+Init
+	 Sys.ConsoleLocal("SAVE","CONSOLE_Save")
+	 Sys.ConsoleLocal("RENC","DBG_Renc")
+End 
+	
+	 

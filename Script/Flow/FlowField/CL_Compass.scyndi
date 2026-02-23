@@ -1,0 +1,151 @@
+// License:
+// 	  src/Code/Script/Flow/FlowField/CL_Compass.scyndi
+// 
+// 	  Version: 26.02.11 III
+// 	
+// 	  Copyright (C) 2021, 2026 Jeroen Petrus Broks
+// 	
+// 	  ===========================
+// 	  This file is part of a project related to the Phantasar Chronicles or another
+// 	  series or saga which is property of Jeroen P. Broks.
+// 	  This means that it may contain references to a story-line plus characters
+// 	  which are property of Jeroen Broks. These references may only be distributed
+// 	  along with an unmodified version of the game.
+// 
+// 	  As soon as you remove or replace ALL references to the storyline or character
+// 	  references, or any termology specifically set up for the Phantasar universe,
+// 	  or any other univers a story of Jeroen P. Broks is set up for,
+// 	  the restrictions of this file are removed and will automatically become
+// 	  zLib licensed (see below).
+// 
+// 	  Please note that doing so counts as a modification and must be marked as such
+// 	  in accordance to the zLib license.
+// 	  ===========================
+// 
+// 
+// 	  zLib license terms:
+// 	
+// 	  This software is provided 'as-is', without any express or implied
+// 	  warranty.  In no event will the authors be held liable for any damages
+// 	  arising from the use of this software.
+// 
+// 	  Permission is granted to anyone to use this software for any purpose,
+// 	  including commercial applications, and to alter it and redistribute it
+// 	  freely, subject to the following restrictions:
+// 	
+// 	  1. The origin of this software must not be misrepresented; you must not
+// 	     claim that you wrote the original software. If you use this software
+// 	     in a product, an acknowledgment in the product documentation would be
+// 	     appreciated but is not required.
+// 	  2. Altered source versions must be plainly marked as such, and must not be
+// 	     misrepresented as being the original software.
+// 	  3. This notice may not be removed or altered from any source distribution.
+// End License
+
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/Kthura"
+#use "Libs/SCI/Graphics"
+
+#use "libs/linkedlist"
+#use "libs/xmath"
+
+#use "Script/Use/Anyway"
+#use "Script/Use/Convert"
+
+Module 
+
+#accept FlowField
+
+Class _Compass
+	Static ReadOnly Var Needle = LoadNewImage("GFX/Algemeen/Needle.png","Compass_Needle")
+
+	ReadOnly Int X
+	ReadOnly Int Y
+	ReadOnly String Lay
+	ReadOnly String Desc
+	
+	Constructor(int _x, int _y, string _lay, string _desc)
+		X    = _x
+		Y    = _y
+		Lay  = _lay
+		Desc = _desc
+	End
+	
+	Static ReadOnly Var Lijst = New TLinkedList()
+	
+	Static Void Create(Int _X, Int _Y, String _Lay, String _Desc)
+		// This is very extremely dirty, but it works
+		// Should only be done from a static function for a non-static class.
+		CSayF("= Adding Compass Point %s on layer %s on (%d,%d)",_Desc,_Lay,_X,_Y)
+		Lijst.AddLast(new _Compass(_X,_Y,_Lay,_Desc))
+		Needle.HotCenter()
+		CSayF("= Added  Compass Point %s on layer %s on (%d,%d)",_Desc,_Lay,_X,_Y)
+	End
+	
+	Int GetAngle(Ax,Ay,Bx,By) 
+		// -- A routine Jani Nykanen sent me. (converted to Neil
+		//return math.floor(math.deg(math.atan2(B.y-A.y,B.x-A.x)))
+		//if (!Lua.math.atan2)
+		//	for k,v in spairs(Lua.math)
+		//		Print("math",k,v,"("..Lua.type(v)..")")
+		//	end
+		//End
+		//return math.floor(math.deg(math.atan2(By-Ay,Bx-Ax)))
+		Return math.floor(math.deg(sys.atan2(By-Ay,Bx-Ax))) + 90
+	End
+	
+	Void Draw(Int DY)
+		__White
+		FlowField.Font.BoxText.DarkText(Desc,Screen.W-100,DY,1,2)
+		number d := math.min(xMath.Pythagoras(FlowField.Map.Player.x,FlowField.Map.Player.y,x,y),1000)
+		int c := math.floor ( (d/1000) * 255 )
+		Graphics.Color(c,255-c,0)
+		//plua angle1
+		//plua angle2
+		//angle1,angle2 = CoordsToAngle(px,py,needle.x,needle.y)
+		Int Angle := Self.GetAngle( FlowField.Map.Player.x,FlowField.Map.Player.y,x,y)
+		//angle1 = math.floor(angle1) -- BlitzMax is allergic for non-intergers sent by Lua.
+		
+		// Rotation no longer works this way
+		//Image.Rotate=angle
+		//Needle.XDraw(Screen.W-50,DY)
+		//Image.Rotate=0
+		// Rotation the new way
+		Needle.DrawR(Graphics.Width-50,DY,Angle)
+	End
+	
+	Static Void DrawAll()
+		If !Kthura.HasObj("PLAYER")
+			Return
+		End
+		Int Y=50
+		For CMP in Lijst.Each
+			//Print("Compass: ",FlowField.Map.Layer , CMP.Lay,FlowField.Map.Layer == CMP.Lay)
+			If Kthura.CurrentLayer == CMP.Lay
+				CMP.Draw(Y)
+				Y += 25
+			End
+		End
+	End
+	
+	Static Void CBLoadMap(String MB)
+		CSay("Scanning for compass points")
+		Lijst.Clear()
+		//For L In Each(FlowField.Map.KthuraMap.Layers)
+		//	CSayF("= Scanning layer: %s",L)
+		//	Var Lay = FlowField.Map.KthuraMap.Layer(L)			
+		//	For O in LAY.EachObject
+		//		//Var O = Lay.Obj(T)
+		//		If O.Kind=="$Compass"
+		//			Create(O.X,O.Y,L,O.Data.Name)
+		//		End
+		//	End
+		//End
+		Lua.Scyndi.Use("Kthura/"..MB.."/Compass")
+		plua s
+		plua e
+		s,e=Lua.pcall(Lua.Scyndi.Class["Compass_"..MB].Compass)
+		if (!s); Lua.error("Loading compass data for '"..MB.."' failed!\n"..e); end
+	End
+	
+End

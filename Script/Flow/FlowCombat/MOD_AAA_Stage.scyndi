@@ -1,0 +1,278 @@
+// License:
+// 	  src/Code/Script/Flow/FlowCombat/MOD_AAA_Stage.scyndi
+// 
+// 	  Version: 26.02.17 XVIII
+// 	
+// 	  Copyright (C) '21-'22, 2026 Jeroen Petrus Broks
+// 	
+// 	  ===========================
+// 	  This file is part of a project related to the Phantasar Chronicles or another
+// 	  series or saga which is property of Jeroen P. Broks.
+// 	  This means that it may contain references to a story-line plus characters
+// 	  which are property of Jeroen Broks. These references may only be distributed
+// 	  along with an unmodified version of the game.
+// 
+// 	  As soon as you remove or replace ALL references to the storyline or character
+// 	  references, or any termology specifically set up for the Phantasar universe,
+// 	  or any other univers a story of Jeroen P. Broks is set up for,
+// 	  the restrictions of this file are removed and will automatically become
+// 	  zLib licensed (see below).
+// 
+// 	  Please note that doing so counts as a modification and must be marked as such
+// 	  in accordance to the zLib license.
+// 	  ===========================
+// 
+// 
+// 	  zLib license terms:
+// 	
+// 	  This software is provided 'as-is', without any express or implied
+// 	  warranty.  In no event will the authors be held liable for any damages
+// 	  arising from the use of this software.
+// 
+// 	  Permission is granted to anyone to use this software for any purpose,
+// 	  including commercial applications, and to alter it and redistribute it
+// 	  freely, subject to the following restrictions:
+// 	
+// 	  1. The origin of this software must not be misrepresented; you must not
+// 	     claim that you wrote the original software. If you use this software
+// 	     in a product, an acknowledgment in the product documentation would be
+// 	     appreciated but is not required.
+// 	  2. Altered source versions must be plainly marked as such, and must not be
+// 	     misrepresented as being the original software.
+// 	  3. This notice may not be removed or altered from any source distribution.
+// End License
+
+Module
+
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/InterVar"
+
+#use "Script/Use/Link"
+#use "Script/Use/Anyway"
+#use "Script/Use/Convert"
+
+LocExtern s "self"
+
+
+#Accept "FlowCombat"
+#Accept "Fighter"
+
+Class Stage
+	Static Var _Current
+	Static Table Map 
+	Static Get Var Current
+		s._Current = s._Current || s.Map.IDLE
+		return s._Current
+	End
+	Get String FlashChar
+		Return ""
+	End
+	Static Set Var Current
+		if Lua.type(Value)=="string"
+			_Current = Map[upper(Value)]
+			Lua.assert(s._Current,"No combat stage called \""..Value.."\" present!")
+			CSayF("Combat stage is now set to %s",Value)
+		Else			
+			s._Current = Value || s.Map.IDLE
+		End
+		
+	End	
+	
+	Static Void Register(string Name,St)
+		s.Map[Upper(name)]=st
+		CSayF("Combat Stage %s contains %s",Name,lua.tostring(st))
+	End
+	
+	Void Draw()
+	End
+	
+	Abstract Void Update()
+	
+	Void Debug()
+		CSayF("The current stage has no specific debug")
+	End
+	
+	Bool DontCheckForVictory = False
+	
+End
+
+Init
+	Stage.Map = {}
+End
+
+Class Stage_IDLE extends Stage
+	
+	Get Var Cards
+		Return FlowCombat.Cards
+	End
+	
+	Get Var FirstCard
+		Return FlowCombat.Cards[1]
+	End
+	
+	Void CardCheck()		
+		For FTag,FDat in PAIRS(Fighter.ByTag)
+			Bool Found = False
+			If FDat.HP>0
+				For _,C in PAIRS(Cards.Lijst)
+					Found = Found || ( (!C.Joker) && (!C.Action) && C.FightTag==FTag )  
+				End
+				If !Found
+					if !Cards.Order.tagorder[FTag]
+						CSay("No order for '"..FTAG.."'. Regenerating order!")
+						Cards.CreateOrder()
+					End
+					Int spot := ( 25 + (Cards.Order.tagorder[FTag] * 2)+ (math.floor(math.random(1,Cards.Order.tagorder[FTag])/2)) )
+					Cards.Add(Spot,FTag)
+					CSayF("No cards for %s so automatically added one on spot #%d",FTag,Spot)
+				End
+			End
+		End
+	End
+		
+	Bool PreTurn(Card)
+		Bool SkipTurn
+		Char := Fighter.ByTag[Card.FightTag]
+		For k,d in Char.EachStatusChange()
+			If d
+				CSayF("Character %s in preturn event check due to status %s",Char.Tag,k)
+				Invoke(d.PreTurn,Char,k)
+				SkipTurn = SkipTurn || d.SkipTurn
+			Else
+				printf("\007WARNING! 'nil' value in status change reel (%s)",Lua.tostring(k))
+			End
+		End		
+		If SkipTurn
+			CSayF("Character %s has a skipturn set, meaning the action is cancelled",Card.FightTag)			
+		End
+		If Char.Team=="Hero" && Upper(Char.Char.Data.EQUIP_Jewel)=="EQP_ACC_AAA_NOSTRAMANTUS_AMULET"
+			Lua.Scyndi.Globals.charmsg(Card.FightTag,sprintf("%d",gint.nosamu_hp),0,255,0)
+			Lua.Scyndi.Globals.charmsg(Card.FightTag,sprintf("%d",gint.nosamu_ap),0,180,255)
+			Lua.Scyndi.Globals.charmsg(Card.FightTag,sprintf("%d",gint.nosamu_vit),255,180,0)
+			Char.Char.Points.HP.Have  += gint.nosamu_hp
+			Char.Char.Points.AP.Have  += gint.nosamu_ap
+			Char.Char.Points.VIT.Have += gint.nosamu_vit
+			if     math.random(0,__skill^2)==1 && gint.nosamu_hp<100000
+				gint.nosamu_hp++
+			elseif math.random(0,__skill^3)==1 && gint.nosamu_ap<100000
+				gint.nosamu_ap++
+			elseif math.random(0,__skill^4)==1 && gint.nosamu_vit<100000
+				gint.nosamu_vit++
+			end
+			For k,d in pairs(FlowCombat.StatusChanges.Register)
+				if math.random(0,__skill)==1 && Char.StatusChanges[k]
+	    			Char.StatusChanges[k] = False
+	    			Invoke(d.Cure,Char)
+	    			Lua.Scyndi.Globals.charmsg(Char.Tag,"Cure: "..k,180,255,0)
+	    		end
+	    	end
+		end
+		Return !SkipTurn
+	End
+	
+	Bool AltAI(Card)
+		Var Ret = False
+		Var Char := Fighter.ByTag[Card.FightTag]
+		For k,d in Char.EachStatusChange()
+			If d				
+				Ret = Ret || d.AltAI(Char,k)
+			Else
+				printf("\007WARNING! 'nil' value in status change reel (%s)",Lua.tostring(k))
+			End
+		End		
+		Return Ret!=False && Ret!=Nil
+	End
+
+	Void Update()		
+		//Static Table AI = {}
+		LocExtern AI "COMBAT_STAGE_IDLE_UPDATE_AI"
+		AI = AI || {}
+		s.CardCheck()
+		If !Cards.Present(1)
+			Cards.DelFirst()
+		elseif FirstCard.Joker
+			FirstCard.Joker()
+			Cards.DelFirst()
+		ElseIf FirstCard.Action 
+			If Fighter.ByTag[FirstCard.FightTag].HP<=0
+				Cards.DelFirst()
+			Else
+				FlowCombat.Execution.ComeToMe(FirstCard.Action,FlowCombat.Cards.Lijst[1])
+			End
+		ElseIf (!FirstCard.Action) && (Fighter.ByTag[FirstCard.FightTag].HP>0) && (s.AltAI(FirstCard))
+			// Basically that should already cover stuff by the boolean line
+			// But due to ElseIF.... 
+		ElseIf FirstCard.FightTeam=="Hero" && (!FirstCard.Action)  
+			If Fighter.ByTag[FirstCard.FightTag].Char.Data.Master=="Freya" && __skill<3 && Fighter.ByTag[FirstCard.FightTag].HP>0 
+				Int Regen = 300 div __skill
+				Fighter.ByTag[FirstCard.FightTag].HP += Regen
+				FlowCombat.CharMsg(FirstCard.FightTag,Lua.tostring(Regen),0,255,0)
+			ElseIf Fighter.ByTag[FirstCard.FightTag].Char.Data.Master=="Krandar" && math.random(1,4*__skill)==1 && Fighter.ByTag[FirstCard.FightTag].HP>0
+				Fighter.ByTag[FirstCard.FightTag].Char.Points.VIT.Have++
+			ElseIf Fighter.ByTag[FirstCard.FightTag].Char.Data.Master=="Feenalaria" && __skill<3 && Fighter.ByTag[FirstCard.FightTag].HP>0
+				Int pl = math.abs(25*(3-__skill))
+				Fighter.ByTag[FirstCard.FightTag].Char.Points.AP.Have+=pl
+				FlowCombat.CharMsg(FirstCard.FightTag,Lua.tostring(pl),0,180,255)
+			End
+			If (!s.PreTurn(FirstCard)) || Fighter.ByTag[FirstCard.FightTag].HP<=0
+				Cards.DelFirst()				
+			Else
+				Lua.Scyndi.Globals.Stage_PlayerInput_Main.ComeToMe(FirstCard.FightTag)
+			End
+		ElseIf FirstCard.FightTeam=="Foe" && (!FirstCard.Action) 
+			If (!s.PreTurn(FirstCard)) || Fighter.ByTag[FirstCard.FightTag].HP<=0
+				Cards.DelFirst()			
+			Else
+				Static Int SO = ({0,10,5})[__skill]
+				vFoe := Fighter.ByTag[FirstCard.FightTag]
+				If gint["OVERSOUL_"..vFoe.File]>SO
+					gint["OVERSOUL_"..vFoe.File]=0
+					If __Skill>1 && RPGParty[2] && RPGParty[2]!="" && vFoe.Raw.AllowOversoul
+						FlowCombat.charmsg(vFoe.Tag,"Oversoul",180,0,255)
+						CSayF("Foe #%03d (%s) goes oversoul",vFoe.Num,vFoe.Tag)
+						int OX := vFoe.X
+						int OY := vFoe.Y						
+						Lua.Scyndi.Globals.Foe.Compile(vFoe.File,NeilUse(sprintf("Script/Data/Foe/%s",vFoe.File))._R,vFoe.Num,true)
+						vAR oFoe := Fighter.ByTag[vFoe.Tag]
+						oFoe.X,oFoe.Y = OX,OY
+						Cards.CreateOrder()
+						Cards.DelFirst()
+						Return
+					End
+				End
+				Act := vFoe.AI.Decide(vFoe)
+				If !Act
+					CSayF("Foe %s failed to get a proper move!",vFoe.Tag)
+					FlowCombat.charmsg(vFoe.Tag,"Can't decide",255,180,0)
+				Else
+					FlowCombat.Execution.ComeToMe(Act,FirstCard)
+				End
+			End
+			
+		End
+	End
+End
+
+Class Stage_Wait extends Stage
+	Int Time
+	Void Update()
+		Time = (Time+1) % 200
+		//CSayF("Wait time: %03d",Time)
+		If Time==0
+			Stage.Current=nil
+		End
+	End
+End
+
+Init
+	CSay("Init Base Stages!")
+	Stage.Register("IDLE",new Stage_IDLE())
+	Stage.Register("WAIT",new Stage_Wait())
+	CSay("Done")
+End
+
+Get Var AAA_Stage
+	Return Stage
+End
+
+//Return Stage

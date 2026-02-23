@@ -1,0 +1,239 @@
+// Converted from Neil to Scyndi
+
+Module
+
+LocExtern __skill "Scyndi.Globals.gInt.Skill"
+LocExtern __NewGamePlus "Scyndi.Globals.gBool.NewGamePlus"
+
+
+// Generated 7/30/2022 3:47:17 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	Ret.DESC = "And evil hag who can really be a nuisance"
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/reg/Hag.png"
+	Ret.DropRate_1 = 1
+	Ret.DropItem_1 = "ITM_ANABOLINEA"
+	Ret.DropRate_2 = 100
+	Ret.DropItem_2 = "ITM_HOLYSCROLL"
+	Ret.StealRate_1 = 1
+	Ret.StealItem_1 = "ITM_ANABOLINEA"
+	Ret.StealRate_2 = 100
+	Ret.StealItem_2 = "ITM_DEATHCUBE"
+	Ret.StealRate_3 = 100
+	Ret.StealItem_3 = "ITM_HOLYSCROLL"
+	Ret.NAME = "Hag"
+	Ret.CASH = 100
+	Ret.SR_CURSE = 100
+	Ret.SR_DEATH = 85
+	Ret.SR_DISEASE = 100
+	Ret.SR_PARALYSIS = 99
+	Ret.SR_PETRIFICATION = 100
+	Ret.SR_POISON = 60
+	Ret.SR_SILENCE = 100
+	Ret.SR_UNDEAD = 100
+	Ret.VOCALTAG = "Hag"
+
+
+	Ret.AllowOversoul = True
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 5
+		Ret.Stats.ENDURANCE = 5
+		Ret.Stats.ER_DARKNESS = 9000
+		Ret.Stats.ER_EARTH = 100
+		Ret.Stats.ER_FLAME = 100
+		Ret.Stats.ER_FROST = 100
+		Ret.Stats.ER_LIGHT = -400
+		Ret.Stats.ER_LIGHTNING = 100
+		Ret.Stats.ER_WATER = 100
+		Ret.Stats.ER_WIND = 100
+		Ret.Stats.EVASION = 0
+		Ret.Stats.EXP = 75
+		Ret.Stats.HP = 300
+		Ret.Stats.INTELLIGENCE = 200
+		Ret.Stats.POWER = 5
+		Ret.Stats.RESISTANCE = 500
+		Ret.Stats.SPEED = 123
+	Else
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 1000
+		Ret.Stats.ER_DARKNESS = 9000
+		Ret.Stats.ER_EARTH = 100
+		Ret.Stats.ER_FLAME = 100
+		Ret.Stats.ER_FROST = 100
+		Ret.Stats.ER_LIGHT = -400
+		Ret.Stats.ER_LIGHTNING = 100
+		Ret.Stats.ER_WATER = 100
+		Ret.Stats.ER_WIND = 100
+		Ret.Stats.EVASION = 100
+		Ret.Stats.EXP = 250
+		Ret.Stats.HP = 400
+		Ret.Stats.INTELLIGENCE = 200
+		Ret.Stats.POWER = 5
+		Ret.Stats.RESISTANCE = 9999
+		Ret.Stats.SPEED = 300
+	End
+
+	Ret.IsHumanoid = False
+
+	Ret.Actions = {}
+	If True
+		Ret.Actions += "AAA_ATTACK"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+		Ret.Actions += "ABL_FOE_DISTRACT"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+		Ret.Actions += "ABL_FOE_EXHAUST"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_TAKEOVER"
+	End
+	If True && (Oversoul) && (__skill!=1)
+		Ret.Actions += "ABL_FOE_TAKEOVER2"
+	End
+	If True
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+		Ret.Actions += "ABL_GLOOM"
+	End
+	If True
+		Ret.Actions += "ABL_MASTER_FANDALORA_CURSE"
+		Ret.Actions += "ABL_MASTER_FANDALORA_CURSE"
+		Ret.Actions += "ABL_MASTER_FANDALORA_CURSE"
+		Ret.Actions += "ABL_MASTER_FANDALORA_CURSE"
+		Ret.Actions += "ABL_MASTER_FANDALORA_CURSE"
+		Ret.Actions += "ABL_MASTER_FANDALORA_CURSE"
+		Ret.Actions += "ABL_MASTER_FANDALORA_CURSE"
+		Ret.Actions += "ABL_MASTER_FANDALORA_CURSE"
+		Ret.Actions += "ABL_MASTER_FANDALORA_CURSE"
+		Ret.Actions += "ABL_MASTER_FANDALORA_CURSE"
+		Ret.Actions += "ABL_MASTER_FANDALORA_CURSE"
+		Ret.Actions += "ABL_MASTER_FANDALORA_CURSE"
+		Ret.Actions += "ABL_MASTER_FANDALORA_CURSE"
+		Ret.Actions += "ABL_MASTER_FANDALORA_CURSE"
+		Ret.Actions += "ABL_MASTER_FANDALORA_CURSE"
+		Ret.Actions += "ABL_MASTER_FANDALORA_CURSE"
+		Ret.Actions += "ABL_MASTER_FANDALORA_CURSE"
+		Ret.Actions += "ABL_MASTER_FANDALORA_CURSE"
+		Ret.Actions += "ABL_MASTER_FANDALORA_CURSE"
+		Ret.Actions += "ABL_MASTER_FANDALORA_CURSE"
+		Ret.Actions += "ABL_MASTER_FANDALORA_CURSE"
+		Ret.Actions += "ABL_MASTER_FANDALORA_CURSE"
+		Ret.Actions += "ABL_MASTER_FANDALORA_CURSE"
+		Ret.Actions += "ABL_MASTER_FANDALORA_CURSE"
+		Ret.Actions += "ABL_MASTER_FANDALORA_CURSE"
+	End
+	If True && (__skill!=1) && (__skill!=2)
+		Ret.Actions += "ITM_DEATHCUBE"
+	End
+	Return Ret
+End
+

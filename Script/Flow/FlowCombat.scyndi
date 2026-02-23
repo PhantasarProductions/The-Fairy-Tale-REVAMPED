@@ -1,0 +1,157 @@
+// License:
+// 	  src/Code/Script/Flow/FlowCombat.scyndi
+// 
+// 	  Version: 26.02.19 III
+// 	
+// 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
+// 	
+// 	  ===========================
+// 	  This file is part of a project related to the Phantasar Chronicles or another
+// 	  series or saga which is property of Jeroen P. Broks.
+// 	  This means that it may contain references to a story-line plus characters
+// 	  which are property of Jeroen Broks. These references may only be distributed
+// 	  along with an unmodified version of the game.
+// 
+// 	  As soon as you remove or replace ALL references to the storyline or character
+// 	  references, or any termology specifically set up for the Phantasar universe,
+// 	  or any other univers a story of Jeroen P. Broks is set up for,
+// 	  the restrictions of this file are removed and will automatically become
+// 	  zLib licensed (see below).
+// 
+// 	  Please note that doing so counts as a modification and must be marked as such
+// 	  in accordance to the zLib license.
+// 	  ===========================
+// 
+// 
+// 	  zLib license terms:
+// 	
+// 	  This software is provided 'as-is', without any express or implied
+// 	  warranty.  In no event will the authors be held liable for any damages
+// 	  arising from the use of this software.
+// 
+// 	  Permission is granted to anyone to use this software for any purpose,
+// 	  including commercial applications, and to alter it and redistribute it
+// 	  freely, subject to the following restrictions:
+// 	
+// 	  1. The origin of this software must not be misrepresented; you must not
+// 	     claim that you wrote the original software. If you use this software
+// 	     in a product, an acknowledgment in the product documentation would be
+// 	     appreciated but is not required.
+// 	  2. Altered source versions must be plainly marked as such, and must not be
+// 	     misrepresented as being the original software.
+// 	  3. This notice may not be removed or altered from any source distribution.
+// End License
+
+Script
+
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/JCR6"
+#use "Libs/SCI/SString"
+
+#use "Script/Use/Link"
+#use "Script/Use/Anyway"
+#use "Script/Use/Convert"
+#use "Script/Use/Misc/CMiniMessage"
+#use "libs/LinkedList"
+
+#macro _ASW 1200
+#macro _ASH 980
+
+#accept Stage
+
+Table _real = {}
+global Const Int EXPBaseRate = ({3.5,1,0.75})[__skill]
+Global Table EXPRate = {}
+
+Global String VicQ = "PERFECT"
+Global String LastAction = ""
+
+QuickMeta FlowCombat
+	Index
+		k := Upper(Key)
+		If !_real[k]
+			Lua.error("No FlowCombat field named: "..Key)
+		End
+		return _real[k]		
+	End
+	NewIndex
+		Lua.error("Sorry! All fields of FlowField are ReadOnly!")
+	End
+End
+//Global Const Var CombatFlow = FlowCombat 
+
+
+
+Init
+	//Screen.NewAlt(_ASW,_ASH,"COMBAT")
+	Table Bundle = JCR6.Dir("Script/Flow/FlowCombat")
+	int Aantal := Len(Bundle)
+	LB:={}
+	Progress.Create("LOADCOMBAT",Aantal,255,0,0)
+	CSayF("Loading %d combat sub-modules!",Len(Bundle))
+	Loading()
+	For idx,File in iPairs(Bundle)
+		Table Gespleten := XSplit(File,"/")
+		String Gestript := Upper(Gespleten[Len(Gespleten)-1])
+		Gestript = Replace(Gestript,".lbc","")
+		If Prefixed(File,"#") || Suffixed(File,"#")
+			CSayF("Skipping section %d/%d: %s => %s",idx+1,Aantal,File,Gestript)
+		Else
+			CSayF("  Adding section %d/%d: %s => %s",idx+1,Aantal,File,Gestript)
+			//_real[Gestript] = NeilUse(Replace(File:upper(),".NEIL",""),"FLOWCOMBAT."..Gestript)
+			PF:=StripExt(Right(Gestript,Len(Gestript)-4))
+			LB[PF]={["Short"]=Gestript,["Full"]=File,["Type"]=Upper(Left(Gestript,3)),["idx"]=idx+1}
+		End
+	End	
+	For Sh,LbD in sPairs(LB)	
+		Progress.LOADCOMBAT=LbD.idx
+		Loading()
+		switch LbD.Type
+			case "MOD"
+				CSayF("%4d: Loading module:   %s",LbD.idx,Sh)
+				_real[Sh] = NeilUse(Replace(Upper(LbD.Full),".LBC",""),"FLOWCOMBAT."..LbD.Short)
+			case "FUN" "FNC"
+				CSayF("%4d: Loading function: %s",Lbd.idx,Sh)
+				_real[Sh] = NeilUse(Replace(Upper(LbD.Full),".LBC",""),"FLOWCOMBAT."..LbD.Short).CombatLinkFunction
+			case "CLS","CLA"	
+				CSayF("%4d: Loading class: %s",Lbd.idx,Sh)
+				NeilUse(Replace(Upper(LbD.Full),".LBC",""),"FLOWCOMBAT."..LbD.Short)
+				_real[Sh] = Lua.Scyndi.Class[Sh]				
+				//Lua.Scyndi.Class["CLC_"..Sh]
+			case "CL2"	
+				CSayF("%4d: Loading class2: %s",Lbd.idx,Sh)
+				NeilUse(Replace(Upper(LbD.Full),".LBC",""),"FLOWCOMBAT."..LbD.Short)
+				_real[Sh] = Lua.Scyndi.Class[Right(Sh,len(SH)-6)]				
+				//Lua.Scyndi.Class["CLC_"..Sh]
+			case "STG"
+				CSayF("%4d: Loading stage: %s",Lbd.idx,Sh)
+				NeilUse(Replace(Upper(LbD.Full),".LBC",""),"FLOWCOMBAT."..LbD.Short)
+				_real[Sh] = Lua.Scyndi.Class["Stage_"..sh]
+			default; Lua.error("Unknown Combat Section Type: "..LbD.Type.." ("..sh..")")
+		End
+	End
+	Progress.Kill("LOADCOMBAT")
+	BoxText.Load("LEARNABILITY","COMBAT/LEARN")
+End
+
+Global Void BoxText_Back()
+	FlowCombat.DrawScreen.Run()
+End	
+
+Global Void PartyClick()
+End
+
+Global Void MainFlow()
+	__White
+	WantQuit()
+	FlowCombat.DrawScreen.Run()
+	//FlowCombat.AAA_Stage.Current.Update()
+	Lua.Scyndi.Class.Stage.Current.Update()
+	If !Lua.Scyndi.Class.Stage.Current.DontCheckForVictory
+		if !FlowCombat.Wiped.Check()
+			FlowCombat.Victory.Check()
+		End
+	End
+	//Party.Boxes(FlowCombat.AAA_Stage.Current.FlashChar)
+	Party.Boxes(Stage.Current.FlashChar)
+End

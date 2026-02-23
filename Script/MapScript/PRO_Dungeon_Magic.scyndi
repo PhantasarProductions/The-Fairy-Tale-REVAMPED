@@ -1,0 +1,177 @@
+// License:
+// 	  src/Code/Script/MapScript/PRO_Dungeon_Magic.scyndi
+// 
+// 	  Version: 26.02.21 X
+// 	
+// 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
+// 	
+// 	  ===========================
+// 	  This file is part of a project related to the Phantasar Chronicles or another
+// 	  series or saga which is property of Jeroen P. Broks.
+// 	  This means that it may contain references to a story-line plus characters
+// 	  which are property of Jeroen Broks. These references may only be distributed
+// 	  along with an unmodified version of the game.
+// 
+// 	  As soon as you remove or replace ALL references to the storyline or character
+// 	  references, or any termology specifically set up for the Phantasar universe,
+// 	  or any other univers a story of Jeroen P. Broks is set up for,
+// 	  the restrictions of this file are removed and will automatically become
+// 	  zLib licensed (see below).
+// 
+// 	  Please note that doing so counts as a modification and must be marked as such
+// 	  in accordance to the zLib license.
+// 	  ===========================
+// 
+// 
+// 	  zLib license terms:
+// 	
+// 	  This software is provided 'as-is', without any express or implied
+// 	  warranty.  In no event will the authors be held liable for any damages
+// 	  arising from the use of this software.
+// 
+// 	  Permission is granted to anyone to use this software for any purpose,
+// 	  including commercial applications, and to alter it and redistribute it
+// 	  freely, subject to the following restrictions:
+// 	
+// 	  1. The origin of this software must not be misrepresented; you must not
+// 	     claim that you wrote the original software. If you use this software
+// 	     in a product, an acknowledgment in the product documentation would be
+// 	     appreciated but is not required.
+// 	  2. Altered source versions must be plainly marked as such, and must not be
+// 	     misrepresented as being the original software.
+// 	  3. This notice may not be removed or altered from any source distribution.
+// End License
+
+
+Script
+
+#use "Libs/SCI/Kthura"
+#use "Libs/SCI/InterVar"
+#use "Libs/SCI/BlopPlasma"
+
+#use "Libs/XMath"
+
+#use "Script/Use/Link"
+#use "Script/Use/Anyway"
+
+locExtern Blop "Scyndi.Class.BlopPlasma"
+
+#macro PuzSolved gbool.Prologue_Marrilona_MagicSubSpace_Puzzle_Solved
+
+Group MScript
+
+	#region Plasma and Teleporters
+	ReadOnly Bool HasDraw   = True
+	ReadOnly Bool HasUpdate = True
+	
+	Void Update()
+		//Static Int Deg
+		LocExtern Deg "MapScript_Update_Deg"
+		Deg = ((Deg||0) + 1) % 360
+		//Map.SetObj("Obstacle_Next","Rotation",Deg)
+		Kthura.Obj.Obstacle_Next.Rotation=Deg
+		If Map.Layer=="#004"
+			Self.BarrierLift()
+		End
+	End
+	
+	//ReadOnly Delegate PostDraw = NIKS
+	Void PostDraw()
+	End
+	
+	Void PreDraw()
+		Blop.Draw()
+	End
+	#region
+	
+	#region Puzzle
+	Table PuzzTab = {False, False, False, False, True}
+	Void Check()
+		Bool S = true
+		For i=1,5
+			If PuzzTab[i]
+				Map.SetObj("Z"..i,"R",255)
+				Map.SetObj("Z"..i,"B",0)
+			Else
+				Map.SetObj("Z"..i,"B",255)
+				Map.SetObj("Z"..i,"R",0)
+			End
+			S = S && PuzzTab[i]
+			
+		End
+		If S
+			PuzSolved = true
+			For i=1,5
+				Map.Kill("Z"..i,true)
+			End
+		End
+	End
+	
+	Void Z1()
+		PuzzTab[1] = !PuzzTab[1]
+		PuzzTab[5] = !PuzzTab[5]
+		MScript.Check()
+	End
+	Void Z2()
+		PuzzTab[2] = !PuzzTab[2]
+		PuzzTab[5] = !PuzzTab[5]
+		MScript.Check()
+	End
+	Void Z3()
+		PuzzTab[3] = !PuzzTab[3]
+		PuzzTab[5] = !PuzzTab[5]
+		MScript.Check()
+	End
+	Void Z4()
+		PuzzTab[4] = !PuzzTab[4]
+		PuzzTab[5] = !PuzzTab[5]
+		MScript.Check()
+	End
+	Void Z5()
+		For i = 1,5 
+			PuzzTab[i] = !PuzzTab[i]
+		End
+		MScript.Check()
+	End
+	Void BarrierLift()
+		Static Int A = 0
+		If PuzSolved
+			A = math.min(255,A+1)
+			Map.SetObj("Barrier","Alpha",A)
+			Map.SetObj("Barrier","ForcePassible",A>=255)
+			Kthura.Remap()
+		End
+	End
+	
+	#endregion
+	
+	#region The End
+	Void NPC_ManaOrb()
+		MapText("ORB")
+		Map.GoToMap("PRO_Town_Frendor","ELDER","Marrilona")
+		Schedule.Add("ElderManaOrb")
+	End
+	#endregion
+	
+	Void ResetRespawn()
+		print("Resetting respawn at the start of the path of magic")
+		Respawn.Reset()
+		Map.Kill("ResetRespawn")
+	End
+	
+	
+	Void Begin()
+		Blop.Settings(80)
+		For i=1,5
+			ZA.Enter("Z"..i)
+		End
+		ZA.Enter("ResetRespawn")
+	End
+	
+End
+
+Init
+	MScript.Begin()
+	gbool.MapScriptSettings_MSDraw_CallBack=true
+	gbool.MapScriptSettings_MSUpdate_CallBack=true
+End

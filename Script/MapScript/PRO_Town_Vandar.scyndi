@@ -1,0 +1,260 @@
+// License:
+// **********************************************
+// 
+// src/Code/Script/MapScript/PRO_Town_Vandar.scyndi
+// (c) Jeroen Broks, 2021, 2022, 2026, All Rights Reserved.
+// 
+// This file contains material that is related
+// to a storyline that is which is strictly
+// copyrighted to Jeroen Broks.
+// 
+// This file may only be used in an unmodified
+// form with an unmodified version of the
+// software this file belongs to.
+// 
+// You may use this file for your study to see
+// how I solved certain things in the creation
+// of this project to see if you find valuable
+// leads for the creation of your own.
+// 
+// Mostly this file comes along with a project
+// that is for most part released under an
+// open source license and that means that if
+// you use that code with this file removed
+// from it, you can use it under that license.
+// Please check out the other files to find out
+// which license applies.
+// 
+// This file comes 'as-is' and in no possible
+// way the author can be held responsible of
+// any form of damages that may occur due to
+// the usage of this file
+// 
+// 
+// **********************************************
+// 
+// 
+// version: 26.02.14 III
+// 
+// End License
+
+
+Script
+
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/Kthura"
+#use "Libs/SCI/InterVar"
+
+#use "Script/Use/Link"
+#use "Script/Use/Anyway"
+#use "Script/Use/Convert"
+#use "Script/Use/Misc/Inn"
+
+#macro DoneChief gBool.SpokenToChiefWerrington_Prologue
+
+Group MScript
+
+	ReadOnly Bool HasDraw   = False
+	ReadOnly Bool HasUpdate = False
+	
+	Void JennyCheck()
+		//Static Bool JennyChecked = False
+		//Static Bool HarryChecked = False
+		LocExtern JennyChecked "JennyCheck___Jenny"
+		LocExtern HarryChecked "JennyCheck___Harry"
+		If __Chapter<1 && !JennyChecked
+			Map.LayKill("TOWN","NPC_MT_Jenny",False)
+			JennyChecked = True
+		End
+		If DoneChief && !HarryChecked
+			Map.LayKill("TOWN","NPC_MT_HarryOutside",False)
+			HarryChecked=true
+		End
+	End
+
+	
+	Void GoUp()
+		MScript.JennyCheck()
+		//Map.SetObj("OP_BRUG" ,"ForcePassible",true)
+		//Map.SetObj("HEK_NEER","Impassible",true)
+		//Map.SetObj("HEK_OP",  "Impassible",true)
+		Kthura.Obj.OP_BRUG.ForcePassible=true
+		Kthura.Obj.HEK_NEER.Impassible=true
+		Kthura.Obj.HEK_OP.Impassible=true
+		Players.Dominance = 200
+		Kthura.Remap()
+		CSayF("Upper Layer")
+	End
+	
+	Void GoDown()
+		MScript.JennyCheck()
+		//Map.SetObj("OP_BRUG" ,"ForcePassible",false)
+		//Map.SetObj("HEK_NEER","Impassible",false)
+		//Map.SetObj("HEK_OP",  "Impassible",false)
+		Kthura.Obj.OP_BRUG.ForcePassible=false
+		Kthura.Obj.HEK_NEER.Impassible=false
+		Kthura.Obj.HEK_OP.Impassible=false
+		Players.Dominance = 20
+		Kthura.Remap()
+		CSayF("Lower Layer")
+	End
+	
+	Void StartPrologue()
+		MapText("JOHN")
+	End
+	
+	#region NPC scripts
+	Void NPC_Chief()
+		If !DoneChief
+			DoneChief=true
+			MapText("CHIEF1")
+			Map.ShowObj("Harry")
+			MapText("CHIEF2")
+			Map.HideObj("Harry")
+			Return
+		End
+		If __Chapter==0
+			MapText("CHIEF_NOJENNY")
+			Return			
+		End
+		MapText("CHIEF_FINAL")
+	End
+	
+	Void NPC_MasterJohn()
+		If __Chapter==0
+			MapText("N_JOHN_PRO")
+		Else
+			MapText("JOHN_CH4")
+		End
+	End
+	
+	Void NPC_Fred()
+		If __Chapter==0
+			MapText("FRED_NOSELL")
+		Else
+			//Lua.error("Fred's shop not yet activated")
+			MapText("FRED")
+			FieldMenu.Shop("ITEM_FRED")
+
+		End
+	End
+	
+	Void NPC_George()
+		If __Chapter==0
+			MapText("GEORGE_NOSELL")
+		Else
+			//Lua.error("George's shop not yet activated")
+			MapText("GEORGE")
+			FieldMenu.WeaponShop("WEAPON_GEORGE")
+		End
+	End
+	
+	Void NPC_Innkeeper()
+		If __Chapter==0
+			MapText("INN_NOTTODAY")
+		else
+			Inn()
+		End
+	End
+	#endregion
+	
+	Void End_Prologue()
+		MapText("POST_BOSS")
+		Map.GoToMap("PRO_TheEnd","JAKE","Start")
+		//Schedule.Add("SaveEndPrologue")
+	End
+
+	
+	Void Bye()
+		If __Chapter>0
+			//Lua.error("Leaving town not yet supported")
+			WorldMap.Go()
+			Return
+		End
+		If DoneChief
+			MapText("NOLEAVEJENNY")
+		Else
+			MapText("NOLEAVECHIEF")
+		End
+	End
+	
+	Void Enter_Cave()
+		If !DoneChief
+			MapText("NODRAGON")
+		Else
+			Map.GoToMap("PRO_Dungeon_DragonCave","#000","Start")
+		End
+	End
+		
+	
+	Table Enter
+	String Entered="inn"
+	
+	Void Exit()
+		Map.GoToLayer("TOWN","Exit_"..Entered)
+	End
+	
+	Void CH2Scenario()
+		WorldMap.Unlock("CH1FRENDOR") // Autofix due to an other bug causing broken safegames
+		WorldMap.Unlock("CH2FIRESPIRATA")
+		WorldMap.Lock("CH2VANDAR") // Not welcome until chapter 4 anymore
+		Map.ShowObj("CH2Chief")
+		Map.ShowObj("CH2Harry")
+		Map.Pop("Kick_","North",true)
+		MapText("ANGRYCHIEF")
+		Item.ZZKEY_FIRE.Has = 1
+		__WorldMap = "ANGRYCHIEF"
+		WorldMap.Go()
+	End
+	
+	Void NPC_Narya()
+		If Done.SpokenToNarya
+			MapText("NARYA2")
+		Else
+			MapText("NARYA1")
+			WorldMap.Unlock("NGPExcalibur")
+		End
+	End
+	
+	Void StartUpSequence()
+		ZA.Enter("UP1",  "GoUp")
+		ZA.Enter("UP2",  "GoUp")
+		ZA.Enter("DOWN", "GoDown")
+		ZA.Enter("JennyCheck")
+		ZA.Enter("Bye")
+		ZA.Enter("Exit")
+		ZA.Enter("Enter_Cave")
+		MScript.JennyCheck()
+		If __Chapter==2
+			ZA.Enter("CH2Scenario")
+		End
+		For K in Each{[0]="Chief","Inn","Items","Weapons"}
+			ZA.Enter("Enter_"..K,"Enter."..K)
+		End
+		//Var EnterIndex(s,String K)
+		dDef EnterIndex
+			plua s
+			String K
+			s,K = Infinity
+			CSayF("Entering: %s",K)
+			Map.GoToLayer(Upper(K),"Entrance")
+			Entered=lower(K)
+			Return Niks
+		End
+		Enter = Lua.setmetatable({},{["__index"]=EnterIndex})
+		if (!__newgameplus) || (__chapter<4)
+			CSayF("Not in chapter 4 in the new game+, so let's remove Narya!")
+			Map.LayKill("TOWN","NPC_Narya")
+		End
+	End
+End
+
+Init
+	MScript.StartUpSequence()
+	J := RPGChar.Jake_Human.Data
+	If J.EQUIP_Weapon==""
+		CSayF("\x07Jake's got no weapon! Likely a Fairy Linking issue! Fixing!")
+		J.EQUIP_Weapon = "EQP_JAKE_WP1"
+		J.EQUIP_Armor  = "EQP_JAKE_AR1"
+	End
+End

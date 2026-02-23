@@ -1,0 +1,252 @@
+// Converted from Neil to Scyndi
+
+Module
+
+LocExtern __skill "Scyndi.Globals.gInt.Skill"
+LocExtern __NewGamePlus "Scyndi.Globals.gBool.NewGamePlus"
+
+
+// Generated 7/30/2022 3:47:14 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	Ret.Undead = True
+	Ret.DESC = "Her scream paralyses everybody who hears it.\nThe problem is, all she can do is scream."
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/reg/ghostgirl.png"
+	Ret.DropRate_1 = 100
+	Ret.DropItem_1 = "ITM_MAGICDUST"
+	Ret.DropRate_2 = 3
+	Ret.DropItem_2 = "ITM_AMBROSIA"
+	Ret.StealRate_1 = 1
+	Ret.StealItem_1 = "EQP_ACC_TITANBELT"
+	Ret.StealRate_2 = 1
+	Ret.StealItem_2 = "EQP_ACC_RINGSKILL"
+	Ret.StealRate_3 = 1
+	Ret.StealItem_3 = "EQP_JEWEL_TOPAZ"
+	Ret.NAME = "Ghost Girl"
+	Ret.CASH = 100
+	Ret.SR_CONFUSION = 100
+	Ret.SR_CURSE = 100
+	Ret.SR_DEATH = 100
+	Ret.SR_DISEASE = 100
+	Ret.SR_PARALYSIS = 100
+	Ret.SR_PETRIFICATION = 100
+	Ret.SR_POISON = 100
+	Ret.SR_SILENCE = 100
+	Ret.SR_SLEEP = 100
+	Ret.SR_UNDEAD = 0
+	Ret.VOCALTAG = "ghostgirl"
+
+
+	Ret.AllowOversoul = True
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 5
+		Ret.Stats.ER_DARKNESS = 200
+		Ret.Stats.ER_EARTH = 100
+		Ret.Stats.ER_FLAME = -125
+		Ret.Stats.ER_FROST = 100
+		Ret.Stats.ER_LIGHT = -300
+		Ret.Stats.ER_LIGHTNING = -180
+		Ret.Stats.ER_WATER = 100
+		Ret.Stats.ER_WIND = 100
+		Ret.Stats.EVASION = 3
+		Ret.Stats.EXP = 15
+		Ret.Stats.HP = 250
+		Ret.Stats.INTELLIGENCE = 5
+		Ret.Stats.POWER = 5
+		Ret.Stats.RESISTANCE = 5
+		Ret.Stats.SPEED = 120
+	Else
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 5
+		Ret.Stats.ER_DARKNESS = 200
+		Ret.Stats.ER_EARTH = 100
+		Ret.Stats.ER_FLAME = -125
+		Ret.Stats.ER_FROST = 100
+		Ret.Stats.ER_LIGHT = -300
+		Ret.Stats.ER_LIGHTNING = -180
+		Ret.Stats.ER_WATER = 100
+		Ret.Stats.ER_WIND = 100
+		Ret.Stats.EVASION = 100
+		Ret.Stats.EXP = 150
+		Ret.Stats.HP = 500
+		Ret.Stats.INTELLIGENCE = 5
+		Ret.Stats.POWER = 5
+		Ret.Stats.RESISTANCE = 5
+		Ret.Stats.SPEED = 120
+	End
+
+	Ret.IsHumanoid = True
+
+	Ret.Actions = {}
+	If True
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+	End
+	If True && (__skill!=1) && (__skill!=2)
+		Ret.Actions += "ABL_GG_DEATHSCREAM"
+	End
+	Return Ret
+End
+

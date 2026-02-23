@@ -1,0 +1,263 @@
+// License:
+// 	  src/Code/Script/Subs/SubAchievements.scyndi
+// 
+// 	  Version: 26.02.14
+// 	
+// 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
+// 	
+// 	  ===========================
+// 	  This file is part of a project related to the Phantasar Chronicles or another
+// 	  series or saga which is property of Jeroen P. Broks.
+// 	  This means that it may contain references to a story-line plus characters
+// 	  which are property of Jeroen Broks. These references may only be distributed
+// 	  along with an unmodified version of the game.
+// 
+// 	  As soon as you remove or replace ALL references to the storyline or character
+// 	  references, or any termology specifically set up for the Phantasar universe,
+// 	  or any other univers a story of Jeroen P. Broks is set up for,
+// 	  the restrictions of this file are removed and will automatically become
+// 	  zLib licensed (see below).
+// 
+// 	  Please note that doing so counts as a modification and must be marked as such
+// 	  in accordance to the zLib license.
+// 	  ===========================
+// 
+// 
+// 	  zLib license terms:
+// 	
+// 	  This software is provided 'as-is', without any express or implied
+// 	  warranty.  In no event will the authors be held liable for any damages
+// 	  arising from the use of this software.
+// 
+// 	  Permission is granted to anyone to use this software for any purpose,
+// 	  including commercial applications, and to alter it and redistribute it
+// 	  freely, subject to the following restrictions:
+// 	
+// 	  1. The origin of this software must not be misrepresented; you must not
+// 	     claim that you wrote the original software. If you use this software
+// 	     in a product, an acknowledgment in the product documentation would be
+// 	     appreciated but is not required.
+// 	  2. Altered source versions must be plainly marked as such, and must not be
+// 	     misrepresented as being the original software.
+// 	  3. This notice may not be removed or altered from any source distribution.
+// End License
+
+Script
+
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/Medals"
+#use "Libs/SCI/Events"
+#use "Libs/SCI/SString"
+#use "Libs/SCI/Graphics"
+#use "libs/SCI/InterVar"
+
+#use "Script/Use/Anyway"
+#use "Script/Use/Convert"
+#use "Script/Use/Misc/Box_Class"
+#use "Libs/LinkedList"
+#use "Libs/Keys"
+
+ReadOnly Var Fnt = ObtainFont("BIGTEXT")
+ReadOnly Var SysFont = ObtainFont("SYSFONT")
+
+QuickMeta Awarded
+	index
+		//Medals.Award(key)
+		return gBool["Awarded_"..key]
+	end
+	newindex
+		gBool["Awarded_"..key] = value
+	end
+end
+
+Class ABox
+	Static ReadOnly Var Boxes = new TLinkedList()
+	ReadOnly Var TrueBox
+	ReadOnly String AchTitle
+	Get Int Y
+		return TrueBox.Y
+	End
+	Set Int Y
+		TrueBox.Y = Value
+	End
+	Get Int H
+		Return TrueBox.H
+	End
+	Void Draw()
+		TrueBox.Draw()
+		__Ember
+		SysFont.Text("Achievement obtained",Screen.W div 2,Y+5,2,0)
+		__White
+		Fnt.Text(AchTitle,Screen.W div 2,(Y+H)-5,2,1)
+	End
+	Constructor(string Tit)
+		int KY = Screen.H+200
+		for B in Boxes.Each
+			KY = math.max(KY,B.Y+200)
+		End
+		AchTitle = Tit
+		TrueBox = new CBox(20,KY,Screen.W-40,75)
+	End
+End
+
+Group SubAch
+
+	//ReadOnly Var Dat
+	Get Var Dat 
+		Return Lua.Achievements_Database
+	End
+	
+	ReadOnly Int Total
+	ReadOnly Int TotalExRate
+	
+	
+	Void Synchronize()
+		CSayF("Synchronizing Achievements with Medals")
+		For k,_ in spairs(Dat)
+			If Awarded[k]
+				CSayF("=> '%s'",k)
+				Medals.Award(k)
+			End
+		End
+	End
+	
+	Void ShowBoxes()
+		For B,L in ABox.Boxes.Each
+			B.Draw()
+			B.y--
+			If B.y<-100
+				L.UnLink()
+			End
+		End
+	End
+	
+	Void Award(string Tag)
+		Tag = Upper(Tag)
+		If Awarded[Tag]
+			Return
+		End
+		Awarded[Tag] = True
+		Medals.Award(Tag)
+		ABox.Boxes.AddLast(new ABox(Dat[Tag].Title))
+		If !Prefixed(Tag,"RATE")
+			Int ACNT=0
+			for K,_ in pairs(Dat)
+				Var A = Awarded[K]
+				//Print("A-Check:",A,prefixed(K,"RATE"),ACNT,TotalExRate)
+				if A && (!prefixed(K,"RATE"))
+					ACNT++
+				End
+			End
+			number rate:=(ACNT/TotalExRate)*100
+			CSayF("Achievement rating is now %03.2f%% (%03d/%03d)",rate,ACNT,TotalExRate)
+			For ir=25,100,25
+				If rate>=ir
+					Self.Award(sprintf("RATE%03d",ir))
+				End
+			End
+		End
+	End
+	
+	Void AutoAward()
+		LocExtern WSF "Scyndi.Globals.CSayF"
+		//LocExtern WSF "-- Scyndi.Globals.CSayF"
+		For K,V in sPairs(Dat)
+			If V.AutoVar!=""
+				Var CVar := XSplit(V.AutoVar," ")
+				Var CVal := XSplit(V.AutoVal," ")
+				Lua.assert(Len(CVar)==Len(CVal),SprintF("AutoAward checkup number mismatch in '%s'. %d variables and %d values",K,Len(CVar),Len(CVal)))
+				Bool Check = True
+				//For i=1,#CVar
+				for i=0,Len(CVar)-1
+					String ChTp := Left(CVar[i],1)
+					String ChVr := Right(CVar[i],len(CVar[i])-1)
+					Int ChVi := Lua.tonumber(CVal[i]) || 0
+					bool ChVb := Upper(CVal[i])=="TRUE"
+					Switch ChTp
+						Case "="
+							Check = Check && gInt[ChVr]==ChVi
+							WSF("%s: %s == %d -> %s",K,ChVr,ChVi,Check)
+						Case ">"
+							Check = Check && gInt[ChVr]>ChVi
+							WSF("%s: %s > %d -> %s",K,ChVr,ChVi,Check)
+						Case "<"
+							Check = Check && gInt[ChVr]<ChVi
+							WSF("%s: %s < %d -> %s",K,ChVr,ChVi,Check)
+						case "&"
+							Check = Check && gBool[ChVr]==ChVb
+							WSF("%s: %s (boolean) %s -> %s",K,ChVr,ChVb,Check)
+						Default
+							Lua.error(SprintF("Unknown check '%s'(%s) in %s",ChTp,CVar[i],K))
+					End
+				End
+				If Check
+					//Self.Award(K)
+					WSF("Awarding %s",K)
+				End
+			End
+		End
+	End
+	
+	Void Overview(int x, int y, int w, int h)
+		//static int ah=75
+		//static int scroll=0
+		locExtern ah "SubAchievements_Static_Locals_Overview_ah"
+		locExtern scroll "SubAchievements_Static_Locals_Overview_scroll"
+		ah = ah || 75
+		scroll = scroll || 0
+		int ay = -scroll
+		for k,v in spairs(Dat)
+			if ay>=0 && ay+ah<h
+				__White
+				Fnt.Text(v.Title,x+5,ay+y)
+				__Ember
+				SysFont.Text(v.Description,x+6,y+ay+ah-3,0,1)
+				if Awarded[K]
+					Static Var Check = Image.LoadNew("GFX/Achievements/Check.png","ACH_CHECK")
+					__White
+					Check.Stretch(x+w-ah,y+ay,ah,ah)
+				ElseIf V.AutoVar!=""
+					__SkyBlue
+					string tr=v.Trace
+					For _Vr in each(XSplit(v.AutoVar," "))
+						string vr:=Upper(right(_vr,len(_vr)-1))
+						switch left(_vr,1)
+						case "<" ">" "="
+							tr = Replace(tr,"_"..(Vr).."_",Lua.tostring(gInt[vr]))
+						case "&"
+							tr = Replace(tr,"_"..(Vr).."_",Lua.tostring(gBool[vr]))
+						default
+						End
+					end
+					SysFont.Text(tr,(x+w)-5,y+ay+ah-3,1,1)
+				end
+			end
+			ay+=ah
+		end
+		if scroll>0 && Events.KeyHit(Keys.Up)
+			Scroll-=ah
+		end
+		if ay+ah>w && Events.KeyHit(Keys.Down)
+			Scroll+=ah
+		end
+	End
+	
+	Void Start()
+		Medals.Game="TFT"
+		//Medals.Storage="zlib"
+		NeilUse("Script/Data/General/Achievements_Data")
+		Total=0
+		TotalExRate=0
+		For k,_ in pairs(Dat)
+			If !prefixed(k,"RATE")
+				TotalExRate++
+			End
+			Total++
+		End
+		Self.Synchronize()
+	End
+End
+	
+Init
+	SubAch.Start()
+End

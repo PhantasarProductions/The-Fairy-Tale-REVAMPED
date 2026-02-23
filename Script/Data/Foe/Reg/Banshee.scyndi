@@ -1,0 +1,141 @@
+// Converted from Neil to Scyndi
+
+Module
+
+LocExtern __skill "Scyndi.Globals.gInt.Skill"
+LocExtern __NewGamePlus "Scyndi.Globals.gBool.NewGamePlus"
+
+
+// Generated 7/30/2022 3:47:06 PM
+// (c) Jeroen P. Broks
+// May NOT be extracted from this game without prior written permission from Jeroen P. Broks!
+
+
+Table _R(Bool Oversoul)
+	Table Ret = {}
+	Ret.Drops = {}
+	Ret.Steal = {}
+
+	Ret.AI = "default"
+	Ret.Undead = True
+	Ret.DESC = "All she can do is scream.\nThat's no good..."
+	Ret.IMAGE = "GFX/Combat/Fighters/Foe/Reg/Banshee/"
+	Ret.DropRate_1 = 1
+	Ret.DropItem_1 = "ITM_ANABOLINEA"
+	Ret.DropRate_2 = 25
+	Ret.DropItem_2 = "ITM_MAGICDUST"
+	Ret.StealRate_1 = 1
+	Ret.StealItem_1 = "ITM_ANABOLINEA"
+	Ret.StealRate_2 = 1
+	Ret.StealItem_2 = "ITM_MANDRAKES"
+	Ret.StealRate_3 = 25
+	Ret.StealItem_3 = "ITM_TRUMPCARD"
+	Ret.NAME = "Banshee"
+	Ret.SR_CONFUSION = 199
+	Ret.SR_CURSE = 100
+	Ret.SR_DEATH = 100
+	Ret.SR_DISEASE = 100
+	Ret.SR_PARALYSIS = 100
+	Ret.SR_PETRIFICATION = 100
+	Ret.SR_POISON = 100
+	Ret.SR_SILENCE = 100
+	Ret.SR_SLEEP = 100
+	Ret.SR_UNDEAD = 0
+	Ret.VOCALTAG = "GhostGirl"
+
+
+	Ret.AllowOversoul = True
+
+
+	Ret.Stats = {}
+
+
+	If !Oversoul
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 5
+		Ret.Stats.ER_DARKNESS = 400
+		Ret.Stats.ER_EARTH = 100
+		Ret.Stats.ER_FLAME = -75
+		Ret.Stats.ER_FROST = 100
+		Ret.Stats.ER_LIGHT = -999
+		Ret.Stats.ER_LIGHTNING = -100
+		Ret.Stats.ER_WATER = -1
+		Ret.Stats.ER_WIND = 100
+		Ret.Stats.EVASION = 100
+		Ret.Stats.EXP = 75
+		Ret.Stats.HP = 500
+		Ret.Stats.INTELLIGENCE = 400
+		Ret.Stats.POWER = 5
+		Ret.Stats.RESISTANCE = 9999
+		Ret.Stats.SPEED = 100
+	Else
+		Ret.Stats.ACCURACY = 100
+		Ret.Stats.ENDURANCE = 5
+		Ret.Stats.ER_DARKNESS = 400
+		Ret.Stats.ER_EARTH = 100
+		Ret.Stats.ER_FLAME = -75
+		Ret.Stats.ER_FROST = 100
+		Ret.Stats.ER_LIGHT = -999
+		Ret.Stats.ER_LIGHTNING = -100
+		Ret.Stats.ER_WATER = -1
+		Ret.Stats.ER_WIND = 100
+		Ret.Stats.EVASION = 100
+		Ret.Stats.EXP = 1
+		Ret.Stats.HP = 90000
+		Ret.Stats.INTELLIGENCE = 9999
+		Ret.Stats.POWER = 5
+		Ret.Stats.RESISTANCE = 99999
+		Ret.Stats.SPEED = 300
+	End
+
+	Ret.IsHumanoid = True
+
+	Ret.Actions = {}
+	If True
+		Ret.Actions += "ABL_FOE_EVIL_EYE"
+	End
+	If True && (__skill!=1)
+		Ret.Actions += "ABL_FOE_GG_DEATHSCREAM"
+	End
+	If True
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+		Ret.Actions += "ABL_FOE_GG_SCREAM"
+	End
+	If True
+		Ret.Actions += "ABL_GG_TERRSCREAM"
+		Ret.Actions += "ABL_GG_TERRSCREAM"
+		Ret.Actions += "ABL_GG_TERRSCREAM"
+		Ret.Actions += "ABL_GG_TERRSCREAM"
+		Ret.Actions += "ABL_GG_TERRSCREAM"
+	End
+	Return Ret
+End
+

@@ -1,0 +1,253 @@
+// License:
+// 	  src/Code/Script/Use/Convert.ScyndiBundle/RPG2Statistician.scyndi
+// 
+// 	  Version: 26.02.23
+// 	
+// 	  Copyright (C) 2026 Jeroen Petrus Broks
+// 	
+// 	  ===========================
+// 	  This file is part of a project related to the Phantasar Chronicles or another
+// 	  series or saga which is property of Jeroen P. Broks.
+// 	  This means that it may contain references to a story-line plus characters
+// 	  which are property of Jeroen Broks. These references may only be distributed
+// 	  along with an unmodified version of the game.
+// 
+// 	  As soon as you remove or replace ALL references to the storyline or character
+// 	  references, or any termology specifically set up for the Phantasar universe,
+// 	  or any other univers a story of Jeroen P. Broks is set up for,
+// 	  the restrictions of this file are removed and will automatically become
+// 	  zLib licensed (see below).
+// 
+// 	  Please note that doing so counts as a modification and must be marked as such
+// 	  in accordance to the zLib license.
+// 	  ===========================
+// 
+// 
+// 	  zLib license terms:
+// 	
+// 	  This software is provided 'as-is', without any express or implied
+// 	  warranty.  In no event will the authors be held liable for any damages
+// 	  arising from the use of this software.
+// 
+// 	  Permission is granted to anyone to use this software for any purpose,
+// 	  including commercial applications, and to alter it and redistribute it
+// 	  freely, subject to the following restrictions:
+// 	
+// 	  1. The origin of this software must not be misrepresented; you must not
+// 	     claim that you wrote the original software. If you use this software
+// 	     in a product, an acknowledgment in the product documentation would be
+// 	     appreciated but is not required.
+// 	  2. Altered source versions must be plainly marked as such, and must not be
+// 	     misrepresented as being the original software.
+// 	  3. This notice may not be removed or altered from any source distribution.
+// End License
+Module
+
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/SString"
+#use "Libs/SCI/InterVar"
+#use "Libs/SCI/Statistician"
+
+#use "Script/Use/Misc/Box_Class"
+
+plua _rpgstat = Statistician.CreateNew("TFT")
+plua _statsubs
+
+Get Var TrueRPG; return _rpgstat; End
+locExtern NT "type"
+
+QuickMeta RPGParty
+	NewIndex
+		switch NT(Key)
+			case "string"
+				key=upper(key)
+				switch key
+					case "MAX"
+						CSayF("Max Party set to %d",Value)
+						_rpgstat.Party.Max = Value
+					default
+						Lua.error("W:RPG Party key unknown: "..key)
+				end
+			case "number"
+				// New system starts at 0, but the old one at 1. This should prevent conflicts.
+				nk:=key-1 
+				CSayF("Setting %s(%s) to index %d(Real:%d)",Value,Lua.type(Value),Key,nk)
+				_rpgstat.Party[nk]=Value || ""
+			default
+				Lua.error("W:RPG Party can't handle key of type "..NT(Key))
+		end
+		//Lua.error(sprintf("RPGParty not yet set up for writing value '%s' to key %s",value,key))
+	End
+	
+	Index
+		//Lua.error("RPGParty not yet set up for reading")
+		switch NT(Key)
+			case "string"
+				key=upper(key)
+				switch key
+					case "MAX"
+						//CSayF("Max Party set to %d",Value)
+						return _rpgstat.Party.Max
+					default
+						Lua.error("R:RPG Party key unknown: "..key)
+				end
+			case "number"
+				// New system starts at 0, but the old one at 1. This should prevent conflicts.
+				nk:=key-1 
+				return _rpgstat.Party[nk]				
+			default
+				Lua.error("R:RPG Party can't handle key of type "..NT(Key))
+		end
+	End
+End
+
+ReadOnly Table SubStat = {[0]="BASE","BUFF","PERMABUFF","EQUIP","END","MASTER"}
+
+Int GetStat(ouwe,String Key)
+	this:=ouwe.this
+	if Prefixed(Key,"END_")
+		int r=0
+		for s in Each(SubStat)
+			//CSayF("DEBUG GETSTAT END: %s::%s >> %s::%s %d",Ouwe.Tag,Key,s,s!="END",r)
+			if s!="END" 
+				r+=GetStat(ouwe,s.."_"..Right(Key,Len(Key)-4))
+			end
+		end
+		return r
+	end
+	if !this.Chdata.HasStat(Key); return 0; end
+	return this.ChData.stat[key]
+End
+
+Void SetStat(ouwe,String Key,Int i)
+	if Prefixed(Key,"END_"); 
+		CSayF("END stat %s:%s got value %d",ouwe.this.Tag,Key,i)
+		Return
+	end
+	ouwe.this.ChData.stat[key]=i
+End
+
+	
+
+plua StatMeta
+
+Init
+	StatMeta = {["__newindex"]=SetStat,["__index"]=GetStat}	
+End
+
+locExtern ts "self"
+Class TFChar
+	readonly String Tag
+	ReadOnly Var ChData
+	ReadOnly Var Stat
+	ReadOnly Var Stats
+	ReadOnly Var SafeStat
+	Get Var Points;
+		ts.ChData.Points.HP.Maximum = ts.Stat.END_HP
+		//CSayF("%s:>HP Auto -- %d -> %d",Tag,ts.Stat.END_HP,ts.ChData.Points.HP.Maximum) // DEBUG ONLY!
+		//CSayF("%s: Is Foe? -> %s",Tag,Prefixed(Tag,"FOE_"))
+		If !Prefixed(Tag,"FOE_")
+			//CSayF("%s:>AP Auto -- %d -> %d",Tag,ts.Stat.END_AP,ts.ChData.Points.AP.Maximum) // DEBUG ONLY!
+			ts.ChData.Points.AP.Maximum = ts.Stat.END_AP
+			//Switch gInt.Skill
+			//	case 1; ts.ChData.Points.VIT.Maximum = 250
+			//	case 2; ts.ChData.Points.VIT.Maximum = 100
+			//	default; ts.ChData.Points.VIT.Maximum = 0
+			//End	
+		End
+		Return ts.ChData.Points; 
+	End
+	Get Var Data; Return ts.ChData.Data; End
+		
+	Get String Name;Return ts.ChData.Name; End
+	Set String Name
+		CSayF("Character %s is now named: %s",Tag,Value)
+		ts.ChData.Name=Value
+	End
+	
+	
+	Void Link_Stat(String TarChar,String _Stat)
+		//LinkStat(string st1,string TarChTag,string st2="")
+		ChData.LinkStat(_Stat,TarChar)
+	End
+	
+	Void Link_Data(String TarChar,String _Stat)
+		ChData.LinkData(_Stat,TarChar)
+	End
+
+	Void Link_List(String TarChar,String _Stat)
+		ChData.LinkList(_Stat,TarChar)
+	End
+
+	Void Link_Points(String TarChar,String _Stat)
+		ChData.LinkPoints(_Stat,TarChar)
+	End
+
+		
+	Constructor(String __Tag)
+		Tag=__Tag
+		ChData=TrueRPG.Char[tag]
+		CSayF("TFChar %s created",Tag)
+		Stat = SetMetaTable({["this"]=self},StatMeta)
+		Stats = Stat
+		SafeStat = Stat
+	End
+	
+	Destructor
+		CSayF("TFChar %s destroyed",Tag)
+	End
+end
+
+Group __RPGChar
+	Var Lijst
+	Void NewChar(string tag,name)
+		__RPGChar.Lijst=__RPGChar.Lijst||{}
+		CSayF("Creating %s > %s",tag,name || tag.." (auto)")
+		TrueRPG.NewChar(tag,name)
+		__RPGChar.Lijst[Upper(tag)]=new TFChar(tag)
+	End
+End	
+
+
+
+
+QuickMeta RPGChar
+	NewIndex
+		Lua.error("RPGChar not yet set up for writing")
+	End
+	
+	Index
+		//Lua.error("RPGChar not yet set up for reading")
+		Key=Upper(Key)
+		Switch Key
+			case "ALL"
+				ret:={}
+				for i=1,4
+					if RPGParty[i]!=""
+						ret+=RPGParty[i]
+					end
+				end
+				return ret
+			case "CREATECHARACTER" "NEWCHAR" "CREATE"
+				return __RPGChar.NewChar
+			case "EXISTS"
+				return _rpgstat.HasChar
+			default
+				//Lua.error(sprintf("RPGChar does not have a readable member called \"%s\"",Key))
+				__RPGChar.Lijst=__RPGChar.Lijst||{}
+				__RPGChar.Lijst[Key] = __RPGChar.Lijst[Key] || new TFChar(Key)
+				return __RPGChar.Lijst[Key]
+		end
+	End
+End
+
+
+//QuickMeta Party
+//	NewIndex
+//		Lua.error("Party not yet set up for writing")
+//	End
+	
+//	Index
+//		Lua.error(sprintf("Party not yet set up for reading: %s",key))
+//	End
+//End
