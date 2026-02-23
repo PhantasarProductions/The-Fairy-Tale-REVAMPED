@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Link.scyndibundle/Map.scyndi
 // 
-// 	  Version: 26.02.23
+// 	  Version: 26.02.23 III
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -389,16 +389,27 @@ End
 		MCall(sprintf("FlowField.Map.KthuraMap.Layer('%s').HideByLabel",Layer),Label)
 	End
 	Void LayShowByLabel(string Layer,string Label)
-		MCall(sprintf("FlowField.Map.KthuraMap.Layer('%s').ShowByLabel",Layer),Label)
+		//MCall(sprintf("FlowField.Map.KthuraMap.Layer('%s').ShowByLabel",Layer),Label)
+		old:=Kthura.OldLabel
+		Kthura.CurrentLayer=Layer
+		Kthura.ShowByLabel(Label)
+		Kthura.CurrentLayer=old
 	End
 	Void HideByLabel(string Label)
-		MCall("FlowField.Map.CurLayer.HideByLabel",Label)
+		//MCall("FlowField.Map.CurLayer.HideByLabel",Label)
+		old:=Kthura.OldLabel
+		Kthura.CurrentLayer=Layer
+		Kthura.HideByLabel(Label)
+		Kthura.CurrentLayer=old
+
 	End
 	Void ShowByLabel(string Label)
-		MCall("FlowField.Map.CurLayer.ShowByLabel",Label)
+		//MCall("FlowField.Map.CurLayer.ShowByLabel",Label)
+		Kthura.ShowByLabel(Label)
 	End
 	Void HideButLabel(string label)
-		Mcall("FlowField.Map.CurLayer.HideButLabel",label)
+		//Mcall("FlowField.Map.CurLayer.HideButLabel",label)
+		Kthura.HideByLabel(Label)
 	end
 	Void ShowButLabel(string label)
 		Mcall("FlowField.Map.CurLayer.ShowButLabel",label)
@@ -466,7 +477,7 @@ End
 	End
 	
 	Set Bool AllowEncOff
-		gv.gbool["ALLOWENCOUNTEROFF_"..LoadedMap] = Value
+		gbool["ALLOWENCOUNTEROFF_"..LoadedMap] = Value
 	End
 	
 	
@@ -491,7 +502,15 @@ End
 	End
 	
 	Bool InZone(String Act,String Zone)
-		Return ISGET.Bool("FLOW_FIELD",sprintf("FlowField.Map.CurrentLayer.Obj(\"%s\").IsInZone(\"%s\")",Act,Zone))
+		//Return ISGET.Bool("FLOW_FIELD",sprintf("FlowField.Map.CurrentLayer.Obj(\"%s\").IsInZone(\"%s\")",Act,Zone))
+		int ax := Kthura.Obj[Act].x
+		int ay := Kthura.Obj[Act].y
+		int zx := Kthura.Obj[Zone].x
+		int zy := Kthura.Obj[Zone].y
+		int zw := Kthura.Obj[Zone].w
+		int zh := Kthura.Obj[Zone].h
+		r:= ax>=zx && ay>=zy && ax<=zx+zw && ay<=zy+zh
+		return r
 	End
 	
 	Var LabelEach(String Label)
@@ -549,7 +568,9 @@ End
 	End
 	
 
-
+	Link MSHasUpdate = gbool.MapScriptSettings_MSUpdate_CallBack
+	Link MSHasDraw   = gbool.MapScriptSettings_MSDraw_CallBack
+	
 	
 	//CONSTRUCTOR
 	Init
