@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowWorldMap.scyndi
 // 
-// 	  Version: 26.02.23
+// 	  Version: 26.02.23 I
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -45,7 +45,12 @@
 
 Script
 
+#use "Libs/SCI/Graphics"
+#use "Libs/SCI/InterVar"
+
 #use "Script/Use/Anyway"
+
+
 String Region = "Delisto"
 Var Data
 Var Dot = LoadNewImage("GFX/World/Dot.png","WM_DOT")
@@ -67,19 +72,19 @@ Global Void ComeToMe(string R)
 End
 
 Bool Unlocked(string tag,item)
-	return gv.gbool["WM_UNLOCKED_"..tag] || item.UnlockedFromStart
+	return gbool["WM_UNLOCKED_"..tag] || item.UnlockedFromStart
 End
 
 Void Unlock(string tag)
-	gv.gbool["WM_UNLOCKED_"..tag] = true
+	gbool["WM_UNLOCKED_"..tag] = true
 End	
 
 QuickMeta Visited
 	Index
-		Return gv.gBool["WM_Visited_"..key] || key=="CH1JAKE"
+		Return gBool["WM_Visited_"..key] || key=="CH1JAKE"
 	end
 	NewIndex
-		gv.gBool["WM_Visited_"..Key] = value
+		gBool["WM_Visited_"..Key] = value
 	End
 End	
 
