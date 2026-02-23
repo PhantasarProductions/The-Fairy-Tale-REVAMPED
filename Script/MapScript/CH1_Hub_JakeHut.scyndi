@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.22 IV
+// version: 26.02.23
 // 
 // End License
 
@@ -122,7 +122,7 @@ Group MScript
 	End
 	
 	Void NPC_Fanny()
-		Inn()
+		UseInn()
 	End
 	
 	Void NPC_Leo()
