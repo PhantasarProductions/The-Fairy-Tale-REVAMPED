@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FieldMenu/MENU_Status.scyndi
 // 
-// 	  Version: 26.02.22 I
+// 	  Version: 26.02.23
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -106,7 +106,7 @@ Module
         	end
         	StatFnt.DarkText(shw..procentteken[procent[s]==true],(x+w)-25,ipy,1,0)
         	//CSayF("Sit: %s; TrShop: %s; Buy: %s; Sell: %s",Situation, Lua.tostring(TradeShop),Lua.tostring(TradeShop.TradeBuyItem), Lua.tostring(TradeShop.TradeInItem))
-        	If Situation=="WSHOP" && TradeShop && TradeShop.TradeBuyItem && TradeShop.TradeInItem && s:upper()!="SPEED"
+        	If Situation=="WSHOP" && TradeShop && TradeShop.TradeBuyItem && TradeShop.TradeInItem && upper(s)!="SPEED"
         		Int BuyS := TradeShop.TradeBuyItem["EQP_STAT_"..s]
         		Int SellS := TradeShop.TradeInItem["EQP_STAT_"..s]
         		If BuyS>SellS
