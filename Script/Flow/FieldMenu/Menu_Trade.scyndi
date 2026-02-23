@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FieldMenu/Menu_Trade.scyndi
 // 
-// 	  Version: 26.02.23 III
+// 	  Version: 26.02.23 IX
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -44,7 +44,12 @@
 
 Module
 
+	#use "Libs/SCI/Sys"
 	#use "Libs/SCI/Audio"
+	
+	#use "Script/Use/Link"
+	#use "Script/Use/Anyway"
+	#use "Script/Use/Convert"
 	
 	#accept Shop
 	#accept TradeShop
@@ -136,8 +141,8 @@ Module
 	End
 	
 	Init
-		TradeShop = Self
-		CSayF("Tradeshop created as %s",Lua.tostring(Self))
+		TradeShop = Lua.Scyndi.Class.Menu_Trade
+		CSayF("Tradeshop created as %s",Lua.tostring(TradeShop))
 	End
 
 //End
