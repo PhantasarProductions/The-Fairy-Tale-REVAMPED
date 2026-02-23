@@ -1,63 +1,81 @@
-// License Information:
-// src/Tricky Script/Script/Flow/FieldMenu/Shop.neil
-// Version: 22.01.09
-// Copyright (C) 2021, 2022 Jeroen Petrus Broks
+// License:
+// 	  src/Code/Script/Flow/FieldMenu/MENU_Shop.scyndi
 // 
-// ===========================
-// This file is part of a project related to the Phantasar Chronicles or another
-// series or saga which is property of Jeroen P. Broks.
-// This means that it may contain references to a story-line plus characters
-// which are property of Jeroen Broks. These references may only be distributed
-// along with an unmodified version of the game.
+// 	  Version: 26.02.23 XIV
+// 	
+// 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
+// 	
+// 	  ===========================
+// 	  This file is part of a project related to the Phantasar Chronicles or another
+// 	  series or saga which is property of Jeroen P. Broks.
+// 	  This means that it may contain references to a story-line plus characters
+// 	  which are property of Jeroen Broks. These references may only be distributed
+// 	  along with an unmodified version of the game.
 // 
-// As soon as you remove or replace ALL references to the storyline or character
-// references, or any termology specifically set up for the Phantasar universe,
-// or any other univers a story of Jeroen P. Broks is set up for,
-// the restrictions of this file are removed and will automatically become
-// zLib licensed (see below).
+// 	  As soon as you remove or replace ALL references to the storyline or character
+// 	  references, or any termology specifically set up for the Phantasar universe,
+// 	  or any other univers a story of Jeroen P. Broks is set up for,
+// 	  the restrictions of this file are removed and will automatically become
+// 	  zLib licensed (see below).
 // 
-// Please note that doing so counts as a modification and must be marked as such
-// in accordance to the zLib license.
-// ===========================
-// zLib license terms:
-// This software is provided 'as-is', without any express or implied
-// warranty.  In no event will the authors be held liable for any damages
-// arising from the use of this software.
-// Permission is granted to anyone to use this software for any purpose,
-// including commercial applications, and to alter it and redistribute it
-// freely, subject to the following restrictions:
-// 1. The origin of this software must not be misrepresented; you must not
-// claim that you wrote the original software. If you use this software
-// in a product, an acknowledgment in the product documentation would be
-// appreciated but is not required.
-// 2. Altered source versions must be plainly marked as such, and must not be
-// misrepresented as being the original software.
-// 3. This notice may not be removed or altered from any source distribution.
-// End License Information
+// 	  Please note that doing so counts as a modification and must be marked as such
+// 	  in accordance to the zLib license.
+// 	  ===========================
+// 
+// 
+// 	  zLib license terms:
+// 	
+// 	  This software is provided 'as-is', without any express or implied
+// 	  warranty.  In no event will the authors be held liable for any damages
+// 	  arising from the use of this software.
+// 
+// 	  Permission is granted to anyone to use this software for any purpose,
+// 	  including commercial applications, and to alter it and redistribute it
+// 	  freely, subject to the following restrictions:
+// 	
+// 	  1. The origin of this software must not be misrepresented; you must not
+// 	     claim that you wrote the original software. If you use this software
+// 	     in a product, an acknowledgment in the product documentation would be
+// 	     appreciated but is not required.
+// 	  2. Altered source versions must be plainly marked as such, and must not be
+// 	     misrepresented as being the original software.
+// 	  3. This notice may not be removed or altered from any source distribution.
+// End License
 
 Module
+
+#use "Libs/SCI/Audio"
+#use "Libs/SCI/Graphics"
+
+#use "Script/Use/Link"
+#use "Script/Use/Anyway"
+#use "Script/Use/Convert"
 
 #use "libs/linkedlist"
 #use "Script/Data/Shop/MyData_ClassFile_Shop"
 
 Class ShopItem
 	ReadOnly String Tag
-	Get Var Data
+	Get Var Data		
 		Return Item[Tag]
 	End
 	Get Int BuyPrice
-		Return Data.ITM_ShopPrice
+		locExtern this  "self"
+		Return this.Data.ITM_ShopPrice
 	End
 	Get Int SellPrice
-		Var R = Data.SellPrice
+		locExtern this  "self"
+		Int R := Data.SellPrice
 		//CSayF("%s SellPrice = %s",Lua.type(R),Lua.tostring(R))
 		Return R
 	End
 	Get Bool Sellable
-		Return Data.ITM_Sellable && SellPrice>0
+		locExtern this  "self"
+		Return this.Data.ITM_Sellable && SellPrice>0
 	End
 	Get Bool Tradeable
-		Return Sellable && (Data.ITM_Type=="Weapon" || Data.ITM_Type=="Armor")
+		locExtern this  "self"
+		Return this.Sellable && (this.Data.ITM_Type=="Weapon" || this.Data.ITM_Type=="Armor")
 	End
 	
 	Constructor(String T)
@@ -65,25 +83,25 @@ Class ShopItem
 	End
 End
 
-Module
+//Module
 	Var Stock
 	Var Tradeables
 	String LoadedShop
 	String ShopTitle
 	
-	ReadOnly Var HdF = ImageFont.Obtain("BIGTEXT")
-	ReadOnly Var Fnt = ImageFont.Obtain("FNTSTATSTAT")
+	ReadOnly Var HdF = ObtainFont("BIGTEXT")
+	ReadOnly Var Fnt = ObtainFont("FNTSTATSTAT")
 	
 	Void LoadStore(string shp)
 		LoadedShop = Shp
-		Stock = New LinkedList()
-		Tradeables = New LinkedList()
-		Var Raw = NeilUse("Script/Data/Shop/"..shp)
+		Stock = New TLinkedList()
+		Tradeables = New TLinkedList()
+		Raw := NeilUse("Script/Data/Shop/"..shp).Ret
 		ShopTitle = Raw.Title
 		for i=1,20
-			string it = raw["Slot"..i]
+			string it := raw["Slot"..i]
 			if it!="" && (!Prefixed(it,"AAA_"))
-				var NI = New ShopItem(it)
+				NI := New ShopItem(it)
 				Stock.AddLast(NI)
 				If NI.Tradeable
 					Tradeables.AddLast(NI)
@@ -93,11 +111,11 @@ Module
 	End
 
 	Void Flow(ubox,string Char,String Sit)
-		Static Var ChaChing = Audio.Obtain("CHACHING")
-		Static Var Buzz     = Audio.Obtain("BUZZ")
-		Int X  = ubox.X + 10
-		Int EX = ubox.X + ubox.W - 20
-		Int Y  = ubox.Y + 50		
+		Static Var ChaChing := Audio.Obtain("CHACHING")
+		Static Var Buzz     := Audio.Obtain("BUZZ")
+		Int X  := ubox.X + 10
+		Int EX := ubox.X + ubox.W - 20
+		Int Y  := ubox.Y + 50		
 		For StI in Stock.Each
 			int H  = 0
 			if Mouse.MX>X && Mouse.MX<EX && Mouse.MY>Y && Mouse.MY<Y+40
@@ -115,7 +133,8 @@ Module
 			Fnt.Text(StI.Data.Title,X+h,Y)
 			__Ember
 			Fnt.Text(sprintf("%d Sh",StI.BuyPrice),EX-h,Y,1)
-			Y+=35
+			//Y+=35
+			Y+=30
 		End	
 		__White
 		If __Cash==1
@@ -124,4 +143,4 @@ Module
 			Fnt.Text(sPrintF("%s Shilders",__cash),EX,ubox.Y+ubox.H-5,1,1)
 		End
 	End
-End
+//End
