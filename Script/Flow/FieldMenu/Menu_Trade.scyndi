@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FieldMenu/Menu_Trade.scyndi
 // 
-// 	  Version: 26.02.23 II
+// 	  Version: 26.02.23 III
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -45,6 +45,10 @@
 Module
 
 	#use "Libs/SCI/Audio"
+	
+	#accept Shop
+	#accept TradeShop
+	
 
 	Get Var Fnt 
 		Return Shop.Fnt
@@ -131,9 +135,9 @@ Module
 	
 	End
 	
-	//Constructor
-	//	TradeShop = Self
-	//	CSayF("Tradeshop created as %s",Lua.tostring(Self))
-	//End
+	Init
+		TradeShop = Self
+		CSayF("Tradeshop created as %s",Lua.tostring(Self))
+	End
 
 //End
