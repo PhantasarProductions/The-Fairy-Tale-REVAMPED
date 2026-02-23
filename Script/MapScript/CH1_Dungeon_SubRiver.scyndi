@@ -1,8 +1,8 @@
-// License Information:
+// License:
 // **********************************************
 // 
-// src/Tricky Script/Script/MapScript/CH1_Dungeon_SubRiver.neil
-// (c) Jeroen Broks, 2021, All Rights Reserved.
+// src/Code/Script/MapScript/CH1_Dungeon_SubRiver.scyndi
+// (c) Jeroen Broks, 2021, 2026, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -24,6 +24,7 @@
 // from it, you can use it under that license.
 // Please check out the other files to find out
 // which license applies.
+// 
 // This file comes 'as-is' and in no possible
 // way the author can be held responsible of
 // any form of damages that may occur due to
@@ -32,9 +33,17 @@
 // 
 // **********************************************
 // 
-// version: 21.12.17
-// End License Information
+// 
+// version: 26.02.23 II
+// 
+// End License
 
+
+Script
+
+#use "Libs/SCI/InterVar"
+
+#use "Script/Use/Link"
 #use "Script/Use/Anyway"
 
 QuickMeta Brug
@@ -42,14 +51,14 @@ QuickMeta Brug
 		If Lua.type(key)=="number"
 			Key = sprintf("#%03d",key)
 		End
-		return gv.gbool["BRUG_SUBRIVER_"..key]
+		return gbool["BRUG_SUBRIVER_"..key]
 	end
 	
 	NewIndex
 		If Lua.type(key)=="number"
 			Key = sprintf("#%03d",key)
 		End
-		gv.gbool["BRUG_SUBRIVER_"..key] = Value
+		gbool["BRUG_SUBRIVER_"..key] = Value
 	End
 End
 
@@ -201,10 +210,11 @@ Group MScript
 	Void Bye()
 		Map.GoToMap("CH1_DUNGEON_HolyPath","BOS","FromSecret")
 	End
+End	
 		
-	Constructor
-		InitWater()
-		ZA.TabEnter{ "StartPuzzle","Boss_Start","TerugNaarStart","Bye" }
-	End
-		
+Init
+	MScript.InitWater()
+	ZA.TabEnter{[0]="StartPuzzle","Boss_Start","TerugNaarStart","Bye" }
 End
+		
+
