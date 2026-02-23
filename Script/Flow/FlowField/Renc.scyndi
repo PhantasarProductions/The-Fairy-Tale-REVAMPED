@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowField/Renc.scyndi
 // 
-// 	  Version: 26.02.23
+// 	  Version: 26.02.23 I
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -146,6 +146,7 @@ locextern __bmr "17"
 		int num := tab[math.random(1,ll tab)]
 		string arena = Kthura.MetaData.Arena
 		//if not suffixed(arena,".png") then arena = arena..".png" end
+		CSayF("Number of enemies rolled: %d; Maximum: %d",num,max)
 		num = math.min(num,max)
 		Combat.Prepare()
 		Combat.Arena = arena
