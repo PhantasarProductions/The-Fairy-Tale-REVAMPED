@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/CL2_Class_Foe.scyndi
 // 
-// 	  Version: 26.02.23 I
+// 	  Version: 26.02.23 III
 // 	
 // 	  Copyright (C) case 2021-2026 Jeroen Petrus Broks
 // 	
@@ -55,6 +55,7 @@ Module
 
 #accept exprate
 #accept CharMsg
+#accept Fighter
 
 #accept Hero
 #accept VicQ
@@ -161,7 +162,7 @@ Class Foe Extends Fighter
 		If _num==0
 			Repeat
 				_num++
-			LoopWhile Self.ByTag[Self.MakeTag(_num)]
+			LoopWhile Fighter.ByTag[Self.MakeTag(_num)]
 		End
 		CSayF("Compiling Foe: %s on spot %03d",F,_num)
 		Var WFoe = new Foe()
