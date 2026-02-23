@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Anyway.scyndibundle/Respawn.scyndi
 // 
-// 	  Version: 26.02.23
+// 	  Version: 26.02.23 I
 // 	
 // 	  Copyright (C) 2021, 2026 Jeroen Petrus Broks
 // 	
@@ -47,6 +47,7 @@ Module
 
 #use "Libs/SCI/Sys"
 #use "Libs/SCI/Kthura"
+#use "Libs/SCI/SString"
 #use "Libs/SCI/InterVar"
 
 #use "Script/Use/Convert"
@@ -89,7 +90,7 @@ Void Wipe()
 	Var R = Lua.Scyndi.Class.Respawn
 	Var M = Lua.Scyndi.Class.Map
 	if R.IsInn
-		M.GoToMap(R.Map,R.Layer,"Respawn")
+		M.GoToMap(StripDir(R.Map),R.Layer,"Respawn")
 		M.Schedule("MAPTEXT:RESPAWN")
 	Else
 		M.GoToMapPos(R.Map,R.Layer,R.X,R.Y)
