@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.23
+// version: 26.02.23 I
 // 
 // End License
 
@@ -162,6 +162,7 @@ Group MScript
 	
 	Void Welcome()
 		If !__NewGamePlus
+			Kthura.CurrentLayer="FRENDORBUSHES"
 			Map.Kill("NPC_Tai")
 		End
 		If !Done.Chapter1Announced
