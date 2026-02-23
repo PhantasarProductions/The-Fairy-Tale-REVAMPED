@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/MOD_StatusChanges.scyndi
 // 
-// 	  Version: 26.02.23 I
+// 	  Version: 26.02.23 II
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -342,7 +342,7 @@ End
 			K = Upper(K)
 			if !R[K]
 				for _k,_v in pairs(Register)
-					if _k:upper()==K
+					if Upper(_k)==K
 						R[K]=_v
 						break
 					end
