@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Link.scyndibundle/WorldMap.scyndi
 // 
-// 	  Version: 26.02.23
+// 	  Version: 26.02.23 II
 // 	
 // 	  Copyright (C) 2021, 2026 Jeroen Petrus Broks
 // 	
@@ -56,7 +56,7 @@ Void LoadNew()
 	If !State.Has("FLOW_WORLDMAP")
 		CSay("Worldmap is not yet loaded, so let's load it first!")
 		Loading()
-		State.Load("FLOW_WORLDMAP","Script/Flow/FlowWorldMap.neil")
+		State.Load("FLOW_WORLDMAP","Script/Flow/FlowWorldMap.lbc")
 		CSay("Done!")
 	End
 End
@@ -72,5 +72,6 @@ End
 
 Void Go(String Area="Delisto")
 	LoadNew()
-	State.Call("FLOW_WORLDMAP","ComeToMe","\""..Area.."\"")
+	//State.Call("FLOW_WORLDMAP","ComeToMe","\""..Area.."\"")
+	Sys.Call("FLOW_WORLDMAP","ComeToMe",Area)
 End
