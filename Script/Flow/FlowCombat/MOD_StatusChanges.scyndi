@@ -339,7 +339,7 @@ End
 		// URegister
 		Var _Get(s,string K)
 			Static Var R = {}
-			K = K:upper()
+			K = Upper(K)
 			if !R[K]
 				for _k,_v in pairs(Register)
 					if _k:upper()==K
