@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.12 I
+// version: 26.02.23
 // 
 // End License
 
@@ -385,7 +385,7 @@ class MenuItem
 		v = new MenuItem("New Game",s.NewGame)
 		v = new MenuItem("New Game+",s.NewGamePlus)
 		v.Enabled = s.AllowNewGamePlus()
-		v = new MenuItem("Continue",s.Continue)
+		//v = new MenuItem("Continue",s.Continue)
 		v.Enabled = s.IsThereAContinue()
 		v = new MenuItem("Load Game",s.LoadGame)
 		v.Enabled = s.CanLoad()
