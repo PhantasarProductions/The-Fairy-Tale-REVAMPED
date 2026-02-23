@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.14
+// version: 26.02.23 I
 // 
 // End License
 
@@ -317,8 +317,8 @@ Group SubParty
 			s["EQUIP_ZZ_SR_"..atag] = 0
 		End
 		// Now let's get ready to rumble
-		For EQS in Each{"Weapon","Armor","Jewel"}
-			String EQI := Trim(C.Data["EQUIP_"..EQS]:upper())
+		For EQS in Each{[0]="Weapon","Armor","Jewel"}
+			String EQI := Upper(Trim(C.Data["EQUIP_"..EQS]))
 			CSayF("%s>%s -> '%s'",Ch,EQS,EQI)
 			If EQI!=""
 				Var I := Item[EQI]
