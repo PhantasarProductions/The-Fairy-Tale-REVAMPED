@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.23 VII
+// version: 26.02.23 XVI
 // 
 // End License
 
@@ -42,6 +42,7 @@
 Script
 
 #use "Libs/SCI/Sys"
+#use "Libs/SCI/Kthura"
 #use "Libs/SCI/InterVar"
 
 #use "Script/Use/Link"
@@ -78,62 +79,70 @@ Group MScript
 	
 	Void InitWater()
 		Progress.Create("WATER",Layers,0,0,255)
-		String Old = Map.Layer
+		String Old = Kthura.CurrentLayer
 		For i=1,Layers
 			Progress.WATER = i
 			ConfiguringData()
-			Map.Layer = sprintf("#%03d",i)
-			Water[Map.Layer]={}
+			Kthura.CurrentLayer = sprintf("#%03d",i)
+			Water[Kthura.CurrentLayer]={}
 			CSayF("Layer: %i",i)
-			Alpha[Map.Layer]=0
+			Alpha[Kthura.CurrentLayer]=0
 			if Brug[i]
-				Alpha[Map.Layer]=255
+				Alpha[Kthura.CurrentLayer]=255
 			elseif Map.HasTag("Brug")
 				Map.ObjSet("Brug","ForcePassible",false)
 				Map.ObjSet("Brug","Alpha",0)
 			end
-			For id in each(Map.ObjEnum)
-				//CSayF("Layer %03d; Object #%d",i,id)
-				if Map.ObjGetString(id,"TEXTURE"):upper()==WaterTex
-					CSay("= Object #%d - Part of water! Adding!",id)
-					Int insx=Map.ObjGetInt(id,"InsertX")
+			//For id in each(Map.ObjEnum)
+			CSayF("Number of objects: %d",Len(Kthura.AllObjects))
+			for obj in Kthura.EachObject
+				CSayF("Layer %03d; Object #%d",i,obj.id)
+				//if Upper(Map.ObjGetString(id,"TEXTURE"))==WaterTex
+				if Upper(obj.Texture)==WaterTex
+					CSayF("= Object #%d - Part of water! Adding!",Obj.id)
+					//Int insx=Map.ObjGetInt(id,"InsertX")
+					i:=Obj.id
+					LocExtern InsX "Scyndi.Class.Kthura.Obj['%'..i].InsertX"
 					while insx<0
 						insx+=256
 					end
-					Map.SetObj(id,"InsertX",insx)
+					//Map.SetObj(id,"InsertX",insx)
 					CSayF("= Insert correction %d",insx)
-					Water[Map.Layer]+=id
+					Water[Kthura.CurrentLayer]+=Obj.id
 				End
 			End			
 		End
-		Map.Layer=Old
+		Kthura.CurrentLayer=Old
 		CSay("Operation complete!")
 		Progress.Kill("WATER")
 	End
 	
 	Void NPC_Brug()
-		if Brug[Map.Layer]
+		if Brug[Kthura.CurrentLayer]
 			MapText("STUCK")
 			Return
 		End
 		Map.ObjSet("NPC_Brug","TEXTURE","GFX/Textures/Switch/Right.png")
-		Alpha[Map.Layer]=1
-		Brug[Map.Layer]=true
+		Alpha[Kthura.CurrentLayer]=1
+		Brug[Kthura.CurrentLayer]=true
 	End
 	
 	Void Update()
-		For id in each(Water[Map.Layer])
-			Map.SetObj(id,"InsertX",(Map.GetObjInt(id,"InsertX")+2)%WaterSize)
+		For id in each(Water[Kthura.CurrentLayer])
+			//Map.SetObj(id,"InsertX",(Map.GetObjInt(id,"InsertX")+2)%WaterSize)
+			idt:=sprintf("%%%d",id)
+			Kthura.Obj[idt].InsertX = (Kthura.Obj[idt].InsertX+2)%WaterSize 
 		End
-		If Alpha[Map.Layer]>0 && Alpha[Map.Layer]<255 && Brug[Map.Layer]
-			Alpha[Map.Layer]++
-			Map.ObjSet("Brug","ForcePassible",Alpha[Map.Layer]>250)
-			Map.ObjSet("Brug","Alpha",Alpha[Map.Layer])
+		If Alpha[Kthura.CurrentLayer]>0 && Alpha[Kthura.CurrentLayer]<255 && Brug[Kthura.CurrentLayer]
+			Alpha[Kthura.CurrentLayer]++
+			Map.ObjSet("Brug","ForcePassible",Alpha[Kthura.CurrentLayer]>250)
+			Map.ObjSet("Brug","Alpha",Alpha[Kthura.CurrentLayer])
+			Kthura.Remap()
 		End
 		If !Done.WELCOME_SUBRIVER
 			MapText("WELCOME")
 		End
-		if Map.Layer=="#010"
+		if Kthura.CurrentLayer=="#010"
 			Static Int Graden = 0
 			Graden = (Graden+1)%360
 			Map.ObjSet("Obstacle_TerugNaarStart","Rotation",Graden)
@@ -153,8 +162,8 @@ Group MScript
 	End
 	Void Goed()
 		Map.ObjSet("NPC_SW"..GoedeSwitch,"TEXTURE","GFX/Textures/Switch/Left.png")
-		Alpha[Map.Layer]=1
-		Brug[Map.Layer]=true
+		Alpha[Kthura.CurrentLayer]=1
+		Brug[Kthura.CurrentLayer]=true
 		For i=1,6
 			self["NPC_SW"..i]=Self.Stuck
 		End
@@ -164,7 +173,7 @@ Group MScript
 		MapText("STUCK")
 	End
 	Void StartPuzzle()
-		If Brug[Map.Layer]
+		If Brug[Kthura.CurrentLayer]
 			For i=1,6
 				self["NPC_SW"..i]=MScript.Stuck
 			End
@@ -184,8 +193,8 @@ Group MScript
 	#endregion
 	
 	Void Boss_Start()
-		Alpha[Map.Layer]=1
-		Brug[Map.Layer]=true
+		Alpha[Kthura.CurrentLayer]=1
+		Brug[Kthura.CurrentLayer]=true
 		Map.Kill("Boss_Actor",true)
 		Map.Kill("Boss_Srtart",true)
 		Combat.QuickBoss("Enormous Snail","Killer Escargot","KillerEscargot")
