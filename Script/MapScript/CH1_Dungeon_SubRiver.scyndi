@@ -34,13 +34,14 @@
 // **********************************************
 // 
 // 
-// version: 26.02.23 II
+// version: 26.02.23 V
 // 
 // End License
 
 
 Script
 
+#use "Libs/SCI/Sys"
 #use "Libs/SCI/InterVar"
 
 #use "Script/Use/Link"
@@ -164,17 +165,17 @@ Group MScript
 	Void StartPuzzle()
 		If Brug[Map.Layer]
 			For i=1,6
-				self["NPC_SW"..i]=Stuck
+				self["NPC_SW"..i]=MScript.Stuck
 			End
 			Return
 		End
 		GoedeSwitch=math.random(1,6)
 		For i=1,6
 			If i==GoedeSwitch
-				self["NPC_SW"..i]=Goed
+				self["NPC_SW"..i]=MScript.Goed
 				Map.ObjSet("NPC_SW"..i,"TEXTURE","GFX/Textures/Switch/Right.png")
 			Else
-				self["NPC_SW"..i]=Fout
+				self["NPC_SW"..i]=MScript.Fout
 				Map.ObjSet("NPC_SW"..i,"TEXTURE","GFX/Textures/Switch/Left.png")
 			End
 		End
