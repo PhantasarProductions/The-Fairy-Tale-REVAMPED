@@ -48,8 +48,8 @@ Script
 #use "Script/Use/Anyway"
 String Region = "Delisto"
 Var Data
-Var Dot = Image.LoadNew("GFX/World/Dot.png","WM_DOT")
-Var Fnt = ImageFont.Obtain("BOXTEXT")
+Var Dot = LoadNewImage("GFX/World/Dot.png","WM_DOT")
+Var Fnt = ObtainFont("BOXTEXT")
 
 Global Void ComeToMe(string R)
 	Region = R
