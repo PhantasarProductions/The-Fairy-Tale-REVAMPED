@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Combat/SpellAni/SA_Splash.scyndi
 // 
-// 	  Version: 26.02.24
+// 	  Version: 26.02.24 II
 // 	
 // 	  Copyright (C) 2020, 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -96,13 +96,13 @@ end
 	void Start(act)
 		WaterBeam.List.Clear()
 		for i,tar in pairs(act.Targets_Tag)
-			var n = new WaterBeam(act.Targets[i])
+			n := new WaterBeam(act.Targets[i])
 		end
 		Ended = False
 	end
 	
-	CONSTRUCTOR
+	Init
 		WaterBeam.List = new TLinkedList()
 	end
 
-end
+//end
