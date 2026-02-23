@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.23 V
+// version: 26.02.23 VII
 // 
 // End License
 
@@ -46,6 +46,7 @@ Script
 
 #use "Script/Use/Link"
 #use "Script/Use/Anyway"
+#use "Script/Use/Convert"
 
 QuickMeta Brug
 	index
@@ -216,6 +217,7 @@ End
 Init
 	MScript.InitWater()
 	ZA.TabEnter{[0]="StartPuzzle","Boss_Start","TerugNaarStart","Bye" }
+	Map.MSHasUpdate=True
 End
 		
 
