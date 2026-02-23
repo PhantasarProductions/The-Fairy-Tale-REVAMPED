@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.23 I
+// version: 26.02.23 II
 // 
 // End License
 
@@ -391,7 +391,7 @@ class MenuItem
 		v.Enabled = s.CanLoad()
 		v = new MenuItem("Jukebox",s.Jukebox)
 		v = new MenuItem("Bugs",s.Bugs)
-		v = new MenuItem("Exit",s.ExitGame)
+		//v = new MenuItem("Exit",s.ExitGame)
 		y = Graphics.Height + (1000*Scale)
 	end
 	
