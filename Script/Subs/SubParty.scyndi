@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.23 II
+// version: 26.02.23 III
 // 
 // End License
 
@@ -397,7 +397,7 @@ Group SubParty
 			End
 			if LvScale[Ch]>0
 				LvScale[Ch] = (LvScale[Ch]+1) % 2500
-				Graphics.SetScale(math.min(LvScale[Ch] / 500,1))
+				SetScale(math.min(LvScale[Ch] / 500,1))
 				ImgLevelUp.Draw(Boxes[i].X+(Boxes[i].W div 2),Boxes[i].Y-5)
 			End
 			If RPGChar[Ch].Stat.Level<__LevelCap && RPGChar[Ch].Stat.Experience<=0
