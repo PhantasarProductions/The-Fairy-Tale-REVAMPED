@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/MOD_Start.scyndi
 // 
-// 	  Version: 26.02.23
+// 	  Version: 26.02.23 II
 // 	
 // 	  Copyright (C) 2021, '22, 2026 Jeroen Petrus Broks
 // 	
@@ -78,7 +78,11 @@ End
 	Var FoeList
 	Link Arena  = gstr.FlowCombat_Start_Arena
 	Link FMusic = gstr.FlowCombat_Start_Music
-	String Lose = "ERROR"
+	//String Lose = "ERROR"
+	Get String Lose
+		r:=Ternary(gstr.FlowCombat_Start_Lose!="",gstr.FlowCombat_Start_Lose,"ERROR")
+		return r
+	End
 	//String StartEvent = ""
 	Link StartEvent = gstr.FlowCombat_Start_StartEvent
 	Var LastFoe = Nil
@@ -100,6 +104,7 @@ End
 		LastFoe.X = X
 		LastFoe.Y = Y
 		FoeList.AddLast(LastFoe)
+		CSayF("Added foe: %s (%d/%d)",F,Aantal,FoeList.Count)
 	End
 	
 	Bool Music_DontPush = False
