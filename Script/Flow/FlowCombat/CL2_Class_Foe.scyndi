@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/CL2_Class_Foe.scyndi
 // 
-// 	  Version: 26.02.23
+// 	  Version: 26.02.23 I
 // 	
 // 	  Copyright (C) case 2021-2026 Jeroen Petrus Broks
 // 	
@@ -96,7 +96,7 @@ Class Foe Extends Fighter
 	End
 	
 	Get Bool Damned
-		return IsUndead || (Self.StatusChanges.Undead!=nil && Self.StatusChanges.Undead!=false)
+		return IsUndead || (S.StatusChanges.Undead!=nil && S.StatusChanges.Undead!=false)
 	End
 	
 	Bool _CheckKilled = False
