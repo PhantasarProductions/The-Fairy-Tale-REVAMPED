@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Misc/Inn.scyndi
 // 
-// 	  Version: 26.02.11 XI
+// 	  Version: 26.02.23 II
 // 	
 // 	  Copyright (C) 2021-'22, 2026 Jeroen Petrus Broks
 // 	
@@ -99,6 +99,7 @@ Void RestRecover()
   Plua foe
   chars,foe = {},{}
   //for t in ICHARS() do
+  CSayF("Scanning for heroes and foes!")
   For t in Each(RPGChar.All)
     If prefixed(t,"FOE") 
     	foe+=t 
@@ -107,12 +108,14 @@ Void RestRecover()
     End    
   End
   For f in each(foe) 
+  	CSayF("Killing foe %s from memory",f)
   	RPGChar.Kill(f) 
   End
   If gBool.MarFeena_Curse
   	gInt.MarFeena_HP += (9 - (__skill^2))
   End
   For ch in each(chars) 
+      CSayF("Recovering character %s",ch)
       RPGChar[ch].Points.HP.Have  = RPGChar[ch].Points.HP.Maximum
       RPGChar[ch].Points.VIT.Have = RPGChar[ch].Points.VIT.Maximum
       RPGChar[ch].Points.AP.Have  = ({RPGChar[ch].Points.AP.Maximum,RPGChar[ch].Points.AP.Have,0})[__skill]
@@ -120,7 +123,7 @@ Void RestRecover()
 End
 	
 
-Void _Inn(free)
+Global Void UseInn(free)
 	Int innprice = 0
 	Static Table baseprice = {30,0,100}
 	Static Table multi = {0,5,10}
@@ -132,7 +135,7 @@ Void _Inn(free)
             End
         End
   	End
-  	gv.gint.InnPrice=innprice //Var.D("%INNPRICE",innprice)
+  	gint.InnPrice=innprice //Var.D("%INNPRICE",innprice)
   	MapText("INN")
   	String t = "INN"
   	If free
@@ -160,6 +163,7 @@ Void _Inn(free)
         	Graphics.Rect(0,0,Screen.W+100,Screen.H+100)
         	Graphics.SetAlpha(255)
         	Graphics.Flip()
+        	Events.Poll() // Will keep Linux from whining.
         End
         // -- Time.Sleep(2500)
         Sys.Sleep(2500)
@@ -172,6 +176,10 @@ Void _Inn(free)
         	Music.Pop()
         End
 	End
+End
+
+Void __Call(Infinity)
+	UseInn(Infinity)
 End
 
 //Return _Inn
