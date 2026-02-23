@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowWorldMap.scyndi
 // 
-// 	  Version: 26.02.23 V
+// 	  Version: 26.02.23 X
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -63,7 +63,7 @@ Var Fnt = ObtainFont("BOXTEXT")
 
 Global Void ComeToMe(string R)
 	Region = R
-	Data = Data || NeilUse("Script/Data/General/WorldMap")
+	Data = Data || NeilUse("Script/Data/General/WorldMap_Data").retbase
 	Loading()
 	Switch R
 		Case "Delisto"
@@ -100,7 +100,7 @@ global void PartyClick(int i,string ch)
 	if prefixed(ch,"Jake")
 		ch="JAKE"
 	else
-		ch=ch:upper()
+		ch=Upper(ch)
 	end
 	if !Loaded
 		BoxText.Load("WORLDMAP","WORLDMAP")
@@ -108,14 +108,15 @@ global void PartyClick(int i,string ch)
 	BoxText.Serial("WORLDMAP",sprintf("%s.%s",__WorldMap,ch),"FLOW_WORLDMAP")
 end
 
-Global Void Apollo_Flow()
-	int mx = Events.MouseX()
-	int my = Events.MouseY()
-	// Debug
-	Dev.ToConsole()
+Global Void MainFlow()
+	int mx = Events.MouseX
+	int my = Events.MouseY
 	
 	Int X = 0
 	Int Y = 0
+	
+	WantQuit()
+	
 	For tag,It in sPairs(Data)
 		Int H=0
 		If It.Folder==Region && Unlocked(tag,it)
@@ -135,7 +136,7 @@ Global Void Apollo_Flow()
 				H = 5
 				If Mouse.ML
 					Map.GoToMap(It.Kthura,It.Layer,It.Start)
-					Flow.Current="FLOW_FIELD" 
+					Flow.Current="FIELD" 
 					Visited[tag] = true
 					Return
 				End
