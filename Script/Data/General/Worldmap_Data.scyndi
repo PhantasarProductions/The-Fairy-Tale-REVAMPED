@@ -39,7 +39,7 @@
 
 
 
-
+Module
 
 table retbase
 
@@ -58,6 +58,7 @@ end
 
 
 Init
+retbase = {}
 // Record: ANNA
 do
 	var ret = new MyData_MyDataClass_c8f65e38cffbdda9ebd60a933436fc0f_d7f4f53e186220de45d6c5665676af1e()
@@ -648,7 +649,7 @@ end
 
 end
 
-return retbase
+//return retbase
 
 
 
