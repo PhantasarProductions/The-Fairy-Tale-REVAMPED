@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Link.scyndibundle/Combat.scyndi
 // 
-// 	  Version: 26.02.23
+// 	  Version: 26.02.23 I
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -227,7 +227,7 @@ Module
 				NewEnemy = "Boss/"..Boss
 			End
 		End
-		Lua.Neil.Globals.Map.StopWalking()
+		Lua.Scyndi.Class.Map.StopWalking()
 		Start()
 	End
 
