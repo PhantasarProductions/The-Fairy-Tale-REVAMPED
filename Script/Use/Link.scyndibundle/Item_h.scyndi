@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Link.scyndibundle/Item_h.scyndi
 // 
-// 	  Version: 26.02.22
+// 	  Version: 26.02.23
 // 	
 // 	  Copyright (C) 2020, 2021, 2026 Jeroen Petrus Broks
 // 	
@@ -168,7 +168,9 @@ Var __TagIndex(s,string Key)
 					elseif Key2=="SELLPRICE"
 						//CSayF("Getting sell price of item %s",Key)
 						//return ISGET.INT("SUB_ITEMS",sprintf("GetSellPrice(\"%s\")",Key))
-						Lua.error("SELLPRICE property for items not yet set!")
+						//Lua.error("SELLPRICE property for items not yet set!")
+						r:=IntGet("GetSellPrice",Key)
+						return r
 					elseif Key2=="HASFIELD"
 						//bool fuck(string K)
 						ddef Fuck
