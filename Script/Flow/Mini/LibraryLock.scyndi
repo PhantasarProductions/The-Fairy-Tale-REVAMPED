@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/Mini/LibraryLock.scyndi
 // 
-// 	  Version: 26.02.25 VI
+// 	  Version: 26.02.25 VII
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -95,7 +95,7 @@ End
 Global String CorrectAnswer
 Global Int Digits = 8
 
-Global Void SetLock(int CA,int Dgt)
+Global Void SetLock(String CA,int Dgt)
 	CorrectAnswer=CA
 	Digits=Dgt
 	CSayF("Set %d,%d",CA,Dgt)
@@ -141,7 +141,7 @@ Void CheckCorrect()
 	End
 End
 
-Global Void Apollo_Flow()
+Global Void MainFlow()
 	Static Var Lines = {}
 	Static Var Cancel = LoadNewImage("GFX/Algemeen/Cancel.png","BUTTON_CANCEL")
 	//Dev.ToConsole()//WantQuit
