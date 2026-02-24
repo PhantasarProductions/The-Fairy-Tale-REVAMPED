@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.23
+// version: 26.02.24 II
 // 
 // End License
 
@@ -43,6 +43,7 @@ Script
 #use "Libs/Music"
 
 #use "Libs/SCI/Sys"
+#use "Libs/SCI/Kthura"
 #use "Libs/SCI/InterVar"
 
 #use "Script/Use/Misc/Inn"
@@ -222,11 +223,11 @@ Group MScript
 			Map.ShowObj("Harry")
 			MapText("HARRY2")
 			Combat.Boss("Annoying Warrior Wannabe","Harry")
-			Combat.Arena = Lua.Neil.Globals.Map.Arena
+			Combat.Arena = Kthura.MetaData.Arena
 			Combat.Music = "Combat/SpecialBoss/AnnoyingBoy.ogg"
 			Combat.Lose = "GameOver"
 			Combat.NewEnemy = "Boss/Harry1"
-			Lua.Neil.Globals.Map.StopWalking()
+			Kthura.Obj.Player.StopWalking()
 			Combat.Start()
 			Schedule.Add("PostHarry")
 			Return
