@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Subs/SubItems.scyndi
 // 
-// 	  Version: 26.02.23
+// 	  Version: 26.02.24 II
 // 	
 // 	  Copyright (C) 2021-'22, 2026 Jeroen Petrus Broks
 // 	
@@ -256,7 +256,7 @@ Global Void SaveSkills()
 	//InvNums.Kill("Skills")
 	InvNums.ClearList("Skills","_Chars")	
 	For ch,abl in spairs(Abilities)
-	InvNums.ClearList("Skills",Ch)
+		InvNums.ClearList("Skills",Ch)
 		// Prevent dupes on Jake
 		//If Ch!="Jake_Fairy"
 		Switch Ch
@@ -284,15 +284,20 @@ Global Void SaveSkills()
 //	SaveGame.Data["INVENTORY.NEIL"] = Data
 End
 
-Global Void LoadSkills()
+Global Void LoadSkills()	
 	ChList:=InvNums.List("Skills","_Chars")
 	For Ch in Each(ChList)
+		If Prefixed(Upper(CH),"ABL_")
+			Events.Annoy("The skill data in this savegame has been corrupted!\n\n")
+			Sys.Quit(1)
+			Return
+		End
 		CSayF("R:Load Ability list for character: %s",ch)
 		LoadAbilityList(Ch)
 		CSayF("R:Skills for character: %s",ch)
 		SkL:=InvNums.List("Skills",ch)
 		For Sk in Each(SkL)
-			AblRec.NewSkill(ch,Sk)
+			AblRec.NewSkill(Sk,ch)
 		End
 	End
 End	
