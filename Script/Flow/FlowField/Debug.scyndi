@@ -34,13 +34,14 @@
 // **********************************************
 // 
 // 
-// version: 26.02.23
+// version: 26.02.24 II
 // 
 // End License
 
 Module
 
 #use "Libs/SCI/Sys" 
+#use "Libs/SCI/Kthura"
 #use "Libs/SCI/InterVar"
 
 #use "Script/Use/Link"
@@ -49,16 +50,6 @@ Module
 #accept FlowField
 
 Table OO = { [True]="On", [False]="Off" }
-
-Global Void CONSOLE_TagList()
-	CSayF("Map layer: %s",FlowField.Map.Layer)
-	For a in Each(Split(FlowField.Map.KthuraMap.Layer(FlowField.Map.Layer).TagList,","))
-		CSay(a)
-		For dt in Each(FlowField.Map.KthuraMap.Layer(FlowField.Map.Layer).Obj(a).DumpData)
-			CSay("=> "..dt)
-		End
-	End
-End
 
 Global Void CONSOLE_MouseDebug()
 	FlowField.Debug.MouseCoords = !FlowField.Debug.MouseCoords
@@ -140,9 +131,19 @@ End
 	Bool MouseCoords=False	
 //End
 
+Global Void DBG_Tags()
+	Kthura.ReMap()
+	printf("\x1b[94mLayer: \x1b[95m%s\n",Kthura.CurrentLayer)
+	For T in Each(Kthura.TagList)
+		O:=Kthura.Obj[T]
+		printf("\x1b[92m%s\t\x1b[93m%s\t\x1b[96m(%4d,%4d)\n",O.Kind,T,O.X,O.Y)		
+	End
+End
+
 Init
 	 Sys.ConsoleLocal("SAVE","CONSOLE_Save")
 	 Sys.ConsoleLocal("RENC","DBG_Renc")
+	 Sys.ConsoleLocal("TAGS","DBG_Tags")
 End 
 	
 	 
