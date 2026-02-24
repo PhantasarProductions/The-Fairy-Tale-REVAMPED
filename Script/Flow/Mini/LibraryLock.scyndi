@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/Mini/LibraryLock.scyndi
 // 
-// 	  Version: 26.02.25 I
+// 	  Version: 26.02.25 VI
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -42,13 +42,17 @@
 // 	  3. This notice may not be removed or altered from any source distribution.
 // End License
 
+Script
 
 #use "Libs/SCI/Sys"
+#use "Libs/SCI/Audio"
 #use "Libs/SCI/Graphics"
 
-#use "Script/Use/Anyway.scyndibundle/Algemeen"
-#use "Script/Use/Anyway.scyndibundle/Dev"
-#use "Script/Use/Anyway.scyndibundle/Mouse"
+//#use "Script/Use/Anyway.scyndibundle/Algemeen"
+//#use "Script/Use/Anyway.scyndibundle/Dev"
+//#use "Script/Use/Anyway.scyndibundle/Mouse"
+#use "Script/Use/Anyway"
+#use "Script/Use/Convert"
 
 #undef lldebug
 
@@ -139,8 +143,8 @@ End
 
 Global Void Apollo_Flow()
 	Static Var Lines = {}
-	Static Var Cancel = Image.LoadNew("GFX/Algemeen/Cancel.png","BUTTON_CANCEL")
-	Dev.ToConsole()
+	Static Var Cancel = LoadNewImage("GFX/Algemeen/Cancel.png","BUTTON_CANCEL")
+	//Dev.ToConsole()//WantQuit
 	#if lldebug
 		Graphics.Color(255,180,0)
 		dbgfnt.Text(sprintf("%s (%s); %d digits",CorrectAnswer,Answer.Whole,digits),2,2)
@@ -150,8 +154,8 @@ Global Void Apollo_Flow()
 	For i=1,Digits
 		Lines[i] = Lines[i] || new TLine()
 		Lines[i].Draw()
-		Int G = math.floor((i-1)/(Digits-1)*255)
-		Int R = 255 - G
+		Int G := math.floor((i-1)/(Digits-1)*255)
+		Int R := 255 - G
 		Graphics.Color(R,G,0)
 		BigNum.Text(Answer[i],TW*i,TH,2,2)
 		Static Int AW = BigNum.TextWidth(Answer[i])
