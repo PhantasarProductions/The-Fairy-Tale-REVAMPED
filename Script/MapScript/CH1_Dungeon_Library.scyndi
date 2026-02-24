@@ -1,8 +1,8 @@
-// License Information:
+// License:
 // **********************************************
 // 
-// src/Tricky Script/Script/MapScript/CH1_Dungeon_Library.neil
-// (c) Jeroen Broks, 2021, All Rights Reserved.
+// src/Code/Script/MapScript/CH1_Dungeon_Library.scyndi
+// (c) Jeroen Broks, 2021, 2026, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -24,6 +24,7 @@
 // from it, you can use it under that license.
 // Please check out the other files to find out
 // which license applies.
+// 
 // This file comes 'as-is' and in no possible
 // way the author can be held responsible of
 // any form of damages that may occur due to
@@ -32,8 +33,15 @@
 // 
 // **********************************************
 // 
-// version: 21.12.27
-// End License Information
+// 
+// version: 26.02.24
+// 
+// End License
+
+
+Module
+
+#use "Libs/SCI/Kthura"
 
 #use "Script/Use/anyway"
 #use "Script/Use/Misc/ManaOrb"
@@ -201,17 +209,7 @@ Group TrueScript
 		
 			
 	
-	Constructor
-		For i=3,5
-			ZA.Enter(sprintf("To%03d",i))
-		End
-		ZA.TabEnter{"Exit","ShowWalda","HideWalda","Bye"}
-		ZA.Enter("ShowWalda2","ShowWalda")
-		String O = Map.Layer
-		Map.Layer = "#002"
-		Map.HideByLabel("Walda")
-		Map.Layer = O
-	End
+	
 End
 
 QuickMeta MScript
@@ -231,4 +229,18 @@ QuickMeta MScript
 			Return TrueScript[Key]
 		End
 	End
+End
+
+Init
+	For i=3,5
+		ZA.Enter(sprintf("To%03d",i))
+	End
+	ZA.TabEnter{[0]="Exit","ShowWalda","HideWalda","Bye"}
+	ZA.Enter("ShowWalda2","ShowWalda")
+	String O:=Kthura.CurrentLayer
+		Kthura.CurrentLayer = "#002"
+		Kthura.HideByLabel("Walda")
+		Kthura.CurrentLayer = O
+	End
+	Map.MSHasUpdate = true
 End
