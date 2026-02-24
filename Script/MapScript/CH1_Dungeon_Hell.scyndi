@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.24 VII
+// version: 26.02.24 IX
 // 
 // End License
 
@@ -97,6 +97,10 @@ Group MScript
 	End
 	
 	Void Update()
+		if !Lava[Kthura.CurrentLayer]
+			Lava[Kthura.CurrentLayer] = {}
+			CSayF("ERROR! No lava info for layer %s!",Kthura.CurrentLayer)
+		End
 		For id in each(Lava[Kthura.CurrentLayer])
 			//Map.SetObj(id,"InsertY",(Map.GetObjInt(id,"InsertY")+2)%Size)
 			o:=Kthura.Obj[sprintf("%%%d",id)]
