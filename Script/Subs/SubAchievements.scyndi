@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Subs/SubAchievements.scyndi
 // 
-// 	  Version: 26.02.23
+// 	  Version: 26.02.24 II
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -161,6 +161,7 @@ Group SubAch
 	Void AutoAward()
 		LocExtern WSF "Scyndi.Globals.CSayF"
 		//LocExtern WSF "-- Scyndi.Globals.CSayF"
+		WSF("Auto Award: %s",os.date())
 		For K,V in sPairs(Dat)
 			If V.AutoVar!=""
 				Var CVar := XSplit(V.AutoVar," ")
@@ -191,7 +192,7 @@ Group SubAch
 					End
 				End
 				If Check
-					//Self.Award(K)
+					Self.Award(K)
 					WSF("Awarding %s",K)
 				End
 			End
@@ -213,7 +214,7 @@ Group SubAch
 				__Ember
 				SysFont.Text(v.Description,x+6,y+ay+ah-3,0,1)
 				if Awarded[K]
-					Static Var Check = Image.LoadNew("GFX/Achievements/Check.png","ACH_CHECK")
+					Static Var Check = LoadNewImage("GFX/Achievements/Check.png","ACH_CHECK")
 					__White
 					Check.Stretch(x+w-ah,y+ay,ah,ah)
 				ElseIf V.AutoVar!=""
