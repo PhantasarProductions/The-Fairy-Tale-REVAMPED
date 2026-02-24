@@ -34,7 +34,11 @@
 // misrepresented as being the original software.
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
+
+
 // Script/Use/Combat/ActScript/RemoveAllUserCards
+
+Module
 
 Bool _Act(Act,Tar)
 	Table Nullify
@@ -54,4 +58,4 @@ Bool _Act(Act,Tar)
 	Return True
 End
 
-Return _Act
+//Return _Act
