@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.25 I
+// version: 26.02.25 II
 // 
 // End License
 
@@ -160,7 +160,7 @@ Group TrueScript
 		End
 		//ISSET("STRING","FLOW_MINI_LIBRARY_LOCK","CorrectAnswer",lua.tostring(Puzzle[Map.Layer].Goed))
 		//ISSET("INT","FLOW_MINI_LIBRARY_LOCK","Digits",Digits[Map.Layer])
-		Sys.Call("SetLock",lua.tostring(Puzzle[Map.Layer].Goed),Digits[Map.Layer])
+		Sys.Call("FLOW_MINI_LIBRARY_LOCK","SetLock",lua.tostring(Puzzle[Map.Layer].Goed),Digits[Map.Layer])
 		Flow.Current = "FLOW_MINI_LIBRARY_LOCK"
 	End
 	
