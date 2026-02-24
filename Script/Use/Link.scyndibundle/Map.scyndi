@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Link.scyndibundle/Map.scyndi
 // 
-// 	  Version: 26.02.23 III
+// 	  Version: 26.02.24
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -570,6 +570,13 @@ End
 
 	Link MSHasUpdate = gbool.MapScriptSettings_MSUpdate_CallBack
 	Link MSHasDraw   = gbool.MapScriptSettings_MSDraw_CallBack
+	
+	
+	
+	Link SealedBoss_Head=gstring.DataSealedBoss_Head
+	Link SealedBoss_Name=gstring.DataSealedBoss_Name
+	Link SealedBoss = gstring.DataSealedBoss_Itself
+	Link SealedBoss_Krandar=gstring.DataSealedBoss_Krandar
 	
 	
 	//CONSTRUCTOR
