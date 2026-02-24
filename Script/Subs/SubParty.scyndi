@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.23 III
+// version: 26.02.24
 // 
 // End License
 
@@ -148,8 +148,12 @@ Group SubParty
 				End
 				RPGChar.Jake_Fairy.Link_Stat("Jake_Human","Level")
 				RPGChar.Jake_Fairy.Link_Stat("Jake_Human","Experience")
-				RPGChar.Jake_Fairy.Link_List("Jake_Human","*")
+				//RPGChar.Jake_Fairy.Link_List("Jake_Human","*")
 				RPGChar.Jake_Fairy.Link_Data("Jake_Human","*")
+				for k in each{[0]="EQUIP_ARMOR",  "EQUIP_JEWEL", "EQUIP_WEAPON", "MASTER", "PVNW", "SEX", "SKILL1", "SKILL2", "SKILL3", "SKILL4", "SKILL5" }
+					CSayF("Jake data link %s",k)
+					RPGChar.Jake_Fairy.Link_List("Jake_Human",k)
+				end
 				RPGChar.Jake_Human.Name = "Jake"
 				RPGChar.Jake_Fairy.Name = "Jake"
 				For i=1,5
