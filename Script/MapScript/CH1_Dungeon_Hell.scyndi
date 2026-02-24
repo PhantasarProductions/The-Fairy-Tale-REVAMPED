@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.24 VI
+// version: 26.02.24 VII
 // 
 // End License
 
@@ -42,6 +42,7 @@
 Script
 
 #use "Libs/SCI/Sys"
+#use "Libs/SCI/Kthura"
 #use "Libs/SCI/InterVar"
 
 #use "Script/Use/Misc/ForBlueSeal"
@@ -65,35 +66,41 @@ Group MScript
 	Void InitLava()
 		Lava = {}
 		Progress.Create("Lava",Layers,255,50,0)
-		String Old = Map.Layer
+		String Old = Kthura.CurrentLayer
 		For i=1,Layers
 			Progress.Lava = i
 			ConfiguringData()
-			Map.Layer = sprintf("#%03d",i)
-			Lava[Map.Layer]={}
+			Kthura.CurrentLayer = sprintf("#%03d",i)
+			Lava[Kthura.CurrentLayer]={}
 			CSayF("Layer: %i",i)
-			For id in each(Map.ObjEnum)
+			For obj in Kthura.EachObject
+				id:=obj.id
 				//CSayF("Layer %03d; Object #%d",i,id)
-				if Map.ObjGetString(id,"TEXTURE"):upper()==LavaTex
+				//if Map.ObjGetString(id,"TEXTURE"):upper()==LavaTex
+				if upper(obj.Texture)==LavaTex
 					CSayF("= Object #%03d - Part of Lava! Adding!",id)
-					Int insy=Map.ObjGetInt(id,"InsertY")
+					//Int insy=Map.ObjGetInt(id,"InsertY")
+					Int insy:=obj.InsertY
 					while insy<0
 						insy+=size
 					end
-					Map.SetObj(id,"InsertY",insy)
+					//Map.SetObj(id,"InsertY",insy)
+					obj.InsertY=insy
 					CSayF("= Insert correction %d",insy)
-					Lava[Map.Layer]+=id
+					Lava[Kthura.CurrentLayer]+=id
 				End
 			End			
 		End
-		Map.Layer=Old
+		Kthura.CurrentLayer=Old
 		CSay("Operation complete!")
 		Progress.Kill("Lava")
 	End
 	
 	Void Update()
-		For id in each(Lava[Map.Layer])
-			Map.SetObj(id,"InsertY",(Map.GetObjInt(id,"InsertY")+2)%Size)
+		For id in each(Lava[Kthura.CurrentLayer])
+			//Map.SetObj(id,"InsertY",(Map.GetObjInt(id,"InsertY")+2)%Size)
+			o:=Kthura.Obj[sprintf("%%%d",id)]
+			o.InsertY = (o.InsertY+2) % Size
 		End
 	End
 	
