@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.24 XII
+// version: 26.02.24 XIV
 // 
 // End License
 
@@ -47,6 +47,7 @@ Module
 
 #use "Script/Use/Link"
 #use "Script/Use/anyway"
+#use "Script/Use/Convert"
 #use "Script/Use/Misc/MManaOrb"
 
 Group TrueScript
