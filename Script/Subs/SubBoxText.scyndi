@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Subs/SubBoxText.scyndi
 // 
-// 	  Version: 26.02.23
+// 	  Version: 26.02.24 I
 // 	
 // 	  Copyright (C) 2020-'22, 2026 Jeroen Petrus Broks
 // 	
@@ -289,8 +289,9 @@ class TextBox
 		end
 		if rec.AltTxtFont && rec.AltTxtFont!="" 
 			// CSay("Setting font: "..rec.AltTxtFont,fonts.BoxText[2])
-			CurrentFont = ObtainFont(rec.AltTxtFont)  
+			//CurrentFont = ObtainFont(rec.AltTxtFont)  
 			//error("No alternate font possibility yet! Code me, please!") //Image.Font(rec.AltTxtFont,fonts.BoxText[2])
+			CurrentFont = LInkNewFont(rec.AltTxtFont,"BOXTEXT_ALT_FONT"..rec.AltTxtFont)
 		else
 			//CurrentFont = GetFont("BOXTEXT") //setfont("BoxTextContent")
 			CurrentFont = ObtainFont("BOXTEXT")
