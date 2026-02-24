@@ -1,8 +1,8 @@
-// License Information:
+// License:
 // **********************************************
 // 
-// src/Tricky Script/Script/MapScript/CH1_Hub_Altar.neil
-// (c) Jeroen Broks, 2021, 2022, All Rights Reserved.
+// src/Code/Script/MapScript/CH1_Hub_Altar.scyndi
+// (c) Jeroen Broks, 2021, 2022, 2026, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -24,6 +24,7 @@
 // from it, you can use it under that license.
 // Please check out the other files to find out
 // which license applies.
+// 
 // This file comes 'as-is' and in no possible
 // way the author can be held responsible of
 // any form of damages that may occur due to
@@ -32,11 +33,22 @@
 // 
 // **********************************************
 // 
-// version: 22.02.20
-// End License Information
+// 
+// version: 26.02.24 VII
+// 
+// End License
 
+Script
+
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/Events"
+#use "Libs/SCI/InterVar"
+
+#use "script/use/link"
 #use "script/use/anyway"
-#use "script/use/misc/manaorb"
+#use "script/use/convert"
+#use "script/use/misc/mmanaorb"
+#use "script/use/misc/forblueseal"
 
 Group MScript
 
@@ -79,7 +91,7 @@ Group MScript
 	
 	Void PostBoss()
 		__LoadItemState
-		State.Call("SUB_ITEMS","UnlockJakeShift","nil")
+		Sys.Call("SUB_ITEMS","UnlockJakeShift")
 		MapText("POSTBOSS")
 		RPGParty[2]=""
 		ManaOrb("Jake")
@@ -91,14 +103,33 @@ Group MScript
 		MapText("POSTMANA")
 		WorldMap.Unlock("CH1FRENDOR")
 		__WorldMap="FAIRYJAKE"
-		gv.gbool.AllowShift = true
+		gbool.AllowShift = true
 	End
 		
+End
+
+Void FixJake()
+	J:=RPGChar.Jake_Fairy.Data
+	J.AVNW = "Him"
+	J.BVNW = "His"
+	J.PVNW = "He"
+	J.RACE = "Fairy Hybrid"
+	J.SEX  = "Male"
+	J.Skill1 = "Sword Skills"
+	J.Skill2 = "Fairy Fire Magic"
+	J.Skill3 = "Fairy Wind Magic"
+	J.Skill4 = "Fairy Water Magic"
+	J.Skill5 = "Fairy Earth Magic"
+	For k in each{[0]="EQUIP_ARMOR",  "EQUIP_JEWEL", "EQUIP_WEAPON", "MASTER", "PVNW", "SEX", "SKILL1", "SKILL2", "SKILL3", "SKILL4", "SKILL5" }
+			CSayF("Jake data link %s",k)
+			RPGChar.Jake_Fairy.Link_Data("Jake_Human",k)
+	End	
+	CSay("Jake should be fixed now. Please check the status screen!\x07")
+End
 	
-	Constructor
-		ZA.TabEnter{"Leave","Altar"}
-	End
-	
-	
-	
+Init
+	ZA.TabEnter{[0]="Leave","Altar"}
+	If RPGChar.Jake_Fairy.Data.Skill1=="" && Events.Yes("Jake's fairy data appears not to be in order!\n(Result of an old bug)\n\nYou want me to fix that?")
+		FixJake()
+	End	
 End
