@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.23
+// version: 26.02.24
 // 
 // End License
 
@@ -55,5 +55,9 @@ Init
 	J.PVNW = "He"
 	J.RACE = "Fairy Hybrid"
 	J.SEX  = "Male"
-
+	J.Skill1 = "Sword Skills"
+	J.Skill2 = "Fairy Fire Magic"
+	J.Skill3 = "Fairy Wind Magic"
+	J.Skill4 = "Fairy Water Magic"
+	J.Skill5 = "Fairy Earth Magic"
 End
