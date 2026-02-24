@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/Mini/LibraryLock.scyndi
 // 
-// 	  Version: 26.02.25 VII
+// 	  Version: 26.02.25 XII
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -98,7 +98,7 @@ Global Int Digits = 8
 Global Void SetLock(String CA,int Dgt)
 	CorrectAnswer=CA
 	Digits=Dgt
-	CSayF("Set %d,%d",CA,Dgt)
+	CSayF("Set %s,%d",CA,Dgt)
 End
 
 Table ANum
@@ -109,7 +109,7 @@ QuickMeta Answer
 			ANum[key] = ANum[key] || 0 
 			return Lua.tostring(Anum[Key])
 		end
-		switch key:upper()
+		switch Upper(key)
 			Case "WHOLE" "EVERYTHING"
 				String Ret = ""
 				for i=1,Digits
@@ -158,8 +158,8 @@ Global Void MainFlow()
 		Int R := 255 - G
 		Graphics.Color(R,G,0)
 		BigNum.Text(Answer[i],TW*i,TH,2,2)
-		Static Int AW = BigNum.TextWidth(Answer[i])
-		Static Int AH = BigNum.TextHeight(Answer[i])
+		Int AW = BigNum.Width(Answer[i])
+		Int AH = BigNum.Height(Answer[i])
 		If Mouse.MX>(TW*i)-(AW div 2) && Mouse.MX<(TW*i)+(AW div 2) && Mouse.MY>TH-(AH div 2) && Mouse.MY<TH+(AH div 2) && (CountDown==0)
 			Graphics.Color(R,G,255)
 			Graphics.Rect((TW*i)-(AW div 2),TH-(AH div 2),AW,AH,true)
@@ -172,8 +172,8 @@ Global Void MainFlow()
 			End
 		end
 		__White
-		Cancel.Draw(10,Screen.H-Cancel.H-10)
-		If Mouse.ML && Mouse.MX<10+Cancel.W && Mouse.MY>Screen.H-Cancel.H-10 && (CountDown==0)
+		Cancel.Draw(10,Screen.H-Cancel.Height-10)
+		If Mouse.ML && Mouse.MX<10+Cancel.Width && Mouse.MY>Screen.H-Cancel.Height-10 && (CountDown==0)
 			Flow.Current="FIELD"
 		End
 	End	
@@ -183,7 +183,7 @@ Global Void MainFlow()
 		If CountDown==0
 			Flow.Current="FIELD" 
 			//Schedule.Add("PuzzleSolved")
-			State.Call("FLOW_FIELD","FlowField.Schedule.Schedule","\"PuzzleSolved\"")
+			Sys.Call("FLOW_FIELD","FlowField.Schedule.Schedule","PuzzleSolved")
 			ANum={}
 		End
 	End
