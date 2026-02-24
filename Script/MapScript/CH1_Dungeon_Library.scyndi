@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.24 XIV
+// version: 26.02.25 I
 // 
 // End License
 
@@ -228,7 +228,8 @@ QuickMeta MScript
 			TrueScript.Kast(Right(Key,1))
 			Return NIKS
 		ElseIf Key=="NPC_Walda"
-			return NeilUse("Script/Use/Misc/Walda")
+			NeilUse("Script/Use/Misc/MWalda")
+			Return Lua.Scyndi.Globals.Walda
 		Else
 			//CSayF("TrueScript.%s",key)
 			Return TrueScript[Key]
