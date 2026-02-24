@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.24 IX
+// version: 26.02.24 X
 // 
 // End License
 
@@ -152,7 +152,7 @@ End
 	
 Init
 	MScript.InitLava()
-	ZA.TabEnter{"North","South"}
+	ZA.TabEnter{[0]="North","South"}
 	gbool.AllowShift = true
 	Map.MSHasUpdate = True
 End
