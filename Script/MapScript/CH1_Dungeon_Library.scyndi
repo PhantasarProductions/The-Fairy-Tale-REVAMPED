@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.25 II
+// version: 26.02.25 V
 // 
 // End License
 
@@ -70,7 +70,7 @@ Group TrueScript
 		CSayF("Generating puzzle for room '%s'",L)
 		For i=1,Shelves[L]
 			Int T = math.random(1,9)
-			R[i] = {["Tag"]=sprintf("%d_%d",math.random(1,4),T),["Num"]=T}
+			R[i-1] = {["Tag"]=sprintf("%d_%d",math.random(1,4),T),["Num"]=T}
 			CSayF("= Bookshelf %d, number %d",i,T)
 		End
 		Int Goed 
@@ -109,7 +109,7 @@ Group TrueScript
 	End
 	
 	Void Exit()
-		String L = Map.Layer
+		String L = Kthura.CurrentLayer
 		Map.GoToLayer("#002","From"..right(L,Len(L)-1))
 	End
 	
@@ -126,20 +126,20 @@ Group TrueScript
 			CSayF("Kast request ignored! Wait %d more frame(s)",KastSkipFrame)
 			Return
 		End
-		String L = Map.Layer
+		String L = Kthura.CurrentLayer
 		Puzzle[L] = Puzzle[L] || TrueScript.InitPuzzle(L)
 		Var nn := Lua.tonumber(n)
 		Lua.assert(nn,sprintf("I could not properly turn string '%s' into a number (%s %s)",n,Lua.type(nn),Lua.tostring(nn)))
 		//print(serialize("Puzzle",Puzzle))
-		MapText(Puzzle[Map.Layer][nn].Tag)
+		MapText(Puzzle[Kthura.CurrentLayer][nn].Tag)
 		KastSkipFrame = 6
 	End
 	
 	Get Bool Solved
-		return gbool["SOLVED_LIBRARY_"..Map.Layer]
+		return gbool["SOLVED_LIBRARY_"..Kthura.CurrentLayer]
 	End
 	Set Bool Solved
-		gbool["SOLVED_LIBRARY_"..Map.Layer]=value
+		gbool["SOLVED_LIBRARY_"..Kthura.CurrentLayer]=value
 	End
 	
 	Void NPC_Peddestal()
@@ -153,33 +153,33 @@ Group TrueScript
 			MapText("UNRESPONSIVE")
 			Return
 		End
-		Puzzle[Map.Layer] = Puzzle[Map.Layer] || TrueScript.InitPuzzle(Map.Layer)
+		Puzzle[Kthura.CurrentLayer] = Puzzle[Kthura.CurrentLayer] || TrueScript.InitPuzzle(Kthura.CurrentLayer)
 		If !State.Has("FLOW_MINI_LIBRARY_LOCK")
 			Loading()
 			State.Load("FLOW_MINI_LIBRARY_LOCK","Script/Flow/Mini/LibraryLock.lbc")
 		End
-		//ISSET("STRING","FLOW_MINI_LIBRARY_LOCK","CorrectAnswer",lua.tostring(Puzzle[Map.Layer].Goed))
-		//ISSET("INT","FLOW_MINI_LIBRARY_LOCK","Digits",Digits[Map.Layer])
-		Sys.Call("FLOW_MINI_LIBRARY_LOCK","SetLock",lua.tostring(Puzzle[Map.Layer].Goed),Digits[Map.Layer])
-		Flow.Current = "FLOW_MINI_LIBRARY_LOCK"
+		//ISSET("STRING","FLOW_MINI_LIBRARY_LOCK","CorrectAnswer",lua.tostring(Puzzle[Kthura.CurrentLayer].Goed))
+		//ISSET("INT","FLOW_MINI_LIBRARY_LOCK","Digits",Digits[Kthura.CurrentLayer])
+		Sys.Call("FLOW_MINI_LIBRARY_LOCK","SetLock",sprintf("%02d",Puzzle[Kthura.CurrentLayer].Goed),Digits[Kthura.CurrentLayer])
+		Flow.Current = "MINI_LIBRARY_LOCK"
 	End
 	
 	Void PuzzleSolved()
-		Switch Map.Layer
+		Switch Kthura.CurrentLayer
 			Case "#003"
 				MapText("SLOTYES")
-				Map.Layer = "#002"
+				Kthura.CurrentLayer = "#002"
 				Map.Kill("Door4",true)
-				Map.Layer = "#003"
+				Kthura.CurrentLayer = "#003"
 			Case "#004"
 				MapText("SLOTYES")
-				Map.Layer = "#002"
+				Kthura.CurrentLayer = "#002"
 				Map.Kill("Door5",true)
-				Map.Layer = "#004"
+				Kthura.CurrentLayer = "#004"
 			case "#005"
 				Map.Kill("Door6")
 			Default
-				Lua.error("No known action for layer: "..Map.Layer)
+				Lua.error("No known action for layer: "..Kthura.CurrentLayer)
 		End
 		Solved = True
 	End
