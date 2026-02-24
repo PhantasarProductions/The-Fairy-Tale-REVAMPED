@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Link.scyndibundle/Map.scyndi
 // 
-// 	  Version: 26.02.24
+// 	  Version: 26.02.24 I
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -390,17 +390,17 @@ End
 	End
 	Void LayShowByLabel(string Layer,string Label)
 		//MCall(sprintf("FlowField.Map.KthuraMap.Layer('%s').ShowByLabel",Layer),Label)
-		old:=Kthura.OldLabel
+		old:=Kthura.OldLayer
 		Kthura.CurrentLayer=Layer
 		Kthura.ShowByLabel(Label)
 		Kthura.CurrentLayer=old
 	End
 	Void HideByLabel(string Label)
 		//MCall("FlowField.Map.CurLayer.HideByLabel",Label)
-		old:=Kthura.OldLabel
-		Kthura.CurrentLayer=Layer
+		//old:=Kthura.OldLayer
+		//Kthura.CurrentLayer=Layer
 		Kthura.HideByLabel(Label)
-		Kthura.CurrentLayer=old
+		//Kthura.CurrentLayer=old
 
 	End
 	Void ShowByLabel(string Label)
@@ -409,7 +409,7 @@ End
 	End
 	Void HideButLabel(string label)
 		//Mcall("FlowField.Map.CurLayer.HideButLabel",label)
-		Kthura.HideByLabel(Label)
+		Kthura.HideButLabel(Label)
 	end
 	Void ShowButLabel(string label)
 		Mcall("FlowField.Map.CurLayer.ShowButLabel",label)
