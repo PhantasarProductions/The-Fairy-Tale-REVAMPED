@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Combat/SpellAni/SA_Frost.scyndi
 // 
-// 	  Version: 26.02.24 I
+// 	  Version: 26.02.24 III
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -45,6 +45,7 @@
 
 Module
 
+#use "Libs/SCI/Audio"
 #use "Libs/SCI/Graphics"
 
 #use "Script/Use/Anyway"
@@ -97,4 +98,4 @@ Module
 		return _Ended
 	end
 	
-end
+//end
