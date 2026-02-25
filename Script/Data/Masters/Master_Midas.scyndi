@@ -1,8 +1,8 @@
-// License Information:
+// License:
 // **********************************************
 // 
-// src/Tricky Script/Script/Data/Masters/Midas.neil
-// (c) Jeroen Broks, 2017, 2021, All Rights Reserved.
+// src/Code/Script/Data/Masters/Master_Midas.scyndi
+// (c) Jeroen Broks, 2017, 2021, 2026, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -24,6 +24,7 @@
 // from it, you can use it under that license.
 // Please check out the other files to find out
 // which license applies.
+// 
 // This file comes 'as-is' and in no possible
 // way the author can be held responsible of
 // any form of damages that may occur due to
@@ -32,9 +33,19 @@
 // 
 // **********************************************
 // 
-// version: 21.12.30
-// End License Information
+// 
+// version: 26.02.25 VII
+// 
+// End License
+
 Module
+
+#use "Libs/SCI/InterVar"
+
+#use "Script/Use/Anyway"
+#use "Script/Use/Convert"
+
+#accept DefStat
 
 
 	//local skill = Sys.Val(Var.C('%SKILL'))
@@ -62,7 +73,7 @@ Module
 
 	Bool All
 	Var teach(string ch)
-    	Int score = __Cash-RPGChar[ch].Stat.MidasStart
+    	Int score := __Cash-RPGChar[ch].Stat.MidasStart
     	Int min1=10000
     	Int min2=25000
     	All = False
@@ -87,7 +98,7 @@ Module
     End
     
     Void Appoint(string ch)
-    	FlowMaster.DefStat(ch,"MidasStart",__cash)
+    	DefStat(ch,"MidasStart",__cash)
     End
 
     //function Midas.dismiss(ch)
@@ -98,10 +109,10 @@ Module
     ReadOnly Table Stats = {["Accuracy"] = 100,["Evasion"] = 100, ["AP"] = -25, ["HP"] = -25 }
     
     String ShowScore(String ch)
-    	Int score = __Cash-RPGChar[ch].Stat.MidasStart
+    	Int score := __Cash-RPGChar[ch].Stat.MidasStart
     	return score.." shilders"
     End
     
-    ReadOnly Table Desc = {"Midas knows all about making money","Money you make while being his apprentice","may give you new skills","However, money you lose or spend WILL","be subtracted from your score","","Will he make you rich or rip you off?","","When you study under Midas","The enemies may drop more money","when they die."}
+    ReadOnly Table Desc = {[0]="Midas knows all about making money","Money you make while being his apprentice","may give you new skills","However, money you lose or spend WILL","be subtracted from your score","","Will he make you rich or rip you off?","","When you study under Midas","The enemies may drop more money","when they die."}
 
-End
+//End
