@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.25 VI
+// version: 26.02.25 VII
 // 
 // End License
 
@@ -144,7 +144,7 @@ Group MScript
 			WorldMap.Go()
 			Return
 		End
-		Map.GoToLayer("TOWN","from"..(Map.Layer:lower()))
+		Map.GoToLayer("TOWN","from"..lower(Map.Layer))
 	End
 	
 	Void Welcome()
