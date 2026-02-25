@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.24 II
+// version: 26.02.25 II
 // 
 // End License
 
@@ -140,10 +140,20 @@ Global Void DBG_Tags()
 	End
 End
 
+Global Void DBG_Cash(c)
+	if c==""
+		print("\x1b[92mNo changes!")
+	else
+		__cash = Lua.tonumber(c) || 1
+	end
+	printf("\x1b[93mCash is now: %9d shilders\n",__cash)
+End	
+
 Init
 	 Sys.ConsoleLocal("SAVE","CONSOLE_Save")
 	 Sys.ConsoleLocal("RENC","DBG_Renc")
 	 Sys.ConsoleLocal("TAGS","DBG_Tags")
+	 Sys.ConsoleLocal("CASH","DBG_Cash")
 End 
 	
 	 
