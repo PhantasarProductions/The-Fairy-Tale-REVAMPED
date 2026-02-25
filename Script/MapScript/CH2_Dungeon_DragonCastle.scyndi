@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.25 II
+// version: 26.02.25 III
 // 
 // End License
 
@@ -69,7 +69,7 @@ Group MScript
 	
 	Void Boss()
 		If !Done.Dragon_Castle_Boss_Fight
-			 Combat.QuickBoss("Souls of the angry undead","Mega Ghost","Mega Ghost")
+			 Combat.QuickBoss("Souls of the angry undead","Mega Ghost","Mega_Ghost")
 		End
 	End
 	
