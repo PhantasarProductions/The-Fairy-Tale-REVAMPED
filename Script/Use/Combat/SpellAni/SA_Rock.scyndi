@@ -61,9 +61,10 @@ module
 		return _Ended
 	end
 	
-	Constructor
+	Init
 		CSay("Shoot SpellANI - Loaded!")
-		Template = Lua.Neil.Use("Script/Use/Combat/SpellAni/Templates/Projectile")
+		Lua.Scyndi.Use("Script/Use/Combat/SpellAni/Templates/Projectile")
+		Template = Lua.Scyndi.Class.Projectile
 		CSay("Shoot SpellANI -  Projectile Template loaded!")
 	end
 	

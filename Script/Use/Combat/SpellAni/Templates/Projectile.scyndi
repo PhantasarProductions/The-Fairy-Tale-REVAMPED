@@ -37,9 +37,9 @@
 
 module 
 	
-	void Init()
-		Lua.error("Projectile module should NEVER be used as a stand alone spellani")
-	end
+	//void Init()
+	//	Lua.error("Projectile module should NEVER be used as a stand alone spellani")
+	//end
 
 	var PrjImage
 	bool Turn = true
