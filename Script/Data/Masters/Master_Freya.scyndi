@@ -1,8 +1,8 @@
-// License Information:
+// License:
 // **********************************************
 // 
-// src/Tricky Script/Script/Data/Masters/Freya.neil
-// (c) Jeroen Broks, 2021, 2022, All Rights Reserved.
+// src/Code/Script/Data/Masters/Master_Freya.scyndi
+// (c) Jeroen Broks, 2021, 2022, 2026, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -24,6 +24,7 @@
 // from it, you can use it under that license.
 // Please check out the other files to find out
 // which license applies.
+// 
 // This file comes 'as-is' and in no possible
 // way the author can be held responsible of
 // any form of damages that may occur due to
@@ -32,15 +33,28 @@
 // 
 // **********************************************
 // 
-// version: 22.02.22
-// End License Information
+// 
+// version: 26.02.25 XII
+// 
+// End License
+
 
 Module
+
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/InterVar"
+
+#use "Script/Use/Anyway"
+#use "Script/Use/Convert"
+
+#accept DefStat
+	
+	PLUA NIKS(); END
 
 	Const String Name = "Freya"
 	Const String ID   = "Freya"
 
-	Get Bool requirement() 
+	Get Bool requirement
 		// Please note the event that removes all salves and potions 
 		// (which Freya demands) already took place before this script is 
 		// loaded at all!
@@ -78,12 +92,12 @@ Module
 	Bool All = False
 	// Should return true if master actually decides to teach something	
 	Var Teach(string Ch)
-		Int lv       = FreyaL(ch)
-		Int LvM      = FreyaM(ch)
-		Int verschil = lv - RPGChar[ch].Stat.FreyaInit
+		Int lv       := FreyaL(ch)
+		Int LvM      := FreyaM(ch)
+		Int verschil := lv - RPGChar[ch].Stat.FreyaInit
 		//local all      = true
-		Bool maylearn = ch!="Dandor"
-		Var rabl     = nil
+		Bool maylearn := ch!="Dandor"
+		Var rabl     := nil
 		If Lv==LvM
 			// Max level reached, then always teach
 			verschil=201
@@ -94,13 +108,13 @@ Module
 			mul+=math.random(0,3)
 		End
 		For i,a in pairs(abl)
-			Int Versch=verschil*((4-__skill)*mul)
+			Int Versch:=verschil*((4-__skill)*mul)
 			CSayF("Char %s; Check ability '%s'; Req-Set: %03d; May-Learn %s; FreyaInit: %03d; Level: %03d; Max: %03d; Rating: %03d; mul: %d",Ch,a,i,Lua.tostring(maylearn),RPGChar[ch].Stat.FreyaInit,lv,LvM,Versch,mul)
-			If (i<=lv or i<=versch) and maylearn and (! Done["MASTER.FREYA."..ch.."."..a])
+			If (i<=lv || i<=versch) && maylearn && (! Done["MASTER.FREYA."..ch.."."..a])
 				maylearn=false
 				rabl=a
 			Else
-				all = all and gv.gbool["MASTER.FREYA."..a]
+				all = all && gbool["MASTER.FREYA."..a]
 			End
 		End
 		Return rabl
@@ -108,9 +122,9 @@ Module
 	End
 	
 	Void Appoint(string ch)
-		Int l = FreyaL(ch)
+		Int l := FreyaL(ch)
 		CSay("Creating init point "..l.." for Freya on "..ch) //,255,255,255)
-		FlowMaster.DefStat(ch,"FreyaInit",l)
+		DefStat(ch,"FreyaInit",l)
 	End
 	
 	//function Freya.dismiss(ch)
@@ -120,7 +134,7 @@ Module
 	ReadOnly Table Desc = {"Freya is a Fairy Healer","One of the best of her race","She'll teach you powerful spells if you","practice water magic, or","your powers to healing gods","","Dandor cannot learn new spells here"}
 
 	Var Stats
-	Constructor
+	Init
 		stats = {}
 		// -- Str -40%, HP +100%, End -75%, Int +50%, Res -75%, Acc -80%, Eva -100%
 		Stats.Power = -40
@@ -133,10 +147,10 @@ Module
 		Stats.AP = 25
 		
 		If __skill!=3
-			Desc[#Desc+1]=""
-			Desc[#Desc+1]="When studying under Freya"
-			Desc[#Desc+1]=sprintf("You'll recover %d HP",300 div __skill)
-			Desc[#Desc+1]="At the start of each turn"
+			Desc += ""
+			Desc += "When studying under Freya"
+			Desc += sprintf("You'll recover %d HP",300 div __skill)
+			Desc += "At the start of each turn"
 		End
 		DefAbl()
 	End
@@ -155,4 +169,4 @@ Module
 	
 	ReadOnly Bool HideRates = true
 
-end
+//end
