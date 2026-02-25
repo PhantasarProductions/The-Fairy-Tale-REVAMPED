@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.25 II
+// version: 26.02.25 VI
 // 
 // End License
 
@@ -42,7 +42,10 @@ Script
 
 #use "Libs/SCI/InterVar"
 
+#use "Script/Use/Link"
 #use "Script/Use/Anyway"
+#use "Script/Use/Convert"
+
 #use "Script/Use/Misc/AskYes"
 #use "Script/Use/Misc/Inn"
 
@@ -150,9 +153,10 @@ Group MScript
 		End
 		Ach.Award("SCEN_CH2_ELVES")
 	End
-	
-	Constructor
-		ZA.TabEnter{"Exit","Welcome","Enter_Inn","Enter_Weapons","Enter_Items","Enter_TownHall","Emperor"}
-	End
-	
 End
+
+Init
+	ZA.TabEnter{[0]="Exit","Welcome","Enter_Inn","Enter_Weapons","Enter_Items","Enter_TownHall","Emperor"}
+End
+	
+
