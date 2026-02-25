@@ -34,13 +34,15 @@
 // **********************************************
 // 
 // 
-// version: 26.02.25 II
+// version: 26.02.25 III
 // 
 // End License
 
 
 
-module 
+module
+
+#use "Script/Use/Anyway"
 
 #accept LoadNewImage
 #accept Fighter
