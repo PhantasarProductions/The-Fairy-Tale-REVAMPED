@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Misc/AskYes.scyndi
 // 
-// 	  Version: 26.02.25
+// 	  Version: 26.02.25 X
 // 	
 // 	  Copyright (C) 2021, 2026 Jeroen Petrus Broks
 // 	
@@ -46,7 +46,13 @@
 Module
 
 #use "Libs/SCI/Sys"
+#use "Libs/SCI/Events"
 #use "Libs/SCI/Graphics"
+
+#use "Script/Use/Anyway"
+#use "Script/Use/Convert"
+
+LocExtern ll "#"
 
 Table V2 = {1,0,-1}
 Table Buttons = {[true]={"Yes","No","Cancel"}, [false]={"Yes","No"}}
@@ -60,6 +66,10 @@ Init
 	End
 End
 
+Bool ValueIsSomething(B)
+	return B!=nil && B!=false
+End
+
 // 2 return values. 
 // 1 = True if Yes was clicked otherwise false
 // 2 = 1 if Yes was clicked, 0 if no was clicked and -1 if Cancel was clicked
@@ -67,14 +77,14 @@ Global Var Yes(String Question,AllowCancel,String _Flow="FLOW_FIELD")
 	Repeat
 		Graphics.Cls()
 		Events.Poll()
-		Bool AC = ValueIsSomething(AllowCancel)
+		Bool AC := ValueIsSomething(AllowCancel)
 		Int Hover = 0
-		State.Call(_Flow,"BoxText_Back","nil")
+		Sys.Call(_Flow,"BoxText_Back")
 		locextern X "20"
 		LocExtern Y "20"
-		Int W = Screen.W - (X*2)
-		Int H = Screen.H - (Y*2)
-		Int BW = W div (#Buttons[AC]+1)
+		Int W := Screen.W - (X*2)
+		Int H := Screen.H - (Y*2)
+		Int BW := W div (ll Buttons[AC]+1)
 		__Black
 		Graphics.Alpha(100)
 		Graphics.Rect(X,Y,W,H)
@@ -82,11 +92,11 @@ Global Var Yes(String Question,AllowCancel,String _Flow="FLOW_FIELD")
 		__White
 		Fnt.Text(Question,Screen.W div 2,Y+40,2)
 		For i,b in pairs(Buttons[AC])
-			Var Pic = Pics[b]
-			Int PY = math.floor(Y+(H*0.70))
-			Int PX = i*BW
-			Int HW = Pic.W div 2
-			Int HH = Pic.H div 2
+			Pic := Pics[b]
+			Int PY := math.floor(Y+(H*0.70))
+			Int PX := i*BW
+			Int HW := Pic.Width div 2
+			Int HH := Pic.Height div 2
 			Pic.Draw(PX,PY)
 			If Mouse.MX>PX-HW && Mouse.MY>PY-HH && Mouse.MX<PX+HW && Mouse.MY<PY+HH
 				Hover = i
@@ -101,4 +111,4 @@ Global Var Yes(String Question,AllowCancel,String _Flow="FLOW_FIELD")
 	Forever
 End
 
-Return _R
+//Return _R
