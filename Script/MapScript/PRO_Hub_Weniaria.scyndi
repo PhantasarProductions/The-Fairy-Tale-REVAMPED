@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/MapScript/PRO_Hub_Weniaria.scyndi
 // 
-// 	  Version: 26.02.23
+// 	  Version: 26.02.25
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -113,7 +113,7 @@ Group MScript
 End	
 	
 Init
-	ZA.TabEnter{"Bye","ToHall","Leave"}
+	ZA.TabEnter{[0]="Bye","ToHall","Leave"}
 	If Done.SpokenSashaFunda
 		Map.LayKill("HALL","SashaFunda")
 	End	
