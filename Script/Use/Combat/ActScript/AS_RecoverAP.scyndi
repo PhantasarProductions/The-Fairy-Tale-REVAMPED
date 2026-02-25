@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Combat/ActScript/AS_RecoverAP.scyndi
 // 
-// 	  Version: 26.02.25 II
+// 	  Version: 26.02.25 III
 // 	
 // 	  Copyright (C) 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -45,6 +45,7 @@
 
 Module
 
+#accept CharMsg
 #accept FlowCombat
 
 Bool _Act(Act,Tar)
@@ -54,7 +55,7 @@ Bool _Act(Act,Tar)
 		Return False
 	End
 	Tar.Char.Points.AP.Have += RAP
-	FlowCombat.charmsg(Tar.Tag,sprintf("+%d AP",RAP),0,180,255)
+	charmsg(Tar.Tag,sprintf("+%d AP",RAP),0,180,255)
 	Return True
 End
 
