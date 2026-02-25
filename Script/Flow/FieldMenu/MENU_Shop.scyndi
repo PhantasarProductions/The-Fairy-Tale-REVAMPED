@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FieldMenu/MENU_Shop.scyndi
 // 
-// 	  Version: 26.02.23 XV
+// 	  Version: 26.02.25 II
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -90,9 +90,16 @@ End
 	String ShopTitle
 	
 	ReadOnly Var HdF = ObtainFont("BIGTEXT")
-	ReadOnly Var Fnt = ObtainFont("FNTSTATSTAT")
+		
+	ReadOnly Var BFnt = ObtainFont("FNTSTATSTAT")
+	ReadOnly Var SFnt = ObtainFont("FNTEQP")
+	
+	Int D
+	Var Fnt
 	
 	Void LoadStore(string shp)
+		D=30
+		Fnt=BFnt
 		LoadedShop = Shp
 		Stock = New TLinkedList()
 		Tradeables = New TLinkedList()
@@ -106,6 +113,11 @@ End
 				If NI.Tradeable
 					Tradeables.AddLast(NI)
 				End
+				// if too much stock, smaller font to fit it all in.
+				If i>=16
+					D=17
+					Fnt=SFnt
+				End
 			End
 		End
 	End
@@ -118,7 +130,7 @@ End
 		Int Y  := ubox.Y + 50		
 		For StI in Stock.Each
 			int H  = 0
-			if Mouse.MX>X && Mouse.MX<EX && Mouse.MY>Y && Mouse.MY<Y+40
+			if Mouse.MX>X && Mouse.MX<EX && Mouse.MY>Y && Mouse.MY<Y+D
 				H = 10
 				If Mouse.ML 
 					If __Cash>=StI.BuyPrice && Item[Sti.Tag].Has<Item.Max && Item[Sti.Tag].Give						
@@ -134,7 +146,8 @@ End
 			__Ember
 			Fnt.Text(sprintf("%d Sh",StI.BuyPrice),EX-h,Y,1)
 			//Y+=35
-			Y+=30
+			//Y+=30
+			Y+=D
 		End	
 		__White
 		If __Cash==1
