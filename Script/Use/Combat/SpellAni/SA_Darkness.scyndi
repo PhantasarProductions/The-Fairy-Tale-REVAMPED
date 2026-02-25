@@ -1,8 +1,8 @@
-// License Information:
+// License:
 // **********************************************
 // 
-// src/Tricky Script/Script/Use/Combat/SpellAni/Darkness.neil
-// (c) Jeroen Broks, 2021, 2022, All Rights Reserved.
+// src/Code/Script/Use/Combat/SpellAni/SA_Darkness.scyndi
+// (c) Jeroen Broks, 2021, 2022, 2026, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -24,6 +24,7 @@
 // from it, you can use it under that license.
 // Please check out the other files to find out
 // which license applies.
+// 
 // This file comes 'as-is' and in no possible
 // way the author can be held responsible of
 // any form of damages that may occur due to
@@ -32,10 +33,12 @@
 // 
 // **********************************************
 // 
-// version: 22.01.08
-// End License Information
-// This script is translated from NIL to Neil
-// For Star Story
+// 
+// version: 26.02.25
+// 
+// End License
+
+
 
 module 
 
@@ -47,27 +50,23 @@ module
 	int Frame
 	var Act
 	
-	// The difference between a CONSTRUCTOR and the and Init function
-	// Is that CONSTRUCTOR is only automatically loaded when this
-	// module is called fo the first time in a combat.
-	// Init will be called EVERY time a move is being performed.
-	CONSTRUCTOR
-		self.Explosion = Image.LoadNew("gfx/Combat/SpellAni/Explosion.jpbf","SPELLANI_Explosion")
-		//self.MAudio = Audio.LoadNew("Audio/SpellAni/Fire.ogg","SPELLANI_Flame")
-		self.Explosion.HotBottomCenter()
+	Init
+		Explosion = LoadNewImage("gfx/Combat/SpellAni/Explosion.jpbf","SPELLANI_Explosion")
+		//MAudio = Audio.LoadNew("Audio/SpellAni/Fire.ogg","SPELLANI_Flame")
+		Explosion.HotBottomCenter()
 	end	
 
 	void Start(aact)
-		self.Act = aact
-		self.skip = 0
-		self.Frame = 0
-		//self.MAudio.Play()
+		Act = aact
+		skip = 0
+		Frame = 0
+		//MAudio.Play()
 	end
 	
 	
 	void Draw()
 		// End it if we go overquota! This one is only a safety precaution
-		if self.Frame>=10
+		if Frame>=10
 			return 
 		end
 		// Draw it all!
@@ -76,23 +75,22 @@ module
 			var tar = Fighter.ByTag[tart]
 			//Lua.assert(tar,sPrintF("SpellAni.Explosion: Nil received for target tag: %d/%s",tart,tari))
 			__Black
-			self.Explosion.Draw(tar.TX,tar.TY,self.Frame)
+			Explosion.Draw(tar.TX,tar.TY,Frame)
 		end		
 	end
 	
 	void Update()
 		// Calc results
-		//self.skip++
-		//if self.skip>self.skipmax
-		//	self.skip = 0
+		//skip++
+		//if skip>skipmax
+		//	skip = 0
 		//	return
 		//end
-		self.Frame++
+		Frame++
 		return 
 	end
 	
 	get bool Ended
-		return self.Frame>=16
+		return Frame>=16
 	end
 	
-end
