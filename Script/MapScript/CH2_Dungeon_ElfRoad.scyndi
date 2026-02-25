@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.25 VI
+// version: 26.02.25 IX
 // 
 // End License
 
@@ -42,12 +42,14 @@
 Module
 
 #use "Libs/SCI/Sys"
+#use "Libs/SCI/Kthura"
 #use "Libs/SCI/InterVar"
 
 #use "Script/Use/Link"
 #use "Script/Use/Anyway"
 #use "Script/Use/Convert"
 #use "Script/Use/Misc/AskYes"
+#use "Script/Use/Misc/ForBlueSeal"
 
 #macro Freya_Recruited gbool.Freya_Recruited_As_A_Master
 
@@ -119,7 +121,7 @@ Group MScript
 			Map.ShowObj("PLAYER2")			
 			Map.Pop("Stil2")
 			MapText("STILLOR_1")
-			Map.ShowButLabel("Secret")
+			Kthura.ShowButLabel("Secret")
 			Map.Pop("Stil2")
 			MapText("STILLOR_2")
 			Map.Kill("HandoStillor",true)
@@ -130,7 +132,8 @@ Group MScript
 	#endregion
 	
 	Get Delegate NPC_Walda
-		Return NeilUse("Script/Use/Misc/Walda")
+		W:=NeilUse("Script/Use/Misc/MWalda")
+		return Lua.Scyndi.Globals.Walda
 	End
 End
 	
