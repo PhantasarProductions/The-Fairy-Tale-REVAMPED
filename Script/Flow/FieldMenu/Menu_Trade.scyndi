@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FieldMenu/Menu_Trade.scyndi
 // 
-// 	  Version: 26.02.23 X
+// 	  Version: 26.02.25
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -97,7 +97,7 @@ Module
 			int H  = 0
 			var _TradeInItem
 			CanTrade,ToCash,_TradeInItem = GetToCash(StI.Data,Char)
-			if Mouse.MX>X && Mouse.MX<EX && Mouse.MY>Y && Mouse.MY<Y+40
+			if Mouse.MX>X && Mouse.MX<EX && Mouse.MY>Y && Mouse.MY<Y+Shop.D
 				H = 10
 				If CanTrade
 					TradeBuyItem = StI.Data
@@ -128,7 +128,8 @@ Module
 				__Red
 				Fnt.Text("Can't trade",EX-h,Y,1)
 			End
-			Y+=35
+			//Y+=35
+			Y+=Shop.D
 		End	
 		__White
 		If __Cash==1
