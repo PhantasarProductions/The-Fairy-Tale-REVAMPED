@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Link.scyndibundle/ZA.scyndi
 // 
-// 	  Version: 26.02.23
+// 	  Version: 26.02.25 I
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -76,7 +76,8 @@ module
 	end
 	
 	void TabEnter(stuff)
-		for z in each(stuff)
+		//for z in each(stuff)
+		for _,z in pairs(stuff)
 			Enter(z,z)
 		end
 	end
