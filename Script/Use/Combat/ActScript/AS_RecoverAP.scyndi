@@ -34,8 +34,12 @@
 // misrepresented as being the original software.
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
+Module
+
+#accept FlowCombat
+
 Bool _PARA(Act,Tar)
-	String MyArg = Act.EffectScript_Arg
+	String MyArg := Act.EffectScript_Arg
 	Int RAP = Lua.tonumber(MyArg) || 1
 	If Tar.Team!="Hero"
 		Return False
@@ -45,4 +49,4 @@ Bool _PARA(Act,Tar)
 	Return True
 End
 
-Return _PARA
+//Return _PARA
