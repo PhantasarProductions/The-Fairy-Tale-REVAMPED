@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.23 I
+// version: 26.02.25
 // 
 // End License
 
@@ -173,7 +173,7 @@ Group MScript
 	End
 	
 	Void NPC_Monk()
-		MapText("MONK_"..Lua.tostring(Done["Spoken_Anna_Monk"]):upper())
+		MapText("MONK_"..Upper(Lua.tostring(Done["Spoken_Anna_Monk"])))
 		WorldMap.UnLock("ANNA")
 	End
 	
