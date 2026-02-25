@@ -34,11 +34,17 @@
 // misrepresented as being the original software.
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
+
+Module
+
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/Graphics"
+
 Table V2 = {1,0,-1}
 Table Buttons = {[true]={"Yes","No","Cancel"}, [false]={"Yes","No"}}
-Var Fnt = ImageFont.Obtain("BIGTEXT")
+Var Fnt = ObtainFont("BIGTEXT")
 
-ReadOnly Var Pics = {["Yes"] = Image.LoadNew("GFX/Algemeen/Yes.png","BUTTON_YES"), ["No"] = Image.LoadNew("GFX/Algemeen/No.png","BUTTON_NO"), ["Cancel"]=Image.LoadNew("GFX/Algemeen/Cancel.png","BUTTON_CANCEL") }
+ReadOnly Var Pics = {["Yes"] = LoadNewImage("GFX/Algemeen/Yes.png","BUTTON_YES"), ["No"] = LoadNewImage("GFX/Algemeen/No.png","BUTTON_NO"), ["Cancel"]=LoadNewImage("GFX/Algemeen/Cancel.png","BUTTON_CANCEL") }
 
 Init
 	for _,P in pairs(Pics)
@@ -49,17 +55,17 @@ End
 // 2 return values. 
 // 1 = True if Yes was clicked otherwise false
 // 2 = 1 if Yes was clicked, 0 if no was clicked and -1 if Cancel was clicked
-Var _R(String Question,AllowCancel,String _Flow="FLOW_FIELD")
+Global Var Yes(String Question,AllowCancel,String _Flow="FLOW_FIELD")
 	Repeat
 		Graphics.Cls()
 		Events.Poll()
 		Bool AC = ValueIsSomething(AllowCancel)
 		Int Hover = 0
 		State.Call(_Flow,"BoxText_Back","nil")
-		Static Int X = 20
-		Static Int Y = 20
-		Static Int W = Screen.W - (X*2)
-		Static Int H = Screen.H - (Y*2)
+		locextern X "20"
+		LocExtern Y "20"
+		Int W = Screen.W - (X*2)
+		Int H = Screen.H - (Y*2)
 		Int BW = W div (#Buttons[AC]+1)
 		__Black
 		Graphics.Alpha(100)
@@ -83,7 +89,7 @@ Var _R(String Question,AllowCancel,String _Flow="FLOW_FIELD")
 		End
 		Mouse.Draw()
 		Graphics.Flip()
-		FPS.WaitMinTicks()
+		Sys.WaitMinTicks()
 	Forever
 End
 
