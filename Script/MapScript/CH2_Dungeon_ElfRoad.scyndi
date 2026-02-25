@@ -34,17 +34,19 @@
 // **********************************************
 // 
 // 
-// version: 26.02.25
+// version: 26.02.25 VI
 // 
 // End License
 
 
 Module
 
-#use "Libs/LIbs/Sys"
-#use "Libs/Libs/InterVar"
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/InterVar"
 
+#use "Script/Use/Link"
 #use "Script/Use/Anyway"
+#use "Script/Use/Convert"
 #use "Script/Use/Misc/AskYes"
 
 #macro Freya_Recruited gbool.Freya_Recruited_As_A_Master
@@ -63,9 +65,9 @@ Group MScript
 	
 	#region Demo Check
 	Void RemoveDemoBarrier()
-		If !__Fullversion
-			Return
-		End
+		//If !__Fullversion
+		//	Return
+		//End
 		if !Done.RemovedDebugBarrier_ElfRoad
 			Map.Kill("Demo_Barrier",true)
 			Map.Kill("NPC_MT_Bouwvakker",true)
@@ -76,7 +78,7 @@ Group MScript
 		If __Chapter<2
 			Map.Chapter(2)
 		End
-		RemoveDemoBarrier()
+		MScript.RemoveDemoBarrier()
 	End
 	#endregion
 
@@ -130,11 +132,10 @@ Group MScript
 	Get Delegate NPC_Walda
 		Return NeilUse("Script/Use/Misc/Walda")
 	End
-	
-	
-	Constructor
-		ZA.TabEnter{"DemoCheck","RemoveDemoBarrier","North","ExitWest","HandoStillorEvent"}
-	End
-	
-	
 End
+	
+Init
+	ZA.TabEnter{[0]="DemoCheck","RemoveDemoBarrier","North","ExitWest","HandoStillorEvent"}
+End
+	
+	
