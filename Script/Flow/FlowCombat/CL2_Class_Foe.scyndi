@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/CL2_Class_Foe.scyndi
 // 
-// 	  Version: 26.02.23 III
+// 	  Version: 26.02.25
 // 	
 // 	  Copyright (C) case 2021-2026 Jeroen Petrus Broks
 // 	
@@ -174,7 +174,7 @@ Class Foe Extends Fighter
 		WFoe.Oversoul = _oversoul==true
 		WFoe.Raw = Rw(WFoe.Oversoul)
 		If Suffixed(WFoe.Raw.IMAGE,"/")
-			d := JCR6.GetDir(WFoe.Raw.IMAGE)
+			d := JCR6.Dir(WFoe.Raw.IMAGE)
 			String img
 			int countdown=10000
 			Lua.assert(Len(d)>0,"No foe images to pick in folder: "..WFoe.Raw.IMAGE)
