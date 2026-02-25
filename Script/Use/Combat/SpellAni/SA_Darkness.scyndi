@@ -34,13 +34,16 @@
 // **********************************************
 // 
 // 
-// version: 26.02.25
+// version: 26.02.25 II
 // 
 // End License
 
 
 
 module 
+
+#accept LoadNewImage
+#accept Fighter
 
 	bool DrawOvertake
 	var Explosion
