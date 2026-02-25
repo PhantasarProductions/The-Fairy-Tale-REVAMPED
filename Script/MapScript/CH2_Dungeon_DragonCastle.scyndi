@@ -34,12 +34,14 @@
 // **********************************************
 // 
 // 
-// version: 26.02.25 I
+// version: 26.02.25 II
 // 
 // End License
 
 
 Script
+
+#use "Libs/SCI/InterVar"
 
 #use "Script/Use/Link"
 #use "Script/Use/Anyway"
