@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.23 II
+// version: 26.02.25
 // 
 // End License
 
@@ -370,7 +370,8 @@ class MenuItem
 	
 	static void Bugs()
 		CSay("Opening your favorite browser to go to the github issue tracker!")
-		Sys.OpenURL("https://github.com/PhantasarProductions/The-Fairy-Tale-REVAMPED-for-Apollo/issues")
+		//Sys.OpenURL("https://github.com/PhantasarProductions/The-Fairy-Tale-REVAMPED-for-Apollo/issues")
+		Sys.OpenURL("https://codeberg.org/PhantasarProductions/The-Fairy-Tale-REVAMPED/issues")
 	end
 	
 	static void ExitGame()
