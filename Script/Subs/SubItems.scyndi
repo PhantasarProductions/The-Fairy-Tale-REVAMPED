@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Subs/SubItems.scyndi
 // 
-// 	  Version: 26.02.24 II
+// 	  Version: 26.02.25
 // 	
 // 	  Copyright (C) 2021-'22, 2026 Jeroen Petrus Broks
 // 	
@@ -656,11 +656,14 @@ Global String AblOverview(String Char,int x, int y, int w, int h,string situatio
 			End
 			AllowDown = AllowDown || AY>=(y+h)-40
 			//(y+h+75)-40
-			AY+=40
+			//AY+=40
+			AY+=30
 			If     Events.MouseWheelY<0 && AllowDown
-				__AScrollY+=1
+				//__AScrollY+=1
+				__AScrollY+=15
 			Elseif Events.MouseWheelY>0 && AllowUp
-				__AScrollY-=1
+				//__AScrollY-=1
+				__AScrollY-=15
 			End
 		End
 	End	
