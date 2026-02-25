@@ -35,6 +35,8 @@
 // version: 22.02.24
 // End License Information
 
+Script
+
 #use "Script/Use/Anyway"
 
 Void _Leave()
