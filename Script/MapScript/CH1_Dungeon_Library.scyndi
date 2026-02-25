@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.25 V
+// version: 26.02.25 VIII
 // 
 // End License
 
@@ -70,26 +70,28 @@ Group TrueScript
 		CSayF("Generating puzzle for room '%s'",L)
 		For i=1,Shelves[L]
 			Int T = math.random(1,9)
-			R[i-1] = {["Tag"]=sprintf("%d_%d",math.random(1,4),T),["Num"]=T}
+			R[i] = {["Tag"]=sprintf("%d_%d",math.random(1,4),T),["Num"]=T}
 			CSayF("= Bookshelf %d, number %d",i,T)
 		End
 		Int Goed 
 		Switch L
 			case "#003"
 				Int Goed
-				for k in each(R)
+				for _,k in pairs(R)
 					Goed += k.Num
 				end
 				R.Goed = sprintf("%02d",Goed)
 			case "#004"
 				Int Goed = 1
-				for k in each(R)
+				for _,k in pairs(R)
 					Goed = Goed * k.Num
 				end
 				R.Goed = sprintf("%03d",Goed)
 			case "#005"
 				String Goed
-				for k in each(R)
+				//for _,k in pairs(R)
+				for i=1,4
+					k:=R[i]
 					Goed += k.Num
 				end
 				R.Goed = Goed
@@ -160,7 +162,7 @@ Group TrueScript
 		End
 		//ISSET("STRING","FLOW_MINI_LIBRARY_LOCK","CorrectAnswer",lua.tostring(Puzzle[Kthura.CurrentLayer].Goed))
 		//ISSET("INT","FLOW_MINI_LIBRARY_LOCK","Digits",Digits[Kthura.CurrentLayer])
-		Sys.Call("FLOW_MINI_LIBRARY_LOCK","SetLock",sprintf("%02d",Puzzle[Kthura.CurrentLayer].Goed),Digits[Kthura.CurrentLayer])
+		Sys.Call("FLOW_MINI_LIBRARY_LOCK","SetLock",sprintf(sprintf("%%0%dd",Digits[Kthura.CurrentLayer]),Puzzle[Kthura.CurrentLayer].Goed),Digits[Kthura.CurrentLayer])
 		Flow.Current = "MINI_LIBRARY_LOCK"
 	End
 	
