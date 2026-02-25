@@ -1,8 +1,8 @@
-// License Information:
+// License:
 // **********************************************
 // 
-// src/Tricky Script/Script/MapScript/Anna.neil
-// (c) Jeroen Broks, 2022, All Rights Reserved.
+// src/Code/Script/MapScript/Anna.scyndi
+// (c) Jeroen Broks, 2022, 2026, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -24,6 +24,7 @@
 // from it, you can use it under that license.
 // Please check out the other files to find out
 // which license applies.
+// 
 // This file comes 'as-is' and in no possible
 // way the author can be held responsible of
 // any form of damages that may occur due to
@@ -32,18 +33,41 @@
 // 
 // **********************************************
 // 
-// version: 22.08.01
-// End License Information
+// 
+// version: 26.02.25 XIV
+// 
+// End License
 
+
+Script
+
+extern MxScore "40000"
+
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/Medals"
+#use "Libs/SCI/Kthura"
+
+#use "Script/Use/Link"
 #use "Script/Use/Anyway"
+#use "Script/Use/Convert"
 
-#undef dbgpercent
+//#undef dbgpercent
 
-#if dbgpercent
-	const int medalspercent = 90	
-#else
-	readonly int medalspercent = Medals.AltPercent
-#fi
+//#if dbgpercent
+//	const int medalspercent = 90	
+//#else
+//	readonly int medalspercent = Medals.AltPercent
+//#fi
+
+Get Int MedalsPercent
+	a:=(Medals.FullScore / MxScore) * 100
+	b:=math.floor(a+0.5)
+	Return math.min(b,100)
+End
+
+Init
+	CSayF("Medal Score: %d / %d -> %3d%%",Medals.FullScore,MxScore,MedalsPercent)
+End
 
 
 Group MScript
@@ -74,12 +98,13 @@ Group MScript
         	for stat in each(stats)
         		CSay("Copying stat "..stat.." from "..c.." to foe #"..i)
             	//RPG.DefStat("FOE_"..i,"BASE_"..stat,(RPG.Stat(oc,"END_"..stat)+(statplus[stat] or 0)*((statmul[stat] or 1)*skill)))
-            	RPGChar[sprintf("FOE%03d",i)].Stat["BASE_"..stat]=RPGChar[oc].Stat["END_"..stat]+(statplus[stat] or 0)*((statmul[stat] or 1)*__skill)
+            	RPGChar[sprintf("FOE%03d",i)].Stat["BASE_"..stat]=RPGChar[oc].Stat["END_"..stat]+(statplus[stat] || 0)*((statmul[stat] || 1)*__skill)
             End             
             plua punt = RPGChar[sprintf("FOE%03d",i)].Points.HP
             punt.Have = punt.Maximum
-            ISSet("INT","FLOW_Combat",sprintf("Fighter.ByTag.FOE%03d.X",i),(500 div 4)*(5-i))
-            ISSet("INT","FLOW_Combat",sprintf("Fighter.ByTag.FOE%03d.Y",i),490 + (i*75))
+            //ISSet("INT","FLOW_Combat",sprintf("Fighter.ByTag.FOE%03d.X",i),(500 div 4)*(5-i))
+            //ISSet("INT","FLOW_Combat",sprintf("Fighter.ByTag.FOE%03d.Y",i),490 + (i*75))
+            Lua.error("Sealed mirror not yet set")
 		end
 		//MS.Run("COMBAT","ResetCards")
 		State.Call("FLOW_COMBAT","FlowCombat.Cards.SetupInitialCards","true")
@@ -111,8 +136,9 @@ Group MScript
 		WorldMap.Go()
 	End
 	
-	Constructor
+	Void IkKenEenBotHaarNaamIsAnnaAnnaIsHaarNaam()
 		Ach.Award("ANNA")
+		Kthura.CurrentLayer="#001"
 		For i = 1 , 10
 			Int ReqRate = StartVal - (OpenRate*(11-i))
 			String AZ = sprintf("AZ%d",i)
@@ -125,6 +151,10 @@ Group MScript
 				Map.HideByLabel(AZ)
 			End
 		End
-		ZA.TabEnter{"Leave"}
+		ZA.TabEnter{[0]="Leave"}
 	End
+End
+
+Init 
+	MScript.IkKenEenBotHaarNaamIsAnnaAnnaIsHaarNaam()
 End
