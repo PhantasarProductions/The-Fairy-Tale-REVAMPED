@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Subs/SubItems.scyndi
 // 
-// 	  Version: 26.02.25
+// 	  Version: 26.02.26
 // 	
 // 	  Copyright (C) 2021-'22, 2026 Jeroen Petrus Broks
 // 	
@@ -119,6 +119,9 @@ Class ABLRec
 	End
 	//Bool _Unlocked
 	Get Bool Unlocked
+		if Prefixed(Upper(iTag),"ABL_HERO_JAKE_SHIFT") 
+			Return gbool.AllowShift
+		End
 		if Abilities[Char].Skill[iTag]
 			Return True
 		End
