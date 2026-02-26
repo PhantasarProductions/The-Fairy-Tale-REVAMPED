@@ -34,15 +34,21 @@
 // **********************************************
 // 
 // 
-// version: 26.02.26
+// version: 26.02.26 VI
 // 
 // End License
 
 Script
 
+#use "Libs/SCI/Audio"
+#use "Libs/SCI/Kthura"
+#use "Libs/SCI/InterVar"
+
+#use "Script/Use/Link"
 #use "Script/Use/Anyway"
+#use "Script/Use/Convert"
 #use "Script/Use/Misc/TexMove"
-#use "Script/Use/Misc/ManaOrb"
+#use "Script/Use/Misc/MManaOrb"
 
 Group MScript
 
@@ -50,8 +56,8 @@ Group MScript
 	ReadOnly Bool HasUpdate = True
 	
 	Void Update()
-		If Map.Layer=="#002" || Map.Layer=="#008"
-			Self.UpdateTubes()
+		If Kthura.CurrentLayer=="#002" || Kthura.CurrentLayer=="#008"
+			MScript.UpdateTubes()
 		End
 		TexMove.Update()
 	End
@@ -71,7 +77,7 @@ Group MScript
 	Int Niveau
 	
 	Get Int Num
-		Switch Map.Layer
+		Switch Kthura.CurrentLayer
 			case "#002"
 				return 4
 			case "#008"
@@ -85,23 +91,23 @@ Group MScript
 	Void InitPuzzle()
 		static var DInit = {}
 		//string tag = "WATER.NIVEAU["..Maps.Layer.."]"
-		if DInit[Map.Layer]
+		if DInit[Kthura.CurrentLayer]
 			Return
 		end
-		DInit[Map.Layer] = true
+		DInit[Kthura.CurrentLayer] = true
 		//if CVVN(tag)
 		//	subniveau = {}
 		//	for i=1,num do subniveau[i]=CVV(tag) end
 		//end
 		niveau = math.random(1,4)
 		int total = niveau*num
-		gv.gint["WATER.NIVEAU.TOTAL"] = total
+		gint["WATER.NIVEAU.TOTAL"] = total
 		//ClearTable(subniveau)
 		subniveau = {}
 		for i=1,num 
         	subniveau[i] = math.random(1,4)
         end
-        print(serialize("niveau",niveau).."\n\n"..serialize("subniveau",subniveau))
+        //print(serialize("niveau",niveau).."\n\n"..serialize("subniveau",subniveau))
 	End
 	
 	Void Tube(int idx)
@@ -130,7 +136,7 @@ Group MScript
 			End
 			Goed = Goed && (subniveau[n] == Niveau)
 		End
-		If Goed && (!Done["Solved_Water_"..Map.Layer])
+		If Goed && (!Done["Solved_Water_"..Kthura.CurrentLayer])
 			Audio.LoadNew("Audio/SFX/Solved.ogg","SOLVED").Play()
 			For ch in each { "Jake_Human","Marrilona", "HandoStillor" }
 				RPGChar[ch].Stat.Experience -= 250
@@ -176,7 +182,7 @@ Group MScript
 			Music.Play("Music/Hub/Angevin.ogg")
 			MapText("SPIRATA")
 			RPGChar.Marrilona.Stat.Experience = math.min(0,RPGChar.Marrilona.Stat.Experience)
-			gv.gbool.CharSpirata_Marrilona = true
+			gbool.CharSpirata_Marrilona = true
 			NoSpirata()
 			MapText("SPIRATAPOST")
 			__WorldMap = "BACK2DRESHKA"
@@ -190,20 +196,20 @@ Group MScript
 	Void Delisto()
 		WorldMap.Go()
 	End
+End
 	
-	Constructor
-		Progress.Create("ZIGZAGVLOER",3,255,0,255)
-		Progress.ZigZagVloer = 1
-		TexMove.MapSetup(0,10,"HSINUS.PNG",-1,0,4)
-		Progress.ZigZagVloer = 2
-		TexMove.MapSetUp(0,10,"VSINUS.PNG", 0,1,4)
-		Progress.ZigZagVloer = 4
-		ConfiguringData()
-		For i=1,8
-			CSayF("Tube %d/8",i)
-			self[sprintf("NPC_%d",i)] = Lua.load(sprintf("Neil.Globals.MScript.Tube(%d)",i))
-		End
-		ZA.TabEnter{"InitPuzzle","StartBoss","SpirataRoom","Delisto"}
-		Progress.Kill("ZIGZAGVLOER")
+Init
+	Progress.Create("ZIGZAGVLOER",3,255,0,255)
+	Progress.ZigZagVloer = 1
+	TexMove.MapSetup(0,10,"HSINUS.PNG",-1,0,4)
+	Progress.ZigZagVloer = 2
+	TexMove.MapSetUp(0,10,"VSINUS.PNG", 0,1,4)
+	Progress.ZigZagVloer = 4
+	ConfiguringData()
+	For i=1,8
+		CSayF("Tube %d/8",i)
+		MScript[sprintf("NPC_%d",i)] = Lua.load(sprintf("Neil.Globals.MScript.Tube(%d)",i))
 	End
+	ZA.TabEnter{"InitPuzzle","StartBoss","SpirataRoom","Delisto"}
+	Progress.Kill("ZIGZAGVLOER")	
 End
