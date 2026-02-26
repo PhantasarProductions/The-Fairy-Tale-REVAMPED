@@ -1,8 +1,8 @@
-// License Information:
+// License:
 // **********************************************
 // 
-// src/Tricky Script/Script/MapScript/CH2_Town_Dreshka.neil
-// (c) Jeroen Broks, 2022, All Rights Reserved.
+// src/Code/Script/MapScript/CH2_Town_Dreshka.scyndi
+// (c) Jeroen Broks, 2022, 2026, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -24,6 +24,7 @@
 // from it, you can use it under that license.
 // Please check out the other files to find out
 // which license applies.
+// 
 // This file comes 'as-is' and in no possible
 // way the author can be held responsible of
 // any form of damages that may occur due to
@@ -32,23 +33,36 @@
 // 
 // **********************************************
 // 
-// version: 22.02.24
-// End License Information
+// 
+// version: 26.02.26 IX
+// 
+// End License
+
 
 Script
 
-#use "Script/Use/Anyway"
+#use "Libs/Music"
 
-Void _Leave()
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/InterVar"
+
+#use "Script/Use/Link"
+#use "Script/Use/Anyway"
+#use "Script/Use/Convert"
+
+#use "Script/Use/Misc/ForBlueSeal"
+
+Void DLeave()
 	WorldMap.Go()
 End
 
-#macro __Leave ReadOnly Delegate Leave = _Leave
+//#macro __Leave ReadOnly Delegate Leave = _Leave
 
 Group PreAanval
 	ReadOnly Bool HasDraw   = False
 	ReadOnly Bool HasUpdate = False
-	__Leave
+	Link Leave = DLeave 
+	
 	 
 	
 	Void EnterTown()
@@ -91,7 +105,7 @@ Group PreAanval
 			Item.ZZKEY_WATER.Has = 1
 			WorldMap.Unlock("CH2WATERSPIRATA")
 			If __NewGamePlus
-				NostraCutScene()
+				PreAanval.NostraCutScene()
 			End
 		Else
 			MapText("DRESHKA_AFTER")
@@ -107,7 +121,7 @@ End
 Group PostAanval
 	ReadOnly Bool HasDraw   = False
 	ReadOnly Bool HasUpdate = False
-	__Leave
+	Link Leave = DLeave
 
 	Void EnterTown()
 		Map.GoToLayer("DESTROYED","Start")
@@ -161,7 +175,7 @@ End
 Global Var MScript
 
 Init
-	If gv.Bool.Spirata_Water
+	If gBool.Spirata_Water
 		CSay("Post aanval - Vernietigde stad")
 		MScript = PostAanval
 	Else
