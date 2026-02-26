@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.26
+// version: 26.02.26 II
 // 
 // End License
 
@@ -47,7 +47,7 @@ Module
 // License: This file contains data from the Phantasar Universe and is therefore property of Jeroen Broks and may NOT be used for your own ends.
 
 //do
-	var ret = new MyData_MyDataClass_Shop()
+	var ret = new ShopData()
 
 
 	Init
