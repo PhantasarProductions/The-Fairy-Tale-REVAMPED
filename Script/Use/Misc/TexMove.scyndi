@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Misc/TexMove.scyndi
 // 
-// 	  Version: 26.02.26 IX
+// 	  Version: 26.02.26 XII
 // 	
 // 	  Copyright (C) 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -112,10 +112,11 @@ Class TMTile
 		ID = _ID
 		MvX = _X
 		MvY = _Y
-		ModX = ITex.W
-		ModY = ITex.H
+		ModX = ITex.Width
+		ModY = ITex.Height
 		If Blend>0
-			Map.SetObj(ID,"Blend",Blend)
+			//Map.SetObj(ID,"Blend",Blend)
+			Obj.Blend=Blend
 		End
 		//CSayF("Tile: %d;  Move: (%d,%d); Modulo: (%d,%d)",ID,MvX,MvY,ModX,ModY)
 	End
@@ -179,8 +180,8 @@ End
 		
 	Void Update()
 		static table empty = {}
-		//For T in Each(ObjList[Kthura.CurrentLayer] || empty)
-		For T in Kthura.EachObject
+		For T in Each(ObjList[Kthura.CurrentLayer] || empty)
+		//For T in Kthura.EachObject
 			T.X += T.MvX
 			T.Y += T.MvY
 		End
