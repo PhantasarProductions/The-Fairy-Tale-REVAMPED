@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Misc/GreatMagicBack.scyndi
 // 
-// 	  Version: 26.02.26 V
+// 	  Version: 26.02.26 VI
 // 	
 // 	  Copyright (C) 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -101,7 +101,7 @@ End
 //Module
 	
 	//function SetUpGreatMagicDo(data,layer)
-	Void SetUpDo(data,layer)
+	Var SetUpDo(data,layer)
 		plua retv = {}
 		plua added = 0
 		//for obj in KthuraEach("TiledArea") do
@@ -123,9 +123,9 @@ End
 					//for i=1,#data.textures
 					for i,_ in pairs(data.textures)
 						//local cobj = Maps.Obj.CreateObject("TiledArea") --,obj.IDNum.."/"..i)
-						Var cobj = Lay.NewObj("TiledArea")
+						cobj := Lay.NewObj("TiledArea")
 						retv[i] = retv[i] || { ["tiles"] = {} }
-						Var ret = retv[i]
+						ret := retv[i]
 						ret.movx = data.speed[i][1]
 						ret.movy = data.speed[i][2]
 						ret.Width=0
@@ -161,7 +161,7 @@ End
 	
 
 	//function SetupGreatMagic(pdata,process)
-	Void SetUp(pdata,process)
+	Var SetUp(pdata,process)
 		data := pdata || {}
 		ret := {}
 		if suffixed(Upper(Map.LoadedMap),"MANACAVE")
@@ -205,7 +205,7 @@ End
 		//for k,a in spairs(ret) do CSay("MAGIC TILES: "..k.."> "..#a) end
 		Kthura.Remap()
 		Progress.Kill("GMB")
-		//return ret
+		return ret
 	end
 	
 	plua _process
