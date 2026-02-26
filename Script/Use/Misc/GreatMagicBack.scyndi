@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Misc/GreatMagicBack.scyndi
 // 
-// 	  Version: 26.02.26 VI
+// 	  Version: 26.02.26 XII
 // 	
 // 	  Copyright (C) 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -54,7 +54,10 @@
 
 Module
 
+#use "Libs/SCI/Sys"
 #use "Libs/SCI/Kthura"
+
+#use "Script/Use/Link"
 
 plua gm_default
 plua gm_manacave
@@ -64,9 +67,9 @@ Init
 //#pure
 	gm_default = {}
 	gm_default.textures = {}
-	gm_default.textures +=	"GFX/TEXTURES/SINUS/DARK SINUS/HSINUS.PNG",
-	gm_default.textures +=	"GFX/TEXTURES/SINUS/LIGHT SINUS/HSINUS.PNG",
-	gm_default.textures +=	"GFX/TEXTURES/SINUS/DARK SINUS/VSINUS.PNG",
+	gm_default.textures +=	"GFX/TEXTURES/SINUS/DARK SINUS/HSINUS.PNG"
+	gm_default.textures +=	"GFX/TEXTURES/SINUS/LIGHT SINUS/HSINUS.PNG"
+	gm_default.textures +=	"GFX/TEXTURES/SINUS/DARK SINUS/VSINUS.PNG"
 	gm_default.textures +=	"GFX/TEXTURES/SINUS/LIGHT SINUS/HSINUS.PNG"
 	
 	gm_default.colors = {} 
@@ -79,7 +82,7 @@ Init
 	gm_default.hide = "/F.PNG"
 	gm_manacave = {}
 	gm_aqua = {}
-	for k,v in pairs(gm_default) do
+	for k,v in pairs(gm_default) 
 		gm_manacave[k] = v
 		gm_aqua[k] = v
 	end
@@ -218,7 +221,7 @@ End
 		_pdata={}
 	end
 	
-	Void LAdd(k.v)
+	Void LAdd(k,v)
 		_pdata=_pdata||{}
 		_pdata[k]=v
 	End
