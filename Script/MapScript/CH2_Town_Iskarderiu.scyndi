@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.25 VII
+// version: 26.02.26
 // 
 // End License
 
@@ -100,7 +100,7 @@ Group MScript
 	
 	#Region Services
 	Void NPC_Inn()
-		Inn()
+		UseInn()
 	End
 	
 	Void NPC_Weapons()
