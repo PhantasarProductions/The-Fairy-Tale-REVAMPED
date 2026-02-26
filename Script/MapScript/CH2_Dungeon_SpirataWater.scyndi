@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.26 IX
+// version: 26.02.26 X
 // 
 // End License
 
@@ -214,5 +214,6 @@ Init
 		MScript[sprintf("NPC_%d",i)] = Lua.load(sprintf("Neil.Globals.MScript.Tube(%d)",i))
 	End
 	ZA.TabEnter{"InitPuzzle","StartBoss","SpirataRoom","Delisto"}
-	Progress.Kill("ZIGZAGVLOER")	
+	Progress.Kill("ZIGZAGVLOER")
+	Map.MSHasUpdate=true
 End
