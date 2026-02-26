@@ -34,12 +34,15 @@
 // **********************************************
 // 
 // 
-// version: 26.02.26 VI
+// version: 26.02.26 IX
 // 
 // End License
 
 Script
 
+#use "Libs/Music"
+
+#use "Libs/SCI/Sys"
 #use "Libs/SCI/Audio"
 #use "Libs/SCI/Kthura"
 #use "Libs/SCI/InterVar"
@@ -183,12 +186,12 @@ Group MScript
 			MapText("SPIRATA")
 			RPGChar.Marrilona.Stat.Experience = math.min(0,RPGChar.Marrilona.Stat.Experience)
 			gbool.CharSpirata_Marrilona = true
-			NoSpirata()
+			MScript.NoSpirata()
 			MapText("SPIRATAPOST")
 			__WorldMap = "BACK2DRESHKA"
 			WorldMap.Go()
 		Else
-			NoSpirata()
+			MScript.NoSpirata()
 		End
 	End
 	#endregion
