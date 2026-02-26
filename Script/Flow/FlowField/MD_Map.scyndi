@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowField/MD_Map.scyndi
 // 
-// 	  Version: 26.02.23
+// 	  Version: 26.02.26
 // 	
 // 	  Copyright (C) 2021, 2026 Jeroen Petrus Broks
 // 	
@@ -249,7 +249,7 @@ Module
 	
 	Void ObjSet(Tag,string Key,value)
 		//CurrentLayer.Obj(Tag)[Key] = value
-		Kthura.Obj[Tag][Key] = value
+		Kthura.Obj[Ternary(Lua.type(Tag)=="string",Tag,"%"..Tag)][Key] = value
 	End
 	
 	Bool Walking()
