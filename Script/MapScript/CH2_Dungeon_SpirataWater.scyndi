@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.26 X
+// version: 26.02.26 XI
 // 
 // End License
 
@@ -130,12 +130,12 @@ Group MScript
 		End
 		Bool Goed = True
 		for n=1,num
-			Int niv = subniveau[n]*250
-			String o = "Vloeistof"..n
-			If Map.ObjGetInt(o,"ScaleY")<niv 
-				Map.SetObj(o,"ScaleY",Map.ObjGetInt(o,"ScaleY")+1)
-			Elseif Map.ObjGetInt(o,"ScaleY")>niv
-				Map.SetObj(o,"ScaleY",Map.ObjGetInt(o,"ScaleY")-1)
+			Int niv := subniveau[n]*250
+			String o := "Vloeistof"..n
+			If Kthura.Obj[o].ScaleY<niv 
+				Kthura.Obj[o].ScaleY++
+			Elseif Kthura.Obj[o].ScaleY>niv
+				Kthura.Obj[o].ScaleY--
 			End
 			Goed = Goed && (subniveau[n] == Niveau)
 		End
