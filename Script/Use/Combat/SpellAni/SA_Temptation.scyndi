@@ -1,47 +1,58 @@
-// License Information:
-// src/Tricky Script/Script/Use/Combat/SpellAni/Temptation.neil
-// Version: 22.02.27
-// Copyright (C) 2022 Jeroen Petrus Broks
+// License:
+// 	  src/Code/Script/Use/Combat/SpellAni/SA_Temptation.scyndi
 // 
-// ===========================
-// This file is part of a project related to the Phantasar Chronicles or another
-// series or saga which is property of Jeroen P. Broks.
-// This means that it may contain references to a story-line plus characters
-// which are property of Jeroen Broks. These references may only be distributed
-// along with an unmodified version of the game.
+// 	  Version: 26.02.27 III
+// 	
+// 	  Copyright (C) 2022, 2026 Jeroen Petrus Broks
+// 	
+// 	  ===========================
+// 	  This file is part of a project related to the Phantasar Chronicles or another
+// 	  series or saga which is property of Jeroen P. Broks.
+// 	  This means that it may contain references to a story-line plus characters
+// 	  which are property of Jeroen Broks. These references may only be distributed
+// 	  along with an unmodified version of the game.
 // 
-// As soon as you remove or replace ALL references to the storyline or character
-// references, or any termology specifically set up for the Phantasar universe,
-// or any other univers a story of Jeroen P. Broks is set up for,
-// the restrictions of this file are removed and will automatically become
-// zLib licensed (see below).
+// 	  As soon as you remove or replace ALL references to the storyline or character
+// 	  references, or any termology specifically set up for the Phantasar universe,
+// 	  or any other univers a story of Jeroen P. Broks is set up for,
+// 	  the restrictions of this file are removed and will automatically become
+// 	  zLib licensed (see below).
 // 
-// Please note that doing so counts as a modification and must be marked as such
-// in accordance to the zLib license.
-// ===========================
-// zLib license terms:
-// This software is provided 'as-is', without any express or implied
-// warranty.  In no event will the authors be held liable for any damages
-// arising from the use of this software.
-// Permission is granted to anyone to use this software for any purpose,
-// including commercial applications, and to alter it and redistribute it
-// freely, subject to the following restrictions:
-// 1. The origin of this software must not be misrepresented; you must not
-// claim that you wrote the original software. If you use this software
-// in a product, an acknowledgment in the product documentation would be
-// appreciated but is not required.
-// 2. Altered source versions must be plainly marked as such, and must not be
-// misrepresented as being the original software.
-// 3. This notice may not be removed or altered from any source distribution.
-// End License Information
+// 	  Please note that doing so counts as a modification and must be marked as such
+// 	  in accordance to the zLib license.
+// 	  ===========================
+// 
+// 
+// 	  zLib license terms:
+// 	
+// 	  This software is provided 'as-is', without any express or implied
+// 	  warranty.  In no event will the authors be held liable for any damages
+// 	  arising from the use of this software.
+// 
+// 	  Permission is granted to anyone to use this software for any purpose,
+// 	  including commercial applications, and to alter it and redistribute it
+// 	  freely, subject to the following restrictions:
+// 	
+// 	  1. The origin of this software must not be misrepresented; you must not
+// 	     claim that you wrote the original software. If you use this software
+// 	     in a product, an acknowledgment in the product documentation would be
+// 	     appreciated but is not required.
+// 	  2. Altered source versions must be plainly marked as such, and must not be
+// 	     misrepresented as being the original software.
+// 	  3. This notice may not be removed or altered from any source distribution.
+// End License
 
 Module
 
 #use "libs/xmath"
 #use "libs/linkedlist"
 
+#use "Libs/SCI/Graphics"
+
+#use "Script/Use/Convert"
+
 Class CTemptation
-	Static ReadOnly Var Heart = Image.LoadNew("GFX/Combat/SpellAni/Temptation/Heart.png","TEMPTATION_HEART")
+	Static ReadOnly Var Heart = LoadNewImage("GFX/Combat/SpellAni/Temptation/Heart.png","TEMPTATION_HEART")
 	ReadOnly Int CenterX
 	ReadOnly Int CenterY
 	ReadOnly Number RadiusSpeed
@@ -62,6 +73,7 @@ Class CTemptation
 			Deg = (Deg+DegSpeed) % 360
 			Radius += RadiusSpeed
 		End
+		Graphics.Color(255,255,255)
 		Graphics.Scale(0.05,0.05)
 		Heart.Draw(X,Y)
 		Graphics.Scale(1,1)
@@ -81,17 +93,17 @@ Class CTemptation
 End	
 
 		
-Module
 	Var Exe
 	Const Int MaxFrames = 250
 	Int Frames
 	Var Lst
-	ReadOnly Delegate Update = NIKS
+	//ReadOnly Delegate Update = NIKS
+	Void Update(); End
 	
 	Void Start(_act)
 		Exe = _act.Executor
 		Int num = math.random(15,30)
-		Lst = new LinkedList()
+		Lst = new TLinkedList()
 		For i=1,num
 			Lst.AddLast(New CTemptation(Exe.X,Exe.Y-(Exe.H div 2)))
 		End
@@ -111,4 +123,3 @@ Module
 	Get Bool Ended
 		Return Lst.Count<=0
 	End
-End
