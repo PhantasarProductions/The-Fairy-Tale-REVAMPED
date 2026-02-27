@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.26 XI
+// version: 26.02.27
 // 
 // End License
 
@@ -211,7 +211,7 @@ Init
 	ConfiguringData()
 	For i=1,8
 		CSayF("Tube %d/8",i)
-		MScript[sprintf("NPC_%d",i)] = Lua.load(sprintf("Neil.Globals.MScript.Tube(%d)",i))
+		MScript[sprintf("NPC_%d",i)] = Lua.load(sprintf("Scyndi.Class.MScript.Tube(%d)",i))
 	End
 	ZA.TabEnter{"InitPuzzle","StartBoss","SpirataRoom","Delisto"}
 	Progress.Kill("ZIGZAGVLOER")
