@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.26 IX
+// version: 26.02.28 II
 // 
 // End License
 
@@ -44,6 +44,7 @@ Script
 #use "Libs/Music"
 
 #use "Libs/SCI/Sys"
+#use "Libs/SCI/Kthura"
 #use "Libs/SCI/InterVar"
 
 #use "Script/Use/Link"
@@ -138,9 +139,9 @@ Group PostAanval
 			Map.ShowObj("Harry")
 			Map.Pop("B","South")
 			MapText("HARRY2")
-			Lua.Neil.Globals.Map.StopWalking()
+			Kthura.Obj.Player.StopWalking()
 			Combat.Boss("He's back!","Harry")
-			Combat.Arena    = Lua.Neil.Globals.Map.Arena
+			Combat.Arena    = Kthura.MetaData.Arena
 			Combat.Music    = "Combat/SpecialBoss/AnnoyingBoy.ogg"
 			Combat.Lose     = "GameOver"
 			Combat.NewEnemy = "Boss/Harry2"
