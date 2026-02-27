@@ -35,6 +35,8 @@
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
 
+Module
+
 #use "libs/xmath"
 #use "libs/linkedlist"
 
@@ -78,7 +80,7 @@ class Tornado
 end
 
 
-module 
+//module 
 	
 	readonly int MaxCycles = 1440
 	int D = 0
