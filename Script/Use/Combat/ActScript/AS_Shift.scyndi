@@ -1,8 +1,8 @@
-// License Information:
+// License:
 // **********************************************
 // 
-// src/Tricky Script/Script/Use/Combat/ActScript/Shift.neil
-// (c) Jeroen Broks, 2022, All Rights Reserved.
+// src/Code/Script/Use/Combat/ActScript/AS_Shift.scyndi
+// (c) Jeroen Broks, 2022, 2026, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -24,6 +24,7 @@
 // from it, you can use it under that license.
 // Please check out the other files to find out
 // which license applies.
+// 
 // This file comes 'as-is' and in no possible
 // way the author can be held responsible of
 // any form of damages that may occur due to
@@ -32,34 +33,47 @@
 // 
 // **********************************************
 // 
-// version: 22.03.21
-// End License Information
+// 
+// version: 26.02.27 VI
+// 
+// End License
+
+
+Module
+
+#use "Libs/SCI/Sys"
+
+#use "Script/Use/Convert"
+
+#accept Hero
+#accept Fighter
+#accept EXPRate
 
 #undef version1
 #define version2
 
-Bool __Shift(Act,Tar,Exe)
+Bool _Act(Act,Tar,Exe)
 	Static Var RAC
-	RAC = RAC || NeilUse("Script/Use/Combat/ActScript/RemoveAllUserCards")
+	RAC = RAC || NeilUse("Script/Use/Combat/ActScript/AS_RemoveAllUserCards")
 	
-	#if version1
-	String to_Race = Act.EffectScript_Arg
-	String fr_Race
-	Switch to_Race
-		Case "Fairy"
-			fr_Race = "Human"
-		Case "Human"
-			fr_Race = "Fairy"
-		Default
-			Lua.error("Shift to unknown race: "..to_Race)
-	End	
-	RAC(Act,Exe,Exe)
-	RPGParty[1] = "Jake_"..to_Race
-	Fighter.ByTag["Jake_"..fr_Race] = nil
-	Hero.Compile("Jake_"..to_Race)
-	#fi
+	//#if version1
+	//String to_Race = Act.EffectScript_Arg
+	//String fr_Race
+	//Switch to_Race
+	//	Case "Fairy"
+	//		fr_Race = "Human"
+	//	Case "Human"
+	//		fr_Race = "Fairy"
+	//	Default
+	//		Lua.error("Shift to unknown race: "..to_Race)
+	//End	
+	//RAC(Act,Exe,Exe)
+	//RPGParty[1] = "Jake_"..to_Race
+	//Fighter.ByTag["Jake_"..fr_Race] = nil
+	//Hero.Compile("Jake_"..to_Race)
+	//#fi
 	
-	#if version2
+	//#if version2
 	String From = RPGParty[1]
 	String ToFm 
 	Switch From
@@ -76,10 +90,10 @@ Bool __Shift(Act,Tar,Exe)
 	RPGParty[1] = ToFM
 	Fighter.ByTag[From] = nil
 	Hero.Compile(ToFm)
-	ExpRate[ToFM]=ExpRate[ToFM]||1
+	ExpRate[ToFM]=ExpRate[From]||1
 	CSay("Shift Complete")
-	#fi
+	//#fi
 	Return True
 End
 
-Return __Shift
+//Return __Shift
