@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.28 VIII
+// version: 26.02.28 IX
 // 
 // End License
 
@@ -200,7 +200,7 @@ Init
 	Progress.ZigZagVloer = 4
 	ConfiguringData()
 	For i=1,9
-		MScript[sprintf("NPC_K%d",i)] = Lua.load(sprintf("Neil.Globals.MScript.Kaars(%d)",i))
+		MScript[sprintf("NPC_K%d",i)] = Lua.load(sprintf("Scyndi.Class.MScript.Kaars(%d)",i))
 	End
 	ZA.Enter("genpuzzle","GeneratePuzzle")
 	ZA.Enter("SpirataMusic","SpirataRoom")
