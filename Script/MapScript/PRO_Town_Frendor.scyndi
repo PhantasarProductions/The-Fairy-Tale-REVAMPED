@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.28 IV
+// version: 26.02.28 VI
 // 
 // End License
 
@@ -268,7 +268,7 @@ Group MScript
 	End
 	
 	Void B_Exit()
-		Map.GoToLayer("TOWN","exit_"..Lower(Kthura.CurrentLayer)))
+		Map.GoToLayer("TOWN","exit_"..Lower(Kthura.CurrentLayer)) 
 	End
 	#endregion
 	
