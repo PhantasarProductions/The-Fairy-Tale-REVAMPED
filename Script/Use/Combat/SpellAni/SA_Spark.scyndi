@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Combat/SpellAni/SA_Spark.scyndi
 // 
-// 	  Version: 26.03.01
+// 	  Version: 26.03.01 II
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -46,6 +46,8 @@ module
 
 #use "Libs/SCI/Audio"
 #use "Libs/SCI/Graphics"
+
+#use "Script/Use/Anyway"
 
 	bool DrawOvertake
 	var Glitter
@@ -102,4 +104,4 @@ module
 		return _Ended
 	end
 	
-end
+
