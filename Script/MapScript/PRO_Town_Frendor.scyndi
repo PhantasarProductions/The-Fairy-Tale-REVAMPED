@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.28 III
+// version: 26.02.28 IV
 // 
 // End License
 
@@ -268,13 +268,13 @@ Group MScript
 	End
 	
 	Void B_Exit()
-		Map.GoToLayer("TOWN","exit_"..(Map.Layer:lower()))
+		Map.GoToLayer("TOWN","exit_"..Lower(Kthura.CurrentLayer)))
 	End
 	#endregion
 	
 	#region Services
 	Void NPC_Inn()
-		Inn()
+		UseInn()
 	End
 	
 	Void NPC_Alberta()
@@ -301,8 +301,8 @@ Group MScript
 	Void LoadMe()
 		CSay("Welcome to Frendor")
 		ZA.TabEnter{[0]="ExitHouse","Elder_Exit","ComeInEvents","B_Exit", "ByeBye","Byebye","EnterMarrilona" }
-		For L in Each {"wands","weapons","items","inn"}
-			ZA.Enter("enter_"..L,"EnterBuilding",l:upper())
+		For L in Each {[0]="wands","weapons","items","inn"}
+			ZA.Enter("enter_"..L,"EnterBuilding",Upper(l))
 		End
 	End
 End
