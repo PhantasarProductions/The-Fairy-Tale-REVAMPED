@@ -245,7 +245,7 @@ Class Stage_PlayerSelectTarget
 		OldMouseX,OldMouseY = Mouse.MX,Mouse.MY
 		Switch WantTarget
 			Case "OS"
-				Targets = Targets || {Act.ExeTag}
+				Targets = Targets || {[0]=Act.ExeTag}
 			Case "EV" 
 				If !Targets
 					Targets = {}
