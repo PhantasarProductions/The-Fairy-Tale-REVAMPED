@@ -40,7 +40,7 @@
 
 Module
 
-	Delegate Pst = Niks
+	Void Pst();End
 	Var SS
 	Void Pre()
 		//Blop.DrawCol(0,0,1)
@@ -53,4 +53,4 @@ Module
 		SS = new SinusShade(160,70,0,255,60,0)
 	End
 
-End
+//End
