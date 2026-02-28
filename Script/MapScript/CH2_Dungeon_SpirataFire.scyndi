@@ -1,8 +1,8 @@
-// License Information:
+// License:
 // **********************************************
 // 
-// src/Tricky Script/Script/MapScript/CH2_Dungeon_SpirataFire.neil
-// (c) Jeroen Broks, 2022, All Rights Reserved.
+// src/Code/Script/MapScript/CH2_Dungeon_SpirataFire.scyndi
+// (c) Jeroen Broks, 2022, 2026, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -24,6 +24,7 @@
 // from it, you can use it under that license.
 // Please check out the other files to find out
 // which license applies.
+// 
 // This file comes 'as-is' and in no possible
 // way the author can be held responsible of
 // any form of damages that may occur due to
@@ -32,20 +33,32 @@
 // 
 // **********************************************
 // 
-// version: 22.04.01
-// End License Information
+// 
+// version: 26.02.28 VIII
+// 
+// End License
 
+Script
+
+#use "Libs/Music"
+
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/Audio"
+#use "Libs/SCI/InterVar"
+
+#use "Script/Use/Link"
 #use "Script/Use/Anyway"
+#use "Script/Use/Convert"
 #use "Script/Use/Misc/TexMove"
-#use "Script/use/Misc/ManaOrb"
+#use "Script/use/Misc/MManaOrb"
 
 QuickMeta Solved
 	Index
-		return gv.Bool["FIRE_SPIRATA_SOLVED_"..key]
+		return gBool["FIRE_SPIRATA_SOLVED_"..key]
 	end
 	
 	NewIndex
-		gv.Bool["FIRE_SPIRATA_SOLVED_"..key] = Value
+		gBool["FIRE_SPIRATA_SOLVED_"..key] = Value
 	end
 End
 
@@ -149,15 +162,15 @@ Group MScript
 			Music.Play("Music/Hub/Angevin.ogg")
 			MapText("SPIRATA")
 			RPGChar.Jake_Human.Stat.Experience = math.min(0,RPGChar.Marrilona.Stat.Experience)
-			gv.gbool.CharSpirata_Jake_Human = true
-			gv.gbool.CharSpirata_Jake_Fairy = true
-			gv.gbool.CharSpirata_Jake       = true
-			NoSpirata()
+			gbool.CharSpirata_Jake_Human = true
+			gbool.CharSpirata_Jake_Fairy = true
+			gbool.CharSpirata_Jake       = true
+			MScript.NoSpirata()
 			MapText("SPIRATAPOST")
 			__WorldMap = "SPIRATAFIRE"
 			WorldMap.Go()
 		Else
-			NoSpirata()
+			MScript.NoSpirata()
 		End
 	End
 
@@ -176,22 +189,21 @@ Group MScript
 	Void Update()
 		TexMove.Update()
 	End
-
-	Constructor
-		Progress.Create("ZIGZAGVLOER",3,255,0,255)
-		Progress.ZigZagVloer = 1
-		TexMove.MapSetup(0,10,"HSINUS.PNG",-1,0,4)
-		Progress.ZigZagVloer = 2
-		TexMove.MapSetUp(0,10,"VSINUS.PNG", 0,1,4)
-		Progress.ZigZagVloer = 4
-		ConfiguringData()
-		For i=1,9
-			self[sprintf("NPC_K%d",i)] = Lua.load(sprintf("Neil.Globals.MScript.Kaars(%d)",i))
-		End
-		ZA.Enter("genpuzzle","GeneratePuzzle")
-		ZA.Enter("SpirataMusic","SpirataRoom")
-		ZA.TabEnter{"StartBoss"}
-		Progress.Kill("ZIGZAGVLOER")
-	End
+End
 	
+Init
+	Progress.Create("ZIGZAGVLOER",3,255,0,255)
+	Progress.ZigZagVloer = 1
+	TexMove.MapSetup(0,10,"HSINUS.PNG",-1,0,4)
+	Progress.ZigZagVloer = 2
+	TexMove.MapSetUp(0,10,"VSINUS.PNG", 0,1,4)
+	Progress.ZigZagVloer = 4
+	ConfiguringData()
+	For i=1,9
+		MScript[sprintf("NPC_K%d",i)] = Lua.load(sprintf("Neil.Globals.MScript.Kaars(%d)",i))
+	End
+	ZA.Enter("genpuzzle","GeneratePuzzle")
+	ZA.Enter("SpirataMusic","SpirataRoom")
+	ZA.TabEnter{"StartBoss"}
+	Progress.Kill("ZIGZAGVLOER")		
 End
