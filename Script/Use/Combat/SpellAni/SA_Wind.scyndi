@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Combat/SpellAni/SA_Wind.scyndi
 // 
-// 	  Version: 26.02.28 I
+// 	  Version: 26.02.28 IV
 // 	
 // 	  Copyright (C) 2020-'22, 2026 Jeroen Petrus Broks
 // 	
@@ -99,7 +99,7 @@ end
 	// Is that CONSTRUCTOR is only automatically loaded when this
 	// module is called fo the first time in a combat.
 	// Init will be called EVERY time a move is being performed.
-	CONSTRUCTOR
+	INIT
 		Tornado.img = LoadNewImage("GFX/Combat/SpellAni/Wind/Wind.png","SPELLANI_WIND")
 		Tornado.img.HotBottomCenter()
 	end
@@ -109,9 +109,9 @@ end
 	void Start(aact)
 		Act=aact
 		self.D=self.MaxCycles
-		//for _,t in ipairs(act.Targets)
-		for i=1,#act.Targets_Tag		
-			var t = new Tornado(act.Targets[i])
+		for i,t in ipairs(act.Targets)
+		//for i=1,#act.Targets_Tag		
+			tor := new Tornado(act.Targets[i])
 		end
 	end
 	
@@ -134,4 +134,4 @@ end
 		return self.D<=0
 	end
 	
-end
+//end
