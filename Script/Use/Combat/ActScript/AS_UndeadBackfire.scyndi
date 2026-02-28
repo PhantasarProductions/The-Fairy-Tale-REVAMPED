@@ -35,9 +35,9 @@
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
 
-Bool _ZombieElf(Act,Tar,Executor)
+Bool _Act(Act,Tar,Executor)
 	Executor.StatusChanges.Undead = true
 	Return True
 End
 
-Return _ZombieElf
+//Return _ZombieElf
