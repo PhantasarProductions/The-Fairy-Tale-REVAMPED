@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.24 II
+// version: 26.02.28 III
 // 
 // End License
 
@@ -120,7 +120,7 @@ Group MScript
 		CSay("Fandalora requires: "..need)
 		CSay("Marrilona has:      "..amarrilona)
 		CSay("Jake has:           "..ajake)
-		if !gv.gbool["MASTER.FANDALORA"]
+		if !gbool["MASTER.FANDALORA"]
 			MapText("FANDALORAMASTERNOMASTERYET")
 			if need>amarrilona && need>ajake 
 				MapText("FANDALORAMASTERNOTREADY") 
@@ -147,9 +147,9 @@ Group MScript
 	End
 	
 	Void NPC_YanneeOutside()
-		If !gv.Bool.Spirata_Fire
+		If !gBool.Spirata_Fire
 			MapText("YANNEE_DANDORCURSED")
-		Elseif !gv.Bool.DandorJoined
+		Elseif !gBool.DandorJoined
 			MapText("YANNEE_DANDORCURED")
 		Else
 			MapText("YANNEE_OUTSIDE")
@@ -167,7 +167,7 @@ Group MScript
 	End
 	
 	Void OrbChosen()
-		//String Elem = ({"","Fire","Wind","Water","Earth"})[gv.gint.ManaOrb_LastChosen]
+		//String Elem = ({"","Fire","Wind","Water","Earth"})[gint.ManaOrb_LastChosen]
 		MapText("ELDER_OVER")
 		MapText("MARRILONA_OVER"..gint.ManaOrb_LastChosen)
 		MapText("ELDER_WARNING")
@@ -244,7 +244,7 @@ Group MScript
 			Return
 			//Lua.error("Elder going to the Elfen Lands not yet scripted")
 		End
-		If gv.Bool.Spirata_Fire
+		If gBool.Spirata_Fire
 			Map.Kill("NPC_FandaloraOutside")
 		Else
 			Map.Kill("EnterMarrilona",false)
