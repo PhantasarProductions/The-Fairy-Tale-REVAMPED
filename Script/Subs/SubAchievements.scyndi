@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Subs/SubAchievements.scyndi
 // 
-// 	  Version: 26.02.24 II
+// 	  Version: 26.03.01 V
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -58,6 +58,7 @@ Script
 #use "Libs/Keys"
 
 ReadOnly Var Fnt = ObtainFont("BIGTEXT")
+ReadOnly Var SFnt = ObtainFont("BOXTEXT")
 ReadOnly Var SysFont = ObtainFont("SYSFONT")
 
 QuickMeta Awarded
@@ -210,7 +211,7 @@ Group SubAch
 		for k,v in spairs(Dat)
 			if ay>=0 && ay+ah<h
 				__White
-				Fnt.Text(v.Title,x+5,ay+y)
+				Ternary(Fnt.Width(v.Title)<Graphics.Width-20,Fnt,SFnt).Text(v.Title,x+5,ay+y)
 				__Ember
 				SysFont.Text(v.Description,x+6,y+ay+ah-3,0,1)
 				if Awarded[K]
@@ -238,9 +239,14 @@ Group SubAch
 		if scroll>0 && Events.KeyHit(Keys.Up)
 			Scroll-=ah
 		end
-		if ay+ah>w && Events.KeyHit(Keys.Down)
+		if ay+ah>=h && Events.KeyHit(Keys.Down)
 			Scroll+=ah
 		end
+		If (Events.MouseWheelY>0 && Scroll>0) || (Events.MouseWheelY<0 && ay+ah>=h) 
+			Scroll -=(Events.MouseWheelY*ah)
+			CSayF("S:Wheel: %d; Scroll: %d; CanGoDown: %s;",Events.MouseWheelY,scroll,Lua.tostring(ay+ah>h))
+		End	
+
 	End
 	
 	Void Start()
