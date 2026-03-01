@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.24
+// version: 26.03.01 I
 // 
 // End License
 
@@ -377,6 +377,7 @@ Group SubParty
 		End
 		Lua.assert(C>0,"Empty party")
 		For i=1,C
+			Int ib:=i-1
 			String Ch = RPGParty[i]
 			Int W2 := W
 			if i==3
@@ -384,11 +385,11 @@ Group SubParty
 			End
 			LvScale[Ch] = LvScale[Ch] || 0
 			// Background Box
-			Boxes[i].X = (W*(i-1))
-			Boxes[i].Y = __BoxPosY
-			Boxes[i].W = W2
-			Boxes[i].H = 100
-			Boxes[i].Draw()
+			Boxes[ib].X = (W*(i-1))
+			Boxes[ib].Y = __BoxPosY
+			Boxes[ib].W = W2
+			Boxes[ib].H = 100
+			Boxes[ib].Draw()
 			If Ch=="Marrilona" && gv.gBool.MarFeena_Curse
 				If RPGChar.Marrilona.Points.HP.Have>gv.gInt.MarFeena_HP
 					RPGChar.Marrilona.Points.HP.Have--
@@ -402,7 +403,7 @@ Group SubParty
 			if LvScale[Ch]>0
 				LvScale[Ch] = (LvScale[Ch]+1) % 2500
 				SetScale(math.min(LvScale[Ch] / 500,1))
-				ImgLevelUp.Draw(Boxes[i].X+(Boxes[i].W div 2),Boxes[i].Y-5)
+				ImgLevelUp.Draw(Boxes[ib].X+(Boxes[ib].W div 2),Boxes[ib].Y-5)
 			End
 			If RPGChar[Ch].Stat.Level<__LevelCap && RPGChar[Ch].Stat.Experience<=0
 				ImgLevelUp.HotBottomCenter()
@@ -414,14 +415,14 @@ Group SubParty
 				RPGChar[ch].Points.HP.Have     = RPGChar[ch].Points.HP.Maximum
 				RPGChar[ch].Points.VIT.Have    = RPGChar[ch].Points.VIT.Maximum
 			End
-			If Mouse.MX>Boxes[i].X && Mouse.MY>Boxes[i].Y && Mouse.MX<Boxes[i].X+Boxes[i].W && Mouse.MY<Boxes[i].Y+Boxes[i].H
+			If Mouse.MX>Boxes[ib].X && Mouse.MY>Boxes[ib].Y && Mouse.MX<Boxes[ib].X+Boxes[ib].W && Mouse.MY<Boxes[ib].Y+Boxes[ib].H
 				Hover=i
 				__Ember
 				Graphics.SetAlpha(50)
-				Graphics.Rect(Boxes[i].X,Boxes[i].Y,Boxes[i].W,Boxes[i].H)
+				Graphics.Rect(Boxes[ib].X,Boxes[ib].Y,Boxes[ib].W,Boxes[ib].H)
 				Graphics.SetAlpha(255)
 			End
-			Var B:=Boxes[i]
+			Var B:=Boxes[ib]
 			// Portrait
 			__White
 				If ch==HLChar
