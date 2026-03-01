@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.27 VI
+// version: 26.03.01
 // 
 // End License
 
@@ -54,7 +54,7 @@ Module
 
 Bool _Act(Act,Tar,Exe)
 	Static Var RAC
-	RAC = RAC || NeilUse("Script/Use/Combat/ActScript/AS_RemoveAllUserCards")
+	RAC = RAC || NeilUse("Script/Use/Combat/ActScript/AS_RemoveAllUserCards")._Act
 	
 	//#if version1
 	//String to_Race = Act.EffectScript_Arg
