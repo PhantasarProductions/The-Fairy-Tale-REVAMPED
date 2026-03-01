@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.01 XIII
+// version: 26.03.01 XV
 // 
 // End License
 
@@ -267,7 +267,7 @@ Group MScript
 		y := puzdata.ondergrens
 		
 		y = y - ((puzdata.meter-1)*32)
-		y = y + (math.sin(FPS.Ticks/2)*4)
+		y = y + (math.sin(Sys.Ticks/2)*4)
 		if     puzdata.balY<y 
 			puzdata.balY += 2
 		elseif puzdata.balY>y
@@ -288,7 +288,7 @@ Group MScript
 		//GoToLayer(lay,"Start")
 		//end
 		CSayF("y pointer: %f; Bal Y: %d; Gegeven antwoord: %d; Goede Antwoord: %d",y,puzdata.baly,puzdata.meter,puzdata.goedeantwoord)
-		if puzdata.balY>y-5 and puzdata.balY<y+5 and puzdata.meter==puzdata.goedeantwoord
+		if puzdata.balY>y-5 && puzdata.balY<y+5 && puzdata.meter==puzdata.goedeantwoord
 			//subscript = [[
 			//DDZ = Maps.Obj.Obj("Done")
 			//DDO = Maps.Obj.Obj("Obstacle_Done")
