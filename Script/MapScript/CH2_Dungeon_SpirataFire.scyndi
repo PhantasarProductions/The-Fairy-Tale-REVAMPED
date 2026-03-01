@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.01
+// version: 26.03.01 I
 // 
 // End License
 
@@ -184,6 +184,9 @@ Group MScript
 		End
 	End
 
+	Void GoodBye()
+		WorldMap.Go()
+	End
 	
 	
 	Void Update()
@@ -204,7 +207,7 @@ Init
 	End
 	ZA.Enter("genpuzzle","GeneratePuzzle")
 	ZA.Enter("SpirataMusic","SpirataRoom")
-	ZA.TabEnter{"StartBoss"}
+	ZA.TabEnter{"StartBoss","GoodBye"}
 	Progress.Kill("ZIGZAGVLOER")
 	Map.MSHasUpdate=True
 End
