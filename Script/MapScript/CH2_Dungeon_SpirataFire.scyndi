@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.28 IX
+// version: 26.03.01
 // 
 // End License
 
@@ -205,5 +205,6 @@ Init
 	ZA.Enter("genpuzzle","GeneratePuzzle")
 	ZA.Enter("SpirataMusic","SpirataRoom")
 	ZA.TabEnter{"StartBoss"}
-	Progress.Kill("ZIGZAGVLOER")		
+	Progress.Kill("ZIGZAGVLOER")
+	Map.MSHasUpdate=True
 End
