@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.01 XX
+// version: 26.03.01 XXV
 // 
 // End License
 
@@ -74,8 +74,8 @@ Class TPuzData
 	End
 	
 	Constructor(int _goed, string vt)
-     	balletje = Map.GetObjInt("Balletje","Y")
-     	ondergrens = Map.GetObjInt("A1","Y")+32
+     	balletje = Kthura.Obj.Balletje.Y
+     	ondergrens = Kthura.Obj.A1.Y+32
      	goedeantwoord = _goed
      	//Tag=vt
      End
@@ -233,13 +233,14 @@ Group MScript
 				Slabs = Slabs || {}
 				Slabs[i] = Slabs[i] || LoadNewImage("GFX/SpirataWind/"..i..".png","WINDSPIRATASLAB_"..i)
 				Slabs[i].HotCenter()
-				SW = Slabs[i].W div 2
+				SW = Slabs[i].Width div 2
 				SX = i*DW
 				If Mouse.MX>SX-SW && Mouse.MX<SX+SW && Mouse.MY<200
 					Graphics.Scale(1.50,1.50)
 					If Mouse.ML
 						PuzData.GegevenAntwoord = i
 						Puzdata.Meter = i
+						CSayF("Gegeven antwoord: %d; Goede antwoord: %d",i,PuzData.GoedeAntwoord)
 						Return
 					End
 				End
@@ -288,7 +289,7 @@ Group MScript
 		//puzdata=nil
 		//GoToLayer(lay,"Start")
 		//end
-		CSayF("y pointer: %f; Bal Y: %d; Gegeven antwoord: %d; Goede Antwoord: %d",y,puzdata.baly,puzdata.meter,puzdata.goedeantwoord)
+		CSayF("y pointer: %f; Bal Y: %d; Diff:%d Gegeven antwoord: %d; Goede Antwoord: %d",y,puzdata.baly,math.floor(math.abs(PuzData.BalY-y)),puzdata.meter,puzdata.goedeantwoord)
 		if puzdata.balY>y-5 && puzdata.balY<y+5 && puzdata.meter==puzdata.goedeantwoord
 			//subscript = [[
 			//DDZ = Maps.Obj.Obj("Done")
@@ -303,7 +304,7 @@ Group MScript
 			//subfunction = loadstring(subscript)
 			//subfunction()
 			//for ch in EachParty() do RPG.IncStat(ch,"EXP",-math.ceil((900/(skill^2)))) end
-			for ch in Each{"Jake_Human","Marrilona","Dandor","HandoStillor"}
+			for ch in Each{[0]="Jake_Human","Marrilona","Dandor","HandoStillor"}
 				RPGChar[ch].Stat.Experience -= math.ceil((900/(__skill^2)))
 				//SFX('Audio/sfx/General/Solved.ogg')
 				Audio.LoadNew("Audio/SFX/Solved.ogg","SOLVED").Play()
