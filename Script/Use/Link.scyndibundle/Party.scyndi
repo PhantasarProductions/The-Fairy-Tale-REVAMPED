@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.23
+// version: 26.03.01 I
 // 
 // End License
 
@@ -173,6 +173,9 @@ End
   		SkillLvlUpMsg = NIKS
   		SkillUpBonus = NIKS
   		SLUC = {}
+  		// Crash prevention
+  		SLUC += {255,255,255}
+  		// Actual data
   		SLUC += {  0,255,255}
   		SLUC += {255,  0,  0}
   		SLUC += {  0,255,  0}
