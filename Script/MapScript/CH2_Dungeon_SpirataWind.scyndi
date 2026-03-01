@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.01 XIX
+// version: 26.03.01 XX
 // 
 // End License
 
@@ -66,11 +66,11 @@ Class TPuzData
 	//string tag
 	
 	Get Int BalY
-		Return Map.GetObjInt("Balletje","Y")
+		Return Kthura.Obj.Balletje.Y
 	End
 	
 	Set Int BalY
-		Map.SetObj("Balletje","Y",value)
+		Kthura.Obj.Balletje.Y=value
 	End
 	
 	Constructor(int _goed, string vt)
@@ -188,13 +188,13 @@ Group MScript
 		End
 		int v=math.random(3,12)
 		for i=1,12
-			for let in each{"A","B"}
+			for let in each{[0]="A","B"}
 				//local o=Maps.Obj.Obj(let..i)
 				goed:=i==v
 				CSayF("Setting spot %s%d (%s/%d)",let,i,Lua.tostring(i==v),v)
-				Map.SetObj(let..i,"R",c[goed][1])  //o.R=c[goed][1]
-				Map.SetObj(let..i,"G",c[goed][2])  //o.G=c[goed][2]
-				Map.SetObj(let..i,"B",c[goed][3])  //o.B=c[goed][3]
+				Kthura.obj[let..i].R=c[goed][1]  //o.R=c[goed][1]
+				Kthura.obj[let..i].G=c[goed][2]  //o.G=c[goed][2]
+				Kthura.obj[let..i].B=c[goed][3]  //o.B=c[goed][3]
 			end
 		end
 		//puzdata = {
