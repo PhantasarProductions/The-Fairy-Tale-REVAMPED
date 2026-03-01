@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/CLS_Effect.scyndi
 // 
-// 	  Version: 26.02.23
+// 	  Version: 26.03.01 II
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -370,9 +370,11 @@ Group Effect
     End
     
     Get Bool CauseStatus
-    	Bool Ret = False
+    	Bool Ret = False    	
     	For k,d in pairs(FlowCombat.StatusChanges.Register)
-    		If Act["Cause"..k] && (!Target.StatusChanges[k]) && math.random(0,100)>Target.Char.SafeStat["END_SR_"..k]
+    		Int Roll:=math.random(0,100)
+    		CSayF("Cause %s; Have: %s; Roll: %03d; Resistance: %03d%%",Act["Cause"..k],Target.StatusChanges[k], Roll,Target.Char.SafeStat["END_SR_"..k])
+    		If Act["Cause"..k] && (!Target.StatusChanges[k]) && Roll>Target.Char.SafeStat["END_SR_"..k]
     			Target.StatusChanges[k] = true
     			Invoke(d.Inflict,Target)
     			charmsg(Target.Tag,k,180,0,255)
@@ -405,7 +407,7 @@ Group Effect
     End
     
     Get Bool Buffs
-    	Static Table ST = {"Power","Endurance","Intelligence","Resistance","Speed","Accuracy","Evasion"}
+    	Static Table ST = {[0]="Power","Endurance","Intelligence","Resistance","Speed","Accuracy","Evasion"}
     	Bool Ret = False
     	For S in Each(ST)
     		Int Base = Target.Char.Stat["BASE_"..S]
