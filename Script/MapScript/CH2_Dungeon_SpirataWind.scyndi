@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.01 XVIII
+// version: 26.03.01 XIX
 // 
 // End License
 
@@ -165,7 +165,7 @@ Group MScript
 		Return Kthura.Obj.ExitDisc.Rotation
 	End
 	Set Int TileRot
-		Kthura.ExitDisc.Rotation=Value % 360
+		Kthura.Obj.ExitDisc.Rotation=Value % 360
 	End
 	Void PuzExit()
 		If Solved
