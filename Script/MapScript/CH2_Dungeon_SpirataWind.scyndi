@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.01 XII
+// version: 26.03.01 XIII
 // 
 // End License
 
@@ -261,10 +261,10 @@ Group MScript
 		end
 		//if CVV(puzdata.tag) then return end
 		//local balletje = Maps.Obj.Obj("Balletje")
-		Map.SetObj("Balletje","R",math.random(0,255))
-		Map.SetObj("Balletje","G",math.random(0,255))
-		Map.SetObj("Balletje","B",math.random(0,255))
-		plua y = puzdata.ondergrens
+		Kthura.Obj.Balletje.R=math.random(0,255)
+		Kthura.Obj.Balletje.G=math.random(0,255)
+		Kthura.Obj.Balletje.B=math.random(0,255)
+		y := puzdata.ondergrens
 		
 		y = y - ((puzdata.meter-1)*32)
 		y = y + (math.sin(FPS.Ticks/2)*4)
