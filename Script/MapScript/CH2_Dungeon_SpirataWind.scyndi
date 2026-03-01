@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.01 XV
+// version: 26.03.01 XVI
 // 
 // End License
 
@@ -43,6 +43,7 @@ Script
 #use "Libs/Music"
 
 #use "Libs/SCI/Sys"
+#use "Libs/SCI/Audio"
 #use "Libs/SCI/Kthura"
 #use "Libs/SCI/Events"
 #use "Libs/SCI/Graphics"
