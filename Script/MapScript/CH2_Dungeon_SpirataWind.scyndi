@@ -34,15 +34,23 @@
 // **********************************************
 // 
 // 
-// version: 26.03.01 III
+// version: 26.03.01 XII
 // 
 // End License
 
 Script
 
+#use "Libs/Music"
+
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/Kthura"
+#use "Libs/SCI/Events"
+#use "Libs/SCI/Graphics"
 #use "Libs/SCI/Intervar"
 
+#use "Script/Use/Link"
 #use "Script/Use/Anyway"
+#use "Script/Use/Convert"
 #use "Script/Use/Misc/TexMove"
 #use "Script/Use/Misc/MManaOrb"
 
@@ -103,7 +111,7 @@ Group MScript
 		MapText("SPIRATA")
 		RPGChar.HandoStillor.Stat.Experience = math.min(0,RPGChar.HandoStillor.Stat.Experience)
 		gbool.CharSpirata_HandoStillor = true
-		NoSpirata()
+		MScript.NoSpirata()
 		MapText("SPIRATAPOST")
 		Map.Kill("WaaiLinks",true)
 		Map.Kill("WindLeft",true)
@@ -116,7 +124,7 @@ Group MScript
 
 	Void SpirataCheck()
 		If __Finished
-			NoSpirata()
+			MScript.NoSpirata()
 		End
 	End
 	
@@ -181,7 +189,7 @@ Group MScript
 		for i=1,12
 			for let in each{"A","B"}
 				//local o=Maps.Obj.Obj(let..i)
-				plua goed=i==v
+				goed:=i==v
 				CSayF("Setting spot %s%d (%s/%d)",let,i,Lua.tostring(i==v),v)
 				Map.SetObj(let..i,"R",c[goed][1])  //o.R=c[goed][1]
 				Map.SetObj(let..i,"G",c[goed][2])  //o.G=c[goed][2]
@@ -222,7 +230,7 @@ Group MScript
 				Int SW
 				Int SX
 				Slabs = Slabs || {}
-				Slabs[i] = Slabs[i] || Image.LoadNew("GFX/SpirataWind/"..i..".png","WINDSPIRATASLAB_"..i)
+				Slabs[i] = Slabs[i] || LoadNewImage("GFX/SpirataWind/"..i..".png","WINDSPIRATASLAB_"..i)
 				Slabs[i].HotCenter()
 				SW = Slabs[i].W div 2
 				SX = i*DW
@@ -239,7 +247,7 @@ Group MScript
 			End
 			Mouse.Draw()
 			Graphics.Flip()
-			FPS.WaitMinTicks()
+			Sys.WaitMinTicks()
 			If Events.KeyHit(27)
 				Return
 			End
@@ -248,7 +256,7 @@ Group MScript
 	
 	Void CheckBalletje()
 		//TurnDone()
-		if (not puzdata) || Solved 
+		if (! puzdata) || Solved 
 			return 
 		end
 		//if CVV(puzdata.tag) then return end
