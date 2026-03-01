@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.01 XVI
+// version: 26.03.01 XVIII
 // 
 // End License
 
@@ -90,13 +90,13 @@ Group MScript
 	
 	Void Update()
 		TexMove.Update()
-		Switch Map.Layer
+		Switch Kthura.CurrentLayer
 			Case "#006" "#004"
 				self.CheckBalletje()
 				FallThrough
 			Case "#002"
-				Self.TileRot++
-				Map.SetObj("ExitDisc","Visible",self.Solved)
+				MScript.TileRot++
+				Kthura.Obj.ExitDisc.Visible=self.Solved
 			Default
 		End
 	End
@@ -144,25 +144,25 @@ Group MScript
 	var _PuzData
 	Get Var PuzData
 		_PuzData = _PuzData || {}
-		return _PuzData[Map.Layer]
+		return _PuzData[Kthura.CurrentLayer]
 	End
 	Set Var PuzData
 		_PuzData = _PuzData || {}
-		_PuzData[Map.Layer] = Value
+		_PuzData[Kthura.CurrentLayer] = Value
 	End
 	
 	Const String Tag="SOLVED_PUZZLE_SPIRATA_WIND_"
 	Get Bool Solved
-		if Map.Layer=="#002"
+		if Kthura.CurrentLayer=="#002"
 			Return gbool[Tag.."#004"] && gbool[Tag.."#006"] && (!__Finished)
 		End
-		Return gbool[Tag..Map.Layer]
+		Return gbool[Tag..Kthura.CurrentLayer]
 	End
 	Set Bool Solved
-		gbool[Tag..Map.Layer]=value
+		gbool[Tag..Kthura.CurrentLayer]=value
 	End
 	Get Int TileRot
-		Return Kthura.Ibj.ExitDisc.Rotation
+		Return Kthura.Obj.ExitDisc.Rotation
 	End
 	Set Int TileRot
 		Kthura.ExitDisc.Rotation=Value % 360
@@ -178,7 +178,7 @@ Group MScript
 			CSay("Already data present so no generation required!")
 			return 
 		end
-		//string l=Map.Layer
+		//string l=Kthura.CurrentLayer
 		//local vt="&DONE.SPIRATA.WIND.PUZZLE["..l.."]"
 		Static Var c={[true]={180,0,0},[false]={0,180,0}}
 		//if CVV(vt) then return end
@@ -205,7 +205,7 @@ Group MScript
 			//tag=vt
 		//}
 		Csay("Class instance creation")
-		puzdata = New TPuzData(v,Map.Layer)
+		puzdata = New TPuzData(v,Kthura.CurrentLayer)
 		CSay("Correct answer is "..v)
 		//CSay(serialize("Generated data ",puzdata))
 		Csay("All done!")
