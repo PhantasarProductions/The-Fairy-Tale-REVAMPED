@@ -34,14 +34,15 @@
 // **********************************************
 // 
 // 
-// version: 26.03.01 I
+// version: 26.03.01 V
 // 
 // End License
 
 
 Script
 
-#use "Libs/SCI/SCI"
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/Kthura"
 #use "Libs/SCI/InterVar"
 
 #use "Script/Use/Link"
@@ -69,13 +70,13 @@ Group MScript
 	Void Russell_Boss()
 		Lua.Neil.Globals.Map.StopWalking()
 		MapText("RUSSELL_PREBOSS")
-		Boss_Start() // Turn off when debugging!
+		MScript.Boss_Start() // Turn off when debugging!
 		Schedule.Add("Russell_PostBoss")
 	End
 	
 	Void Russell_PostBoss()
 		__Russell = True
-		Map.SetObj("NPC_Elizabeth","Visible",true)
+		Kthura.Obj.NPC_Elizabeth.Visible=true
 		Master.Speak("Russell")
 		Map.Kill("Russell_Boss",true)
 		WorldMap.Unlock("CH2DOUBLINE")
@@ -103,14 +104,13 @@ Group MScript
 	Void Bye()
 		WorldMap.Go()
 	End
-		
+End		
 	
-	Constructor
-		ZA.TabEnter{"StartZone","Russell_Boss"}
-		for i=1,2
-			ZA.Enter("Bye"..i,"Bye")
-		End
-		Map.SetObj("NPC_Elizabeth","Visible",__Russell)
+Init
+	ZA.TabEnter{"StartZone","Russell_Boss"}
+	for i=1,2
+		ZA.Enter("Bye"..i,"Bye")
 	End
-	#endregion
+	Kthura.Obj.NPC_Elizabeth.Visible=__Russell
 End
+	#endregion
