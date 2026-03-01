@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/CL2_Class_Hero.scyndi
 // 
-// 	  Version: 26.02.28
+// 	  Version: 26.03.01
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -490,7 +490,7 @@ Class Stage_PlayerInput_Main
 					tgt += T
 				End
 			End
-			String EX = Exe:upper()
+			String EX := Upper(Exe)
 			If Prefixed(EX,"JAKE_")
 				EX="JAKE"
 			End
@@ -735,7 +735,7 @@ Bool HasSpirata()
 	If Prefixed(Exe,"Jake")
 		Exe = "Jake"
 	End
-	return gv.gbool["CharSpirata_"..Exe] && RPGChar[Exe].Points.AP.Have>0
+	return gv.gbool["CharSpirata_"..Exe] && RPGChar[SPIM.Exe].Points.AP.Have>0
 End
 #endregion
 
