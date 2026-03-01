@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.01
+// version: 26.03.01 II
 // 
 // End License
 
@@ -43,6 +43,7 @@ Module
 #use "Libs/SCI/InterVar"
 
 #use "Script/Use/Anyway"
+#use "Script/Use/Convert"
 
 #accept DefStat
 
@@ -136,8 +137,7 @@ Module
      ReadOnly String ID   = "Russell"
      ReadOnly Bool   HideRates = False
 
-     Constructor
+     Init
      	DefStats()
      	DefAbl()
      End
-End
