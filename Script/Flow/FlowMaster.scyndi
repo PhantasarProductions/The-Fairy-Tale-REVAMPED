@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowMaster.scyndi
 // 
-// 	  Version: 26.02.23
+// 	  Version: 26.03.01
 // 	
 // 	  Copyright (C) 2016, 2017, 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -215,7 +215,7 @@ End
 		//local tmaster = jinc('Script/JINC/Masters/'..master..".lua")
 		tmaster := mData(master)
 		//;(tmaster.dismiss or Nothing)(ch)
-		tmaster.dismiss()
+		tmaster.dismiss(ch)
 		RPGChar[ch].Data.Master=""
 		if !nomorejake
 			//if ch=="Jake_Human" and RPG.CharExists('Jake_Fairy')==1 then Master_Dismiss('Jake_Fairy',master,true) end
