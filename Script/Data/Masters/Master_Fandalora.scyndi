@@ -1,8 +1,8 @@
-// License Information:
+// License:
 // **********************************************
 // 
-// src/Tricky Script/Script/Data/Masters/Fandalora.neil
-// (c) Jeroen Broks, 2022, All Rights Reserved.
+// src/Code/Script/Data/Masters/Master_Fandalora.scyndi
+// (c) Jeroen Broks, 2022, 2026, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -24,6 +24,7 @@
 // from it, you can use it under that license.
 // Please check out the other files to find out
 // which license applies.
+// 
 // This file comes 'as-is' and in no possible
 // way the author can be held responsible of
 // any form of damages that may occur due to
@@ -32,10 +33,15 @@
 // 
 // **********************************************
 // 
-// version: 22.02.06
-// End License Information
-
+// 
+// version: 26.03.01
+// 
+// End License
 Module
+
+#use "Libs/SCI/InterVar"
+
+#use "Script/Use/Anyway"
 
 	Get Bool requirement() 
 		Return true
@@ -45,24 +51,21 @@ Module
 	Void DefAbl()
 		plua _Abl
 		plua skill = __skill
-		#pure
-		_Abl = {
-			[10] = "abl_master_fandalora_darkness",
-			[15] = "abl_master_fandalora_removecurse",
-			[20] = "abl_master_fandalora_curse",
-			[25] = "abl_master_fandalora_removecurse",
-			[30] = "abl_master_fandalora_phantom",
-			[11+(skill^skill)] = "abl_master_fandalora_void"
-		}
+		_Abl = {}
+		_Abl[10] = "abl_master_fandalora_darkness",
+		_Abl[15] = "abl_master_fandalora_removecurse",
+		_Abl[20] = "abl_master_fandalora_curse",
+		_Abl[25] = "abl_master_fandalora_removecurse",
+		_Abl[30] = "abl_master_fandalora_phantom",
+		_Abl[11+(skill^skill)] = "abl_master_fandalora_void"		
 		_Abl[(3^skill)+5] = "abl_master_fandalora_death"                              
-		#endpure
 		Abl = _Abl
 	End
 
 	Bool All = False
 	
 	Var AllPoints(ch)
-		if gv.gbool.CheatFandalora
+		if gbool.CheatFandalora
 			return 9000,1200
 		End
 		int deler = 0
@@ -136,19 +139,17 @@ Module
      End
 
      Var Stats
-     Table Desc = {"Marrilona's father","Expert on dark magic and defense against it","May teach you some darker spells","Because you may need them","","Studying under Fandalora can increase","the AP recovery some actions cause","And will also increase the","skill experience you'll gain","For executing moves"}
+     Table Desc = {[0]="Marrilona's father","Expert on dark magic and defense against it","May teach you some darker spells","Because you may need them","","Studying under Fandalora can increase","the AP recovery some actions cause","And will also increase the","skill experience you'll gain","For executing moves"}
 
      Void DefStats()
      	plua _stats
      	// Spd +25%, Atk -10%, End -5%, Int -10%, Res - 5%, Acc +5%, eva +5%     	
-     	#pure
-     	_stats = {
-     		Power = -25,
-     		Endurance = -15,
-     		Intelligence = 15,
-     		Resistance = 15,     	
-     	}
-     	#endpure
+     	
+     	_stats = {}
+     	_stats.Power = -25,
+     	_stats.Endurance = -15,
+     	_stats.Intelligence = 15,
+     	_stats.Resistance = 15,     	
      	Stats = _stats
      End
      
@@ -167,9 +168,9 @@ Module
      ReadOnly String ID   = "Fandalora"
      ReadOnly Bool   HideRates = False
 
-     Constructor
+     Init
      	CSay("Loading Master Fandalora")
      	DefStats()
      	DefAbl()
      End
-End
+//End
