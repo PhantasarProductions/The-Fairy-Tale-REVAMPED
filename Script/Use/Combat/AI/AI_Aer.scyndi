@@ -1,0 +1,41 @@
+
+
+Module
+
+#accept NeilUse
+#accept FlowCombat
+
+	ReadOnly Var DAI
+	
+	
+	Var Decide(foe)
+    	//local foe = fightersbytag[tag]
+    	//local countcards = 0
+    	string tag = foe.tag
+    	int countcards
+    	for _,c in pairs(FlowCombat.Cards.Lijst)
+    		if c.FightTag==tag
+    			countcards=countcards+1
+    		end
+    	end
+    	if countcards>2
+    		return DAI.Decide(foe)
+    	end
+    	//-- if RPG.Points(tag,'HP').Have>1 then return FoeAI.default(tag) end
+    	if math.random(1,20)>__skill^2
+    		return DAI.Decide(foe)
+    	end
+    	//nextact =   {
+    	//                       executor = { group = 'Foe', tag=foe.tag },
+    	//                       act = 'ITM_ANABOLINEA',
+    	//                       flow='Execution',
+    	//                       group='Foe',
+    	//                       targetidx=1
+    	//}
+    	//return nextact
+    	return new Action("ITM_ANABOLINEA",Tag,{[0]=Tag})
+    end
+
+	Init
+		DAI  = NeilUse("Script/Use/Combat/AI/AI_Default")
+	End
