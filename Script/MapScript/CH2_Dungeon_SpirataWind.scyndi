@@ -40,7 +40,6 @@
 // 	  2. Altered source versions must be plainly marked as such, and must not be
 // 	     misrepresented as being the original software.
 // 	  3. This notice may not be removed or altered from any source distribution.
-// End License
 // License Information:
 // **********************************************
 // 
@@ -77,6 +76,7 @@
 // 
 // version: 22.02.26
 // End License Information
+// End License
 
 Script
 
@@ -84,7 +84,7 @@ Script
 
 #use "Script/Use/Anyway"
 #use "Script/Use/Misc/TexMove"
-#use "Script/Use/Misc/ManaOrb"
+#use "Script/Use/Misc/MManaOrb"
 
 #macro __Finished gbool.SpirataWind
 
