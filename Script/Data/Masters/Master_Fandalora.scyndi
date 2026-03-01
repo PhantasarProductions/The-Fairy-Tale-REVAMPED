@@ -34,16 +34,20 @@
 // **********************************************
 // 
 // 
-// version: 26.03.01
+// version: 26.03.01 IX
 // 
 // End License
 Module
 
+#use "Libs/SCI/Sys"
 #use "Libs/SCI/InterVar"
 
 #use "Script/Use/Anyway"
+#use "Script/Use/Convert"
 
-	Get Bool requirement() 
+#accept DefStat
+
+	Get Bool requirement
 		Return true
 	End
 
@@ -87,9 +91,9 @@ Module
 			end
 		end
 		deler = math.max(deler,1) //if deler==0 then deler=1 end -- Should prevent errors, although deler being 0 should be impossible.
-		int gemiddelde = math.floor(totaal/deler)
+		int gemiddelde := math.floor(totaal/deler)
 		int gained = 0
-		//if ch and RPGChar[ch].Data.Master=="Fandalora"
+		//if ch && RPGChar[ch].Data.Master=="Fandalora"
 		//	gained = gemiddelde - RPGChar[ch].SafeStat.StartFandalora
 		//end
 		return totaal,gemiddelde
@@ -105,15 +109,15 @@ Module
 			return false,false 
 		end
 		CSay("= Checking score!")
-		plua points = Lua.tonumber(Self.ShowScore(ch) || 0)
+		points := Lua.tonumber(ShowScore(ch) || 0)
 		CSay("= Checking abilities!")
 		for i,a in pairs(abl)
 			CSayF("%03d>%s (Have %d)",i,a,points)
-        	if points>=i and (not rabl)
-        		if not Done["MASTERLEARNING.FANDALORA["..a.."]["..ch.."]"]
+        	if points>=i && (! rabl)
+        		if ! Done["MASTERLEARNING.FANDALORA["..a.."]["..ch.."]"]
         			rabl=a
         		else 
-        			all = all and gv.gbool["MASTERLEARNING.FANDALORA["..a.."]["..ch.."]"]
+        			all = all && gv.gbool["MASTERLEARNING.FANDALORA["..a.."]["..ch.."]"]
         		end
         	else
         		all=false
@@ -129,7 +133,7 @@ Module
       //Console.Write('Creating point for Rubine on '..ch,255,255,255)
       //Master_DefStat(ch,"RubinePoints",0)
       //RPGChar[ch].Stats.RubinePoints=0
-      FlowMaster.DefStat(Ch,"StartFandalora",0)
+      DefStat(Ch,"StartFandalora",0)
      End
      
      
