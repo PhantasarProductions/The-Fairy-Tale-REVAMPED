@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.01 II
+// version: 26.03.01 III
 // 
 // End License
 
@@ -152,11 +152,11 @@ Group MScript
 	Set Bool Solved
 		gbool[Tag..Map.Layer]=value
 	End
-	Set Int TileRot
-		Map.SetObj("ExitDisc","Rotation",Value % 360)
-	End
 	Get Int TileRot
-		Return Map.GetObjInt("ExitDisc","Rotation")
+		Return Kthura.Ibj.ExitDisc.Rotation
+	End
+	Set Int TileRot
+		Kthura.ExitDisc.Rotation=Value % 360
 	End
 	Void PuzExit()
 		If Solved
