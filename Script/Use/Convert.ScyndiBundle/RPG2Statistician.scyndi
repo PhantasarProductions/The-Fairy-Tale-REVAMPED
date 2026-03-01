@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Convert.ScyndiBundle/RPG2Statistician.scyndi
 // 
-// 	  Version: 26.02.23 V
+// 	  Version: 26.03.01 III
 // 	
 // 	  Copyright (C) 2026 Jeroen Petrus Broks
 // 	
@@ -181,6 +181,10 @@ Class TFChar
 
 	Void Link_Points(String TarChar,String _Stat)
 		ChData.LinkPoints(_Stat,TarChar)
+	End
+	
+	Get Var StatTable
+		return ts.ChData.ListOfStats
 	End
 
 		
