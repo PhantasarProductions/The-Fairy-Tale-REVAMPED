@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/CL2_Class_Foe.scyndi
 // 
-// 	  Version: 26.02.25
+// 	  Version: 26.03.01
 // 	
 // 	  Copyright (C) case 2021-2026 Jeroen Petrus Broks
 // 	
@@ -196,7 +196,8 @@ Class Foe Extends Fighter
 		WFoe.Char.Name=WFoe.Raw.NAME
 		for k,v in Pairs(WFoe.Raw)
 			If prefixed(k,"SR_")
-				WFoe.Char.Stats["END_SR_" ..Self.FURL(right(k,len(k)-3))] = v
+				//WFoe.Char.Stats["END_SR_" ..Self.FURL(right(k,len(k)-3))] = v
+				WFoe.Char.Stats["BASE_SR_" ..Self.FURL(right(k,len(k)-3))] = v
 				CSayF("Resistance to %9s: %03d%%",Self.FURL(right(k,len(k)-3)),v)
 			End
 		End
