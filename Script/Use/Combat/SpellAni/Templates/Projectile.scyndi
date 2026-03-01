@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Combat/SpellAni/Templates/Projectile.scyndi
 // 
-// 	  Version: 26.03.01
+// 	  Version: 26.03.01 I
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -158,7 +158,7 @@ module
 			//Image.Rotate = degrees
 			//PrjImage.XDraw(x,y)
 			//Image.Rotate = 0
-			PrjImage.XDraw(x,y,Degrees)
+			PrjImage.DrawR(x,y,Degrees)
 		end
 		
 	end
