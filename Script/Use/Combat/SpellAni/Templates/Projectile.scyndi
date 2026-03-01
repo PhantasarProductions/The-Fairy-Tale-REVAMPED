@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Combat/SpellAni/Templates/Projectile.scyndi
 // 
-// 	  Version: 26.02.25 V
+// 	  Version: 26.03.01
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -75,7 +75,7 @@ module
 	void Start(string Image,Act,aTurn,aHC)
 		// Original parameters
 		Exe := Act.Executor
-		Tar := Act.Targets[1]				
+		Tar := Act.Targets[0]				
 		Turn = aTurn!=false && aTurn!=nil;
 		HotCenter = aHC!=false && aHC!=nil;
 		PrjImage = LoadNewImage(Image,sprintf("PROJECTILE_%s_%s_%s",replace(Upper(Image),"/","_"),tostring(Turn),tostring(HotCenter)))
