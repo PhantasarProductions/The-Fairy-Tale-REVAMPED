@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/MOD_StatusChanges.scyndi
 // 
-// 	  Version: 26.02.23 II
+// 	  Version: 26.03.02
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -162,6 +162,7 @@ End
 			Static Var Z = LoadNewImage("GFX/Combat/StatusChanges/Sleep/Z.png","Status_Sleep")
 			SinBub[Char.Tag] = ((SinBub[Char.Tag] || math.random(0,180)) + 1) % 180
 			Graphics.Scale(xmath.sin(SinBub[Char.Tag])+1,1.5)
+			Graphics.Color(255,255,255)
 			Z.HotBottomCenter()
 			Z.Draw(Char.TX,Char.TY-Char.TH-10)
 			Graphics.Scale(1,1)
@@ -180,6 +181,7 @@ End
 		Void Paralysis_Draw(Char)
 			Static Var b = LoadNewImage("GFX/Combat/StatusChanges/Paralysis/Bliksem.png","COMBAT_PARA_BLIKSEM")
 			Graphics.Scale(1,1)
+			Graphics.Color(255,255,255)
 			for i=1,10
 				b.Draw(math.random(Char.TX-(Char.TW div 2),Char.TX+(Char.TW div 2)),math.random(Char.TY-Char.TH-10,Char.TY))
 			End
