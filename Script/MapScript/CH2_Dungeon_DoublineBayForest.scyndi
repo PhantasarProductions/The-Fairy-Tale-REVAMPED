@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.01 V
+// version: 26.03.02 I
 // 
 // End License
 
@@ -68,7 +68,7 @@ Group MScript
 	End
 	
 	Void Russell_Boss()
-		Lua.Neil.Globals.Map.StopWalking()
+		Kthura.Obj.Player.StopWalking()
 		MapText("RUSSELL_PREBOSS")
 		MScript.Boss_Start() // Turn off when debugging!
 		Schedule.Add("Russell_PostBoss")
@@ -111,6 +111,7 @@ Init
 	for i=1,2
 		ZA.Enter("Bye"..i,"Bye")
 	End
+	Kthura.CurrentLayer="FOREST"
 	Kthura.Obj.NPC_Elizabeth.Visible=__Russell
 End
 	#endregion
