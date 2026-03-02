@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Link.scyndibundle/Item_h.scyndi
 // 
-// 	  Version: 26.02.23 I
+// 	  Version: 26.03.02 II
 // 	
 // 	  Copyright (C) 2020, 2021, 2026 Jeroen Petrus Broks
 // 	
@@ -238,9 +238,14 @@ Void __TagNewIndex(s,string Key,value)
 	//__CSay("TagNewIndex:"..Key.." >> "..value)
 	Switch Upper(key)
 		Case "CASH"
+			locExtern Master "Scyndi.Class.Master"
 			Int MX = 2*(10^(10-gv.gint.skill))
 			__CSayF("Cash is now set to %09d shilders!",value)
-			gv.gInt.Cash = math.max(0,math.min(MX,value))
+			old:=gInt.Cash
+			gInt.Cash = math.max(0,math.min(MX,value))
+			if gInt.Cash>old
+				Master.AllInc("Rubine","")
+			end
 		Default
 			Lua.error("Item."..key.." is either non-existent or read-only!")
 	End
