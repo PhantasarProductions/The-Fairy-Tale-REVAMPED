@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/CLS_Cards.scyndi
 // 
-// 	  Version: 26.03.03
+// 	  Version: 26.03.03 I
 // 	
 // 	  Copyright (C) 2021-'22, 2026 Jeroen Petrus Broks
 // 	
@@ -105,7 +105,7 @@ Class Cards
 	
 	Static Void Replace(Int idx,String FighterTag,_Action,_Joker)
 		Var Old := Lijst[idx]		
-		Lijst[idx] = Self(FighterTag,_Action,_Joker)
+		Lijst[idx] = New Cards(FighterTag,_Action,_Joker)
 		if Old
 			Lijst[idx].X = Old.X
 		end
