@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/CLS_Cards.scyndi
 // 
-// 	  Version: 26.02.23
+// 	  Version: 26.03.03
 // 	
 // 	  Copyright (C) 2021-'22, 2026 Jeroen Petrus Broks
 // 	
@@ -103,9 +103,9 @@ Class Cards
 		Return Cards.Add
 	End
 	
-	Static Void Replace(Int idx,String FighterTag,Action,Joker)
+	Static Void Replace(Int idx,String FighterTag,_Action,_Joker)
 		Var Old := Lijst[idx]		
-		Lijst[idx] = Self(FighterTag,Action,Joker)
+		Lijst[idx] = Self(FighterTag,_Action,_Joker)
 		if Old
 			Lijst[idx].X = Old.X
 		end
