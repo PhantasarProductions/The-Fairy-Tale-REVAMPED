@@ -34,21 +34,26 @@
 // **********************************************
 // 
 // 
-// version: 26.03.02 IV
+// version: 26.03.02 IX
 // 
 // End License
 
 #use "Libs/SCI/Sys"
 #use "Libs/SCI/Kthura"
+#use "Libs/SCI/Graphics"
+#use "Libs/SCI/InterVar"
+#use "Libs/SCI/BlopPlasma"
 
 
 #use "Script/Use/Link"
 #use "Script/Use/Anyway"
-#use "Script/Use/Misc/Walda"
+#use "Script/Use/Misc/MWalda"
 #use "Script/Use/Misc/TexMove"
 #use "Script/Use/Misc/MManaOrb"
 
 Script
+
+locExtern Blop "Scyndi.Class.BlopPlasma"
 
 Group MScript
 
@@ -61,7 +66,7 @@ Group MScript
 		//Plasma = True
 		Bool HNext  = True
 		Bool HPrev  = True
-		Switch Kthura.CurrentLayer
+		Switch Kthura.CurrentLayer 
 			Case "#000"
 				HPrev=False
 				//Plasma=False
@@ -94,7 +99,7 @@ Group MScript
 	End
 	
 	Void PreDraw()
-		If Map.Layer!="#000"
+		If Kthura.CurrentLayer!="#000"
 			Blop.Draw()
 		End
 	End							
@@ -105,9 +110,9 @@ Group MScript
 	End
 	
 	Void StartBoss()
-		If !Done["BOSS_MAGICGARDEN_"..Map.Layer]
+		If !Done["BOSS_MAGICGARDEN_"..Kthura.CurrentLayer]
 			Map.StopWalking()
-			Combat.QuickBoss("Eye-Spy",({["#006"]="Invisible Demon", ["#018"]="Super Hiding Hag"})[Map.Layer],({["#006"]="InvisibleDemon",["#018"]="SuperHidingHag"})[Map.Layer] )
+			Combat.QuickBoss("Eye-Spy",({["#006"]="Invisible Demon", ["#018"]="Super Hiding Hag"})[Kthura.CurrentLayer],({["#006"]="InvisibleDemon",["#018"]="SuperHidingHag"})[Kthura.CurrentLayer] )
 			Map.Kill("Boss",true)
 		End
 	End
@@ -128,7 +133,7 @@ Group MScript
 End	
 	
 Init
-	Blop.Create(80)
+	Blop.Settings(80)
 	ZA.TabEnter{"StartBoss","Back","Bye"}
 	Map.MSHasUpdate=true
 	Map.MSHasDraw=True
