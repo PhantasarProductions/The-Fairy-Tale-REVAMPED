@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowField/Treasure.scyndi
 // 
-// 	  Version: 26.02.23
+// 	  Version: 26.03.02
 // 	
 // 	  Copyright (C) 2021-'22, 2026 Jeroen Petrus Broks
 // 	
@@ -104,8 +104,10 @@ LocExtern FieldFlow "Scyndi.AllIdentifiers.FlowField"
 				Case "number"
 					If N==1
 						Msg="1 shilder obtained"
+						IsDone=true
 					Else
 						Msg=SPrintF("%d shilders obtained",N)
+						IsDone=true
 					End
 					ChaChing.Play()
 					Item.Cash += N
