@@ -34,9 +34,9 @@
 // misrepresented as being the original software.
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
-Bool _PA(Act,Tar)
+
+Bool _Act(Act,Tar)
 	Tar.Char.Points.AP.Have = 0
 	Return True
 End
 
-Return _PA
