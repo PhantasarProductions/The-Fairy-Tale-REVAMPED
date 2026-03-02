@@ -34,13 +34,16 @@
 // **********************************************
 // 
 // 
-// version: 26.03.02 I
+// version: 26.03.02 IV
 // 
 // End License
 
 
 Script
 
+#use "Libs/SCI/Sys"
+
+#use "Script/Use/Link"
 #use "Script/Use/Anyway"
 #use "Script/Use/Convert"
 #use "Script/Use/Misc/PuzSet"
@@ -127,6 +130,7 @@ Group MScript
 	Void ToTomb()
 		Map.GoToMap("PRO_Dungeon_Tomb","#000","Start")
 	End
+End	
 	
 Init
 	ZA.TabEnter{"ToSecretDungeon","Delisto","InitPuzzle","StartBoss","ToTomb"}
