@@ -1,8 +1,8 @@
-// License Information:
+// License:
 // **********************************************
 // 
-// src/Tricky Script/Script/MapScript/CH3_Dungeon_Garden.neil
-// (c) Jeroen Broks, 2022, All Rights Reserved.
+// src/Code/Script/MapScript/CH3_Dungeon_Garden.scyndi
+// (c) Jeroen Broks, 2022, 2026, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -24,6 +24,7 @@
 // from it, you can use it under that license.
 // Please check out the other files to find out
 // which license applies.
+// 
 // This file comes 'as-is' and in no possible
 // way the author can be held responsible of
 // any form of damages that may occur due to
@@ -32,13 +33,20 @@
 // 
 // **********************************************
 // 
-// version: 22.07.31
-// End License Information
+// 
+// version: 26.03.02 III
+// 
+// End License
 
+#use "Libs/SCI/Sys"
+
+
+#use "Script/Use/Link"
 #use "Script/Use/Anyway"
 #use "Script/Use/Misc/TexMove"
-#use "Script/Use/Misc/ManaOrb"
+#use "Script/Use/Misc/MManaOrb"
 
+Script
 
 Group MScript
 
@@ -72,14 +80,16 @@ Group MScript
 			Default
 		End
 		If HNext
-			Map.SetObj("Obstacle_Next","Rotation",(Map.GetObjInt("Obstacle_Next","Rotation")+1)%360)
+			Kthura.Obj.Obstacle_Next.Rotation=(Kthura.Obj.Obstacle_Next.Rotation+1)%360
 		End
 		If HPrev
-			Map.SetObj("Obstacle_Prev","Rotation",(Map.GetObjInt("Obstacle_Prev","Rotation")-1)%360)
+			Kthura.Obj.Obstacle_Next.Rotation=(Kthura.Obj.Obstacle_Next.Rotation-1)%360
 		End
 	End
 	
-	ReadOnly Delegate PostDraw = NIKS
+	//ReadOnly Delegate PostDraw = NIKS
+	Void PostDraw()
+	End
 	
 	Void PreDraw()
 		If Map.Layer!="#000"
@@ -112,9 +122,11 @@ Group MScript
 	Void Bye()
 		Map.GoToMap("CH3_Dungeon_Mine","#001","FromSecretDungeon")
 	End
+End	
 	
-	Constructor
-		Blop.Create(80)
-		ZA.TabEnter{"StartBoss","Back","Bye"}
-	End
+Init
+	Blop.Create(80)
+	ZA.TabEnter{"StartBoss","Back","Bye"}
+	Map.MSHasUpdate=true
+	Map.MSHasDraw=True
 End
