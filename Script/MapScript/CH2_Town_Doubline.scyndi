@@ -34,12 +34,14 @@
 // **********************************************
 // 
 // 
-// version: 26.03.02 I
+// version: 26.03.02 III
 // 
 // End License
 
 
 Module
+
+#use "Libs/SCI/InterVar"
 
 #use "Script/Use/Link"
 #use "Script/Use/Anyway"
@@ -81,14 +83,14 @@ Group MScript
 		if __Ludo
 			MapText("LUDO_AGAIN")
 			If Yes("Do you want to go to Kokonora?")
-				Kokonora()
+				MScript.Kokonora()
 			End
 		Else
 			MapText("LUDO_CHARTER")
 			If Yes("Do you want to pay 5000 shilders for the ride to Kokonora?") && __Cash>=5000				
 				MapText("LUDO_CHARTERED")
 				__Cash-=5000
-				Kokonora()
+				MScript.Kokonora()
 				Map.Chapter(3)
 				__Ludo=true
 			Else
