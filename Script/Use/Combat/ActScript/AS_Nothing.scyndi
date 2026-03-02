@@ -1,12 +1,18 @@
-// License Information:
+// License:
+// 
 // ***********************************************************
-// src/Tricky Script/Script/Use/Combat/ActScript/Nothing.neil
+// 
+// src/Code/Script/Use/Combat/ActScript/AS_Nothing.scyndi
+// 
+// 
 // This particular file has been released in the public domain
 // and is therefore free of any restriction. You are allowed
 // to credit me as the original author, but this is not
 // required.
+// 
 // This file was setup/modified in:
-// 2022
+// 2022, 2026
+// 
 // If the law of your country does not support the concept
 // of a product being released in the public domain, while
 // the original author is still alive, or if his death was
@@ -14,11 +20,17 @@
 // "(c) Jeroen Broks - licensed under the CC0 License",
 // with basically comes down to the same lack of
 // restriction the public domain offers. (YAY!)
+// 
 // ***********************************************************
-// Version 22.01.23
-// End License Information
-Bool _N()
+// 
+// 
+// Version 26.03.02 I
+// 
+// End License
+
+Module
+
+Bool _Act()
 	Return True
 End
 
-Return _N
