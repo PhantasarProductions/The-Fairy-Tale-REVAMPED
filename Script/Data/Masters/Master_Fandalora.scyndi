@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.01 IX
+// version: 26.03.02
 // 
 // End License
 Module
@@ -78,7 +78,7 @@ Module
 		//chcheck.Jake_Fairy=chcheck.Jake_Human
 		//CSayF("Allpoints(%s)",ch) // Debug ONLY!
 		for tch,skills in pairs(chcheck)
-			for _,d in ipairs(skills)
+			for _,d in Lua.ipairs(skills)
 				Int keer = 1
 				if tch == ch
 					keer = keer + 1
