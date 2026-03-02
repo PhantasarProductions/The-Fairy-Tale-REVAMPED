@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.02 IX
+// version: 26.03.02 X
 // 
 // End License
 
@@ -90,7 +90,7 @@ Group MScript
 			Kthura.Obj.Obstacle_Next.Rotation=(Kthura.Obj.Obstacle_Next.Rotation+1)%360
 		End
 		If HPrev
-			Kthura.Obj.Obstacle_Next.Rotation=(Kthura.Obj.Obstacle_Next.Rotation-1)%360
+			Kthura.Obj.Obstacle_Prev.Rotation=(Kthura.Obj.Obstacle_Prev.Rotation-1)%360
 		End
 	End
 	
