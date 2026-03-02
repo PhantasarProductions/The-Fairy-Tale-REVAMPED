@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Combat/ActScript/AS_MultiPointAlter.scyndi
 // 
-// 	  Version: 26.03.02
+// 	  Version: 26.03.03 I
 // 	
 // 	  Copyright (C) 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -46,20 +46,23 @@ Module
 
 #use "Libs/SCI/SString"
 
+#accept FlowCombat
+#accept CharMsg
+
 Bool _Act(Act,Tar)
-	Var MyArgs = xsplit(Act.EffectScript_Arg,";")
+	Var MyArgs := xsplit(Act.EffectScript_Arg,";")
 	For MyArg in each(MyArgs)
 		//If MyArg==""
 		//MyArg = "HP 1"
 		//End
-		Var k = XSplit(MyArg," ")
+		Var k := XSplit(MyArg," ")
 		Lua.assert(len(k)==2,"Invalid Point Alter Argument: "..MyArg)
 		if Upper(k[1])=="MAX"
 			Tar.Char.Points[k[0]].Have = Tar.Char.Points[k[0]].Maximum
 		Else
 			Tar.Char.Points[k[0]].Have = Lua.tonumber(k[1]) || 1
 		End
-		FlowCombat.charmsg(Tar.Tag,k[1].." to "..k[2],255,0,0)
+		charmsg(Tar.Tag,k[0].." to "..k[1],255,0,0)
 	End
 	Return True
 End
