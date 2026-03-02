@@ -34,15 +34,17 @@
 // **********************************************
 // 
 // 
-// version: 26.03.02 III
+// version: 26.03.02 IV
 // 
 // End License
 
 #use "Libs/SCI/Sys"
+#use "Libs/SCI/Kthura"
 
 
 #use "Script/Use/Link"
 #use "Script/Use/Anyway"
+#use "Script/Use/Misc/Walda"
 #use "Script/Use/Misc/TexMove"
 #use "Script/Use/Misc/MManaOrb"
 
@@ -59,7 +61,7 @@ Group MScript
 		//Plasma = True
 		Bool HNext  = True
 		Bool HPrev  = True
-		Switch Map.Layer
+		Switch Kthura.CurrentLayer
 			Case "#000"
 				HPrev=False
 				//Plasma=False
@@ -98,7 +100,8 @@ Group MScript
 	End							
 	
 	Get Delegate NPC_Walda
-		return NeilUse("Script/Use/Misc/Walda")
+		//return NeilUse("Script/Use/Misc/Walda")
+		Return Walda
 	End
 	
 	Void StartBoss()
