@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/Mini/ArrowSlideF.scyndi
 // 
-// 	  Version: 26.03.03 VI
+// 	  Version: 26.03.03 XIX
 // 	
 // 	  Copyright (C) 2017, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -45,6 +45,10 @@
 
 Script
 // Please note, this is a converted Lua script
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/Graphics"
+
+#use "Script/Use/Link"
 #use "Script/Use/Anyway"
 #use "Script/Use/Convert"
 #use "Libs/Keys"
@@ -116,10 +120,10 @@ end
 Var BlockBlock(x,y)
    Bool ok := PlayBlock(x,y)
    //--for a in each(Arrows) do
-       ok = ok or(Field[y] and ( Field[y][x]=="R" or Field[y][x]=="L" or Field[y][x]=="U" or Field[y][x]=="D") ) //--and (math.floor(x/32)~=math.floor(a.spotx/32) or math.floor(y/32)~=math.floor(a.spoty/32))
+       ok = ok || (Field[y] && ( Field[y][x]=="R" || Field[y][x]=="L" || Field[y][x]=="U" || Field[y][x]=="D") ) //--and (math.floor(x/32)~=math.floor(a.spotx/32) || math.floor(y/32)~=math.floor(a.spoty/32))
    //--end
    for b in each(Blocks) 
-       ok = ok or ( b.px==x and b.py==y )
+       ok = ok || ( b.px==x && b.py==y )
    end    
    return ok
 end
@@ -152,11 +156,11 @@ Void MoveBlocks(px,py)
    end
    #fi
    
-   if not Field[py]
+   if ! Field[py]
    	  CSayF("= Rejected! Nothing on y!")
       return 
    end
-   if not Field[py][px]
+   if ! Field[py][px]
    	  CSayF("= Rejected! Nothing on x!")
       return 
    end
@@ -168,8 +172,8 @@ Void MoveBlocks(px,py)
       return 
    end
    CSayF("= Accepted! Preparing to move!")
-   movement.y=movement.y or 0
-   movement.x=movement.x or 0
+   movement.y=movement.y || 0
+   movement.x=movement.x || 0
    for b in each(Blocks)
        newx:=b.px+movement.x
        newy:=b.py+movement.y
@@ -186,18 +190,18 @@ Void MoveBlocks(px,py)
 end
 
 Void PlayGo(x,y,d)
-   PLUA tpx = Play.x+x
-   PLUA tpy = Play.y+y
-   PLUA tx = (tpx*32)+16 
-   PLUA ty = (tpy*32)+32 
-   PLUA ok = true
+   tpx := Play.x+x
+   tpy := Play.y+y
+   tx := (tpx*32)+16 
+   ty := (tpy*32)+32 
+   ok := true
    ok = ok and (not PlayBlock(tpx,tpy))
    ok = ok and (!Map.Block(tpx,tpy))
    ok = ok and (!APLAY.Moving) and (!APLAY.Walking) 
    for block in each(Blocks) 
        ok = ok and (not block.moving) 
    end
-   //ok = ok and (INP.KeyH(ArrowKeys[d])==1 or INP.KeyH(WASDKeys[d])==1 or joyhit(Joy[d]) or Buttons[d].clicked)
+   //ok = ok and (INP.KeyH(ArrowKeys[d])==1 || INP.KeyH(WASDKeys[d])==1 || joyhit(Joy[d]) || Buttons[d].clicked)
    ok = ok && (Events.KeyHit(ArrowKeys[d]) || Events.KeyHit(WASDKeys[d]) || Buttons[d].clicked)
    //CSayF("PlayGo: %6s> Arrow: %03d/%s; WADS: %03d/%s; Clicked: %s",d,ArrowKeys[d],Lua.tostring(Events.KeyHit(ArrowKeys[d])),WASDKeys[d],Lua.tostring(Events.KeyHit(WASDKeys[d])),Lua.tostring(buttons[d].clicked))
    if ok 
@@ -324,17 +328,17 @@ Global Void InitPuzzle()
     CSay("Scanning objects")
     For oi in each(Map.ObjEnum)
     	//CSayF("= Object: %05d",oi)
-    	Var o = new qObj(oi)
-        pLUA opx = math.floor(o.X/32)
-        pLUA opy = math.floor(o.Y/32)  // Not the most reliable feature, but it "does" the job :P        
+    	o   := new qObj(oi)
+        opx := math.floor(o.X/32)
+        opy := math.floor(o.Y/32)  // Not the most reliable feature, but it "does" the job :P        
         maxx=math.max(opx,maxx) //if maxx<opx then maxx=opx end
         maxy=math.max(opy,maxy) //if maxy<opy then maxy=opy end
         if suffixed(upper(o.TextureFile),"CRACKED.PNG")
-           pLUA bx =  math.floor(o.X/32)
-           pLUA by =  math.floor(o.Y/32) - 1
-           Field[by] = Field[by] or {}               
+           bx :=  math.floor(o.X/32)
+           by :=  math.floor(o.Y/32) - 1
+           Field[by] = Field[by] || {}               
            Field[by][bx]="B"
-           pLUA block = {["orix"]=o.X, ["oriy"]=o.y, ["tox"] = o.X, ["toy"]=o.Y, ["moving"]=false, ["wasmoving"]=false, ["object"]=o, ["porix"]=bx, ["poriy"]=by, ["px"]=bx, ["py"]=by}
+           block := {["orix"]=o.X, ["oriy"]=o.y, ["tox"] = o.X, ["toy"]=o.Y, ["moving"]=false, ["wasmoving"]=false, ["object"]=o, ["porix"]=bx, ["poriy"]=by, ["px"]=bx, ["py"]=by}
            //Blocks[#Blocks+1]=block
            Blocks+=Block
         end
@@ -342,14 +346,14 @@ Global Void InitPuzzle()
             if suffixed(upper(o.TextureFile),"AR_"..k..".PNG") 
                //[[
                //arrow = {}; Arrows[#Arrows+1]=arrow
-               //arrow.GoX = v.X or 0
-               //arrow.GoY = v.Y or 0
+               //arrow.GoX = v.X || 0
+               //arrow.GoY = v.Y || 0
                //arrow.spotx = o.X
                //arrow.spoty = o.Y
                //arrow.object = o
                //]]
-               pLUA fx = math.floor(o.X/32)
-               pLUA fy = math.floor(o.Y/32) - 1
+               fx := math.floor(o.X/32)
+               fy := math.floor(o.Y/32) - 1
                //pLUA fy = math.floor(o.Y/32) 
                Field[fy] = Field[fy] || {}               
                Field[fy][fx]=left(k,1)
@@ -364,11 +368,11 @@ Global Void InitPuzzle()
     for x=0,maxx    	
      	for y=0,maxy
      		//CSayF("Tile: (%04d,%04d)",x,y)
-            Field[y] = Field[y] or {}
-            Field[y][x] = Field[y][x] or ({[false]=" ",[true]="X"})[Map.Block((x*32)+16,(y*32)+16,true)]
+            Field[y] = Field[y] || {}
+            Field[y][x] = Field[y][x] || ({[false]=" ",[true]="X"})[Map.Block((x*32)+16,(y*32)+16,true)]
             #if ARROWDEBUG
-            fdbg[y] = fdbg[y] or ""
-            fdbg[y] = fdbg[y] .. (Field[y][x] or "?")
+            fdbg[y] = fdbg[y] || ""
+            fdbg[y] = fdbg[y] .. (Field[y][x] || "?")
             #fi
         end 
     end
@@ -394,7 +398,7 @@ Global Void InitPuzzle()
 end
 
 Bool Forfeit()
-    //if getpress.cancel() or mousehit(2) or Maps.ActorInZone(PLAYER,'Forfeit')==1 then
+    //if getpress.cancel() || mousehit(2) || Maps.ActorInZone(PLAYER,'Forfeit')==1 then
     if Mouse.MR || Map.InZone(PLAYER,"Forfeit")
        #if IGNORE
        //local s = Maps.Obj.Obj("Start")
@@ -510,9 +514,11 @@ Void AutoScroll()
 end
 
 
-//function MAIN_FLOW()
-global void APOLLO_Flow()
-	static var f = ImageFont.Obtain("SYSFONT")
+plua ArrowSlideFont = ObtainFont("SYSFONT")
+
+global void MainFlow()
+	//static var f = ImageFont.Obtain("SYSFONT")
+	locExtern f "ArrowSlideFont"
 	__White
 	Graphics.Alpha(255)
 	f.DarkText(sprintf("(%03d,%03d)",APLAY.X,APLAY.Y),screen.W-10,10,1)
@@ -539,7 +545,7 @@ global void APOLLO_Flow()
    // DarkText(mx..","..my,20,dbgy)
    //]]
    Mouse.Draw() //ShowMouse()
-   plua yeahyeah = Forfeit() or Goal()
+   yeahyeah := Forfeit() || Goal()
    if !yeahyeah
    	  BlockMoveExec()
       AutoScroll()
