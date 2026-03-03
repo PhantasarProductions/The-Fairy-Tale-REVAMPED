@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.02 IV
+// version: 26.03.03
 // 
 // End License
 
@@ -108,7 +108,7 @@ Group MScript
 	#region Boss
 	Void StartBoss()
 		#if DoBoss
-		Combat.QuickBoss("Master of Death and Destruction","Beholder","Beholder")
+		Combat.QuickBoss("Master of Death and Destruction","Observer","Beholder")
 		#fi
 		Schedule.Add("PostBoss")
 		Map.Kill("StartBoss",true)
