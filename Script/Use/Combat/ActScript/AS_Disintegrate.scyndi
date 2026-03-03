@@ -35,10 +35,13 @@
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
 
-Bool _DIS(Act,Tar)
+Module
+
+#accept FlowCombat
+
+Bool _Act(Act,Tar)
 	Tar.Char.Points.HP.Have = 0
 	FlowCombat.charmsg(Tar.Tag,"Disintegrated",255,0,0)
 	Return True
 End
 
-Return _DIS
