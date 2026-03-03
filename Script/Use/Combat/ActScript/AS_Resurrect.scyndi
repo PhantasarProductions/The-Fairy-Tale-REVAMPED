@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Combat/ActScript/AS_Resurrect.scyndi
 // 
-// 	  Version: 26.03.03
+// 	  Version: 26.03.03 I
 // 	
 // 	  Copyright (C) 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -41,6 +41,8 @@
 // 	     misrepresented as being the original software.
 // 	  3. This notice may not be removed or altered from any source distribution.
 // End License
+
+Module
 
 Bool _ACt(Act,Tar)
 	if Tar.HP==0 && Tar.Team=="Hero"
