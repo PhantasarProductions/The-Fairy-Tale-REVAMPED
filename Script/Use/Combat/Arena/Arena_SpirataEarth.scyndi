@@ -1,8 +1,8 @@
-// License Information:
+// License:
 // **********************************************
 // 
-// src/Tricky Script/Script/Use/Combat/Arena/SpirataEarth.neil
-// (c) Jeroen Broks, 2022, All Rights Reserved.
+// src/Code/Script/Use/Combat/Arena/Arena_SpirataEarth.scyndi
+// (c) Jeroen Broks, 2022, 2026, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -24,6 +24,7 @@
 // from it, you can use it under that license.
 // Please check out the other files to find out
 // which license applies.
+// 
 // This file comes 'as-is' and in no possible
 // way the author can be held responsible of
 // any form of damages that may occur due to
@@ -32,15 +33,21 @@
 // 
 // **********************************************
 // 
-// version: 22.01.26
-// End License Information
+// 
+// version: 26.03.03
+// 
+// End License
+
 
 #use "Libs/SinusShade"
 
+#accept CSay
 
 Module
 
-	Delegate Pst = Niks
+	Void Pst()
+	End
+	
 	Var SS
 	Void Pre()
 		//Blop.DrawCol(0,0,1)
