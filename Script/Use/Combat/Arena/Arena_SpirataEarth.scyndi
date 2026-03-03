@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.03
+// version: 26.03.03 I
 // 
 // End License
 
@@ -45,19 +45,20 @@
 
 Module
 
-	Void Pst()
-	End
-	
-	Var SS
-	Void Pre()
-		//Blop.DrawCol(0,0,1)
-		SS.Draw()
-	End
-	
-	Constructor
-		CSay("Water Spirata Arena Script Loaded")
-		//Blop.Create(80)
-		SS = new SinusShade(255,180,0)
-	End
-
+Void Pst()
 End
+	
+Plua SS
+	
+Void Pre()
+	//Blop.DrawCol(0,0,1)
+	SS.Draw()
+End
+	
+Init
+	CSay("Earth Spirata Arena Script Loaded")
+	//Blop.Create(80)
+	SS = new SinusShade(255,180,0)
+End
+
+

@@ -34,13 +34,23 @@
 // **********************************************
 // 
 // 
-// version: 26.03.03
+// version: 26.03.03 XI
 // 
 // End License
 
+Script
+
+#use "Libs/Music"
+
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/Kthura"
+#use "Libs/SCI/InterVar"
+
+#use "Script/Use/Link"
 #use "Script/Use/Anyway"
+#use "Script/Use/Convert"
 #use "Script/Use/Misc/TexMove"
-#use "Script/Use/Misc/ManaOrb"
+#use "Script/Use/Misc/MManaOrb"
 #use "Script/use/Misc/PuzArrowSlide"
 
 Group MScript
@@ -111,12 +121,12 @@ Group MScript
 			MapText("SPIRATA_A")
 			RPGChar.Dandor.Stat.Experience = math.min(0,RPGChar.Dandor.Stat.Experience)
 			gbool.CharSpirata_Dandor = true
-			NoSpirata()
+			MScript.NoSpirata()
 			MapText("SPIRATA_B")
 			__WorldMap = "SPIRATAEARTH"
 			WorldMap.Go("Kokonora")
 		Else
-			NoSpirata()
+			Mscript.NoSpirata()
 		End
 	End
 	#endregion
@@ -133,4 +143,5 @@ Init
 		PuzArrowSlide.Load()
 		ZA.TabEnter{"Kokonora","PuzDone","StartBoss","Spirata"}
 		Progress.Kill("ZIGZAGVLOER")
+		Map.MSHasUpdate=true
 End
