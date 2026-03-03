@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/Mini/ArrowSlideF.scyndi
 // 
-// 	  Version: 26.03.03
+// 	  Version: 26.03.03 VI
 // 	
 // 	  Copyright (C) 2017, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -46,6 +46,7 @@
 Script
 // Please note, this is a converted Lua script
 #use "Script/Use/Anyway"
+#use "Script/Use/Convert"
 #use "Libs/Keys"
 
 //-- @DEFINE ARROWDEBUG
@@ -84,7 +85,8 @@ Init
   Buttons = {["Up"]={["c"]={32,0}, ["p"]="UP"}, ["Down"]={["c"]={32,64}, ["p"]="DN"}, ["Left"]={["c"]={0,32},["p"]="LF"}, ["Right"]={["c"]={64,32}, ["p"]="RT"}} 
   iButtons={}
   for bk,bt in pairs(Buttons) 
-  	iButtons[#iButtons+1]=bt 
+  	//iButtons[#iButtons+1]=bt
+  	iButtons+=bt
   end
   plua ButtOfs= {32,Screen.Height-200}
   for b in each(iButtons) 
@@ -108,11 +110,11 @@ Var PlayBlock(x,y)
     for b in each(Blocks) 
        crackblock = crackblock || ( b.px==x && b.py==y )
     end              
-    return (not Field[y]) or Field[y][x]=="X" or crackblock
+    return (! Field[y]) || Field[y][x]=="X" || crackblock
 end
 
 Var BlockBlock(x,y)
-   Bool ok = PlayBlock(x,y)
+   Bool ok := PlayBlock(x,y)
    //--for a in each(Arrows) do
        ok = ok or(Field[y] and ( Field[y][x]=="R" or Field[y][x]=="L" or Field[y][x]=="U" or Field[y][x]=="D") ) //--and (math.floor(x/32)~=math.floor(a.spotx/32) or math.floor(y/32)~=math.floor(a.spoty/32))
    //--end
@@ -159,9 +161,9 @@ Void MoveBlocks(px,py)
       return 
    end
    static var _Moves = { ["U"]= {["y"]=-1}, ["D"]={["y"]=1}, ["L"]={["x"]=-1}, ["R"]={["x"]=1}}
-   PLUA f = Field[py][px]
-   PLUA movement = _Moves[f]
-   if not movement 
+   f := Field[py][px]
+   movement := _Moves[f]
+   if !movement 
       CSayF("= Rejected. No movement for %s",Lua.tostring(f))
       return 
    end
@@ -169,8 +171,8 @@ Void MoveBlocks(px,py)
    movement.y=movement.y or 0
    movement.x=movement.x or 0
    for b in each(Blocks)
-       PLUA newx=b.px+movement.x
-       PLUA newy=b.py+movement.y
+       newx:=b.px+movement.x
+       newy:=b.py+movement.y
        CSayF("Block (%03d,%03d)/(%05d,%05d) -> (%03d,%03d)/(%05d,%05d):>%s",b.px,b.py,b.tox,b.toy,newx,newy,b.tox + (movement.x*32),b.toy + (movement.y*32),lua.tostring(Map.Block(b.tox + (movement.x*32),b.toy + (movement.y*32))))
        if (not BlockBlock(newx,newy)) 
        // && (!Map.Block(b.tox + (movement.x*32),b.toy + (movement.y*32))) 
@@ -333,7 +335,8 @@ Global Void InitPuzzle()
            Field[by] = Field[by] or {}               
            Field[by][bx]="B"
            pLUA block = {["orix"]=o.X, ["oriy"]=o.y, ["tox"] = o.X, ["toy"]=o.Y, ["moving"]=false, ["wasmoving"]=false, ["object"]=o, ["porix"]=bx, ["poriy"]=by, ["px"]=bx, ["py"]=by}
-           Blocks[#Blocks+1]=block                      
+           //Blocks[#Blocks+1]=block
+           Blocks+=Block
         end
         for k,v in pairs(dr) 
             if suffixed(upper(o.TextureFile),"AR_"..k..".PNG") 
@@ -348,7 +351,7 @@ Global Void InitPuzzle()
                pLUA fx = math.floor(o.X/32)
                pLUA fy = math.floor(o.Y/32) - 1
                //pLUA fy = math.floor(o.Y/32) 
-               Field[fy] = Field[fy] or {}               
+               Field[fy] = Field[fy] || {}               
                Field[fy][fx]=left(k,1)
                CSayF("Arrow: %s (%03d,%03d): %s",k,fx,fy,Lua.tostring(Field[fy][fx]))
             end   
@@ -381,7 +384,7 @@ Global Void InitPuzzle()
     #if ARROWDEBUG
     //Print(serialize("field",fdbg))
     #fi
-    CSay(#Blocks.." movable blocks have been found in this puzzle")
+    CSay(len(Blocks).." movable blocks have been found in this puzzle")
     //CSay(#Arrows.." arrow spots have been found in this puzzle") 
     // CSay(serialize("Arrows",Arrows)) // Debug line   
     //repeat
