@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/Mini/ArrowSlideF.scyndi
 // 
-// 	  Version: 26.03.04
+// 	  Version: 26.03.04 VI
 // 	
 // 	  Copyright (C) 2017, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -48,6 +48,7 @@ Script
 #use "Libs/SCI/Sys"
 #use "Libs/SCI/Events"
 #use "Libs/SCI/Graphics"
+#use "Libs/SCI/InterVar"
 
 #use "Script/Use/Link"
 #use "Script/Use/Anyway"
@@ -95,9 +96,9 @@ Init
   end
   plua ButtOfs= {32,Screen.Height-200}
   for b in each(iButtons) 
-      b.img = Image.LoadNew("GFX/Textures/EarthPuzzle/AR_"..b.p..".png","EarthPuzzle_AR_"..b.p)
-      b.x=b.c[1]+ButtOfs[1]
-      b.y=b.c[2]+ButtOfs[2]
+      b.img = LoadNewImage("GFX/Textures/EarthPuzzle/AR_"..b.p..".png","EarthPuzzle_AR_"..b.p)
+      b.x=b.c[0]+ButtOfs[0]
+      b.y=b.c[1]+ButtOfs[1]
   end
   //Print(serialize("Buttons",Buttons))
   //Print(serialize("iButtons",iButtons))
@@ -252,11 +253,11 @@ Init
 		PlayGo( 0, 1,"Down") 
 	end
 	
-	ddef Right()
+	ddef Right
 		PlayGo( 1, 0,"Right")
 	end
 	
-	ddef Left()  
+	ddef Left
 		PlayGo(-1, 0,"Left")
 	End
 	
@@ -474,7 +475,7 @@ Void Goal()
            Map.DrawScreen()
            Graphics.Flip()
            Events.Poll()
-           FPS.WaitMinTicks()
+           Sys.WaitMinTicks()
        end
        for i=1,4 
            plua Tag = RPGParty[i]
@@ -495,8 +496,9 @@ Void Goal()
        Flow.Current="FIELD" //LAURA.FLOW("FIELD")       
        //MS.Destroy("CRACKPUZ")   
        CSay("Goodbye")
-       gv.gbool[sprintf("crackpuzzle.%s[%s]",gv.gstr.LoadedMap,Map.Layer)]=true
-       return true                   
+       gbool[sprintf("crackpuzzle.%s[%s]",gstr.LoadedMap,Map.Layer)]=true
+       //return true
+       return
 end
 
 Void AutoScroll()
@@ -523,7 +525,8 @@ global void MainFlow()
 	__White
 	Graphics.Alpha(255)
 	f.DarkText(sprintf("(%03d,%03d)",APLAY.X,APLAY.Y),screen.W-10,10,1)
-	Dev.ToConsole()	
+	//Dev.ToConsole()
+	WantQuit()
    graphics.Cls()
    DrawScreen() //MS.Run("FIELD","DrawScreen")
    MapScript.Update() //MS.Run("MAP","MAP_FLOW")
@@ -540,7 +543,7 @@ global void MainFlow()
        // CSay(serialize('button',b))
        // DarkText(serialize(b.p,b),5,dbgy); dbgy=dbgy+25
        b.img.Draw(b.x,b.y) //Image.Show(b.img,b.x,b.y)
-       b.clicked = mhit and mx>=b.x and mx<b.x+32 and my>=b.y and my<b.y+32
+       b.clicked = mhit && mx>=b.x && mx<b.x+32 && my>=b.y && my<b.y+32
        //f.DarkText(Lua.tostring(b.clicked),b.x,b.y) // debug only
    end    
    // DarkText(mx..","..my,20,dbgy)
