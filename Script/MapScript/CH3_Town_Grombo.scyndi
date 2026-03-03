@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/MapScript/CH3_Town_Grombo.scyndi
 // 
-// 	  Version: 26.03.03 I
+// 	  Version: 26.03.03 II
 // 	
 // 	  Copyright (C) 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -81,7 +81,7 @@ Group MScript
 			Item.ZZKEY_GAIA.Has = 1
 			WorldMap.Unlock("CH3NOSTRABURG")
 		End
-		MapText("QUENDOR_"..Lua.tostring(D):upper())		
+		MapText("QUENDOR_"..Upper(Lua.tostring(D)))		
 	End
 	
 	Void NPC_Cherry()
