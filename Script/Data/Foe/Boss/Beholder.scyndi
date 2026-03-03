@@ -34,7 +34,7 @@ Table _R(Bool Oversoul)
 	Ret.StealItem_2 = "ITM_AMBROSIA"
 	Ret.StealRate_3 = 0
 	Ret.StealItem_3 = "ITM_AMBROSIA"
-	Ret.NAME = "Beholder"
+	Ret.NAME = "Observer"
 	Ret.CASH = 250
 	Ret.SR_CONFUSION = 100
 	Ret.SR_CURSE = 200
@@ -179,10 +179,10 @@ Table _R(Bool Oversoul)
 		Ret.Actions += "ABL_HERO_HANDOSTILLOR_RECOVER"
 		Ret.Actions += "ABL_HERO_HANDOSTILLOR_RECOVER"
 	End
-	If True && (__skill!=1)
-		Ret.Actions += "ABL_HERO_SPEEDUP"
-		Ret.Actions += "ABL_HERO_SPEEDUP"
-	End
+	//If True && (__skill!=1)
+	//	Ret.Actions += "ABL_HERO_SPEEDUP"
+	//	Ret.Actions += "ABL_HERO_SPEEDUP"
+	//End
 	If True
 		Ret.Actions += "ABL_MASTER_FANDALORA_DARKNESS"
 		Ret.Actions += "ABL_MASTER_FANDALORA_DARKNESS"

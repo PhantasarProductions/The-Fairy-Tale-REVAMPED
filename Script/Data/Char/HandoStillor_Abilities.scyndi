@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.23
+// version: 26.03.03
 // 
 // End License
 
@@ -65,31 +65,31 @@ locExtern newgameplus "Scyndi.Globals.gbool.newgameplus"
 rp:= {}
 r := {}
 r["1. Level 1"] = rp
-                         rp.abl_hero_handostillor_firstaid = { [2] = 1 },           // 1
-                         rp.abl_hero_handostillor_neutralizepoison = { [2] = 7 },   // 2
-                         rp.abl_hero_handostillor_removeparalysis = { [2] = 9 },    // 3
-                         rp.abl_hero_handostillor_stickswing = { 20 },              // 4
-                         rp.abl_hero_handostillor_recover = { [2] = 12 },           // 5
-                         rp.abl_hero_handostillor_curedisease = { [2]=14 },         // 6
+                         rp.abl_hero_handostillor_firstaid = { [2] = 1 }            // 1
+                         rp.abl_hero_handostillor_neutralizepoison = { [2] = 7 }    // 2
+                         rp.abl_hero_handostillor_removeparalysis = { [2] = 9 }     // 3
+                         rp.abl_hero_handostillor_stickswing = { 20 }               // 4
+                         rp.abl_hero_handostillor_recover = { [2] = 12 }            // 5
+                         rp.abl_hero_handostillor_curedisease = { [2]=14 }          // 6
                          rp.abl_hero_handostillor_holystrike = { 20,20 }   ,        // 7
                          rp.abl_hero_handostillor_vitalize = { [2] = 25 }   ,       // 8
-                         rp.abl_hero_handostillor_removeparalysis = { [2] = 16 },   // 9
+                         rp.abl_hero_handostillor_removeparalysis = { [2] = 16 }    // 9
                          rp.abl_hero_handostillor_purify = { [2] = 65 }             // 10
 rp = {}                         	 
 r["2. Level 2"] = rp
-                       rp.abl_hero_handostillor_cleanse = { [2]=3*skill }, //1 
-                       rp.abl_hero_handostillor_treatment = { [2]=(2^skill)+skill }, // 2
-                       rp.abl_hero_handostillor_goodmorning = {[2]=5*skill}, // 3
-                       rp.abl_hero_handostillor_revive = {[2] = 12*skill }, // 4
-                       rp.abl_hero_handostillor_hasparonvitalization = {[2]=15*skill}, // 5
-                       rp.abl_hero_handostillor_twinkle = {[2]=6*skill},              // 6
-                       rp.abl_hero_handostillor_kneelbeforeme = {16,80},               // 7
+                       rp.abl_hero_handostillor_cleanse = { [2]=3*skill }  //1 
+                       rp.abl_hero_handostillor_treatment = { [2]=(2^skill)+skill }  // 2
+                       rp.abl_hero_handostillor_goodmorning = {[2]=5*skill}  // 3
+                       rp.abl_hero_handostillor_revive = {[2] = 12*skill }  // 4
+                       rp.abl_hero_handostillor_hasparonvitalization = {[2]=15*skill}  // 5
+                       rp.abl_hero_handostillor_twinkle = {[2]=6*skill}               // 6
+                       rp.abl_hero_handostillor_kneelbeforeme = {16,80}                // 7
                        rp.abl_hero_marrilona_handostillor_vitality = {14*skill,14*skill} // 8 
    rp={}                      
    r["3. Level 3"] = rp
-   	                   rp.abl_hero_handostillor_pray = { 5*skill, math.ceil(3^skill) }, // 1
-                       rp.abl_hero_handostillor_smite = {(skill^skill)+(2*skill)},                    // 2
-                       rp.abl_hero_handostillor_whizzy = {[2]=50},                                    // 3
+   	                   rp.abl_hero_handostillor_pray = { 5*skill, math.ceil(3^skill) }  // 1
+                       rp.abl_hero_handostillor_smite = {(skill^skill)+(2*skill)}                     // 2
+                       rp.abl_hero_handostillor_whizzy = {[2]=50}                                     // 3
                        rp.abl_hero_handostillor_prayforall = { 8*skill, math.ceil(3^skill) *2 }       // 4
   
 
