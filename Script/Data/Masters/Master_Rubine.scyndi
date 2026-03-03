@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.23
+// version: 26.03.03
 // 
 // End License
 
@@ -119,12 +119,12 @@ Module
      	//#pure
      	//_stats = {
      		Stats={}
-     		Stats.Speed = 25,
-     		Stats.Power = -10,
-     		Stats.Endurance = -10,
-     		Stats.Intelligence = -10,
-     		Stats.Resistance = -10,
-     		Stats.Accuracy = 5,
+     		Stats.Speed = 25
+     		Stats.Power = -10
+     		Stats.Endurance = -10
+     		Stats.Intelligence = -10
+     		Stats.Resistance = -10
+     		Stats.Accuracy = 5
      		Stats.Evasion = 5
      	//}
      	//#endpure

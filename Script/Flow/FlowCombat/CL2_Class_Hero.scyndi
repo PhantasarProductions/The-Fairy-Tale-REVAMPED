@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/CL2_Class_Hero.scyndi
 // 
-// 	  Version: 26.03.01
+// 	  Version: 26.03.03 I
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -469,6 +469,7 @@ Class Stage_PlayerInput_Main
 	End
 	
 	Static Void ComeToMe(String _Exe)
+		LocExtern CharMsg "Scyndi.Globals.CharMsg"
 		Exe = _Exe
 		Alpha = 0
 		Portraits[Exe] = LoadNewImage("GFX/BoxText/Portret/"..Exe.."/General.png","PIMI_POR_"..Exe)
@@ -478,9 +479,9 @@ Class Stage_PlayerInput_Main
 		If (Exe=="Marrilona" || math.random(0,__skill^__skill)==0) && gv.gBool.MarFeena_Curse && RPGParty[2]=="Marrilona"
 			gv.gInt.MarFeena_HP++
 			gv.gBool.MarFeena_Curse = RPGChar.Marrilona.Points.HP.Maximum>gv.gInt.MarFeena_HP
-			FlowCombat.charmsg("Marrilona",sprintF("Recovery to %d",gv.gInt.MarFeena_HP),0,255,0)
+			Charmsg("Marrilona",sprintF("Recovery to %d",gv.gInt.MarFeena_HP),0,255,0)
 			If (!gv.gBool.MarFeena_Curse)
-				FlowCombat.charmsg("Fully recovered!",0,255,0)
+				charmsg("Fully recovered!",0,255,0)
 			End
 		End
 		If Fighter.ByTag[Exe].Spirata>0

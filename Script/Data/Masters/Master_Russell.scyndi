@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.02
+// version: 26.03.03
 // 
 // End License
 
@@ -119,9 +119,9 @@ Module
      	plua _stats     	     	
      	//#pure
      	_stats = {}
-     	_stats.HP = 100,
-        _stats.AP = -20,
-        _stats.Endurance = -10, 
+     	_stats.HP = 100
+        _stats.AP = -20
+        _stats.Endurance = -10
         _stats.Accuracy = 100     	
      	//#endpure
      	Stats = _stats

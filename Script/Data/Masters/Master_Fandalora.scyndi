@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.02
+// version: 26.03.03 I
 // 
 // End License
 Module
@@ -56,11 +56,11 @@ Module
 		plua _Abl
 		plua skill = __skill
 		_Abl = {}
-		_Abl[10] = "abl_master_fandalora_darkness",
-		_Abl[15] = "abl_master_fandalora_removecurse",
-		_Abl[20] = "abl_master_fandalora_curse",
-		_Abl[25] = "abl_master_fandalora_removecurse",
-		_Abl[30] = "abl_master_fandalora_phantom",
+		_Abl[10] = "abl_master_fandalora_darkness"
+		_Abl[15] = "abl_master_fandalora_removecurse"
+		_Abl[20] = "abl_master_fandalora_curse"
+		_Abl[25] = "abl_master_fandalora_removecurse"
+		_Abl[30] = "abl_master_fandalora_phantom"
 		_Abl[11+(skill^skill)] = "abl_master_fandalora_void"		
 		_Abl[(3^skill)+5] = "abl_master_fandalora_death"                              
 		Abl = _Abl
@@ -150,10 +150,10 @@ Module
      	// Spd +25%, Atk -10%, End -5%, Int -10%, Res - 5%, Acc +5%, eva +5%     	
      	
      	_stats = {}
-     	_stats.Power = -25,
-     	_stats.Endurance = -15,
-     	_stats.Intelligence = 15,
-     	_stats.Resistance = 15,     	
+     	_stats.Power = -25
+     	_stats.Endurance = -15
+     	_stats.Intelligence = 15
+     	_stats.Resistance = 15    	
      	Stats = _stats
      End
      

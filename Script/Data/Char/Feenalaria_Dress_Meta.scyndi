@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.23
+// version: 26.03.03
 // 
 // End License
 
@@ -45,7 +45,7 @@ Module
 
 Init
 	Var J = RPGChar.Feenalaria_Dress.Data
-	J.Skill1 = "Sword Fighting Skills",
+	J.Skill1 = "Sword Fighting Skills"
 	J.Race = "Human"
 	J.Sex = "Female"
 	J.pvnw = "She"
