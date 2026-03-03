@@ -34,18 +34,30 @@
 // **********************************************
 // 
 // 
-// version: 26.03.03 II
+// version: 26.03.03 XVI
 // 
 // End License
 
 Script
 
+#use "Libs/Music"
+
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/JCR6"
+#use "Libs/SCI/Audio"
+#use "Libs/SCI/Kthura"
+#use "Libs/SCI/Events"
+#use "Libs/SCI/Graphics"
 #use "Libs/SCI/InterVar"
 
 #use "Script/Use/Link"
 #use "Script/Use/Anyway"
+#use "Script/Use/Convert"
 #use "Script/Use/Misc/Inn"
 #use "Script/Use/Misc/ForBlueSeal"
+
+extern FPS "Scyndi.Class.Sys"
+extern Master_Krandar "Scyndi.Class.MScript._MasterKrandar"
 
 #macro __DepriJake gbool.DepriJake
 
@@ -71,7 +83,7 @@ Group MScript
 		If DontEnter
 			DontEnter=False
 		Else
-			Map.GoToLayer(b:upper(),"Start")
+			Map.GoToLayer(Upper(b),"Start")
 		End
 	End
 	
@@ -79,13 +91,13 @@ Group MScript
 		If Map.Layer!="items"
 			DontEnter=True
 		End
-		Map.GoToLayer("TOWN","entry_"..Map.Layer:lower())
+		Map.GoToLayer("TOWN","entry_"..lower(Kthura.CurrentLayer) )
 	End
 	#endregion
 	
 	
 	#region Krandar
-	Void Master_Krandar()
+	Void _Master_Krandar()
 		if !gbool.Master_Krandar
 			MapText("KRANDAR_PREMASTER")
 			if gint.SealsOpened<=0
@@ -159,7 +171,7 @@ Group MScript
 	
 	#region Blue Seal
 	Void NPC_Calanus()
-		MapText("CALANUS_"..Lua.tostring(Map.HasTag("NPC_BlueSeal")):upper())
+		MapText("CALANUS_"..Lua.tostring(Map.HasTag("NPC_BlueSeal")))
 	End
 	#endregion
 	
