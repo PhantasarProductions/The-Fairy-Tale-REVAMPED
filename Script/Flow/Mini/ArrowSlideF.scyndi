@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/Mini/ArrowSlideF.scyndi
 // 
-// 	  Version: 26.03.03 XIX
+// 	  Version: 26.03.04
 // 	
 // 	  Copyright (C) 2017, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -46,6 +46,7 @@
 Script
 // Please note, this is a converted Lua script
 #use "Libs/SCI/Sys"
+#use "Libs/SCI/Events"
 #use "Libs/SCI/Graphics"
 
 #use "Script/Use/Link"
@@ -178,7 +179,7 @@ Void MoveBlocks(px,py)
        newx:=b.px+movement.x
        newy:=b.py+movement.y
        CSayF("Block (%03d,%03d)/(%05d,%05d) -> (%03d,%03d)/(%05d,%05d):>%s",b.px,b.py,b.tox,b.toy,newx,newy,b.tox + (movement.x*32),b.toy + (movement.y*32),lua.tostring(Map.Block(b.tox + (movement.x*32),b.toy + (movement.y*32))))
-       if (not BlockBlock(newx,newy)) 
+       if (! BlockBlock(newx,newy)) 
        // && (!Map.Block(b.tox + (movement.x*32),b.toy + (movement.y*32))) 
           b.moving = true
           b.tox = b.tox + (movement.x*32)
@@ -195,11 +196,11 @@ Void PlayGo(x,y,d)
    tx := (tpx*32)+16 
    ty := (tpy*32)+32 
    ok := true
-   ok = ok and (not PlayBlock(tpx,tpy))
-   ok = ok and (!Map.Block(tpx,tpy))
-   ok = ok and (!APLAY.Moving) and (!APLAY.Walking) 
+   ok = ok && (! PlayBlock(tpx,tpy))
+   ok = ok && (!Map.Block(tpx,tpy))
+   ok = ok && (!APLAY.Moving) && (!APLAY.Walking) 
    for block in each(Blocks) 
-       ok = ok and (not block.moving) 
+       ok = ok && (! block.moving) 
    end
    //ok = ok and (INP.KeyH(ArrowKeys[d])==1 || INP.KeyH(WASDKeys[d])==1 || joyhit(Joy[d]) || Buttons[d].clicked)
    ok = ok && (Events.KeyHit(ArrowKeys[d]) || Events.KeyHit(WASDKeys[d]) || Buttons[d].clicked)
@@ -231,7 +232,7 @@ Void BlockMoveExec()
           elseif block.object.Y>block.toy
                  block.object.Y = block.object.Y - 1 
           end
-          if     block.object.X==block.tox and block.object.Y == block.toy 
+          if     block.object.X==block.tox && block.object.Y == block.toy 
                  block.moving=false 
                  remap=true 
           end 
@@ -243,19 +244,19 @@ Void BlockMoveExec()
 end 
 
 Init
-	Void Up() 
+	ddef Up 
 		PlayGo( 0,-1,"Up") 
 	end
 	
-	Void Down()  
+	ddef Down  
 		PlayGo( 0, 1,"Down") 
 	end
 	
-	Void Right()
+	ddef Right()
 		PlayGo( 1, 0,"Right")
 	end
 	
-	Void Left()  
+	ddef Left()  
 		PlayGo(-1, 0,"Left")
 	End
 	
