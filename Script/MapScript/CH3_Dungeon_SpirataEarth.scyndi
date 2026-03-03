@@ -1,8 +1,8 @@
-// License Information:
+// License:
 // **********************************************
 // 
-// src/Tricky Script/Script/MapScript/CH3_Dungeon_SpirataEarth.neil
-// (c) Jeroen Broks, 2022, All Rights Reserved.
+// src/Code/Script/MapScript/CH3_Dungeon_SpirataEarth.scyndi
+// (c) Jeroen Broks, 2022, 2026, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -24,6 +24,7 @@
 // from it, you can use it under that license.
 // Please check out the other files to find out
 // which license applies.
+// 
 // This file comes 'as-is' and in no possible
 // way the author can be held responsible of
 // any form of damages that may occur due to
@@ -32,8 +33,10 @@
 // 
 // **********************************************
 // 
-// version: 22.02.07
-// End License Information
+// 
+// version: 26.03.03
+// 
+// End License
 
 #use "Script/Use/Anyway"
 #use "Script/Use/Misc/TexMove"
@@ -62,7 +65,7 @@ Group MScript
 	Void Update()
 		static Bool DN = False
 		TexMove.Update()		
-		if (!DN) && Map.Layer=="#004" && (!Map.HasTag("Boss")) && Map.HasTag("PTE_GAIA")
+		if (!DN) && Kthura.CurrentLayer=="#004" && (!Kthura.HasObj("Boss")) && Kthura.HasObj("PTE_GAIA")
 			Map.SetObj("PTE_GAIA","X",Map.GetObjInt("EmblemSpot","X")) //e.X=es.X
 			Map.SetObj("PTE_GAIA","Y",Map.GetObjInt("EmblemSpot","Y")) //e.Y=es.Y
 			DN = true
@@ -72,7 +75,7 @@ Group MScript
 	End
 	
 	Void PuzDone()
-		if gv.gbool[sprintf("crackpuzzle.%s[%s]",gv.gstr.LoadedMap,Map.Layer)]
+		if gbool[sprintf("crackpuzzle.%s[%s]",gstr.LoadedMap,Kthura.CurrentLayer)]
 			Map.HideByLabel("Puzzle")
 			For pi in Map.LabelEach("Puzzle")
 				Map.SetObj(pi,"Impassible", false)
@@ -107,7 +110,7 @@ Group MScript
 			Music.Play("Music/Hub/Angevin.ogg")
 			MapText("SPIRATA_A")
 			RPGChar.Dandor.Stat.Experience = math.min(0,RPGChar.Dandor.Stat.Experience)
-			gv.gbool.CharSpirata_Dandor = true
+			gbool.CharSpirata_Dandor = true
 			NoSpirata()
 			MapText("SPIRATA_B")
 			__WorldMap = "SPIRATAEARTH"
@@ -117,9 +120,9 @@ Group MScript
 		End
 	End
 	#endregion
-	
+end	
 
-	Constructor
+Init
 		Progress.Create("ZIGZAGVLOER",3,255,0,255)
 		Progress.ZigZagVloer = 1
 		TexMove.MapSetup(0,10,"HSINUS.PNG",-1,0,4)
@@ -130,6 +133,4 @@ Group MScript
 		PuzArrowSlide.Load()
 		ZA.TabEnter{"Kokonora","PuzDone","StartBoss","Spirata"}
 		Progress.Kill("ZIGZAGVLOER")
-	End
-	
 End
