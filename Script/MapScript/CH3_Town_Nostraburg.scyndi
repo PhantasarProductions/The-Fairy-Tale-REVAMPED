@@ -95,7 +95,7 @@ Group MScript
 	
 	#region Services
 	Void NPC_Hotelmus()
-		Inn()
+		UseInn()
 	End
 	
 	Void NPC_Katinta()
