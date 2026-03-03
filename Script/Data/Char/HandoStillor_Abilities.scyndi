@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.03
+// version: 26.03.03 I
 // 
 // End License
 
@@ -71,8 +71,8 @@ r["1. Level 1"] = rp
                          rp.abl_hero_handostillor_stickswing = { 20 }               // 4
                          rp.abl_hero_handostillor_recover = { [2] = 12 }            // 5
                          rp.abl_hero_handostillor_curedisease = { [2]=14 }          // 6
-                         rp.abl_hero_handostillor_holystrike = { 20,20 }   ,        // 7
-                         rp.abl_hero_handostillor_vitalize = { [2] = 25 }   ,       // 8
+                         rp.abl_hero_handostillor_holystrike = { 20,20 }            // 7
+                         rp.abl_hero_handostillor_vitalize = { [2] = 25 }           // 8
                          rp.abl_hero_handostillor_removeparalysis = { [2] = 16 }    // 9
                          rp.abl_hero_handostillor_purify = { [2] = 65 }             // 10
 rp = {}                         	 
