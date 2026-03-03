@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Misc/PuzSet.scyndi
 // 
-// 	  Version: 26.02.23
+// 	  Version: 26.03.03
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -103,7 +103,7 @@ LocExtern ll "#"
 	ReadOnly Table TexDefault = { "Klein Vierkant.png","Kras.png","Cirkel in een cirkel.png","Kruis Boven.png","Kruis Onder.png","Kruis.png","Ruit.png","Schuin Kruis met Stippen.png","Schuin Kruis.png","Driehoek.png","Elipse Verticaal.png","Elipse Horizontaal.png","Cirkel.png","Rechthoek Verticaal.png","Rechthoek Horizontaal.png","Vierkant.png"}
 	ReadOnly String DirDefault = "GFX/Textures/Shapes/"	
 
-	ReadOnly Table TexMine = { "I.png","II.png","III.png","IV.png","V.png","VI.png","VII.png","VIII.png","IX.PNG","X.png", "XI.png","XII.png","XIII.png","XIV.png","XV.png","XV.png", "XVI.png", "XVII.png", "XVIII.png", "XIX.png","XX.png", "XXI.png", "XXII.png", "XXIII.png", "XXIV.png", "XXV.png" }
+	ReadOnly Table TexMine = { "I.png","II.png","III.png","IV.png","V.png","VI.png","VII.png","VIII.png","IX.PNG","X.png", "XI.png","XII.png","XIII.png","XIV.png","XV.png", "XVI.png", "XVII.png", "XVIII.png", "XIX.png","XX.png", "XXI.png", "XXII.png", "XXIII.png", "XXIV.png", "XXV.png" }
 	ReadOnly String DirMine = "GFX/Textures/Shapes/Mine/"
 	
 	Int Correct1
