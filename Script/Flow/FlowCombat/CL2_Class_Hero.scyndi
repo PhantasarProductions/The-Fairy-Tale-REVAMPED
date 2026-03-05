@@ -717,13 +717,13 @@ Void PIMI_Items()
 End
 
 Void PIMI_Spirata()
-	Var Act = new Action("SPIRATATRANSFORM",SPIM.Exe,{SPIM.Exe},{["CheckAfterAction"]=true})
+	Var Act = new Action("SPIRATATRANSFORM",SPIM.Exe,{[0]=SPIM.Exe},{["CheckAfterAction"]=true})
 	FlowCombat.Execution.ComeToMe(Act,FlowCombat.Cards.Lijst[1])
 	//Lua.error("Spirata not implemented yet!")
 End
 
 Void PIMI_Guard()
-	Var Act = new Action("AAA_GUARD",SPIM.Exe,{SPIM.Exe},{["CheckAfterAction"]=true})
+	Var Act = new Action("AAA_GUARD",SPIM.Exe,{[0]=SPIM.Exe},{["CheckAfterAction"]=true})
 	FlowCombat.Execution.ComeToMe(Act,FlowCombat.Cards.Lijst[1])
 End
 
