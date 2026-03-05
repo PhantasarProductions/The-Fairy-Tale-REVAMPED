@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Misc/PuzArrowSlide.scyndi
 // 
-// 	  Version: 26.03.03 VII
+// 	  Version: 26.03.04
 // 	
 // 	  Copyright (C) 2017, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -130,7 +130,7 @@ Module
         //ActorRepos(arrow_player,"Puz_Start",wind,RPG.PartyTag(arrow_playernum))
         //]]
         //MS.Run("CRACKPUZ","InitPuzzle")
-        State.Call("FLOW_CRACKPUZ","InitPuzzle","nil")
+        Sys.Call("FLOW_CRACKPUZ","InitPuzzle")
 	end
 
 	//function arrowslide_onload(startfunction)
