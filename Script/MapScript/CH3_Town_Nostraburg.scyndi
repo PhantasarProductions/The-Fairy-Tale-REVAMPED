@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.03 XVI
+// version: 26.03.05 I
 // 
 // End License
 
@@ -57,7 +57,7 @@ Script
 #use "Script/Use/Misc/ForBlueSeal"
 
 extern FPS "Scyndi.Class.Sys"
-extern Master_Krandar "Scyndi.Class.MScript._MasterKrandar"
+extern Master_Krandar "Scyndi.Class.MScript._Master_Krandar"
 
 #macro __DepriJake gbool.DepriJake
 
@@ -119,7 +119,7 @@ Group MScript
 			Graphics.CLS()
 			Graphics.FLIP()
 			Events.Poll()
-			FPS.SLEEP(2500)
+			Sys.SLEEP(2500)
 			MapText("KRANDAR_SUMMONING_B")
 			Schedule.Add("StartSummoning")
 			Return
