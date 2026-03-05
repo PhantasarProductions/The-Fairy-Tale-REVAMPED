@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Misc/CSlidePuzzle.scyndi
 // 
-// 	  Version: 26.03.05 VI
+// 	  Version: 26.03.05 IX
 // 	
 // 	  Copyright (C) 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -44,28 +44,32 @@
 
 Module 
 
+#use "Libs/SCI/Kthura"
+
 #use "Script/Use/Link"
 
 locExtern ll "#"
+locExtern TileID "self._TileID"
+locExtern TileValue "self._TileValue"
 
 Class SlidePuzzle
 	
 	ReadOnly Int Size = 5
 
-	Int TileID(int x,int y)
+	Int _TileID(int x,int y)
 		return ((y-1)*size)+x
 	End
 	
-	Int TileValue(int x,int y,newvalue)
+	Int _TileValue(int x,int y,newvalue)
 		if newvalue
-			Map.SetObj("T"..TileID(x,y),"AnimFrame",newvalue)
+			Kthura.Obj["T"..TileID(x,y)].AnimFrame=newvalue
 		end
-		return Map.GetObjInt("T"..TileID(x,y),"AnimFrame")
+		return Kthura.Obj["T"..TileID(x,y)].AnimFrame
 	End
 	
 	Void Reset()
 		for i=1,(size^2)
-			Map.SetObj("T"..i,"AnimFrame",i-1)
+			Kthura.Obj["T"..i].AnimFrame=i-1
 		end
 	End
 	
@@ -125,7 +129,7 @@ Class SlidePuzzle
 	End
 	
 	Void Start(int keer)
-		a := {Up,Down,Left,Right}
+		a := {self.Up,self.Down,self.Left,self.Right}
 		Int TimeOut  = 10000
 		Repeat
 			TimeOut--
