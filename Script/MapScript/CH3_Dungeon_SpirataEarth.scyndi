@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.03 XI
+// version: 26.03.05 III
 // 
 // End License
 
@@ -76,11 +76,11 @@ Group MScript
 		static Bool DN = False
 		TexMove.Update()		
 		if (!DN) && Kthura.CurrentLayer=="#004" && (!Kthura.HasObj("Boss")) && Kthura.HasObj("PTE_GAIA")
-			Map.SetObj("PTE_GAIA","X",Map.GetObjInt("EmblemSpot","X")) //e.X=es.X
-			Map.SetObj("PTE_GAIA","Y",Map.GetObjInt("EmblemSpot","Y")) //e.Y=es.Y
+			Kthura.Obj.PTE_GAIA.X=Kthura.Obj.EmblemSpot.X //e.X=es.X
+			Kthura.Obj.PTE_GAIA.Y=Kthura.Obj.EmblemSpot.Y //e.X=es.X
 			DN = true
 			CSay("Regenerating clickables!")
-			Map.MCall("FlowField.Clickable.CBLoadMap")
+			Map.MCall("FlowField.Clickable.CorrectEarthEmblem")			
 		End
 	End
 	
