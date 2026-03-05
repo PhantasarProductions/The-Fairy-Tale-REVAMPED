@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Link.scyndibundle/Map.scyndi
 // 
-// 	  Version: 26.02.24 I
+// 	  Version: 26.03.05 I
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -552,7 +552,11 @@ End
 	#endregion
 	
 	Bool Block(Int X, Int Y, pure)
-		return ISGET.Bool("FLOW_FIELD",sprintf("FlowField.Map.CurrentLayer.Blocked(%d,%d,%s)",X,Y,Lua.tostring(pure!=nil && pure!=false)))
+		//return ISGET.Bool("FLOW_FIELD",sprintf("FlowField.Map.CurrentLayer.Blocked(%d,%d,%s)",X,Y,Lua.tostring(pure!=nil && pure!=false)))
+		if pure
+			return Kthura.Block(X div 32,Y div 32)
+		end
+		return Kthura.Block(X,Y)
 	End
 	
 	Get Table Layers
@@ -604,7 +608,8 @@ End
 			String key
 			s,key = infinity
 			//CSayF("Remoye Map Meta Request: %s",key)
-			return ISGET.STRING("FLOW_FIELD",sprintf("FlowField.Map.KthuraMap.Meta[\"%s\"]",key))
+			//return ISGET.STRING("FLOW_FIELD",sprintf("FlowField.Map.KthuraMap.Meta[\"%s\"]",key))
+			return Kthura.MetaData[key]
 		end
 		Meta = Lua.setmetatable({},{["__index"]=MetaIndex})
 	end
