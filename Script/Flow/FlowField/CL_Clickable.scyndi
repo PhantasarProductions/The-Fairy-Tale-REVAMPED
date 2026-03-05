@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowField/CL_Clickable.scyndi
 // 
-// 	  Version: 26.02.23
+// 	  Version: 26.03.05 III
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -164,6 +164,16 @@ Class _Clickable
 //				End
 //			End
 //		End
+	End
+	
+	Static Void CorrectEarthEmblem()
+		for CLK in Register[Kthura.CurrentLayer].Each
+			if CLK.Tag=="PTE_GAIA"
+				CLK.WalkX=Kthura.Obj.PTE_GAIA.X
+				CLK.WalkY=Kthura.Obj.PTE_GAIA.Y
+				CSayF("Traveler's Emblem coordinates corrected to (%04d,%04d)",CLK.WalkX,CLK.WalkY)
+			end
+		end
 	End
 	
 	ReadOnly String Tag
