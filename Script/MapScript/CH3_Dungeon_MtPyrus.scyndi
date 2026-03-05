@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.05 XIX
+// version: 26.03.05 XXVI
 // 
 // End License
 
@@ -151,15 +151,15 @@ Group MScript
 		//Actors.MoveToSpot("PLAYER2","Disappear")
 		//Actors.MoveToSpot("PLAYER3","Disappear")
 		//plua players = { Actors.Actor("PLAYER"),Actors.Actor("PLAYER1"),Actors.Actor("PLAYER2"),Actors.Actor("PLAYER3")}
-		plua players = {"PLAYER","PLAYER2","PLAYER3","PLAYER4"}
-		plua Schuif = Map.GetObjInt("Schuif","X")
-		int  DoelX  = Map.GetObjInt("SchuifEnter","X")
+		players := {[0]="PLAYER","PLAYER2","PLAYER3","PLAYER4"}
+		Schuif := Kthura.Obj.Schuif.X
+		int  DoelX:=  Kthura.Obj.SchuifEnter.X
 		Map.StopWalking()
 		repeat
 			Graphics.Cls()
 			//schuif.X = schuif.X - 1
 			Schuif--
-			Map.SetObj("Schuif","X",Schuif)
+			Kthura.obj.Schuif.X=Schuif
 			Map.DrawScreen()
 			Graphics.Flip()
 			Events.Poll()
@@ -167,8 +167,8 @@ Group MScript
 			Sys.WaitMinTicks()
 			for a in each(players) 
 				//if a.Y<32 then a.Visible=0 end
-				Map.SetObj(a,"Y",Map.GetObjInt(a,"Y")-4)
-				Map.SetObj(a,"Visible",Map.GetObjInt(a,"Y")>96)
+				Kthura.Obj[a].Y=-4
+				Kthura.Obj[a].Visible=Kthura.Obj[a].Y>96
 			end
 		//until schuif.X==doel.X+32
 		until schuif<=doelX+32
@@ -213,14 +213,14 @@ Group MScript
 	Void MonksFromHell()
 		Map.Kill("MonksFromHell",true)
 		Combat.Boss("Helena, Eduard, Lucy and Leonnard","The 4 Monks From Hell")
-		Combat.Arena = Lua.Neil.Globals.Map.Arena
+		Combat.Arena = Kthura.MetaData.Arena
 		Combat.Music = "Combat/SpecialBoss/Volatile Reaction.ogg"
 		Combat.Lose = "GameOver"
 		For i=1,4
 			Combat.NewEnemy = "Boss/MONK"..i
 			Map.Kill("MONK"..i,true)
 		End		
-		Lua.Neil.Globals.Map.StopWalking()
+		Player.StopWalking()
 		Combat.Start()
 	End
 	#endregion
@@ -295,5 +295,6 @@ Init
 	Map.HideByLabel("Walda")
 	Kthura.CurrentLayer = Ternary(ol=="","#001",ol)
 	MScript.NPC_Walda = Walda 
+	Map.MSHasUpdate = True
 	//= NeilUse("Script/Use/Misc/Walda")	
 End
