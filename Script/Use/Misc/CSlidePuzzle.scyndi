@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Misc/CSlidePuzzle.scyndi
 // 
-// 	  Version: 26.03.05 IX
+// 	  Version: 26.03.05 X
 // 	
 // 	  Copyright (C) 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -123,7 +123,7 @@ Class SlidePuzzle
 	Get Bool Good
 		Bool Ret = True
 		for i=1,Size^2
-			Ret = Ret && Map.GetObjInt("T"..i,"AnimFrame")==(i-1)
+			Ret = Ret && Kthura.Obj["T"..i].AnimFrame==(i-1)
 		end
 		Return Ret
 	End
