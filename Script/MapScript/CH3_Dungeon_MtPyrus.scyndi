@@ -1,8 +1,8 @@
-// License Information:
+// License:
 // **********************************************
 // 
-// src/Tricky Script/Script/MapScript/CH3_Dungeon_MtPyrus.neil
-// (c) Jeroen Broks, 2022, All Rights Reserved.
+// src/Code/Script/MapScript/CH3_Dungeon_MtPyrus.scyndi
+// (c) Jeroen Broks, 2022, 2026, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -24,6 +24,7 @@
 // from it, you can use it under that license.
 // Please check out the other files to find out
 // which license applies.
+// 
 // This file comes 'as-is' and in no possible
 // way the author can be held responsible of
 // any form of damages that may occur due to
@@ -32,13 +33,24 @@
 // 
 // **********************************************
 // 
-// version: 22.04.05
-// End License Information
+// 
+// version: 26.03.05 I
+// 
+// End License
+
+
+Script
 
 #region use
+
+#use "Libs/SCI/Intervar"
+
+
 #use "Script/Use/Anyway"
 #use "Script/Use/Misc/TexMove"
-#use "Script/Use/Misc/SlidePuzzle"
+#use "Script/Use/Misc/CSlidePuzzle"
+
+
 #endregion
 
 Group MScript
@@ -54,31 +66,31 @@ Group MScript
 		If Least>20
 			TexMove.Update()
 		End
-		if Slide && (!gv.gbool["PyrusDone"..Map.Layer]) && gv.gbool["PyrusInitiated"..Map.Layer]
+		if Slide && (!gbool["PyrusDone"..Map.Layer]) && gbool["PyrusInitiated"..Map.Layer]
 			Switch Map.Layer
 				case "#004" 
 					if Slide.Good
 						Audio.LoadNew("Audio/SFX/Solved.ogg","SOLVED").Play()
-						gv.gbool["PyrusDone"..Map.Layer]=true
+						gbool["PyrusDone"..Map.Layer]=true
 						for i=1,4
 							Map.Kill("Puz_Rem"..i)
 							RPGChar[RPGParty[i]].Stat.Experience -= 900 div __skill
 						end
-						gv.gbool.FollowTheLeaderOff = false
+						gbool.FollowTheLeaderOff = false
 						Self.PuzzleNoButtons()
 						Map.Kill("Puzzle",true)
 					end
 				case "#010"
 					if Slide.Good
 						Audio.LoadNew("Audio/SFX/Solved.ogg","SOLVED").Play()
-						gv.gbool["PyrusDone"..Map.Layer]=true
+						gbool["PyrusDone"..Map.Layer]=true
 						for i=1,14
 							Map.Kill("Puz_Rem"..i)
 						end
 						for i=1,4
 							RPGChar[RPGParty[i]].Stat.Experience -= 1600 div __skill
 						end
-						gv.gbool.FollowTheLeaderOff = false
+						gbool.FollowTheLeaderOff = false
 						Self.PuzzleNoButtons()
 					end
 				default
@@ -90,11 +102,11 @@ Group MScript
 	Void InitSchuif()
 		string OL = Map.Layer
 		plua SchuifX = { [true]="Enter", [false]="Next" }
-		//plua Dne = GV.GBOOL["DONE.PYRUS.ENTER"]
+		//plua Dne = GBOOL["DONE.PYRUS.ENTER"]
 		plua Dne = __chapter>=4
 		Map.Layer="#000" //Maps.GoToLayer("#000")
-		Map.SetObj("Schuif","X",Map.GetObjInt("Schuif"..SchuifX[Dne],"X") + 32) //Maps.Obj.Obj("Schuif").X=Maps.Obj.Obj("Schuif"..SchuifX[GV.GBOOL("&DONE.PYRUS.ENTER")]).X + 32
-		Map.SetObj("Schuif","Y",Map.GetObjInt("Schuif"..SchuifX[Dne],"Y")     ) //Maps.Obj.Obj("Schuif").Y=Maps.Obj.Obj("Schuif"..SchuifX[GV.GBOOL("&DONE.PYRUS.ENTER")]).Y
+		Map.SetObj("Schuif","X",Map.GetObjInt("Schuif"..SchuifX[Dne],"X") + 32) //Maps.Obj.Obj("Schuif").X=Maps.Obj.Obj("Schuif"..SchuifX[GBOOL("&DONE.PYRUS.ENTER")]).X + 32
+		Map.SetObj("Schuif","Y",Map.GetObjInt("Schuif"..SchuifX[Dne],"Y")     ) //Maps.Obj.Obj("Schuif").Y=Maps.Obj.Obj("Schuif"..SchuifX[GBOOL("&DONE.PYRUS.ENTER")]).Y
 		Map.Layer = OL
 	End
 	
@@ -152,20 +164,20 @@ Group MScript
 	
 	#region Schuifpuzzles		
 	Void Puzzle()
-		If gv.gbool["PyrusDone"..Map.Layer]
+		If gbool["PyrusDone"..Map.Layer]
 			CSay("Puzzle already done on this floor!")
 			Return
 		End
 		Map.Pop("Fr_","South",true)
-		gv.gbool.FollowTheLeaderOff = true
+		gbool.FollowTheLeaderOff = true
 		Slide = Slide || new SlidePuzzle(5,"Slide")
 		Slide.Reset()
 		Slide.Start(1+__skill)
-		gv.gbool["PyrusInitiated"..Map.Layer] = true
+		gbool["PyrusInitiated"..Map.Layer] = true
 	End
 	
 	Void LeavePuzzle()
-		gv.gbool.FollowTheLeaderOff = false
+		gbool.FollowTheLeaderOff = false
 	End
 	
 	Void PuzzleNoButtons()
@@ -210,7 +222,7 @@ Group MScript
 	
 	Void StartDragon()
 		If __skill<3
-			gv.gInt.MarFeena_HP += 300 - (__skill*100)
+			gInt.MarFeena_HP += 300 - (__skill*100)
 		End
 		RPGChar.FOE001.Points.HP.Minimum = 1
 		MapText("BLACK_DRAGON","FLOW_COMBAT")
