@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/Mini/ArrowSlideF.scyndi
 // 
-// 	  Version: 26.03.05 VII
+// 	  Version: 26.03.05 IX
 // 	
 // 	  Copyright (C) 2017, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -410,6 +410,7 @@ Bool Forfeit()
     if Mouse.MR || Map.InZone(PLAYER,"Forfeit")
        #if IGNORE
        //local s = Maps.Obj.Obj("Start")
+       Map.AllowAutoScroll=true
        plua s = new qObj("Start")
        APLAY.X = s.X
        APLAY.Y = s.Y
@@ -448,6 +449,7 @@ Void Goal()
        if !Map.InZone(PLAYER,"Goal")
            Return
        End
+       Map.AllowAutoScroll=true
        plua pobjects = {}
        //for po in KthuraLabelEach('Puzzle') do pobjects [ #pobjects + 1 ] = po; po.Impassible = 0 end
        //for pi in Map.LabelEach("Puzzle")
@@ -534,6 +536,9 @@ plua ArrowSlideFont = ObtainFont("SYSFONT")
 
 global void MainFlow()
 	//static var f = ImageFont.Obtain("SYSFONT")
+	Map.AllowAutoScroll=false
+	Map.ScrollY=math.max(0,Map.ScrollY-1)
+	Map.ScrollX=math.max(0,Map.ScrollX-1)
 	locExtern f "ArrowSlideFont"
 	__White
 	Graphics.Alpha(255)
