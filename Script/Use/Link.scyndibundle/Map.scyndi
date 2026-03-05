@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Link.scyndibundle/Map.scyndi
 // 
-// 	  Version: 26.03.05 I
+// 	  Version: 26.03.05 II
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -132,7 +132,8 @@ End
 	
 	#region Scroll
 	Get Bool AllowAutoScroll
-		Return ISGet.Bool("FLOW_FIELD","FlowField.Map.AllowAutoScroll")
+		//Return ISGet.Bool("FLOW_FIELD","FlowField.Map.AllowAutoScroll")
+		return gbool.AutoScroll
 	End
 	
 	Set Bool AllowAutoScroll
