@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Misc/GreatMagicBack.scyndi
 // 
-// 	  Version: 26.02.26 XII
+// 	  Version: 26.03.05 VII
 // 	
 // 	  Copyright (C) 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -78,7 +78,7 @@ Init
 	gm_default.colors+= {120, 20, 0}
 	gm_default.colors+={115, 15, 0}
 	
-	gm_default.speed = { {1,0}, {2,0}, {0,1}, {0,2}}
+	gm_default.speed = { [0]={1,0}, {2,0}, {0,1}, {0,2}}
 	gm_default.hide = "/F.PNG"
 	gm_manacave = {}
 	gm_aqua = {}
@@ -110,15 +110,21 @@ End
 		//for obj in KthuraEach("TiledArea") do
 		CSay("Great Magic Back:> Setup Layer: "..Layer)
 		//Var Lay = FlowField.Map.KthuraMap.Layer(Layer)
-		Lay:=Kthura.CurrentLayer
+		oldLay:=Kthura.CurrentLayer
+		
+		Kthura.CurrentLayer=layer
+		AllObj:=Kthura.AllObjects
 		//For OIS in Each(split(Lay.ObjEnumString,";"))
-		for OI in Each(Kthura.AllObjects)
+		CSayF("= Number of objects: %d",len(AllObj))
+		for OI in Each(AllObj)
 			//int OI = Lua.tonumber(OIS) || 0
 			//CSayF("Checking object #%05d",OI)
 			//var Obj = Lay.Obj(OI)
 			Obj:=Kthura.Obj["%"..OI]
+			CSayF("GreatMagicBack.SetUpDo(%s,%s): Obj %d; Kind: ",data,layer,obj.id,obj.kind)
 			if Obj.Kind=="TiledArea"
-				if prefixed(obj.Texture,data.texprefix || "GFX/TEXTURES/CAVES/DOORZICHTIG/")
+				CSayF("Checking tiledarea #%04d -> %s",obj.id,obj.texture)
+				if prefixed(Upper(obj.Texture),data.texprefix || "GFX/TEXTURES/CAVES/DOORZICHTIG/")
 					//if suffixed(obj.Texture,gm_default.hide)
 					//	obj.Visible=False
 					//end
@@ -126,9 +132,12 @@ End
 					//for i=1,#data.textures
 					for i,_ in pairs(data.textures)
 						//local cobj = Maps.Obj.CreateObject("TiledArea") --,obj.IDNum.."/"..i)
-						cobj := Lay.NewObj("TiledArea")
+						//cobj := Lay.NewObj("TiledArea")
+						cobj:=Kthura.NewObject("TiledArea")
 						retv[i] = retv[i] || { ["tiles"] = {} }
 						ret := retv[i]
+						Lua.assert(data.speed,"No speed data")
+						Lua.assert(data.speed[i],sprintf("No speed data ([%s])",i))
 						ret.movx = data.speed[i][1]
 						ret.movy = data.speed[i][2]
 						ret.Width=0
@@ -159,6 +168,7 @@ End
 			end
 		end
 		CSay(added.." extra objects added for the 'Great Magic'.")
+		Kthura.CurrentLayer=Ternary(OldLay=="",Kthura.CurrentLayer,OldLay)
 		return retv
 	end
 	
