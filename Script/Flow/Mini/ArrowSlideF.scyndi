@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/Mini/ArrowSlideF.scyndi
 // 
-// 	  Version: 26.03.04 VI
+// 	  Version: 26.03.05 VII
 // 	
 // 	  Copyright (C) 2017, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -46,6 +46,7 @@
 Script
 // Please note, this is a converted Lua script
 #use "Libs/SCI/Sys"
+#use "Libs/SCI/Kthura"
 #use "Libs/SCI/Events"
 #use "Libs/SCI/Graphics"
 #use "Libs/SCI/InterVar"
@@ -58,7 +59,7 @@ Script
 //-- @DEFINE ARROWDEBUG
 #define ARROWDEBUG
 
-const delegate upper = Lua.string.upper
+//const delegate upper = Lua.string.upper
 
 plua Blocks = nil
 plua Arrows = nil
@@ -97,8 +98,8 @@ Init
   plua ButtOfs= {32,Screen.Height-200}
   for b in each(iButtons) 
       b.img = LoadNewImage("GFX/Textures/EarthPuzzle/AR_"..b.p..".png","EarthPuzzle_AR_"..b.p)
-      b.x=b.c[0]+ButtOfs[0]
-      b.y=b.c[1]+ButtOfs[1]
+      b.x=b.c[1]+ButtOfs[1]
+      b.y=b.c[2]+ButtOfs[2]
   end
   //Print(serialize("Buttons",Buttons))
   //Print(serialize("iButtons",iButtons))
@@ -261,50 +262,55 @@ Init
 		PlayGo(-1, 0,"Left")
 	End
 	
-	godirs = {Up,Down,Right,Left}
+	godirs = {[0]=Up,Down,Right,Left}
 End
 
 // Quick class to convert from LAURA II
+locExtern this "self"
 class qobj
 	readonly int id
+	readonly string idtag
 	Constructor(_id)
 		switch Lua.type(_id)
 			case "number"
 				id = _id
 			case "string"
-				id = Map.GetObjInt(_id,"ID")
+				id = Kthura.Obj[_id].id
 			default
 				Lua.error("?")
 		end
+		idtag="%"..id
 	End
 	
 	Get Int X
-		Return Map.GetObjInt(id,"X")
+		Return Kthura.Obj[idtag].X
 	End
 	Get Int Y
-		Return Map.GetObjInt(id,"Y")
+		Return Kthura.Obj[idtag].Y
 	End
 	Get String TextureFile
-		Return Map.GetObjString(id,"Texture"):upper()
+		//Return Map.GetObjString(id,"Texture"):upper()
+		return Kthura.Obj[idtag].Texture
 	End
 	
 	Set Int X
-		Map.SetObj(id,"X",Value)
+		Kthura.Obj[idtag].X=Value
 	End
 	Set Int Y
-		Map.SetObj(id,"Y",Value)
+		Kthura.Obj[idtag].Y=Value
 	End
 	
 	set Bool Impassible
-		Map.SetObj(id,"Impassible",Value)
+		Kthura.Obj[idtag].Impassible=Value
+		Kthura.Remap()
 	End
 	
 	Get Bool Moving
-		Return Map.GetObjBool(id,"Moving")
+		Return Kthura.Obj[idtag].Moving
 	End
 	
 	Get Bool Walking
-		Return Map.GetObjBool(id,"Walking")
+		Return Kthura.Obj[idtag].Walking
 	End
 End
 
@@ -328,7 +334,7 @@ Global Void InitPuzzle()
     pLua maxy=0     
     pLUA dr = {["DN"]={["Y"]=1},["UP"]={["Y"]=-1},["RT"]={["X"]=1},["LF"]={["X"]=-1}}
     CSay("Scanning objects")
-    For oi in each(Map.ObjEnum)
+    For oi in each(Kthura.AllObjects)
     	//CSayF("= Object: %05d",oi)
     	o   := new qObj(oi)
         opx := math.floor(o.X/32)
@@ -444,8 +450,9 @@ Void Goal()
        End
        plua pobjects = {}
        //for po in KthuraLabelEach('Puzzle') do pobjects [ #pobjects + 1 ] = po; po.Impassible = 0 end
-       for pi in Map.LabelEach("Puzzle")
-       	   plua po = new qobj(pi)
+       //for pi in Map.LabelEach("Puzzle")
+       for pi in Each(Kthura.ObjByLabel("Puzzle"))
+       	   po := new qobj(pi)
            pobjects += po
            po.Impassible = false
        End
@@ -454,7 +461,8 @@ Void Goal()
        //Actors.WalkToSpot("PLAYER1",PLAYER)
        //Actors.WalkToSpot("PLAYER2",PLAYER)
        //Actors.WalkToSpot("PLAYER3",PLAYER)
-       Lua.Neil.Globals.Player.walkTo(PLAYER)
+       //Lua.Scyndi.AnyIdentifier.Player.WalkTo(PLAYER)
+       Kthura.Obj.Player.WalkTo(PLAYER)
        //for alpha=0,1000,25 do
        for alpha=0,255
            //Actors.Actor("PLAYER" ).SetAlpha(alpha)
@@ -463,14 +471,19 @@ Void Goal()
            //Actors.Actor("PLAYER3").SetAlpha(alpha)
            Map.SetObj("PLAYER","Alpha",alpha)
            for i=2,4
-               Map.SetObj("PLAYER"..i,"Alpha",alpha)
+              Kthura.Obj["PLAYER"..i].Alpha = alpha
            End
            for po in each(pobjects) 
            	   //po.SetAlpha(1000-alpha)
-           	   Map.SetObj(po.ID,"Alpha",255-alpha)
+           	   //Map.SetObj(po.ID,"Alpha",255-alpha)
+           	   if (Kthura.HasObj(po.ID)) 
+           	   	Kthura.Obj["%"..po.ID].Alpha=255-alpha
+           	   else
+           	   	   CSayF("\x07WARNING! Object #%d doesn't exist! Nothing will happen to it! (Alpha:%02x)",po.ID,255-alpha)
+           	   end
            end
            //Actors.Actor(PLAYER).SetAlpha(1000-alpha)
-           Map.SetObj(PLAYER,"Alpha",255-alpha)
+           Kthura.Obj[PLAYER].Alpha=255-alpha
            Graphics.Cls()
            Map.DrawScreen()
            Graphics.Flip()
@@ -542,8 +555,15 @@ global void MainFlow()
    for b in each(iButtons) 
        // CSay(serialize('button',b))
        // DarkText(serialize(b.p,b),5,dbgy); dbgy=dbgy+25
+       hovering:=mx>=b.x && mx<b.x+32 && my>=b.y && my<b.y+32
+       if hovering
+       	   SetColor(255,255,255)
+       Else
+       	   SetColor(200,200,200)
+       end
        b.img.Draw(b.x,b.y) //Image.Show(b.img,b.x,b.y)
-       b.clicked = mhit && mx>=b.x && mx<b.x+32 && my>=b.y && my<b.y+32
+       SetColor(255,255,255)
+       b.clicked = mhit && hovering
        //f.DarkText(Lua.tostring(b.clicked),b.x,b.y) // debug only
    end    
    // DarkText(mx..","..my,20,dbgy)
