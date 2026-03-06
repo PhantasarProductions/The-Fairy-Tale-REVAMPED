@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/CLS_Cards.scyndi
 // 
-// 	  Version: 26.03.06 IV
+// 	  Version: 26.03.06 V
 // 	
 // 	  Copyright (C) 2021-'22, 2026 Jeroen Petrus Broks
 // 	
@@ -323,7 +323,7 @@ Class Cards
 		Action = Act
 		switch Lua.type(Jok)
 			case "string"
-				Joker = NeilUse("Script/Use/Combat/Jokers/Joker_"..Jok)
+				Joker = NeilUse("Script/Use/Combat/Jokers/Joker_"..Jok)._Joker
 			case "function"
 				Joker = Jok
 			case "nil"
