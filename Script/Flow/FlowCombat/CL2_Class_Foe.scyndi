@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/CL2_Class_Foe.scyndi
 // 
-// 	  Version: 26.03.01
+// 	  Version: 26.03.06 I
 // 	
 // 	  Copyright (C) case 2021-2026 Jeroen Petrus Broks
 // 	
@@ -187,8 +187,9 @@ Class Foe Extends Fighter
 			WFoe.NorImage = LoadImage(img,"NOR"..WFoe.Tag)
 			WFoe.NegImage = LoadImage(Replace(img,".PNG",".NEGATIVE.PNG"),"NEG"..WFOE.Tag)			
 		Else
-			WFoe.NorImage = LoadImage(WFoe.Raw.IMAGE,"NOR"..WFoe.Tag)
-			WFoe.NegImage = LoadImage(Replace(Upper(WFoe.Raw.IMAGE),".PNG",".NEGATIVE.PNG"),"NEG"..WFOE.Tag)
+			CSayF("NOR:%s",wFoe.Raw.Image); WFoe.NorImage = LoadImage(WFoe.Raw.IMAGE,"NOR"..WFoe.Tag)
+			CSayF("NEG:%s",wFoe.Raw.Image); WFoe.NegImage = LoadImage(Replace(Upper(WFoe.Raw.IMAGE),".PNG",".NEGATIVE.PNG"),"NEG"..WFOE.Tag)
+			CSay("FOE:Image ok")
 		End
 		WFoe.NorImage.HotBottomCenter()
 		WFoe.NegImage.HotBottomCenter()
