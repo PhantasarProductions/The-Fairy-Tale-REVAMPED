@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.05 III
+// version: 26.03.06 I
 // 
 // End License
 
@@ -68,11 +68,11 @@ Module
 			onefullap = onefullap || a.Have==a.Maximum
 			allfullap = allfullap && a.Have==a.Maximum
 			allfullhp = allfullhp && h.have==h.Maximum
-			P[i]=t
+			P[i-1]=t
 		end
 		RPGChar[tag].Points.HP.Minimum=1
-		If Turn==0 || RPGChar[tag].Points.HP % (__skill*10) == 0 || math.random(0,__skill^10)==1
-			Return New Action("ABL_SPECIAL_INSTABILITY",Tag,{Tag})
+		If Turn==0 || RPGChar[tag].Points.HP.Have % (__skill*10) == 0 || math.random(0,__skill^10)==1
+			Return New Action("ABL_SPECIAL_INSTABILITY",Tag,{[0]=Tag})
 		ElseIf RPGChar[tag].Points.HP.Have==1
 			//nextact =   {
 			//	executor = { group = 'Foe', tag=foe.tag },
