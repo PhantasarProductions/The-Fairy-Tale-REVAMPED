@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.05 XXVI
+// version: 26.03.05 XXVII
 // 
 // End License
 
@@ -57,6 +57,7 @@ Script
 #use "Script/Use/Convert"
 #use "Script/Use/Misc/MWalda"
 #use "Script/Use/Misc/TexMove"
+#use "Script/Use/Misc/ForBlueSeal"
 #use "Script/Use/Misc/CSlidePuzzle"
 
 
@@ -228,7 +229,7 @@ Group MScript
 	#region The Black Dragon
 	Void Crater()
 		Music.Play("music/sys/silence.ogg")
-		Lua.Neil.Globals.Map.StopWalking()
+		Kthura.Obj.Player.StopWalking()
 		Combat.Prepare(100,0,180,"Mindless destroyer of anything and everything","The Black Dragon")
 		//ISSet("String","FLOW_COMBAT","FLowCombat.Start.Lose","GameOver")
 		Combat.Lose = "GameOver"
