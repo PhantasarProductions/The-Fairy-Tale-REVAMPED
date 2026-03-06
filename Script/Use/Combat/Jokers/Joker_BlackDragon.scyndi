@@ -56,7 +56,7 @@ Void _Joker(card)
 	For k,v in pairs(Fighter.ByTag)
 		If v.Team=="Foe"
 			//                                     2000000000
-			Int Dmg = math.random(30000 div __skill,300000000 div __skill)
+			Int Dmg = math.random(30000 div __skill,300000002 div __skill)
 			charmsg(v.Tag,Dmg,200,0,0)
 			v.HP -= Dmg
 		End
