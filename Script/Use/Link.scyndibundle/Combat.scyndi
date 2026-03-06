@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Link.scyndibundle/Combat.scyndi
 // 
-// 	  Version: 26.02.23 I
+// 	  Version: 26.03.06 II
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -232,7 +232,8 @@ Module
 	End
 
 	Void Joker(int idx,string J)
-		State.Call("FLOW_COMBAT","FlowCombat.Cards.Add",sprintf("%d,'',nil,'%s'",idx,J))
+		//State.Call("FLOW_COMBAT","FlowCombat.Cards.Add",sprintf("%d,'',nil,'%s'",idx,J))
+		Sys.Call("FLOW_COMBAT","FlowCombat.Cards.Add",idx,"",nil,J)
 	End
 
 //End
