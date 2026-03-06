@@ -1,8 +1,8 @@
-// License Information:
+// License:
 // **********************************************
 // 
-// src/Tricky Script/Script/MapScript/CH3_Hub_FrendorGrave.neil
-// (c) Jeroen Broks, 2022, All Rights Reserved.
+// src/Code/Script/MapScript/CH3_Hub_FrendorGrave.scyndi
+// (c) Jeroen Broks, 2022, 2026, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -24,6 +24,7 @@
 // from it, you can use it under that license.
 // Please check out the other files to find out
 // which license applies.
+// 
 // This file comes 'as-is' and in no possible
 // way the author can be held responsible of
 // any form of damages that may occur due to
@@ -32,10 +33,19 @@
 // 
 // **********************************************
 // 
-// version: 22.02.04
-// End License Information
+// 
+// version: 26.03.05 IV
+// 
+// End License
 
+Script
+
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/Kthura"
+
+#use "Script/Use/Link"
 #use "Script/Use/Anyway"
+#use "Script/Use/Convert"
 
 Group MScript
 
@@ -69,10 +79,10 @@ Group MScript
 	Void PostHarry()
 		Ach.Award("CHAPTER3")
 		Map.Kill("NPC_MT_Chief",true)
-		Map.SetObj("ChiefBack","Visible",true)
+		Kthura.Obj.ChiefBack.Visible=true
 		MapText("HARRY_POST")
 		Map.Kill("Harry",true)
-		For ch in Each{"Cryogina","Remus","John","ShopHoer","Fandalora","Jeanne","GedrioFulla","Rosetta","SashaFunda","Sandra","Krandar"}
+		For ch in Each{[0]="Cryogina","Remus","John","ShopHoer","Fandalora","Jeanne","GedrioFulla","Rosetta","SashaFunda","Sandra","Krandar"}
 			CSayF("Killing %s",ch)
 			Map.Kill("NPC_MT_"..ch,true)
 		End
@@ -83,9 +93,9 @@ Group MScript
 		Map.GoToMap("CH4_Town_NostraburgNight","TOWN","exit_krandar")
 	End
 	
-	
-	Constructor
-		CSay("Frendor's Grave")
-		ZA.TabEnter{"Event","Harry","Delisto"}
-	End
+End
+
+Init
+	CSay("Frendor's Grave")
+	ZA.TabEnter{"Event","Harry","Delisto"}	
 End
