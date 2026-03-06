@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.06
+// version: 26.03.06 IV
 // 
 // End License
 
@@ -42,7 +42,10 @@
 Module
 
 #accept CharMsg
+#Accept Fighter
+#accept FlowCombat
 
+#use "Script/Use/Link"
 #use "Script/Use/Anyway"
 
 #use "Libs/SCI/InterVar"
@@ -58,7 +61,7 @@ Void _Joker(card)
 			v.HP -= Dmg
 		End
 	End
-	FlowCombat.Cards.Add(15+(4*__skill),"",nil,_DragonAction)
+	FlowCombat.Cards.Add(15+(4*__skill),"",nil,_Joker)
 	If __skill<3 && gBool.MarFeena_Curse
 		gInt.MarFeena_HP += math.random(0,4 div __skill)
 	End
