@@ -1,8 +1,8 @@
-// License Information:
+// License:
 // **********************************************
 // 
-// src/Tricky Script/Script/Use/Combat/ActScript/HelpForSillyOnes.neil
-// (c) Jeroen Broks, 2022, All Rights Reserved.
+// src/Code/Script/Use/Combat/ActScript/AS_HelpForSillyOnes.scyndi
+// (c) Jeroen Broks, 2022, 2026, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -24,6 +24,7 @@
 // from it, you can use it under that license.
 // Please check out the other files to find out
 // which license applies.
+// 
 // This file comes 'as-is' and in no possible
 // way the author can be held responsible of
 // any form of damages that may occur due to
@@ -32,9 +33,17 @@
 // 
 // **********************************************
 // 
-// version: 22.02.02
-// End License Information
-Bool _PA(Act,Tar)
+// 
+// version: 26.03.05 II
+// 
+// End License
+
+Module
+
+#use "Script/Use/Anyway"
+
+
+Bool _Act(Act,Tar)
 	Tar.Char.Points.AP.Have = Tar.Char.Points.AP.Maximum
 	for i=1,5
 		if Tar.Char.Points["LVL_Skill"..i].Have>0
@@ -44,4 +53,3 @@ Bool _PA(Act,Tar)
 	Return True
 End
 
-Return _PA
