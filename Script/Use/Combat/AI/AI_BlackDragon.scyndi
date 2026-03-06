@@ -1,8 +1,8 @@
-// License Information:
+// License:
 // **********************************************
 // 
-// src/Tricky Script/Script/Use/Combat/AI/BlackDragon.neil
-// (c) Jeroen Broks, 2017, 2022, 2024, All Rights Reserved.
+// src/Code/Script/Use/Combat/AI/AI_BlackDragon.scyndi
+// (c) Jeroen Broks, 2017, 2022, 2024, 2026, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -24,6 +24,7 @@
 // from it, you can use it under that license.
 // Please check out the other files to find out
 // which license applies.
+// 
 // This file comes 'as-is' and in no possible
 // way the author can be held responsible of
 // any form of damages that may occur due to
@@ -32,32 +33,45 @@
 // 
 // **********************************************
 // 
-// version: 24.02.19
-// End License Information
+// 
+// version: 26.03.05 III
+// 
+// End License
+
+
 Module
-	ReadOnly Var DAI
+
+#use "Script/Use/Anyway"
+#use "Script/Use/Convert"
+
+	Var DAI
 
 	Int Turn
 	
+	plua Decide_P = {}
+	
 	Var Decide(foe)
 		//function FoeAI.BlackDragon(tag)
-		plua Tag = foe.Tag
+		Tag := foe.Tag
 		plua OneFullAP
+		plua AllFullAP
 		plua AllFullHP
 		onefullap,allfullhp=false,true
 		//local foe = fightersbytag[tag]
-		static Var P = {}
+		//static Var P = {}
+		LocExtern P "Decide_P"
 		Turn = (Turn + 1) % (math.max(3,__skill^2))
 		for i=1,4
 			string t = RPGParty[i]
-			Var h = RPGChar[t].Points.HP
-			Var a = RPGChar[t].Points.AP
-			onefullap = onefullap or a.Have==a.Maximum
-			allfullhp = allfullhp and h.have==h.Maximum
+			h := RPGChar[t].Points.HP
+			a := RPGChar[t].Points.AP
+			onefullap = onefullap || a.Have==a.Maximum
+			allfullap = allfullap && a.Have==a.Maximum
+			allfullhp = allfullhp && h.have==h.Maximum
 			P[i]=t
 		end
 		RPGChar[tag].Points.HP.Minimum=1
-		If Turn==0
+		If Turn==0 || RPGChar[tag].Points.HP % (__skill*10) == 0 || math.random(0,__skill^10)==1
 			Return New Action("ABL_SPECIAL_INSTABILITY",Tag,{Tag})
 		ElseIf RPGChar[tag].Points.HP.Have==1
 			//nextact =   {
@@ -66,7 +80,7 @@ Module
 			//	flow='Execution',
 			//	group='Foe',
 			//	targetidx=1
-			//}
+			//}			
 			Return new Action("ABL_SPECIAL_DRAGONDOWN",Tag,P)
 		ElseIf allfullhp
 			//nextact =   {
@@ -77,7 +91,8 @@ Module
 			//	targetidx=1
 			//}
 			Return New Action("ABL_FOE_DEMON_SOUL_BREAKER",Tag,P)
-		ElseIf onefullap
+		//ElseIf onefullap
+		ElseIf allfullap
 			// nextact =   {
 			// executor = { group = 'Foe', tag=foe.tag },
 			// act = 'ABL_FOE_TOTALEXHAUSTION',
@@ -94,7 +109,6 @@ Module
 		//--assert(false,"Nothing to see here yet!")
 	End
 
-	Constructor
-		DAI = NeilUse("Script/use/Combat/AI/Default")
+	Init
+		DAI = NeilUse("Script/use/Combat/AI/AI_Default")
 	End
-End
