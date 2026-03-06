@@ -1,7 +1,7 @@
 // License:
 // 	src/Code/Script/Use/Convert.ScyndiBundle/Neil_Conversions.scyndi
 // 	Neil Conversion Functions
-// 	version: 26.02.23
+// 	version: 26.03.05
 // 
 // 	Copyright (C) 2026 Jeroen P. Broks
 // 
@@ -26,7 +26,7 @@ Module
 #use "Libs/SCI/SString"
 
 Global Var NeilUse(String b)
-	pn:=StripAll(b)
+	pn:=Replace(StripAll(b)," ","_")
 	Lua.Scyndi.Use(b)
 	return Lua.Scyndi.Class[pn]
 End
