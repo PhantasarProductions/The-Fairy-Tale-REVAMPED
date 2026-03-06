@@ -34,7 +34,12 @@
 // misrepresented as being the original software.
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
-Bool _IB()
+
+Module
+#accept RPGChar
+#accept FlowCombat
+
+Bool _Act()
 	Int hp = RPGChar.FOE001.Points.HP.Have
 	Int min=math.ceil(hp*0.001)
 	Int max=math.ceil(hp*0.005)
