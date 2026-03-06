@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/CLS_Cards.scyndi
 // 
-// 	  Version: 26.03.03 I
+// 	  Version: 26.03.06 IV
 // 	
 // 	  Copyright (C) 2021-'22, 2026 Jeroen Petrus Broks
 // 	
@@ -85,7 +85,17 @@ Class Cards
 		return Cards.Lijst[i]
 	End
 	
-	Static Var Add(Int idx,String _FighterTag,_Action,_Joker)
+	//Static Var Add(Int idx,String _FighterTag,_Action,_Joker)
+	Static Var Add(idx,_FighterTag,_Action,_Joker)
+		// Hardcode debug as I couldn't trace back an error occuring here!
+		If Lua.type(idx)!="number" || Lua.type(_FighterTag)!="string"
+			printf("\x1b[31mOops! Something went wrong!\n\x1b[37m%s\n",Lua.debug.traceback())
+			print("int",Lua.type(idx),idx)
+			print("string",lua.type(_FighterTag),_FighterTag)
+			print("var",lua.type(_Action),_Action)
+			print("var",lua.type(_Joker),_Joker)
+			lua.error(sprintf("Cards.Add(%d,%s,%s,%s): Illegal function call",idx,_FighterTag,_Action,_Joker))
+		End
 		While Lijst[idx] && (!Lijst[idx].None)
 			idx++
 		End
@@ -269,7 +279,14 @@ Class Cards
 	Var Joker
 	Bool None
 	String FightTag
+	
 	Get String FightTeam
+		if !Fighter.ByTag[FightTag]
+			print("\x1b[37m"..lua.debug.traceback())
+			CSayF("Joker: %s",Joker)
+			Sys.TraceBack()
+			lua.error(sprintf("No data for '%s'",FightTag))
+		End
 		Return Fighter.ByTag[FightTag].Team
 	End
 	Get Var Fight
@@ -306,7 +323,7 @@ Class Cards
 		Action = Act
 		switch Lua.type(Jok)
 			case "string"
-				Joker = NeilUse("Script/Use/Combat/Jokers/"..Jok)
+				Joker = NeilUse("Script/Use/Combat/Jokers/Joker_"..Jok)
 			case "function"
 				Joker = Jok
 			case "nil"
