@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.01 I
+// version: 26.03.07 II
 // 
 // End License
 
@@ -170,7 +170,10 @@ Group SubParty
 				Kr.Stat.Level = 1234567
 				Kr.Stat.Experience = 12345678
 				For s,lc in pairs{["AP"]= "Marrilona", ["Accuracy"] = "Jake_Human", ["Critical"] =  "Jake_Human", ["Endurance"] =  "Dandor", ["Evasion"] =  "HandoStillor", ["HP"] =  "Dandor", ["Intelligence"] = "HandoStillor", ["Power"] = "Dandor", ["Resistance"] = "Marrilona", ["Speed"]="HandoStillor"}
-					RPGChar.Krandar.Link_Stat(lc,"BASE_"..s)					
+					//RPGChar.Krandar.Link_Stat(lc,"BASE_"..s)
+					RPGCHar[lc].Link_Stat("Krandar","BASE_"..s)
+					CSayF("Krandar's %s has been linked to %s's. As a result it's value should now be: %d -> %d",s,lc,RPGChar.Krandar.Stat["BASE_"..s],RPGChar.Krandar.Stat["END_"..s])
+					CSayF("=> %s's %s -> %d ",lc,s,RPGChar[lc].Stat["BASE_"..s])
 				End
 				//Lua.error("No support for Krandar yet")
 			Case "Nostramantu_Human" "Nostramantu"
