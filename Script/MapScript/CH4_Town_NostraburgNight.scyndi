@@ -34,12 +34,15 @@
 // **********************************************
 // 
 // 
-// version: 26.03.07
+// version: 26.03.07 IV
 // 
 // End License
 
 
 Script
+
+#use "Libs/SCI/Kthura"
+#use "Libs/SCI/InterVar"
 
 #use "Script/Use/Link"
 #use "Script/Use/Anyway"
@@ -87,7 +90,7 @@ Group MScript
 		Map.ShowObj("KRANDAR")
 		Map.ShowObj("JAKE")
 		MapText("NOSTRAMANTU2")
-		CreateKrandar()
+		MScript.CreateKrandar()
 		RPGParty[1] = "Jake_Human"
 		RPGParty[2] = "Krandar"
 		Combat.Boss("Cursed Berserk Fairy","Marrilona")
@@ -96,7 +99,7 @@ Group MScript
 		Combat.Lose = "GameOver"
 		Combat.NewEnemy = "Boss/Marrilona"
 		Combat.StartEvent = "StartBoss"
-		Lua.Neil.Globals.Map.StopWalking()
+		Kthura.Obj.Player.StopWalking()
 		Combat.Start()
 		Schedule.Add("PostBoss")
 	End
