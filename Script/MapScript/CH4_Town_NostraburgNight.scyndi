@@ -119,8 +119,8 @@ Group MScript
 		Map.GoToMap("CH3_Town_Nostraburg","TOWN","Depri")		
 		Schedule.Add("DepriJake")
 	End
+End	
 	
-	Constructor
-		ZA.TabEnter{"StartEvent","ToCreek","ToTown","ZKRANDAR"}
-	End
+Init
+	ZA.TabEnter{"StartEvent","ToCreek","ToTown","ZKRANDAR"}	
 End
