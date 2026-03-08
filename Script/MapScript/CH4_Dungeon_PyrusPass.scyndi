@@ -34,13 +34,16 @@
 // **********************************************
 // 
 // 
-// version: 26.03.07 V
+// version: 26.03.08 II
 // 
 // End License
 
 Script
 
 #use "Libs/SCI/Sys"
+#use "Libs/SCI/Events"
+#use "Libs/SCI/Kthura"
+#use "Libs/SCI/Graphics"
 #use "Libs/SCI/InterVar"
 
 #use "Script/Use/Link"
@@ -95,7 +98,7 @@ Group MScript
 	
 	#region Boss
 	Void NPC_Kruid()
-		Lua.Neil.Globals.Map.StopWalking()
+		Kthura.Obj.Player.StopWalking()
 		Map.Pop("K_","North",true)
 		MapText("WHEAT1")		
 		For i=1,75
@@ -103,15 +106,16 @@ Group MScript
 			Graphics.Rect(0,0,Screen.W,Screen.H)
 			Graphics.Flip()
 			Events.Poll()
-			FPS.WaitMinTicks()
+			Sys.WaitMinTicks()
 			Map.ShowObj("NOS")
 		End
 		
 		MapText("WHEAT2")
 				
 		Combat.Prepare(255,180,0,"Fairy Elder","Nostramantu")
-		ISSet("String","FLOW_COMBAT","FLowCombat.Start.Lose","GameOver")
-		Combat.Arena = Lua.Neil.Globals.Map.Arena
+		//ISSet("String","FLOW_COMBAT","FLowCombat.Start.Lose","GameOver")
+		Combat.Lose = "GameOver"
+		Combat.Arena = Kthura.MetaData.Arena
 		Combat.Music = "Combat/SpecialBoss/PlayTillDeath_(Nostramantu).ogg"
 		Combat.NewEnemy = "Boss/Nostramantu1"		
 		Combat.Start()		
