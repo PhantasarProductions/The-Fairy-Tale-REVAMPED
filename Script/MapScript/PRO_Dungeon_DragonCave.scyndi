@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.23
+// version: 26.03.08
 // 
 // End License
 
@@ -223,7 +223,7 @@ Group MScript
 	Void NPC_BlueStaff()
 		MapText("BLUE")
 		Map.Kill("NPC_BlueStaff",true)
-		gv.bool.Have_Blue_Staff  = True
+		gbool.Have_Blue_Staff  = True
 		Item.ZZKEY_BLUESTAFF.Has = 1
 	End
 	
