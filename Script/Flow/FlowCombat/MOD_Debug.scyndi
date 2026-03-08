@@ -1,0 +1,82 @@
+// License:
+// **********************************************
+// 
+// src/Code/Script/Flow/FlowCombat/MOD_Debug.scyndi
+// (c) Jeroen Broks, 2026, All Rights Reserved.
+// 
+// This file contains material that is related
+// to a storyline that is which is strictly
+// copyrighted to Jeroen Broks.
+// 
+// This file may only be used in an unmodified
+// form with an unmodified version of the
+// software this file belongs to.
+// 
+// You may use this file for your study to see
+// how I solved certain things in the creation
+// of this project to see if you find valuable
+// leads for the creation of your own.
+// 
+// Mostly this file comes along with a project
+// that is for most part released under an
+// open source license and that means that if
+// you use that code with this file removed
+// from it, you can use it under that license.
+// Please check out the other files to find out
+// which license applies.
+// 
+// This file comes 'as-is' and in no possible
+// way the author can be held responsible of
+// any form of damages that may occur due to
+// the usage of this file
+// 
+// 
+// **********************************************
+// 
+// 
+// version: 26.03.08 IV
+// 
+// End License
+Module
+
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/InterVar"
+
+#accept Fighter
+
+plua OnOff = {[false]="\x1b[31mOFF\x1b[37m", [true]="\x1b[32mON\x1b[37m"}
+
+Global Void CONSOLE_Fighters()
+	For F,D in sPairs(Fighter.ByTag)
+		printf("\x1b[93m%s (%s) '%s'  \x1b[94m(%04d,%04d)\x1b[37m\n",F,D.Team,D.Char.Name,D.X,D.Y)
+	End
+End
+
+Global Void CHEAT_God()
+	gbool["CHEAT.GOD"]=!gbool["CHEAT.GOD"]
+	printf("\x1b[95mGod mode is %s\n",OnOff[gbool["CHEAT.GOD"]])
+End
+
+Global Void CHEAT_Jack()
+	gbool["CHEAT.JACK"]=!gbool["CHEAT.JACK"]
+	printf("\x1b[95mJack The Ripper mode is %s\n",OnOff[gbool["CHEAT.Jack"]])
+End
+
+Global Void CONSOLE_HP(string FT="*")
+	if FT=="*"
+		for t,_ in spairs(Fighter.ByTag)
+			CONSOLE_HP(t)
+		End
+	else
+		CF:=Fighter.ByTag
+		printf("\x1b[%s \x1b[95m%s (%s)\n has \x1b[94m%9d\x1b[95m/%d HP\n",Ternary(CF.Team=="Foe","91mFoe ","92mHero"),FT,CF.Name,CF.HP,CF.MaxHP)
+	end
+End
+
+Init
+	 Sys.ConsoleLocal("FIGHTERS","CONSOLE_Fighters")
+	 Sys.ConsoleLocal("IDDQD","CHEAT_God")
+	 Sys.ConsoleLocal("GOD","CHEAT_God")
+	 Sys.ConsoleLocal("JACK","CHEAT_Jack")
+	 Sys.ConsoleLocal("HP","HP")
+End
