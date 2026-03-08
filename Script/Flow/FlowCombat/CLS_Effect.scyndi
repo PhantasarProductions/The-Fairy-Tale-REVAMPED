@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/CLS_Effect.scyndi
 // 
-// 	  Version: 26.03.01 II
+// 	  Version: 26.03.08 II
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -46,6 +46,7 @@
 Module
 
 #use "Libs/SCI/Sys"
+#use "Libs/SCI/InterVar"
 
 #use "Script/Use/Link"
 #use "Script/Use/Anyway"
@@ -165,11 +166,20 @@ Group Effect
       		end
       		charmsg(tag,math.abs(dmg),180,255,0)
       	end
-      	if Fighter.ByTag[tag].Team=="Hero"
+      	if Fighter.ByTag[tag].Team=="Foe"
+      		// Jack the Ripper
+      		if gbool["CHEAT.JACK"] && dmg>0
+      			charmsg(tag,"Killed by Jack the Ripper!")
+      			Fighter.ByTag[tag].HP=0
+      			if Fighter.ByTag[tag].HP>0
+      				CSayF("Important note! Foe was not dead due to minimum setting, but stuff may happen anyway!")
+      			end
+      		end
+      	elif Fighter.ByTag[tag].Team=="Hero"
       		// God Mode
-      		if gv.gbool["CHEAT.GOD"]
-      			dmg=0 
-      		end 
+      		if gbool["CHEAT.GOD"]
+      			dmg=0
+      		end
       		// Damage
       		RPGChar[tag].Points.AP.Have+= 6 div __skill
       		// EXP Rate up
