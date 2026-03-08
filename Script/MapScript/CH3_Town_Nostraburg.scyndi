@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.05 I
+// version: 26.03.08
 // 
 // End License
 
@@ -264,7 +264,7 @@ Group MScript
 	End
 	
 	Void NPC_Feenalaria()
-		Static Var OtherMasters = { "Fandalora","Freya","Midas","Rubine","Russell","Krandar" }
+		Static Var OtherMasters = { [0]="Fandalora","Freya","Midas","Rubine","Russell","Krandar" }
 		If !gbool.FeenaRecruitedAsMaster
 			MapText("FEENA_PREMASTER")
 			Bool Good=True
