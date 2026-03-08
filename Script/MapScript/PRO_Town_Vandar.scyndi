@@ -153,7 +153,7 @@ Group MScript
 		If __Chapter==0
 			MapText("INN_NOTTODAY")
 		else
-			Inn()
+			UseInn()
 		End
 	End
 	#endregion
