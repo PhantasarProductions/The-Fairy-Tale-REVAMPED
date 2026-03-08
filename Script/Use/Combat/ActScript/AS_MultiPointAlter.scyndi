@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Combat/ActScript/AS_MultiPointAlter.scyndi
 // 
-// 	  Version: 26.03.03 II
+// 	  Version: 26.03.08
 // 	
 // 	  Copyright (C) 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -50,7 +50,7 @@ Module
 #accept CharMsg
 
 Bool _Act(Act,Tar)
-	If Tar.Points.HP.Have==0
+	If Tar.Char.Points.HP.Have==0
 		Return False
 	End
 	Var MyArgs := xsplit(Act.EffectScript_Arg,";")
