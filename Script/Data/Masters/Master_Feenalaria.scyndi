@@ -1,8 +1,8 @@
-// License Information:
+// License:
 // **********************************************
 // 
-// src/Tricky Script/Script/Data/Masters/Feenalaria.neil
-// (c) Jeroen Broks, 2017, 2022, All Rights Reserved.
+// src/Code/Script/Data/Masters/Master_Feenalaria.scyndi
+// (c) Jeroen Broks, 2017, 2022, 2026, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -24,6 +24,7 @@
 // from it, you can use it under that license.
 // Please check out the other files to find out
 // which license applies.
+// 
 // This file comes 'as-is' and in no possible
 // way the author can be held responsible of
 // any form of damages that may occur due to
@@ -32,12 +33,24 @@
 // 
 // **********************************************
 // 
-// version: 22.07.25
-// End License Information
+// 
+// version: 26.03.08 VII
+// 
+// End License
+
 
 Module
+	
+	#use "Libs/SCI/Sys"
+	#use "Libs/SCI/InterVar"
 
-	Get Bool requirement() 
+
+	#use "Script/Use/Anyway"
+	#use "Script/Use/Convert"
+
+	#Accept DefStat
+
+	Get Bool requirement
 		Return true
 	End
 
@@ -49,19 +62,19 @@ Module
 	end
 	
 	Void DefAbl()
-		plua _Abl
+		//plua _Abl
 		plua skill = __skill
-		#pure
-		_Abl = {
-			[ 25]="abl_master_feena_magmablast",
-			[ 40]="abl_master_feena_cocytus",
-			[ 50]="abl_master_feena_drown",
-			[ 60]="abl_master_feena_megaquake",
-			[ 70]="abl_master_feena_katrina",
-			[ 80]="abl_master_feena_scylla",
-			[200]="abl_master_feena_fullpower"
-		}		                              
-		#endpure
+		
+		_Abl := {}
+		_Abl[ 25]="abl_master_feena_magmablast",
+		_Abl[ 40]="abl_master_feena_cocytus",
+		_Abl[ 50]="abl_master_feena_drown",
+		_Abl[ 60]="abl_master_feena_megaquake",
+		_Abl[ 70]="abl_master_feena_katrina",
+		_Abl[ 80]="abl_master_feena_scylla",
+		_Abl[200]="abl_master_feena_fullpower"
+			                              
+		
 		//Abl = _Abl
 		Abl = {}
 		For r,at in pairs(_Abl)
@@ -87,12 +100,12 @@ Module
 			//do -- DEFINITELY NOT ipairs!!!!!
 			//plua req = truereq*ReqMod
 			
-			if maylearn and RPGChar[Ch].Stat.FeenalariaPoints>=req and (not Done["MASTER.FEENALARIA."..ch.."."..abl])
+			if maylearn && RPGChar[Ch].Stat.FeenalariaPoints>=req && (!Done["MASTER.FEENALARIA."..ch.."."..abl])
 				//Console.Write(RPG.Stat(ch,"FeenalariaPoints")..">="..req.." so let's teach!",180,255,0)
 				maylearn=false
 				rabl=abl
 			else
-				all = all and GV.GBool["MASTER.FEENALARIA."..ch.."."..abl]
+				all = all && GBool["MASTER.FEENALARIA."..ch.."."..abl]
 			end
 		end
 		//return rabl,all
@@ -104,7 +117,7 @@ Module
       //Console.Write('Creating point for Rubine on '..ch,255,255,255)
       //Master_DefStat(ch,"RubinePoints",0)
       //RPGChar[ch].Stats.RubinePoints=0
-      FlowMaster.DefStat(Ch,"FeenalariaPoints",0)
+      DefStat(Ch,"FeenalariaPoints",0)
      End
      
      
@@ -114,30 +127,30 @@ Module
      End
 
      Var Stats
-     Table Desc =  {"Nostramantu's wife","Despite her merriage, she's on your side","and she knows very powerful spells.","She'll teach you new spells","based on your victories while","apprenticing under her","","Dandor cannot learn spells from her"}
+     Table Desc = {[0]="Nostramantu's wife","Despite her merriage, she's on your side","and she knows very powerful spells.","She'll teach you new spells","based on your victories while","apprenticing under her","","Dandor cannot learn spells from her"}
 
 
      Void DefStats()
      	if __Skill<3
-     		Desc[#Desc+1]=""
-     		Desc[#Desc+1]="When studying under Feenalaria"
-     		Desc[#Desc+1]="You'll recover "..math.abs(25*(3-__skill)).." AP"
-     		Desc[#Desc+1]="At the start of each turn"
+     		Desc+=""
+     		Desc+="When studying under Feenalaria"
+     		Desc+="You'll recover "..math.abs(25*(3-__skill)).." AP"
+     		Desc+="At the start of each turn"
      	End
-     	plua _stats
+     	//plua _stats
      	// Spd +25%, Atk -10%, End -5%, Int -10%, Res - 5%, Acc +5%, eva +5%     	
-     	#pure
-     	_stats = {
-     		HP=-50,
-     		AP=200,
-     		Power=-50,
-     		Intelligence=200,
-     		Resistance=200,
-     		Speed=-10,
-     		Evasion=-200,
-     		Endurance=-75     	
-     	}
-     	#endpure
+     	//#pure
+     	_stats := {}
+     	_stats.HP=-50,
+     	_stats.AP=200,
+     	_stats.Power=-50,
+     	_stats.Intelligence=200,
+     	_stats.Resistance=200,
+     	_stats.Speed=-10,
+     	_stats.Evasion=-200,
+     	_stats.Endurance=-75     	
+     	
+     	//#endpure
      	Stats = _stats
      End
      
@@ -146,7 +159,7 @@ Module
      	if ch=="Dandor" 
      	  	return "N/A"
      	end
-     	Int v = RPGChar[ch].Stat.FeenalariaPoints
+     	Int v := RPGChar[ch].Stat.FeenalariaPoints
      	If v==1
      		Return "1 victory"
      	Else
@@ -158,9 +171,8 @@ Module
      ReadOnly String ID   = "Feenalaria"
      ReadOnly Bool   HideRates = False
 
-     Constructor
+     Init
      	CSay("Loading Master Fandalora")
      	DefStats()
      	DefAbl()
      End
-End
