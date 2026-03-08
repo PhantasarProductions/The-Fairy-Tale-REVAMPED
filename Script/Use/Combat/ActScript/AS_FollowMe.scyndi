@@ -35,14 +35,19 @@
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
 
-Bool _DIS(Act,Tar,Exe)
+Module
+
+#accept FlowCombat
+#accept charmsg
+
+Bool _Act(Act,Tar,Exe)
 	For _,F in pairs(Fighter.ByTag)
 		If F.Tag!=Tar.Tag && F.Team==Tar.Team
 			FlowCombat.Cards.Add(1,F.Tag)
-			FlowCombat.charmsg(Tar.Tag,"Follows",0,255,0)
+			charmsg(Tar.Tag,"Follows",0,255,0)
 		End
 	End
 	Return True
 End
 
-Return _DIS
+//Return _DIS
