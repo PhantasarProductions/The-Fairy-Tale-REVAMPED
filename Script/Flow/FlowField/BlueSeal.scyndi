@@ -34,12 +34,13 @@
 // **********************************************
 // 
 // 
-// version: 26.02.24 III
+// version: 26.03.09 I
 // 
 // End License
 
 Module
 
+#use "Libs/SCI/Sys"
 #use "Libs/SCI/Kthura"
 #use "Libs/SCI/InterVar"
 
@@ -76,7 +77,8 @@ Module
 			BoxText.Tutor("BLUE_NOSTAFF")
 			Return
 		End
-		MapScript("GetSealedData")
+		//MapScript.GetSealedData()
+		Sys.Call("MAPSCRIPT","GetSealedData")
 		Combat.Prepare(0,0,255,Head,Name)
 		Combat.Arena = Kthura.MetaData.Arena
 		Combat.Music = "Combat/SpecialBoss/SealedBoss.ogg"
@@ -87,7 +89,7 @@ Module
 			Combat.NewEnemy = "Sealed/"..Boss			
 		End
 		//Lua.Neil.Globals.Map.StopWalking()
-		Kthura.Player.StopWalking()
+		Kthura.Obj.Player.StopWalking()
 		Combat.Start()
 		gint.SealsOpened++
 		if Upper(Map.LoadedMap)!="ANNA"
