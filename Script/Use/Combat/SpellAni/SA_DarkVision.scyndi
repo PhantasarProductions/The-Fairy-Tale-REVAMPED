@@ -36,6 +36,13 @@
 // End License Information
 Module
 
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/Audio"
+#use "Libs/SCI/Events"
+#use "Libs/SCI/Graphics"
+
+#accept FlowCombat
+
 	Bool Ended
 	Bool ShowDeath
 	Var Death
@@ -44,7 +51,9 @@ Module
 		Ended = false
 	End
 	
-	ReadOnly Delegate Update = NIKS
+	//ReadOnly Delegate Update = NIKS
+	Void Update()
+	End
 	
 	Void Draw()
 		//local screen = Image.GrabScreen()
@@ -70,7 +79,7 @@ Module
 				Death.Draw(Screen.W div 2,Screen.H div 2)
 			end
 			Graphics.Flip()
-			FPS.WaitMinTicks()
+			Sys.WaitMinTicks()
 			Events.Poll()
 		end
 		//Image.Free(screen)
@@ -78,8 +87,8 @@ Module
 		ShowDeath = False
 	End
 	
-	Constructor
-		Death = Image.LoadNew("GfX/SpellAni/Death/Death.png","SPELLANI_DEATH")
-		Death.HotCenter()
-	End
+Init
+	Death = LoadNewImage("GfX/SpellAni/Death/Death.png","SPELLANI_DEATH")
+	Death.HotCenter()
 End
+//End
