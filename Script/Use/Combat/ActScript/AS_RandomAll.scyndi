@@ -55,7 +55,7 @@ Void RND(Tar,String pnt)
 	CSayF("Randomized %s: %s to %d",Tar.Tag,pnt,Tar.Char.Points[pnt].Have)
 End
 
-Bool Act(Act,Tar)
+Bool _Act(Act,Tar)
 	RND(Tar,"HP")
 	RND(Tar,"AP")
 	RND(Tar,"VIT")
