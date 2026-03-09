@@ -36,6 +36,8 @@
 // End License Information
 Module
 
+#use "Script/Use/Convert"
+
 	Var DV
 		
 	Void Start()
@@ -52,6 +54,6 @@ Module
 		Return DV.Ended
 	End
 	
-	ReadOnly Delegate Update = NIKS
+	Void Update()
+	End
 
-End
