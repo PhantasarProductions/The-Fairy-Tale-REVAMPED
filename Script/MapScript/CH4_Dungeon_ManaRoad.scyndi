@@ -1,8 +1,8 @@
-// License Information:
+// License:
 // **********************************************
 // 
-// src/Tricky Script/Script/MapScript/CH4_Dungeon_ManaRoad.neil
-// (c) Jeroen Broks, 2022, All Rights Reserved.
+// src/Code/Script/MapScript/CH4_Dungeon_ManaRoad.scyndi
+// (c) Jeroen Broks, 2022, 2026, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -24,6 +24,7 @@
 // from it, you can use it under that license.
 // Please check out the other files to find out
 // which license applies.
+// 
 // This file comes 'as-is' and in no possible
 // way the author can be held responsible of
 // any form of damages that may occur due to
@@ -32,25 +33,41 @@
 // 
 // **********************************************
 // 
-// version: 22.02.15
-// End License Information
+// 
+// version: 26.03.09 IX
+// 
+// End License
 
+#use "Libs/SCI/Events"
+#use "Libs/SCI/Kthura"
+#use "Libs/SCI/Graphics"
+#use "Libs/SCI/InterVar"
+
+#use "Script/Use/Link"
 #use "Script/Use/Anyway"
+#use "Script/Use/Convert"
+
+
+Script
+
+Extern FPS "Sys"
+
+
+#region Which group do we have
+Get Bool Jake
+	Return Prefixed(RPGParty[1],"Jake")
+End
+	
+Get Bool Nostramantu
+	Return Prefixed(RPGParty[1],"Nostra")
+End
+#endregion
+
 
 Group MScript
 
 	ReadOnly Bool HasDraw   = False
 	ReadOnly Bool HasUpdate = False
-	
-	#region Which group do we have
-	Get Bool Jake
-		Return Prefixed(RPGParty[1],"Jake")
-	End
-	
-	Get Bool Nostramantu
-		Return Prefixed(RPGParty[1],"Nostra")
-	End
-	#endregion
 	
 	Void Kokonora()
 		If Jake
@@ -61,7 +78,7 @@ Group MScript
 	Void NaarDeManaGrot()
 		If Jake
 			WorldMap.Unlock("CH4MANACAVE")
-			Kokonora()
+			MScript.Kokonora()
 		ElseIf Nostramantu
 			//Lua.error("Nostramantu's script not yet set up")
 			Map.GoToMap("CH4_DUNGEON_MANACAVE","#000","Start")
@@ -93,7 +110,7 @@ Group MScript
 		End
 	End
 	
-	#Region Nostramantu & Feenlaria
+	#Region "Nostramantu & Feenlaria"
 	Void NosWelcome()
 		RPGChar.Feenalaria_Human2.Data.EQUIP_Weapon = RPGChar.Jake_Human.Data.EQUIP_Weapon
 		RPGChar.Feenalaria_Human2.Data.EQUIP_Armor  = RPGChar.Marrilona.Data.EQUIP_Armor
@@ -153,17 +170,17 @@ Group MScript
         State.Call("FLOW_CREDITS","Reset","\"OUTTAKES\"")
         Flow.Current="CREDITS"
 	End
+End	
 	
-	Constructor
-		If Jake
-			Map.Kill("PRC_NosOnly")
-			ZA.TabEnter{"Kokonora","NaarDeManaGrot","ManaBoss"}
-		End
-		If Nostramantu
-			ZA.TabEnter{"NaarDeManaGrot","ManaBoss"}
-		End
-		Map.SetObj("BlockNos","ForcePassible",Jake)
-		Map.SetObj("BlockNos","Impassible",Nostramantu)
+Init
+	If Jake
+		Map.Kill("PRC_NosOnly")
+		ZA.TabEnter{"Kokonora","NaarDeManaGrot","ManaBoss"}
 	End
-	
+	If Nostramantu
+		ZA.TabEnter{"NaarDeManaGrot","ManaBoss"}
+	End
+	Kthura.CurrentLayer="BOS"
+	Kthura.Obj.BlockNos.ForcePassible=Jake
+	Kthura.Obj.BlockNos.Impassible=Nostramantu	
 End
