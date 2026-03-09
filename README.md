@@ -1,6 +1,7 @@
 # NOTE!
 This is a conversion of an Apollo game to Scyndi's Creative Interpreter.
-Workstill in progress!
+
+Work still in progress!
 
 # The Fairy Tale REVAMPED for Scyndi's Creative Interpreter
 
