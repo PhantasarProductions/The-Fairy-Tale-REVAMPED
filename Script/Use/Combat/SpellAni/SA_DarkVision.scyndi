@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Combat/SpellAni/SA_DarkVision.scyndi
 // 
-// 	  Version: 26.03.09 II
+// 	  Version: 26.03.09 IX
 // 	
 // 	  Copyright (C) 2014, 2017, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -54,17 +54,24 @@ Module
 #use "Script/Use/Convert"
 
 #accept FlowCombat
+#accept ArenaPst
+#accept Fighter
 
 	Bool Ended
 	Bool ShowDeath
 	Var Death
+	Int TimeOut
 	
 	Void Start()
 		Ended = false
+		TimeOut=10000
+		CSay("Start Dark Vision!")
 	End
 	
 	//ReadOnly Delegate Update = NIKS
 	Void Update()
+		TimeOut--
+		Ended = Ended || TimeOut<=0		
 	End
 	
 	Void Draw()
@@ -72,18 +79,22 @@ Module
 		plua rad=0
 		plua mul=1
 		plua c
+		CSayF("Dark Vision -- %d",TimeOut)
 		Audio.LoadNew("Audio/SpellAni/DarkVision.ogg","DARKVISION").Play()
 		For mul=255,0,-0.75
+			CSayF("Dark vision loop: %9.3f",mul)
 			Graphics.Cls()
 			c = math.abs(math.cos(rad) * mul)
 			rad = rad + 0.05
-			
-			
 			//Image.Color(c,c,c)
 			//Image.Draw(screen,0,0)
 			__White
-			FlowCombat.DrawScreen()
+			//FlowCombat.DrawScreen.Run()
+			Graphics.Color(180,0,255)
+			Graphics.Rect(0,0,Screen.W,Screen.H)
+			Fighter.DrawAll()
 			Graphics.SetAlpha(255-math.floor(c))
+			Graphics.Color(0,0,0)
 			Graphics.Rect(0,0,Screen.W,Screen.H)
 			Graphics.SetAlpha(255)
 			if ShowDeath
@@ -94,6 +105,7 @@ Module
 			Sys.WaitMinTicks()
 			Events.Poll()
 		end
+		CSay("End Dark Vision!")
 		//Image.Free(screen)
 		Ended = true
 		ShowDeath = False
