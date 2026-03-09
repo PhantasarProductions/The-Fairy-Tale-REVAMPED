@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.09 II
+// version: 26.03.09 III
 // 
 // End License
 Module
@@ -69,7 +69,7 @@ Global Void CONSOLE_HP(string FT="*")
 		End
 	else
 		CF:=Fighter.ByTag[FT]
-		printf("\x1b[%s \x1b[95m%s (%s)\n has \x1b[94m%9d\x1b[95m/%d HP\n",Ternary(CF.Team=="Foe","91mFoe ","92mHero"),FT,CF.Name,CF.Char.Points.HP.Have,CF.Char.Points.HP.Maximum)
+		printf("\x1b[%s \x1b[95m%s (%s)\n has \x1b[94m%9d\x1b[96m/%\x1b[94mdxx1b[95m HP\n",Ternary(CF.Team=="Foe","91mFoe ","92mHero"),FT,CF.Name,CF.Char.Points.HP.Have,CF.Char.Points.HP.Maximum)
 	end
 End
 
