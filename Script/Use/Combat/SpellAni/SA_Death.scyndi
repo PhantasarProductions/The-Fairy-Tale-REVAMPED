@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Combat/SpellAni/SA_Death.scyndi
 // 
-// 	  Version: 26.03.09
+// 	  Version: 26.03.09 I
 // 	
 // 	  Copyright (C) 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -50,7 +50,7 @@ Module
 	Var DV
 		
 	Void Start()
-		DV = DV || NeilUse("Script/Use/Combat/SpellAni/DarkVision")
+		DV = DV || NeilUse("Script/Use/Combat/SpellAni/SA_DarkVision")
 		DV.ShowDeath = True
 		Dv.Start()
 	End
