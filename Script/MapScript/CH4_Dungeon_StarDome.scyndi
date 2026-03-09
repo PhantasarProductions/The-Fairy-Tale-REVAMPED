@@ -1,8 +1,8 @@
-// License Information:
+// License:
 // **********************************************
 // 
-// src/Tricky Script/Script/MapScript/CH4_Dungeon_StarDome.neil
-// (c) Jeroen Broks, 2022, All Rights Reserved.
+// src/Code/Script/MapScript/CH4_Dungeon_StarDome.scyndi
+// (c) Jeroen Broks, 2022, 2026, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -24,6 +24,7 @@
 // from it, you can use it under that license.
 // Please check out the other files to find out
 // which license applies.
+// 
 // This file comes 'as-is' and in no possible
 // way the author can be held responsible of
 // any form of damages that may occur due to
@@ -32,10 +33,21 @@
 // 
 // **********************************************
 // 
-// version: 22.02.07
-// End License Information
+// 
+// version: 26.03.09 X
+// 
+// End License
 
+
+Script
+
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/Events"
+#use "Libs/SCI/Graphics"
+
+#use "Script/Use/Link"
 #use "Script/Use/Anyway"
+#use "Script/Use/Convert"
 
 Group MScript
 
@@ -77,8 +89,9 @@ Group MScript
 		if puzzle 
 			return 
 		end
-		plua starchars = {"Wendicka","Crystal","Yirl","Foxy","Xenobi","Rolf"}
-		plua chosen = math.random(1,#starchars)
+		locextern LuaLen "#"
+		starchars := {"Wendicka","Crystal","Yirl","Foxy","Xenobi","Rolf"}
+		chosen := math.random(1,LuaLen starchars)
 		puzzle = { ["gat"] = math.random(1,6) }
 		puzzle.gatpic = starchars[chosen]
 		puzzle.chosen = chosen
@@ -94,14 +107,14 @@ Group MScript
 				Repeat
 					r=math.random(1,6) // hole
 					timeout = timeout - 1
-					Lua.assert(timeout>0,"Puzzle generation time-out ("..i..") "..serialize("puzzle",puzzle))
+					Lua.assert(timeout>0,"Puzzle generation time-out ("..i..") ") //..serialize("puzzle",puzzle))
 					CSay(i..".  ".."r = "..r.."  timeout: "..timeout)
 				LoopWhile getset[r]
 				//-- and (r~=chosen)
 				getset[r]=starchars[i]
 			end
 		end
-		Print(serialize("puzzle",puzzle))
+		//Print(serialize("puzzle",puzzle))
 		for i=1,6
 			CSay("Setting up cylinder: "..i)
 			//local c = Maps.Obj.Obj("Cyl"..i)
@@ -136,8 +149,8 @@ Group MScript
 			Map.DrawScreen()
 			Graphics.Flip()
 			Events.Poll()
-			FPS.WaitMinTicks()
-			Update()
+			Sys.WaitMinTicks()
+			Mscript.Update()
 		end
 		puzzle=nil
 		Map.GoToLayer("#007","Start")
@@ -161,12 +174,12 @@ Group MScript
 		//FlowField.Msg(Item[ITag].Title.." overloaded!",PLAYER.X,PLAYER.Y,255,180,0)
 		Map.Kill("NPC_Key",true)
 	End
+End	
 	
-	Constructor
-		ZA.TabEnter{"Delisto","InitPuz","StartBoss"}
-		For g=1,6
-			ZA.Enter("Gat"..g,"WorkGat",g)
-		End
+Init
+	ZA.TabEnter{"Delisto","InitPuz","StartBoss"}
+	For g=1,6
+		ZA.Enter("Gat"..g,"WorkGat",g)
 	End
-	
+	Map.MSHasUpdate=true
 End
