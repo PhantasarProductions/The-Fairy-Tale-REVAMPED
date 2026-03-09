@@ -1,41 +1,51 @@
-// License Information:
-// src/Tricky Script/Script/Use/Combat/SpellAni/Tsunami.neil
-// Version: 22.03.06
-// Copyright (C) 2020, 2022 Jeroen Petrus Broks
+// License:
+// 	  src/Code/Script/Use/Combat/SpellAni/SA_Tsunami.scyndi
 // 
-// ===========================
-// This file is part of a project related to the Phantasar Chronicles or another
-// series or saga which is property of Jeroen P. Broks.
-// This means that it may contain references to a story-line plus characters
-// which are property of Jeroen Broks. These references may only be distributed
-// along with an unmodified version of the game.
+// 	  Version: 26.03.09 III
+// 	
+// 	  Copyright (C) 2020, 2022, 2026 Jeroen Petrus Broks
+// 	
+// 	  ===========================
+// 	  This file is part of a project related to the Phantasar Chronicles or another
+// 	  series or saga which is property of Jeroen P. Broks.
+// 	  This means that it may contain references to a story-line plus characters
+// 	  which are property of Jeroen Broks. These references may only be distributed
+// 	  along with an unmodified version of the game.
 // 
-// As soon as you remove or replace ALL references to the storyline or character
-// references, or any termology specifically set up for the Phantasar universe,
-// or any other univers a story of Jeroen P. Broks is set up for,
-// the restrictions of this file are removed and will automatically become
-// zLib licensed (see below).
+// 	  As soon as you remove or replace ALL references to the storyline or character
+// 	  references, or any termology specifically set up for the Phantasar universe,
+// 	  or any other univers a story of Jeroen P. Broks is set up for,
+// 	  the restrictions of this file are removed and will automatically become
+// 	  zLib licensed (see below).
 // 
-// Please note that doing so counts as a modification and must be marked as such
-// in accordance to the zLib license.
-// ===========================
-// zLib license terms:
-// This software is provided 'as-is', without any express or implied
-// warranty.  In no event will the authors be held liable for any damages
-// arising from the use of this software.
-// Permission is granted to anyone to use this software for any purpose,
-// including commercial applications, and to alter it and redistribute it
-// freely, subject to the following restrictions:
-// 1. The origin of this software must not be misrepresented; you must not
-// claim that you wrote the original software. If you use this software
-// in a product, an acknowledgment in the product documentation would be
-// appreciated but is not required.
-// 2. Altered source versions must be plainly marked as such, and must not be
-// misrepresented as being the original software.
-// 3. This notice may not be removed or altered from any source distribution.
-// End License Information
+// 	  Please note that doing so counts as a modification and must be marked as such
+// 	  in accordance to the zLib license.
+// 	  ===========================
+// 
+// 
+// 	  zLib license terms:
+// 	
+// 	  This software is provided 'as-is', without any express or implied
+// 	  warranty.  In no event will the authors be held liable for any damages
+// 	  arising from the use of this software.
+// 
+// 	  Permission is granted to anyone to use this software for any purpose,
+// 	  including commercial applications, and to alter it and redistribute it
+// 	  freely, subject to the following restrictions:
+// 	
+// 	  1. The origin of this software must not be misrepresented; you must not
+// 	     claim that you wrote the original software. If you use this software
+// 	     in a product, an acknowledgment in the product documentation would be
+// 	     appreciated but is not required.
+// 	  2. Altered source versions must be plainly marked as such, and must not be
+// 	     misrepresented as being the original software.
+// 	  3. This notice may not be removed or altered from any source distribution.
+// End License
 
 
+Module
+
+#accept Screen
 
 class TsunamiLayer
 	int speed
@@ -49,7 +59,7 @@ class TsunamiLayer
 	end
 end
 
-module 
+//module 
 	//SpellAni_Tsunami
 	
 	bool DrawOvertake
@@ -58,15 +68,15 @@ module
 	table layers
 	
 	Init
-		self.Water = LoadNewImage("GFX/COMBAT/SPELLANI/WATER.PNG","SPELLANI_WATER")
+		Water = LoadNewImage("GFX/COMBAT/SPELLANI/WATER.PNG","SPELLANI_WATER")
 	end
 
 	Bool Ended
 	
 	void Start()
-		self.layers = {}
+		layers = {}
 		for i = 1,5
-			self.layers[i] = new TsunamiLayer(i)
+			layers[i] = new TsunamiLayer(i)
 		end
 		Ended = False
 	end
@@ -74,11 +84,11 @@ module
 	
 	Void Draw()
 		bool ret = true
-		for i,t in Lua.ipairs(self.layers)
+		for i,t in Lua.ipairs(layers)
 			Graphics.Alpha(t.alpha)
-			self.Water.Tile(0,t.y,Screen.W,Screen.H-t.y)
+			Water.Tile(0,t.y,Screen.W,Screen.H-t.y)
 			t.y -= t.speed
-			if self.layers[4].y<0
+			if layers[4].y<0
 				for j=i,5
 					--t.alpha
 					if t.alpha<0
@@ -94,4 +104,4 @@ module
 	end
 
 Void Update()
-end
+End
