@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Link.scyndibundle/Map.scyndi
 // 
-// 	  Version: 26.03.05 II
+// 	  Version: 26.03.09 I
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -298,18 +298,22 @@ End
 	End
 	
 	Void ObjSet(tag,string vartag,value)
-		MCall("FlowField.Map.ObjSet",tag,vartag,value)
+		//MCall("FlowField.Map.ObjSet",tag,vartag,value)
+		Kthura.Obj[Tag][vartag]=value
 	End
 	Void SetObj(tag,string vartag,value)
-		MCall("FlowField.Map.ObjSet",tag,vartag,value)
+		//MCall("FlowField.Map.ObjSet",tag,vartag,value)
+		Kthura.Obj[Tag][vartag]=value
 	End	
 	String ObjGetString(tag,string VarTag)
 		//CSayF("ObjGetString(%s %s,%s)",Lua.type(tag),Lua.tostring(tag),VarTag)
 		switch Lua.type(Tag)
 			case "string"
-				Return ISGet.String("FLOW_FIELD",sprintf("FlowField.Map.CurLayer.Obj(\"%s\").%s",tag,VarTag))
+				//Return ISGet.String("FLOW_FIELD",sprintf("FlowField.Map.CurLayer.Obj(\"%s\").%s",tag,VarTag))
+				Return Kthura.Obj[Tag][VarTag]
 			case "number"
-				Return ISGet.String("FLOW_FIELD",sprintf("FlowField.Map.CurLayer.Obj(%d).%s",tag,VarTag))
+				//Return ISGet.String("FLOW_FIELD",sprintf("FlowField.Map.CurLayer.Obj(%d).%s",tag,VarTag))
+				Return Kthura.Obj["%"..Tag][VarTag]
 			default
 				Lua.Error(sprintf("ObjGetString(<%s>,\"%s\"): Illegal function call",Lua.type(tag),VarTag))
 		End
@@ -322,9 +326,11 @@ End
 		//CSayF("ObjGetInt(%s %s,%s)",Lua.type(tag),Lua.tostring(tag),VarTag)
 		switch Lua.type(Tag)
 			case "string"
-				Return ISGet.Int("FLOW_FIELD",sprintf("FlowField.Map.CurLayer.Obj(\"%s\").%s",tag,VarTag))
+				//Return ISGet.String("FLOW_FIELD",sprintf("FlowField.Map.CurLayer.Obj(\"%s\").%s",tag,VarTag))
+				Return Kthura.Obj[Tag][VarTag]
 			case "number"
-				Return ISGet.Int("FLOW_FIELD",sprintf("FlowField.Map.CurLayer.Obj(%d).%s",tag,VarTag))
+				//Return ISGet.String("FLOW_FIELD",sprintf("FlowField.Map.CurLayer.Obj(%d).%s",tag,VarTag))
+				Return Kthura.Obj["%"..Tag][VarTag]
 			default
 				Lua.Error(sprintf("ObjGetInt(<%s>,\"%s\"): Illegal function call",Lua.type(tag),VarTag))
 		End
