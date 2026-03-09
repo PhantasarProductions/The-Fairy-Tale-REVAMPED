@@ -57,8 +57,8 @@ module
 	
 	table layers
 	
-	CONSTRUCTOR
-		self.Water = Image.LoadNew("GFX/COMBAT/SPELLANI/WATER.PNG","SPELLANI_WATER")
+	Init
+		self.Water = LoadNewImage("GFX/COMBAT/SPELLANI/WATER.PNG","SPELLANI_WATER")
 	end
 
 	Bool Ended
@@ -74,7 +74,7 @@ module
 	
 	Void Draw()
 		bool ret = true
-		for i,t in ipairs(self.layers)
+		for i,t in Lua.ipairs(self.layers)
 			Graphics.Alpha(t.alpha)
 			self.Water.Tile(0,t.y,Screen.W,Screen.H-t.y)
 			t.y -= t.speed
@@ -92,8 +92,6 @@ module
 		//return ret
 		Ended = ret
 	end
-	
-	ReadOnly Delegate Update = NIKS
 
-	
+Void Update()
 end
