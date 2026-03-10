@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Misc/ForBlueSeal.scyndi
 // 
-// 	  Version: 26.02.24
+// 	  Version: 26.03.10 I
 // 	
 // 	  Copyright (C) 2026 Jeroen Petrus Broks
 // 	
@@ -49,7 +49,7 @@ Module
 
 
 Global Void GetSealedData()
-	LocExtern SD "Scyndi.Class.MScript"
+	LocExtern SD "Scyndi.AllIdentifiers.MScript"
 	For v in Each{[0]="SealedBoss_Head", "SealedBoss_Name", "SealedBoss", "SealedBoss_Krandar" }
 		Map[v]=SD[v]
 	End
