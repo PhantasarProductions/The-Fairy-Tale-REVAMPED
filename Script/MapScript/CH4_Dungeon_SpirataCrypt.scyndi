@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.10 I
+// version: 26.03.10 II
 // 
 // End License
 
@@ -44,6 +44,7 @@ Script
 #use "Libs/SCI/Kthura"
 #use "Libs/SCI/InterVar"
 
+#use "Script/Use/Link"
 #use "Script/Use/Anyway"
 
 Group MScript
