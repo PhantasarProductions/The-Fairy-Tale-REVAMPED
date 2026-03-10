@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.05 XXVII
+// version: 26.03.10 I
 // 
 // End License
 
@@ -269,8 +269,8 @@ Group MScript
 	#region Sealed Boss
 	Void Start_SealedBoss()
 		Combat.NewEnemy = "Sealed/MountainEmperor"
-		Combat.Music    = "Combat/Special Boss/Hall Of The Mountain King.ogg"
-		Combat.Arena    = Lua.Neil.Globals.Map.Arena
+		Combat.Music    = "Combat/SpecialBoss/Hall Of The Mountain King.ogg"
+		Combat.Arena    = Kthura.MetaData.Arena
 	End
 	Const String SealedBoss_Krandar = "Dandor"
 	Const String SealedBoss_Head    = "Ultimate crusher"
