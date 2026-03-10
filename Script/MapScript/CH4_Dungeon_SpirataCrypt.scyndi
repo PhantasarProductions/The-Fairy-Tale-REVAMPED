@@ -1,8 +1,8 @@
-// License Information:
+// License:
 // **********************************************
 // 
-// src/Tricky Script/Script/MapScript/CH4_Dungeon_SpirataCrypt.neil
-// (c) Jeroen Broks, 2022, All Rights Reserved.
+// src/Code/Script/MapScript/CH4_Dungeon_SpirataCrypt.scyndi
+// (c) Jeroen Broks, 2022, 2026, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -24,6 +24,7 @@
 // from it, you can use it under that license.
 // Please check out the other files to find out
 // which license applies.
+// 
 // This file comes 'as-is' and in no possible
 // way the author can be held responsible of
 // any form of damages that may occur due to
@@ -32,8 +33,12 @@
 // 
 // **********************************************
 // 
-// version: 22.02.07
-// End License Information
+// 
+// version: 26.03.10
+// 
+// End License
+
+Script
 
 #use "Script/Use/Anyway"
 
@@ -42,14 +47,14 @@ Group MScript
 	ReadOnly Bool HasDraw   = False
 	ReadOnly Bool HasUpdate = True
 	
-	ReadOnly Table Elem = {"ignis","aqua","terra","aer"}
+	ReadOnly Table Elem = {[0]="ignis","aqua","terra","aer"}
 	
 	Void Update()
-		If Map.Layer!="TOGETHER"
+		If Kthura.CurrentLayer!="TOGETHER"
 			Map.SetObj("Obstacle_go_together","Rotation",(Map.GetObjInt("Obstacle_go_together","Rotation")+1)%360)
 		Else
 			for e in Each(Elem)
-				if gv.gbool["DONE_CRYPT_"..e:upper()]
+				if gbool["DONE_CRYPT_"..Upper(E)]
 					Map.SetObj("Obstacle_go_"..e,"Rotation",(Map.GetObjInt("Obstacle_go_"..e,"Rotation")+1)%360)
 				end
 			end
@@ -60,7 +65,7 @@ Group MScript
 	Void StartBoss()
 		Map.Kill("StartBoss",true)
 		Map.Kill("Boss",true)
-		Switch Map.Layer
+		Switch Kthura.CurrentLayer
 			Case "AQUA"
 				Combat.QuickBoss("High priest of the undead","Super Ghost Priest",	"SuperGhostPriest")
 			Case "IGNIS"				
@@ -74,17 +79,17 @@ Group MScript
             	Combat.Arena="pookyDung"
             	Combat.Start()
 			Default
-				Lua.error("No boss for this floor known: "..Map.Layer)
+				Lua.error("No boss for this floor known: "..Kthura.CurrentLayer)
 		End
 	End
 	
 	Void Go_Together()
-		gv.gbool["DONE_CRYPT_"..Map.Layer]=true
+		gbool["DONE_CRYPT_"..Kthura.CurrentLayer]=true
 		Map.GoToLayer("TOGETHER","na_go")
 	End
 	
 	Void GoCrypt(string e)
-		If gv.gbool["DONE_CRYPT_"..e]
+		If gbool["DONE_CRYPT_"..e]
 			Map.GoTolayer(e,"na_go")
 		End
 	End
@@ -94,7 +99,7 @@ Group MScript
 	End
 	
 	Void Spirata()
-		Switch Map.Layer
+		Switch Kthura.CurrentLayer
 			case "AQUA"
 				Map.GoToMap("CH2_DUNGEON_SPIRATAWATER","#005","SPOT_ToCrypt")
 			case "IGNIS"
@@ -104,14 +109,14 @@ Group MScript
 			case "TERRA"
 				Map.GoToMap("CH3_DUNGEON_SPIRATAEARTH","#004","SPOT_ToCrypt")
 			Default
-				Lua.error("Unknown crypt floor! >> "..Map.Layer)
+				Lua.error("Unknown crypt floor! >> "..Kthura.CurrentLayer)
 		End
 	End
 	
 	Void BarrierCheck()
 		Bool All = True
 		For e in Each(Elem)
-			All = All && gv.gbool["DONE_CRYPT_"..e]
+			All = All && gbool["DONE_CRYPT_"..e]
 		End
 		If All
 			CSay("All crypts done, so let's remove the barrier")
@@ -125,11 +130,12 @@ Group MScript
 			CSay("Not all crypts done already, so let's keep the barrier up!")
 		End
 	End
+End	
 	
-	Constructor
-		ZA.TabEnter{"StartBoss","go_together","Delisto","Spirata","BarrierCheck"}
-		For e in Each(Elem)
-			ZA.Enter("go_"..e,"GoCrypt",e:upper())
-		End
+Init
+	ZA.TabEnter{"StartBoss","go_together","Delisto","Spirata","BarrierCheck"}
+	For e in Each(Elem)
+		ZA.Enter("go_"..e,"GoCrypt",Upper(E))
 	End
+	Map.MSHasUpdate=true
 End
