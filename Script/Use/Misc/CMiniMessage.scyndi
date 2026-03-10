@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Misc/CMiniMessage.scyndi
 // 
-// 	  Version: 26.02.23
+// 	  Version: 26.03.09
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -86,9 +86,10 @@ Class MiniMessage
 		G = _G
 		B = _B
 		Msg = _Msg
+		Delay = 0
 		For Chk in Lijst.Each
 			If math.abs(_Y-Chk.Y)<30 && math.abs(_X-Chk.X)<100
-				Delay = 50 - math.abs(_Y-Chk.Y)
+				Delay += 50 - math.abs(_Y-Chk.Y)
 			End
 		End
 	End
