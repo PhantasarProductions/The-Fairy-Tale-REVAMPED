@@ -34,11 +34,20 @@
 // **********************************************
 // 
 // 
-// version: 26.03.10
+// version: 26.03.11 VII
 // 
 // End License
 
 Module
+
+#use "Libs/SCI/Sys"
+
+#use "Script/Use/Anyway"
+#use "Script/Use/Convert"
+
+#accept Foe
+#accept Fighter
+#accept FlowCombat
 
 Void FoesHydra()
 	For _,f in pairs(Fighter.ByTag)
@@ -58,10 +67,11 @@ End
 
 
 //Void _HydraAction(card)
+locExtern _HydraAction "Scyndi.Class.Joker_Hydra._Joker"
 Void _Joker(card)
 	Int NewHydra = 0
 	For _,f in pairs(Fighter.ByTag)
-		If f.Team=="Foe" and f.HP==1
+		If f.Team=="Foe" && f.HP==1
 			NewHydra++			
 			f.HP = f.HPMax
 		End
