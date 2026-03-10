@@ -47,12 +47,12 @@ Script
 #use "Script/Use/Link"
 #use "Script/Use/Anyway"
 
+ReadOnly Table Elem = {[0]="ignis","aqua","terra","aer"}
+
 Group MScript
 
 	ReadOnly Bool HasDraw   = False
 	ReadOnly Bool HasUpdate = True
-	
-	ReadOnly Table Elem = {[0]="ignis","aqua","terra","aer"}
 	
 	Void Update()
 		If Kthura.CurrentLayer!="TOGETHER"
