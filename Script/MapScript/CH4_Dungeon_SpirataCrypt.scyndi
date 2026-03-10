@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.10 III
+// version: 26.03.10 IV
 // 
 // End License
 
@@ -80,7 +80,7 @@ Group MScript
             Case "TERRA"
             	Combat.Prepare(255,0,0,"The King of Stone","Mountain King")
             	Combat.NewEnemy="Boss/MountainKing"
-            	Combat.Music="Combat/Special Boss/Hall Of The Mountain King.ogg"
+            	Combat.Music="Combat/SpecialBoss/Hall Of The Mountain King.ogg"
             	Combat.Arena="pookyDung"
             	Combat.Start()
 			Default
