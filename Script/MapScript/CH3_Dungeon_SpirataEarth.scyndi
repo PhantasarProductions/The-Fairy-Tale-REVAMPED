@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.05 III
+// version: 26.03.10
 // 
 // End License
 
@@ -87,8 +87,11 @@ Group MScript
 	Void PuzDone()
 		if gbool[sprintf("crackpuzzle.%s[%s]",gstr.LoadedMap,Kthura.CurrentLayer)]
 			Map.HideByLabel("Puzzle")
-			For pi in Map.LabelEach("Puzzle")
-				Map.SetObj(pi,"Impassible", false)
+			//For pi in Map.LabelEach("Puzzle")
+			for pi in Each(Kthura.ObjByLabel("Puzzle"))
+				//Map.SetObj(pi,"Impassible", false)
+				Kthura.Obj["%"..pi].Impassible=false
+				Kthura.Remap()
 				CSay("Unblocking #%05d",pi)
 			End
 		End
