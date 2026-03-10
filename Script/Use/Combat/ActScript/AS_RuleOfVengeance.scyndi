@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Combat/ActScript/AS_RuleOfVengeance.scyndi
 // 
-// 	  Version: 26.03.10
+// 	  Version: 26.03.10 II
 // 	
 // 	  Copyright (C) 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -42,8 +42,11 @@
 // 	  3. This notice may not be removed or altered from any source distribution.
 // End License
 
+Module
+
 #use "Libs/SCI/Sys"
 #accept FlowCombat
+#accept Effect
 
 Bool _Act(Act,Tar,Exe)
 	C := FlowCombat.Cards.Lijst[1]
