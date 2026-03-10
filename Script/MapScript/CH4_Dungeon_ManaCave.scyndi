@@ -1,8 +1,8 @@
-// License Information:
+// License:
 // **********************************************
 // 
-// src/Tricky Script/Script/MapScript/CH4_Dungeon_ManaCave.neil
-// (c) Jeroen Broks, 2022, All Rights Reserved.
+// src/Code/Script/MapScript/CH4_Dungeon_ManaCave.scyndi
+// (c) Jeroen Broks, 2022, 2026, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -24,6 +24,7 @@
 // from it, you can use it under that license.
 // Please check out the other files to find out
 // which license applies.
+// 
 // This file comes 'as-is' and in no possible
 // way the author can be held responsible of
 // any form of damages that may occur due to
@@ -32,10 +33,21 @@
 // 
 // **********************************************
 // 
-// version: 22.02.12
-// End License Information
+// 
+// version: 26.03.10 VIII
+// 
+// End License
 
+Script
+
+#use "Libs/Music"
+
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/InterVar"
+
+#use "Script/Use/Link"
 #use "Script/Use/Anyway"
+#use "Script/Use/Convert"
 #use "Script/Use/Misc/TexMove"
 
 Group MScript
@@ -44,10 +56,10 @@ Group MScript
 	ReadOnly Bool HasUpdate = True
 	
 	Get Bool AllowQuick
-		Return gv.gbool.ManaCave_AllowQuick
+		Return gbool.ManaCave_AllowQuick
 	End
 	Set Bool AllowQuick
-		gv.gbool.ManaCave_AllowQuick = Value
+		gbool.ManaCave_AllowQuick = Value
 	End
 	
 	Void ToBegin()
@@ -75,8 +87,8 @@ Group MScript
 			MFrame--
 			if MFrame==0
 				int D = 1
-				//if gv.gbool.MC_Boss1Defeated
-				If gv.gbool["MANACAVE_BOSS_#005"]
+				//if gbool.MC_Boss1Defeated
+				If gbool["MANACAVE_BOSS_#005"]
 					D = 2
 				End
 				Music.Play("Music/Mystery/Draft"..d..".ogg")
@@ -93,7 +105,7 @@ Group MScript
 			Frame = 0
 			L = Map.Layer
 		End
-		Least = math.min(Least,FPS.FN())
+		Least = math.min(Least,Sys.FN())
 		If Least>24
 			TexMove.Update()
 		End
@@ -121,7 +133,7 @@ Group MScript
 	
 	Void PostBoss()
 		Music.Play("Music/Mystery/Draft2.ogg")
-		gv.gbool.MC_Boss1Defeated = True
+		gbool.MC_Boss1Defeated = True
 	End
 	
 	Void StartBoss()
@@ -150,7 +162,7 @@ Group MScript
 	ReadOnly String SealedBoss_Krandar="Marrilona"
 	#endregion
 	
-	#Region Nostramantu & Feenalaria
+	#Region "Nostramantu & Feenalaria"
 	Void NostramantuFeenalaria()
 		Map.Pop("N_","North",true)
 		Ach.Award("ZZNGP_MANACAVE") 
@@ -166,7 +178,7 @@ Group MScript
 	#EndRegion
 	
 	Void WelcomeJake()
-		if not(Done["DONE.MANACAVE.ENTERED.FIRSTTIME.JAKE.MARRILONA.DANDOR.HANDOSTILLOR"])
+		if !(Done["DONE.MANACAVE.ENTERED.FIRSTTIME.JAKE.MARRILONA.DANDOR.HANDOSTILLOR"])
         	MapText("WELCOME")
         	//Maps.Obj.Kill("Welcome")
         	//WorldMap_UnLock("CH4MANACAVE")
@@ -176,21 +188,22 @@ Group MScript
 	Void Welcome2()
 		Switch Left(RPGParty[1],4)
 			Case "Jake"
-				WelcomeJake()
+				MScript.WelcomeJake()
 			Case "Nost"
-				NostramantuFeenalaria()
+				MScript.NostramantuFeenalaria()
 			Default
 				Lua.error("HUH?")
 		End
 	End
+End	
 	
-	Constructor
-		Int m=20
-		If Prefixed(RPGParty[1],"Nostra")
-			m=1
-		End
-		//TexMove.MagicBackSetup(0,m,{["colors"] = { {125,  0, 0},{0, 125, 0},{0, 0, 125},{50, 60, 70} } } )
-		TexMove.MagicBackSetup(0,m,{} )
-		ZA.TabEnter{"Kokonora","Welcome2","StartBoss","ToBegin","Quick","ShowMansion"}
+Init
+	Int m=20
+	If Prefixed(RPGParty[1],"Nostra")
+		m=1
 	End
+	//TexMove.MagicBackSetup(0,m,{["colors"] = { {125,  0, 0},{0, 125, 0},{0, 0, 125},{50, 60, 70} } } )
+	TexMove.MagicBackSetup(0,m,{} )
+	ZA.TabEnter{"Kokonora","Welcome2","StartBoss","ToBegin","Quick","ShowMansion"}
+	Map.MSHasUpdate=True
 End
