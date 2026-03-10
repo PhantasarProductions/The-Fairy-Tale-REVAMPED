@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.10 VIII
+// version: 26.03.10 X
 // 
 // End License
 
@@ -49,6 +49,7 @@ Script
 #use "Script/Use/Anyway"
 #use "Script/Use/Convert"
 #use "Script/Use/Misc/TexMove"
+#use "Script/Use/Misc/ForBlueSeal"
 
 Group MScript
 
@@ -105,10 +106,10 @@ Group MScript
 			Frame = 0
 			L = Map.Layer
 		End
-		Least = math.min(Least,Sys.FN())
-		If Least>24
+		//Least = math.min(Least,Sys.FN())
+		//If Least>24
 			TexMove.Update()
-		End
+		//End
 		// Transporters
 		Static Int Rotation = math.random(1,360)
 		Rotation = (Rotation+1)%360
