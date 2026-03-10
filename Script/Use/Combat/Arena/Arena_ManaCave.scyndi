@@ -1,8 +1,8 @@
-// License Information:
+// License:
 // **********************************************
 // 
-// src/Tricky Script/Script/Use/Combat/Arena/ManaCave.neil
-// (c) Jeroen Broks, 2022, All Rights Reserved.
+// src/Code/Script/Use/Combat/Arena/Arena_ManaCave.scyndi
+// (c) Jeroen Broks, 2022, 2026, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -24,6 +24,7 @@
 // from it, you can use it under that license.
 // Please check out the other files to find out
 // which license applies.
+// 
 // This file comes 'as-is' and in no possible
 // way the author can be held responsible of
 // any form of damages that may occur due to
@@ -32,17 +33,24 @@
 // 
 // **********************************************
 // 
-// version: 22.02.12
-// End License Information
+// 
+// version: 26.03.10 II
+// 
+// End License
+
 Module
 
-	Constructor
-		Blop.Create(100)
+#use "Libs/SCI/BlopPlasma"
+
+	Init
+		BlopPlasma.Settings(100)
 	End
 
-	Delegate Pst = Niks
+	Void Pst()
+	End
+	
 	Void Pre()
-		Blop.Draw()
+		BlopPlasma.Draw()
 	End
 
-End
+//End
