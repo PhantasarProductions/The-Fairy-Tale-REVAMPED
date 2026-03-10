@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/CLS_Effect.scyndi
 // 
-// 	  Version: 26.03.08 II
+// 	  Version: 26.03.10
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -209,7 +209,7 @@ Group Effect
       		VicQ="General" 
       	end
       	if fighter.bytag[tag].Team=="Foe" && suffixed(upper(fighter.bytag[tag].File),"GENDRABROE")
-      		A := Lua.Scyndi.Globals.Action("SPECIAL_GENDRABROE_COUNTER",tag,{Executor.Tag})
+      		A := new Action("SPECIAL_GENDRABROE_COUNTER",tag,{[0]=Executor.Tag})
       		C := FlowCombat.Cards.Add(1,tag,A,nil)
       		C.Gendrabroe = dmg
       	End
