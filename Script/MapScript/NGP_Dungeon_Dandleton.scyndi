@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.11 V
+// version: 26.03.11 XIV
 // 
 // End License
 
@@ -42,6 +42,8 @@ Script
 
 #use "Libs/SCI/Kthura"
 #use "Libs/SCI/SString"
+#use "Libs/SCI/InterVar"
+#use "Libs/SCI/Graphics"
 
 #use "Script/Use/Link"
 #use "Script/Use/Anyway"
@@ -77,14 +79,14 @@ Group MScript
     end
 	
 	Void ZA_pMemory()
-		if not(Done["DONE.SIDEQUEST.DANDLETON.MEMORY.P["..Kthura.CurrentLayer.."].SCENARIO"]) 
-			Memory(nil,"p") 
+		if !(Done["DONE.SIDEQUEST.DANDLETON.MEMORY.P["..Kthura.CurrentLayer.."].SCENARIO"]) 
+			MScript.Memory(nil,"p") 
 		end 
 	end
 	
 	Void ZA__Memory() 
-		if not(Done["DONE.SIDEQUEST.DANDLETON.MEMORY.N["..Kthura.CurrentLayer.."].SCENARIO"]) 
-			Memory(nil,nil) 
+		if !(Done["DONE.SIDEQUEST.DANDLETON.MEMORY.N["..Kthura.CurrentLayer.."].SCENARIO"]) 
+			MScript.Memory(nil,nil) 
 		end 
 	end
 	#endregion
@@ -108,7 +110,7 @@ Group MScript
     		return 
     	end
     	If !Done["DONE.SIDEQUEST.DANDLETON.CREATEDNOSANDFEENA"]
-    		CreateNosAndFeena()
+    		Mscript.CreateNosAndFeena()
     	End
     	plua fb = flashbacks[Kthura.CurrentLayer]
     	Invoke(fb.priofunc)
@@ -117,7 +119,7 @@ Group MScript
     	end
     	Graphics.Cls()
     	Loading()
-    	SetParty(fb.party or "Nostramantu_Human;Feenalaria_Human")
+    	MScript.SetParty(fb.party || "Nostramantu_Human;Feenalaria_Human")
     	
     	//State.LoadNew("SUB_ITEMS","Script/Subs/SubItems.Neil")
     	//State.Call("ITEMS","FeenaHumanSync","nil")
@@ -187,7 +189,7 @@ Group MScript
     	End
     	Combat.NewEnemy="Boss/"..bs.boss //Var.D("$COMBAT.FOE_"..b,"Boss/"..bs.boss)
     	//Var.D("$COMBAT.POSFOE_"..b,"CENTER")
-    	Combat.Music=(bs.music or "Combat/Altboss/Day Of Chaos")..".ogg"
+    	Combat.Music=(bs.music || "Combat/Altboss/Day Of Chaos")..".ogg"
     	Combat.Arena="Dandleton"
     	Combat.Lose = "GameOver"
     	Combat.Start() //NGP_StartBoss(bs.intro1,bs.intro2)    
