@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.11 XVIII
+// version: 26.03.11 XXIII
 // 
 // End License
 
@@ -299,7 +299,7 @@ Group MScript
 	Void PostNostramantu()
 		Map.Kill("Nostramantu",true) //Maps.Obj.Kill('Nostramantu',1)
 		Map.Kill("Feenalaria",true) //Maps.Obj.Kill('Feenalaria',1)
-		SetParty("Jake_Human;Marrilona;Dandor;HandoStillor")
+		MScript.SetParty("Jake_Human;Marrilona;Dandor;HandoStillor")
 		Map.GoToMap("NGP_Dungeon_Dandleton_part2","#018","Start")
 		Schedule.Add("ImpossibleVoid")
 	End
@@ -340,18 +340,18 @@ End
 	//#pure
 		flashbacks = {}
 		flashbacks	["#005"] = { ["priomt"] = nil, ["map"]="NGP_Dungeon_KokoBushes", ["layer"]="BUSH", ["start"]="Start"}
-		flashbacks	["#007"] = { ["priomt"] = "FL007", ["map"]="CH3_Dungeon_KokonoraForest", ["layer"]="FOREST", ["start"]="Start", schedule="WelcomeNos"} 
-		flashbacks	["#010"] = { ["priomt"] = "FL010", ["map"]="CH4_Dungeon_ManaRoad", ["layer"]="BOS", ["start"]="Start", schedule="NosWelcome", party="Nostramantu_Human;Feenalaria_Human2"}
+		flashbacks	["#007"] = { ["priomt"] = "FL007", ["map"]="CH3_Dungeon_KokonoraForest", ["layer"]="FOREST", ["start"]="Start", ["schedule"]="WelcomeNos"} 
+		flashbacks	["#010"] = { ["priomt"] = "FL010", ["map"]="CH4_Dungeon_ManaRoad", ["layer"]="BOS", ["start"]="Start", ["schedule"]="NosWelcome",["party"]="Nostramantu_Human;Feenalaria_Human2"}
 				ddef priofunc10
-					Neil.Globals.CSayF("Making sure Feena's points are properly linked")
+					CSayF("Making sure Feena's points are properly linked")
 					//Neil.Globals.RPGChar.Feenalaria_Human2.Link_Points("Feenalaria_Human","*")
 					//Neil.Globals.RPGChar.Feenalaria_Human2.Data.Skill1 = "Sword Mastery"
 					RPGChar.Feenalaria_Human.Link_Points("Feenalaria_Human2","*")
 					RPGChar.Feenalaria_Human2.Data.Skill1 = "Sword Mastery"
 				end
-		flashbacks	["#010"] = priofunc10		
+		flashbacks	["#010"].priofunc = priofunc10		
 			//},
-		flashbacks["#015"] = { ["priomt"] = "FL015", ["map"]="CH3_Town_Nostraburg", ["layer"]="TOWN", ["start"]="FeenaVsFrendor",schedule="LovingAsshole",party="Feenalaria"}
+		flashbacks["#015"] = { ["priomt"] = "FL015", ["map"]="CH3_Town_Nostraburg", ["layer"]="TOWN", ["start"]="FeenaVsFrendor",["schedule"]="LovingAsshole",["party"]="Feenalaria"}
 				//priofunc=function()
 				ddef priofunc15
 					// Prepare Feenalaria Fairy
@@ -359,16 +359,16 @@ End
 					//assert(RPG.CharExists("Feenalaria")==1,"Retagging failed")
 					//local ch="Feenalaria"
 					//RPGStat.SetData(ch,"Face",ch)
-					Neil.Globals.Party.CreateChar("Feenalaria",99999)
-					Neil.Globals.Player.StopWalking()
+					Party.CreateChar("Feenalaria",99999)
+					Kthura.Obj.Player.StopWalking()
 				end
-		flashbacks	["#015"] = priofunc15			
+		flashbacks	["#015"].priofunc = priofunc15			
 				//}
 			//}
 			
 		bosses = {}
 
-		bosses	["#007"]={["priomt"]="BOSS007",["boss"]="Cyndrinana",["intro1"]="Ghost of Nostramantu's mother",["intro2"]="Cyndrinana"},
+		bosses	["#007"]={["priomt"]="BOSS007",["boss"]="Cyndrinana",["intro1"]="Ghost of Nostramantu's mother",["intro2"]="Cyndrinana"}
 		bosses	["#009"]={["boss"]="Terinka",["intro1"]="Ghost of Feenalaria's mother",["intro2"]="Terinka"},
 		bosses	["#017"]={["boss"]="Salumon",["intro1"]="Ghost of Nostramanu's father", ["intro2"]="Salumon"},
 		bosses	["#019"]={["boss"]="Vandar", ["intro1"]="Ghost chief of Dandleton", ["intro2"]="Vandar", ["schedule"]="PostVandar", ["music"]="Combat/Special Boss/Darkcover"}
@@ -380,7 +380,7 @@ End
 		ZA.Enter("pMemory","ZA_pMemory")
 		ZA.Enter("Memory" ,"ZA__Memory")
 		ZA.Enter("Flashback","Flashback")
-		NextMapFirst["#010"] = Flashback
+		NextMapFirst["#010"] = MScript.Flashback
 		ZA.Enter("NextMap","NextMap")
 		ZA.Enter("PrevMap","PrevMap")
 		ZA.Enter("FightNostramantu","FightNostramantu")
