@@ -34,47 +34,14 @@
 // **********************************************
 // 
 // 
-// version: 26.03.11
+// version: 26.03.11 V
 // 
-// License Information:
-// **********************************************
-// 
-// src/Tricky Script/Script/MapScript/NGP_Dungeon_Dandleton.neil
-// (c) Jeroen Broks, 2017, 2022, All Rights Reserved.
-// 
-// This file contains material that is related
-// to a storyline that is which is strictly
-// copyrighted to Jeroen Broks.
-// 
-// This file may only be used in an unmodified
-// form with an unmodified version of the
-// software this file belongs to.
-// 
-// You may use this file for your study to see
-// how I solved certain things in the creation
-// of this project to see if you find valuable
-// leads for the creation of your own.
-// 
-// Mostly this file comes along with a project
-// that is for most part released under an
-// open source license and that means that if
-// you use that code with this file removed
-// from it, you can use it under that license.
-// Please check out the other files to find out
-// which license applies.
-// This file comes 'as-is' and in no possible
-// way the author can be held responsible of
-// any form of damages that may occur due to
-// the usage of this file
-// 
-// 
-// **********************************************
-// 
-// version: 22.07.26
-// End License Information
 // End License
 
 Script
+
+#use "Libs/SCI/Kthura"
+#use "Libs/SCI/SString"
 
 #use "Script/Use/Link"
 #use "Script/Use/Anyway"
@@ -106,17 +73,17 @@ Group MScript
     	if pop 
     		Map.Pop(pop,popwind || "North") 
     	end
-    	MapText("MEMORY"..(tag or right(Map.Layer,3)))
+    	MapText("MEMORY"..(tag || right(Kthura.CurrentLayer,3)))
     end
 	
 	Void ZA_pMemory()
-		if not(Done["DONE.SIDEQUEST.DANDLETON.MEMORY.P["..Map.Layer.."].SCENARIO"]) 
+		if not(Done["DONE.SIDEQUEST.DANDLETON.MEMORY.P["..Kthura.CurrentLayer.."].SCENARIO"]) 
 			Memory(nil,"p") 
 		end 
 	end
 	
 	Void ZA__Memory() 
-		if not(Done["DONE.SIDEQUEST.DANDLETON.MEMORY.N["..Map.Layer.."].SCENARIO"]) 
+		if not(Done["DONE.SIDEQUEST.DANDLETON.MEMORY.N["..Kthura.CurrentLayer.."].SCENARIO"]) 
 			Memory(nil,nil) 
 		end 
 	end
@@ -124,7 +91,7 @@ Group MScript
 	
 	#region Flashback
 	Void SetParty(string a)
-		table s = split(a,";")
+		table s := xsplit(a,";")
 		for i=1,4
 			RPGParty[i] = s[i] || ""
 		end
@@ -137,13 +104,13 @@ Group MScript
 	End
 	
 	Void Flashback()
-    	if Done["DONE.SIDEQUEST.DANDLETON.FLASHBACK["..Map.Layer.."].EXPERIENCED"]
+    	if Done["DONE.SIDEQUEST.DANDLETON.FLASHBACK["..Kthura.CurrentLayer.."].EXPERIENCED"]
     		return 
     	end
     	If !Done["DONE.SIDEQUEST.DANDLETON.CREATEDNOSANDFEENA"]
     		CreateNosAndFeena()
     	End
-    	plua fb = flashbacks[Map.Layer]
+    	plua fb = flashbacks[Kthura.CurrentLayer]
     	Invoke(fb.priofunc)
     	if fb.priomt 
     		MapText(fb.priomt) 
@@ -201,13 +168,13 @@ Group MScript
     
     #region Boss Fights
     Void StartBoss()
-    	if Done["DONE.SIDEQUEST.DANDLETON.BOSS["..Map.Layer.."].DEFEATED"]
+    	if Done["DONE.SIDEQUEST.DANDLETON.BOSS["..Kthura.CurrentLayer.."].DEFEATED"]
     		return 
     	end
     	Map.StopWalking()
     	plua b
-    	plua bs=bosses[Map.Layer]
-    	Lua.assert(bs,"No boss set for layer "..Map.Layer)
+    	plua bs=bosses[Kthura.CurrentLayer]
+    	Lua.assert(bs,"No boss set for layer "..Kthura.CurrentLayer)
     	if bs.priomt 
     		MapText(bs.priomt) 
     	end
@@ -233,8 +200,8 @@ Group MScript
 	
 	#Region MapChain
 	Void GoMap(l,e)
-		plua mp = math.ceil(l/10)
-		Plua mf = "NGP_Dungeon_Dandleton_Part"..mp
+		mp := math.ceil(l/10)
+		mf := "NGP_Dungeon_Dandleton_Part"..mp
 		if mp==1 
 			mf="NGP_Dungeon_Dandleton" 
 		end
@@ -246,17 +213,17 @@ Group MScript
 	End
 	
 	Void NextMap()
-		if not(Done["DONE.SIDEQUEST.DANDLETON.NEXTMAP.FIRSTTIME["..Map.Layer.."].DONE"])
+		if !(Done["DONE.SIDEQUEST.DANDLETON.NEXTMAP.FIRSTTIME["..Kthura.CurrentLayer.."].DONE"])
 			//if NextMapFirst[Maps.LayerCodeName] then return NextMapFirst[Maps.LayerCodeName]() end
-			Invoke(NextMapFirst[Map.Layer])
+			Invoke(NextMapFirst[Kthura.CurrentLayer])
 			Return
 		end
-		Int n = SysVal(right(Map.Layer,3))+1
+		Int n = SysVal(right(Kthura.CurrentLayer,3))+1
 		GoMap(n,"Start")
 	end
 	
 	Void PrevMap()
-		Int n = SysVal(right(Map.Layer,3))-1
+		Int n = SysVal(right(Kthura.CurrentLayer,3))-1
 		GoMap(n,"Einde")
 	end
 	#EndRegion
@@ -363,6 +330,7 @@ Group MScript
 	Void END_Dungeon()
 		Ach.Award("ZZNGP_DANDLETON")
 	End
+End	
 	
 	Init
 	//#pure
@@ -416,4 +384,4 @@ Group MScript
 		ZA.Enter("StartBoss")
 		ZA.Enter("END_Dungeon")
 	End
-End
+//End
