@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowField/Treasure.scyndi
 // 
-// 	  Version: 26.03.02
+// 	  Version: 26.03.11 I
 // 	
 // 	  Copyright (C) 2021-'22, 2026 Jeroen Petrus Broks
 // 	
@@ -144,8 +144,8 @@ LocExtern FieldFlow "Scyndi.AllIdentifiers.FlowField"
 			FlowField.Msg("Mimic",O.X,O.Y,0,180,255)
 			OChest(Tag)
 			Combat.Prepare(255,0,0)
-			Combat.Arena=FieldFlow.Map.KthuraMap.Meta.Arena
-			pLua aet = FieldFlow.Map.KthuraMap.Meta.AltEncounterTune
+			Combat.Arena=Kthura.MetaData.Arena
+			aet := Kthura.MetaData.AltEncounterTune
 			If aet && aet!=""
 				if ! suffixed(lower(aet),".ogg")
 					aet += ".ogg"
