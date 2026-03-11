@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.11 VII
+// version: 26.03.11 VIII
 // 
 // End License
 
@@ -56,8 +56,8 @@ Void FoesHydra()
 			If f.Y<0 || (!f.Hydra)
 				f.X = 0
 				f.Y = math.random(Screen.H div 2, Screen.H - 128)
-				f.NorImage.Hot(0,f.NorImage.H)
-				f.NegImage.Hot(0,f.NegImage.H)
+				f.NorImage.Hot(0,f.NorImage.Height)
+				f.NegImage.Hot(0,f.NegImage.Height)
 			End
 			f.Hydra=true
 			CSayF("Character %s now set to Hydra config",f.Tag)
