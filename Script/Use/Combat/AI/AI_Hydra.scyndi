@@ -1,8 +1,8 @@
-// License Information:
+// License:
 // **********************************************
 // 
-// src/Tricky Script/Script/Use/Combat/AI/Hydra.neil
-// (c) Jeroen Broks, 2017, 2022, All Rights Reserved.
+// src/Code/Script/Use/Combat/AI/AI_Hydra.scyndi
+// (c) Jeroen Broks, 2017, 2022, 2026, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -24,6 +24,7 @@
 // from it, you can use it under that license.
 // Please check out the other files to find out
 // which license applies.
+// 
 // This file comes 'as-is' and in no possible
 // way the author can be held responsible of
 // any form of damages that may occur due to
@@ -32,18 +33,21 @@
 // 
 // **********************************************
 // 
-// version: 22.02.08
-// End License Information
+// 
+// version: 26.03.11 I
+// 
+// End License
+
+
 Module
-	ReadOnly Var DAI 
+
+#use "Script/Use/Combat/AI/AI_Default"
+
+	LocExtern DAI "Scyndi.Class.AI_Default" 
 	Var Decide(Foe)
 		if Foe.HP>1
 			Return DAI.Decide(Foe)
 		End
-		Return new Action("HYDRA_ONTHOOFD",Foe.Tag,{Foe.Tag})
+		Return new Action("HYDRA_ONTHOOFD",Foe.Tag,{[0]=Foe.Tag})
 	End
 	
-	Constructor
-		DAI  = NeilUse("Script/Use/Combat/AI/Default")
-	End
-End
