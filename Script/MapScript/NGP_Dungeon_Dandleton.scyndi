@@ -34,12 +34,14 @@
 // **********************************************
 // 
 // 
-// version: 26.03.11 XIV
+// version: 26.03.11 XVIII
 // 
 // End License
 
 Script
 
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/Events"
 #use "Libs/SCI/Kthura"
 #use "Libs/SCI/SString"
 #use "Libs/SCI/InterVar"
@@ -221,12 +223,12 @@ Group MScript
 			Return
 		end
 		Int n = SysVal(right(Kthura.CurrentLayer,3))+1
-		GoMap(n,"Start")
+		MScript.GoMap(n,"Start")
 	end
 	
 	Void PrevMap()
 		Int n = SysVal(right(Kthura.CurrentLayer,3))-1
-		GoMap(n,"Einde")
+		MScript.GoMap(n,"Einde")
 	end
 	#EndRegion
     
@@ -267,7 +269,7 @@ Group MScript
 			Map.DrawScreen()
 			Graphics.Flip()
 			Events.Poll()
-			FPS.WaitMinTicks()
+			Sys.WaitMinTicks()
 		End
 		MapText("FNOS2")
 		//Party('Feenalaria')
