@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.11 VIII
+// version: 26.03.11 X
 // 
 // End License
 
@@ -71,13 +71,14 @@ locExtern _HydraAction "Scyndi.Class.Joker_Hydra._Joker"
 Void _Joker(card)
 	Int NewHydra = 0
 	For _,f in pairs(Fighter.ByTag)
+		CSayF("Joker: %s -> %d",f.Tag,f.HP)
 		If f.Team=="Foe" && f.HP==1
 			NewHydra++			
 			f.HP = f.HPMax
 		End
 	End
 	For i=1,NewHydra
-		Foe.Compile("Sealed/Hydra",NeilUse("Script/Data/Foe/Sealed/Hydra")).Y=-1
+		Foe.Compile("Sealed/Hydra",NeilUse("Script/Data/Foe/Sealed/Hydra")._R).Y=-1
 	End
 	If NewHydra>0
 		CSayF("New Hydra heads added: %d",NewHydra)
