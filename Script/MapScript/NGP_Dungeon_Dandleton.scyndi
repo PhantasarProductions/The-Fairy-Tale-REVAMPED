@@ -1,3 +1,41 @@
+// License:
+// **********************************************
+// 
+// src/Code/Script/MapScript/NGP_Dungeon_Dandleton.scyndi
+// (c) Jeroen Broks, 2017, 2022, 2026, All Rights Reserved.
+// 
+// This file contains material that is related
+// to a storyline that is which is strictly
+// copyrighted to Jeroen Broks.
+// 
+// This file may only be used in an unmodified
+// form with an unmodified version of the
+// software this file belongs to.
+// 
+// You may use this file for your study to see
+// how I solved certain things in the creation
+// of this project to see if you find valuable
+// leads for the creation of your own.
+// 
+// Mostly this file comes along with a project
+// that is for most part released under an
+// open source license and that means that if
+// you use that code with this file removed
+// from it, you can use it under that license.
+// Please check out the other files to find out
+// which license applies.
+// 
+// This file comes 'as-is' and in no possible
+// way the author can be held responsible of
+// any form of damages that may occur due to
+// the usage of this file
+// 
+// 
+// **********************************************
+// 
+// 
+// version: 26.03.11
+// 
 // License Information:
 // **********************************************
 // 
@@ -34,8 +72,14 @@
 // 
 // version: 22.07.26
 // End License Information
+// End License
 
+Script
+
+#use "Script/Use/Link"
 #use "Script/Use/Anyway"
+#use "Script/Use/Convert"
+
 
 plua flashbacks
 plua bosses
@@ -320,39 +364,46 @@ Group MScript
 		Ach.Award("ZZNGP_DANDLETON")
 	End
 	
-	Constructor
-	#pure
-		flashbacks = {
-			['#005'] = { priomt = nil, map='NGP_Dungeon_KokoBushes', layer='BUSH', start='Start'},
-			['#007'] = { priomt = "FL007", map = 'CH3_Dungeon_KokonoraForest', layer='FOREST', start='Start', schedule="WelcomeNos"},
-			['#010'] = { priomt = "FL010", map = 'CH4_Dungeon_ManaRoad', layer='BOS', start='Start', schedule="NosWelcome", party='Nostramantu_Human;Feenalaria_Human2',
-				priofunc=function()
+	Init
+	//#pure
+		flashbacks = {}
+		flashbacks	["#005"] = { ["priomt"] = nil, ["map"]="NGP_Dungeon_KokoBushes", ["layer"]="BUSH", ["start"]="Start"}
+		flashbacks	["#007"] = { ["priomt"] = "FL007", ["map"]="CH3_Dungeon_KokonoraForest", ["layer"]="FOREST", ["start"]="Start", schedule="WelcomeNos"} 
+		flashbacks	["#010"] = { ["priomt"] = "FL010", ["map"]="CH4_Dungeon_ManaRoad", ["layer"]="BOS", ["start"]="Start", schedule="NosWelcome", party="Nostramantu_Human;Feenalaria_Human2"}
+				ddef priofunc10
 					Neil.Globals.CSayF("Making sure Feena's points are properly linked")
-					Neil.Globals.RPGChar.Feenalaria_Human2.Link_Points("Feenalaria_Human","*")
-					Neil.Globals.RPGChar.Feenalaria_Human2.Data.Skill1 = "Sword Mastery"
+					//Neil.Globals.RPGChar.Feenalaria_Human2.Link_Points("Feenalaria_Human","*")
+					//Neil.Globals.RPGChar.Feenalaria_Human2.Data.Skill1 = "Sword Mastery"
+					RPGChar.Feenalaria_Human.Link_Points("Feenalaria_Human2","*")
+					RPGChar.Feenalaria_Human2.Data.Skill1 = "Sword Mastery"
 				end
-			},
-			['#015'] = { priomt = "FL015", map = 'CH3_Town_Nostraburg', layer='TOWN', start='FeenaVsFrendor',schedule='LovingAsshole',party='Feenalaria',
-				priofunc=function()
-					--// Prepare Feenalaria Fairy
-					--//RPG.ReTag('Feenalaria_Human2','Feenalaria')
-					--//assert(RPG.CharExists('Feenalaria')==1,"Retagging failed")
-				--	//local ch='Feenalaria'
-					--//RPGStat.SetData(ch,'Face',ch)
+		flashbacks	["#010"] = priofunc10		
+			//},
+		flashbacks["#015"] = { ["priomt"] = "FL015", ["map"]="CH3_Town_Nostraburg", ["layer"]="TOWN", ["start"]="FeenaVsFrendor",schedule="LovingAsshole",party="Feenalaria"}
+				//priofunc=function()
+				ddef priofunc15
+					// Prepare Feenalaria Fairy
+					//RPG.ReTag("Feenalaria_Human2","Feenalaria")
+					//assert(RPG.CharExists("Feenalaria")==1,"Retagging failed")
+					//local ch="Feenalaria"
+					//RPGStat.SetData(ch,"Face",ch)
 					Neil.Globals.Party.CreateChar("Feenalaria",99999)
 					Neil.Globals.Player.StopWalking()
-				end}
-			}
+				end
+		flashbacks	["#015"] = priofunc15			
+				//}
+			//}
 			
-		bosses = {
-			['#007']={priomt='BOSS007',boss='Cyndrinana',intro1="Ghost of Nostramantu's mother",intro2='Cyndrinana'},
-			['#009']={boss='Terinka',intro1="Ghost of Feenalaria's mother",intro2='Terinka'},
-			['#017']={boss='Salumon',intro1="Ghost of Nostramanu's father", intro2='Salumon'},
-			['#019']={boss='Vandar', intro1='Ghost chief of Dandleton', intro2='Vandar', schedule='PostVandar', music='Combat/Special Boss/Darkcover'}
-		}
+		bosses = {}
+
+		bosses	["#007"]={["priomt"]="BOSS007",["boss"]="Cyndrinana",["intro1"]="Ghost of Nostramantu's mother",["intro2"]="Cyndrinana"},
+		bosses	["#009"]={["boss"]="Terinka",["intro1"]="Ghost of Feenalaria's mother",["intro2"]="Terinka"},
+		bosses	["#017"]={["boss"]="Salumon",["intro1"]="Ghost of Nostramanu's father", ["intro2"]="Salumon"},
+		bosses	["#019"]={["boss"]="Vandar", ["intro1"]="Ghost chief of Dandleton", ["intro2"]="Vandar", ["schedule"]="PostVandar", ["music"]="Combat/Special Boss/Darkcover"}
+		
 
 		NextMapFirst = {}
-	#endpure
+	//#endpure
 		
 		ZA.Enter("pMemory","ZA_pMemory")
 		ZA.Enter("Memory" ,"ZA__Memory")
