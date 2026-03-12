@@ -34,12 +34,14 @@
 // **********************************************
 // 
 // 
-// version: 26.03.02 II
+// version: 26.03.12 II
 // 
 // End License
 
 
 Script
+
+#use "Libs/SCI/Sys"
 
 #use "Script/Use/Link"
 #use "Script/Use/Anyway"
@@ -64,13 +66,23 @@ Group MScript
 		End
 	End
 	
+	Void RemoveKrandar()
+		For t in each{[0]="ActKrandar","Krandar","BWF1","BWF2","BWF3"}
+			Map.Kill(t,true)
+		End
+	End
+
+	
 	Void ActKrandar()
+		if prefixed(Upper(RPGParty[1]),"NOSTRAMANTU")
+			CSay("Krandar shouldn't be here! Fixing!")
+			MScript.RemoveKrandar()
+			Return
+		End
 		Map.StopWalking()
 		Map.Pop("Krandar","North")
 		MapText("KRANDAR1")
-		For t in each{"ActKrandar","Krandar","BWF1","BWF2","BWF3"}
-			Map.Kill(t,true)
-		End
+		MScript.RemoveKrandar()
 		WorldMap.Unlock("CH3MINE")
 		WorldMap.Go("Kokonora")
 		__WorldMap = "KRANDARNOS"
