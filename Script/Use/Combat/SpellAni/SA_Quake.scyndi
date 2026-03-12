@@ -34,8 +34,16 @@
 // misrepresented as being the original software.
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
+
+Module
+
+
 #use "Libs/XMath"
 #use "Libs/LinkedList"
+
+#use "Libs/SCI/Graphics"
+
+#use "Script/Use/Convert"
 
 Class Rock
 	ReadOnly Int StuiterHoogte
@@ -84,7 +92,7 @@ Class Rock
 		End
 	End
 	
-	ReadOnly Static Var Lijst = New LinkedList()
+	ReadOnly Static Var Lijst = New TLinkedList()
 	Static Void Initiate()
 		Int A = Math.Random(25,500)
 		For I=0,A
@@ -92,7 +100,7 @@ Class Rock
 		End
 	End
 	
-	ReadOnly Static Var Img = Image.LoadNew("GFX/Combat/SpellAni/Rock.png","SPELLANI_ROCK")
+	ReadOnly Static Var Img = LoadNewImage("GFX/Combat/SpellAni/Rock.png","SPELLANI_ROCK")
 	
 	Void Draw()
 		Img.Draw(X,Y)
