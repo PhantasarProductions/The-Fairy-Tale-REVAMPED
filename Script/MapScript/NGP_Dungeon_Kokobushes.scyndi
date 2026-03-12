@@ -34,13 +34,14 @@
 // **********************************************
 // 
 // 
-// version: 26.03.11 II
+// version: 26.03.12 II
 // 
 // End License
 
 
 Script
 
+#use "Libs/SCI/Sys"
 #use "Libs/SCI/InterVar"
 
 #use "Script/Use/Link"
@@ -85,17 +86,22 @@ Group MScript
 	End
 	
 	Void TheEnd()
-		If Prefixed(RPGChar[1],"Jake")
+		CSay("Koko Bushes completed!")
+		If Prefixed(RPGParty[1],"Jake")
 			WorldMap.Go("Kokonora")
 		Else 
 			Map.StopWalking()
-			print("Done: ",Done["DONE.SIDEQUEST.DANDLETON.FLASHBACK[#005].EXPERIENCED"])
+			CSayF("Done: %s",Done["DONE.SIDEQUEST.DANDLETON.FLASHBACK[#005].EXPERIENCED"])
 			MapText("TIMETOGOBACK")
 			For i,ch in pairs{"Jake_Human","Marrilona","Dandor","HandoStillor"}
+				CSayF("%d> %s",i,ch)
 				RPGParty[i]=ch
 			End
+			CSay("Switching back to Dandleton!")
 			Map.GoToMap("NGP_Dungeon_Dandleton","#005","Start")
+			CSay("Schedule EndKokoBush")
 			Schedule.Add("EndKokoBush")
+			CSay("Let's go!")
 		End
 	End
 End	
