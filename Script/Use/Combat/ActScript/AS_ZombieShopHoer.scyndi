@@ -1,8 +1,8 @@
-// License Information:
+// License:
 // **********************************************
 // 
-// src/Tricky Script/Script/Use/Combat/ActScript/ZombieShopHoer.neil
-// (c) Jeroen Broks, 2017-2018, 2022, All Rights Reserved.
+// src/Code/Script/Use/Combat/ActScript/AS_ZombieShopHoer.scyndi
+// (c) Jeroen Broks, 2017-2018, 2022, 2026, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -24,6 +24,7 @@
 // from it, you can use it under that license.
 // Please check out the other files to find out
 // which license applies.
+// 
 // This file comes 'as-is' and in no possible
 // way the author can be held responsible of
 // any form of damages that may occur due to
@@ -32,22 +33,35 @@
 // 
 // **********************************************
 // 
-// version: 22.02.11
-// End License Information
+// 
+// version: 26.03.12 II
+// 
+// End License
 
-Bool _ZSH(Act,Tar,Exe)
-	Static Var stock = NeilUse("Script/Data/General/ZombieShopHoerStock")
-	Int ri = math.random(1,#stock)
-	Var it = stock[ri]
+
+Module
+
+#use "Libs/SCI/Audio"
+#use "Libs/SCI/InterVar"
+
+#use "Script/Use/Convert"
+
+#accept FlowCombat
+#accept CharMSG
+
+Bool _Act(Act,Tar,Exe)
+	Static Var stock = NeilUse("Script/Data/General/ZombieShopHoerStock").ret
+	Int ri := math.random(1,len(stock))-1
+	Var it := stock[ri]
 	//local svictim = victim; if prefixed(victim,"Jake_") then svictim = "Jake" end
-	string victim = Tar.Tag
-	string svictim=victim
+	string victim  := Tar.Tag
+	string svictim := victim
 	if prefixed(victim,"Jake_") 
 		svictim = "Jake" 
 	end
-	gv.gstring["ZSH.VICTIM"]=svictim
-	gv.gint["ZSH.PRICE"]=it.Price
-	gv.gstring["ZSH.ITEM"]=it.Title
+	gstring["ZSH.VICTIM"]=svictim
+	gint["ZSH.PRICE"]=it.Price
+	gstring["ZSH.ITEM"]=it.Title
 	MapText("BAT_ZSH_OFFER","FLOW_COMBAT")
 	if __Cash<it.Price
 		MapText("BAT_ZSH_POOR","FLOW_COMBAT")
@@ -65,9 +79,8 @@ Bool _ZSH(Act,Tar,Exe)
 	//dec("%CASH",it.Price)
 	__Cash -= it.Price
 	Audio.LoadNew("Audio/Shopping/ChaChing.ogg","CHACHING").Play()
-	FlowCombat.charmsg(Tar.Tag,sprintf("Bought %s for %d shilders",Item[it.itemtag].Title,it.Price,255,0,0)
-	FlowCombat.charmsg(Exe.Tag,sprintf("Sold %s for %d shilders",Item[it.itemtag].Title,it.Price,0,255,0)
+	charmsg(Tar.Tag,sprintf("Bought %s for %d shilders",Item[it.itemtag].Title,it.Price,255,0,0)
+	charmsg(Exe.Tag,sprintf("Sold %s for %d shilders",Item[it.itemtag].Title,it.Price,0,255,0)
 	Return True
 End
 
-Return _ZSH
