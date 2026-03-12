@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.12 III
+// version: 26.03.12 V
 // 
 // End License
 
@@ -81,8 +81,8 @@ Bool _Act(Act,Tar,Exe)
 	//dec("%CASH",it.Price)
 	__Cash -= it.Price
 	Audio.LoadNew("Audio/Shopping/ChaChing.ogg","CHACHING").Play()
-	charmsg(Tar.Tag,sprintf("Bought %s for %d shilders",Item[it.itemtag].Title,it.Price,255,0,0)
-	charmsg(Exe.Tag,sprintf("Sold %s for %d shilders",Item[it.itemtag].Title,it.Price,0,255,0)
+	charmsg(Tar.Tag,sprintf("Bought %s for %d shilders",Item[it.itemtag].Title,it.Price),255,0,0)
+	charmsg(Exe.Tag,sprintf("Sold %s for %d shilders",Item[it.itemtag].Title,it.Price),0,255,0)
 	Return True
 End
 
