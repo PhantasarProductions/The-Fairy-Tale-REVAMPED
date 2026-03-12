@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.09 IX
+// version: 26.03.12
 // 
 // End License
 
@@ -125,7 +125,7 @@ Group MScript
 		RPGChar.Nostramantu_Human.Points.VIT.Have=123456789
 		// Take advantage of equipment (very important now. Especially for Feenalaria)
 		Party.CheckEquip("Feenalaria_Human2")
-		Party.CheckEquip("Nostramantu")
+		Party.CheckEquip("Nostramantu_Human")
 	End
 	#EndRegion
 	
