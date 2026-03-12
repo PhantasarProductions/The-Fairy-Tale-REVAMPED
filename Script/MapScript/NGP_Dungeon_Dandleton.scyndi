@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.11 XXIII
+// version: 26.03.12
 // 
 // End License
 
@@ -97,7 +97,7 @@ Group MScript
 	Void SetParty(string a)
 		table s := xsplit(a,";")
 		for i=1,4
-			RPGParty[i] = s[i] || ""
+			RPGParty[i] = s[i-1] || ""
 		end
 	end
 	
