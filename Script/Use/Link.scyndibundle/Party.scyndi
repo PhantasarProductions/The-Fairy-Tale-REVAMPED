@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.01 I
+// version: 26.03.12
 // 
 // End License
 
@@ -145,14 +145,18 @@ End
   				SetSkill(Tag,Skill,RPGChar[Tag].Points[TagLevel].Have+1)
   				SkillLvlUpMsg(Tag,RPGChar[Tag].Data[TagTitle].." level up",SLUC[Skill][1],SLUC[Skill][2],SLUC[Skill][3])
   				SkillUpBonus(Tag,RPGChar[Tag].Points[TagLevel].Have)
-  				SLUV := NeilUse("Script/Data/Char/"..Tag.."_SkillUp")
-  				//For k,v in sPairs(SLUV)
-  				SLUVS := SLUV["askillup"..skill]
-  				if SLUVS && SLUVS[1] && SLUVS[2]
-  					k := SLUVS[1]
-  					v := SLUVS[2]
-  					CSayF("Due to skill %d going up on %s stat '%s' goes up by %02d",Skill,Tag,k,v)
-  					RPGChar[Tag].Stat["PERMABUFF_"..k] += v
+  				if Prefixed(UPPER(Tag),"FEENALARIA") || Prefixed(Upper(Tag),"NOSTRAMANTU")
+  					CSayF("%s (%s) is not eligible for stat ups! It's only for show, folks!",RPGChar[Tag].Name,Tag)
+  				Else
+  					SLUV := NeilUse("Script/Data/Char/"..Tag.."_SkillUp")
+  					//For k,v in sPairs(SLUV)
+  					SLUVS := SLUV["askillup"..skill]
+  					If SLUVS && SLUVS[1] && SLUVS[2]
+  						k := SLUVS[1]
+  						v := SLUVS[2]
+  						CSayF("Due to skill %d going up on %s stat '%s' goes up by %02d",Skill,Tag,k,v)
+  						RPGChar[Tag].Stat["PERMABUFF_"..k] += v
+  					End
   				End
   			End
   		End
