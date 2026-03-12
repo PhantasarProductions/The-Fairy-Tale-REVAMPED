@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.12 II
+// version: 26.03.12 III
 // 
 // End License
 
@@ -44,6 +44,8 @@ Module
 #use "Libs/SCI/Audio"
 #use "Libs/SCI/InterVar"
 
+#use "Script/Use/Link"
+#use "Script/Use/Anyway"
 #use "Script/Use/Convert"
 
 #accept FlowCombat
