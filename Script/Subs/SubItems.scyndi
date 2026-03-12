@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Subs/SubItems.scyndi
 // 
-// 	  Version: 26.02.26
+// 	  Version: 26.03.12
 // 	
 // 	  Copyright (C) 2021-'22, 2026 Jeroen Petrus Broks
 // 	
@@ -198,6 +198,8 @@ Class ABLRec
 		ElseIf ch=="Krandar" 
 			Abilities.Krandar.Skill = Abilities.Marrilona.Skill
 			Abilities[ch].Ability[T].Unlocked = True
+		ElIf Ch=="Feenalaria_Human2"
+			Abilities.Feenalaria_Human2 = Abilities.Feenalaria_Human
 		//ElseIf Prefixed(ch,"Feenalaria")
 			// Feenalaria copies Jake's skills
 		//	Static Bool FirstTime = False
