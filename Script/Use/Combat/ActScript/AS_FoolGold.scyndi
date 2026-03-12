@@ -34,14 +34,22 @@
 // misrepresented as being the original software.
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
-Bool _PA(Act,Tar,Exe)
+
+Module
+
+#use "Libs/SCI/InterVar"
+
+#use "Script/Use/Link"
+#use "Script/Use/Anyway"
+
+Bool Act(Act,Tar,Exe)
 	Static Int Deler = 4 - __Skill
-	Int Weg = __Cash div Deler
+	Int Weg := __Cash div Deler
 	If Weg==0
 		Return False
 	End
 	__Cash -= Weg
-	gv.Gint.FoolGold = Weg
+	Gint.FoolGold = Weg
 	BoxText.Serial("LEARNABILITY", "FOOL", "FLOW_COMBAT")
 	Return True
 End
