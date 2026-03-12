@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/CL2_Class_Hero.scyndi
 // 
-// 	  Version: 26.03.05
+// 	  Version: 26.03.12
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -520,7 +520,7 @@ Class Stage_PlayerInput_Ability
 	ReadOnly Int BX = 100
 	ReadOnly Int BY = 100
 	ReadOnly Int BW = Screen.W - 200
-	ReadOnly Int BH = Screen.H - 400
+	ReadOnly Int BH = Screen.H - 200
 	
 	Var ubox 
 	
