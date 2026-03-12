@@ -34,14 +34,16 @@
 // **********************************************
 // 
 // 
-// version: 26.03.12 I
+// version: 26.03.12 II
 // 
 // End License
 
 Module
 
+#use "Libs/SCI/Intervar"
+
 #accept QuickWork
-#accept gBool
+
 
 Init
 	locExtern skill "Scyndi.Globals.gint.Skill"
