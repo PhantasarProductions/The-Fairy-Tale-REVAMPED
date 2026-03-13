@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.13
+// version: 26.03.13 I
 // 
 // End License
 
@@ -91,7 +91,7 @@ Init
                                        mp.abl_hero_marrilona_inferno = {[1]=5*skill,[2]=15*skill}, // 3
                                        mp.abl_hero_marrilona_electrocution = {[1]=2*skill,[2]=10*skill,[3]=10*skill}, // 4
                                        mp.abl_hero_marrilona_cursedhealing = {13,13,13,13}, // 5
-                                       mp.abl_hero_marrilona_1953 = {[1]=19;[4]=53}, //6
+                                       mp.abl_hero_marrilona_1953 = {[1]=19,[4]=53}, //6
                                        mp.abl_hero_marrilona_LetsHealEmAll = {[4]=({15,30,40})[skill]}, //7
                                        mp.abl_hero_marrilona_iceage = {[3]=skill*25,[4]=skill*26} // 8
 	b := {}
