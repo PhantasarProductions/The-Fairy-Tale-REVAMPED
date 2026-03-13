@@ -34,20 +34,29 @@
 // **********************************************
 // 
 // 
-// version: 26.03.14 II
+// version: 26.03.14 X
 // 
 // End License
 
 Module
 
+#use "Libs/Music"
+
 #use "Libs/SCI/Sys"
+#use "Libs/SCI/Events"
 #use "Libs/SCI/Graphics"
 #use "Libs/SCI/InterVar"
 
+#use "Script/Use/Link"
+#use "Script/Use/Anyway"
 #use "Script/Use/Convert"
 
+#accept FlowCombat
 #accept Fighter
 #accept Foe
+
+locExtern _ASW "Scyndi.Class.Graphics.Width"
+locExtern _ASH "Scyndi.Class.Graphics.Height"
 
 Bool _Act()
 	// function SpellScript.NostraMorph(tar,user)
@@ -102,7 +111,7 @@ Bool _Act()
 		if s=="HP" 
 			v=v*(__skill*12) 
 		end
-		plua avg = math.ceil(v/(6-__skill))
+		avg := math.ceil(v/(6-__skill))
 		RPGChar.FOE002.Stat["BASE_"..s] = avg
 	End
 	RPGChar.FOE002.Points.HP.Have = RPGChar.FOE002.Points.HP.Maximum
