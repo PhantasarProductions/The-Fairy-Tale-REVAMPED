@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.12
+// version: 26.03.13
 // 
 // End License
 
@@ -256,7 +256,7 @@ Group MScript
 		Map.Pop("Feena","West")
 		MapText("FNOS1")
 		//local p = {Actors.Actor('PLAYER'),Actors.Actor('PLAYER1'),Actors.Actor('PLAYER2'),Actors.Actor('PLAYER3')}
-		plua p = {"PLAYER","PLAYER2","PLAYER3","PLAYER4"}
+		plua p = {[0]="PLAYER","PLAYER2","PLAYER3","PLAYER4"}
 		//for a=0,1000,2 do
 		For a=0,255
 			//Maps.Obj.Obj('Feenalaria').SetAlpha(a)
@@ -371,7 +371,7 @@ End
 		bosses	["#007"]={["priomt"]="BOSS007",["boss"]="Cyndrinana",["intro1"]="Ghost of Nostramantu's mother",["intro2"]="Cyndrinana"}
 		bosses	["#009"]={["boss"]="Terinka",["intro1"]="Ghost of Feenalaria's mother",["intro2"]="Terinka"},
 		bosses	["#017"]={["boss"]="Salumon",["intro1"]="Ghost of Nostramanu's father", ["intro2"]="Salumon"},
-		bosses	["#019"]={["boss"]="Vandar", ["intro1"]="Ghost chief of Dandleton", ["intro2"]="Vandar", ["schedule"]="PostVandar", ["music"]="Combat/Special Boss/Darkcover"}
+		bosses	["#019"]={["boss"]="Vandar", ["intro1"]="Ghost chief of Dandleton", ["intro2"]="Vandar", ["schedule"]="PostVandar", ["music"]="Combat/SpecialBoss/Darkcover"}
 		
 
 		NextMapFirst = {}
