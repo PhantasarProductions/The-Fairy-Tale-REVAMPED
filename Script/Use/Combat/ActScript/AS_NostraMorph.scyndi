@@ -1,8 +1,8 @@
-// License Information:
+// License:
 // **********************************************
 // 
-// src/Tricky Script/Script/Use/Combat/ActScript/NostraMorph.neil
-// (c) Jeroen Broks, 2017, 2022, All Rights Reserved.
+// src/Code/Script/Use/Combat/ActScript/AS_NostraMorph.scyndi
+// (c) Jeroen Broks, 2017, 2022, 2026, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -24,6 +24,7 @@
 // from it, you can use it under that license.
 // Please check out the other files to find out
 // which license applies.
+// 
 // This file comes 'as-is' and in no possible
 // way the author can be held responsible of
 // any form of damages that may occur due to
@@ -32,9 +33,23 @@
 // 
 // **********************************************
 // 
-// version: 22.02.13
-// End License Information
-Bool _N()
+// 
+// version: 26.03.14 II
+// 
+// End License
+
+Module
+
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/Graphics"
+#use "Libs/SCI/InterVar"
+
+#use "Script/Use/Convert"
+
+#accept Fighter
+#accept Foe
+
+Bool _Act()
 	// function SpellScript.NostraMorph(tar,user)
 	// SZ
 	plua sx = 0
@@ -53,7 +68,7 @@ Bool _N()
 		Graphics.Alpha(255)
 		Graphics.Flip()
 		Events.Poll()
-		FPS.WaitMinTicks()
+		Sys.WaitMinTicks()
 	End
 	
 	// Clean
@@ -78,7 +93,7 @@ Bool _N()
 	// 000000061 |        RPG.Points('FOE_1','HP').Minimum =  RPG.Points('FOE_1','HP').Maximum
 	// 000000062 |        RPG.Points('FOE_3','HP').Minimum =  RPG.Points('FOE_3','HP').Maximum
 	// Nostramantu's stat copier
-	for s in each{"Power","Endurance","Intelligence","Resistance","HP"}
+	for s in each{[0]="Power","Endurance","Intelligence","Resistance","HP"}
 		plua v=0
 		for ch in each{"Jake_Human","Marrilona","Dandor","HandoStillor"}
 			// v = v + RPG.Stat(ch,"END_"..s)
@@ -91,7 +106,7 @@ Bool _N()
 		RPGChar.FOE002.Stat["BASE_"..s] = avg
 	End
 	RPGChar.FOE002.Points.HP.Have = RPGChar.FOE002.Points.HP.Maximum
-	gv.gbool["ULTIMATENOSTRAMANTU.MORPH.COMPLETE"] = true
+	gbool["ULTIMATENOSTRAMANTU.MORPH.COMPLETE"] = true
 	// Music Change
 	Music.Play("Music/Combat/SpecialBoss/Final Boss.ogg")
 	// Fade In
@@ -104,9 +119,9 @@ Bool _N()
 		Graphics.Alpha(255)
 		Graphics.Flip()
 		Events.Poll()
-		FPS.WaitMinTicks()
+		Sys.WaitMinTicks()
 	End
 	Return True
 End
 
-Return _N
+//Return _N
