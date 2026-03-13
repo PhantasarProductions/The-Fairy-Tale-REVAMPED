@@ -50,7 +50,7 @@ Module
 #use "Script/Use/Link"
 #use "Script/Use/Anyway"
 
-Bool Act(Act,Tar,Exe)
+Bool _Act(Act,Tar,Exe)
 	Static Int Deler = 4 - __Skill
 	Int Weg := __Cash div Deler
 	If Weg==0
