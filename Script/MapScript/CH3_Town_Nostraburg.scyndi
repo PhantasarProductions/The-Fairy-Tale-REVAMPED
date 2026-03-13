@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.08
+// version: 26.03.13
 // 
 // End License
 
@@ -297,7 +297,7 @@ Group MScript
     	MapText("FRENDOR_PREBOSS")
     	Combat.Prepare(255,102,0,"Loving and caring assho... I mean brother","Frendor")
     	Combat.NewEnemy="Boss/Frendor"
-    	Combat.Music="Combat/Special Boss/Rush.ogg"
+    	Combat.Music="Combat/SpecialBoss/Rush.ogg"
     	Combat.Arena="Forest"
     	Combat.Start()
     	//if     skill==1 then RPG.Points('Feenalaria','AP').Have=123456789
