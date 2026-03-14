@@ -34,11 +34,19 @@
 // misrepresented as being the original software.
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
+
+Script
+
 #use "Libs/LinkedList"
+
+#use "Libs/SCI?Graphics"
+
+#use "Script/Use/Convert"
+
 #use "Script/Data/General/Credits"
 
 String ReturnTo
-Var Fnt = ImageFont.Obtain("BOXTEXT")
+ReadOnly Var Fnt = ObtainFont("BOXTEXT")
 
 Global Void Reset(String RetTo)
 	ReturnTo = RetTo
@@ -47,7 +55,7 @@ Global Void Reset(String RetTo)
 	End
 End
 
-Global Void Apollo_Flow()
+Global Void MainFlow()
 	Bool TimeToReturn = True
 	Int X = Screen.W div 2
 	Graphics.Cls()
