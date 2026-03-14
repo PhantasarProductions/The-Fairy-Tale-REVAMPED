@@ -112,7 +112,7 @@ Bool _Act()
 	// Nostramantu's stat copier
 	for s in each{[0]="Power","Endurance","Intelligence","Resistance","HP"}
 		plua v=0
-		for ch in each{"Jake_Human","Marrilona","Dandor","HandoStillor"}
+		for ch in each{[0]="Jake_Human","Marrilona","Dandor","HandoStillor"}
 			// v = v + RPG.Stat(ch,"END_"..s)
 			v+=RPGChar[ch].Stat["END_"..s]
 		end
