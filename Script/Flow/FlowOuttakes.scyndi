@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.14 X
+// version: 26.03.14 XI
 // 
 // End License
 
@@ -95,7 +95,7 @@ Class Outtake
 		Lijst += New OutTake(Au)
 	End
 	
-	Static Int Current = 0
+	Static Int Current = -1
 	Static Get Var CD
 		Return Lijst[Current]
 	End
@@ -225,7 +225,8 @@ Init
 	Outtake.Chr="Nostramantu, son of Sulamon"
 	Outtake.Pic="GFX/Outtakes/Nostramantu.png"
 	Outtake.Act="Jeroen P. Broks"
-	Outtake.Add("Vocals/Outtakes/999 Nostramantu/001 I knew it would go wrong one day.ogg")                                                                               
+	Outtake.Add("Vocals/Outtakes/999 Nostramantu/001 I knew it would go wrong one day.ogg")         
+	//Music.Play("Music/Sys/Silence.ogg")                                                                      
 End
 
 Void NextSound()
