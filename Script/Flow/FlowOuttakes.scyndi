@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.14 VII
+// version: 26.03.14 IX
 // 
 // End License
 
@@ -92,7 +92,7 @@ Class Outtake
 	
 	Static Void Add(String Au)
 		Lijst = Lijst || {}
-		Lijst += Self(Au)
+		Lijst += New OutTake(Au)
 	End
 	
 	Static Int Current = 0
@@ -253,7 +253,7 @@ Void ThanksForPlaying()
 	End
 End
 
-Global Void Apollo_Flow()
+Global Void MainFlow()
 	Static Var Back = LoadImage("gfx/Worldmap/back.png","Back WM Outtakes") 
 	Graphics.Color(0,127,0)
 	Back.Tile(0,0,Screen.W,Screen.H)
