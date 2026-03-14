@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.25
+// version: 26.03.14 III
 // 
 // End License
 
@@ -450,13 +450,13 @@ end
 
 Global Void CONSOLE_Credits()
 	State.LoadNew("FLOW_CREDITS","Script/Flow/FlowCredits.neil")
-	State.Call("FLOW_CREDITS","Reset","\"MAINMENU\"")
+	Sys.Call("FLOW_CREDITS","Reset","MAINMENU")
 	Flow.Current="CREDITS"
 End
 
 
 Global Void CONSOLE_Outtakes()
-	State.LoadNew("FLOW_OUTTAKES","Script/Flow/FlowOuttakes.neil")	
+	State.LoadNew("FLOW_OUTTAKES","Script/Flow/FlowOuttakes.lbc")	
 	Flow.Current="OUTTAKES"
 End
 
@@ -475,3 +475,22 @@ init
 	end
 	MenuItem.Create()
 end
+
+
+#region Debug
+Global Void DBG_CREDITSOUTTAKES()
+	  Loading()
+	  CSay("Loading Credits")
+      State.Load("FLOW_CREDITS","Script/Flow/FlowCredits.lbc")
+      CSay("Loading Outtakes")
+      State.Load("FLOW_OUTTAKES","Script/Flow/FlowOuttakes.lbc")
+      CSay("Credits Reset")
+      Sys.Call("FLOW_CREDITS","Reset","OUTTAKES")
+      CSay("Let's go!")
+      Flow.Current="CREDITS"
+End
+Init
+	 Sys.ConsoleLocal("INSTANTEND","DBG_CREDITSOUTTAKES")
+	 Sys.ConsoleLocal("OUTTAKES","CONSOLE_Outtakes")
+End
+#endregion
