@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowSaveGame.scyndi
 // 
-// 	  Version: 26.02.23
+// 	  Version: 26.03.14
 // 	
 // 	  Copyright (C) 2023, 2024, 2025, 2026 Jeroen Petrus Broks
 // 	
@@ -115,6 +115,10 @@ Get Int Page
 			End
 			CSayF("Loading: %s",PageFile)
 			PageData = GINIE.LoadHome(PageFile,"SAVEGAME_PAGES",PageFile,"Pages for Luna's Father")
+			PageData.NewValue("Chars","Jake","c17cf62231725bf4a2dfbc23d79d8313")
+			PageData.NewValue("Chars","Marrilona","cc53dc78ae36fd5ab7891bc93573ca3f")
+			PageData.NewValue("Chars","Dandor","ed5977352eef166dc9fb29ceefa21b19")
+			PageData.NewValue("Chars","Hando Stillor","a99215f43958b35db4bf72851c02e2d5")
 		End	
 		//return 0; 
 	End
