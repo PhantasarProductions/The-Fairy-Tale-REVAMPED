@@ -166,8 +166,8 @@ Group MScript
         MapText("WEDDING2")
         //assert(false,"Sorry, no more yet")
         Loading()
-        State.Load("FLOW_CREDITS","Script/Flow/FlowCredits.neil")
-        State.Load("FLOW_OUTTAKES","Script/Flow/FlowOuttakes.neil")
+        State.Load("FLOW_CREDITS","Script/Flow/FlowCredits.lbc")
+        State.Load("FLOW_OUTTAKES","Script/Flow/FlowOuttakes.lbc")
         State.Call("FLOW_CREDITS","Reset","\"OUTTAKES\"")
         Flow.Current="CREDITS"
 	End
