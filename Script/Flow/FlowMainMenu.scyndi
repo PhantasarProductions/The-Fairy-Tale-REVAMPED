@@ -34,13 +34,14 @@
 // **********************************************
 // 
 // 
-// version: 26.03.14 III
+// version: 26.03.14 V
 // 
 // End License
 
 Script
 
 #Use "Libs/SCI/Sys"
+#use "Libs/SCI/GINIE"
 #use "Libs/SCI/Audio"
 #Use "Libs/SCI/Medals"
 #use "Libs/SCI/Events"
@@ -337,7 +338,9 @@ class MenuItem
 		Bool R = False
 		//Medals.Game="TFT"
 		//R = Medals.Awarded("CHAPTER4")
-		//print("DEBUG! Allow New Game Plus:",R)		
+		//print("DEBUG! Allow New Game Plus:",R)
+		G:=GINIE.LoadHome("SaveGames/PageData.ini","SAVEGAME_PAGES")
+		R=G.Value("Chars","Marrilona")=="372462e8ece3e74621abe52ad35c9606"		
 		return R
 	end
 	
