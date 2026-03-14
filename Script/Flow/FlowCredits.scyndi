@@ -46,6 +46,7 @@
 
 Script
 
+#use "Libs/Music"
 #use "Libs/LinkedList"
 
 #use "Libs/SCI/Graphics"
@@ -83,4 +84,8 @@ Global Void MainFlow()
 	If TimeToReturn
 		Flow.Current=ReturnTo
 	End
+End
+
+Init
+	Music.Play("Music/HUB/STARTTOFANTASYINSTRUMENTAL.OGG")
 End
