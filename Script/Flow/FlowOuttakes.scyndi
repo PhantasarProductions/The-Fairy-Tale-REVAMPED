@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.14 I
+// version: 26.03.14 VII
 // 
 // End License
 
@@ -46,8 +46,11 @@ Script
 #use "Libs/SCI/Sys"
 #use "Libs/SCI/JCR6"
 #use "Libs/SCI/Audio"
+#use "Libs/SCI/GINIE"
 #use "Libs/SCI/Events"
 #use "Libs/SCI/Graphics"
+
+#use "Script/Use/Convert"
 
 ReadOnly Var Big = ObtainFont("BIGTEXT")
 ReadOnly Var Fnt = ObtainFont("BOXTEXT")
@@ -269,8 +272,8 @@ Global Void Apollo_Flow()
 		Return 
 	End
 	Number Part = Screen.Height / Outtake.CD.Img.Height
-	Int H = math.floor(Part*Outtake.CD.Img.Height)
-	Int W = math.floor(Part*Outtake.CD.Img.Height)
+	Int H := math.floor(Part*Outtake.CD.Img.Height)
+	Int W := math.floor(Part*Outtake.CD.Img.Height)
 	
 	Graphics.Color(255,255,255)
 	Outtake.CD.Img.Stretch(Screen.W-W,0,W,H)
@@ -278,12 +281,12 @@ Global Void Apollo_Flow()
 	Big.DarkText(Outtake.CD.Character,10,10)
 	Graphics.Color(255,255,255)
 	Fnt.DarkText(sprintf("Voiced by: %s",OutTake.CD.Actor),10,100)
-	Number P = Outtake.Current/#Outtake.Lijst
-	Int R = math.ceil(P*Screen.W)
+	Number P = (Outtake.Current+1)/Len(Outtake.Lijst)
+	Int R := math.ceil(P*Screen.W)
 	Graphics.Color(255,180,0)
 	Graphics.Rect(0,Screen.H-30,R,30)
 	Graphics.Color(255,255,255)
-	Fnt.DarkText(sprintf("Outtakes: %02d/%02d",Outtake.Current,#Outtake.Lijst),Screen.W div 2,Screen.H - 10,2,1)
+	Fnt.DarkText(sprintf("Outtakes: %02d/%02d",Outtake.Current+1,Len(Outtake.Lijst)),Screen.W div 2,Screen.H - 10,2,1)
 	If Events.KeyHit(27)
 		Outtake.Current += 10000
 	End
