@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.14 X
+// version: 26.03.14 XV
 // 
 // End License
 
@@ -58,7 +58,13 @@ Module
 locExtern _ASW "Scyndi.Class.Graphics.Width"
 locExtern _ASH "Scyndi.Class.Graphics.Height"
 
+plua CD = 20000
+
 Bool _Act()
+	CD--
+	if (CD<=0)
+		Lua.error("Nostramantu Oversoul Time-Out")
+	End
 	// function SpellScript.NostraMorph(tar,user)
 	// SZ
 	plua sx = 0
@@ -70,7 +76,7 @@ Bool _Act()
 	for a=0,255
 		Graphics.Cls()
 		__White
-		FlowCombat.DrawScreen()
+		FlowCombat.DrawScreen.Run()
 		Graphics.Color(0,0,a)
 		Graphics.Alpha(a)
 		Graphics.Rect(sx,sy,sw,sh)
@@ -87,14 +93,16 @@ Bool _Act()
 	//000000058 |        CompileFoe('FOE_2',JINC('Script/JINC/Foes/OverNos/Nostramantu.lua' ),'Script/JINC/Foes/OverNos/Nostramantu.lua')
 	// 000000059 |        CompileFoe('FOE_3',JINC('Script/JINC/Foes/OverNos/Antenna_Mock.lua'),'Script/JINC/Foes/OverNos/Antenna_Mock.lua')
 	Var MF
-	MF = Foe.Compile("OverNos/Antenna_Nice",NeilUse("Script/Data/Foe/OverNos/Antenna_Nice"))
+	MF = Foe.Compile("OverNos/Antenna_Nice",NeilUse("Script/Data/Foe/OverNos/Antenna_Nice")._R)
+	MF.Char.Points.HP.Maximum = 10
 	MF.Char.Points.HP.Minimum = MF.Char.Points.HP.Maximum
 	MF.X = _ASW div 9
 	MF.Y = _ASH div 3
-	MF = Foe.Compile("OverNos/Nostramantu",NeilUse("Script/Data/Foe/OverNos/Nostramantu"))
+	MF = Foe.Compile("OverNos/Nostramantu",NeilUse("Script/Data/Foe/OverNos/Nostramantu")._R)
 	MF.X = _ASW div 4
 	MF.Y = _ASH div 2
-	MF = Foe.Compile("OverNos/Antenna_Nice",NeilUse("Script/Data/Foe/OverNos/Antenna_Mock"))
+	MF = Foe.Compile("OverNos/Antenna_Nice",NeilUse("Script/Data/Foe/OverNos/Antenna_Mock")._R)
+	MF.Char.Points.HP.Maximum = 10
 	MF.Char.Points.HP.Minimum = MF.Char.Points.HP.Maximum
 	MF.X=_ASW div 9 
 	MF.Y=( _ASH div 3 ) * 2
@@ -110,6 +118,7 @@ Bool _Act()
 		end
 		if s=="HP" 
 			v=v*(__skill*12) 
+			RPGChar.FOE002.Points.HP.Maximum = v
 		end
 		avg := math.ceil(v/(6-__skill))
 		RPGChar.FOE002.Stat["BASE_"..s] = avg
@@ -121,7 +130,7 @@ Bool _Act()
 	// Fade In
 	for a=255,0,-1
 		Graphics.Cls()
-		FlowCombat.DrawScreen()
+		FlowCombat.DrawScreen.Run()
 		Graphics.Alpha(a)
 		Graphics.Color(0,0,a)
 		Graphics.Rect(sx,sy,sw,sh)
