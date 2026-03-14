@@ -35,6 +35,13 @@
 // version: 22.02.15
 // End License Information
 
+Module
+
+#use "Libs/LinkedList"
+
+#use "Libs/SCI/Graphics"
+
+
 Class CreditLine
 	ReadOnly String Text
 	ReadOnly Int R
@@ -45,6 +52,8 @@ Class CreditLine
 	ReadOnly Int White
 	ReadOnly Int BaseY
 	Static Int AllBaseY = 0
+	
+	Static Int ImgCount=0
 
 	Static Var Reg = new TLinkedList()
 
@@ -54,7 +63,8 @@ Class CreditLine
 		B = _B
 		Text = _Text
 		If Prefixed(Text,"IMG:")
-			Img = Image.Load(Right(Text,#Text-4))
+			ImgCount++
+			Img = LoadImage(Right(Text,Len(Text)-4),sprintf("CREDIDSIMAGE_%09x",ImgCount))
 			Img.HotBottomCenter()
 			AllBaseY += Img.Height
 			BaseY = AllBaseY
@@ -76,7 +86,7 @@ Init
 	ACL("A game by Jeroen P. Broks",255,180,0,200)
 	ACL("",0,0,0)
 	ACL("Jeroen P. Broks",255,180,0)
-	ACL("Apollo Game Engine",255,255,255,0)
+	ACL("Scyndi's Creative Interpreter",255,255,255,0)
 	ACL("Base Configuration",255,255,255,0)
 	ACL("Character Database",255,255,255,0)
 	ACL("Design",255,255,255,0)
@@ -92,7 +102,7 @@ Init
 	ACL("Maps",255,255,255,0)
 	ACL("Menu Icons",255,255,255,0)
 	ACL("Music",255,255,255,0)
-	ACL("Neil Scripting Language",255,255,255,0)
+	ACL("Scyndi Scripting Language",255,255,255,0)
 	ACL("Scenario",255,255,255,0)
 	ACL("Scripting",255,255,255,0)
 	ACL("Sound Effects",255,255,255,0)
@@ -261,5 +271,5 @@ Init
 	ACL("Any resemblance to real people, either famous or unknown,", 255, 255, 255, 0)
 	ACL("either dead or alive, is merely coincidental", 255, 255, 255, 0)
 	ACL("", 0, 0, 0, 200)
-	ACL("(c) 2004, 2017, 2022 Jeroen P. Broks", 255, 255, 255, 0)
+	ACL("(c) 2004, 2017, 2022, 2026 Jeroen P. Broks", 255, 255, 255, 0)
 End
