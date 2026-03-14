@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.14 XI
+// version: 26.03.14 XIII
 // 
 // End License
 
@@ -58,7 +58,8 @@ ReadOnly Var Fnt = ObtainFont("BOXTEXT")
 ReadOnly Var Thank = LoadImage("GFX/Algemeen/Thank You For Playing.png","ThankYouForPlaying")
 
 Bool HasVocals()
-	Return JCR6.EntryExists("ID/Vocals")
+	//Return JCR6.EntryExists("ID/Vocals")
+	Return True
 End
 
 Class Outtake
@@ -69,7 +70,7 @@ Class Outtake
 	String AudioFile
 	
 	Void Play()
-		Audio.Load(AudioFile,"OUTTAKE").Play()
+		Outtake.Channel = Audio.Load(AudioFile,"OUTTAKE").Play()
 	End
 	
 	Static Var Lijst 
