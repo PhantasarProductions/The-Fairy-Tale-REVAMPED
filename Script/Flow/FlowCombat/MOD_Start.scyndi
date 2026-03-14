@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/MOD_Start.scyndi
 // 
-// 	  Version: 26.02.23 II
+// 	  Version: 26.03.14
 // 	
 // 	  Copyright (C) 2021, '22, 2026 Jeroen Petrus Broks
 // 	
@@ -82,6 +82,9 @@ End
 	Get String Lose
 		r:=Ternary(gstr.FlowCombat_Start_Lose!="",gstr.FlowCombat_Start_Lose,"ERROR")
 		return r
+	End
+	Set String Lose
+		gstr.FlowCombat_Start_Lose = Value
 	End
 	//String StartEvent = ""
 	Link StartEvent = gstr.FlowCombat_Start_StartEvent
