@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.14 XV
+// version: 26.03.14 XVII
 // 
 // End License
 
@@ -100,7 +100,7 @@ Bool _Act()
 	MF.Y = _ASH div 3
 	MF = Foe.Compile("OverNos/Nostramantu",NeilUse("Script/Data/Foe/OverNos/Nostramantu")._R)
 	MF.X = _ASW div 4
-	MF.Y = _ASH div 2
+	MF.Y = _ASH - 300
 	MF = Foe.Compile("OverNos/Antenna_Nice",NeilUse("Script/Data/Foe/OverNos/Antenna_Mock")._R)
 	MF.Char.Points.HP.Maximum = 10
 	MF.Char.Points.HP.Minimum = MF.Char.Points.HP.Maximum
