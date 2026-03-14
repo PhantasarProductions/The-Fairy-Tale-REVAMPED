@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.14 V
+// version: 26.03.14 VIII
 // 
 // End License
 
@@ -340,7 +340,8 @@ class MenuItem
 		//R = Medals.Awarded("CHAPTER4")
 		//print("DEBUG! Allow New Game Plus:",R)
 		G:=GINIE.LoadHome("SaveGames/PageData.ini","SAVEGAME_PAGES")
-		R=G.Value("Chars","Marrilona")=="372462e8ece3e74621abe52ad35c9606"		
+		R=G.Value("Chars","Marrilona")=="372462e8ece3e74621abe52ad35c9606"
+		CSayF("Check %s -> %s",G.Value("Chars","Marrilona"),R)
 		return R
 	end
 	
@@ -390,7 +391,7 @@ class MenuItem
 		v = new MenuItem("New Game+",s.NewGamePlus)
 		v.Enabled = s.AllowNewGamePlus()
 		//v = new MenuItem("Continue",s.Continue)
-		v.Enabled = s.IsThereAContinue()
+		//v.Enabled = s.IsThereAContinue()
 		v = new MenuItem("Load Game",s.LoadGame)
 		v.Enabled = s.CanLoad()
 		v = new MenuItem("Jukebox",s.Jukebox)
