@@ -35,12 +35,19 @@
 // version: 22.02.15
 // End License Information
 
+Script
+
 #use "Libs/Music"
 
-Var Big = ImageFont.Obtain("BIGTEXT")
-Var Fnt = ImageFont.Obtain("BOXTEXT")
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/JCR6"
+#use "Libs/SCI/Audio"
+#use "Libs/SCI/Graphics"
 
-Var Thank = Image.Load("GFX/Algemeen/Thank You For Playing.png","ThankYouForPlaying")
+ReadOnly Var Big = ObtainFont("BIGTEXT")
+ReadOnly Var Fnt = ObtainFont("BOXTEXT")
+
+ReadOnly Var Thank = LoadImage("GFX/Algemeen/Thank You For Playing.png","ThankYouForPlaying")
 
 Bool HasVocals()
 	Return JCR6.EntryExists("ID/Vocals")
@@ -72,7 +79,7 @@ Class Outtake
 		ImageFile = Pic
 		Character = Chr
 		Actor     = Act
-		Img       = Image.LoadNew(ImageFile,"OUTTAKE_"..chr)
+		Img       = LoadNewImage(ImageFile,"OUTTAKE_"..chr)
 	End
 	
 	Static Void Add(String Au)
@@ -163,7 +170,7 @@ Init
 	
 	Outtake.Chr="Chief Werrington"
 	Outtake.Pic="GFX/Outtakes/Chief Werrington.png"
-	Outtake.Act="Marieke"
+	Outtake.Act="Wouter Werschkull"
 	Outtake.Add("Vocals/Outtakes/018 Chief Werrington/001 What is there to negotiate about.ogg")
 	Outtake.Add("Vocals/Outtakes/018 Chief Werrington/002 Why should I trust.ogg")                          
   
