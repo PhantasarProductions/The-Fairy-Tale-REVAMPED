@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.14 I
+// version: 26.03.14 III
 // 
 // End License
 
@@ -168,7 +168,7 @@ Group MScript
         Loading()
         State.Load("FLOW_CREDITS","Script/Flow/FlowCredits.lbc")
         State.Load("FLOW_OUTTAKES","Script/Flow/FlowOuttakes.lbc")
-        State.Call("FLOW_CREDITS","Reset","\"OUTTAKES\"")
+        Sys.Call("FLOW_CREDITS","Reset","OUTTAKES")
         Flow.Current="CREDITS"
 	End
 End	
