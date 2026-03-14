@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.14 IX
+// version: 26.03.14 X
 // 
 // End License
 
@@ -253,8 +253,10 @@ Void ThanksForPlaying()
 	End
 End
 
+plua Back = LoadImage("GFX/System/Console.png","OUTTAKES_BACK")
+
 Global Void MainFlow()
-	Static Var Back = LoadImage("gfx/Worldmap/back.png","Back WM Outtakes") 
+	//Static Var Back = LoadImage("gfx/Worldmap/back.png","Back WM Outtakes") 
 	Graphics.Color(0,127,0)
 	Back.Tile(0,0,Screen.W,Screen.H)
 	If Outtake.Current<0
