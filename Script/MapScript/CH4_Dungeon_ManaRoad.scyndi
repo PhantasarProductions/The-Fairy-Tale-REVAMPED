@@ -34,10 +34,11 @@
 // **********************************************
 // 
 // 
-// version: 26.03.12
+// version: 26.03.14 I
 // 
 // End License
 
+#use "Libs/SCI/Sys"
 #use "Libs/SCI/Events"
 #use "Libs/SCI/Kthura"
 #use "Libs/SCI/Graphics"
@@ -142,11 +143,11 @@ Group MScript
     	for y=s,-1000,-2
         	//marrilona.y = y -- marrilona.y - 1
         	//Map.SetObj("PLAYER2","Y",Map.GetObjInt("PLAYER2","Y")-1)
-        	Map.SetObj("PLAYER2","Y",y)
+        	Kthura.Obj.PLAYER2.Y=y
         	Graphics.Cls()
         	Map.DrawScreen()
         	Graphics.Flip()
-        	FPS.WaitMinTicks()
+        	Sys.WaitMinTicks()
         	Events.Poll()
         end
         MapText("ENDCHAT2")
