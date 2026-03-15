@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Combat/ActScript/AS_Steal.scyndi
 // 
-// 	  Version: 26.03.15 I
+// 	  Version: 26.03.15 V
 // 	
 // 	  Copyright (C) 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -44,6 +44,12 @@
 
 
 Module
+
+#use "Libs/SCI/Sys"
+
+#use "Script/Use/Link"
+#use "Script/Use/Anyway"
+#use "Script/Use/Convert"
 
 #Accept CharMsg
 
