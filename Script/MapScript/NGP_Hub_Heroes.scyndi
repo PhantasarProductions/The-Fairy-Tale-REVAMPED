@@ -1,0 +1,49 @@
+
+Script
+
+#use "Script/Use/Link"
+#use "Script/Use/Anyway"
+
+
+Group MScript
+
+	ReadOnly Bool HasDraw   = False
+	ReadOnly Bool HasUpdate = False
+	
+	Void NPC_Zyviola()
+		MapText("ZYVIOLA")
+		Loading()
+		State.LoadNew("FLOW_BESTIARY","Script/Flow/FlowBestiary.lbc")
+		Flow.Current="FLOW_BESTIARY"
+	End
+	
+	Void NPC_SymphoNica()
+		MapText("SYMPHONICA")
+		State.LoadNew("FLOW_JUKEBOX","Script/Flow/FlowJukebox.lbc")
+		Sys.Call("FLOW_JUKEBOX","ComeToMe","FIELD")
+	End
+	
+	Void NPC_Wanindra()
+		MapText("WANINDRA")
+		FieldMenu.Shop("NGP_WANINDRA")
+	End
+	
+	Void NPC_Colportarus()
+		MapText("COLPORTARUS")
+		FieldMenu.Shop("NGP_COLPORTARUS")
+	End
+	
+	Void Delisto()
+		WorldMap.Go()
+	End
+End	
+	
+Init
+	Kthura.CurrentLayer="HEROES"
+	For h in Each{[0]="Zyviola","SymphoNica","Wanindra","Colportarus"}
+		If gbool["Heroes_"..h]
+			Map.Kill("NPC_"..h)
+		End
+	End
+	ZA.Enter("Delisto")	
+End
