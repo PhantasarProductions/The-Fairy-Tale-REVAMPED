@@ -35,7 +35,11 @@
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
 
-Bool _Jat(Act,Tar,Executor)
+Module
+
+#Accept CharMsg
+
+Bool _Act(Act,Tar,Executor)
 	Switch Executor.Team
 		Case "Hero"
 			CSay("= Steal")
@@ -50,10 +54,10 @@ Bool _Jat(Act,Tar,Executor)
 				CSayF("=> Slot: %d; rate: %03d; item %s; Roll: %03d (%s/%s)",i,Rate, ITag,roll,Lua.tostring(Roll<Rate),Lua.tostring(ITag!=""))
 				if Roll<Rate && ITag!=""
 					CSay("==> Roll satisfactory")
-					pLua gitem = Tar.Raw["StealItem_"..i] || ""
-					pLua idat  = Item[gitem]
-					pLua have  = iDat.Has
-					pLua itemmax = ({50,25,10})[__Skill]
+					gitem   := Tar.Raw["StealItem_"..i] || ""
+					idat    := Item[gitem]
+					have    := iDat.Has
+					itemmax := ({50,25,10})[__Skill]
 					if have<itemmax
 						//ItemGive(item,1)
 						if idat.Give
@@ -73,4 +77,4 @@ Bool _Jat(Act,Tar,Executor)
 	End
 End
 
-Return _Jat
+//Return _Jat
