@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.15 VI
+// version: 26.03.15 VII
 // 
 // End License
 
@@ -132,7 +132,7 @@ End
 			Kthura.CurrentLayer=Lay
 			CSayF("Scanning Layer: %s",Lay)
 			//For Tag in Each(Map.LayTags(Lay))
-			For Tag in EachTag
+			For Tag in Kthura.EachTag
 				If Prefixed(Lower(Tag),"to_")
 					CSayF("= Chain: %s",Tag)
 					ZA.Enter(Tag,"GaNaar",Tag)
