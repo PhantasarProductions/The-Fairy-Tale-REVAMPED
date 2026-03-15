@@ -1,8 +1,8 @@
-// License Information:
+// License:
 // **********************************************
 // 
-// src/Tricky Script/Script/MapScript/NGP_Dungeon_Quayaro.neil
-// (c) Jeroen Broks, 2022, All Rights Reserved.
+// src/Code/Script/MapScript/NGP_Dungeon_Quayaro.scyndi
+// (c) Jeroen Broks, 2022, 2026, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -24,6 +24,7 @@
 // from it, you can use it under that license.
 // Please check out the other files to find out
 // which license applies.
+// 
 // This file comes 'as-is' and in no possible
 // way the author can be held responsible of
 // any form of damages that may occur due to
@@ -32,18 +33,26 @@
 // 
 // **********************************************
 // 
-// version: 22.02.28
-// End License Information
+// 
+// version: 26.03.15
+// 
+// End License
+
+
+Script
+
+#use "Libs/SCI/SString"
+#use "Libs/SCI/InterVar"
 
 #use "Script/Use/Anyway"
 
 QuickMeta Switched
 	Index
-		return gv.gbool["QUAYARO_SWITCH_"..key]
+		return gbool["QUAYARO_SWITCH_"..key]
 	end
 	
 	NewIndex
-		gv.gbool["QUAYARO_SWITCH_"..key] = value
+		gbool["QUAYARO_SWITCH_"..key] = value
 	End
 End
 
@@ -53,9 +62,9 @@ Group MScript
 	ReadOnly Bool HasUpdate = False
 	
 	Void GaNaar(string spot)
-		Table Cut = Split(spot,"_")
-		CSayF("Going to Layer: %s; spot %s",Cut[2]:upper(),Cut[3])
-		Map.GoToLayer(Cut[2]:upper(),Cut[3])
+		Table Cut = XSplit(spot,"_")
+		CSayF("Going to Layer: %s; spot %s",CUpper(Cut[1]:upper(),Cut[2])
+		Map.GoToLayer(Upper(Cut[1]),Cut[2])
 	End
 	
 	Get Bool ThisSwitchDone
@@ -66,7 +75,7 @@ Group MScript
 	End
 	Get Int SwitchCount
 		Int Ret = 0
-		For k in Each{"KITCHEN","DUNGEON","CHAPEL","BARN"}
+		For k in Each{[0]="KITCHEN","DUNGEON","CHAPEL","BARN"}
 			if Switched[k]
 				Ret++
 			End
@@ -81,7 +90,7 @@ Group MScript
 			Return
 		End
 		ThisSwitchDone = True
-		Map.SetObj("NPC_Switch","Texture","GFX/Textures/Switch/Right.png")
+		Kthura.Obj.NPC_Switch.Texture="GFX/Textures/Switch/Right.png"
 		If SwitchCount>=4
 			MapText("OPEN")
 			Map.LayKill("COURTYARD","MainDoor",true)
@@ -97,7 +106,7 @@ Group MScript
 	Void NPC_Zyviola()
 		gv.gbool.Heroes_Zyviola = true
 		Bool All = True
-		For h in Each{"Zyviola","SymphoNica","Wanindra","Colportarus"}
+		For h in Each{[0]="Zyviola","SymphoNica","Wanindra","Colportarus"}
 			All = All && gv.gbool["Heroes_"..h]
 		End
 		If All
@@ -113,12 +122,15 @@ Group MScript
 	Void Delisto()
 		WorldMap.Go()
 	End
+End	
 	
-	Constructor
-		For Lay in Each(Map.Layers)
+	Init
+		For Lay in Kthura.Layers.Each
+			Kthura.CurrentLayer=Lay
 			CSayF("Scanning Layer: %s",Lay)
-			For Tag in Each(Map.LayTags(Lay))
-				If Prefixed(Tag,"to_")
+			//For Tag in Each(Map.LayTags(Lay))
+			For Tag in EachTag
+				If Prefixed(Lower(Tag),"to_")
 					CSayF("= Chain: %s",Tag)
 					ZA.Enter(Tag,"GaNaar",Tag)
 				Else
@@ -128,4 +140,3 @@ Group MScript
 		End
 		ZA.TabEnter{"StartBoss","Delisto"}
 	End
-End
