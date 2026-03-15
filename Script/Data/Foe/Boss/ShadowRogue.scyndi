@@ -56,7 +56,7 @@ Table _R(Bool Oversoul)
 	Ret.Stats = {}
 
 
-	If !Oversoul
+	//If !Oversoul
 		Ret.Stats.ACCURACY = 100
 		Ret.Stats.ENDURANCE = 64
 		Ret.Stats.ER_DARKNESS = 12345
@@ -74,7 +74,8 @@ Table _R(Bool Oversoul)
 		Ret.Stats.POWER = 70
 		Ret.Stats.RESISTANCE = 69
 		Ret.Stats.SPEED = 100
-	End
+		PrintF("\1xb[96mShadow Rogue loaded with %d HP!\n",Ret.Stats.HP)
+	//End
 
 	Ret.IsHumanoid = False
 
