@@ -34,16 +34,19 @@
 // **********************************************
 // 
 // 
-// version: 26.03.15
+// version: 26.03.15 VI
 // 
 // End License
 
 
 Script
 
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/Kthura"
 #use "Libs/SCI/SString"
 #use "Libs/SCI/InterVar"
 
+#use "Script/Use/Link"
 #use "Script/Use/Anyway"
 
 QuickMeta Switched
@@ -62,8 +65,8 @@ Group MScript
 	ReadOnly Bool HasUpdate = False
 	
 	Void GaNaar(string spot)
-		Table Cut = XSplit(spot,"_")
-		CSayF("Going to Layer: %s; spot %s",CUpper(Cut[1]:upper(),Cut[2])
+		Table Cut := XSplit(spot,"_")
+		CSayF("Going to Layer: %s; spot %s",Upper(Cut[1]),Cut[2])
 		Map.GoToLayer(Upper(Cut[1]),Cut[2])
 	End
 	
@@ -104,10 +107,10 @@ Group MScript
 	End
 	
 	Void NPC_Zyviola()
-		gv.gbool.Heroes_Zyviola = true
+		gbool.Heroes_Zyviola = true
 		Bool All = True
 		For h in Each{[0]="Zyviola","SymphoNica","Wanindra","Colportarus"}
-			All = All && gv.gbool["Heroes_"..h]
+			All = All && gbool["Heroes_"..h]
 		End
 		If All
 			Ach.Award("ZZNGP_ALL")
