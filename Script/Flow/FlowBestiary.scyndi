@@ -35,19 +35,24 @@
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
 
-#macro __SKILL gv.gint.skill
+Script
+
+#use "Libs/SCI/Graphics"
+#use "Libs/SCI/InterVar"
+
+#macro __SKILL gint.skill
 
 #use "Libs/Keys"
 #use "Script/Data/General/Bestiary"
-#use "Script/Use/Anyway.neilbundle/Mouse"
+#use "Script/Use/Anyway.scyndibundle/Mouse"
 
 
-Const Var Back = Image.Obtain("BACKGROUND")
-Const Var Fnt  = ImageFont.Obtain("BOXTEXT")
-Const Var Big  = ImageFont.Obtain("BIGTEXT")
+Const Var Back = ObtainImage("BACKGROUND")
+Const Var Fnt  = ObtainFont("BOXTEXT")
+Const Var Big  = ObtainFont("BIGTEXT")
 Const Int YMargin = 30
 
-ReadOnly Int InfoX = Screen.W div 2
+ReadOnly Int InfoX = Graphics.Width div 2
 
 Int Scroll = 0
 Int MaxScroll = 0
@@ -58,7 +63,7 @@ Table Desc
 
 Void D(string m,reset)
 	Static Int DY = 60
-	Static Var MF = ImageFont.Obtain("FNTEQP")
+	Static Var MF = ObtainFont("FNTEQP")
 	If reset==true
 		DY = 50
 	End
@@ -76,8 +81,8 @@ Void D(string m,reset)
 	DY+=MF.TextHeight(m)
 End
 
-Global Void Apollo_Flow()
-	Static Var GoBack = Image.LoadNew("GFX/Algemeen/Go Back.png","BUTTON_GO_BACK")
+Global Void MainFlow()
+	Static Var GoBack = LoadNewImage("GFX/Algemeen/Go Back.png","BUTTON_GO_BACK")
 	If Events.KeyHit(27) || (Mouse.MX>Screen.W-GoBack.W && Screen.H-Goback.H && Mouse.ML)
 		Flow.Current = "FIELD"
 		Return
@@ -92,7 +97,7 @@ Global Void Apollo_Flow()
 	GoBack.Draw(Screen.W-GoBack.W,Screen.H-Goback.H)
 	If Current
 		If CImageF!=Current.Data.IMAGE
-			CImage = Image.Load(Current.Data.IMAGE,"BESTIARY_SHOW")
+			CImage = LoadImage(Current.Data.IMAGE,"BESTIARY_SHOW")
 			CImageF=Current.Data.IMAGE
 			CImage.Hot(CImage.W,0)			
 		End		
@@ -103,7 +108,7 @@ Global Void Apollo_Flow()
 			D(l,i==1)
 		End
 		D("")
-		Static Table ShowStats = {"HP","Power","Endurance","Intelligence","Resistance","Speed","Accuracy","Evasion"}
+		Static Table ShowStats = {[0]="HP","Power","Endurance","Intelligence","Resistance","Speed","Accuracy","Evasion"}
 		For St in Each(ShowStats)
 			If Current.Data.Boss
 				D(St,"???")
