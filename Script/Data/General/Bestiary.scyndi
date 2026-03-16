@@ -1,8 +1,8 @@
-// License Information:
+// License:
 // **********************************************
 // 
-// src/Tricky Script/Script/Data/General/Bestiary.neil
-// (c) Jeroen Broks, 2022, All Rights Reserved.
+// src/Code/Script/Data/General/Bestiary.scyndi
+// (c) Jeroen Broks, 2022, 2026, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -24,6 +24,7 @@
 // from it, you can use it under that license.
 // Please check out the other files to find out
 // which license applies.
+// 
 // This file comes 'as-is' and in no possible
 // way the author can be held responsible of
 // any form of damages that may occur due to
@@ -32,22 +33,31 @@
 // 
 // **********************************************
 // 
-// version: 22.07.30
-// End License Information
+// 
+// version: 26.03.16
+// 
+// End License
+
+
+Module
 
 #use "Libs/LinkedList"
+
+#use "Libs/SCI/InterVar"
+
+#use "Script/Use/Convert"
 
 Class Monster
 	Var _Data
 	ReadOnly String File
 	ReadOnly String Name
 	Get Var Data
-		_Data = _Data || NeilUse("Script/Data/Foe/"..File)(False)
+		_Data = _Data || NeilUse("Script/Data/Foe/"..File)._R(False)
 		Return _Data
 	End
 
 	Get Int Killed
-		Return gv.vint["KILLED_"..File]
+		Return gint["KILLED_"..File]
 	End
 
 	Static Var Lijst = new TLinkedList()
