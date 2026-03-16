@@ -1,42 +1,52 @@
-// License Information:
-// src/Tricky Script/Script/Flow/FlowBestiary.neil
-// Version: 22.02.20
-// Copyright (C) 2022 Jeroen Petrus Broks
+// License:
+// 	  src/Code/Script/Flow/FlowBestiary.scyndi
 // 
-// ===========================
-// This file is part of a project related to the Phantasar Chronicles or another
-// series or saga which is property of Jeroen P. Broks.
-// This means that it may contain references to a story-line plus characters
-// which are property of Jeroen Broks. These references may only be distributed
-// along with an unmodified version of the game.
+// 	  Version: 26.03.16 XI
+// 	
+// 	  Copyright (C) 2022, 2026 Jeroen Petrus Broks
+// 	
+// 	  ===========================
+// 	  This file is part of a project related to the Phantasar Chronicles or another
+// 	  series or saga which is property of Jeroen P. Broks.
+// 	  This means that it may contain references to a story-line plus characters
+// 	  which are property of Jeroen Broks. These references may only be distributed
+// 	  along with an unmodified version of the game.
 // 
-// As soon as you remove or replace ALL references to the storyline or character
-// references, or any termology specifically set up for the Phantasar universe,
-// or any other univers a story of Jeroen P. Broks is set up for,
-// the restrictions of this file are removed and will automatically become
-// zLib licensed (see below).
+// 	  As soon as you remove or replace ALL references to the storyline or character
+// 	  references, or any termology specifically set up for the Phantasar universe,
+// 	  or any other univers a story of Jeroen P. Broks is set up for,
+// 	  the restrictions of this file are removed and will automatically become
+// 	  zLib licensed (see below).
 // 
-// Please note that doing so counts as a modification and must be marked as such
-// in accordance to the zLib license.
-// ===========================
-// zLib license terms:
-// This software is provided 'as-is', without any express or implied
-// warranty.  In no event will the authors be held liable for any damages
-// arising from the use of this software.
-// Permission is granted to anyone to use this software for any purpose,
-// including commercial applications, and to alter it and redistribute it
-// freely, subject to the following restrictions:
-// 1. The origin of this software must not be misrepresented; you must not
-// claim that you wrote the original software. If you use this software
-// in a product, an acknowledgment in the product documentation would be
-// appreciated but is not required.
-// 2. Altered source versions must be plainly marked as such, and must not be
-// misrepresented as being the original software.
-// 3. This notice may not be removed or altered from any source distribution.
-// End License Information
+// 	  Please note that doing so counts as a modification and must be marked as such
+// 	  in accordance to the zLib license.
+// 	  ===========================
+// 
+// 
+// 	  zLib license terms:
+// 	
+// 	  This software is provided 'as-is', without any express or implied
+// 	  warranty.  In no event will the authors be held liable for any damages
+// 	  arising from the use of this software.
+// 
+// 	  Permission is granted to anyone to use this software for any purpose,
+// 	  including commercial applications, and to alter it and redistribute it
+// 	  freely, subject to the following restrictions:
+// 	
+// 	  1. The origin of this software must not be misrepresented; you must not
+// 	     claim that you wrote the original software. If you use this software
+// 	     in a product, an acknowledgment in the product documentation would be
+// 	     appreciated but is not required.
+// 	  2. Altered source versions must be plainly marked as such, and must not be
+// 	     misrepresented as being the original software.
+// 	  3. This notice may not be removed or altered from any source distribution.
+// End License
+
 
 Script
 
+#use "Libs/SCI/Events"
+#use "Libs/SCI/SString"
 #use "Libs/SCI/Graphics"
 #use "Libs/SCI/InterVar"
 
@@ -44,6 +54,7 @@ Script
 
 #use "Libs/Keys"
 #use "Script/Data/General/Bestiary"
+#use "Script/Use/Convert"
 #use "Script/Use/Anyway.scyndibundle/Mouse"
 
 
@@ -78,34 +89,34 @@ Void D(string m,reset)
 		Graphics.Color(255,180,0)
 		MF.DarkText(reset,InfoX+(InfoX div 2),DY)
 	End
-	DY+=MF.TextHeight(m)
+	DY+=MF.Height(m)
 End
 
 Global Void MainFlow()
-	Static Var GoBack = LoadNewImage("GFX/Algemeen/Go Back.png","BUTTON_GO_BACK")
-	If Events.KeyHit(27) || (Mouse.MX>Screen.W-GoBack.W && Screen.H-Goback.H && Mouse.ML)
+	Static Var GoBack = LoadNewImage("GFX/Algemeen/Go Back.png","BUTTON_GO_BACK")	
+	If Events.KeyHit(27) || (Mouse.MX>Screen.W-GoBack.Width && Screen.H-GoBack.Height && Mouse.ML)
 		Flow.Current = "FIELD"
 		Return
 	End
-	If Events.KeyHit(Keys.Up) || Events.MouseWheelY()>0 
+	If Events.KeyHit(Keys.Up) || Events.MouseWheelY>0 
 		Scroll = math.max(0,Scroll-YMargin)
 	End
-	If Events.KeyHit(Keys.Down) || Events.MouseWheelY()<0 
+	If Events.KeyHit(Keys.Down) || Events.MouseWheelY<0 
 		Scroll = math.min(Scroll+YMargin,MaxScroll)
 	End
 	Back.Tile(0,0,Screen.W,Screen.H)
-	GoBack.Draw(Screen.W-GoBack.W,Screen.H-Goback.H)
+	GoBack.Draw(Screen.W-GoBack.Width,Screen.H-GoBack.Height)
 	If Current
 		If CImageF!=Current.Data.IMAGE
 			CImage = LoadImage(Current.Data.IMAGE,"BESTIARY_SHOW")
 			CImageF=Current.Data.IMAGE
-			CImage.Hot(CImage.W,0)			
+			CImage.Hot(CImage.Width,0)			
 		End		
 		Graphics.Color(255,255,255)
 		CImage.Draw(Screen.W-10,10)
 		Big.DarkText(Current.Name,InfoX,10)
 		For i,l in ipairs(Desc)
-			D(l,i==1)
+			D(l,i==0)
 		End
 		D("")
 		Static Table ShowStats = {[0]="HP","Power","Endurance","Intelligence","Resistance","Speed","Accuracy","Evasion"}
@@ -113,7 +124,7 @@ Global Void MainFlow()
 			If Current.Data.Boss
 				D(St,"???")
 			Else
-				D(St,Lua.tostring(Current.Data.Stats[St:upper()]))
+				D(St,Lua.tostring(Current.Data.Stats[Upper(St)]))
 			End
 		End
 	End
@@ -130,7 +141,7 @@ Global Void MainFlow()
 					X = 30
 					If Mouse.ML
 						Current = Foe
-						Desc = Split(Foe.Data.DESC,"\n")
+						Desc = XSplit(Foe.Data.DESC,"\n")
 					End
 				End
 				Fnt.DarkText(Foe.Name,X,Y)
