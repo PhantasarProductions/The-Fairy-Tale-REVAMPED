@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.15 V
+// version: 26.03.16
 // 
 // End License
 
@@ -58,7 +58,7 @@ Group MScript
 		MapText("ZYVIOLA")
 		Loading()
 		State.LoadNew("FLOW_BESTIARY","Script/Flow/FlowBestiary.lbc")
-		Flow.Current="FLOW_BESTIARY"
+		Flow.Current="BESTIARY"
 	End
 	
 	Void NPC_SymphoNica()
