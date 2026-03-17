@@ -34,13 +34,14 @@
 // **********************************************
 // 
 // 
-// version: 26.03.03
+// version: 26.03.17
 // 
 // End License
 Module
 
 #accept AblRec
 #accept Abilities
+#accept QuickWork
 
 Init
 	ABLRec.NewABL("ABL_HERO_JAKE_SHIFT_FAIRY","Jake_Fairy",0,0,0,0,0,"1. Sword")
@@ -54,4 +55,5 @@ Init
     rt.abl_hero_marrilona_speedup = {[3]=1}       
     rt.abl_hero_marrilona_heal = {[4]=1}          
     rt.abl_hero_marrilona_protect = {[5]=1}
+    QuickWork("Jake_Fairy",r)
 End
