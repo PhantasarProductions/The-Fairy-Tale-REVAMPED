@@ -1,8 +1,8 @@
-// License Information:
+// License:
 // **********************************************
 // 
-// src/Tricky Script/Script/MapScript/NGP_Dungeon_Cathedral.neil
-// (c) Jeroen Broks, 2022, All Rights Reserved.
+// src/Code/Script/MapScript/NGP_Dungeon_Cathedral.scyndi
+// (c) Jeroen Broks, 2022, 2026, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -24,6 +24,7 @@
 // from it, you can use it under that license.
 // Please check out the other files to find out
 // which license applies.
+// 
 // This file comes 'as-is' and in no possible
 // way the author can be held responsible of
 // any form of damages that may occur due to
@@ -32,9 +33,19 @@
 // 
 // **********************************************
 // 
-// version: 22.02.22
-// End License Information
+// 
+// version: 26.03.18 VI
+// 
+// End License
 
+
+Script
+
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/Kthura"
+#use "Libs/SCI/InterVar"
+
+#use "Script/Use/Link"
 #use "Script/Use/Anyway"
 
 Group MScript
@@ -47,29 +58,30 @@ Group MScript
 	End
 	
 	Void DSwitch(Int n)
-		Static Var Check
+		LocExtern Check "Cathedral_Check_Switch1_and_Switch2"
 		// Please note, leaving the Cathedral or using savegames resets the switches
-		// However if you managed to open the door to the boss, it will remain open!
+		// However if you managed to open the door to the boss, it will remain open!		
 		Check = Check || {} 
 		Check[n] = true
-		Switch n
-			Case 1
-				Map.SetObj("NPC_SWITCH1","Texture","GFX/Textures/Switch/Left.png")
-			Case 2
-				Map.SetObj("NPC_SWITCH1","Texture","GFX/Textures/Switch/Right.png")
-			Default
-		End
-		If Check[1] && Check[1]
+		CSayF("Switch #%d -> %s",n,Check[n])
+		//Switch n
+			//Case 1
+				Kthura.Obj["NPC_SWITCH"..n].Texture="GFX/Textures/Switch/Left.png"
+			//Case 2
+			//	Kthura.Obj["NPC_SWITCH"..n].Texture="GFX/Textures/Switch/Right.png"
+			//Default
+		//End
+		If Check[1] && Check[2]
 			Map.Kill("Barrier",true)
 		End		
 	End
 	
 	Void NPC_Switch1()
-		DSwitch(1)
+		MScript.DSwitch(1)
 	End
 	
 	Void NPC_Switch2()
-		DSWitch(2)
+		MScript.DSWitch(2)
 	End
 	
 	Void StartBoss()
@@ -101,10 +113,10 @@ Group MScript
 	End
 	
 	Void NPC_SymphoNica()	
-		gv.gbool.Heroes_SymphoNica = true
+		gbool.Heroes_SymphoNica = true
 		Bool All = True
 		For h in Each{"Zyviola","SymphoNica","Wanindra","Colportarus"}
-			All = All && gv.gbool["Heroes_"..h]
+			All = All && gbool["Heroes_"..h]
 		End
 		If All
 			Ach.Award("ZZNGP_ALL")
@@ -115,8 +127,9 @@ Group MScript
 		Map.Kill("NPC_SymphNica",true)
 		WorldMap.Go()
 	End
+End	
 	
-	Constructor
-		ZA.TabEnter{"Delisto","StartBoss"}
-	End
+Init
+	ZA.TabEnter{"Delisto","StartBoss"}
+	CSay("Welcome to The Cathedral")
 End
