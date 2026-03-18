@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.23 XVI
+// version: 26.03.18 II
 // 
 // End License
 
@@ -133,10 +133,15 @@ Group MScript
 			idt:=sprintf("%%%d",id)
 			Kthura.Obj[idt].InsertX = (Kthura.Obj[idt].InsertX+2)%WaterSize 
 		End
-		If Alpha[Kthura.CurrentLayer]>0 && Alpha[Kthura.CurrentLayer]<255 && Brug[Kthura.CurrentLayer]
+		If Alpha[Kthura.CurrentLayer]>0 && (Alpha[Kthura.CurrentLayer]<255) && Brug[Kthura.CurrentLayer]
 			Alpha[Kthura.CurrentLayer]++
 			Map.ObjSet("Brug","ForcePassible",Alpha[Kthura.CurrentLayer]>250)
 			Map.ObjSet("Brug","Alpha",Alpha[Kthura.CurrentLayer])
+			Kthura.Remap()
+		End
+		If Alpha[Kthura.CurrentLayer]>250 && Brug[Kthura.CurrentLayer] && (!Kthura.Obj.Brug.ForcePassible)
+			CSay("\x07Warning! Bridge not passible while it should be!")
+			Kthura.Obj.Brug.ForcePassible=true
 			Kthura.Remap()
 		End
 		If !Done.WELCOME_SUBRIVER
@@ -208,7 +213,7 @@ Group MScript
 			Return
 		End
 		if (RPGParty[3]=="HandoStillor" || RPGParty[4]=="HandoStillor") && (!Done.Met_Melody_In_SubRiver_HandoStillor)
-			MapText("MELODYHANDOSTILLOR")
+			MapText("MELODYSTILLOR")
 			Return
 		End
 		MapText("MELODYIDLE")
