@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Anyway.scyndibundle/Respawn.scyndi
 // 
-// 	  Version: 26.02.23 I
+// 	  Version: 26.03.18
 // 	
 // 	  Copyright (C) 2021, 2026 Jeroen Petrus Broks
 // 	
@@ -69,7 +69,7 @@ void Reset(IsInn)
 	R.X     = P.X
 	R.Y     = P.Y
 	R.Layer = Kthura.CurrentLayer //M.Layer
-	R.Map   = Kthura.LastLoadedMap //M.LoadedMap
+	R.Map   = StripDir(Kthura.LastLoadedMap) //M.LoadedMap
 	R.IsInn = IsInn==True
 	CSayF("Respawn set to map %s.%s (%04d,%04d) -- Inn: %s",R.Map,R.Layer,R.X,R.Y,Lua.tostring(R.IsInn))
 End
