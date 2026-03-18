@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/STG_Wiped.scyndi
 // 
-// 	  Version: 26.02.23 I
+// 	  Version: 26.03.18
 // 	
 // 	  Copyright (C) 2021-'22, 2026 Jeroen Petrus Broks
 // 	
@@ -95,7 +95,7 @@ End
 
 Class Stage_Wiped 
 	//Extends Stage
-	#region Extention Stack Overflow Void	
+	#region "Extention Stack Overflow Void"	
 	Link _Current = Stage._Current
 	Link Map = Stage.Map 
 	Link Current = Stage.Current
