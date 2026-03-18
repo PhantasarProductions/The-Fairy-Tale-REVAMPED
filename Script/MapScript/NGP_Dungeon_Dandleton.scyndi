@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.13
+// version: 26.03.18
 // 
 // End License
 
@@ -369,8 +369,8 @@ End
 		bosses = {}
 
 		bosses	["#007"]={["priomt"]="BOSS007",["boss"]="Cyndrinana",["intro1"]="Ghost of Nostramantu's mother",["intro2"]="Cyndrinana"}
-		bosses	["#009"]={["boss"]="Terinka",["intro1"]="Ghost of Feenalaria's mother",["intro2"]="Terinka"},
-		bosses	["#017"]={["boss"]="Salumon",["intro1"]="Ghost of Nostramanu's father", ["intro2"]="Salumon"},
+		bosses	["#009"]={["boss"]="Terinka",["intro1"]="Ghost of Feenalaria's mother",["intro2"]="Terinka"}
+		bosses	["#017"]={["boss"]="Salumon",["intro1"]="Ghost of Nostramanu's father", ["intro2"]="Salumon"}
 		bosses	["#019"]={["boss"]="Vandar", ["intro1"]="Ghost chief of Dandleton", ["intro2"]="Vandar", ["schedule"]="PostVandar", ["music"]="Combat/SpecialBoss/Darkcover"}
 		
 
