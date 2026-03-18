@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.09 IV
+// version: 26.03.18
 // 
 // End License
 
@@ -101,11 +101,11 @@ Module
      	// Spd +25%, Atk -10%, End -5%, Int -10%, Res - 5%, Acc +5%, eva +5%     	
      	//#pure
      	_stats = {}
-     	_stats.Power = 5,
-     	_stats.Endurance = -5,
-     	_stats.Intelligence = 5,
-     	_stats.Resistance = -5,
-     	_stats.HP = 5,
+     	_stats.Power = 5
+     	_stats.Endurance = -5
+     	_stats.Intelligence = 5
+     	_stats.Resistance = -5
+     	_stats.HP = 5
      	_stats.AP = 5     	     	
      	//#endpure
      	Stats = _stats
