@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.08 VII
+// version: 26.03.18 I
 // 
 // End License
 
@@ -66,12 +66,12 @@ Module
 		plua skill = __skill
 		
 		_Abl := {}
-		_Abl[ 25]="abl_master_feena_magmablast",
-		_Abl[ 40]="abl_master_feena_cocytus",
-		_Abl[ 50]="abl_master_feena_drown",
-		_Abl[ 60]="abl_master_feena_megaquake",
-		_Abl[ 70]="abl_master_feena_katrina",
-		_Abl[ 80]="abl_master_feena_scylla",
+		_Abl[ 25]="abl_master_feena_magmablast"
+		_Abl[ 40]="abl_master_feena_cocytus"
+		_Abl[ 50]="abl_master_feena_drown"
+		_Abl[ 60]="abl_master_feena_megaquake"
+		_Abl[ 70]="abl_master_feena_katrina"
+		_Abl[ 80]="abl_master_feena_scylla"
 		_Abl[200]="abl_master_feena_fullpower"
 			                              
 		
@@ -141,13 +141,13 @@ Module
      	// Spd +25%, Atk -10%, End -5%, Int -10%, Res - 5%, Acc +5%, eva +5%     	
      	//#pure
      	_stats := {}
-     	_stats.HP=-50,
-     	_stats.AP=200,
-     	_stats.Power=-50,
-     	_stats.Intelligence=200,
-     	_stats.Resistance=200,
-     	_stats.Speed=-10,
-     	_stats.Evasion=-200,
+     	_stats.HP=-50
+     	_stats.AP=200
+     	_stats.Power=-50
+     	_stats.Intelligence=200
+     	_stats.Resistance=200
+     	_stats.Speed=-10
+     	_stats.Evasion=-200
      	_stats.Endurance=-75     	
      	
      	//#endpure
