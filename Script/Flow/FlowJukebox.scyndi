@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowJukebox.scyndi
 // 
-// 	  Version: 26.03.19
+// 	  Version: 26.03.19 VII
 // 	
 // 	  Copyright (C) 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -44,13 +44,15 @@
 
 Script
 
+#use "Libs/SCI/Sys"
 #use "Libs/SCI/Events"
 #use "Libs/SCI/Graphics"
 
 #use "Libs/Music"
 #use "Libs/Fittext"
 #use "Libs/Keys"
-#use "Script/Use/Anyway.neilbundle/Mouse"
+#use "Script/Use/Anyway.scyndibundle/Mouse"
+#use "Script/Use/Convert"
 #use "Script/Data/General/Jukebox"
 
 Const Var Back  = ObtainImage("BACKGROUND")
@@ -64,7 +66,7 @@ Const Int YMargin = 30
 Global String ReturnTo
 
 Void ShowHandoStillor()
-	Static Int W = math.ceil((Graphics.H/Hando.H)*Hando.W)
+	Static Int W = math.ceil((Graphics.H/Hando.Height)*Hando.Width)
 	Static Int H = Graphics.H
 	Hando.Stretch(Graphics.W-W,0,W,H)
 End
@@ -87,8 +89,8 @@ Global Void MainFlow()
 	End
 	Static Int Scroll = 0
 	Static Int InfoX = Graphics.W Div 2
-	Int Y = 0 - Scroll
-	Bool AUp = Scroll>0
+	Int Y := 0 - Scroll
+	Bool AUp := Scroll>0
 	Bool ADn 
 	For Lied in TMusic.Lst.Each		
 		Int X = 5
@@ -119,7 +121,7 @@ Global Void MainFlow()
 			If Mouse.MX>InfoX && Mouse.MY>250 && Mouse.MY<280
 				Graphics.Color(0,180,255)
 				If Mouse.ML
-					OpenURL(Playing.WebSite)
+					Sys.OpenURL(Playing.WebSite)
 				End
 			Else
 				Graphics.Color(255,180,0)
@@ -127,10 +129,10 @@ Global Void MainFlow()
 			DFnt.DarkText(Playing.WebSite,InfoX,250)
 		End
 	End
-	If AUp && (Events.KeyHit(Keys.Up) || Events.MouseWheelY()>0)  
+	If AUp && (Events.KeyHit(Keys.Up) || Events.MouseWheelY>0)  
 		Scroll -= YMargin
 	End
-	If ADn && (Events.KeyHit(Keys.Down) || Events.MouseWheelY()<0) 
+	If ADn && (Events.KeyHit(Keys.Down) || Events.MouseWheelY<0) 
 		Scroll += YMargin
 	End
 	Mouse.Draw()
