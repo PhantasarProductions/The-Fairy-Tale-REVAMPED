@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.19
+// version: 26.03.19 I
 // 
 // End License
 
@@ -73,7 +73,7 @@ Init
 	End
 	Do
 		Var N = New TMusic()
-		N.Entry   = "Music/Combat/Special Boss/Darkcover.ogg"
+		N.Entry   = "Music/Combat/SpecialBoss/Darkcover.ogg"
 		N.License = "Created for Jeroen P. Broks. Copyrights belong to Hung Kee Chan, and any terms of usage should be discussed with him."
 		N.Title   = "Darkcover"
 		N.Artist  = "Hung Kee Chan"
@@ -145,7 +145,7 @@ Init
 	End
 	Do
 		Var N = New TMusic()
-		N.Entry   = "Music/Combat/Special Boss/Juggernaut.ogg"
+		N.Entry   = "Music/Combat/SpecialBoss/Juggernaut.ogg"
 		N.License = "Created for Jeroen P. Broks. Copyrights belong to Hung Kee Chan, and any terms of usage should be discussed with him."
 		N.Title   = "Juggernaut"
 		N.Artist  = "Hung Kee Chan"
@@ -181,7 +181,7 @@ Init
 	End
 	Do
 		Var N = New TMusic()
-		N.Entry   = "Music/Combat/Special Boss/Rush.ogg"
+		N.Entry   = "Music/Combat/SpecialBoss/Rush.ogg"
 		N.License = "Created for Jeroen P. Broks. Copyrights belong to Hung Kee Chan, and any terms of usage should be discussed with him."
 		N.Title   = "Rush"
 		N.Artist  = "Hung Kee Chan"
@@ -613,7 +613,7 @@ Init
 	End
 	Do
 		Var N = New TMusic()
-		N.Entry   = "Music/Combat/Special Boss/Hall Of The Mountain King.ogg"
+		N.Entry   = "Music/Combat/SpecialBoss/Hall Of The Mountain King.ogg"
 		N.License = "Creative Commons - By Attribute License => Incompetech.com"
 		N.Title   = "Hall Of The Mountain King"
 		N.Artist  = "Kevin McLeod"
