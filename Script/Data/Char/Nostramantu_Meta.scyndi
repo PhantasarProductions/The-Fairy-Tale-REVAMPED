@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.23
+// version: 26.03.19
 // 
 // End License
 
@@ -44,8 +44,8 @@ Module
 #use "Script/Use/Convert"
 
 Init
-	Var J = RPGChar.Nostramantu_Elder.Data
-	Var P = RPGChar.Nostramantu_Elder.Points	
+	J := RPGChar.Nostramantu.Data
+	P := RPGChar.Nostramantu.Points	
 	J.Race = "Fairy"
 	J.Sex = "Male"
 	J.pvnw = "He"
