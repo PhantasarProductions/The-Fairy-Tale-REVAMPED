@@ -1,9 +1,9 @@
 // License:
 // 	  src/Code/Script/Use/Combat/SpellAni/SA_SFX.scyndi
 // 
-// 	  Version: 26.03.19
+// 	  Version: 26.03.19 III
 // 	
-// 	  Copyright (C) 6, 2026 Jeroen Petrus Broks
+// 	  Copyright (C) 2022, 2026 Jeroen Petrus Broks
 // 	
 // 	  ===========================
 // 	  This file is part of a project related to the Phantasar Chronicles or another
@@ -46,6 +46,7 @@
 module
 
 #use "Libs/SCI/Audio"
+#use "Libs/SCI/SString"
 
 plua NIKS()
 end
@@ -57,8 +58,8 @@ end
 		Audio.LoadNew(aact.Act.SpellAni_Arg,"AUDIO_SPELLANI_SFX___"..Replace(aact.Act.SpellAni_Arg,"/","_")).Play()
 	end
 	
-	ReadOnly Delegate Draw = NIKS
-	ReadOnly Delegate Update = NIKS
+	Link Draw = NIKS
+	Link Update = NIKS
 		
 	get bool Ended
 		Cnt--
