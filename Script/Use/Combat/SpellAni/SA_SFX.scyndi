@@ -1,0 +1,25 @@
+
+
+module
+
+#use "Libs/SCI/Audio"
+
+plua NIKS()
+end
+
+	Int Cnt 
+
+	void Start(aact)
+		Cnt = 40
+		Audio.LoadNew(aact.Act.SpellAni_Arg,"AUDIO_SPELLANI_SFX___"..Replace(aact.Act.SpellAni_Arg,"/","_")).Play()
+	end
+	
+	ReadOnly Delegate Draw = NIKS
+	ReadOnly Delegate Update = NIKS
+		
+	get bool Ended
+		Cnt--
+		return Cnt<=0
+	end
+	
+end
