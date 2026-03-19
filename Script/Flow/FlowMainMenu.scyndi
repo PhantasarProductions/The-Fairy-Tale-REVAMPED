@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.14 VIII
+// version: 26.03.19
 // 
 // End License
 
@@ -368,8 +368,8 @@ class MenuItem
 	end
 	
 	static void Jukebox()
-		State.LoadNew("FLOW_JUKEBOX","Script/Flow/FlowJukebox.neil")
-		State.Call("FLOW_JUKEBOX","ComeToMe","\"MAINMENU\"")
+		State.LoadNew("FLOW_JUKEBOX","Script/Flow/FlowJukebox.lbc")
+		Sys.Call("FLOW_JUKEBOX","ComeToMe","MAINMENU")
 	end
 	
 	static void Bugs()
