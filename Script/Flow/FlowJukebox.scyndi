@@ -35,26 +35,31 @@
 // 3. This notice may not be removed or altered from any source distribution.
 // End License Information
 
+Script
+
+#use "Libs/SCI/Events"
+#use "Libs/SCI/Graphics"
+
 #use "Libs/Music"
 #use "Libs/Fittext"
 #use "Libs/Keys"
 #use "Script/Use/Anyway.neilbundle/Mouse"
 #use "Script/Data/General/Jukebox"
 
-Const Var Back  = Image.Obtain("BACKGROUND")
-Const Var Fnt   = ImageFont.Obtain("BOXTEXT")
-Const Var Big   = ImageFont.Obtain("BIGTEXT")
-Const Var Dfnt  = ImageFont.Obtain("FNTEQP")
-Const Var Sfnt  = ImageFont.Obtain("SYSFONT")
-Const Var Hando = Image.LoadNew("GFX/Big_Char/Hando Stillor.png","JUKE_HANDOSTILLOR")
+Const Var Back  = ObtainImage("BACKGROUND")
+Const Var Fnt   = ObtainFont("BOXTEXT")
+Const Var Big   = ObtainFont("BIGTEXT")
+Const Var Dfnt  = ObtainFont("FNTEQP")
+Const Var Sfnt  = ObtainFont("SYSFONT")
+Const Var Hando = LoadNewImage("GFX/Big_Char/Hando Stillor.png","JUKE_HANDOSTILLOR")
 Const Int YMargin = 30
 
 Global String ReturnTo
 
 Void ShowHandoStillor()
-	Static Int W = math.ceil((Screen.H/Hando.H)*Hando.W)
-	Static Int H = Screen.H
-	Hando.Stretch(Screen.W-W,0,W,H)
+	Static Int W = math.ceil((Graphics.H/Hando.H)*Hando.W)
+	Static Int H = Graphics.H
+	Hando.Stretch(Graphics.W-W,0,W,H)
 End
 
 
@@ -64,9 +69,9 @@ Global Void ComeToMe(String RT)
 	Flow.Current="JUKEBOX"
 End
 
-Global Void Apollo_Flow()
+Global Void MainFlow()
 	Static Var Playing
-	Back.Tile(0,0,Screen.W,Screen.H)
+	Back.Tile(0,0,Graphics.W,Graphics.H)
 	ShowHandoStillor()
 	If Events.KeyHit(27)
 		Music.Pop()
@@ -74,18 +79,18 @@ Global Void Apollo_Flow()
 		Return
 	End
 	Static Int Scroll = 0
-	Static Int InfoX = Screen.W Div 2
+	Static Int InfoX = Graphics.W Div 2
 	Int Y = 0 - Scroll
 	Bool AUp = Scroll>0
 	Bool ADn 
 	For Lied in TMusic.Lst.Each		
 		Int X = 5
-		If Y>0 && Y<Screen.H-YMargin
+		If Y>0 && Y<Graphics.H-YMargin
 			Graphics.Color(255,255,255)
 			If Playing==Lied
 				Graphics.Color(255,180,0)
 			End
-			If Mouse.MY>Y && Mouse.MY<Y+YMargin && (Mouse.MX<Screen.W div 2)
+			If Mouse.MY>Y && Mouse.MY<Y+YMargin && (Mouse.MX<Graphics.W div 2)
 				X = 25
 				If Mouse.ML
 					Playing=Lied
@@ -95,7 +100,7 @@ Global Void Apollo_Flow()
 			Fnt.DarkText(Lied.Title,X,Y)
 		End
 		Y += YMargin
-		ADn = Y>Screen.H-YMargin
+		ADn = Y>Graphics.H-YMargin
 	End
 	If Playing
 		Graphics.Color(255,255,255)

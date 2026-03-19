@@ -37,13 +37,15 @@
 
 #use "Libs/LinkedList"
 
+Module
+
 Class TMusic
 	String Entry
 	String Title
 	String Artist
 	String WebSite
 	String License
-	Static Var Lst = New LinkedList()
+	Static Var Lst = New TLinkedList()
 End
 
 Init
