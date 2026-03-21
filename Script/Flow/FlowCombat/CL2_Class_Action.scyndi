@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/CL2_Class_Action.scyndi
 // 
-// 	  Version: 26.02.23
+// 	  Version: 26.03.21
 // 	
 // 	  Copyright (C) 2021, 2022, 2024, 2026 Jeroen Petrus Broks
 // 	
@@ -99,7 +99,7 @@ Class Action
 					TarTags[i]="Jake_Fairy"
 					CSay("Jake no longer Human! Correcting to Fairy")
 				Else
-					CSayF("For some mysterious rreasons target %d (%s) is nil!)",i,TarTags[i])  
+					CSayF("For some mysterious reasons target %d (%s) is nil!)",i,TarTags[i])  
 				end
 			end		
 			if Tgt
@@ -118,7 +118,7 @@ Class Action
 		If Len(NTargets)==Len(Targets)
 			Return Len(Targets)
 		End
-		For i=1,CTars
+		For i=0,CTars-1
 			TarTags[i]=NTargets[i]
 			#if TarFilterDebug
 			CSayF("Target %d: %s",i,Lua.tostring(NTargets[i]))

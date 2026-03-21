@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/CL2_Class_Hero.scyndi
 // 
-// 	  Version: 26.03.12
+// 	  Version: 26.03.21
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -180,7 +180,7 @@ Class Hero Extends Fighter
 	Bool Pose(Act)	 	
 	 	AttackFrame = (AttackFrame + 1) % AttackFrames 
 	 	Self.Stage = Act.Act.Stance
-	 	If Self.Spirata>0 && Self.Stage:upper()=="CAST"
+	 	If Self.Spirata>0 && Upper(Self.Stage)=="CAST"
 	 		Self.Stage="SPIRATA.ACTION" 
 	 	End
 	 	Return AttackFrame == 0
