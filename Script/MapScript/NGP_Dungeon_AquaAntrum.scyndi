@@ -1,8 +1,8 @@
-// License Information:
+// License:
 // **********************************************
 // 
-// src/Tricky Script/Script/MapScript/NGP_Dungeon_AquaAntrum.neil
-// (c) Jeroen Broks, 2022, All Rights Reserved.
+// src/Code/Script/MapScript/NGP_Dungeon_AquaAntrum.scyndi
+// (c) Jeroen Broks, 2022, 2026, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -24,6 +24,7 @@
 // from it, you can use it under that license.
 // Please check out the other files to find out
 // which license applies.
+// 
 // This file comes 'as-is' and in no possible
 // way the author can be held responsible of
 // any form of damages that may occur due to
@@ -32,11 +33,24 @@
 // 
 // **********************************************
 // 
-// version: 22.07.23
-// End License Information
+// 
+// version: 26.03.21 XI
+// 
+// End License
+
+
+
+
+
+Script
 
 #region use
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/Kthura"
+
+#use "Script/Use/Link"
 #use "Script/Use/Anyway"
+#use "Script/Use/Convert"
 #use "Script/Use/Misc/TexMove"
 #use "Script/Use/Misc/PuzSet"
 #endregion
@@ -53,11 +67,11 @@ Group MScript
 	Var Slide
 	
 	Void Update()
-		Static Int Least = 10000
-		Least = math.min(Least,FPS.FN())
-		If Least>20
-			TexMove.Update()
-		End
+		//Static Int Least = 10000
+		//Least = math.min(Least,FPS.FN())
+		//If Least>20
+		//	TexMove.Update()
+		//End
 		waterreg = waterreg || {}
 		If !waterreg[Map.Layer]
 			CSay("Starting water layer: %s",Map.Layer)
@@ -129,7 +143,11 @@ Group MScript
 		End
 		CSayF("Setting symbol %s for %03d experience points!",Tag,E) 
 		PuzSet.Action(Tag,"PuzBlock",E)
-		Int TNum = Lua.tonumber(Right(Tag,#Tag-3))
+		Int TNum := Lua.tonumber(Right(Tag,Len(Tag)-3))
+		If !Kthura.HasObj("Sym"..TNum)
+			CSayF("\x007 No Object Sym%2d! Ignoring!",TNum)
+			Return
+		End
 		If !PuzSet.Pressed[TNum]
 			Map.SetObj("Sym"..TNum,"R",255)
 			Map.SetObj("Sym"..TNum,"G",255)
@@ -179,17 +197,18 @@ Group MScript
 		Map.Kill("NPC_Wanindra",true)
 		WorldMap.Go()		
 	End
+End	
 	
-	
-	Constructor		
+Init	
+		watertex:=MScript.WaterTex
 		TexMove.MagicBackSetup(0,7,{})
 		ZA.TabEnter{"Delisto","StartBoss"}	
-		water = {}
-		water.top   = { ["tag"]="water_top",    ["alpha"]=0060, ["tex"]=watertex,  ["mul"]=0-3.25, ["dom"]=9999, ["debugy"]= 0 }
-		water.lower = { ["tag"]="water_bottom", ["alpha"]=0045, ["tex"]=watertex , ["mul"]=  1.05, ["dom"]=9000, ["debugy"]=20 }
+		MScript.water = {}
+		MScript.water.top   = { ["tag"]="water_top",    ["alpha"]=0060, ["tex"]=watertex,  ["mul"]=0-3.25, ["dom"]=9999, ["debugy"]= 0 }
+		MScript.water.lower = { ["tag"]="water_bottom", ["alpha"]=0045, ["tex"]=watertex , ["mul"]=  1.05, ["dom"]=9000, ["debugy"]=20 }
 		For i=1,25
 			ZA.Enter("Sym"..i,"Symbol","Sym"..i)
 		End
-		ZA.Enter("SymStart","InitPuzzle")
-	End
+		ZA.Enter("SymStart","InitPuzzle")	
+		Map.MSHasUpdate = true
 End
