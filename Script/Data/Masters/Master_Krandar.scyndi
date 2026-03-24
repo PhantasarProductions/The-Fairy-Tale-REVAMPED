@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.18
+// version: 26.03.24
 // 
 // End License
 
@@ -82,6 +82,7 @@ Module
 		//elseif CVV('&DONE.SEAL.'..uch..'1') and CVV('&DONE.SEAL.'..uch..'2') and (not (Done('&DONE.MASTER.KRANDAR.TEACH.'..uch))) then
 		ElseIf gbool["SEALED_KRANDAR_"..uch] && (!GBOOL["&MASTER.KRANDAR.TEACH."..uch])
 			rabl = abl[ch]
+			GBOOL["&MASTER.KRANDAR.TEACH."..uch] = true
 		End
 		Return rabl
 		//,all
