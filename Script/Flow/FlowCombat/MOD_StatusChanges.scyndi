@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/MOD_StatusChanges.scyndi
 // 
-// 	  Version: 26.03.20
+// 	  Version: 26.03.24
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -199,7 +199,7 @@ End
 			Switch Char.Tag
 				Case "Jake_Human" "Jake_Fairy"
 					If RPGParty[2]!="Marrilona"
-						Act := new Action("AAA_GUARD",Char,{[0]=Char},{})
+						Act := new Action("AAA_GUARD",Char.Tag,{[0]=Char},{})
 						Stage_Execution.ComeToMe(Act)
 						Return True
 					End
