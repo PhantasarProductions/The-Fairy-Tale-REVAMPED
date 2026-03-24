@@ -223,7 +223,7 @@ Group MScript
 		Graphics.Cls()
 		Graphics.Flip()
 		Music.Play("Music/SYS/Silence.ogg")
-		plua v={"DSB.ogg","Earth.ogg","Fire.ogg","Frost.ogg","Heal.ogg","Hit.ogg","Thunder.ogg","Water.ogg","Wind.ogg","Yell.ogg"}
+		plua v={[0]="DSB.ogg","Earth.ogg","Fire.ogg","Frost.ogg","Heal.ogg","Hit.ogg","Thunder.ogg","Water.ogg","Wind.ogg","Yell.ogg"}
 		For vf in each(v)
 			Events.Poll()
 			if JCR6.EntryExists("Vocals/Combat/Foe/Marrilona/Action/"..vf)
