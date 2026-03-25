@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowCombat/CL2_Class_Foe.scyndi
 // 
-// 	  Version: 26.03.10
+// 	  Version: 26.03.25
 // 	
 // 	  Copyright (C) case 2021-2026 Jeroen Petrus Broks
 // 	
@@ -159,6 +159,7 @@ Class Foe Extends Fighter
 	End
 	
 	Bool MinotaurKing
+	Bool SuperAlien
 	Static Var Compile(string F,Rw,int _num=0,_oversoul)
 		If _num==0
 			Repeat
@@ -169,6 +170,7 @@ Class Foe Extends Fighter
 		Var WFoe = new Foe()
 		WFoe.Vandar = suffixed(Upper(F),"/VANDAR")
 		WFoe.MinotaurKing = suffixed(Upper(F),"/MINOKING")
+		WFoe.SuperAlien = suffixed(Upper(F),"/SUPERALIEN")
 		WFoe.InitStatusChanges()
 		WFoe.Setup(Self.MakeTag(_num),"Foe")
 		WFoe.File = F
@@ -405,7 +407,7 @@ end
 			End
 			Graphics.Color(R,G,B)
 		End
-		If MinotaurKing
+		If MinotaurKing || SuperAlien
 			If self.Y-self.H<0
 				self.Y++
 			End
