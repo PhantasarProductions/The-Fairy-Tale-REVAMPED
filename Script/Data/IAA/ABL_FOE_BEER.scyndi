@@ -14,7 +14,7 @@ Init
 	ret.USE_Penalty = 0
 	ret.ADDCARD_Action_Act = "Self"
 	ret.ADDCARD_Action_Number = 1
-	ret.ADDCARD_Action_Interval = 50
+	ret.ADDCARD_Action_Interval = 500
 	ret.ADDCARD_Char_Number = 0
 	ret.ADDCARD_Char_Interval = 5
 	ret.ABL_APCost = 125
@@ -114,7 +114,7 @@ Init
 	ret.SpellAni = "Heal"
 	ret.SpellAni_Arg = ""
 	ret.SpellAni_External = false
-	ret.EffectScript = "Takeover"
+	ret.EffectScript = ""
 	ret.EffectScript_Arg = ""
 	ret.EffectScript_External = false
 	ret.Acc_PreTurn = ""
