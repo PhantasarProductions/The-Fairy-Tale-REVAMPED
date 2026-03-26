@@ -471,7 +471,7 @@ Group SubParty
 				Graphics.Rect(barx,B.Y+50,ABR,10)
 				Fnt.DarkText("AP",barx,B.Y+60,1,1)
 				Fnt.DarkText(AP.Have,barx+barwidth,B.Y+60,1,1)
-				If gv.gbool.Cheat_Merlin
+				If gbool.Cheat_Merlin
 					AP.Have++
 				End
 			End
