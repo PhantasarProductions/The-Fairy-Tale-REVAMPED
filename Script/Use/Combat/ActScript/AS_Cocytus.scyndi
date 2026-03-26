@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Combat/ActScript/AS_Cocytus.scyndi
 // 
-// 	  Version: 26.03.26 II
+// 	  Version: 26.03.26 III
 // 	
 // 	  Copyright (C) 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -53,7 +53,7 @@ Table Lagen = {"CAINA","ANTENORA","PTOLOMEA","JUDECCA"}
 
 Bool _Act(Act,Tar,Exe)
 	for i,l in pairs(Lagen)
-		Laag := new Action("COCYTUS_"..l,Exe.Tag,{Tar.Tag})
+		Laag := new Action("COCYTUS_"..l,Exe.Tag,{[0]=Tar.Tag})
 		switch Exe.Team
 			case "Hero"
 				FlowCombat.Cards.Add(i*(__skill*5),Exe.Tag,Laag)
