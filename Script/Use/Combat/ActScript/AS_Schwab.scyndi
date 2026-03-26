@@ -1,8 +1,8 @@
-// License Information:
+// License:
 // **********************************************
 // 
-// src/Tricky Script/Script/Use/Combat/ActScript/Schwab.neil
-// (c) Jeroen Broks, 2022, All Rights Reserved.
+// src/Code/Script/Use/Combat/ActScript/AS_Schwab.scyndi
+// (c) Jeroen Broks, 2022, 2026, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -24,6 +24,7 @@
 // from it, you can use it under that license.
 // Please check out the other files to find out
 // which license applies.
+// 
 // This file comes 'as-is' and in no possible
 // way the author can be held responsible of
 // any form of damages that may occur due to
@@ -32,9 +33,19 @@
 // 
 // **********************************************
 // 
-// version: 22.07.30
-// End License Information
-// Script/Use/Combat/ActScript/RemoveAllUserCards
+// 
+// version: 26.03.26 III
+// 
+// End License
+
+
+
+Module
+#use "Libs/SCI/Sys"
+#use "Script/Use/Link"
+#use "Script/Use/Anyway"
+
+#accept FlowCombat
 
 Bool _Act(Act,Tar)
 	Table Nullify
@@ -59,4 +70,4 @@ Bool _Act(Act,Tar)
 	Return True
 End
 
-Return _Act
+//Return _Act
