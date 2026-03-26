@@ -1,8 +1,8 @@
-// License Information:
+// License:
 // **********************************************
 // 
-// src/Tricky Script/Script/MapScript/NGP_Dungeon_Excalibur1.neil
-// (c) Jeroen Broks, 2022, All Rights Reserved.
+// src/Code/Script/MapScript/NGP_Dungeon_Excalibur1.scyndi
+// (c) Jeroen Broks, 2022, 2026, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -24,6 +24,7 @@
 // from it, you can use it under that license.
 // Please check out the other files to find out
 // which license applies.
+// 
 // This file comes 'as-is' and in no possible
 // way the author can be held responsible of
 // any form of damages that may occur due to
@@ -32,34 +33,43 @@
 // 
 // **********************************************
 // 
-// version: 22.03.09
-// End License Information
+// 
+// version: 26.03.26 II
+// 
+// End License
 
+Script
+
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/Kthura"
+#use "Libs/SCI/InterVar"
+
+#use "Script/Use/Link"
 #use "Script/Use/Anyway"
 
 QuickMeta KeyCard
 	Index
-		Static Var Colors = {"Red","Gold","Green","Blue"}
+		Static Var Colors = {[0]="Red","Gold","Green","Blue"}
 		Static Var SetCol = {["RED"]={255,0,0},["GOLD"]={255,180,0},["GREEN"]={0,255,0},["BLUE"]={0,0,255}}
-		Switch key:upper()
+		Switch Upper(key)
 			Case "COLORS" 
 				Return Colors
 			Case "SETRED" "SETGREEN" "SETGOLD" "SETBLUE"
-				Var C=SetCol[Right(Key,#Key-3):upper()]
+				Var C=SetCol[Right(Key,Len(Key)-3):upper()]
 				Graphics.Color(C[1],C[2],C[3])
 				Return NIKS
 			Case "RED" "GOLD" "GREEN" "BLUE"
-				Return gv.gbool[sprintf("Excalibur_%s_%s",Map.Layer,Key)]
+				Return gbool[sprintf("Excalibur_%s_%s",Kthura.CurrentLayer,Key)]
 			Default
 				Lua.error("R:Unknown key for KeyCard: "..key)
 		End
 	End
 	NewIndex
-		Switch key:upper()
+		Switch Upper(key)
 			Case "COLORS" "SETRED" "SETGREEN" "SETGOLD" "SETBLUE"
 				Lua.error(sprintf("KeyCard.%s is read-only!",key))
 			Case "RED" "GOLD" "GREEN" "BLUE"
-				gv.gbool[sprintf("Excalibur_%s_%s",Map.Layer,Key)] = (value!=nil && value!=false)
+				gbool[sprintf("Excalibur_%s_%s",Kthura.CurrentLayer,Key)] = (value!=nil && value!=false)
 			Default
 				Lua.error("W:Unknown key for KeyCard: "..key)
 		End
@@ -70,35 +80,35 @@ Class TDoors
 	Static Var DTabel
 	Static Var GetByLayer()
 		DTabel = DTabel || {}
-		DTabel[Map.Layer] = DTabel[Map.Layer] || {}
+		DTabel[Kthura.CurrentLayer] = DTabel[Kthura.CurrentLayer] || {}
 		For k in Each(KeyCard.Colors)
 			CSayF("Is there a %s door?",k)
-			If Map.HasTag((k:upper()).."_LINKS")
+			If Map.HasTag(Upper(k).."_LINKS")
 				CSay("=> Yes!")
-				DTabel[Map.Layer] = DTabel[Map.Layer] || {}
-				DTabel[Map.Layer][k:upper()] = Self(k)
+				DTabel[Kthura.CurrentLayer] = DTabel[Kthura.CurrentLayer] || {}
+				DTabel[Kthura.CurrentLayer][Upper(k)] = new TDoors(k)
 			Else 
 				CSay("=> Nope! Skipping!")
 			End
 		End
-		Return DTabel[Map.Layer]		
+		Return DTabel[Kthura.CurrentLayer]		
 	End
 	
 	Static Void UpdateAll()
-		For _,d in Pairs(DTabel[Map.Layer])
+		For _,d in Pairs(DTabel[Kthura.CurrentLayer])
 			d.Update()
 		End
 	End
 	
 	Static Void Open(string c)
-		If DTabel[Map.Layer]
-			If DTabel[Map.Layer][c:upper()]
-				DTabel[Map.Layer][c:upper()].Opened=True
+		If DTabel[Kthura.CurrentLayer]
+			If DTabel[Kthura.CurrentLayer][Upper(c)]
+				DTabel[Kthura.CurrentLayer][Upper(c)].Opened=True
 			Else
 				CSayF("WARNING! Request to open the %s door, but no data about that door exists!",c) 
 			End
 		Else
-			CSayF("No door data for layer %s",Map.Layer)
+			CSayF("No door data for layer %s",Kthura.CurrentLayer)
 		End
 	End
 		
@@ -109,7 +119,7 @@ Class TDoors
 	ReadOnly Int SRY
 	ReadOnly String Col
 	Get String UC
-		Return Col:upper()
+		Return Upper(Col)
 	End
 	
 	Int Slide = 0
@@ -155,7 +165,7 @@ Class TDoors
 End
 
 Class TBoss
-	static table Lay
+	static Var Lay
 
 	string BossFile
 	string BossName
@@ -173,6 +183,7 @@ Class TBoss
 End
 
 Init
+	TBoss.Lay = {}
 	TBoss.Lay[ 5] = New TBoss("Super Cyborg","Super Cyborg","Is it a bird? An airplane?","SuperCyborg","Combat/SpecialBoss/Exit The Premises.ogg")
 	TBoss.Lay[10] = New TBoss("GkDroid","Gold Killer Droid","Robot programmed for homicide","Boss10Obj","Combat/SpecialBoss/Freak Boutique.ogg")
 	TBoss.Lay[15] = New TBoss("Mole","The Mole","Engineer wanted for high treason","McLeen","Combat/SpecialBoss/Lilith's Rage.ogg")
@@ -187,6 +198,10 @@ QuickMeta CONV_BAG
 	end
 end
 
+Init
+	Map.MSHasDraw   = True
+	Map.MSHasUpdate = True
+End
 
 Group MScript
 
@@ -198,9 +213,10 @@ Group MScript
 	
 	Void PostDraw()
 		Static Var Card = Image.LoadNew("GFX/Textures/Excalibur/EXCALIBUR/KEYCARD.PNG","EXCALIBUR_CARD")
-		Static Int CW = (Card.W + 5)*#KeyCard.Colors
+		Static Int CW = (Card.W + 5)*Len(KeyCard.Colors)
 		Static Int CS = (Screen.W div 2) - (CW div 2)
-		For i,k in pairs(KeyCard.Colors)
+		For i1,k in pairs(KeyCard.Colors)
+			i:=i1+1 // Coderot prevention
 			int x = CS+(i*(Card.W + 5))
 			int y = 5
 			//CsayF("Card %d: %s  (%04d,%04d)",i,k,x,y)
@@ -219,10 +235,10 @@ Group MScript
 		//Print("Fuck")
 		Static Var Doors
 		Doors = Doors || {}
-		Doors[Map.Layer] = Doors[Map.Layer] || TDoors.GetByLayer()
+		Doors[Kthura.CurrentLayer] = Doors[Kthura.CurrentLayer] || TDoors.GetByLayer()
 		TDoors.UpdateAll()
-		//CSayF("We are on layer '%s'",Map.Layer)
-		Switch Map.Layer
+		//CSayF("We are on layer '%s'",Kthura.CurrentLayer)
+		Switch Kthura.CurrentLayer
 			Case "#006"
 				Static Int C = 0
 				C = (C+1)%300
@@ -327,7 +343,7 @@ Group MScript
 		Var B = TBoss.Lay[LN]
 		Static Table Hulp = {"Cyborg Medic","Cyborg Captain","Cyborg Gunner"}
 		Static Table Num = {1,3,6}
-		If Done["Txcalibur_Defeated_Boss_"..Map.Layer]
+		If Done["Txcalibur_Defeated_Boss_"..Kthura.CurrentLayer]
 			Return
 		End
 		Map.Kill(B.BossObj,true)
@@ -403,18 +419,18 @@ Group MScript
 		Map.DelayKill("OPEN_RED")
 		Map.GoToMap("NGP_Dungeon_Excalibur3","#021","Start")
 	End
+End	
 	
-	Constructor
+Init
 		CSay("Welcome to Excalibur!")
 		ZA.TabEnter{"ToDungeon","TerugNaarHangar","Transporter","ToSecret1","ToSecret2","ShowSecret","Voldy","ToU","ToD","HideDead015","Goddess"}
 		ZA.Leave("Transporter","LeaveTransporter")
 		For k in Each{"Red","Gold","Green","Blue"}
-			string uk=k:upper()
-			Self["NPC_"..k]=Lua.load("Neil.Globals.MScript.Key('"..k.."')")
+			string uk:=Upper(k)
+			MScript["NPC_"..k]=Lua.load("Scyndi.Class.MScript.Key('"..k.."')")
 			ZA.Enter("OPEN_"..uk,"Open",k)
 		End
-		For i in Each{5,10,15}
+		For i in Each{[0]=5,10,15}
 			ZA.Enter(sprintf("Boss%03d",i),"Boss",i)
-		End
-	End
+		End	
 End
