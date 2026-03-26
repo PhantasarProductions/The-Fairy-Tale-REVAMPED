@@ -63,8 +63,8 @@ Global Void CHEAT_Jack()
 End
 
 Global Void CHEAT_Merlin()
-	gbool["CHEAT.MERLIN"]=!gbool["CHEAT.MERLIN"]
-	printf("\x1b[95mMerlin The Ripper mode is %s\n",OnOff[gbool["CHEAT.MERLIN"]])
+	gbool["CHEAT_MERLIN"]=!gbool["CHEAT_MERLIN"]
+	printf("\x1b[95mMerlin The Ripper mode is %s\n",OnOff[gbool["CHEAT_MERLIN"]])
 End
 
 Global Void CONSOLE_HP(string FT="*")
@@ -83,6 +83,6 @@ Init
 	 Sys.ConsoleLocal("IDDQD","CHEAT_God")
 	 Sys.ConsoleLocal("GOD","CHEAT_God")
 	 Sys.ConsoleLocal("JACK","CHEAT_Jack")
-	 Sys.ConsoleLocal("MERLIB","CHEAT_Merlin")
+	 Sys.ConsoleLocal("MERLIN","CHEAT_Merlin")
 	 Sys.ConsoleLocal("HP","CONSOLE_HP")
 End
