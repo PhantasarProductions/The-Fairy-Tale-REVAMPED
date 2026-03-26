@@ -34,18 +34,21 @@
 // **********************************************
 // 
 // 
-// version: 26.03.26 II
+// version: 26.03.26 VII
 // 
 // End License
 
 Script
 
 #use "Libs/SCI/Sys"
+#use "Libs/SCI/Audio"
 #use "Libs/SCI/Kthura"
+#use "Libs/SCI/Graphics"
 #use "Libs/SCI/InterVar"
 
 #use "Script/Use/Link"
 #use "Script/Use/Anyway"
+#use "Script/Use/Convert"
 
 QuickMeta KeyCard
 	Index
@@ -55,7 +58,7 @@ QuickMeta KeyCard
 			Case "COLORS" 
 				Return Colors
 			Case "SETRED" "SETGREEN" "SETGOLD" "SETBLUE"
-				Var C=SetCol[Right(Key,Len(Key)-3):upper()]
+				C:=SetCol[Upper(Right(Key,Len(Key)-3))]
 				Graphics.Color(C[1],C[2],C[3])
 				Return NIKS
 			Case "RED" "GOLD" "GREEN" "BLUE"
@@ -203,6 +206,10 @@ Init
 	Map.MSHasUpdate = True
 End
 
+plua Excalibur_PostDraw_Card
+plua Excalibur_PostDraw_CW
+plau Excalibur_PostDraw_CS
+
 Group MScript
 
 	ReadOnly Bool HasDraw   = True
@@ -212,9 +219,12 @@ Group MScript
 	ReadOnly Delegate PreDraw = NIKS
 	
 	Void PostDraw()
-		Static Var Card = Image.LoadNew("GFX/Textures/Excalibur/EXCALIBUR/KEYCARD.PNG","EXCALIBUR_CARD")
-		Static Int CW = (Card.W + 5)*Len(KeyCard.Colors)
-		Static Int CS = (Screen.W div 2) - (CW div 2)
+		LocExtern Card "Excalibur_PostDraw_Card"
+		LocExtern CW   "Excalibur_PostDraw_CW"
+		LocExtern CS   "Excalibur_PostDraw_CS"
+		Card = Card || LoadNewImage("GFX/Textures/Excalibur/EXCALIBUR/KEYCARD.PNG","EXCALIBUR_CARD")
+		CW   = CW   || (Card.W + 5)*Len(KeyCard.Colors)
+		CS   = CS   || (Screen.W div 2) - (CW div 2)
 		For i1,k in pairs(KeyCard.Colors)
 			i:=i1+1 // Coderot prevention
 			int x = CS+(i*(Card.W + 5))
@@ -341,7 +351,7 @@ Group MScript
 	Void Boss(l)
 		Int LN = Lua.tonumber(l)
 		Var B = TBoss.Lay[LN]
-		Static Table Hulp = {"Cyborg Medic","Cyborg Captain","Cyborg Gunner"}
+		Static Table Hulp = {[0]="Cyborg Medic","Cyborg Captain","Cyborg Gunner"}
 		Static Table Num = {1,3,6}
 		If Done["Txcalibur_Defeated_Boss_"..Kthura.CurrentLayer]
 			Return
@@ -352,7 +362,7 @@ Group MScript
 			if __skill==1 || i==2
 				Combat.NewEnemy="Boss/"..B.BossFile
 			Else
-				Combat.NewEnemy="Reg/"..Hulp[math.random(1,#hulp)]
+				Combat.NewEnemy="Reg/"..Hulp[math.random(0,Len(hulp)-1)]
 			End
 		End
 		Combat.Arena="Excalibur"
