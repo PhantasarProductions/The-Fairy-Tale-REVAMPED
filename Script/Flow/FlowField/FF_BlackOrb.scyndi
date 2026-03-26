@@ -34,11 +34,13 @@
 // **********************************************
 // 
 // 
-// version: 26.02.23
+// version: 26.03.26 I
 // 
 // End License
 
 Module
+
+#use "Libs/SCI/Kthura"
 
 #use "Script/Use/Link"
 #use "Script/Use/Anyway"
@@ -65,11 +67,11 @@ Void FF_BlackOrb(string Tag)
 			
 			Combat.Prepare(100,0,150,"Devourer of all reality","Juggernaut")
 			Combat.Arena = "NIKS"
-			Combat.Music = "Combat/Special Boss/Juggernaut.ogg"
+			Combat.Music = "Combat/SpecialBoss/Juggernaut.ogg"
 			Combat.Lose = "GameOver"
 			Combat.NewEnemy = "UberBoss/Juggernaut"		
 		
-			Lua.Neil.Globals.Map.StopWalking()
+			Kthura.Obj.Player.StopWalking()
 			Combat.Start()
 			
 			//Lua.error("Juggernaut not yet scripted")
