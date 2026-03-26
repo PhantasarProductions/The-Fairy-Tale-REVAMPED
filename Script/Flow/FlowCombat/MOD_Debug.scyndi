@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.09 IV
+// version: 26.03.26
 // 
 // End License
 Module
@@ -62,6 +62,11 @@ Global Void CHEAT_Jack()
 	printf("\x1b[95mJack The Ripper mode is %s\n",OnOff[gbool["CHEAT.Jack"]])
 End
 
+Global Void CHEAT_Merlin()
+	gbool["CHEAT.MERLIN"]=!gbool["CHEAT.MERLIN"]
+	printf("\x1b[95mMerlin The Ripper mode is %s\n",OnOff[gbool["CHEAT.MERLIN"]])
+End
+
 Global Void CONSOLE_HP(string FT="*")
 	if FT=="*"
 		for t,_ in spairs(Fighter.ByTag)
@@ -78,5 +83,6 @@ Init
 	 Sys.ConsoleLocal("IDDQD","CHEAT_God")
 	 Sys.ConsoleLocal("GOD","CHEAT_God")
 	 Sys.ConsoleLocal("JACK","CHEAT_Jack")
+	 Sys.ConsoleLocal("MERLIB","CHEAT_Merlin")
 	 Sys.ConsoleLocal("HP","CONSOLE_HP")
 End
