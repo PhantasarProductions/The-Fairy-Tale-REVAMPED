@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Combat/SpellAni/SA_HolyShit.scyndi
 // 
-// 	  Version: 26.03.25 II
+// 	  Version: 26.03.26
 // 	
 // 	  Copyright (C) 2020, 2025, 2026 Jeroen Petrus Broks
 // 	
@@ -78,6 +78,7 @@ module
 		y = -1000
 		koor.Play()		
 		act=_act
+		Ended=false
 	end
 	
 	bool Cycle()
