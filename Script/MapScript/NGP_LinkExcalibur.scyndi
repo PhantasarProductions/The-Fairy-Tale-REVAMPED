@@ -34,10 +34,13 @@
 // **********************************************
 // 
 // 
-// version: 26.03.26
+// version: 26.03.26 III
 // 
 // End License
 
+Script
+
+#use "Libs/SCI/InterVar"
 
 #use "Script/Use/Link"
 #use "Script/Use/Anyway"
@@ -68,7 +71,7 @@ Group MScript
 		Map.StopWalking()
 		Player.WalkTo("Einde")
 		MapText("EVENT")
-		PortalExcalibur()
+		MScript.PortalExcalibur()
 	End
 	
 	Void Update()
