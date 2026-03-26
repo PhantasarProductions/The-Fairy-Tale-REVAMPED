@@ -1,8 +1,8 @@
-// License Information:
+// License:
 // **********************************************
 // 
-// src/Tricky Script/Script/Use/Combat/ActScript/Juggernaut.neil
-// (c) Jeroen Broks, 2022, All Rights Reserved.
+// src/Code/Script/Use/Combat/ActScript/AS_Juggernaut.scyndi
+// (c) Jeroen Broks, 2022, 2026, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -24,6 +24,7 @@
 // from it, you can use it under that license.
 // Please check out the other files to find out
 // which license applies.
+// 
 // This file comes 'as-is' and in no possible
 // way the author can be held responsible of
 // any form of damages that may occur due to
@@ -32,18 +33,31 @@
 // 
 // **********************************************
 // 
-// version: 22.07.30
-// End License Information
+// 
+// version: 26.03.26 V
+// 
+// End License
 
-Bool _TO(Act,Tar)
+
+Module
+
+#use "Libs/SCI/Sys"
+
+#use "Script/Use/Link"
+#use "Script/Use/Anyway"
+#use "Script/Use/Convert"
+
+#accept FLowCombat
+
+Bool _Act(Act,Tar)
 	static var JUG = {["ATK"]=12,["HEAL"]=3,["TACT"]=10}
 	static var GRP = {["ATK"]="Hero", ["HEAL"]="Foe",["TACT"]="Hero"}
 	static var MAX = {["ATK"]=4,["TACT"]=4,["HEAL"]=1}	
-	plua rounds = {"ATK","HEAL","TACT"}
-    plua l=1
+	rounds := {[0]="ATK","HEAL","TACT"}
+    l:=1
     for r in each(rounds) 
         //local card2add = { group = nextact.group, tag=nextact.tag, letter=nextact.letter, auto=true }
-        plua card2add = {}
+        card2add := {}
         card2add.nextact = {}        
         //for f,i in pairs(nextact) 
         //	card2add.nextact[f]=i; 
@@ -57,13 +71,13 @@ Bool _TO(Act,Tar)
         plua Targets
         switch(Item[card2add.nextact.act].Target)
         	case "OS" "1A" "AA"
-        		Targets = {"FOE001"}
+        		Targets = {[0]="FOE001"}
         	case "1F"
-        		Targets = {RPGParty[math.random(1,4)]}
+        		Targets = {[0]=RPGParty[math.random(1,4)]}
         	case "AF"
-        		Targets = {RPGParty[1],RPGParty[2],RPGParty[3],RPGParty[4]}
+        		Targets = {[0]=RPGParty[1],RPGParty[2],RPGParty[3],RPGParty[4]}
         	case "EV"
-        		Targets = {RPGParty[1],RPGParty[2],RPGParty[3],RPGParty[4],"FOE001"}
+        		Targets = {[0]=RPGParty[1],RPGParty[2],RPGParty[3],RPGParty[4],"FOE001"}
         	Default
         		Lua.error("Unknown Juggernaut move target type: "..Item[card2add.nextact.act].Target)
         end
@@ -72,4 +86,4 @@ Bool _TO(Act,Tar)
     return true
 End
 
-Return _TO
+//Return _TO
