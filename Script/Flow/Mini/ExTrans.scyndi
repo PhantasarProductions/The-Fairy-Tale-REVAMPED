@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.27 X
+// version: 26.03.27 XI
 // 
 // End License
 
@@ -45,6 +45,7 @@ Script
 #use "Libs/SCI/Sys"
 #use "Libs/SCI/Events"
 #use "Libs/SCI/Kthura"
+#use "Libs/SCI/SString"
 #use "Libs/SCI/Graphics"
 #use "Libs/SCI/InterVar"
 
