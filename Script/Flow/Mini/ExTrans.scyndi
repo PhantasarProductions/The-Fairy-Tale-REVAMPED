@@ -34,16 +34,20 @@
 // **********************************************
 // 
 // 
-// version: 26.03.27
+// version: 26.03.27 V
 // 
 // End License
 
 
 Script
 
-#use "Libs/SCI/Sys"
-#use "Libs/SCI/Graphics"
 
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/Events"
+#use "Libs/SCI/Graphics"
+#use "Libs/SCI/InterVar"
+
+#use "Script/Use/Link"
 #use "Script/Use/Anyway"
 #use "Script/Use/Convert"
 
@@ -89,15 +93,15 @@ End
 
 Init
 	Buttons.Tab={}
-	Void _Back()
+	dDef _Back
 		Flow.Current="FIELD"
 	End
 	
-	Void _Save()
+	dDef _Save
 		Sys.Call("FLOW_FIELD","FieldFlow.GoToSave","nil")
 	End
 	
-	Void _Exit()
+	dDef _Exit
 		//Map.GoToMap("NGP_LinkExcalibur","BOS","Einde")
 		WorldMap.Go()
 		gv.gbool.ExcaliburTransporterBlocked = False
@@ -105,7 +109,7 @@ Init
 	
 	Buttons.Tab += New Buttons("Back",_Back)
 	Buttons.Tab += New Buttons("Save",_Save)
-	If gv.gbool.Excalibur_Killed_Goddess
+	If gbool.Excalibur_Killed_Goddess
 		Buttons.Tab += New Buttons("Exit",_Exit)
 	End
 End
@@ -120,8 +124,8 @@ Global Void MainFlow()
 	Int CX = Screen.W div 2
 	For i=1,20
 		string Tag = sprintf("#%03d",i)
-		int X = ((i-1) div 10)*CX
-		int Y = ((i-1) % 10)*40
+		int X := ((i-1) div 10)*CX
+		int Y := ((i-1) % 10)*40
 		bool Unlocked = i==1 || gv.gbool[sprintf("Excalibur_#%03d_Red",i-1)]
 		If Unlocked
 			Graphics.Color(0,180,255)
