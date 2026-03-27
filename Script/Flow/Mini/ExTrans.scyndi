@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.27 V
+// version: 26.03.27 X
 // 
 // End License
 
@@ -44,6 +44,7 @@ Script
 
 #use "Libs/SCI/Sys"
 #use "Libs/SCI/Events"
+#use "Libs/SCI/Kthura"
 #use "Libs/SCI/Graphics"
 #use "Libs/SCI/InterVar"
 
@@ -84,7 +85,7 @@ Class Buttons
 	ReadOnly Var Img
 	ReadOnly Delegate Fun
 	
-	Constructor(string I,delegate F)
+	Constructor(string I,F)
 		Img = LoadNewImage("GFX/Excalibur/"..i..".png","EXCALIBUR_TRANS_BUTTON_"..i)
 		Img.HotBottomCenter()
 		Fun = F
@@ -98,7 +99,7 @@ Init
 	End
 	
 	dDef _Save
-		Sys.Call("FLOW_FIELD","FieldFlow.GoToSave","nil")
+		Sys.Call("FLOW_FIELD","FlowField.GoToSave","nil")
 	End
 	
 	dDef _Exit
@@ -135,7 +136,7 @@ Global Void MainFlow()
 				Graphics.Color(0,255,255)
 				If Mouse.ML
 					String kaart=sprintf("NGP_Dungeon_Excalibur%d",((i-1) Div 10)+1)
-					If Kaart:upper()==Map.LoadedMap:upper()
+					If Upper(Kaart)==Upper(StripDir(Kthura.LastLoadedMap))
 						Map.GoToLayer(Tag,"Trans.Spot.F"..Right(Tag,3))
 					Else
 						Map.GoToMap(kaart,Tag,"Trans.Spot.F"..Right(Tag,3))
