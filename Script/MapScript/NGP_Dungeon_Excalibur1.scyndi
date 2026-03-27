@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.26 VII
+// version: 26.03.26 X
 // 
 // End License
 
@@ -208,7 +208,7 @@ End
 
 plua Excalibur_PostDraw_Card
 plua Excalibur_PostDraw_CW
-plau Excalibur_PostDraw_CS
+plua Excalibur_PostDraw_CS
 
 Group MScript
 
@@ -227,8 +227,8 @@ Group MScript
 		CS   = CS   || (Screen.W div 2) - (CW div 2)
 		For i1,k in pairs(KeyCard.Colors)
 			i:=i1+1 // Coderot prevention
-			int x = CS+(i*(Card.W + 5))
-			int y = 5
+			int x := CS+(i*(Card.W + 5))
+			int y := 5
 			//CsayF("Card %d: %s  (%04d,%04d)",i,k,x,y)
 			Graphics.Color(100,100,100)
 			Graphics.Alpha(255)
@@ -349,8 +349,8 @@ Group MScript
 	#endregion
 	
 	Void Boss(l)
-		Int LN = Lua.tonumber(l)
-		Var B = TBoss.Lay[LN]
+		Int LN := Lua.tonumber(l)
+		Var B := TBoss.Lay[LN]
 		Static Table Hulp = {[0]="Cyborg Medic","Cyborg Captain","Cyborg Gunner"}
 		Static Table Num = {1,3,6}
 		If Done["Txcalibur_Defeated_Boss_"..Kthura.CurrentLayer]
