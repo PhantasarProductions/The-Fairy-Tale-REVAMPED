@@ -149,7 +149,7 @@ Global Void MainFlow()
 			Graphics.Color(100,100,100)
 			Fnt.Text("?????",X,Y)
 		End
-		Static Int BW = Screen.W div Len(Buttons.Tab + 1)
+		Static Int BW = Screen.W div (Len(Buttons.Tab )+ 1)
 		For i1,button in ipairs(Buttons.Tab)
 			i:=i1+1 // Old 1 setup voidance
 			__White
