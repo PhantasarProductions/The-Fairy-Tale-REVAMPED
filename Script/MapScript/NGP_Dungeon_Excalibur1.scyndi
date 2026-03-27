@@ -339,7 +339,7 @@ Group MScript
 			Static Bool First
 			If !First
 				Loading()
-				State.Load("FLOW_TRANSPORTER","Script/Flow/Mini/ExTrans.neil")
+				State.Load("FLOW_TRANSPORTER","Script/Flow/Mini/ExTrans.lbc")
 				First=True
 			End
 			Flow.Current="TRANSPORTER"
