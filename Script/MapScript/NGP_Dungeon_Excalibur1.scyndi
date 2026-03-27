@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.26 X
+// version: 26.03.27 I
 // 
 // End License
 
@@ -223,11 +223,11 @@ Group MScript
 		LocExtern CW   "Excalibur_PostDraw_CW"
 		LocExtern CS   "Excalibur_PostDraw_CS"
 		Card = Card || LoadNewImage("GFX/Textures/Excalibur/EXCALIBUR/KEYCARD.PNG","EXCALIBUR_CARD")
-		CW   = CW   || (Card.W + 5)*Len(KeyCard.Colors)
+		CW   = CW   || (Card.Width + 5)*Len(KeyCard.Colors)
 		CS   = CS   || (Screen.W div 2) - (CW div 2)
 		For i1,k in pairs(KeyCard.Colors)
 			i:=i1+1 // Coderot prevention
-			int x := CS+(i*(Card.W + 5))
+			int x := CS+(i*(Card.Width + 5))
 			int y := 5
 			//CsayF("Card %d: %s  (%04d,%04d)",i,k,x,y)
 			Graphics.Color(100,100,100)
