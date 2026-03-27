@@ -34,12 +34,14 @@
 // **********************************************
 // 
 // 
-// version: 26.03.26 III
+// version: 26.03.27 I
 // 
 // End License
 
 Script
 
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/Kthura"
 #use "Libs/SCI/InterVar"
 
 #use "Script/Use/Link"
@@ -75,6 +77,10 @@ Group MScript
 	End
 	
 	Void Update()
+		If !Kthura.HasObj("PortalExcalibur")
+			CSay("\x07I guess there's a layer problem preventing me access to the portal object")
+			return
+		End
 		static number R
 		static number G
 		static number B
