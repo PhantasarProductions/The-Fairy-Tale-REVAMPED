@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.27 I
+// version: 26.03.27 II
 // 
 // End License
 
@@ -435,7 +435,7 @@ Init
 		CSay("Welcome to Excalibur!")
 		ZA.TabEnter{"ToDungeon","TerugNaarHangar","Transporter","ToSecret1","ToSecret2","ShowSecret","Voldy","ToU","ToD","HideDead015","Goddess"}
 		ZA.Leave("Transporter","LeaveTransporter")
-		For k in Each{"Red","Gold","Green","Blue"}
+		For k in Each{[0]="Red","Gold","Green","Blue"}
 			string uk:=Upper(k)
 			MScript["NPC_"..k]=Lua.load("Scyndi.Class.MScript.Key('"..k.."')")
 			ZA.Enter("OPEN_"..uk,"Open",k)
