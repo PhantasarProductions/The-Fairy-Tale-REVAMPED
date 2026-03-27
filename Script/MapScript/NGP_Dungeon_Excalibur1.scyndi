@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.27 IV
+// version: 26.03.27 V
 // 
 // End License
 
@@ -315,7 +315,7 @@ Group MScript
 		If KeyCard[k]
 			CSayF("MapScript.Open('%s')",k)
 			TDoors.Open(k)
-			Map.Kill("OPEN_"..(k:upper()),false)
+			Map.Kill("OPEN_"..Upper(k),false)
 		Else
 			CSayF("You don't have the %s keycard so the door will remain closed")
 		End
