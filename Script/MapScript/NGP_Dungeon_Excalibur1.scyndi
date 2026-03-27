@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.27 V
+// version: 26.03.27 VI
 // 
 // End License
 
@@ -317,7 +317,7 @@ Group MScript
 			TDoors.Open(k)
 			Map.Kill("OPEN_"..Upper(k),false)
 		Else
-			CSayF("You don't have the %s keycard so the door will remain closed")
+			CSayF("You don't have the %s keycard so the door will remain closed",k)
 		End
 	End
 	#endregion
