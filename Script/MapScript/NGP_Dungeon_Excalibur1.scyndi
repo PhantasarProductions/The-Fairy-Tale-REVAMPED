@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.27 II
+// version: 26.03.27 III
 // 
 // End License
 
@@ -308,7 +308,7 @@ Group MScript
 			End
 		End
 		KeyCard[k]=true
-		Map.Kill("NPC_"..(k:upper()),true)
+		Map.Kill("NPC_"..Upper(k),true)
 	End
 	
 	Void Open(string k)
