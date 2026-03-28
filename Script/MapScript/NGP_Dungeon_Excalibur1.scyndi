@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.28
+// version: 26.03.28 III
 // 
 // End License
 
@@ -299,12 +299,22 @@ Group MScript
 	Delegate NPC_Gold
 	Delegate NPC_Green
 	Delegate NPC_Blue
+	Get Int KeyExp
+		Return math.max(gInt.Excalibur_KeyExp,1)
+	End
+	Set Int KeyExp
+		gInt.Excalibur_KeyExp = math.min(1000000000,Value)
+		CSayF("Key Experience is now %d",MScript.KeyExp)
+	End
+	
 	Void Key(string k)
 		static var yeah = Audio.LoadNew("audio/alg/yeah.ogg","EXCALIBUR_YEAH")
 		yeah.Play()
 		If __skill<3
 			For i=1,4
-				RPGChar[RPGParty[i]].Stat.Experience -= math.random(30 div 2,1500 div 2)
+				RPGChar[RPGParty[i]].Stat.Experience -= math.random(300 div 2,15000 div 2)
+				RPGChar[RPGParty[i]].Stat.Experience += MScript.KeyExp
+				MScript.KeyExp += math.ceil(MScript.KeyExp / 2)
 			End
 		End
 		KeyCard[k]=true
@@ -429,11 +439,33 @@ Group MScript
 		Map.DelayKill("OPEN_RED")
 		Map.GoToMap("NGP_Dungeon_Excalibur3","#021","Start")
 	End
+	
+	Void TalkLab()
+		// The name is a leftover from Star Story for which this dungeon was originally designed
+		If Done.Been_In_The_MolesLab_Before
+			CSay("You've been here before!")
+			Return
+		End
+		For i=1,4
+			cht:=RPGParty[i]
+			ch:=RPGChar[cht]
+			CSayF("Experience bonus for %s",ch)
+			switch __skill
+				case 1
+					Ch.Stat.Experience = 0-math.abs(Ch.Stat.Experience)
+				case 2
+					Ch.Stat.Experience = math.min(Ch.Stat.Experience,0)
+				case 3
+					Ch.Stat.Experience -= math.abs(Ch.Stat.Experience) div 4
+			End
+		End
+	End
+				
 End	
 	
 Init
 		CSay("Welcome to Excalibur!")
-		ZA.TabEnter{"ToDungeon","TerugNaarHangar","Transporter","ToSecret1","ToSecret2","ShowSecret","Voldy","ToU","ToD","HideDead015","Goddess"}
+		ZA.TabEnter{"ToDungeon","TerugNaarHangar","Transporter","ToSecret1","ToSecret2","ShowSecret","Voldy","ToU","ToD","HideDead015","Goddess","TalkLab"}
 		ZA.Leave("Transporter","LeaveTransporter")
 		For k in Each{[0]="Red","Gold","Green","Blue"}
 			string uk:=Upper(k)
