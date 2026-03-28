@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.28 II
+// version: 26.03.28 III
 // 
 // End License
 
@@ -44,6 +44,8 @@ Module
 
 #use "libs/linkedlist"
 #use "libs/xmath"
+
+#accept Fighter
 
 plua Niks()
 end
@@ -106,7 +108,7 @@ End
 //Module
 
 	Init
-		GDrone.M = Self
+		GDrone.M = Arena_Goddess
 	End
 
 	Get Var Goddess
