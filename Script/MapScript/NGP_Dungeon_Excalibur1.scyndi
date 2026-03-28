@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.27 VI
+// version: 26.03.28
 // 
 // End License
 
@@ -393,7 +393,7 @@ Group MScript
 	Void Voldy()
 		Map.Kill("Voldy",true)
 		Combat.Prepare(0,255,0,"Dark Lord","He must not be named")
-		Combat.Music="Combat/Special Boss/Darkcover.ogg"
+		Combat.Music="Combat/SpecialBoss/Darkcover.ogg"
 		Combat.NewEnemy="Boss/HWSNBN"
 		Combat.Arena="Excalibur"
 		Combat.Lose ="GameOver"
