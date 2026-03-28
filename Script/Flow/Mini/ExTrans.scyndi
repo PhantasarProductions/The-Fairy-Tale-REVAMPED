@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.27 XI
+// version: 26.03.28 V
 // 
 // End License
 
@@ -54,7 +54,9 @@ Script
 #use "Script/Use/Convert"
 
 Var Names
+Var ShowNames
 Init
+		ShowNames = {}
 		Names = {}
 		Names["#000"] = "Secret Hangar"
 		Names["#001"] = "Hidden layer"
@@ -72,7 +74,7 @@ Init
 		Names["#013"] = "Casino"
 		Names["#014"] = "Weapon Storage"
 		Names["#015"] = "Medical department"
-		Names["#016"] = "Coder Section - Neil" // Used to be 'Lua'
+		Names["#016"] = "Coder Section - Scyndi" // Used to be 'Lua' and later 'Neil'
 		Names["#017"] = "Playground"
 		Names["#018"] = "Junk collection area - Klaus"
 		Names["#019"] = "Staff department"
@@ -146,7 +148,16 @@ Global Void MainFlow()
 					Return
 				End
 			End
-			Fnt.Text(Names[Tag],X,Y)
+			If !ShowNames[Tag]
+				Int P:=Len(Names[Tag])
+				ShowNames[Tag]=Names[Tag]
+				While Fnt.Width(ShowNames[Tag])>CX-10 && P>5
+					P--
+					ShowNames[Tag]=Left(Names[Tag],P).."..."					
+				End
+			End	
+			//CSayF("???? %s %s",Lua.type(X),X)
+			Fnt.Text(ShowNames[Tag],X,Y)
 		Else
 			Graphics.Color(100,100,100)
 			Fnt.Text("?????",X,Y)
