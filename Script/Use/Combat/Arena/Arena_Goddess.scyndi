@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.28
+// version: 26.03.28 II
 // 
 // End License
 
@@ -44,6 +44,11 @@ Module
 
 #use "libs/linkedlist"
 #use "libs/xmath"
+
+plua Niks()
+end
+
+
 
 Class GDrone
 	static var M
@@ -98,9 +103,9 @@ Class GDrone
 	End
 End
 
-Module
+//Module
 
-	Constructor
+	Init
 		GDrone.M = Self
 	End
 
@@ -131,4 +136,4 @@ Module
 		End
 	End
 
-End
+//End
