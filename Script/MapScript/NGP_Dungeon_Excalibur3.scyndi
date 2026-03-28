@@ -1,8 +1,8 @@
-// License Information:
+// License:
 // **********************************************
 // 
-// src/Tricky Script/Script/MapScript/NGP_Dungeon_Excalibur3.neil
-// (c) Jeroen Broks, 2022, All Rights Reserved.
+// src/Code/Script/MapScript/NGP_Dungeon_Excalibur3.scyndi
+// (c) Jeroen Broks, 2022, 2026, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -24,6 +24,7 @@
 // from it, you can use it under that license.
 // Please check out the other files to find out
 // which license applies.
+// 
 // This file comes 'as-is' and in no possible
 // way the author can be held responsible of
 // any form of damages that may occur due to
@@ -32,12 +33,23 @@
 // 
 // **********************************************
 // 
-// version: 22.03.11
-// End License Information
+// 
+// version: 26.03.28 IV
+// 
+// End License
 
-#macro __Goddess gv.gbool.Excalibur_Killed_Goddess
+Script
 
+#use "Libs/SCI/Sys"
+#use "Libs/SCI/InterVar"
+
+#macro __Goddess gbool.Excalibur_Killed_Goddess
+
+#use "Script/Use/Link"
 #use "Script/Use/Anyway"
+
+
+extern ll "#"
 
 Class TDoor
 	ReadOnly Int OXL
@@ -87,6 +99,9 @@ Class TDoor
 	
 End
 
+Init
+	Map.MSHasUpdate=True
+End
 
 Group MScript
 
@@ -136,7 +151,7 @@ Group MScript
 		// Combat
 		Var Adds = {"DarkGun","FlameThrower","Gunner","IceCannon","LightGun","RockThrower","TRQ","VenomGun","VirusGun","WaterGun","WindGun"}
 		If (__skill!=1 && math.random(1,2)==1) || __skill==3
-			Adds+="BlockGun"
+			Adds[(ll Adds)+1]="BlockGun" // Enforce the Lua way.
 		End
 		Combat.Prepare(0,255,0,"Star Story's Final Boss","The Goddess")
 		Combat.Arena = "Goddess"
@@ -150,7 +165,7 @@ Group MScript
 			Repeat
 				TimeOut--
 				Lua.assert(TimeOut>=0,"Goddess add timeout")
-				A = Adds[math.random(1,#Adds)]				
+				A = Adds[math.random(1,ll Adds)]				
 			LoopWhile Have[A]
 			Have[A]=True
 			Combat.NewEnemy="Goddess/"..A
@@ -160,10 +175,10 @@ Group MScript
 	End
 	
 	Void NPC_Colportarus()
-		gv.gbool.Heroes_Colportarus = true
+		gbool.Heroes_Colportarus = true
 		Bool All = True
 		For h in Each{"Zyviola","SymphoNica","Wanindra","Colportarus"}
-			All = All && gv.gbool["Heroes_"..h]
+			All = All && gbool["Heroes_"..h]
 		End
 		If All
 			Ach.Award("ZZNGP_ALL")
@@ -174,13 +189,13 @@ Group MScript
 		Map.Kill("NPC_Colportarus",true)
 		WorldMap.Go()		
 	End
+End	
 	
-	Constructor
-		ZA.TabEnter{"Goddess_Room","SchuifNext","SchuifPrev"}
-		ZA.Leave("SchuifNext","SchuifNextSluit")
-		ZA.Leave("SchuifPrev","SchuifPrevSluit")
-		new TDoor("#021","Next")
-		new TDoor("#022","Next")
-		new TDoor("#022","Prev")
-	End
+Init
+	ZA.TabEnter{"Goddess_Room","SchuifNext","SchuifPrev"}
+	ZA.Leave("SchuifNext","SchuifNextSluit")
+	ZA.Leave("SchuifPrev","SchuifPrevSluit")
+	new TDoor("#021","Next")
+	new TDoor("#022","Next")
+	new TDoor("#022","Prev")	
 End
