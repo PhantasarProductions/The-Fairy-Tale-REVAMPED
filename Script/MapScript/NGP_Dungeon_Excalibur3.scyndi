@@ -34,13 +34,14 @@
 // **********************************************
 // 
 // 
-// version: 26.03.28 IV
+// version: 26.03.28 VI
 // 
 // End License
 
 Script
 
 #use "Libs/SCI/Sys"
+#use "Libs/SCI/Kthura"
 #use "Libs/SCI/InterVar"
 
 #macro __Goddess gbool.Excalibur_Killed_Goddess
@@ -175,9 +176,13 @@ Group MScript
 	End
 	
 	Void NPC_Colportarus()
+		If (Kthura.HasObj("NPC_Goddess"))
+			CSay("The Goddess is still there! Who do you think you're fooling?")
+			Return
+		End
 		gbool.Heroes_Colportarus = true
 		Bool All = True
-		For h in Each{"Zyviola","SymphoNica","Wanindra","Colportarus"}
+		For h in Each{[0]="Zyviola","SymphoNica","Wanindra","Colportarus"}
 			All = All && gbool["Heroes_"..h]
 		End
 		If All
