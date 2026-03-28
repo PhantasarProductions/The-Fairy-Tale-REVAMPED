@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.03.28 III
+// version: 26.03.28 VII
 // 
 // End License
 
@@ -44,6 +44,9 @@ Module
 
 #use "libs/linkedlist"
 #use "libs/xmath"
+
+#use "Script/Use/Anyway"
+#use "Script/Use/Convert"
 
 #accept Fighter
 
@@ -130,7 +133,7 @@ End
 		End
 	End
 
-	Delegate Pst = Niks
+	Void Pst(); End
 	Void Pre()
 		Positions()
 		For D in GDrone.Lijst.Each
