@@ -1,8 +1,8 @@
-// License Information:
+// License:
 // **********************************************
 // 
-// src/Tricky Script/Script/Use/Combat/Arena/Goddess.neil
-// (c) Jeroen Broks, 2022, All Rights Reserved.
+// src/Code/Script/Use/Combat/Arena/Arena_Goddess.scyndi
+// (c) Jeroen Broks, 2022, 2026, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -24,6 +24,7 @@
 // from it, you can use it under that license.
 // Please check out the other files to find out
 // which license applies.
+// 
 // This file comes 'as-is' and in no possible
 // way the author can be held responsible of
 // any form of damages that may occur due to
@@ -32,8 +33,15 @@
 // 
 // **********************************************
 // 
-// version: 22.03.11
-// End License Information
+// 
+// version: 26.03.28
+// 
+// End License
+
+Module
+
+#use "libs/sci/sys"
+
 #use "libs/linkedlist"
 #use "libs/xmath"
 
@@ -101,7 +109,8 @@ Module
 	End
 
 	Void Positions()
-		Static Bool PositionsSet = False
+		//Static Bool PositionsSet = False
+		LocExtern PositionsSet "Goddess_Arena_Positions_Set"
 		If PositionsSet
 			Return
 		End
