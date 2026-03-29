@@ -1,8 +1,8 @@
-// License Information:
+// License:
 // **********************************************
 // 
-// src/Tricky Script/Script/Use/Combat/ActScript/FullPower.neil
-// (c) Jeroen Broks, 2022, All Rights Reserved.
+// src/Code/Script/Use/Combat/ActScript/AS_FullPower.scyndi
+// (c) Jeroen Broks, 2022, 2026, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -24,6 +24,7 @@
 // from it, you can use it under that license.
 // Please check out the other files to find out
 // which license applies.
+// 
 // This file comes 'as-is' and in no possible
 // way the author can be held responsible of
 // any form of damages that may occur due to
@@ -32,21 +33,35 @@
 // 
 // **********************************************
 // 
-// version: 22.03.17
-// End License Information
+// 
+// version: 26.03.29 IV
+// 
+// End License
 
-#macro _FPStamp gv.gint["FullPowerTime_"..Exe.Tag]
-#macro _FPPass os.time()-gv.gint["FullPowerTime_"..Exe.Tag]
-Bool _PA(Act,Tar,Exe)
+
+Module
+
+#use "Libs/SCI/InterVar"
+
+#use "Script/Use/Convert"
+
+#accept FlowCombat
+
+#macro _FPStamp gint["FullPowerTime_"..Exe.Tag]
+#macro _FPPass os.time()-gint["FullPowerTime_"..Exe.Tag]
+Bool _Act(Act,Tar,Exe)
 	const int _minmarge = 5
 	const int _maxmarge = 60*60*3
 	If _FPStamp==0 || _FPPass<_minmarge || _FPPass>_maxmarge
 		_FPStamp = os.time()
-		For P in Each{"AP","EXP_Skill1","EXP_Skill2","EXP_Skill3","EXP_Skill4","EXP_Skill5","HP","VIT"}
+		For P in Each{[0]="AP","EXP_Skill1","EXP_Skill2","EXP_Skill3","EXP_Skill4","EXP_Skill5","HP","VIT"}
 			RPGChar[Tar.Tag].Points[p].Have = RPGChar[Tar.Tag].Points[p].Maximum
+			If (!Prefixed(p,"EXP_Skill"))
+				FlowCombat.charmsg(Tar.Tag,"Max "..p)
+			End
 		End
 	Else
-		Int FPLeft = _maxmarge - (_FPPass)
+		Int FPLeft := _maxmarge - (_FPPass)
 		If FPLeft<120
 			FlowCombat.charmsg(Tar.Tag,sprintf("Cooldown %d more seconds",FPLeft))
 		ElseIf FPLeft<60*60
@@ -58,4 +73,4 @@ Bool _PA(Act,Tar,Exe)
 	Return True
 End
 
-Return _PA
+///Return _PA
