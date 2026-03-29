@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Use/Combat/ActScript/AS_EatUserHP.scyndi
 // 
-// 	  Version: 26.03.29 I
+// 	  Version: 26.03.29 III
 // 	
 // 	  Copyright (C) 2017, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -41,9 +41,11 @@
 // 	     misrepresented as being the original software.
 // 	  3. This notice may not be removed or altered from any source distribution.
 // End License
+Module
 
 #use "Libs/SCI/Sys"
 
+#use "Script/Use/Anyway"
 #use "Script/Use/Convert"
 
 Bool _Act(Act,Tar,Executor)
