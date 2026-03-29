@@ -1,8 +1,8 @@
-// License Information:
+// License:
 // **********************************************
 // 
-// src/Tricky Script/Script/Use/Combat/SpellAni/Schwab.neil
-// (c) Jeroen Broks, 2022, All Rights Reserved.
+// src/Code/Script/Use/Combat/SpellAni/SA_Schwab.scyndi
+// (c) Jeroen Broks, 2022, 2026, All Rights Reserved.
 // 
 // This file contains material that is related
 // to a storyline that is which is strictly
@@ -24,6 +24,7 @@
 // from it, you can use it under that license.
 // Please check out the other files to find out
 // which license applies.
+// 
 // This file comes 'as-is' and in no possible
 // way the author can be held responsible of
 // any form of damages that may occur due to
@@ -32,13 +33,22 @@
 // 
 // **********************************************
 // 
-// version: 22.07.30
-// End License Information
+// 
+// version: 26.03.29 I
+// 
+// End License
+
+#use "Libs/SCI/Graphics"
+
 #use "Libs/XMath"
 #use "Libs/LinkedList"
 
+#use "Script/use/Link"
+#use "Script/use/Convert"
+
 module
-	ReadOnly Var Img = Image.LoadNew("GFX/Combat/SpellAni/YouWillOwnNothingAndBeHappy.png","YOU_WILL_OWN_NOTHING_AND_BE_HAPPY")
+
+	ReadOnly Var Img = LoadNewImage("GFX/Combat/SpellAni/YouWillOwnNothingAndBeHappy.png","YOU_WILL_OWN_NOTHING_AND_BE_HAPPY")
 	int col
 	int dcol
 
@@ -69,4 +79,4 @@ module
 		return ret
 	End
 	
-End
+//End
