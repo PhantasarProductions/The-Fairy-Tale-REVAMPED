@@ -34,7 +34,7 @@
 // **********************************************
 // 
 // 
-// version: 26.02.23
+// version: 26.04.03 II
 // 
 // End License
 
@@ -123,8 +123,8 @@ class NW_Skill extends NW_Base
 		if len(skill)!=0
 			return
 		end
-		skill += new SKILL_ITEMS("GFX/BoxText/Portret/Marrilona/Cry.png","Easy","What? Are you a little crybaby?\nYou need your mommy to hold your hand?\nYou even get killed in DOOM, easiest mode with the IDDQD cheat on?\n\nWell fear not, little newbie. This mode is made for you!\n\nThe game will be simplefied on many accounts, so you can still have your fun in the game\n\nAre you happy now?")
-		skill += new SKILL_ITEMS("GFX/BoxText/Portret/Marrilona/General.png","Casual","Well, if you pick this difficulty setting\nYou will experience the game the way it was originally intended.\n\nEverything as much properly balanced as possible.\nGood for a challenge, but surely not impossible.\nGo for it!")
+		skill += new SKILL_ITEMS("GFX/BoxText/Portret/Marrilona/Cry.png","Easy","What? Are you a little crybaby?\nYou need your mommy to hold your hand?\nYou even get killed in DOOM,\neasiest mode with the IDDQD cheat on?\n\nWell fear not, little newbie.\nThis mode is made for you!\n\nThe game will be simplefied on many accounts,\nso you can still have your fun in the game\n\nAre you happy now?")
+		skill += new SKILL_ITEMS("GFX/BoxText/Portret/Marrilona/General.png","Casual","Well, if you pick this difficulty setting\nYou will experience the game\n the way it was originally intended.\n\nEverything as much properly balanced as possible.\nGood for a challenge, but surely not impossible.\nGo for it!")
 		skill += new SKILL_ITEMS("GFX/BoxTExt/Portret/Marrilona/Angry.png","Hard","So, you think games are easy, eh?\nYou are so trained that you have the toilet bowl under your computer table\nso natural needs won't waste time you could spend gaming?\n\nYou could beat Penance without using the sphere grid?\n\nWell, then perhaps you should consider this mode.\nLoads of stuff have been made harder in order to drive you beyond insanity.\nIf this is worth wasting your life on, I don't know, but...\n\nIf it's a hard game, you want, a hard game you'll get!")
 		HTAY.HotCenter()
 	end
