@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Subs/SubAchievements.scyndi
 // 
-// 	  Version: 26.03.01 V
+// 	  Version: 26.04.18 I
 // 	
 // 	  Copyright (C) 2021, 2022, 2026 Jeroen Petrus Broks
 // 	
@@ -200,6 +200,14 @@ Group SubAch
 		End
 	End
 	
+	Bool AllowView(string k,v)
+		If Awarded[K]; return true; End
+		If v.Show == "Achieved"; return false; end
+		ret := v["Skill"..gint.skill]
+		ret = ret && Ternary(gbool.NewGamePlus,v.NewGamePlus,v.NormalGame)		
+		return ret
+	End
+	
 	Void Overview(int x, int y, int w, int h)
 		//static int ah=75
 		//static int scroll=0
@@ -209,6 +217,7 @@ Group SubAch
 		scroll = scroll || 0
 		int ay = -scroll
 		for k,v in spairs(Dat)
+			if SubAch.AllowView(k,v)
 			if ay>=0 && ay+ah<h
 				__White
 				Ternary(Fnt.Width(v.Title)<Graphics.Width-20,Fnt,SFnt).Text(v.Title,x+5,ay+y)
@@ -235,6 +244,7 @@ Group SubAch
 				end
 			end
 			ay+=ah
+			end
 		end
 		if scroll>0 && Events.KeyHit(Keys.Up)
 			Scroll-=ah
