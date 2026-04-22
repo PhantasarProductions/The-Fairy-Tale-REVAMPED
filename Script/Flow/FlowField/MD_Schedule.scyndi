@@ -1,7 +1,7 @@
 // License:
 // 	  src/Code/Script/Flow/FlowField/MD_Schedule.scyndi
 // 
-// 	  Version: 26.04.22
+// 	  Version: 26.04.22 I
 // 	
 // 	  Copyright (C) 2021-'22, 2026 Jeroen Petrus Broks
 // 	
@@ -127,7 +127,7 @@ Module
 			ElseIf prefixed(s,"SPAWNPOS:")
 				String sp := right(s,len(s)-9)
 				Table xy := XSplit(sp,",")
-				Kthura.Spawn("PLAYER",Lua.tonumber(xy[1]),Lua.tonumber(xy[2]))
+				Kthura.Spawn("PLAYER",Lua.tonumber(xy[0]),Lua.tonumber(xy[1]))
 			ElseIf prefixed(s,"MAPTEXT:")
 				MapText(right(s,len(s)-8))
 			ElseIf prefixed(s,"LAYER:")
